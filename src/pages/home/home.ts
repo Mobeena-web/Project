@@ -167,14 +167,17 @@ export class HomePage {
         let response = this.server.getPunch(coordinates);
         response.subscribe(data => {
             console.log("punch_usman",data);
-            
+            if(data.success == "No data"){
+                this.punch_ = 0;
+                this.punch_limt_ = 0;
+                this.globals.percent = (parseInt(this.punch_) / parseInt(this.punch_limt_))*100;
+                console.log("percent",this.globals.percent)
+                this.globals.circle_graph();
+            }
           
              this.punch_ = data.cards[0].punch_count;
              this.punch_limt_ = data.cards[0].punch_limit;
-             if(data.success == "No data"){
-                this.punch_ = 0;
-                this.punch_limt_ = 0;
-            }
+             
 
              this.globals.percent = (parseInt(this.punch_) / parseInt(this.punch_limt_))*100;
              console.log("percent",this.globals.percent)
