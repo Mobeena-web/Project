@@ -1,0 +1,70 @@
+page-login {
+    .login-box {
+  
+        padding: 20px 20px 0px 20px;
+       // margin-top: 70%;
+       // background: transparent !important;
+      }
+   .title 
+   {
+       color: white;
+  width: 100%;
+  text-align: center;
+  margin-top:20%; 
+  margin-bottom: -20%;
+  
+   }
+  
+   
+   .list-md .item-input:last-child{
+       border-bottom: 0px !important;
+   }
+        .no-border {
+              border: none !important; 
+          }
+  
+  
+  
+  .signUp{
+  
+   // margin-top: 20px;
+  
+    position: absolute;  
+    float:right;
+    width:48%;
+   // border-left: solid ;
+   // border-left-color: black;  
+    height: 50px;
+    right:1.5%;
+  }
+  .scroll-content{ 
+    
+    overflow: scroll!important;
+    padding: 0 !important;
+    
+     }
+
+     .login{
+        padding: 30px;
+        font-size: 22px;
+        font-weight: normal;
+     }
+
+     .signup-col{
+        margin-top: 70px;
+     }
+     .signup_message{
+         color: #777;
+         text-align: center;
+         span{
+             color: #333;
+             font-weight: bold;
+         }
+
+     }
+     .signin_label{
+         color: #444;
+         
+     }
+  
+}

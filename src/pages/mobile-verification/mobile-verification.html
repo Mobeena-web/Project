@@ -1,0 +1,37 @@
+<!--
+  Generated template for the MobileVerificationPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header class="Open-Sans-Bold">
+
+  <ion-navbar color="primary">
+    <ion-title>Mobile Verification</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="close()"> Close </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content class="Open-Sans-regular" style="background:#eee">
+
+  <ion-card>
+    <p style="    padding: 10px; font-size: 1.8rem;color:black"> A verification code has been sent to your registered mobile number.</p>
+    <ion-input disabled="true" class="phone" [(ngModel)]="userPhone"></ion-input>
+
+
+    <form [formGroup]="CodeVerificationForm">
+
+      <ion-label style=" text-align: center; font-size: 2rem;">Please enter 6 digit the code below</ion-label>
+      <p class="Open-Sans-regular" *ngIf="submitAttempt" style="color: #ea6153; text-align:center; margin-bottom: 10px;">Please enter the 6 digit code.</p>
+      <ion-input class="codeinput" type="submit" type="number" formControlName="code"></ion-input>
+
+    </form>
+
+  </ion-card>
+  <button ion-button block type="submit" class="submit-btn" (click)="Verify(this.CodeVerificationForm.value)">Submit</button>
+
+</ion-content>

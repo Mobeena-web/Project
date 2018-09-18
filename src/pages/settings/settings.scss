@@ -1,0 +1,102 @@
+page-settings {
+
+    //  .form{
+    
+    //      margin-top: 70%;
+    //  }
+    .toolbar-title{
+      color: #fff !important
+  }
+  
+  .bar-buttons{
+      color: #fff !important
+  }
+  .bar-button-default {
+      color: #fff !important;
+  }
+    
+   
+    
+        .scroll-content {
+      //  padding: 0px !important; 
+    
+    
+    }
+    
+    
+    .setting-buttons{
+    
+        position: absolute;
+        width:100%;
+    }
+    .submit-button{
+    
+     // position: absolute;
+      float:left;
+      width:48%;
+      height: 50px;
+      //left:1.5%;
+    }
+    .share-button{
+    
+      position: absolute;  
+      float:right;
+      width:48%;       
+     // border-left: solid ;
+     // border-left-color: black;  
+      height: 50px;
+      right:1.5%;
+    }
+    
+    
+    .label .label-md{
+    
+      position: absolute;
+      left: 39%;
+    //  top: 8px;
+    bottom:0;
+      font-size: large;
+      color: white;
+    
+    }
+    
+    .label label-ios{
+     position: absolute;
+      left: 39%;
+    //  top: 8px;
+    bottom:0;
+      font-size: large;
+      color: white;
+    
+    
+    }
+    .buttons{
+          //  position: absolute;
+        width: 100%;
+      //  bottom:9%
+    }
+    
+    .scroll-content{
+       padding: 0 !important;
+    } 
+    
+    .inner
+    {
+        display: inline-block;
+    }
+      .code-inpt{
+         border: solid thin #c8c7cc;
+          text-align: center;
+             position: absolute; 
+              left: 15px; 
+              width: 12%;
+               bottom: 0; 
+               background: #e0e0e0;
+    
+      }
+              .code-inpt .text-input{
+                text-align: center 
+              }
+    
+    }
+    

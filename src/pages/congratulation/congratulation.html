@@ -1,0 +1,94 @@
+<!--
+  Generated template for the Congratulation page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+
+
+<!--<div class="spin"></div>
+        <button (click)="divClass='spin'">Spin</button>-->
+<ion-content id="content" class="slot-numbers">
+  <div class="title-class">
+    <!-- <ion-label class="title">Raffle</ion-label> -->
+  </div>
+  <button ion-button class="close-btn" [disabled]="!status" color="danger" clear strong (click)="dismiss()">
+    <ion-icon style="font-size:40px; color:rgb(245, 3, 3);" name="close-circle"></ion-icon>
+  </button>
+
+
+
+  <div class="background-image">
+
+    <div *ngIf="!status" class="numbers1">
+      <!--<div  class="left-div"  >
+            <ion-label color = "secondary" style="margin: 5px 0px 11px 0 !important;" *ngIf="!status" >${{ n }}</ion-label>
+            <ion-label color = "secondary" style="margin: 5px 0px 11px 0 !important;"  *ngIf="status" >{{reward_char_array[0]}} </ion-label>
+                   
+            </div>
+           <div class="middle-div"  > 
+             <ion-label color = "secondary" style="margin: 5px 0px 11px 0 !important;" *ngIf="!status">{{ n1 }}</ion-label> 
+               <ion-label color = "secondary" style="margin: 5px 0px 11px 0 !important;" *ngIf="status" >{{reward_char_array[1]}} </ion-label>
+             </div>
+           <div class="right-div" >
+              <ion-label color = "secondary" style="margin: 5px 0px 11px 0 !important;" *ngIf="!status">{{ n2 }}</ion-label> 
+                <ion-label color = "secondary" style="margin: 5px 0px 11px 0 !important;" *ngIf="status" >{{reward_char_array[2]}}</ion-label>
+              </div>
+           <br style="clear: left;" />-->
+    </div>
+    <div *ngIf="status" class="numbers2" style="width: 100%; height: 50%;">
+      <ion-label color="secondary" style="font-size: 7.5rem; position: absolute;z-index:999; text-align:center;width:100%; top: 29%; color: white;"
+        *ngIf="status  && isnumber ">${{reward_amount}} </ion-label>
+
+      <img *ngIf="reward_status == 'success' && !isnumber" style="    height: 200px;   position: absolute; left: 22.5%;  top: 15%;"
+        src="{{lottery}}">
+      <img *ngIf="reward_status == 'success' && isnumber" style="   height: 180px;width: 88%;margin-left: 5.5%;position: absolute;top: 19%;"
+        src="assets/imgs/bill.jpg">
+      <img *ngIf="reward_status == 'lose'" style="    height: 200px;   position: absolute; left: 22.5%;  top: 15%;" src="assets/imgs/stop.png">
+
+      <img *ngIf="reward_status == 'error'" style="    height: 200px;   position: absolute; left: 22.5%;  top: 15%;" src="assets/imgs/stop.png">
+
+
+      <!-- <ion-label color = "secondary"  class="cash-label"   *ngIf="status" >${{reward_amount}} </ion-label> -->
+    </div>
+
+    <div class="Open-Sans-bold" class="background">
+
+      <div class="heading" *ngIf="status && reward_status == 'success'">
+        <img style="position: absolute;   left: 18%; bottom: 55%; width:65%" src="assets/imgs/congo2.gif">
+
+        <ion-label class="Open-Sans-bold" *ngIf="isnumber " style="font-size: 22px; color: rgb(138, 30, 30); width: 75%; position: absolute;left: 0;bottom: 40%;">
+          Store Credit:</ion-label>
+        <ion-label *ngIf="isnumber" style="  font-size: 40px; color: rgb(138, 30, 30);width: 75%; position: absolute; left: 37%; bottom: 38%;">
+          ${{reward_amount}} </ion-label>
+        <ion-label class="Open-Sans-bold" *ngIf="!isnumber" style="font-size: 20px; color: rgb(138, 30, 30); width: 100%; position: absolute;left: 0;bottom: 40%;">
+          {{string}}</ion-label>
+        <ion-label class="Open-Sans-bold" style=" color: #333; width: 75%; position: absolute;left: 14%;bottom: 30%;  font-size: 2.5rem;">
+          {{reward_place}} </ion-label>
+        <img style="   border-radius:4px;   height: 80px; position: relative; top: 68%;" src="{{logo}}">
+      </div>
+      <div class="heading-pending" *ngIf="!status">
+        <img style="position: absolute;  left: 18%; bottom: 55%; width:65%" src="assets/imgs/pending.gif">
+
+      </div>
+      <div class="heading" *ngIf="status && reward_status == 'lose' ">
+        <img style="position: absolute;  left: 20%; bottom: 55%; width:60%" src="assets/imgs/Sorry.gif">
+        <ion-label class="Open-Sans-bold" style="font-size: 15px; color: rgb(138, 30, 30);width: 75%; position: absolute;left: 15.5%; bottom: 40%; ">
+          BETTER LUCK NEXT TIME </ion-label>
+        <ion-label class="Open-Sans-bold" style="font-size: 15px; color: #333; width: 75%; position: absolute;left: 14%;bottom: 30%; font-size: 2.5rem;">
+          {{reward_place}} </ion-label>
+        <img style="  border-radius:4px;    height: 80px; position: relative; top: 68%;" src="{{logo}}">
+      </div>
+      <div class="heading" *ngIf="status && reward_status == 'error' ">
+        <img style="position: absolute; left: 20%; bottom: 55%; width:60%" src="assets/imgs/Sorry.gif">
+        <ion-label class="Open-Sans-bold" style="font-size: 15px; color: rgb(138, 30, 30); width: 75%; position: absolute; left: 15.5%;  bottom: 40%;">
+          BETTER LUCK NEXT TIME </ion-label>
+        <ion-label class="Open-Sans-bold" style="font-size: 15px; color: #333; width: 75%; position: absolute;left: 14%;bottom: 30%; font-size: 2.5rem;">
+          {{reward_place}} </ion-label>
+        <img style="   border-radius:4px; height: 80px; position: relative; top: 65%;" src="{{logo}}">
+      </div>
+    </div>
+  </div>
+  <!--*ngIf="status == 'true' && reward_status == 'success' " -->
+
+</ion-content>

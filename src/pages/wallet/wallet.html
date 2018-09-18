@@ -1,0 +1,83 @@
+<!--
+  Generated template for the WalletPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header class="Open-Sans-Bold">
+
+  <ion-navbar color="primary">
+    <ion-title>Wallet</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content style="background:#eee" class="Open-Sans-regular">
+
+  <p style="font-size:3rem;text-align:center;  margin: 10px;    margin-top: 15px; font-weight: bold; color: rgba(0, 0, 0,0.6);">
+  What are
+    <br> you adding?</p>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col col-6 *ngFor="let list of walletCategoriesList" (click)="WalletDetail(list.name)">
+        <ion-card style=" border-radius: 4px;">
+          <img *ngIf="list.image != ''" src="{{list.image}}">
+          <img class="img" *ngIf="list.image == ''" src="img/Placeholder.png">
+        </ion-card>
+        <p style=" margin: 0;" class="pclass">{{list.name}} </p>
+      </ion-col>
+
+    </ion-row>
+    <!-- <ion-row>
+    <ion-col>
+      <ion-card>
+        <img src="img/gift-card.png">
+      </ion-card>
+      <p class="pclass">  Loyalty Card </p>
+    </ion-col>
+    <ion-col>
+      <ion-card>
+        <img src="img/gift-card.png">
+      </ion-card>
+      <p class="pclass"> Transportation Card </p>
+    </ion-col>
+  </ion-row>
+  
+  <ion-row>
+    <ion-col>
+      <ion-card>
+        <img src="img/gift-card.png">
+      </ion-card>
+      <p class="pclass"> Hotel </p>
+    </ion-col>
+    <ion-col>
+      <ion-card>
+        <img src="img/gift-card.png">
+      </ion-card>
+      <p class="pclass"> Something Else </p>
+    </ion-col>
+  </ion-row> -->
+
+  </ion-grid>
+  <!-- <div *ngIf="walletCategoriesList">
+  <ion-card *ngFor="let list of walletCategoriesList ">
+  <ion-row>
+  <ion-col >
+    <img style="  height: 80px; border-radius: 4px;" *ngIf="list.image != ''" src="{{list.image}}">
+     <img style="  height: 80px;border-radius: 4px;" *ngIf="list.image == ''" src="img/Placeholder.png">
+  
+  </ion-col>
+  <ion-col>
+    <p style="font-size:2.5rem;font-weight:bold"> {{list.name}}</p>
+  </ion-col>
+  
+  <ion-col (click)="WalletDetail(list.name)" col-3 style="text-align:center;color:white;background:#333">
+    <ion-icon name = "add" > </ion-icon>
+  </ion-col>
+  </ion-row>
+  
+  </ion-card>
+  </div> -->
+</ion-content>

@@ -1,0 +1,48 @@
+page-intro-page1 {
+.button{
+    float: right;
+    color: white !important;
+}
+.toolbar-background{
+background: #27ae60;
+color: white;
+}
+.toolbar-title{
+  color: white;
+}
+.back-button.show-back-button{
+  color: white;
+}
+
+.email{
+
+        width: 100%;
+  //  text-align: center;
+    /* border-radius: 10px; */
+    // position: absolute;
+    // bottom: 5%;
+    // right: 0%;
+       margin-top: 50%;       
+}
+.item{
+
+   background-color: rgba(158, 158, 158, 0.2);
+        color: white;
+    font-weight: bold;
+}
+
+.text-input::-moz-placeholder {
+    color: white !important;
+  }
+  
+  .text-input:-ms-input-placeholder {
+    color: white !important;
+    
+  }
+  
+  .text-input::-webkit-input-placeholder {
+    color: white !important;
+  }
+
+
+}

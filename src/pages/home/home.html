@@ -1,0 +1,125 @@
+<ion-header>
+
+
+  <ion-navbar class="home-nav" color="light" align-title="center">
+
+    <ion-title>
+      <img src="assets/imgs/icon.png" class="header_logo">
+    </ion-title>
+    <!-- <ion-title style="color: #27ae60 !important" *ngIf="globals.title != 'Dusstuk'"  >{{globals.title}}</ion-title> -->
+    <ion-buttons class="left-btn" start>
+      <button ion-button style="font-size:3rem" menuToggle>
+        <ion-icon  name="md-menu"></ion-icon>
+      </button>
+    </ion-buttons>
+
+    <ion-buttons end>
+      <button ion-button style="font-size: 3rem;" (tap)="cartpage()">
+        <ion-badge color="danger" *ngIf="globals.Product.length > 0">{{globals.Product.length}}</ion-badge>
+        <ion-icon name="cart"> </ion-icon>
+        <!-- <i class="fa fa-shopping-cart"></i> -->
+      </button>
+
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+
+    <ion-slides pager *ngIf="banner" style="height:184px" autoplay="{{time}}" speed="3000" loop="true" autoplayDisableOnInteraction="false">
+        <ion-slide *ngFor="let banners of Images" style="height:100%">
+          <img style="height: 173px; width:100% !important;border-radius: 7px;object-fit: cover" src="{{banners?.image}}" (tap)="launch(banners?.url)">
+        </ion-slide>
+      </ion-slides>
+    
+
+  <!-- <ion-card (tap)="ordersPage()">
+    <div class="overlay"></div>
+    <img src="assets/imgs/online_order.jpeg" class="main"/>
+    <img src="assets/imgs/order_icon.png" class="icon-order">
+    <div class="card-title">Order Online</div>
+  </ion-card> -->
+
+  <ion-row>
+    <ion-col col-6 class="point_s">
+      <div class="youhave">You Have</div>
+        <div class="points_design" *ngIf="!points">0 <ion-icon class="point-star" name="star"></ion-icon></div>
+
+        <div class="points_design" *ngIf="points">{{points}} <ion-icon class="point-star" name="star"></ion-icon></div>
+
+       <div class="pts">Points</div> 
+
+       <!-- <div class="points_design">700</div> -->
+
+    </ion-col>
+
+    <ion-col col-6 text-center>
+      <img src="assets/imgs/cup.png" class="cup_img" >
+        <div class="circle" id="circles1"></div>
+
+        <div class="punch_count">{{punch_}}/{{punch_limt_}} Punches</div>
+        <!-- <img class="qrcode1" src="{{barocde_image}}"> -->
+    </ion-col>
+  </ion-row>
+  <button ion-button block style="padding: 33px;
+  background: #333;" (click)="offers()">Special Offers</button>
+
+  <!-- <ion-row>
+    <ion-col col-4>
+
+    </ion-col>
+    <ion-col col-8 class="punch_rating">
+      <ion-row>
+          <ion-col col-3 *ngFor='let item of punch'>
+              <ion-icon name="star" color='star' class="s_icon"></ion-icon>  
+          </ion-col>
+          <ion-col col-3 *ngFor='let item of punch_limt;'>
+              <ion-icon name="ios-star-outline" color='star' class="s_icon"></ion-icon>
+             
+          </ion-col>
+      </ion-row>
+       
+    </ion-col>
+  </ion-row> -->
+
+  <div class="credit-card">
+    <ion-row>
+      <ion-col col-6>
+          <img class="qrcode1" src="{{barocde_image}}">
+          <ion-label class="label4" style="color: #444;margin-top: 16px;">{{name}} {{lastname}}</ion-label>
+          <!-- <ion-label class="label4" style="color: #444;top:90%">{{user_email}}</ion-label> -->
+          <ion-label class="label4" style="color: #444;top:123%;font-weight: normal;font-size: 14px;">{{email}}</ion-label>
+
+
+
+      </ion-col>
+      <ion-col col-6>
+          <img src="assets/imgs/icon.png" class="card_icon">
+        </ion-col>
+    </ion-row>
+    <!-- <ion-label class="label4" style="color: whitesmoke;">Usman Arshad{{name}} {{lastname}}</ion-label>
+    <div class="strip">
+      <div>
+        <ion-label class="label1">2017 hello{{slicedValue}}</ion-label>
+        <ion-label class="label2">Member
+          <br>Since:</ion-label>
+        <ion-label class="label3">44/1994 {{month}}/{{year}}</ion-label>
+
+      </div>
+    </div> -->
+
+    <!-- <div class="content1">
+      <div style=" background: rgba(8, 7, 7, 0.5);    padding-bottom: 0.5px;
+        border-bottom-left-radius: 12px;
+        border-bottom-right-radius: 12px;">
+        <button ion-button small block clear style=" color:whitesmoke;font-weight:bold;width:50%;" (click)="launch('http://www.gainmyrewards.com')">Visit Gain's Website</button>
+        <div class="udid">
+          <ion-label style="color: whitesmoke;font-size: 1.4rem;text-align:center;margin:0;">{{udid}}</ion-label>
+        </div>
+      </div>
+    </div> -->
+
+  </div>
+
+</ion-content>

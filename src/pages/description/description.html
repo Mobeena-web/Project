@@ -1,0 +1,154 @@
+<!--
+  Generated template for the Description page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header class="Open-Sans-bold">
+  <ion-navbar color="primary">
+    <ion-title>
+      {{name}}
+    </ion-title>
+
+
+
+
+    <ion-buttons end>
+      <button ion-button style="color:white; float:right" (click)="addReview()" clear small>Review</button>
+    </ion-buttons>
+  </ion-navbar>
+
+
+</ion-header>
+
+
+<ion-content style="background-color:#eee" class="Open-Sans-regular">
+
+
+  <ion-card style="padding:5px;">
+
+    <img class="image" src="{{image}}">
+    <div *ngIf="slideflag">
+      <ion-slides style="background: rgba(0, 0, 0, 0.2);" loop slidesPerView="2">
+        <div *ngFor="let hour of opening_hours;let i=index">
+          <ion-slide *ngIf="i== day" style="background:#333;     padding-top: 10px; height: 55px;">
+
+
+            <p style="font-weight:bolder;color:white;padding: 1px;"> {{Week[i]}}</p>
+            <p *ngIf="hour[0] != 'Opened' && hour[0] != 'Closed' " style="color:white"> {{hour[0]}} - {{hour[1]}}</p>
+
+            <p *ngIf="hour[0] == 'Closed' " style="font-size:1.3rem;color:white">Closed</p>
+            <p *ngIf="hour[0] == 'Opened' " style="font-size:1.3rem;color:white">Open 24 hrs</p>
+
+          </ion-slide>
+          <ion-slide *ngIf="i!= day" style="  height: 55px;  padding-top: 10px;">
+
+            <p style="font-size:1.2rem;font-weight:bolder;color:#333"> {{Week[i]}}</p>
+            <p *ngIf="hour[0] != 'Opened' && hour[0] != 'Closed' " style="color:#333"> {{hour[0]}} - {{hour[1]}}</p>
+            <p *ngIf="hour[0] == 'Closed' " style="color:#333">Closed</p>
+            <p *ngIf="hour[0] == 'Opened' " style="font-size:1.3rem;color:#333">Open 24 hrs</p>
+
+          </ion-slide>
+        </div>
+      </ion-slides>
+    </div>
+
+    <!-- <ion-row style="    background: rgba(0, 0, 0, 0.3);  width: 300%;">
+ 
+    <ion-col   style="text-align:center; padding:0;margin:auto; ">
+      
+ 
+    </ion-col>
+    </ion-row> -->
+
+
+    <div class="strip">
+      <ion-row>
+        <ion-col>
+          <!-- <p style="color:white;font-size:1.8rem;font-weight:bold"> {{name}} </p> -->
+
+
+          <rating [(ngModel)]="rating" readOnly="true" max="5" emptyStarIconName="star-outline" halfStarIconName="star-half" starIconName="star"
+            nullable="false"></rating>
+        </ion-col>
+
+
+
+      </ion-row>
+    </div>
+
+
+    <div class="description">
+      <ion-card-content>
+        <p class="Open-Sans-bold" style=" color: red;    text-align: center;  font-size: 1.6rem;"> {{text}}</p>
+
+        <p style="border-bottom: solid thin ;  padding: 5px; font-size: 1.5rem; color: #343434;"> {{description}}</p>
+        <br>
+        <div *ngIf="point!=''" style="padding-bottom:5px; ">
+
+          <ion-icon name="pin" style=" float:left;  font-size: 2rem; color: #343434;"> </ion-icon>
+          <p style="padding-left:20px;     font-size: 1.8rem;"> {{point}} miles </p>
+        </div>
+        <div *ngIf="phone!= ''" (click)="call(phone)" style="   padding-bottom:5px; ">
+          <ion-icon style="float:left; font-size:2rem" name="call"> </ion-icon>
+          <p style="padding-left:20px;     font-size: 1.8rem;color: #009aff; text-decoration: underline;"> {{phone}}</p>
+        </div>
+        <div *ngIf="email!= ''" style="padding-bottom:5px" (click)="Email(email)">
+          <ion-icon style=" float:left;      margin-top: 3px;     display: flex;
+     align-items: center;  font-size: 2rem;" name="mail"> </ion-icon>
+          <p style="padding-left:20px;    font-size: 1.8rem; color: #009aff; text-decoration: underline;">{{email}} </p>
+        
+        </div>
+
+
+        <div *ngIf="website!= ''" style="padding-bottom:5px; " (click)="WebsiteLink(website)">
+          <ion-icon style="float:left;     margin-top: 4px;    font-size: 2rem; color: #343434;" ios="ios-globe" md="md-globe"> </ion-icon>
+          <p style="padding-left:20px; font-size: 1.8rem;  color: #009aff; text-decoration: underline;">{{website}}</p>
+        </div>
+        <div *ngIf="address!= ''" (tap)="Business_location()" style="padding-bottom:5px;">
+          <ion-icon style="float:left;     font-size: 2rem;" name="home"> </ion-icon>
+          <p style="padding-left:20px;    font-size: 1.8rem; color: #009aff; text-decoration: underline;">{{address}} </p>
+        
+        </div>
+
+      </ion-card-content>
+    </div>
+  </ion-card>
+
+
+
+  <div class="reviews">
+
+    <ion-list>
+      <ion-list-header class="Open-Sans-bold" color="primary" style="text-align:center; font-size: 2.6rem !important; padding: 0px !important;
+     margin-top: 5%;">
+        Reviews
+      </ion-list-header>
+      <p *ngIf="length == 0" class="Open-Sans-bold" style=" color:#333;     text-align:center; font-size: 2.0rem !important; ;padding: 10px;
+     margin-top: 5%;">
+        No reviews given yet
+      </p>
+      <ion-card *ngFor="let review of reviewData" style="padding:5px;">
+
+        <!--   <ion-avatar style="margin: -55px 16px 8px 0 !important;" item-left>
+           <img src="https://api.adorable.io/avatars/75/{{review.title}}">
+         </ion-avatar> -->
+
+        <h2>{{review.first_name}} {{review.last_name}}</h2>
+        <rating [(ngModel)]="review.rating" readOnly="true" max="5" emptyStarIconName="star-outline" halfStarIconName="star-half"
+          starIconName="star" nullable="false" (ngModelChange)="onModelChange($event)"></rating>
+        <p>{{review.description}}</p>
+
+
+
+
+      </ion-card>
+
+
+
+
+    </ion-list>
+
+  </div>
+
+</ion-content>

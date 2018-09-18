@@ -1,0 +1,262 @@
+page-congratulation {
+
+    .button{
+        float: left;
+    }
+    .reward{
+    
+        position: absolute;
+        left: 20%;
+        text-align: center;
+    }
+    
+    .title{
+    
+        font-weight:bold;
+        font-size: 30px;
+      color:#333;    
+        text-align: center;
+        margin-right: 0;
+    }
+    .button{
+    
+    color: white !important;
+    
+    }
+    .title-class{
+        position: absolute; width:100%; top: 6%;
+    }
+    
+    .cash-label{
+    
+        font-size: 7.5rem !important;  
+         color: white !important;
+         text-align: center ;
+         margin-top: 30% !important;
+    }
+    
+    
+    .numbers{
+          position: absolute;
+        top: 0;
+        left: 0;
+      //  background: url('../img/Slots-Title.png');
+        width: 100%;
+        height: 60%;
+    }
+         
+    
+    
+    
+    
+    .label-no{
+    font-size: 77px;
+        color: #222;
+        background: rgba(158, 158, 158, 0.1);
+        position: absolute;
+       // bottom: 0px;
+        left: 32.5%;
+        top: 41.5%;
+    }     
+    
+    .label-no1{
+    font-size: 77px;
+        color: #222;
+        background: rgba(158, 158, 158, 0.1);
+        position: absolute;
+       // bottom: 0px;
+        left: 32.5%;
+        top: 41.5%;
+    
+    }
+    .win {
+    //font-size:  large;
+        color: #222;
+    
+    }
+    
+    .heading{
+         position: absolute;
+        left: 0%;
+        bottom: 15%;
+        width: 100%;
+        text-align: center;
+        // background: url('../img/banner.jpg');
+        height:50%;
+    }
+    
+    .heading-pending{
+    
+       position: absolute;
+        left: 0%;
+        bottom: 22%;
+        width: 100%;
+        text-align: center;
+       
+      //  border-radius: 23px;
+    }
+    .pending{
+    
+        font-size:  x-large;
+        color: #222;
+    }
+    
+    .left-div{
+    
+           float: left;
+        width: 33.3%;
+        text-align: center;
+        //font-size: 37px;
+        position: relative;
+        top: 35%;
+        left: 2%;
+          top: 30%;
+      
+        font-size: 5.75rem;
+    }
+    
+    .middle-div{
+         float: left;
+        width: 33.3%;
+        text-align: center;
+        //font-size: 37px;
+        position: relative;
+        top: 30%;
+        font-size: 5.75rem;
+     //   left: 3%;
+       // left: 10%;
+    }
+    .right-div{
+    
+       float: left;
+        width: 33.3%;
+        text-align: center;
+       // font-size: 37px;
+        position: relative;
+        top: 30%;
+        right: 2%;
+        font-size: 5.75rem;
+    }
+    
+    
+    #content{
+    
+        background:  url('../assets/imgs/flashscreen2.png');
+      //  opacity: 0.7;    
+        background-size: 110%;
+        background-position: center; 
+        background-repeat: no-repeat;
+    }
+    
+    
+    #box {
+        margin: 20px;
+        width: 100px;
+        height: 100px;
+        background: #ccc;
+    }
+        
+    .numbers1 {    
+         background: url('../assets/imgs/wheel.png');   
+      position: absolute;        
+        position: absolute;
+        top: 14%;
+        //left: 1%;
+        background-size: 90%;
+        width: 100%; 
+        height: 50%;
+       // top: 10%;  
+       // left: 1%;
+       // background-size: 75%;
+        background-position: center;
+        background-repeat: no-repeat;
+      //  padding: 35px;
+        //   margin: 20px;
+      //  width: 100px;
+       // height: 100px;
+       // background: #ccc;
+        animation-name: spin;
+        animation-duration: 10000ms;
+        animation-iteration-count: infinite;
+        animation-timing-function: linear;
+    }
+    
+    
+    @keyframes spin {
+        from {
+            transform:rotate(0deg);
+        }
+        to {
+            transform:rotate(360deg);
+        }
+              
+    }
+    
+    .numbers2 {
+    
+     // background: url('../img/bill.jpg');
+     // position: absolute;    
+        position: absolute;
+     top: 5%;
+        left: 1%;
+        background-size: 75%;
+       // top: 10%;
+       // left: 1%;
+       // background-size: 75%;
+        background-position: center;
+        background-repeat: no-repeat;
+    
+    }   
+    .close-btn{
+    
+            z-index: 999;
+        top: 50px;
+        left: 80%;
+    }
+    
+    
+    @media only screen and (min-width: 768px) { 
+    
+    #content{
+       background:  url('../assets/imgs/flashscreen2.png');
+      //  opacity: 0.7;    
+        background-size: 130%;
+        background-position: center; 
+        background-repeat: no-repeat;
+    }
+    
+    .heading{
+        bottom: 0;
+    }
+    .numbers1{
+    
+            width: 65%;
+        height: 50%;
+            top: 9%;
+        left: 16%;
+    }
+    .close-btn{
+            top: 8px;
+        left: 86%;
+    }
+    .title-class{
+        top:0;
+    }
+    .title{
+              text-align: center;
+        margin-right: 0;
+        font-size: 4rem;
+    
+    }
+    .cash-label{
+    
+            margin-top: 12% !important;
+        font-size: 10rem !important;
+    }
+    
+    .heading-pending{
+        bottom: 15%;
+    } 
+    
+    }
+}

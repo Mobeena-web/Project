@@ -1,0 +1,172 @@
+page-order-listing {
+
+  button {
+    ion-badge {
+      position: absolute;
+      top: -0.2rem;
+      right: -0.2rem;
+      opacity: 0.9;
+  
+      & ~ ion-icon {
+        margin-right: 1.2rem;
+      }
+    }
+  }
+
+.toolbar-title{
+  color: #fff !important
+}
+.select-text{
+  display: none !important;
+}
+ion-card{
+  border-radius: 9px !important;
+}
+.select-icon{
+  width:0 !important;
+  height: 0!important;
+}
+.select-icon-inner{
+
+  color:white !important;
+  display: none;
+}
+.bar-buttons{
+  color: #fff !important
+}
+.bar-button-default {
+  color: #fff !important;
+}
+
+    ul {
+        padding: 0px;
+        margin: 0px !important;
+        padding-top: 3px;
+          padding-bottom: 3px;
+       
+        &.rating li {
+          padding: 0px !important;
+          background: none;
+          color: #ffb400;
+       
+          ion-icon {
+           // font-size: 30px;
+          }
+        } 
+      }
+      
+      .image{
+        border-radius: 4px; 
+        height:70px;
+      }
+      .delivery{
+       font-size:1.2rem;
+      }
+      .discount-text{
+        color:red;     
+        font-size: 1.0rem;
+      }
+      .distance{
+        font-size: 1.2rem; 
+        text-align:right;
+        padding-right:5px
+      }
+      .review-btn{
+         position: absolute;
+          bottom: 0px;
+          width: 45px;
+           height: 45px;
+           border-radius: 50%;
+            right:10px
+      
+      }
+          .heading{
+                font-weight: bold;
+          }
+          
+      @media only screen and (min-width: 768px) { 
+      
+        
+      .image{
+        border-radius: 4px; 
+        height:140px;
+      }
+      .delivery{
+       font-size:2.4rem;
+      }
+      .discount-text{
+        color:red;     
+        font-size: 2.0rem;
+      }
+      .rating{
+      
+        font-size:2.5rem;
+      }
+      
+      .heading{
+        font-size:3rem;
+      }
+        
+      .distance{
+        font-size: 2.4rem
+      }
+      .review-btn{
+         position: absolute;
+          bottom: 0px;
+          width: 90px;
+           height: 90px;
+           border-radius: 50%;
+            right:10px
+      
+      }
+          .review-btn ion-icon{
+        font-size:4rem
+      
+      }
+      }
+
+
+
+      .index{
+        font-size:3.5rem;
+         text-align:center; 
+         color:white ;
+         margin-top:25%;
+    }   
+ 
+    
+     .order-total{
+         font-size:31px;
+         color: #444;
+     }
+         .time{
+             font-size:18px;
+             color:#777;
+            // margin-top:18px;
+         }
+         .status{
+          padding-top: 27px;
+          color: #aaa;
+      }
+ 
+    @media only screen and (device-aspect-ratio: 40/71)
+ {
+ 
+    .status{
+        color: #777;
+           
+         padding: 5px;
+    }
+ 
+     .index{
+        font-size:2.5rem;
+         text-align:center; 
+         color:white 
+    }
+    
+         
+ 
+ 
+ }
+      
+}

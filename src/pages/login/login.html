@@ -1,0 +1,64 @@
+<!--
+  Generated template for the Login page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+
+
+<ion-content style="background-color: #fff;" class="Open-Sans-regular">
+
+  <div style="font-family: Open Sans;" class="title1">
+    <img src="assets/imgs/icon.png" style="    position: relative; left: 26%;  width: 50%;  height: auto;  ">
+  </div>
+  <h2 text-center class="signin_label">Sign In</h2>
+
+  <p class="Open-Sans-regular" style="font-family: Open Sans;" *ngIf="submitAttempt" style="color: #ea6153; text-align:center;">Please fill out all details accurately.</p>
+
+  <div class="login-box">
+    <ion-list>
+      <form class="Open-Sans-regular" [formGroup]="loginForm" ng-submit="login(this.loginForm.value)">
+
+        <ion-row>
+          <ion-col>
+            <ion-item class="no-padding">
+              <ion-label floating>Username</ion-label>
+              <ion-input type="submit" formControlName="email" type="email"></ion-input>
+            </ion-item>
+            <div class="no-border" *ngIf="!loginForm.controls.email.valid  &&
+            (loginForm.controls.email.dirty || submitAttempt)">
+              <p style="color: #ea6153; text-align:center; ">Please enter a valid email.</p>
+            </div>
+          </ion-col>
+
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item class="no-padding">
+              <ion-label floating>Password</ion-label>
+              <ion-input type="submit" formControlName="password" type="password"></ion-input>
+            </ion-item>
+          </ion-col>
+
+        </ion-row>
+        <div class="no-border" *ngIf="!loginForm.controls.password.valid  &&
+          (loginForm.controls.password.dirty || submitAttempt)">
+          <p style="color: #ea6153; text-align:center;">Your password needs more than 6 characters.</p>
+        </div>
+        <div>
+          <p style="float: right;color: #aaa" (click)="verify()">Forgot Password?</p>
+          <!-- <p style="float: right; padding-right:10px" (click)="OpenTermsAndPolicy()">Terms and policy</p> -->
+        </div>
+        <div class="signup-col">
+          <div class="signup_message">Don't have an Account? <span (click)="register()">Sign Up</span></div>
+          <button ion-button block margin-top   color='primary' type="submit" class="login" (click)="login(this.loginForm.value)" block>Sign In</button>
+          <!-- <button ion-button class="signUp" block (click)="createAccount()">Sign up</button> -->
+        </div>
+      </form>
+    </ion-list>
+
+  </div>
+
+
+
+</ion-content>

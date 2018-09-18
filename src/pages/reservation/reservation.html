@@ -1,0 +1,223 @@
+<!--
+  Generated template for the ReservationPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>Reservation</ion-title>
+    <!-- <ion-buttons *ngIf="option == 'orders'" end style="    width: 30%;">
+    
+      <ion-icon style="color:white;font-size:3rem; float:right;margin-top:2px" name="options" > </ion-icon> 
+    
+    
+        <ion-select style="font-weight: bold;  max-width: unset;width: 76px;   padding-left: 0;
+        padding-right: 5px;  float: right;padding-bottom: 0;
+        color: white;"  (ionChange)="Radiusvalue()" [(ngModel)]="radius" [selectOptions]="selectOptions">
+     
+          <ion-option value="5">5 miles</ion-option>  
+          <ion-option value="10">10 miles</ion-option>
+             <ion-option value="50">50 miles</ion-option>
+          <ion-option value="100">100 miles</ion-option>
+    
+          <ion-option value="100000" [selected] = "true">All</ion-option>
+    
+        </ion-select>  
+        
+    
+     </ion-buttons> -->
+
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <ion-segment color="primary" style="padding:10px" [(ngModel)]="option">
+    <ion-segment-button value="restaurants">
+      Restaurants
+    </ion-segment-button>
+    <ion-segment-button value="others">
+      Others
+    </ion-segment-button>
+    <ion-segment-button value="my_reservation">
+      My Reservations
+    </ion-segment-button>
+  </ion-segment>
+
+  <div [ngSwitch]="option">
+    <div *ngSwitchCase="'restaurants'">
+      <ion-searchbar [(ngModel)]="searchTerm" (input)="setFilteredItems()" [formControl]="searchControl"></ion-searchbar>
+
+      <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull down to refresh" refreshingSpinner="circles" refreshingText="Refreshing...">
+        </ion-refresher-content>
+      </ion-refresher>
+
+      <p style="text-align: center; margin-top: 60%;" *ngIf="flag == true">Fetching data... </p>
+      <p style="text-align: center; margin-top: 60%;" *ngIf="arrayStatus">No place available in this range... </p>
+      <div *ngIf="!arrayStatus && !flag">
+        <div *ngFor="let place of places">
+          <ion-card *ngIf="place.orders_enabled == 'active'">
+            <ion-grid>
+              <ion-row>
+                <ion-col col-3 (tap)="OrderCategory(place.orders_enabled,place.business_id,place.paypal_id,place.discount,place.stripe_id,place.hours_operation,place.minimum_order,place.delivery_time,place.delivery_fee,place.tax,place.delivery,place.pickup,place.admin_stripe_enabled)">
+                  <img class="image" src="{{place.logo}}">
+                </ion-col>
+
+                <ion-col col-6 (tap)="OrderCategory(place.orders_enabled,place.business_id,place.paypal_id,place.discount,place.stripe_id,place.hours_operation,place.minimum_order,place.delivery_time,place.delivery_fee,place.tax,place.delivery,place.pickup,place.admin_stripe_enabled)">
+                  <p class="Open-Sans-bold" class="heading">{{place.name}} </p>
+
+                  <rating class="rating" [(ngModel)]="place.average_rating" readOnly="true" max="5" emptyStarIconName="star-outline" halfStarIconName="star-half"
+                    starIconName="star" nullable="false"></rating>
+
+                  <!-- <div> -->
+                    <!-- <div style="display:inline-block;">
+                      <p class="delivery" *ngIf="place.delivery_time != '' ">
+                        <ion-icon ios="ios-time-outline" md="md-time"> </ion-icon> Delivery time: {{place.delivery_time}} min </p>
+                    </div>
+                    <div style="display:inline-block;">
+                      <p class="delivery" *ngIf="place.delivery_fee != '' ">
+                        <ion-icon ios="ios-bicycle" md="md-bicycle"> </ion-icon> Delivery charges: ${{place.delivery_fee}} </p>
+                    </div>
+                  </div> -->
+                  <p *ngIf="place.discount_text" class="Open-Sans-bold" class="discount-text">{{place.discount_text}}, {{place.discount}}% </p>
+
+
+                </ion-col>
+
+                <ion-col style="padding: 0px !important;" col-3>
+                  <p class="Open-Sans-regular" color="primary" class="distance">
+                    <ion-icon name="pin"> </ion-icon> {{place.distanceValue}} mi </p>
+
+                  <button ion-button small block class="review-btn" (tap)="Reviews(place.username)">
+                    <ion-icon name="list-box"> </ion-icon>
+                  </button>
+                </ion-col>
+              </ion-row>
+
+            </ion-grid>
+
+          </ion-card>
+        </div>
+      </div>
+      <ion-infinite-scroll (ionInfinite)="$event.waitFor(doInfinite())" threshold="2px">
+        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+        </ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+
+    </div>
+
+    <div *ngSwitchCase="'others'">
+      <ion-searchbar [(ngModel)]="searchTerm" (input)="setFilteredItems()" [formControl]="searchControl"></ion-searchbar>
+
+
+      <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull down to refresh" refreshingSpinner="circles" refreshingText="Refreshing...">
+        </ion-refresher-content>
+      </ion-refresher>
+
+
+      <p style="text-align: center; margin-top: 60%;" *ngIf="flag == true">Fetching data... </p>
+      <p style="text-align: center; margin-top: 60%;" *ngIf="arrayStatus">No place available in this range... </p>
+      <div *ngIf="!arrayStatus && !flag">
+        <div *ngFor="let place of places">
+          <ion-card *ngIf="place.orders_enabled != 'active'">
+            <ion-grid>
+              <ion-row>
+                <ion-col col-3 (tap)="OrderCategory(place.orders_enabled,place.business_id,place.paypal_id,place.discount,place.stripe_id,place.hours_operation,place.minimum_order,place.delivery_time,place.delivery_fee,place.tax,place.delivery,place.pickup,place.admin_stripe_enabled)">
+                  <img class="image" src="{{place.logo}}">
+                </ion-col>
+
+                <ion-col col-6 (tap)="OrderCategory(place.orders_enabled,place.business_id,place.paypal_id,place.discount,place.stripe_id,place.hours_operation,place.minimum_order,place.delivery_time,place.delivery_fee,place.tax,place.delivery,place.pickup,place.admin_stripe_enabled)">
+                  <p class="Open-Sans-bold" class="heading">{{place.name}} </p>
+
+                  <rating class="rating" [(ngModel)]="place.average_rating" readOnly="true" max="5" emptyStarIconName="star-outline" halfStarIconName="star-half"
+                    starIconName="star" nullable="false"></rating>
+   
+                  <!-- <div>
+                    <div style="display:inline-block;">
+                      <p class="delivery" *ngIf="place.delivery_time != '' ">
+                        <ion-icon ios="ios-time-outline" md="md-time"> </ion-icon> Delivery time: {{place.delivery_time}} min </p>
+                    </div>
+                    <div style="display:inline-block;">
+                      <p class="delivery" *ngIf="place.delivery_fee != '' ">
+                        <ion-icon ios="ios-bicycle" md="md-bicycle"> </ion-icon> Delivery charges: ${{place.delivery_fee}} </p>
+                    </div>
+                  </div> -->
+                  <p *ngIf="place.discount_text" class="Open-Sans-bold" class="discount-text">{{place.discount_text}}, {{place.discount}}% </p>
+
+
+                </ion-col>
+
+                <ion-col style="padding: 0px !important;" col-3>
+                  <p class="Open-Sans-regular" color="primary" class="distance">
+                    <ion-icon name="pin"> </ion-icon> {{place.distanceValue}} mi </p>
+
+                  <button ion-button small block class="review-btn" (tap)="Reviews(place.username)">
+                    <ion-icon name="list-box"> </ion-icon>
+                  </button>
+                </ion-col>
+              </ion-row>
+
+            </ion-grid>
+
+          </ion-card>
+        </div>
+      </div>
+      <ion-infinite-scroll (ionInfinite)="$event.waitFor(doInfinite())" threshold="2px">
+        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+        </ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+
+
+    </div>
+    <div *ngSwitchCase="'my_reservation'">
+        <ion-refresher (ionRefresh)="doRefresh1($event)">
+            <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull down to refresh" refreshingSpinner="circles" refreshingText="Refreshing...">
+            </ion-refresher-content>
+          </ion-refresher>
+
+      <div *ngFor="let order of reservations; let i =index">
+        <ion-card (click)="ShowNotes(order)">
+          <ion-row>
+            <ion-col *ngIf="order.order_status == 'PENDING'" col-2 style="    background: #e67e22; color: #fff;  margin: 0;padding-top: 15px;">
+              <p class="index">{{i+1}} </p>
+            </ion-col>
+            <ion-col *ngIf="order.order_status == 'COMPLETED'" col-2 style="    background: #2ecc71; color: #fff;  margin: 0;padding-top: 15px;">
+              <p class="index">{{i+1}} </p>
+            </ion-col>
+
+            <ion-col col-6>
+
+              <p style="    FONT-SIZE: 1.8rem;
+                 font-weight: bold;
+                margin-left:5px;
+                 margin-top: 0;">{{order.business_name}}</p>
+
+              <p style="  margin-left:5px;  font-size: 1.6rem;"> Scheduled time: {{order.time}}</p>
+              <p style="  margin-left:5px;  font-size: 1.6rem;" > Placed time: {{order.placed_time}}</p>
+            </ion-col>
+
+            <ion-col col-4 style="text-align: center;">
+              <!-- <p class="order-total">  ${{order.total}}</p> -->
+              <p style="font-weight: bold;">People# {{order.persons}}</p>
+              <p class="status">{{order.order_status}}</p>
+
+
+            </ion-col>
+
+
+          </ion-row>
+
+
+        </ion-card>
+      </div>
+
+
+    </div>
+
+  </div>
+</ion-content>

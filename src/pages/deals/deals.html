@@ -1,0 +1,196 @@
+<!--
+  Generated template for the DealsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>Deals</ion-title>
+    <ion-buttons *ngIf="option == 'deals'" end style="    width: 30%;">
+
+      <ion-icon style="color:white;font-size:3rem; float:right;margin-top:2px" name="options"> </ion-icon>
+
+
+      <ion-select style="font-weight: bold;  max-width: unset;width: 76px;   padding-left: 0;
+        padding-right: 5px;  float: right;padding-bottom: 0;
+        color: white;" (ionChange)="Radiusvalue()" [(ngModel)]="radius" [selectOptions]="selectOptions">
+
+        <ion-option value="5">5 miles</ion-option>
+        <ion-option value="10">10 miles</ion-option>
+        <ion-option value="50">50 miles</ion-option>
+        <ion-option value="100">100 miles</ion-option>
+
+        <ion-option value="100000" [selected]="true">All</ion-option>
+
+      </ion-select>
+
+
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content >
+  <ion-segment color="primary" style="padding:5px" [(ngModel)]="option" (ionChange)="SegmentChange()">
+    <ion-segment-button value="places" >
+      Deals
+    </ion-segment-button>
+
+    <ion-segment-button value="deals">
+      Places
+    </ion-segment-button>
+    <ion-segment-button value="map">
+      Map
+    </ion-segment-button>
+  </ion-segment>
+
+
+  <div [ngSwitch]="option">
+    <ion-list *ngSwitchCase="'places'">
+ 
+      <ion-card *ngFor="let items of dataofitem" >
+          <img src="assets/imgs/banner.png"/>
+          <div class="card-title">        
+            <ion-row>
+              <ion-col col-8><h2>{{items.title}}</h2></ion-col>
+              <p>{{items.expiry}}</p>
+            </ion-row>
+            <!-- </ion-item> -->
+            </div>
+           <div class="card-subtitle">
+           <!-- <div style="height: 50%"> -->
+            <ion-card-content style="min-height:0px;">
+              <p style="min-height: 57px">{{items.description}}</p>
+            </ion-card-content> 
+            <!-- </div> -->
+            <ion-row>
+                <ion-col>
+                  <button ion-button icon-left clear small>
+                    <ion-icon name="thumbs-up" class="buynow"></ion-icon>
+                    <div class="buynow">12 Remaining</div>
+                  </button>
+                </ion-col>
+                <ion-col>
+                  <button ion-button icon-left clear small>
+                    <ion-icon name="text" class="buynow"></ion-icon>
+                    <div class="buynow">Buy Now</div>
+                  </button>
+                </ion-col>
+              </ion-row>     
+          </div>
+
+           
+        </ion-card>
+        
+
+        <ion-card  >
+          <img src="assets/imgs/banner.png"/>
+          <div class="card-title">        
+            <ion-row>
+              <ion-col col-8><h2>Abdul Mateen</h2></ion-col>
+              <p>10/5/2018</p>
+            </ion-row>
+            <!-- </ion-item> -->
+            </div>
+           <div class="card-subtitle">
+            <ion-card-content>
+              <p> want to get some data but in the new result data like above , thank you in advanced</p>
+            </ion-card-content>  
+            <ion-row>
+                <ion-col>
+                  <button ion-button icon-left clear small>
+                    <ion-icon name="thumbs-up" class="buynow"></ion-icon>
+                    <div class="buynow">12 Remaining</div>
+                  </button>
+                </ion-col>
+                <ion-col>
+                  <button ion-button icon-left clear small>
+                    <ion-icon name="text" class="buynow"></ion-icon>
+                    <div class="buynow">Buy Now</div>
+                  </button>
+                </ion-col>
+              </ion-row>      
+          </div>
+
+           
+        </ion-card>
+
+      
+
+
+               
+    </ion-list></div>
+
+
+  <div [ngClass]="{ 'hide': option != 'deals' }">
+    <ion-searchbar *ngIf="!status" [(ngModel)]="searchTerm" (input)="setFilteredItems()" [formControl]="searchControl"></ion-searchbar>
+
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull down to refresh" refreshingSpinner="circles" refreshingText="Refreshing...">
+      </ion-refresher-content>
+    </ion-refresher>
+
+
+    <p style="text-align: center; margin-top: 60%;" *ngIf="flag">Fetching data... </p>
+    <p style="text-align: center; margin-top: 60%;" *ngIf="arrayStatus">No place available in this range. </p>
+    <div *ngIf="!arrayStatus && !flag">
+      <ion-card *ngFor="let place of places;let k = index" style="    margin-right: 4px !important;
+              margin-left: 4px !important; width: calc(100% - 8px)!important;">
+        <ion-grid>
+          <ion-row>
+            <ion-col col-3 (tap)="description(place.username,place.distanceValue,place.offer_text,place.average_rating,place.hours_operation)">
+              <ion-thumbnail>
+                <img class="image" src="{{place.logo}}">
+              </ion-thumbnail>
+
+            </ion-col>
+
+            <ion-col col-5 (tap)="description(place.username,place.distanceValue,place.offer_text,place.average_rating,place.hours_operation)">
+              <p class="Open-Sans-bold" class="heading">{{place.name}} </p>
+
+
+              <rating class="rating" [(ngModel)]="place.average_rating" readOnly="true" max="5" emptyStarIconName="star-outline" halfStarIconName="star-half"
+                starIconName="star" nullable="false"></rating>
+
+              <p class="Open-Sans-bold" class="offer-text">{{place.offer_text}} </p>
+
+
+            </ion-col>
+
+            <ion-col style="padding: 0px !important;" col-4>
+              <p class="Open-Sans-regular" color="primary" class="distance" (tap)="description(place.username,place.distanceValue,place.offer_text,place.hours_operation)">
+                <ion-icon name="pin"> </ion-icon> {{place.distanceValue}} mi</p>
+
+              <button color="primary" *ngIf="place.orders_enabled == 'active'" ion-button small block class="order-btn" (click)="OrderCategory(place.business_id,place.paypal_id,place.discount,place.stripe_id,place.hours_operation,place.minimum_order,place.delivery_time,place.delivery_fee,place.tax)">
+                <ion-icon name="cart"> </ion-icon>
+              </button>
+              <button ion-button small block color="primary" class="review-btn" (click)="Reviews(place.username)">
+                <ion-icon name="list-box"> </ion-icon>
+              </button>
+            </ion-col>
+          </ion-row>
+
+        </ion-grid>
+
+      </ion-card>
+    </div>
+    <ion-infinite-scroll threshold="2px" (ionInfinite)="$event.waitFor(doInfinite())">
+      <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+
+  </div>
+
+  <div style="width:100%;height:100%" [ngClass]="{ 'hide': option != 'map' }">
+    <div #map id="map" style=" width: 100%;
+                      height: 100%;">
+    </div>
+
+  </div>
+
+
+
+</ion-content>

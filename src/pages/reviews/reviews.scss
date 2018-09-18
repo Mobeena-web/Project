@@ -1,0 +1,26 @@
+page-reviews {
+  ul {
+      padding: 0px;
+      margin: 0px !important;
+      padding-left:10px;
+     
+      &.rating li {
+        padding: 0px !important;
+        background: none;
+        color: #ffb400;
+     
+        ion-icon {
+         // font-size: 30px;
+        }
+      }   
+    }
+    .add_review{
+      position: absolute;
+      right: 10px;
+      bottom: 7%;
+      button{
+        color: #fff !important;
+      }
+    }
+    
+}

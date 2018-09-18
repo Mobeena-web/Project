@@ -1,0 +1,28 @@
+page-intro-page2 {
+.button{
+    float: right;
+    color: white !important;
+}
+.toolbar-background{
+  background: #27ae60;
+  }
+  .toolbar-title{
+    color: white;
+  }
+  .back-button.show-back-button{
+    color: white;
+  }
+
+.text-input::-moz-placeholder {
+    color: white !important;
+  }
+  
+  .text-input:-ms-input-placeholder {
+    color: white !important;
+    
+  }
+  
+  .text-input::-webkit-input-placeholder {
+    color: white !important;
+  }
+}

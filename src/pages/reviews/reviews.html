@@ -1,0 +1,48 @@
+<!--
+  Generated template for the ReviewsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header class="Open-Sans-bold">
+
+  <ion-navbar color="primary">
+    <ion-title>Reviews</ion-title>
+    <!-- <ion-buttons end>
+
+      <button ion-button style="color:white; float:right"  clear small>Review</button>
+    </ion-buttons> -->
+
+    <!-- <ion-buttons start>
+     <button ion-button style = "color:white; float:right" (click)="dismiss()" clear small >Close</button>
+    </ion-buttons> -->
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content style="background:#eee" class="Open-Sans-regular">
+
+  <div *ngIf="length == 0">
+    <p style="padding-top: calc(50% - 11px); padding-right:20px; padding-left:20px; text-align: center; font-size: 22px; color:#a8a3a3;"><ion-icon name="eye-off"></ion-icon></p>
+    <p no-margin style="padding-right:20px; padding-left:20px; text-align: center; font-size: 14px;">No reviews</p>
+  </div>
+
+  <ion-card *ngFor="let review of reviewData" style="padding:5px;border-radius: 0px;border:1px solid #ccc">
+
+    <!--   <ion-avatar style="margin: -55px 16px 8px 0 !important;" item-left>
+          <img src="https://api.adorable.io/avatars/75/{{review.title}}">
+        </ion-avatar> -->
+
+    <h2 style="font-weight:normal;padding-left:10px"> {{review.description}}</h2>
+    <rating [(ngModel)]="review.rating" readOnly="true" max="5" emptyStarIconName="star-outline" halfStarIconName="star-half"
+      starIconName="star" nullable="false" (ngModelChange)="onModelChange($event)"></rating>
+    <p style="padding-left:10px;font-weight: bold">{{review.first_name}} {{review.last_name}}</p>
+
+
+
+
+  </ion-card>
+  <ion-fab (click)="addReview()" class="add_review">
+    <button ion-fab ><ion-icon name="add"></ion-icon></button>
+  </ion-fab>
+</ion-content>

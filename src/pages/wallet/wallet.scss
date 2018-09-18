@@ -1,0 +1,34 @@
+page-wallet {
+
+    .pclass{
+        text-align: center;
+    font-size: 1.5rem;
+    color: #424242;
+    font-weight: bold;
+}
+ion-icon{
+  
+        font-size: 4.2em;
+    font-weight: bold;
+        margin-top: 5%;
+    font-size: 5.2em;
+}
+.image{
+      height: 80px;
+      border-radius: 4px;
+}
+
+@media only screen and (min-width: 768px) { 
+
+.image{
+      height: 160px;
+      border-radius: 4px;
+}
+    .pclass{
+        text-align: center;
+    font-size: 3rem;
+    color: #424242;
+    font-weight: bold;
+}
+}
+}

@@ -1,0 +1,47 @@
+page-before-login {
+    .btn-margin{
+        margin-top: 124px;
+        box-shadow: 0px 0px 20px #999 !important;
+    }
+   
+    .kk{
+        margin-top: 20px !important;
+        font-size: 20px;
+         margin-bottom: 20px;
+
+    }
+    .background_image1{
+        background-image: url("../assets/imgs/login_back.png");
+
+       background-position: center;
+       background-repeat: no-repeat;
+       background-size: contain;   
+}
+    .mm{
+        border-top: 1px solid #ccc;
+        background: #eee;
+        background-color: #333;
+        color: #fff;
+    }
+    .nn{
+        padding-left: 40px;
+        padding-right: 40px;
+    }
+    .order-now{
+        color: #333;
+        width: 90%;
+        margin-left: 5%;
+        margin-top: 12px;
+        margin-bottom: 12px;
+    }
+    .bb{
+        border-right: 1px solid #ccc;
+    }
+    .welcome{
+        margin-top: 30px !important;
+    }
+    .icon_img{
+        width: 50%;
+        margin-left: 25%;
+    }
+}

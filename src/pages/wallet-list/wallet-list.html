@@ -1,0 +1,57 @@
+<!--
+  Generated template for the WalletListPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+
+<ion-header class="Open-Sans-Bold">
+
+  <ion-navbar color="primary">
+    <ion-title>Wallet List</ion-title>
+    <ion-buttons end>
+      <button *ngIf="cancelFlag == false" ion-button clear (click)="AddWallet()">
+        <ion-icon style="font-weight: bold;font-size:2em" name="add"> </ion-icon>
+      </button>
+    </ion-buttons>
+
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content style="background:#eee">
+  <ion-refresher (ionRefresh)="doRefresh1($event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull down to refresh" refreshingSpinner="circles" refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+  <p *ngIf="cancelFlag == true" style="font-weight:bold;text-align:center;margin-top:60%;padding:5px"> Please enter your pin to enable wallet. </p>
+  <div *ngIf="cancelFlag == false">
+    <p *ngIf="NothingInWallet" style="font-weight:bold;text-align:center;margin-top:60%;padding:5px">No item added in the Wallet.You can add new item by clicking the + button. </p>
+
+    <div *ngIf="walletList">
+      <ion-card *ngFor="let wallet of walletList" (click)="WalletModel(wallet)">
+        <ion-row>
+          <ion-col col-5>
+            <img style="    border-radius: 5px;height: 80px;" src="{{wallet.front}}">
+          </ion-col>
+          <ion-col>
+            <p style="font-size:3rem;font-weight:bold;color:#666;padding-left:5px"> {{wallet.name}} </p>
+            <p style="font-size:1.6rem;color:black;padding-left:5px"> {{wallet.category}} </p>
+            <!-- <p style="text-align:right;position: absolute;bottom: 5px;right: 5px;">Exp:{{wallet.expiration}}  </p> -->
+          </ion-col>
+        </ion-row>
+
+        <!-- <img style="border-radius: 10px;" src="{{wallet.front}}">  
+  
+   <img style="border-radius: 10px;" src="img/card_back.png"> 
+   <ion-card-content>
+      <ion-card-title>
+    {{wallet.name}}
+        </ion-card-title>
+   </ion-card-content> -->
+      </ion-card>
+    </div>
+  </div>
+
+</ion-content>

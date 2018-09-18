@@ -1,0 +1,40 @@
+
+<ion-header>
+
+  <ion-navbar color='primary'>
+      <!-- <ion-buttons  start>
+          <button ion-button icon-only  menuToggle>
+            <ion-icon  name="md-menu"></ion-icon>
+          </button>
+        </ion-buttons> -->
+    <ion-title>Events</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    <div *ngIf="errorMenu == true">
+        <p style="padding-top: calc(50% - 11px); padding-right:20px; padding-left:20px; text-align: center; font-size: 22px; color:#a8a3a3;"><ion-icon name="eye-off"></ion-icon></p>
+        <p no-margin style="padding-right:20px; padding-left:20px; text-align: center; font-size: 14px;">No Events</p>
+    </div>
+  <div *ngFor="let item of events">
+      <ion-row class="myfontsize">
+          {{item.date}}
+        </ion-row>
+        <ion-card *ngFor="let i of item.events" (click)="open_detail(i)"> 
+          <ion-row>
+            <ion-col col-3>
+              <img src={{i.image}}>
+            </ion-col>
+            <ion-col col-9>
+                <div>{{i.time}}</div>
+                <div class="myfontsize">{{i.title}}</div>
+            </ion-col>
+          </ion-row>
+          
+        </ion-card>
+  </div>
+  
+
+</ion-content>

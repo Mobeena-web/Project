@@ -1,0 +1,446 @@
+import { Component, ViewChild, enableProdMode } from '@angular/core';
+import { Nav, Platform, AlertController, ModalController, Tabs ,App,LoadingController} from 'ionic-angular';
+import { StatusBar } from '@ionic-native/status-bar';
+import { SplashScreen } from '@ionic-native/splash-screen';
+
+import { HomePage } from '../pages/home/home';
+import { ListPage } from '../pages/list/list';
+import { MainTabsPage } from '../pages/main-tabs/main-tabs';
+import { GlobalVariable } from './global';
+import { NativeStorage } from '@ionic-native/native-storage';
+import { OneSignal } from '@ionic-native/onesignal';
+import { ServerProvider } from '../providers/server/server';
+import { Geolocation } from '@ionic-native/geolocation';
+import { HttpModule } from '@angular/http';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { NativeAudio } from "@ionic-native/native-audio";
+
+
+
+@Component({
+  templateUrl: 'app.html'
+})
+export class MyApp {
+  @ViewChild(Nav) nav: Nav;
+  @ViewChild('myTabs') tabRef: Tabs;
+  tab1Root: any = 'DealsPage';
+  tab2Root: any = 'WalletListPage';
+  tab3Root: any = 'MyRewardsPage';
+  tab4Root: any = HomePage;
+
+  rootPage: any;
+  appId: any = 'ee51c771-68fc-47fe-abc6-8f219d28a2c2';
+  googleProjectId: any = '509008915957';
+
+  pages: Array<{ title: string, component: any }>;
+  data: any;
+
+  constructor(private nativeAudio: NativeAudio,public loadingCtrl: LoadingController,private iab: InAppBrowser,private barcodeScanner:BarcodeScanner,public alertCtrl: AlertController,public app: App,public server: ServerProvider, private _notification: OneSignal, public alertctrl: AlertController, public modalCtrl: ModalController, public globals: GlobalVariable, private statusbar: StatusBar, private splashscreen: SplashScreen, private nativeStorage: NativeStorage, public platform: Platform,private geolocation: Geolocation) {
+
+
+
+    platform.ready().then(() => {
+        this.data = {};
+        this.data.response = '';
+        this.LoadSound()
+
+      setTimeout(() => this.splashscreen.hide(), 400);
+      this.statusbar.hide();
+
+      let env = this;
+
+      this.nativeStorage.getItem('user')
+        .then(data => {
+          // user is previously logged and we have his data
+          // we will let him access the app
+
+          console.log(data);
+          this.globals.udid = data.udid;
+          this.initializePushToken();
+
+          console.log("global", this.globals.udid);
+
+
+          env.nav.setRoot(HomePage);
+          this.globals.showFabFlag = true;
+
+          this.splashscreen.hide();
+        }, error => {
+          //we don't have the user data so we will ask him to log in
+          env.nav.setRoot('BeforeLoginPage');
+          this.globals.showFabFlag = false;
+          this.splashscreen.hide();
+        }).catch(err => { console.log(err) });
+
+      this.splashscreen.hide();
+      // geolocation.getCurrentPosition().then(pos => {
+      //   console.log('lat: ' + pos.coords.latitude + ', lon: ' + pos.coords.longitude);
+      // });
+
+      // const watch = geolocation.watchPosition().subscribe(pos => {
+      //   console.log('lat: ' + pos.coords.latitude + ', lon: ' + pos.coords.longitude);
+      // });
+      // watch.unsubscribe();
+    });
+  }
+
+
+  cartpage() {
+
+    //  let cartmodel = this.modalCtrl.create('CartPage');
+    // cartmodel.present();
+    if (this.globals.Product.length == 0) {
+      let alert = this.alertctrl.create({
+        title: "Oops",
+        message: "Your cart is empty.",
+        buttons: ["Okay"]
+
+      });
+      alert.present();
+    }
+    else {
+      this.nav.push('CartPage');
+    }
+
+  }
+
+
+
+
+
+
+
+  initializePushToken() {
+    console.log("intializing push token");
+
+    if (this.platform.is('ios')) {
+      var iosSettings = {};
+      iosSettings["kOSSettingsKeyAutoPrompt"] = true;
+      iosSettings["kOSSettingsKeyInAppLaunchURL"] = false;
+      this._notification.startInit(this.appId).iOSSettings(iosSettings);
+    } else if (this.platform.is('android')) {
+      this._notification.startInit(this.appId, this.googleProjectId);
+    }
+
+    this._notification.inFocusDisplaying(this._notification.OSInFocusDisplayOption.None);
+    this._notification.getIds()
+      .then((ids) => {
+        console.log("ids from one signal", ids);
+        this.server.updateToken(ids.userId).toPromise()
+          .then((data) => { console.log("server response on token update", data) })
+
+      }).then(
+        () => {
+          this._notification.setSubscription(true);
+          //this.listenForNotification();
+        })
+      .catch(error => console.error("onesginal error", error));
+
+    this._notification.setSubscription(true);
+    this._notification.endInit();
+  }
+
+  // listenForNotification() {
+  //   this._notification.handleNotificationReceived()
+  //     .subscribe((msg) => {
+  //       console.log("notification recieved", msg);
+  //       // if (msg.payload.additionalData.key == 'order') {
+  //       //   let modal = this.modalCtrl.create("OrderStatus");
+  //       //   modal.present();
+  //       // }
+
+  //       // do something when notification is received
+  //     });
+
+  //   // this._notification.handleNotificationOpened()
+  //   //   .subscribe((msg) => {
+  //   //     // do something when a notification is opened
+  //   //     console.log("notification opened", msg);
+  //   //     // if (msg.notification.payload.additionalData.key == 'order') {
+  //   //     //   let modal = this.modalCtrl.create("OrderStatus");
+  //   //     //   modal.present();
+  //   //     // }
+
+  //   //   });
+
+  //   this._notification.endInit();
+  // }
+
+
+  // openPage(page) {
+  //   // Reset the content nav to have just this page
+  //   // we wouldn't want the back button to show in this scenario
+  //   this.nav.setRoot(page.component);
+  // }
+
+  Homepage() {
+    let view = this.nav.getActive();
+    var name = view.component.name.toString();
+    console.log(name);
+    if (name != 'MainTabsPage') {
+
+      this.nav.setRoot(HomePage);
+    }
+
+    //prints out component name as string
+
+  }
+
+  Page() {
+    let view = this.nav.getActive();
+    var name = view.component.name.toString();
+    console.log(name);
+    if (name != 'LoginPage') {
+      return true;
+    }
+    else {
+      return false;
+    }
+
+  }
+
+  AddWallet() {
+
+    this.nav.push('WalletPage');
+  }
+
+  OpenSettingPage() {
+    this.nav.push('SettingsPage')
+  }
+  logout() {
+  this.nativeStorage.clear()
+      .then(data => {
+          this.nativeStorage.remove('user')
+              .then(data => {
+                  console.log('data removed');
+                  this.globals.Product.length = 0;
+                  this.globals.cartflag = false;
+
+                  this.app.getRootNav().setRoot('LoginPage');
+              }).catch(err => console.log());
+
+          
+
+      }).catch(err => console.log());
+
+}
+
+OpenEvents(){
+  this.nav.push('EventsPage');
+}
+openRewards(){
+  this.nav.push('MyRewardsPage')
+}
+openReviews(){
+  this.nav.push('ReviewsPage')
+
+}
+openOrder(){
+  this.nav.push('CategoryPage')
+
+}
+openHistory(){
+  this.nav.push('OrderListingPage')
+}
+
+public scanQR() {
+
+  //For Testing ->   // this.modal("1","success","Nappolinini pizza","http://34.203.122.153/api/adsonscanapp/assets/images/1500954477.jpg","http://vignette1.wikia.nocookie.net/icarly/images/2/26/Purple-Smiley-Icon-keep-smiling-8214370-200-200.jpg/revision/latest?cb=20110707184639","null");
+     this.barcodeScanner.scan().then((barcodeData) => {
+         if (barcodeData.format == "QR_CODE") {
+             console.log(this.globals.udid);
+             console.log(barcodeData.text);
+             var url = "http";
+             var string = barcodeData.text.toString();
+             var comma = string.indexOf(',');
+
+             console.log(comma);
+             if (comma != -1) {
+
+                 var date = string.substring(0, comma);
+
+                 var dateObj = new Date();
+                 var month = dateObj.getUTCMonth() + 1; //months from 1-12
+                 var day = dateObj.getUTCDate();
+                 var year = dateObj.getUTCFullYear();
+
+                 var currentdate = year + "/" + month + "/" + day;
+                 console.log(currentdate);
+                 var d = new Date(date);
+                 var exp_month = d.getUTCMonth() + 1; //months from 1-12
+                 var exp_day = d.getDate();
+                 var exp_year = d.getUTCFullYear();
+
+                 var expdate = exp_year + "/" + exp_month + "/" + exp_day;
+                 if (new Date(expdate) < new Date(currentdate)) {
+                     let qr_prompt = this.alertCtrl.create({
+                         title: "Oops",
+                         message: "This QR code has expired",
+                         buttons: ["Okay"]
+
+                     });
+                     qr_prompt.present();
+
+                 }
+                 else {
+                     var second_half = string.substring(comma + 1);
+                     var second_string = second_half.includes(url);
+                     var Image_type_png = second_half.includes('png');
+                     var Image_type_jpg = second_half.includes('jpg');
+                     if (second_string == true && (Image_type_png == true || Image_type_jpg == true)) {
+                         var image = second_half;
+                         this.ShowCustomQModel(image, true);
+
+
+                     }
+                     else if (second_string == true && (Image_type_png == false || Image_type_jpg == false)) {
+                         var browser_url = second_half;
+                         this.launch(browser_url);
+                     }
+                     else {
+                         var text = second_half;
+                         this.ShowCustomQModel(text, false);
+                     }
+                     console.log(date, second_half);
+                     console.log(second_string);
+                     console.log(image, browser_url, text);
+                 }
+                 console.log(d, expdate, exp_day);
+             }
+
+             else {
+                 console.log(barcodeData.text, "barcodedata");
+
+                 let response = this.server.SendQRcodeToServer(barcodeData.text)
+
+                 console.log(this.globals.udid);
+                 console.log(barcodeData.text);
+                 let loading = this.loadingCtrl.create({
+                     content: "Setting up...",
+
+                 });
+
+
+                 loading.present();
+
+
+                 response.subscribe(data => {
+
+                     this.data.response = data;
+                     console.log(this.data.response);
+                     console.log(this.data.response.status);
+                     console.log(this.data.response.reward);
+                     loading.dismiss();
+
+                     if (this.data.response.message == "Business not found") {
+                         console.log("if");
+
+                         let alert = this.alertCtrl.create({
+                             title: 'Error',
+                             subTitle: 'Wrong QR-code',
+                             buttons: ['OK']
+                         });
+                         alert.present();
+                     }
+
+                     else {
+                         if (this.data.response.status == 'success') {
+                             console.log(barcodeData.text, "barcodedata");
+
+                             this.modal(this.data.response.reward, this.data.response.status, this.data.response.businessname, this.data.response.business_logo, this.data.response.lottery_image, this.data.response.reward_string, this.data.response.business_username);
+                         }
+                         else {
+                             console.log(barcodeData.text, "barcodedata");
+                             this.modal(this.data.response.reward, this.data.response.status, this.data.response.businessname, this.data.response.business_logo, "null", this.data.response.reward_string, this.data.response.business_username);
+                         }
+                     }
+
+                 }, error => {
+                     console.log("Oooops!");
+                     loading.dismiss();
+                     let alert = this.alertCtrl.create({
+                         title: 'Error',
+                         subTitle: 'Server times out, please try again',
+                         buttons: ['OK']
+                     });
+                     alert.present();
+                 });
+             }
+             // console.log(barcodeData.text);
+
+
+         }
+         else if (barcodeData.cancelled) {
+             console.log("User cancelled the action!");
+
+             return false;
+         }
+         else {
+             let alert = this.alertCtrl.create({
+                 title: 'Error',
+                 subTitle: 'please scan QR code',
+                 buttons: ['OK']
+             });
+             alert.present();
+         }
+         // Success! Barcode data is here
+     }, (err) => {
+         // An error occurred
+         console.log(err);
+     });
+
+ }
+
+ LoadSound() {
+
+  this.nativeAudio.preloadSimple('spinner', 'assets/sounds/Spinner.mp3')
+      .then(function (msg) {
+          console.log(msg);
+
+      }, function (error) {
+          console.log(error);
+      });
+      this.nativeAudio.preloadSimple('failure', 'assets/sounds/failure.mp3')
+      .then(function (msg) {
+          console.log(msg);
+
+      }, function (error) {
+          console.log(error);
+      });
+      this.nativeAudio.preloadSimple('success', 'assets/sounds/success.mp3')
+      .then(function (msg) {
+          console.log(msg);
+
+      }, function (error) {
+          console.log(error);
+      });
+}
+
+ShowCustomQModel(data, flag) {
+  //  let customerQrmodel = this.modalCtrl.create('CustomQrPage',{data:data,image_flag:flag})
+
+  this.nav.push('CustomQrPage', { data: data, image_flag: flag })
+}
+
+launch(url) {
+  console.log("url function");
+  console.log(url);
+  this.iab.create(url, "_self");
+
+}
+
+modal(response, response_status, business, logo, image, string, bid) {
+
+  console.log("image", image);
+  console.log(bid, 'businesusername');
+
+  let profileModal = this.modalCtrl.create('CongratulationPage', { reward: response, status: response_status, place: business, Logo: logo, lottery_image: image, RewardString: string, id: bid });
+  profileModal.present();
+
+
+}
+
+
+
+}

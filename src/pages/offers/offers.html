@@ -1,0 +1,32 @@
+
+<ion-header>
+
+  <ion-navbar color='primary'>
+    <ion-title>Special Offers</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <div *ngIf="errorMenu == true">
+    <p style="padding-top: calc(50% - 11px); padding-right:20px; padding-left:20px; text-align: center; font-size: 22px; color:#a8a3a3;"><ion-icon name="eye-off"></ion-icon></p>
+    <p no-margin style="padding-right:20px; padding-left:20px; text-align: center; font-size: 14px;">No Offers</p>
+</div>
+ 
+    <ion-card *ngFor="let item of offers" (click)="offerDetail(item)">
+      <ion-row>
+        <ion-col col-3>
+          <img src={{item.image}}>
+        </ion-col>
+        <ion-col col-9>
+            <div class="myfontsize">{{item.title}}</div>
+            <div >{{item.date}}</div>
+
+        </ion-col>
+      </ion-row>
+      <!-- <div [innerHTML]="item.description"></div> -->
+      
+    </ion-card>
+
+</ion-content>

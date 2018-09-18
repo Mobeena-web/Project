@@ -1,0 +1,69 @@
+page-main-tabs {
+
+        .toolbar {
+            &.toolbar-md { //material design only
+                &.home-nav {
+                    position: relative;
+                    .title-md { //material design only
+                        position: absolute;
+                        left: 0;
+                        top: 0;
+                        height: 100%;
+                        width: 100%;
+                        text-align: center;
+                    }
+                 
+                }
+            }
+        }
+
+        .left-btn {
+            &.bar-buttons
+            { 
+            &.bar-buttons-md
+            {
+                position: absolute !important;
+            }
+            }
+        }   
+    
+
+        // .toolbar-title{
+        //     color: #27ae60 !important
+        // }
+        
+        // .bar-buttons{
+        //     color: #27ae60 !important
+        // }
+        // .bar-button-default {
+        //     color: #27ae60 !important;
+        // }
+        
+        .tab-button[aria-selected=true] {
+            color: #333 !important;
+        }
+        
+        .tab-button[aria-selected=true] .tab-button-icon{
+        
+            color: #333 !important;
+        }
+
+        .fa-icons-general {
+            display: inline-block;
+            font: normal normal normal 14px/1 FontAwesome;
+            font-size: inherit;
+            text-rendering: auto;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            transform: translate(0, 0);
+        }
+        
+        .ion-ios-fa-sitemap::before,
+            .ion-ios-fa-sitemap-outline::before,
+            .ion-md-fa-sitemap::before {
+                @extend .fa-icons-general;
+                content: "\f0e8";
+            }
+}     
+   
+   

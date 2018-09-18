@@ -1,0 +1,42 @@
+page-intro-page7 {
+.item{
+
+    background-color: rgba(158, 158, 158, 0.2);
+        color: white;
+    font-weight: bold;
+}
+.toolbar-background{
+    background: #27ae60;
+    }
+    .toolbar-title{
+        color: white;
+      }
+      .back-button.show-back-button{
+        color: white;
+      }
+
+.list{
+    margin-top: 50%;
+    width: 90%;
+    margin-left: 5%;
+}
+
+
+.mybutton{
+    float: right;
+    color: white !important;
+}
+.text-input::-moz-placeholder {
+    color: white !important;
+  }
+  
+  .text-input:-ms-input-placeholder {
+    color: white !important;
+    
+  }
+  
+  .text-input::-webkit-input-placeholder {
+    color: white !important;
+  }
+
+}
