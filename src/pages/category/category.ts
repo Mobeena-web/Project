@@ -73,8 +73,7 @@ export class CategoryPage {
     }
 
     getLocation() {
-        console.log("usman1");
-
+       
         this.diagnostic.isLocationEnabled()
             .then((state) => {
                 console.log("usman",state);
@@ -95,7 +94,9 @@ export class CategoryPage {
 
                     });
               
-            }).catch(e => console.error(e));
+            }).catch(e => {
+              
+            });
 
     }
 

@@ -62,7 +62,7 @@
         <!-- <img class="qrcode1" src="{{barocde_image}}"> -->
     </ion-col>
   </ion-row>
-  <button ion-button block style="padding: 33px;
+  <button ion-button block *ngIf="globals.special_offer == '1'" style="padding: 33px;
   background: #333;" (click)="offers()">Special Offers</button>
 
   <!-- <ion-row>

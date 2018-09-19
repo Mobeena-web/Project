@@ -43,6 +43,7 @@ export class HomePage {
     points:any;
     punch=[];
     punch_limt=[];
+    places:any;
 
     @ViewChild(Slides) slides: Slides;
     @ViewChild(Content) content: Content;
@@ -69,6 +70,7 @@ export class HomePage {
     email:any;
     constructor(private geolocation: Geolocation,private diagnostic: Diagnostic,public app: App, public server: ServerProvider, public globals: GlobalVariable, private nativeAudio: NativeAudio, private iab: InAppBrowser, private nativeStorage: NativeStorage, public loadingCtrl: LoadingController, public modalCtrl: ModalController, public _nav: NavController, public _navParams: NavParams, public alertCtrl: AlertController, public platform: Platform) {
         this.loadBanner();
+        
         this.cartflag = _navParams.get('CartFlag');
         this.discount_text = _navParams.get('discountText');
         this.GainFlag = _navParams.get('Flag');
@@ -91,7 +93,7 @@ export class HomePage {
                     this.geolocation.getCurrentPosition().then((position) => {
                         this.coordinates = position.coords.latitude + "," + position.coords.longitude;
                         this.globals.mycoordinates = this.coordinates;
-                        this.getPoints();
+                        this.getPoints(this.coordinates);
                         this.getPunches(this.coordinates);
                     }, (err) => {
                         console.log(err);
@@ -107,6 +109,10 @@ export class HomePage {
                     alert.present();
                 }
             }).catch(e => {
+
+                this.getPoints("0,0");
+                this.getPunches("0,0");
+
                 let alert = this.alertCtrl.create({
                     title: 'Location is disabled',
                     subTitle: 'In order to proceed, Please enable your location',
@@ -132,7 +138,7 @@ export class HomePage {
         }
     }
 
-    getPoints() {
+    getPoints(coordinates) {
 
         // let loading = this.loadingCtrl.create({
         //     content: "Loading...",
@@ -140,7 +146,7 @@ export class HomePage {
         // });
         // loading.present();
 
-        let response = this.server.getPoints(this.coordinates);
+        let response = this.server.getPoints(coordinates);
         response.subscribe(data => {
             console.log("points_usman",data);
             console.log(data.status,data.message)
@@ -368,6 +374,8 @@ export class HomePage {
     ReservationPage() {
         this._nav.push('ReservationPage');
     }
+
+  
 
 
 }

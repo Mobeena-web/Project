@@ -92,7 +92,7 @@ export class ModalPage {
     //this.type = localStorage.getItem("type");
     // this.checktype();
     //console.log("localstorage data for testing ", localStorage.getItem("type"));
-
+    this.CurrentAdressBox();
     this.ProcessForm = formBuilder.group({
         Address: ['', Validators.compose([Validators.required])],
       // zipcode: ['', Validators.compose([Validators.required])],
@@ -233,7 +233,7 @@ export class ModalPage {
     }
     console.log("modal 1 ionview did load", this.type);
    
-    this.CurrentAdressBox();
+   
    
   }
   
@@ -339,6 +339,8 @@ export class ModalPage {
         this.loadMap(resp.coords.latitude, resp.coords.longitude);
         this.lat = resp.coords.latitude;
         this.long = resp.coords.longitude;
+      }).catch(e => {
+        this.reverseGeoCoding(0, 0);
       });
       
       // this.Address =  localStorage.getItem("GetAddress");
