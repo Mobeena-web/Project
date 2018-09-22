@@ -81,6 +81,83 @@ export class HomePage {
         localStorage.removeItem("scheduled_time");
     }
 
+    doRefresh(refresher) {
+        this.loadBanner();
+
+        this.getLocation();
+        if (this.globals.Product.length > 0) {
+            this.globals.cartflag = true;
+        }
+
+        this.globals.HomeFlag = true;
+        this.content.resize();
+        this.nativeStorage.getItem('user')
+            .then(data => {
+                this.email = data.email,
+                this.name = data.firstName;
+                this.lastname = data.lastName;
+                this.barocde_image = data.image;
+                this.user_date = data.date;
+                this.user_id = data.ID;
+                this.udid = data.udid;
+                this.mobile_verify = data.phone_verify;
+
+                this.globals.udid = this.udid;
+                console.log(this.barocde_image, "barcode");
+
+
+                console.log(this.name);
+                console.log(this.user_id);
+                console.log(this.discount_value);
+                this.value = this.pad(this.user_id, 12);
+                this.slicedValue = this.value.slice(0, 4) + " " + this.value.slice(4, 8) + " " + this.value.slice(8, 12);
+                console.log(this.slicedValue);
+                this.month = this.user_date.substring(0, 2);
+                this.year = this.user_date.substring(8);
+                console.log(this.month, this.year);
+
+
+                if (this.GainFlag) {
+                    this.showDiscountMessage();
+                }
+
+
+            }).catch(err => console.log);
+
+        // this.nativeStorage.getItem('Product')
+        // .then (data => {
+        //     this.globals.Product = data.array;
+        //     this.globals.BusinessDiscount = data.BusinessDiscount;
+        //     this.globals.minimun_order = data.MinimumOrder;
+        //     this.globals.deliveryCharges =  data.DeliveryCharges;
+
+
+        //     console.log("global array",this.globals.Product,"data",data.BusinessDiscount,data.MinimumOrder,data.DeliveryCharges);
+
+        //     if(this.globals.Product.length > 0)
+        //     {
+        //         this.globals.cartflag = true;
+        //     }
+        //     console.log("global flag " , this.globals.cartflag);
+
+        // }).catch(err => console.log);
+
+
+        this.nativeStorage.getItem('discount')
+            .then(data => {
+                this.globals.GainDiscount = data.discountValue;
+
+
+                console.log("gain discount", this.globals.GainDiscount);
+
+            }).catch(err => console.log);
+    
+        setTimeout(() => {
+          console.log('Async operation has ended');
+          refresher.complete();
+        }, 2000);
+      }
+
 
 
     getLocation() {
@@ -266,14 +343,10 @@ export class HomePage {
                 console.log("gain discount", this.globals.GainDiscount);
 
             }).catch(err => console.log);
-        var that = this;
-        setTimeout(function () {
-            // that.slides.autoplayDisableOnInteraction = false;
-        }, 6000);
-
-
-
-
+        // var that = this;
+        // setTimeout(function () {
+        //     // that.slides.autoplayDisableOnInteraction = false;
+        // }, 6000);
 
     }
     ionViewWillEnter() {

@@ -68,7 +68,7 @@ export class LoginPage {
                 this.data.response = data;
                 
                 if (this.data.response != "invalid") {
-                     this.navCtrl.setRoot(HomePage,{imageData:this.data.response.url,Flag:false});
+                    //this.navCtrl.setRoot(HomePage,{imageData:this.data.response.url,Flag:false});
                     //this.navCtrl.push('AcceptTermsPage');
                     
                     this.nativeStorage.setItem('user',
