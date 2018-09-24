@@ -78,32 +78,58 @@
     <div *ngIf="!cash_on_delivery && globals.StripId">
     <ion-list style="padding: 10px; padding-bottom:0px;margin-bottom: 3px;">
   <!-- <p class="Open-Sans-regular" style="font-family: Open Sans;" *ngIf="submitAttempt" style="color: #ea6153; margin-top:0px;margin-bottom:3px;text-align:center;">Please fill out all details accurately.</p> -->
+      <ion-card class="payment_card background_image1" style="padding-top: 36px;
+      padding-bottom: 24px;">
+          <ion-item style="background: transparent">
+            <!-- <ion-label floating></ion-label> -->
+            <ion-input style="color: #fff" placeholder="Card No." class="kll"  formControlName="creditcardno" type="number"></ion-input>
+          </ion-item>
+
+          <ion-row>
+            <ion-col col-6 no-padding>
+                <!-- <ion-item style="background: transparent">
+                    <ion-label floating>Name </ion-label>
+                    <ion-input placeholder="Name"  type="text"></ion-input>
+                  </ion-item> -->
+                  <ion-item style="background: transparent;border:0px">
+                      <ion-input style="color: #fff;" placeholder="Exp.Month 1...12" class="kll" formControlName="expiryMonth" type="number"></ion-input>
+                  </ion-item>
+            </ion-col>
+            <ion-col col-6 no-padding>
+                <ion-item style="background: transparent;border:0px">
+                    <ion-input style="color: #fff;" placeholder="Exp.Year 2018" class="kll"  formControlName="expiryYear" type="number"></ion-input>
+                </ion-item>
+              
+                  
+            </ion-col>
+          </ion-row>
+          <h2 style="margin-left: 22px;color: #fff;padding-top: 10px;" >{{globals.firstName}} {{globals.lastName}}</h2>
+
+      </ion-card>
+      <ion-card class="payment_card background_image1" >
+        <div class="strip"></div>
+          <ion-item style="background: transparent;border:0px">
+
+              <!-- <ion-label floating>CVV(xxx)</ion-label> -->
       
-      <ion-item style="background: transparent">
-        <ion-label floating>Card Number(xxxxxxxxxxxxxxxx)</ion-label>
-        <ion-input  formControlName="creditcardno" type="number"></ion-input>
-      </ion-item>
+              <ion-input style="color: #fff" class="kll" placeholder="CVV" formControlName="CVC" type="number"></ion-input>
+            </ion-item>
+            <img src="assets/imgs/visaa.png">
+            <!-- <div style=" float: right;margin-top: -14%;">
+              <img src="assets/imgs/cvv.jpg" style="width: 90px;">
+            </div> -->
+
+      </ion-card>
+      
       <div class="no-border"  *ngIf="!PaymentForm.controls.creditcardno.valid">
         <!-- <p style="color: #ea6153;text-align:center; margin-top:0px;margin-bottom:3px;">Please enter a valid card number.</p> -->
       </div>
 
-      <ion-item style="background: transparent">
-        <ion-label floating>Expiration Month(1...12) </ion-label>
-        <ion-input formControlName="expiryMonth" type="number"></ion-input>
-      </ion-item>
-      <ion-item style="background: transparent">
+     
+      <!-- <ion-item style="background: transparent">
         <ion-label floating>Expiration Year(xxxx)</ion-label>
-        <ion-input  formControlName="expiryYear" type="number"></ion-input>
-      </ion-item>
-      <ion-item style="width:50%;background: transparent">
-
-        <ion-label floating>CVV(xxx)</ion-label>
-
-        <ion-input formControlName="CVC" type="number"></ion-input>
-      </ion-item>
-      <div style=" float: right;margin-top: -14%;">
-        <img src="assets/imgs/cvv.jpg" style="width: 90px;">
-      </div>
+      </ion-item> -->
+      
     </ion-list>
 
     <ion-list no-lines style="padding:5px ; margin-top:0px; padding-top: 0px;padding-bottom:0px;margin-bottom:0px;">

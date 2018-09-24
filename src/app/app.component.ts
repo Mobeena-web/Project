@@ -59,6 +59,8 @@ export class MyApp {
 
           console.log(data);
           this.globals.udid = data.udid;
+          this.globals.firstName = data.firstName;
+          this.globals.lastName = data.lastName;
           this.initializePushToken();
 
           console.log("global", this.globals.udid);
