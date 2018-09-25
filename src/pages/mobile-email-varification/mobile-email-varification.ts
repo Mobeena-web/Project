@@ -156,7 +156,8 @@ Verify() {
             this.data.response = data; 
             if (this.data.response.status != "error") {
                 // this.navCtrl.setRoot('AcceptTermsPage', { imageData: this.data.response.url, discountText: this.data.response.discount_text, Flag: true, discount: this.data.response.discount_value });
-
+                this.globals.firstName = signupData.firstName;
+                this.globals.lastName = signupData.lastName;
                 this.nativeStorage.setItem('user',
                     {
 
