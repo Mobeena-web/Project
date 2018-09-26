@@ -44,7 +44,9 @@ getdeals(){
 
   LoadBannersOnHomePage() {
     var link = this.global.BaseUrl + 'Customer_controller/get_banners';
-    return this.http.get(link)
+    var data = JSON.stringify({business_id:this.global.new_id });
+
+    return this.http.get(link,data)
       .map((res: any) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
