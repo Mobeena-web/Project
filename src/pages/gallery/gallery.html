@@ -1,0 +1,22 @@
+
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>Gallery</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    <div *ngIf="errorMenu == true">
+        <p style="padding-top: calc(50% - 11px); padding-right:20px; padding-left:20px; text-align: center; font-size: 22px; color:#a8a3a3;"><ion-icon name="eye-off"></ion-icon></p>
+        <p no-margin style="padding-right:20px; padding-left:20px; text-align: center; font-size: 14px;">No Images</p>
+    </div>
+  <ion-row>
+    <ion-col col-4 *ngFor="let item of images" (click)="image_show(item.image)">
+      <img src={{item.image}} class="image_show">
+    </ion-col>
+  </ion-row>
+
+</ion-content>

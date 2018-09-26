@@ -453,9 +453,11 @@ list() {
         this.places = this.places.filter(function(item) {
          return item.business_id === new_id;
        });
+       console.log("pages",this.places)
        
        this.globals.special_offer = this.places[0].special_offer;
        this.globals.events_enabled = this.places[0].events_enabled;
+       this.globals.gallery_enabled = this.places[0].gallery_enabled;
      
     }, error => {
         console.log(error);
@@ -469,6 +471,10 @@ list() {
 
     });
  
+}
+
+show_gallery(){
+    this.nav.push("GalleryPage")
 }
 
 

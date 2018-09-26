@@ -115,6 +115,7 @@
     </plugin>
     <plugin name="cordova-plugin-x-toast" spec="^2.6.2" />
     <plugin name="call-number" spec="^1.0.1" />
+    <plugin name="com-sarriaroman-photoviewer" spec="^1.1.18" />
     <engine name="android" spec="7.0.0" />
     <engine name="ios" spec="4.5.5" />
 </widget>

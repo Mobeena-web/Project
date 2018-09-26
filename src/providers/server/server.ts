@@ -255,6 +255,14 @@ getdeals(){
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
 
+  gallery_list() {
+    var link = (this.global.BaseUrl + 'events/get_gallery_list');
+    var data = JSON.stringify({ business_id: this.global.new_id });
+    return this.http.post(link, data)
+      .map((res: any) => res.json())
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+  }
+
   GetBusinessMenuCategories(BusinessId) {
     var link = (this.global.BaseUrl + 'menu/categories');
     var data = JSON.stringify({ business_id: BusinessId });
