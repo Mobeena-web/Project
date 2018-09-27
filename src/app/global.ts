@@ -126,26 +126,7 @@ export class GlobalVariable {
             styleText:           true
           });
     }
-    circle_graph_empty(){
-        console.log("not runnig",this.percent);
-
-        var myCircle = Circles.create({
-            id:                  'circles2',
-            radius:              50,
-            value:               0,
-            maxValue:            100,
-            width:               7,
-            text:                function(value){return '';},
-            colors:              ['#ccc', '#333'],
-            duration:            400,
-            wrpClass:            'circles-wrp',
-            textClass:           'circles-text',
-            valueStrokeClass:    'circles-valueStroke',
-            maxValueStrokeClass: 'circles-maxValueStroke',
-            styleWrapper:        true,
-            styleText:           true
-          });
-    }
+   
 }
 
 
