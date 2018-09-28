@@ -84,7 +84,7 @@
 
       <ion-col col-3 style="text-align:right">
         <!-- <p style="font-size:2.0rem;color:black;padding-bottom:5px"> ${{prod.basePrice}} </p>  -->
-        <ion-icon name="close" (click)="RemoveItem(prod)" class="cross_icon"></ion-icon>
+        <ion-icon name="close" (click)="RemoveItem(prod)"  class="cross_icon"></ion-icon>
         <ion-label style="font-size:1.4rem; margin-bottom:0; color:#666;margin-top: 14px;">
             <ion-icon style="color:#666" name="basket"></ion-icon> {{prod.quantity}} </ion-label>
 
@@ -159,252 +159,278 @@
   </div> -->
 
 
-  <ion-list class="tipclass" style="padding:0px;margin-bottom: 10px;">
-      <ion-row >
-          <ion-col col-1 >
-              <ion-checkbox style="margin-top: 32px;" [(ngModel)]="tipclick"></ion-checkbox>
-          </ion-col>
-          <ion-col col-11 >
-             <ion-item style="background:transparent">
-                  <ion-label  fixed>
-                    Tip
-                  </ion-label>
-                  <ion-input [(ngModel)]="Tip"  (keyup.enter)="closeKeyboard()" type="number" [disabled]="!tipclick"></ion-input>
-            </ion-item>
-          </ion-col>
-        </ion-row>
-   
-    <ion-item style="background:transparent">
-      <ion-label style=" margin: 0;" fixed>
-        Notes
-      </ion-label>
-      <ion-input (keyup.enter)="closeKeyboard()" [(ngModel)]="notes"></ion-input>
-    </ion-item>
-  </ion-list>
+  
   <button ion-button type="submit" clear (click)="changeAddress()" style="margin-top:-3%;width:95%; margin-left:1.9%;color:#444"
   block> <u>Update Address</u> </button>
 
-  <ion-list no-lines style="margin-left: 10px; margin-right: 10px;margin-bottom:10px; width:94%;   display: inline-flex;">
+    <div [ngSwitch]="cart_detail">
+        <ion-list *ngSwitchCase="'tip'">
+            <ion-list class="tipclass" style="padding:0px;margin-bottom: 10px;">
+                <ion-row>
+                    <ion-col col-1 >
+                        <ion-checkbox style="margin-top: 32px;" [(ngModel)]="tipclick"></ion-checkbox>
+                    </ion-col>
+                    <ion-col col-11 >
+                       <ion-item style="background:transparent">
+                            <ion-label  fixed>
+                              Tip
+                            </ion-label>
+                            <ion-input [(ngModel)]="Tip"  (keyup.enter)="closeKeyboard()" type="number" [disabled]="!tipclick"></ion-input>
+                      </ion-item>
+                    </ion-col>
+                  </ion-row>
+            </ion-list>
+          
+        </ion-list>
+      
+        <ion-list *ngSwitchCase="'notes'">
+            <ion-item style="background:transparent">
+                <ion-label style=" margin: 0;" fixed>
+                  Notes
+                </ion-label>
+                <ion-input (keyup.enter)="closeKeyboard()" [(ngModel)]="notes"></ion-input>
+              </ion-item>
+       
+        </ion-list>
+        <ion-list *ngSwitchCase="'point'">
+            <ion-list no-lines style="margin-left: 10px; margin-right: 10px;margin-bottom:10px; width:94%;   display: inline-flex;">
 
-    <ion-item no-padding>
-      <ion-label>Points</ion-label>
-      <ion-checkbox style="margin-right:5px" [disabled]="!pointExists" [(ngModel)]="check_points" (ionChange)="PointBox()"></ion-checkbox>
+                <ion-item no-padding>
+                  <ion-label>Points</ion-label>
+                  <ion-checkbox style="margin-right:5px" [disabled]="!pointExists" [(ngModel)]="check_points" (ionChange)="PointBox()"></ion-checkbox>
+            
+                </ion-item >
+                <!-- <ion-item style="width: 120%;">
+                  <ion-label>Rewards</ion-label>
+                  <ion-checkbox style="margin-right:5px" [disabled]="!storecreditExist" [(ngModel)]="check_rewards" (ionChange)="RewardBox()"></ion-checkbox>
+                </ion-item>
+                <ion-item>
+                  <ion-label>Gifts</ion-label>
+                  <ion-checkbox style="margin-right:5px" [disabled]="!birthdayCreditExist" [(ngModel)]="check_birthday" (ionChange)="BirthdayBox()"></ion-checkbox>
+                </ion-item> -->
+              </ion-list>
+            
+            
+            
+              <ion-card *ngIf="check_points" no-lines style="font-weight:bold">
+            
+                <ion-row>
+            
+                  <ion-col col-5 style="margin: auto;">
+            
+                    <p style="font-size:1.3rem; color:#333;text-align: center; ">Points </p>
+                    <p style="font-size:3rem; color:#333;text-align: center; ">{{points}} </p>
+                  </ion-col>
+            
+                  <ion-col style="margin:auto">
+                    <div *ngIf="point_rewards">
+            
+            
+                      <ion-select placeholder="Points" style="max-width:80%; font-size:1.6rem" [selectOptions]="selectOptions" [(ngModel)]="pointsInput">
+                        <div *ngFor="let k of point_rewards">
+                          <ion-option [disabled]="k.availed" [value]="k"> ${{k.description}} ({{k.points}} points)</ion-option>
+                        </div>
+                      </ion-select>
+                    </div>
+            
+                  </ion-col>
+            
+                </ion-row>
+              </ion-card>
+            
+              <!-- Store credit  -->
+            
+            
+              <div *ngIf="check_rewards">
+                <ion-card style="font-weight: bold; margin-bottom:5px">
+                  <ion-row style=" border: none;height: 65px;">
+                    <ion-col col-5 style="margin: auto;">
+            
+                      <p style="font-size:1.3rem; color:#333;text-align: center; ">Reward </p>
+                      <p style="font-size:3rem; color:#333;text-align: center; ">{{reward_amount}} </p>
+                    </ion-col>
+                    <ion-col style="height: inherit; padding:0">
+                      <ion-row style=" border: none;height: inherit; background:#333">
+                        <ion-col col-3 style=" padding: 0;text-align: center;margin:auto" (click)="removeStoreCreditValue()">
+                          <button ion-button [disabled]="!storeCredit" style="padding: 0; font-size: 2rem">
+                            <ion-icon style="    font-size: 5rem; font-weight: bold;" name="remove"> </ion-icon>
+                          </button>
+                        </ion-col>
+                        <ion-col style="text-align:center;padding:0 ;background:#23609c">
+                          <ion-input class="point-input" style="font-size:3.5rem; margin: 0;color:white" type="number" [(ngModel)]="StoreCreditInput"
+                            (ngModelChange)="MaxMin()"></ion-input>
+                        </ion-col>
+                        <ion-col col-3 style="padding: 0;text-align: center; margin:auto" (click)="addStoreCreditValue()">
+                          <button ion-button [disabled]="!storeCredit" style=" padding: 0; font-size: 2rem">
+                            <ion-icon style="font-size: 5rem;font-weight: bold;" name="add"> </ion-icon>
+                          </button>
+                        </ion-col>
+                      </ion-row>
+            
+                    </ion-col>
+                  </ion-row>
+                </ion-card>
+              </div>
+            
+              <!-- Birthday Store Credit -->
+            
+              <div *ngIf="check_birthday">
+                <ion-card style="font-weight:bold;margin-bottom:5px">
+                  <ion-row style=" border: none;height: 65px;">
+                    <ion-col col-5 style="margin: auto;">
+            
+                      <p style="font-size:1.3rem; color:#333;text-align: center; ">Gift</p>
+                      <p style="font-size:3rem; color:#333;text-align: center; ">{{birthday_amount}} </p>
+                    </ion-col>
+                    <ion-col style="height: inherit; padding:0">
+                      <ion-row style=" border: none;height: inherit; background:#333">
+                        <ion-col col-3 style=" padding: 0;text-align: center;margin:auto" (click)="removeBirthdayStoreCreditValue()">
+                          <button ion-button [disabled]="!storeCredit" style="padding: 0; font-size: 2rem">
+                            <ion-icon style="    font-size: 5rem; font-weight: bold;" name="remove"> </ion-icon>
+                          </button>
+                        </ion-col>
+                        <ion-col style="text-align:center;padding:0 ;background:#23609c">
+                          <ion-input class="point-input" style="font-size:3.5rem; margin: 0;color:white" type="number" [(ngModel)]="birthdayStoreCreditInput"
+                            (ngModelChange)="BirthdayMaxMin()"></ion-input>
+                        </ion-col>
+                        <ion-col col-3 style="padding: 0;text-align: center; margin:auto" (click)="addBirthdayStoreCreditValue()">
+                          <button ion-button [disabled]="!storeCredit" style=" padding: 0; font-size: 2rem">
+                            <ion-icon style="font-size: 5rem;font-weight: bold;" name="add"> </ion-icon>
+                          </button>
+                        </ion-col>
+                      </ion-row>
+            
+                    </ion-col>
+                  </ion-row>
+                </ion-card>
+              </div>
+              <div style="text-align:center;width:80%;margin-left:10%">
+                <button ion-button full block *ngIf="check_points || check_rewards || check_birthday " (tap)="AvailRewards()">Redeem</button>
+              </div>
+       
+        </ion-list>
+        <ion-list *ngSwitchCase="'order'">
+            <div class="bill">
 
-    </ion-item >
-    <ion-item style="width: 120%;">
-      <ion-label>Rewards</ion-label>
-      <ion-checkbox style="margin-right:5px" [disabled]="!storecreditExist" [(ngModel)]="check_rewards" (ionChange)="RewardBox()"></ion-checkbox>
-    </ion-item>
-    <ion-item>
-      <ion-label>Gifts</ion-label>
-      <ion-checkbox style="margin-right:5px" [disabled]="!birthdayCreditExist" [(ngModel)]="check_birthday" (ionChange)="BirthdayBox()"></ion-checkbox>
-    </ion-item>
-  </ion-list>
-
-
-
-  <ion-card *ngIf="check_points" no-lines style="font-weight:bold">
-
-    <ion-row>
-
-      <ion-col col-5 style="margin: auto;">
-
-        <p style="font-size:1.3rem; color:#333;text-align: center; ">Points </p>
-        <p style="font-size:3rem; color:#333;text-align: center; ">{{points}} </p>
-      </ion-col>
-
-      <ion-col style="margin:auto">
-        <div *ngIf="point_rewards">
-
-
-          <ion-select placeholder="Points" style="max-width:80%; font-size:1.6rem" [selectOptions]="selectOptions" [(ngModel)]="pointsInput">
-            <div *ngFor="let k of point_rewards">
-              <ion-option [disabled]="k.availed" [value]="k"> ${{k.description}} ({{k.points}} points)</ion-option>
-            </div>
-          </ion-select>
-        </div>
-
-      </ion-col>
-
-    </ion-row>
-  </ion-card>
-
-  <!-- Store credit  -->
-
-
-  <div *ngIf="check_rewards">
-    <ion-card style="font-weight: bold; margin-bottom:5px">
-      <ion-row style=" border: none;height: 65px;">
-        <ion-col col-5 style="margin: auto;">
-
-          <p style="font-size:1.3rem; color:#333;text-align: center; ">Reward </p>
-          <p style="font-size:3rem; color:#333;text-align: center; ">{{reward_amount}} </p>
-        </ion-col>
-        <ion-col style="height: inherit; padding:0">
-          <ion-row style=" border: none;height: inherit; background:#333">
-            <ion-col col-3 style=" padding: 0;text-align: center;margin:auto" (click)="removeStoreCreditValue()">
-              <button ion-button [disabled]="!storeCredit" style="padding: 0; font-size: 2rem">
-                <ion-icon style="    font-size: 5rem; font-weight: bold;" name="remove"> </ion-icon>
-              </button>
-            </ion-col>
-            <ion-col style="text-align:center;padding:0 ;background:#23609c">
-              <ion-input class="point-input" style="font-size:3.5rem; margin: 0;color:white" type="number" [(ngModel)]="StoreCreditInput"
-                (ngModelChange)="MaxMin()"></ion-input>
-            </ion-col>
-            <ion-col col-3 style="padding: 0;text-align: center; margin:auto" (click)="addStoreCreditValue()">
-              <button ion-button [disabled]="!storeCredit" style=" padding: 0; font-size: 2rem">
-                <ion-icon style="font-size: 5rem;font-weight: bold;" name="add"> </ion-icon>
-              </button>
-            </ion-col>
-          </ion-row>
-
-        </ion-col>
-      </ion-row>
-    </ion-card>
-  </div>
-
-  <!-- Birthday Store Credit -->
-
-  <div *ngIf="check_birthday">
-    <ion-card style="font-weight:bold;margin-bottom:5px">
-      <ion-row style=" border: none;height: 65px;">
-        <ion-col col-5 style="margin: auto;">
-
-          <p style="font-size:1.3rem; color:#333;text-align: center; ">Gift</p>
-          <p style="font-size:3rem; color:#333;text-align: center; ">{{birthday_amount}} </p>
-        </ion-col>
-        <ion-col style="height: inherit; padding:0">
-          <ion-row style=" border: none;height: inherit; background:#333">
-            <ion-col col-3 style=" padding: 0;text-align: center;margin:auto" (click)="removeBirthdayStoreCreditValue()">
-              <button ion-button [disabled]="!storeCredit" style="padding: 0; font-size: 2rem">
-                <ion-icon style="    font-size: 5rem; font-weight: bold;" name="remove"> </ion-icon>
-              </button>
-            </ion-col>
-            <ion-col style="text-align:center;padding:0 ;background:#23609c">
-              <ion-input class="point-input" style="font-size:3.5rem; margin: 0;color:white" type="number" [(ngModel)]="birthdayStoreCreditInput"
-                (ngModelChange)="BirthdayMaxMin()"></ion-input>
-            </ion-col>
-            <ion-col col-3 style="padding: 0;text-align: center; margin:auto" (click)="addBirthdayStoreCreditValue()">
-              <button ion-button [disabled]="!storeCredit" style=" padding: 0; font-size: 2rem">
-                <ion-icon style="font-size: 5rem;font-weight: bold;" name="add"> </ion-icon>
-              </button>
-            </ion-col>
-          </ion-row>
-
-        </ion-col>
-      </ion-row>
-    </ion-card>
-  </div>
-  <div style="text-align:center;width:80%;margin-left:10%">
-    <button ion-button full block *ngIf="check_points || check_rewards || check_birthday " (tap)="AvailRewards()">Redeem</button>
-  </div>
-
-  <div class="bill">
-
-   <ion-label style="padding:0px;font-size:1.3rem;margin:0px; color:#444;  ">
-      <!-- <ion-icon style="    padding-right: 5px;  position: relative; top: 3px;" ios="ios-cash" md="md-cash"> </ion-icon> -->
-       SubTotal
-      <p style="float:right;font-size:1.3rem;margin:0px;color:#555;"> ${{ProductsTotal | number : '1.2-2'}} </p>
-    </ion-label>
-
-
-<!-- <discount start here> -->
-
-    <ion-label *ngIf="globals.BusinessDiscount > 0 && globals.availed_discount_count < globals.business_discount_count" style="padding:0px;font-size:1.3rem;margin:0px;color:#444;">
-      <!-- <ion-icon style="padding-right: 5px;  position: relative; top: 3px;" ios="ios-cut" md="md-cut"> </ion-icon> -->
-       Discount
-      <p style="float:right;font-size:1.3rem;margin:0px;color:#444;">${{discountTotal}}</p>
-    </ion-label>
-
-<!-- <discount end here> -->
-
-
-    <ion-label *ngIf="globals.deliveryCharges != '' && globals.OrderType == 'delivery'" style="padding:0px;font-size:1.3rem;margin:0px;color:#444;">
-      <!-- <ion-icon style="    padding-right: 5px;  position: relative; top: 3px;" name="bicycle"> </ion-icon>  -->
-      Delivery Charge
-      <p style="float:right;font-size:1.3rem;margin:0px;color:#444;">${{globals.deliveryCharges}}.00</p>
-    </ion-label>
-    <ion-label *ngIf="globals.deliveryCharges == '' " style="padding:0px;font-size:1.3rem;margin:0px;color:#444;">
-      <!-- <ion-icon style="    padding-right: 5px;  position: relative; top: 3px;" name="bicycle"> </ion-icon> -->
-      Delivery Charge
-      <p style="float:right;font-size:1.3rem;margin:0px;color:#444;">$0</p>
-    </ion-label>
-
-    <ion-label *ngIf="globals.tax != ''" style="padding:0px;font-size:1.3rem;margin:0px;color:#444;">
-      <!-- <ion-icon style="padding-right: 5px;  position: relative; top: 3px;" name="copy"> </ion-icon>  -->
-      Tax
-      <p style="float:right;font-size:1.3rem;margin:0px;color:#444;"> ${{tax_calc}}</p>
-    </ion-label>
-
-    <!-- <ion-label *ngIf="globals.minimun_order != 0 && pickup == false" style="padding:0px;font-size:1.3rem;margin:0px;color:#444;">
-       <ion-icon style="    padding-right: 5px;  position: relative; top: 3px;" name="cart"> </ion-icon>  
-      Minimum Order
-      <p style="float:right;font-size:1.3rem;margin:0px;color:#444;"> ${{globals.minimun_order}}</p>
-    </ion-label> -->
-
-
-    <ion-label *ngIf="check_rewards" style="padding:0px;font-size:1.3rem;margin:0px; color:#444;">
-      <!-- <ion-icon style="    padding-right: 5px;  position: relative; top: 3px;" name="card"> </ion-icon>  -->
-      Store Credit
-      <p style="float:right;font-size:1.3rem;margin:0px;color:#444;"> - ${{StoreCreditInput}}</p>
-    </ion-label>
-<!-- 
-    <ion-label *ngIf="globals.BusinessDiscount > 0 && globals.availed_discount_count < globals.business_discount_count" style="font-size:1.3rem;margin:0px;color:#333;margin-left: 8px;     border-bottom: solid thin #ccc;">
-      <ion-icon style="padding-right: 5px;  position: relative; top: 3px;" ios="ios-cut" md="md-cut"> </ion-icon> Discount
-      <p style="float:right;font-size:1.3rem;margin:0px;color:#333">{{globals.BusinessDiscount}}%</p>
-    </ion-label> -->
-
-    <ion-label *ngIf="globals.MobileDiscount > 0 && globals.MobileDiscountFlag == false " style="padding:0px;font-size:1.3rem;margin:0px;color:#444;;">
-      <!-- <ion-icon style="    padding-right: 5px;  position: relative; top: 3px;" ios="ios-cut" md="md-cut"> </ion-icon> -->
-       Mobile Discount
-      <p style="float:right;font-size:1.3rem;margin:0px;color:#444;"> - ${{globals.MobileDiscount}}</p>
-    </ion-label>
-
-    <ion-label *ngIf="check_birthday" style="padding:0px;font-size:1.3rem;margin:0px;color:#444;">
-      <!-- <ion-icon style="    padding-right: 5px;  position: relative; top: 3px;" ios="ios-cut" md="md-cut"> </ion-icon>  -->
-      Birthday Discount
-      <p style="float:right;font-size:1.3rem;margin:0px;color:#444;">- ${{birthdayStoreCreditInput}}</p>
-    </ion-label>
-    <ion-label *ngIf="check_points && pointsInput.description " style="padding:0px;font-size:1.3rem;margin:0px;color:#444;">
-      <!-- <ion-icon style="    padding-right: 5px;  position: relative; top: 3px;" ios="ios-cut" md="md-cut"> </ion-icon> -->
-       Points Discount
-      <p style="float:right;font-size:1.3rem;margin:0px;color:#444;">- ${{pointsInput.description}}</p>
-    </ion-label>
-    <ion-label *ngIf="check_points && !pointsInput.description " style="padding:0px;font-size:1.3rem;margin:0px;color:#444;">
-      <!-- <ion-icon style="    padding-right: 5px;  position: relative; top: 3px;" ios="ios-cut" md="md-cut"> </ion-icon>  -->
-      Points Discount
-      <p style="float:right;font-size:1.3rem;margin:0px;color:#444;">- $0</p>
-    </ion-label>
-
-    <ion-label *ngIf="globals.GainDiscount > 0" style="padding:0px;font-size:1.3rem;margin:0px; color:#444;">
-      <!-- <ion-icon style="    padding-right: 5px;  position: relative; top: 3px;" ios="ios-cut" md="md-cut"> </ion-icon> -->
-       Amazing Deli Discount
-      <p style="float:right;font-size:1.3rem;margin:0px;color:#444;"> - ${{globals.GainDiscount}}</p>
-    </ion-label>
-
-    <ion-label style="padding:0px;padding:0px;font-size:1.3rem;margin:0px;color:#444; ">
-      <!-- <ion-icon style="padding-right: 5px;  position: relative; top: 3px;" name="copy"> </ion-icon>  -->
-      Tip(not included in total)
-      <!-- <p style="margin: -28px; margin-left: 26px"></p> -->
-      <p style="float:right;font-size:1.3rem;margin:0px;color:#444;"> ${{Tip}}</p>
-    </ion-label>
-
-    <ion-label style="font-size:25px;margin:0px;padding:0px;padding-top: 10px; color:#444;">
-      <!-- <ion-icon style="    padding-right: 5px;  position: relative; top: 3px;" ios="ios-cash" md="md-cash"> </ion-icon> -->
-       Total
-      <p style="float:right;font-size:25px;margin:0px;color:#555;"> ${{Total}} </p>
-    </ion-label>
-
-  </div>
-
-
-    <button ion-button block style="width: 80%;margin-left: 10%;color: #fff;border-radius: 7px;" (click)="paymentPage()"> Proceed To Checkout </button>
-
-  <!-- <button *ngIf="globals.type =='reservation'" ion-button full block style="width:80%;margin-left:10%;" (click)="CheckReservationPayment()"  > Done</button>   -->
-
+                <ion-label style="padding:0px;font-size:1.3rem;margin:0px; color:#444;  ">
+                   <!-- <ion-icon style="    padding-right: 5px;  position: relative; top: 3px;" ios="ios-cash" md="md-cash"> </ion-icon> -->
+                    SubTotal
+                   <p style="float:right;font-size:1.3rem;margin:0px;color:#555;"> ${{ProductsTotal | number : '1.2-2'}} </p>
+                 </ion-label>
+             
+             
+             <!-- <discount start here> -->
+             
+                 <ion-label *ngIf="globals.BusinessDiscount > 0 && globals.availed_discount_count < globals.business_discount_count" style="padding:0px;font-size:1.3rem;margin:0px;color:#444;">
+                   <!-- <ion-icon style="padding-right: 5px;  position: relative; top: 3px;" ios="ios-cut" md="md-cut"> </ion-icon> -->
+                    Discount
+                   <p style="float:right;font-size:1.3rem;margin:0px;color:#444;">${{discountTotal}}</p>
+                 </ion-label>
+             
+             <!-- <discount end here> -->
+             
+             
+                 <ion-label *ngIf="globals.deliveryCharges != '' && globals.OrderType == 'delivery'" style="padding:0px;font-size:1.3rem;margin:0px;color:#444;">
+                   <!-- <ion-icon style="    padding-right: 5px;  position: relative; top: 3px;" name="bicycle"> </ion-icon>  -->
+                   Delivery Charge
+                   <p style="float:right;font-size:1.3rem;margin:0px;color:#444;">${{globals.deliveryCharges}}.00</p>
+                 </ion-label>
+                 <ion-label *ngIf="globals.deliveryCharges == '' " style="padding:0px;font-size:1.3rem;margin:0px;color:#444;">
+                   <!-- <ion-icon style="    padding-right: 5px;  position: relative; top: 3px;" name="bicycle"> </ion-icon> -->
+                   Delivery Charge
+                   <p style="float:right;font-size:1.3rem;margin:0px;color:#444;">$0</p>
+                 </ion-label>
+             
+                 <ion-label *ngIf="globals.tax != ''" style="padding:0px;font-size:1.3rem;margin:0px;color:#444;">
+                   <!-- <ion-icon style="padding-right: 5px;  position: relative; top: 3px;" name="copy"> </ion-icon>  -->
+                   Tax
+                   <p style="float:right;font-size:1.3rem;margin:0px;color:#444;"> ${{tax_calc}}</p>
+                 </ion-label>
+             
+                 <!-- <ion-label *ngIf="globals.minimun_order != 0 && pickup == false" style="padding:0px;font-size:1.3rem;margin:0px;color:#444;">
+                    <ion-icon style="    padding-right: 5px;  position: relative; top: 3px;" name="cart"> </ion-icon>  
+                   Minimum Order
+                   <p style="float:right;font-size:1.3rem;margin:0px;color:#444;"> ${{globals.minimun_order}}</p>
+                 </ion-label> -->
+             
+             
+                 <ion-label *ngIf="check_rewards" style="padding:0px;font-size:1.3rem;margin:0px; color:#444;">
+                   <!-- <ion-icon style="    padding-right: 5px;  position: relative; top: 3px;" name="card"> </ion-icon>  -->
+                   Store Credit
+                   <p style="float:right;font-size:1.3rem;margin:0px;color:#444;"> - ${{StoreCreditInput}}</p>
+                 </ion-label>
+             <!-- 
+                 <ion-label *ngIf="globals.BusinessDiscount > 0 && globals.availed_discount_count < globals.business_discount_count" style="font-size:1.3rem;margin:0px;color:#333;margin-left: 8px;     border-bottom: solid thin #ccc;">
+                   <ion-icon style="padding-right: 5px;  position: relative; top: 3px;" ios="ios-cut" md="md-cut"> </ion-icon> Discount
+                   <p style="float:right;font-size:1.3rem;margin:0px;color:#333">{{globals.BusinessDiscount}}%</p>
+                 </ion-label> -->
+             
+                 <ion-label *ngIf="globals.MobileDiscount > 0 && globals.MobileDiscountFlag == false " style="padding:0px;font-size:1.3rem;margin:0px;color:#444;;">
+                   <!-- <ion-icon style="    padding-right: 5px;  position: relative; top: 3px;" ios="ios-cut" md="md-cut"> </ion-icon> -->
+                    Mobile Discount
+                   <p style="float:right;font-size:1.3rem;margin:0px;color:#444;"> - ${{globals.MobileDiscount}}</p>
+                 </ion-label>
+             
+                 <ion-label *ngIf="check_birthday" style="padding:0px;font-size:1.3rem;margin:0px;color:#444;">
+                   <!-- <ion-icon style="    padding-right: 5px;  position: relative; top: 3px;" ios="ios-cut" md="md-cut"> </ion-icon>  -->
+                   Birthday Discount
+                   <p style="float:right;font-size:1.3rem;margin:0px;color:#444;">- ${{birthdayStoreCreditInput}}</p>
+                 </ion-label>
+                 <ion-label *ngIf="check_points && pointsInput.description " style="padding:0px;font-size:1.3rem;margin:0px;color:#444;">
+                   <!-- <ion-icon style="    padding-right: 5px;  position: relative; top: 3px;" ios="ios-cut" md="md-cut"> </ion-icon> -->
+                    Points Discount
+                   <p style="float:right;font-size:1.3rem;margin:0px;color:#444;">- ${{pointsInput.description}}</p>
+                 </ion-label>
+                 <ion-label *ngIf="check_points && !pointsInput.description " style="padding:0px;font-size:1.3rem;margin:0px;color:#444;">
+                   <!-- <ion-icon style="    padding-right: 5px;  position: relative; top: 3px;" ios="ios-cut" md="md-cut"> </ion-icon>  -->
+                   Points Discount
+                   <p style="float:right;font-size:1.3rem;margin:0px;color:#444;">- $0</p>
+                 </ion-label>
+             
+                 <ion-label *ngIf="globals.GainDiscount > 0" style="padding:0px;font-size:1.3rem;margin:0px; color:#444;">
+                   <!-- <ion-icon style="    padding-right: 5px;  position: relative; top: 3px;" ios="ios-cut" md="md-cut"> </ion-icon> -->
+                    Amazing Deli Discount
+                   <p style="float:right;font-size:1.3rem;margin:0px;color:#444;"> - ${{globals.GainDiscount}}</p>
+                 </ion-label>
+             
+                 <ion-label style="padding:0px;padding:0px;font-size:1.3rem;margin:0px;color:#444; ">
+                   <!-- <ion-icon style="padding-right: 5px;  position: relative; top: 3px;" name="copy"> </ion-icon>  -->
+                   Tip(not included in total)
+                   <!-- <p style="margin: -28px; margin-left: 26px"></p> -->
+                   <p style="float:right;font-size:1.3rem;margin:0px;color:#444;"> ${{Tip}}</p>
+                 </ion-label>
+             
+                 
+             
+               </div>
+       
+        </ion-list>
+      </div>
+    <button ion-button block style="width: 80%;margin-left: 10%;color: #fff;border-radius: 7px;margin-top: 50px;" (click)="paymentPage()"> Proceed To Checkout </button>
 
 
 </ion-content>
+<ion-footer>
+    <ion-segment [(ngModel)]="cart_detail">
+        <ion-segment-button value="tip">
+          Tip
+        </ion-segment-button>
+        <ion-segment-button value="notes" style="padding: 0px">
+          Notes
+        </ion-segment-button>
+        <ion-segment-button value="point" style="overflow:unset !important;padding: 0px">
+            Redeem Points
+        </ion-segment-button>
+        <ion-segment-button value="order">
+             Summary
+        </ion-segment-button>
+      </ion-segment>
+    <ion-label style="font-size:25px;margin:0px;padding:0px;padding-top: 10px; color:#444; padding: 16px;">
+        Total
+        <p style="float:right;font-size:25px;margin:0px;color:#555;"> ${{Total}} </p>
+      </ion-label>
+
+</ion-footer>
 
 
 

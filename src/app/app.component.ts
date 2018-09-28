@@ -458,6 +458,20 @@ list() {
        this.globals.special_offer = this.places[0].special_offer;
        this.globals.events_enabled = this.places[0].events_enabled;
        this.globals.gallery_enabled = this.places[0].gallery_enabled;
+       this.globals.pickup = this.places[0].pickup;
+
+        if (this.globals.pickup == '0') {
+            this.globals.pickup = false;
+        }
+        else {
+            this.globals.pickup = true;
+        }
+        if (this.places[0].delivery == '0') {
+            this.globals.delivery = false;
+        }
+        else {
+            this.globals.delivery = true;
+        }
      
     }, error => {
         console.log(error);
