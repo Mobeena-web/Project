@@ -460,17 +460,17 @@ list() {
        this.globals.gallery_enabled = this.places[0].gallery_enabled;
        this.globals.pickup = this.places[0].pickup;
 
-        if (this.globals.pickup == '0') {
-            this.globals.pickup = false;
-        }
-        else {
+        if (this.globals.pickup == '1') {
             this.globals.pickup = true;
         }
-        if (this.places[0].delivery == '0') {
-            this.globals.delivery = false;
+        else {
+            this.globals.pickup = false;
+        }
+        if (this.places[0].delivery == '1') {
+            this.globals.delivery = true;
         }
         else {
-            this.globals.delivery = true;
+            this.globals.delivery = false;
         }
      
     }, error => {
