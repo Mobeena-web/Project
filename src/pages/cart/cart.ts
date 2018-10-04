@@ -63,7 +63,7 @@ export class CartPage {
     instructionsItem :any ;
     instruct:Boolean=true;
     Address : any ; 
-
+    point_show:any = 0;
     constructor(public loadingCtrl: LoadingController, public server: ServerProvider, public modalCtrl: ModalController, public alertCtrl: AlertController, private nativeStorage: NativeStorage, public appCtrl: App, public globals: GlobalVariable, public viewCtrl: ViewController, public navCtrl: NavController, public navParams: NavParams) {
         console.log(globals.type, "@@@type");
         //  console.log("here is my items of global" ,this.globals.itemInstruction);
@@ -1027,6 +1027,10 @@ export class CartPage {
                     else {
                         this.pointsInput.availed = true;
                         this.points = this.points - this.pointsInput.points;
+                        console.log("pointshow77",this.pointsInput.description)
+
+                        this.point_show = this.point_show + Number(this.pointsInput.description);
+                        console.log("pointshow",this.point_show)
                         this.Total = sub;
                         this.globals.points_availed = this.pointsInput.points;
                         this.availed_points = Number(this.pointsInput.description);
