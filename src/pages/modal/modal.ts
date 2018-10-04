@@ -232,9 +232,6 @@ export class ModalPage {
       this.type = "delivery";
       this.globals.OrderType = this.type;
     }
-    else{
-      this.type = "delivery";
-    }
     
   }
   
@@ -292,6 +289,7 @@ export class ModalPage {
     let response = this.server.getAddress(mycoordinates);
     var myadress="";
     response.subscribe(data => {
+      this.loadMap(lat, lng);
         
         myadress = data.address;
         console.log("myadress",myadress)
@@ -337,7 +335,6 @@ export class ModalPage {
       this.getCurrentLocation().then((resp) => {
         this.reverseGeoCoding(resp.coords.latitude, resp.coords.longitude);
         this.NEW = false;
-        this.loadMap(resp.coords.latitude, resp.coords.longitude);
         this.lat = resp.coords.latitude;
         this.long = resp.coords.longitude;
       }).catch(e => {
