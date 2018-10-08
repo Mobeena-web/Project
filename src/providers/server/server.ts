@@ -44,7 +44,7 @@ getdeals(){
 
   LoadBannersOnHomePage() {
     var link = this.global.BaseUrl + 'Customer_controller/get_banners';
-    var data = JSON.stringify({business_id:this.global.new_id });
+    var data = JSON.stringify({business_id:this.global.new_id,app_version:this.global.app_version });
 
     return this.http.get(link,data)
       .map((res: any) => res.json())

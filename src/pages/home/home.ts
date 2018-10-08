@@ -401,7 +401,7 @@ export class HomePage {
             this.nativeStorage.getItem('version_update')
             .then(data => {
                 
-                if(data.version < this.banner.is_latest_build){
+                if(this.banner.is_latest_build){
                      let mobile_update = this.modalCtrl.create('MobileUpdatePage');
                      mobile_update.present();
                 }

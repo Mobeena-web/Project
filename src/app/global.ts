@@ -90,6 +90,7 @@ export class GlobalVariable {
     android_url:any;
     ios_url:any;
     update_message:any;
+    app_version = "1";
     constructor(public alertCtrl: AlertController,public toastCtrl: ToastController) {
      this.BaseUrl = 'https://onlineordering.mikronexus.com/online-ordering-new/index.php/';
     }
