@@ -392,8 +392,27 @@ export class HomePage {
             this.banner = data;
             this.Images = this.banner.data;
             this.time = this.banner.time;
+            this.globals.android_url  = this.banner.android_url;
+            this.globals.ios_url = this.banner.ios_url;
+            this.globals.update_message = this.banner.message;
             console.log(data);
             this.content.resize();
+
+            this.nativeStorage.getItem('version_update')
+            .then(data => {
+                
+                if(data.version < this.banner.is_latest_build){
+                     let mobile_update = this.modalCtrl.create('MobileUpdatePage');
+                     mobile_update.present();
+                }
+
+            }).catch(err =>{
+              this.nativeStorage.setItem('version_update',
+                {
+                    version:this.banner.is_latest_build
+                });
+
+            });
 
         }
             , error => {

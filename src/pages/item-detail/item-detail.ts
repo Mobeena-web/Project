@@ -55,7 +55,7 @@ export class ItemDetailPage {
   checkedItems: boolean[];
   extraChecked: boolean = false;
   instructions : any;
-
+  item_price:any = 0;
   constructor(public server: ServerProvider, public alertCtrl: AlertController, public loadingCtrl: LoadingController, public globals: GlobalVariable, public modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams) {
 
     this.thumbimage = navParams.get('image');
@@ -129,18 +129,35 @@ export class ItemDetailPage {
   }
 
   addQuantity() {
-
     this.quantity += 1;
+    var m_price = 0;
+    this.myChoices.forEach(element => {
+      element.optionNameSelected.forEach(subelement => {
+        m_price = m_price + subelement.price;
+      });
+    });
+
+    this.item_price = ((m_price * this.quantity) + (this.price * this.quantity)).toFixed(2);
 
   }
 
   removeQuantity() {
+    var m_price = 0;
     if (this.quantity <= 1) {
       this.quantity = 1;
     }
     else {
       this.quantity -= 1;
     }
+
+    this.myChoices.forEach(element => {
+      element.optionNameSelected.forEach(subelement => {
+        m_price = m_price + subelement.price;
+      });
+    });
+
+    this.item_price = ((m_price * this.quantity) + (this.price * this.quantity)).toFixed(2);
+   
 
   }
 
@@ -380,7 +397,9 @@ export class ItemDetailPage {
           }
         }
         console.log("extratotal", this.extratotal);
-        this.objectPrice = this.totalCost + this.extratotal;
+        // this.objectPrice = this.totalCost + this.extratotal;
+        this.objectPrice = Number(this.item_price);
+
         this.objectPrice.toFixed(2);
         this.instructions = localStorage.getItem("instructions");
         this.globals.itemInstruction = this.instructions;
@@ -429,6 +448,7 @@ export class ItemDetailPage {
       this.globals.title = this.name;
       this.image = this.data.item.image;
       this.price = this.data.item.price;
+      this.item_price = this.price;
       this.No_of_Free_Extras = Number(this.data.item.freeExtras);
       console.log(this.No_of_Free_Extras);
 
@@ -517,6 +537,8 @@ export class ItemDetailPage {
 
           else {
             this.myChoices[m].optionNameSelected.push({ name: op.name, price: Number(op.price), quantity: 1, total: Number(op.price) * op.quantity, isFree: false, selected: op.IsSelected })
+            this.item_price = (Number(this.item_price) + (Number(op.price) * this.quantity)).toFixed(2);
+            console.log("myprice",this.item_price)
             this.flag = false;
             break;
           }
@@ -526,7 +548,12 @@ export class ItemDetailPage {
       if (!same) {
         console.log("not same");
 
+        
         var data = { heading: heading, optionNameSelected: [{ name: op.name, price: Number(op.price), quantity: op.quantity, total: Number(op.price) * op.quantity, isFree: false, selected: op.IsSelected }] }
+        console.log("myprice",this.item_price,op.price,this.quantity)
+        
+        this.item_price = (Number(this.item_price) + (Number(op.price) * this.quantity)).toFixed(2);
+        
         this.myChoices.push(data);
         this.flag = false;
       }
@@ -586,6 +613,8 @@ export class ItemDetailPage {
         }
       }
       console.log(this.myChoices);
+      this.item_price = (Number(this.item_price) - (Number(op.price) * this.quantity)).toFixed(2);
+
       // }
       // else{
       // this.extraChecked = false;

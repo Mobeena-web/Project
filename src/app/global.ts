@@ -87,8 +87,11 @@ export class GlobalVariable {
     firstName:any;
     lastName:any;
     gallery_enabled:any;
+    android_url:any;
+    ios_url:any;
+    update_message:any;
     constructor(public alertCtrl: AlertController,public toastCtrl: ToastController) {
-     this.BaseUrl = 'https://onlineordering.mikronexus.com/online-ordering-development/index.php/';
+     this.BaseUrl = 'https://onlineordering.mikronexus.com/online-ordering-new/index.php/';
     }
 
     alertMessage(title, subTitle) {
