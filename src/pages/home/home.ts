@@ -398,22 +398,10 @@ export class HomePage {
             console.log(data);
             this.content.resize();
 
-            this.nativeStorage.getItem('version_update')
-            .then(data => {
-                
-                if(this.banner.is_latest_build){
-                     let mobile_update = this.modalCtrl.create('MobileUpdatePage');
-                     mobile_update.present();
-                }
-
-            }).catch(err =>{
-              this.nativeStorage.setItem('version_update',
-                {
-                    version:this.banner.is_latest_build
-                });
-
-            });
-
+            if(this.banner.is_latest_build){
+                    let mobile_update = this.modalCtrl.create('MobileUpdatePage');
+                    mobile_update.present();
+            }
         }
             , error => {
                 console.log("Error!");
