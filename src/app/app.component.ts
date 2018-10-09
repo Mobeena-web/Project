@@ -46,8 +46,7 @@ export class MyApp {
         this.data.response = '';
         this.LoadSound();
         this.list();
-        this.server.CheckUserReward();
-
+       this.server.CheckUserReward1();
       setTimeout(() => this.splashscreen.hide(), 400);
       this.statusbar.hide();
 

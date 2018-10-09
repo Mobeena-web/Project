@@ -81,9 +81,20 @@ export class HomePage {
         localStorage.removeItem("GetAddress");
         localStorage.removeItem("scheduled_time");
     }
+
     reward_notification(){
-        let mobile_update = this.modalCtrl.create('RewardNotificationPage');
-         mobile_update.present();
+        let response = this.server.reward_notification();
+        response.subscribe(data => {
+            console.log("notifications",data);
+            if(data.status == true){
+                this.globals.notifications = data.notifications;
+                let mobile_update = this.modalCtrl.create('RewardNotificationPage');
+                 mobile_update.present();
+            }
+        }, error => {
+            console.log(error,"error notifications");
+
+        });
     }
 
     doRefresh(refresher) {

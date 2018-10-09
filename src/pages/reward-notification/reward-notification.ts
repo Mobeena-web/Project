@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams ,ViewController} from 'ionic-angular';
+import { GlobalVariable } from '../../app/global';
 
 
 
@@ -10,7 +11,7 @@ import { IonicPage, NavController, NavParams ,ViewController} from 'ionic-angula
 })
 export class RewardNotificationPage {
 
-  constructor(public viewCtrl: ViewController,public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public global: GlobalVariable,public viewCtrl: ViewController,public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {

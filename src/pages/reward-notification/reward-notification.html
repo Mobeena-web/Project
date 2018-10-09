@@ -1,13 +1,12 @@
 
 <ion-content class="back">
   <ion-icon name="close" class="close_icon" (click)="dismiss()"></ion-icon>
-  <img src="assets/imgs/icon.png" class="icon_img">
+  <img src={{global.notifications.image}} class="icon_img">
   <div class="main_head">
-    <span>YOU'VE EARNED</span>
-     A FREE CUP
+      {{global.notifications.title}}
   </div>
   <div class="head">
-    Enjoy a Big Gulp, Slurpee or Coffee on us!
+    {{global.notifications.sub_title}}
   </div>
   <button ion-button block outline round  block class="ok_btn" (click)="dismiss()">OK</button>
   
