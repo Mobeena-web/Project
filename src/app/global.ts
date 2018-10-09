@@ -111,14 +111,14 @@ export class GlobalVariable {
         toast.present();
     }
 
-    circle_graph(){
+    circle_graph(id,radius,width){
        
         var myCircle = Circles.create({
-            id:                  'circles1',
-            radius:              50,
+            id:                  id,
+            radius:              radius,
             value:               this.percent,
             maxValue:            100,
-            width:               7,
+            width:               width,
             text:                function(value){return '';},
             colors:              ['#ccc', '#333'],
             duration:            400,

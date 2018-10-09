@@ -16,8 +16,8 @@ export class ServerProvider {
   isBirthdayCount: any = 0;
   reward_count: any = 0;
   punchcount: any = 0;
-  appId: any = 'ee51c771-68fc-47fe-abc6-8f219d28a2c2';
-  googleProjectId: any = '509008915957';
+  appId: any = '77c7af42-a792-447b-bd4e-4d2f00346462';
+  googleProjectId: any = '773485528357';
   constructor(public platform: Platform, private _notification: OneSignal, public global: GlobalVariable, public http: Http) {
     console.log('Hello ServerProvider Provider');
     // this.global.udid ='5bda5bbc';

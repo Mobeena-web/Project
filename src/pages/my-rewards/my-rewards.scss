@@ -1,5 +1,8 @@
 page-my-rewards {
-
+  .back{
+    height: 100%;
+    background: linear-gradient(135deg, rgba(240,82,63,1) 0%,rgba(243,156,18,1) 77%,rgba(241,196,15,1) 100%)
+  }
 
     .point_s{
         padding-top: 11px;
@@ -25,4 +28,10 @@ page-my-rewards {
       .youhave{
         margin-bottom: -15px;
       }
+      .circle {
+        display: inline-block;
+        margin: 1em;
+        margin-left: 8%;
+        margin-top: 22%;
+    }
 }

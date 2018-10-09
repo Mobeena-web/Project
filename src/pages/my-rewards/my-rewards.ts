@@ -73,6 +73,7 @@ export class MyRewardsPage {
 
         this.img = navParams.get('qrcode');
         this.searchControl = new FormControl();
+        this.getPunchReward();
     }
 
 
@@ -97,6 +98,7 @@ export class MyRewardsPage {
     }
 
     ionViewWillEnter() {
+
         console.log('enter RewardPage');
         this.status = true;
         this.getPoints();
@@ -206,18 +208,22 @@ export class MyRewardsPage {
     SegmentChange() {
         if (this.option == 'gain' && this.gain_segment_flag == false) {
             this.getReward();
+           
             this.gain_segment_flag = true;
         }
         else if (this.option == 'punch_cards' && this.punchCard_segment_flag == false) {
             this.getPunchReward();
+           
             this.punchCard_segment_flag = true;
         }
         else if (this.option == 'points' && this.point_segment_flag == false) {
             this.getPoints();
+           
             this.point_segment_flag = true;
         }
         else if (this.option == 'gifts' && this.gifts_segment_flag == false) {
             this.gifts_segment_flag = true;
+          
             this.getReward();
         }
 
@@ -259,11 +265,14 @@ export class MyRewardsPage {
         loading.present();
 
         response.subscribe(data => {
+            this.globals.circle_graph('circles2',150,20);
+
             this.data.response = data;
             this.punch_reward = this.data.response;
             console.log("mypunch",data);
             loading.dismiss();
             console.log(this.punch_reward.success);
+
             if (this.punch_reward.success == "No data") {
                 this.punchflag = true;
 
@@ -326,6 +335,7 @@ export class MyRewardsPage {
 
         let response = this.server.getUserPoints(this.coordinates);
         response.subscribe(data => {
+           
             this.data.response = data;
             this.points_reward = this.data.response.rewards;
             this.points_Status = this.data.response.status;

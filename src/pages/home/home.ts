@@ -69,6 +69,7 @@ export class HomePage {
     punch_:any;
     email:any;
     constructor(private geolocation: Geolocation,private diagnostic: Diagnostic,public app: App, public server: ServerProvider, public globals: GlobalVariable, private nativeAudio: NativeAudio, private iab: InAppBrowser, private nativeStorage: NativeStorage, public loadingCtrl: LoadingController, public modalCtrl: ModalController, public _nav: NavController, public _navParams: NavParams, public alertCtrl: AlertController, public platform: Platform) {
+        this.reward_notification();
         this.loadBanner();
         
         this.cartflag = _navParams.get('CartFlag');
@@ -79,6 +80,10 @@ export class HomePage {
         this.barocde_image = _navParams.get('imageData');
         localStorage.removeItem("GetAddress");
         localStorage.removeItem("scheduled_time");
+    }
+    reward_notification(){
+        let mobile_update = this.modalCtrl.create('RewardNotificationPage');
+         mobile_update.present();
     }
 
     doRefresh(refresher) {
@@ -255,7 +260,7 @@ export class HomePage {
                 this.punch_limt_ = 0;
                 this.globals.percent = (parseInt(this.punch_) / parseInt(this.punch_limt_))*100;
                 console.log("percent",this.globals.percent)
-                this.globals.circle_graph();
+                this.globals.circle_graph('circles1',50,7);
             }
           
              this.punch_ = data.cards[0].punch_count;
@@ -264,7 +269,7 @@ export class HomePage {
 
              this.globals.percent = (parseInt(this.punch_) / parseInt(this.punch_limt_))*100;
              console.log("percent",this.globals.percent)
-             this.globals.circle_graph();
+             this.globals.circle_graph('circles1',50,7);
              
             
         
