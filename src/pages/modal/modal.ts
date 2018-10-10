@@ -70,7 +70,10 @@ export class ModalPage {
   lat:any;
   long:any;
   coordinates: any;
+  order_pickup = this.globals.pickup;
+  order_delivery = this.globals.delivery;
   constructor(public server: ServerProvider,public geolocation: Geolocation, public alertCtrl: AlertController,public navCtrl: NavController,public formBuilder: FormBuilder, public navParams: NavParams, public viewCtrl: ViewController, public globals: GlobalVariable, public modalCtrl: ModalController, public nativeStorage: NativeStorage,public plt: Platform) {
+    console.log("testing11",this.globals.pickup , this.globals.delivery)
   
     console.log("min value ", this.forToday,this.globals.MinValue );
    console.log("places", localStorage.getItem("places"));
@@ -92,7 +95,7 @@ export class ModalPage {
     //this.type = localStorage.getItem("type");
     // this.checktype();
     //console.log("localstorage data for testing ", localStorage.getItem("type"));
-
+    this.CurrentAdressBox();
     this.ProcessForm = formBuilder.group({
         Address: ['', Validators.compose([Validators.required])],
       // zipcode: ['', Validators.compose([Validators.required])],
@@ -214,27 +217,25 @@ export class ModalPage {
 
   // }
 
-  ionViewDidEnter() {
+  ionViewWillEnter() {
       //   this.getCurrentLocation().then((resp) => {
       //   this.reverseGeoCoding(resp.coords.latitude, resp.coords.longitude);
       // });
+      console.log("testing11",this.globals.pickup , this.globals.delivery)
 
-    console.log('ionViewDidLoad ModalPage');
-    console.log("i m entering in the modal");
-    // this.type = this.globals.OrderType;
-    if(this.globals.pickup){
+    if(this.order_pickup && !this.order_delivery){
       this.type = "pickup";
       this.globals.OrderType = this.type;
     }
-    if(this.globals.delivery){
+    else if(this.order_delivery && this.order_pickup){
+      console.log("testing")
       this.type = "delivery";
       this.globals.OrderType = this.type;
-
     }
-    console.log("modal 1 ionview did load", this.type);
-   
-    this.CurrentAdressBox();
-   
+    else{
+      this.type = "delivery";
+    }
+    
   }
   
   
@@ -339,6 +340,8 @@ export class ModalPage {
         this.loadMap(resp.coords.latitude, resp.coords.longitude);
         this.lat = resp.coords.latitude;
         this.long = resp.coords.longitude;
+      }).catch(e => {
+        this.reverseGeoCoding(0, 0);
       });
       
       // this.Address =  localStorage.getItem("GetAddress");

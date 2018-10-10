@@ -43,6 +43,7 @@ import { Calendar } from '@ionic-native/calendar';
 import { GetlocationProvider } from '../providers/getlocation/getlocation';
 import {MobileVerificationPromptPage} from '../pages/mobile-verification-prompt/mobile-verification-prompt';
 import { LaunchNavigator, LaunchNavigatorOptions } from '@ionic-native/launch-navigator';
+import { PhotoViewer } from '@ionic-native/photo-viewer';
 //import { TextMaskModule } from 'angular2-text-mask';
 
 // import{Modal2Page} from '../pages/modal2/modal2';
@@ -110,7 +111,7 @@ import { LaunchNavigator, LaunchNavigatorOptions } from '@ionic-native/launch-na
     
     ServerProvider ,GlobalVariable,NativeStorage,BarcodeScanner,InAppBrowser,PinDialog,NativeAudio,Geolocation
     ,CallNumber,EmailComposer,Camera,Crop,Diagnostic,SocialSharing,SMS,Stripe,PayPal,OneSignal,Calendar,
-    GetlocationProvider,LaunchNavigator
+    GetlocationProvider,LaunchNavigator,PhotoViewer
     
   ]
 })

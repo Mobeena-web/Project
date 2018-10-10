@@ -7,11 +7,12 @@
 
   <ion-content>
     <ion-list>
-      <button menuClose ion-item (click)="OpenEvents()">
+      <button menuClose ion-item (click)="OpenEvents()" *ngIf="globals.events_enabled == 1">
           <ion-icon name="calendar" class="myicon"></ion-icon>Events
       </button>
       <button menuClose ion-item (click)="openRewards()">
-          <ion-icon name="star" class="myicon"></ion-icon> My Rewards
+          <ion-icon name="star" class="myicon" ></ion-icon> My Rewards
+          <ion-badge color="danger" class="rewards_badge" *ngIf="globals.TotalbadgeValue > 0 && globals.TotalbadgeValue != null" >{{globals.TotalbadgeValue}}</ion-badge>
         </button>
         <button menuClose ion-item (click)="openOrder()">
             <ion-icon name="restaurant" class="myicon"></ion-icon> Order
@@ -24,6 +25,9 @@
           </button>
           <button menuClose ion-item (click)="scanQR()">
             <ion-icon name="camera" class="myicon"></ion-icon> Scan
+          </button>
+          <button menuClose ion-item (click)="show_gallery()" *ngIf="globals.gallery_enabled == 1">
+              <ion-icon name="image" class="myicon"></ion-icon> Gallery
           </button>
       <button menuClose ion-item (click)="OpenSettingPage()">
           <ion-icon name="settings" class="myicon"></ion-icon>Settings

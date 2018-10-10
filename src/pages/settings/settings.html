@@ -45,7 +45,9 @@
 
     <ion-item>
       <ion-label floating>Phone</ion-label>
-      <ion-input class="code-inpt" type="text" disabled name="phonecode" [(ngModel)]="phonecode"> </ion-input>
+      <ion-input class="code-inpt" type="text" disabled *ngIf="phonecode == '+1'" name="phonecode" [(ngModel)]="phonecode"> </ion-input>
+      <ion-input class="code-inpt" type="text" value="+1" disabled name="phonecode" *ngIf="phonecode != '+1'"> </ion-input>
+
       <ion-input style="width:73%;" disabled="{{Unedit}}"  type="number" name="phone" [(ngModel)]="phone"> </ion-input>
     </ion-item>
     <ion-item>

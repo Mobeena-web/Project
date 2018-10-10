@@ -17,6 +17,7 @@ import { GlobalVariable } from '../../app/global';
     templateUrl: 'cart.html',
 })
 export class CartPage {
+    cart_detail:any = 'tip';
     RewardStoreCreditAvailed: any = 0;
     birthdayStoreCreditavailed: any = 0;
     birthdayStoreCreditInput: number;

@@ -73,8 +73,7 @@ export class CategoryPage {
     }
 
     getLocation() {
-        console.log("usman1");
-
+       
         this.diagnostic.isLocationEnabled()
             .then((state) => {
                 console.log("usman",state);
@@ -95,7 +94,9 @@ export class CategoryPage {
 
                     });
               
-            }).catch(e => console.error(e));
+            }).catch(e => {
+              
+            });
 
     }
 
@@ -126,23 +127,24 @@ export class CategoryPage {
           this.globals.Timing = this.places[0].hours_operation;
           this.globals.pickup = this.places[0].pickup;
 
-            if (this.globals.pickup == '0') {
-                this.globals.pickup = false;
-            }
-            else {
+            if (this.globals.pickup == '1') {
                 this.globals.pickup = true;
             }
-            if (this.places[0].delivery == '0') {
-                this.globals.delivery = false;
-            }
             else {
+                this.globals.pickup = false;
+            }
+            if (this.places[0].delivery == '1') {
                 this.globals.delivery = true;
             }
-            if(this.places[0].cash_enabled == '0'){
-                this.globals.cash_enabled = false;
+            else {
+                this.globals.delivery = false;
+            }
+            if(this.places[0].cash_enabled == '1'){
+                this.globals.cash_enabled = true;
             }
             else{
-                this.globals.cash_enabled = true;
+                this.globals.cash_enabled = false;
+
             }
 
              this.Categories();

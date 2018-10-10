@@ -43,6 +43,7 @@ export class HomePage {
     points:any;
     punch=[];
     punch_limt=[];
+    places:any;
 
     @ViewChild(Slides) slides: Slides;
     @ViewChild(Content) content: Content;
@@ -69,6 +70,7 @@ export class HomePage {
     email:any;
     constructor(private geolocation: Geolocation,private diagnostic: Diagnostic,public app: App, public server: ServerProvider, public globals: GlobalVariable, private nativeAudio: NativeAudio, private iab: InAppBrowser, private nativeStorage: NativeStorage, public loadingCtrl: LoadingController, public modalCtrl: ModalController, public _nav: NavController, public _navParams: NavParams, public alertCtrl: AlertController, public platform: Platform) {
         this.loadBanner();
+        
         this.cartflag = _navParams.get('CartFlag');
         this.discount_text = _navParams.get('discountText');
         this.GainFlag = _navParams.get('Flag');
@@ -78,6 +80,83 @@ export class HomePage {
         localStorage.removeItem("GetAddress");
         localStorage.removeItem("scheduled_time");
     }
+
+    doRefresh(refresher) {
+        this.loadBanner();
+
+        this.getLocation();
+        if (this.globals.Product.length > 0) {
+            this.globals.cartflag = true;
+        }
+
+        this.globals.HomeFlag = true;
+        this.content.resize();
+        this.nativeStorage.getItem('user')
+            .then(data => {
+                this.email = data.email,
+                this.name = data.firstName;
+                this.lastname = data.lastName;
+                this.barocde_image = data.image;
+                this.user_date = data.date;
+                this.user_id = data.ID;
+                this.udid = data.udid;
+                this.mobile_verify = data.phone_verify;
+
+                this.globals.udid = this.udid;
+                console.log(this.barocde_image, "barcode");
+
+
+                console.log(this.name);
+                console.log(this.user_id);
+                console.log(this.discount_value);
+                this.value = this.pad(this.user_id, 12);
+                this.slicedValue = this.value.slice(0, 4) + " " + this.value.slice(4, 8) + " " + this.value.slice(8, 12);
+                console.log(this.slicedValue);
+                this.month = this.user_date.substring(0, 2);
+                this.year = this.user_date.substring(8);
+                console.log(this.month, this.year);
+
+
+                if (this.GainFlag) {
+                    this.showDiscountMessage();
+                }
+
+
+            }).catch(err => console.log);
+
+        // this.nativeStorage.getItem('Product')
+        // .then (data => {
+        //     this.globals.Product = data.array;
+        //     this.globals.BusinessDiscount = data.BusinessDiscount;
+        //     this.globals.minimun_order = data.MinimumOrder;
+        //     this.globals.deliveryCharges =  data.DeliveryCharges;
+
+
+        //     console.log("global array",this.globals.Product,"data",data.BusinessDiscount,data.MinimumOrder,data.DeliveryCharges);
+
+        //     if(this.globals.Product.length > 0)
+        //     {
+        //         this.globals.cartflag = true;
+        //     }
+        //     console.log("global flag " , this.globals.cartflag);
+
+        // }).catch(err => console.log);
+
+
+        this.nativeStorage.getItem('discount')
+            .then(data => {
+                this.globals.GainDiscount = data.discountValue;
+
+
+                console.log("gain discount", this.globals.GainDiscount);
+
+            }).catch(err => console.log);
+    
+        setTimeout(() => {
+          console.log('Async operation has ended');
+          refresher.complete();
+        }, 2000);
+      }
 
 
 
@@ -91,7 +170,7 @@ export class HomePage {
                     this.geolocation.getCurrentPosition().then((position) => {
                         this.coordinates = position.coords.latitude + "," + position.coords.longitude;
                         this.globals.mycoordinates = this.coordinates;
-                        this.getPoints();
+                        this.getPoints(this.coordinates);
                         this.getPunches(this.coordinates);
                     }, (err) => {
                         console.log(err);
@@ -107,6 +186,10 @@ export class HomePage {
                     alert.present();
                 }
             }).catch(e => {
+
+                this.getPoints("0,0");
+                this.getPunches("0,0");
+
                 let alert = this.alertCtrl.create({
                     title: 'Location is disabled',
                     subTitle: 'In order to proceed, Please enable your location',
@@ -132,7 +215,7 @@ export class HomePage {
         }
     }
 
-    getPoints() {
+    getPoints(coordinates) {
 
         // let loading = this.loadingCtrl.create({
         //     content: "Loading...",
@@ -140,7 +223,7 @@ export class HomePage {
         // });
         // loading.present();
 
-        let response = this.server.getPoints(this.coordinates);
+        let response = this.server.getPoints(coordinates);
         response.subscribe(data => {
             console.log("points_usman",data);
             console.log(data.status,data.message)
@@ -260,14 +343,10 @@ export class HomePage {
                 console.log("gain discount", this.globals.GainDiscount);
 
             }).catch(err => console.log);
-        var that = this;
-        setTimeout(function () {
-            // that.slides.autoplayDisableOnInteraction = false;
-        }, 6000);
-
-
-
-
+        // var that = this;
+        // setTimeout(function () {
+        //     // that.slides.autoplayDisableOnInteraction = false;
+        // }, 6000);
 
     }
     ionViewWillEnter() {
@@ -368,6 +447,8 @@ export class HomePage {
     ReservationPage() {
         this._nav.push('ReservationPage');
     }
+
+  
 
 
 }

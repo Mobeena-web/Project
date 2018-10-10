@@ -30,6 +30,9 @@ page-payment {
     margin-left: 10%;
     
   }
+  .text-input-md{
+    margin: 3px 8px !important;
+  }
   .login{
     //margin-top: 20px;
       position: absolute;
@@ -40,6 +43,15 @@ page-payment {
     border-radius: 8px;
 
       
+    }
+    .kll{
+      color: #fff;
+    border: 1px solid #fff;
+    border-radius: 6px;
+    }
+    ::placeholder {
+      color: #fff !important;
+      font-size: 11px !important;
     }
     .signUp{
 
@@ -60,5 +72,29 @@ page-payment {
        margin: 0px !important;
        font-size: 14px;
      }
+
+     .payment_card{
+      padding: 10px;
+      border-radius: 8px;
+     }
+
+     .background_image1{
+        background-image: url("../assets/imgs/pay.png");
+
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;   
+      min-height: 174px;
+
+    }
+    .strip{
+      background: #333;
+      height: 44px;
+      margin-bottom: 11px;
+      margin-left: -15px;
+      margin-right: -15px;
+      margin-top: 4px;
+  
+    }
 
 }

@@ -44,7 +44,9 @@ getdeals(){
 
   LoadBannersOnHomePage() {
     var link = this.global.BaseUrl + 'Customer_controller/get_banners';
-    return this.http.get(link)
+    var data = JSON.stringify({business_id:this.global.new_id });
+
+    return this.http.get(link,data)
       .map((res: any) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
@@ -250,6 +252,14 @@ getdeals(){
   ProductItemDetail(ItemId) {
     var link = (this.global.BaseUrl + 'menu/item_details');
     var data = JSON.stringify({ item_id: ItemId });
+    return this.http.post(link, data)
+      .map((res: any) => res.json())
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+  }
+
+  gallery_list() {
+    var link = (this.global.BaseUrl + 'events/get_gallery_list');
+    var data = JSON.stringify({ business_id: this.global.new_id });
     return this.http.post(link, data)
       .map((res: any) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));

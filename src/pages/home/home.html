@@ -25,7 +25,11 @@
 </ion-header>
 
 
+
 <ion-content padding>
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+      </ion-refresher>
 
     <ion-slides pager *ngIf="banner" style="height:184px" autoplay="{{time}}" speed="3000" loop="true" autoplayDisableOnInteraction="false">
         <ion-slide *ngFor="let banners of Images" style="height:100%">
@@ -62,7 +66,7 @@
         <!-- <img class="qrcode1" src="{{barocde_image}}"> -->
     </ion-col>
   </ion-row>
-  <button ion-button block style="padding: 33px;
+  <button ion-button block *ngIf="globals.special_offer == '1'" style="padding: 33px;
   background: #333;" (click)="offers()">Special Offers</button>
 
   <!-- <ion-row>

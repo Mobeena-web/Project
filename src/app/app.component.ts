@@ -35,6 +35,7 @@ export class MyApp {
 
   pages: Array<{ title: string, component: any }>;
   data: any;
+  places:any;
 
   constructor(private nativeAudio: NativeAudio,public loadingCtrl: LoadingController,private iab: InAppBrowser,private barcodeScanner:BarcodeScanner,public alertCtrl: AlertController,public app: App,public server: ServerProvider, private _notification: OneSignal, public alertctrl: AlertController, public modalCtrl: ModalController, public globals: GlobalVariable, private statusbar: StatusBar, private splashscreen: SplashScreen, private nativeStorage: NativeStorage, public platform: Platform,private geolocation: Geolocation) {
 
@@ -43,7 +44,8 @@ export class MyApp {
     platform.ready().then(() => {
         this.data = {};
         this.data.response = '';
-        this.LoadSound()
+        this.LoadSound();
+        this.list();
 
       setTimeout(() => this.splashscreen.hide(), 400);
       this.statusbar.hide();
@@ -57,6 +59,8 @@ export class MyApp {
 
           console.log(data);
           this.globals.udid = data.udid;
+          this.globals.firstName = data.firstName;
+          this.globals.lastName = data.lastName;
           this.initializePushToken();
 
           console.log("global", this.globals.udid);
@@ -438,7 +442,53 @@ modal(response, response_status, business, logo, image, string, bid) {
   let profileModal = this.modalCtrl.create('CongratulationPage', { reward: response, status: response_status, place: business, Logo: logo, lottery_image: image, RewardString: string, id: bid });
   profileModal.present();
 
+}
 
+list() {
+    let response = this.server.getRestaurantslist('100000', 'main', "0,0", '0', 'order');
+    response.subscribe(data => {
+        console.log('usmna_resturants',data)
+        this.places = data.results;
+        var new_id = this.globals.new_id;
+        this.places = this.places.filter(function(item) {
+         return item.business_id === new_id;
+       });
+       console.log("pages",this.places)
+       
+       this.globals.special_offer = this.places[0].special_offer;
+       this.globals.events_enabled = this.places[0].events_enabled;
+       this.globals.gallery_enabled = this.places[0].gallery_enabled;
+       this.globals.pickup = this.places[0].pickup;
+
+        if (this.globals.pickup == '1') {
+            this.globals.pickup = true;
+        }
+        else {
+            this.globals.pickup = false;
+        }
+        if (this.places[0].delivery == '1') {
+            this.globals.delivery = true;
+        }
+        else {
+            this.globals.delivery = false;
+        }
+     
+    }, error => {
+        console.log(error);
+
+        let alert = this.alertCtrl.create({
+            title: 'Error',
+            subTitle: 'Server times out, please try again',
+            buttons: ['OK']
+        });
+        alert.present();
+
+    });
+ 
+}
+
+show_gallery(){
+    this.nav.push("GalleryPage")
 }
 
 

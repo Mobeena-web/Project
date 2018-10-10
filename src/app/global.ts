@@ -82,8 +82,13 @@ export class GlobalVariable {
     save_check:boolean = false;
     points_:any;
     cash_enabled:boolean;
+    special_offer:any;
+    events_enabled:any;
+    firstName:any;
+    lastName:any;
+    gallery_enabled:any;
     constructor(public alertCtrl: AlertController,public toastCtrl: ToastController) {
-     this.BaseUrl = 'https://onlineordering.mikronexus.com/online-ordering-new/index.php/';
+     this.BaseUrl = 'https://onlineordering.mikronexus.com/online-ordering-development/index.php/';
     }
 
     alertMessage(title, subTitle) {
@@ -121,26 +126,7 @@ export class GlobalVariable {
             styleText:           true
           });
     }
-    circle_graph_empty(){
-        console.log("not runnig",this.percent);
-
-        var myCircle = Circles.create({
-            id:                  'circles2',
-            radius:              50,
-            value:               0,
-            maxValue:            100,
-            width:               7,
-            text:                function(value){return '';},
-            colors:              ['#ccc', '#333'],
-            duration:            400,
-            wrpClass:            'circles-wrp',
-            textClass:           'circles-text',
-            valueStrokeClass:    'circles-valueStroke',
-            maxValueStrokeClass: 'circles-maxValueStroke',
-            styleWrapper:        true,
-            styleText:           true
-          });
-    }
+   
 }
 
 
