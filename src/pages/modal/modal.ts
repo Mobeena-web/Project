@@ -155,14 +155,14 @@ export class ModalPage {
     if(this.type == "delivery"){
    
       this.globals.OrderType = "delivery";
-      this.segmentValue = "Asap"
+      // this.segmentValue = "Asap"
       this.globals.delivery == true;
       console.log("testing segment changed delivery" ,this.globals.OrderType);
      // localStorage.setItem("type","delivery" )
     }
     else{
       this.globals.OrderType = "pickup";
-      this.segmentValue = "Asap"
+      // this.segmentValue = "Asap"
       this.globals.pickup == true;
       console.log("testing segment changed pickup" ,this.globals.OrderType);
       //localStorage.setItem("type","pickup" );
