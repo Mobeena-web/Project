@@ -221,14 +221,12 @@ export class ModalPage {
       //   this.getCurrentLocation().then((resp) => {
       //   this.reverseGeoCoding(resp.coords.latitude, resp.coords.longitude);
       // });
-      console.log("testing11",this.globals.pickup , this.globals.delivery)
-
+    
     if(this.order_pickup && !this.order_delivery){
       this.type = "pickup";
       // this.globals.OrderType = this.type;
     }
     else if(this.order_delivery && this.order_pickup){
-      console.log("testing")
       this.type = "delivery";
       // this.globals.OrderType = this.type;
     }
