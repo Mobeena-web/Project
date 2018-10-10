@@ -225,12 +225,12 @@ export class ModalPage {
 
     if(this.order_pickup && !this.order_delivery){
       this.type = "pickup";
-      this.globals.OrderType = this.type;
+      // this.globals.OrderType = this.type;
     }
     else if(this.order_delivery && this.order_pickup){
       console.log("testing")
       this.type = "delivery";
-      this.globals.OrderType = this.type;
+      // this.globals.OrderType = this.type;
     }
     
   }

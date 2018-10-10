@@ -54,7 +54,7 @@ getdeals(){
   reward_notification() {
     var link = this.global.BaseUrl + 'Customer_controller/get_punch_notifications';
     var data = JSON.stringify({business_id:this.global.new_id,udid: this.global.udid });
-    console.log(data)
+   
     return this.http.get(link,data)
       .map((res: any) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
@@ -321,6 +321,7 @@ getdeals(){
     console.log("stripe", orderdata, order_date);
 
     return this.http.post(link, orderdata)
+    .do(this.logResponse)
       .map((res: any) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }

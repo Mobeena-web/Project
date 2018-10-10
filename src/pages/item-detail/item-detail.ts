@@ -199,8 +199,6 @@ export class ItemDetailPage {
 
   Cart() {
 
-
-
     if (this.globals.BusinessID == '-1' || this.globals.BusinessID == this.Business_id) {
       this.globals.BusinessID = this.Business_id;
 
