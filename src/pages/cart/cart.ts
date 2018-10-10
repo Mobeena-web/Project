@@ -17,7 +17,6 @@ import { GlobalVariable } from '../../app/global';
     templateUrl: 'cart.html',
 })
 export class CartPage {
-    cart_detail:any = 'tip';
     RewardStoreCreditAvailed: any = 0;
     birthdayStoreCreditavailed: any = 0;
     birthdayStoreCreditInput: number;
@@ -64,7 +63,7 @@ export class CartPage {
     instructionsItem :any ;
     instruct:Boolean=true;
     Address : any ; 
-
+    point_show:any = 0;
     constructor(public loadingCtrl: LoadingController, public server: ServerProvider, public modalCtrl: ModalController, public alertCtrl: AlertController, private nativeStorage: NativeStorage, public appCtrl: App, public globals: GlobalVariable, public viewCtrl: ViewController, public navCtrl: NavController, public navParams: NavParams) {
         console.log(globals.type, "@@@type");
         //  console.log("here is my items of global" ,this.globals.itemInstruction);
@@ -1002,13 +1001,11 @@ export class CartPage {
     // }
 
     AvailRewards() {
-       // console.log(this.pointsInput.points);
-        if (this.check_points) {
+       if (this.check_points) {
 
             this.user_availed_points = false;
             if (this.pointsInput.points != undefined || this.pointsInput.points != null) {
-
-
+                
                 if (this.pointsInput.points > this.points) {
 
                     this.AddMoreItemAlert('You do not have sufficient points to redeem this point reward.')
@@ -1017,7 +1014,7 @@ export class CartPage {
                 }
 
                 else if (!this.pointsInput.availed) {
-
+                   
                     let tot = Number(this.Total);
                     let sub = tot - Number(this.pointsInput.description);
                     console.log(sub, "sub");
@@ -1030,6 +1027,10 @@ export class CartPage {
                     else {
                         this.pointsInput.availed = true;
                         this.points = this.points - this.pointsInput.points;
+                        console.log("pointshow77",this.pointsInput.description)
+
+                        this.point_show = this.point_show + Number(this.pointsInput.description);
+                        console.log("pointshow",this.point_show)
                         this.Total = sub;
                         this.globals.points_availed = this.pointsInput.points;
                         this.availed_points = Number(this.pointsInput.description);
@@ -1041,6 +1042,7 @@ export class CartPage {
                 }
             }
         }
+        
         if (this.check_rewards) {
             let tot = Number(this.Total);
             let sub = tot - this.StoreCreditInput;
@@ -1153,6 +1155,104 @@ export class CartPage {
         let activeElement = <HTMLElement>document.activeElement;
         activeElement && activeElement.blur && activeElement.blur();
     }
+
+    add_gratuity(){
+        let alert = this.alertCtrl.create({
+            title: 'Add Gratuity',
+            inputs: [
+              {
+                name: 'tip',
+                placeholder: 'Tip',
+                type:'number',
+                value:this.Tip
+              }
+            ],
+            buttons: [
+              {
+                text: 'Cancel',
+                role: 'cancel',
+                handler: data => {
+                  console.log('Cancel clicked');
+                }
+              },
+              {
+                text: 'OK',
+                handler: data => {
+                    if(data.tip == ''){
+                        this.Tip = 0;
+                    }
+                    else{
+                        this.Tip = data.tip;
+                    }
+                }
+              }
+            ]
+          });
+          alert.present();
+    }
+
+    add_notes(){
+        let alert = this.alertCtrl.create({
+            title: 'Add Notes',
+            inputs: [
+              {
+                name: 'notes',
+                placeholder: 'Notes',
+                value:this.notes
+              }
+            ],
+            buttons: [
+              {
+                text: 'Cancel',
+                role: 'cancel',
+                handler: data => {
+                  console.log('Cancel clicked');
+                }
+              },
+              {
+                text: 'OK',
+                handler: data => {
+                 this.notes = data.notes;
+                }
+              }
+            ]
+          });
+          alert.present();
+    }
+
+    add_points() {
+        let alert = this.alertCtrl.create();
+        alert.setTitle(this.points + ' Points');
+        
+        this.point_rewards.forEach(e => {
+            alert.addInput({
+                type: 'radio',
+                label: '$' + e.description +' ('+ e.points +' Points)',
+                value: e,
+                disabled:e.availed
+              });
+            
+        });
+    
+        alert.addButton('Cancel');
+        alert.addButton({
+          text: 'OK',
+          handler: data => {
+            var p = this.point_rewards.filter(function(item) {
+                return item.availed === false;
+              });
+              console.log("p",p)
+
+              if(p.length > 0){
+                this.pointsInput = data;
+                this.check_points = true;
+                this.AvailRewards();
+              }
+ 
+          }
+        });
+        alert.present();
+      }
 
 
 }

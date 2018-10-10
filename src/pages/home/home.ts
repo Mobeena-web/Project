@@ -69,6 +69,7 @@ export class HomePage {
     punch_:any;
     email:any;
     constructor(private geolocation: Geolocation,private diagnostic: Diagnostic,public app: App, public server: ServerProvider, public globals: GlobalVariable, private nativeAudio: NativeAudio, private iab: InAppBrowser, private nativeStorage: NativeStorage, public loadingCtrl: LoadingController, public modalCtrl: ModalController, public _nav: NavController, public _navParams: NavParams, public alertCtrl: AlertController, public platform: Platform) {
+        this.reward_notification();
         this.loadBanner();
         
         this.cartflag = _navParams.get('CartFlag');
@@ -79,6 +80,21 @@ export class HomePage {
         this.barocde_image = _navParams.get('imageData');
         localStorage.removeItem("GetAddress");
         localStorage.removeItem("scheduled_time");
+    }
+
+    reward_notification(){
+        let response = this.server.reward_notification();
+        response.subscribe(data => {
+            console.log("notifications",data);
+            if(data.status == true){
+                this.globals.notifications = data.notifications;
+                let mobile_update = this.modalCtrl.create('RewardNotificationPage');
+                 mobile_update.present();
+            }
+        }, error => {
+            console.log(error,"error notifications");
+
+        });
     }
 
     doRefresh(refresher) {
@@ -255,7 +271,7 @@ export class HomePage {
                 this.punch_limt_ = 0;
                 this.globals.percent = (parseInt(this.punch_) / parseInt(this.punch_limt_))*100;
                 console.log("percent",this.globals.percent)
-                this.globals.circle_graph();
+                this.globals.circle_graph('circles1',50,7);
             }
           
              this.punch_ = data.cards[0].punch_count;
@@ -264,7 +280,7 @@ export class HomePage {
 
              this.globals.percent = (parseInt(this.punch_) / parseInt(this.punch_limt_))*100;
              console.log("percent",this.globals.percent)
-             this.globals.circle_graph();
+             this.globals.circle_graph('circles1',50,7);
              
             
         
@@ -392,9 +408,16 @@ export class HomePage {
             this.banner = data;
             this.Images = this.banner.data;
             this.time = this.banner.time;
+            this.globals.android_url  = this.banner.android_url;
+            this.globals.ios_url = this.banner.ios_url;
+            this.globals.update_message = this.banner.message;
             console.log(data);
             this.content.resize();
 
+            if(this.banner.is_latest_build){
+                    let mobile_update = this.modalCtrl.create('MobileUpdatePage');
+                    mobile_update.present();
+            }
         }
             , error => {
                 console.log("Error!");

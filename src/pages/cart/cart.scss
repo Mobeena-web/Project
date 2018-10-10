@@ -11,6 +11,8 @@ page-cart {
     .padd-{
         padding: 8px;
         border-radius: 8px;
+        background: #eee !important;
+        overflow:unset !important;
     }
     .addmore-btn{
         margin-left: auto;
@@ -26,8 +28,8 @@ page-cart {
         border: 0px;
         color: #fff;
         position: absolute;
-        top: -7px;
-        right: -6px;
+        top: -15px;
+        right: -14px;
     }
     // .bill{
     //     ion-label{

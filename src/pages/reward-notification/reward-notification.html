@@ -1,0 +1,14 @@
+
+<ion-content class="back">
+  <ion-icon name="close" class="close_icon" (click)="dismiss()"></ion-icon>
+  <img src={{global.notifications.logo}} class="icon_img">
+  <div class="main_head">
+      {{global.notifications.title}}
+  </div>
+  <div class="head">
+    {{global.notifications.sub_title}}
+  </div>
+  <button ion-button block outline round  block class="ok_btn" (click)="dismiss()">OK</button>
+  
+
+</ion-content>

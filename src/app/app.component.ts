@@ -30,8 +30,8 @@ export class MyApp {
   tab4Root: any = HomePage;
 
   rootPage: any;
-  appId: any = 'ee51c771-68fc-47fe-abc6-8f219d28a2c2';
-  googleProjectId: any = '509008915957';
+  appId: any = '77c7af42-a792-447b-bd4e-4d2f00346462';
+  googleProjectId: any = '773485528357';
 
   pages: Array<{ title: string, component: any }>;
   data: any;
@@ -46,7 +46,7 @@ export class MyApp {
         this.data.response = '';
         this.LoadSound();
         this.list();
-
+       this.server.CheckUserReward1();
       setTimeout(() => this.splashscreen.hide(), 400);
       this.statusbar.hide();
 

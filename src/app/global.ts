@@ -87,8 +87,13 @@ export class GlobalVariable {
     firstName:any;
     lastName:any;
     gallery_enabled:any;
+    android_url:any;
+    ios_url:any;
+    update_message:any;
+    app_version = "1";
+    notifications:any;
     constructor(public alertCtrl: AlertController,public toastCtrl: ToastController) {
-     this.BaseUrl = 'https://onlineordering.mikronexus.com/online-ordering-development/index.php/';
+     this.BaseUrl = 'https://onlineordering.mikronexus.com/online-ordering-new/index.php/';
     }
 
     alertMessage(title, subTitle) {
@@ -107,14 +112,14 @@ export class GlobalVariable {
         toast.present();
     }
 
-    circle_graph(){
+    circle_graph(id,radius,width){
        
         var myCircle = Circles.create({
-            id:                  'circles1',
-            radius:              50,
+            id:                  id,
+            radius:              radius,
             value:               this.percent,
             maxValue:            100,
-            width:               7,
+            width:               width,
             text:                function(value){return '';},
             colors:              ['#ccc', '#333'],
             duration:            400,

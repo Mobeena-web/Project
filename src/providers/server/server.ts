@@ -16,8 +16,8 @@ export class ServerProvider {
   isBirthdayCount: any = 0;
   reward_count: any = 0;
   punchcount: any = 0;
-  appId: any = 'ee51c771-68fc-47fe-abc6-8f219d28a2c2';
-  googleProjectId: any = '509008915957';
+  appId: any = '77c7af42-a792-447b-bd4e-4d2f00346462';
+  googleProjectId: any = '773485528357';
   constructor(public platform: Platform, private _notification: OneSignal, public global: GlobalVariable, public http: Http) {
     console.log('Hello ServerProvider Provider');
     // this.global.udid ='5bda5bbc';
@@ -44,8 +44,17 @@ getdeals(){
 
   LoadBannersOnHomePage() {
     var link = this.global.BaseUrl + 'Customer_controller/get_banners';
-    var data = JSON.stringify({business_id:this.global.new_id });
+    var data = JSON.stringify({business_id:this.global.new_id,app_version:this.global.app_version });
 
+    return this.http.get(link,data)
+      .map((res: any) => res.json())
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+  }
+
+  reward_notification() {
+    var link = this.global.BaseUrl + 'Customer_controller/get_punch_notifications';
+    var data = JSON.stringify({business_id:this.global.new_id,udid: this.global.udid });
+   
     return this.http.get(link,data)
       .map((res: any) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
@@ -312,6 +321,7 @@ getdeals(){
     console.log("stripe", orderdata, order_date);
 
     return this.http.post(link, orderdata)
+    .do(this.logResponse)
       .map((res: any) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
@@ -491,6 +501,40 @@ getdeals(){
 
 
   }
+
+  CheckUserReward1() {
+    this.isBirthdayCount = 0;
+    this.reward_count = 0;
+
+    let response = this.getUserLotteryRewards("0,0");
+
+    response.subscribe(data => {
+      var user_reward = data;
+      console.log("reward", user_reward);
+      if (user_reward.status == 'success') {
+        console.log(user_reward.rewards.length);
+        user_reward.rewards.forEach(element => {
+          if (element.is_birthday == 'true') {
+            this.isBirthdayCount++;
+          }
+          else {
+            this.reward_count++;
+          }
+
+        });
+        console.log("this", this.reward_count, this.isBirthdayCount);
+        this.global.TotalbadgeValue += this.reward_count;
+        this.global.TotalbadgeValue += this.isBirthdayCount;
+        this.global.RewardCount = this.reward_count;
+        this.global.BirthCount = this.isBirthdayCount;
+
+      }
+
+    }, error => { console.log(error) });
+
+
+  }
+
   CheckUserPunchCards() {
     this.global.TotalbadgeValue = 0;
     this.punchcount = 0;

@@ -52,27 +52,24 @@
         <ion-item style=" margin-top:-16px; align-content: center;">
             <!-- <ion-datetime  displayFormat="MM DD YYYY h:mm a" placeholder="MM DD YYYY HH:mm" min="{{value}}" [(ngModel)]="myDate">
           </ion-datetime> -->
-          <div  class="col-4 center-block " (click)="Getscheduletime()"  style="margin-top:0; margin-bottom:0 ; align-content: center; text-align: center; border-radius: 9px;
-          border: 3px #000 solid;
-          width: 45%;
-          margin-left: auto;
-          margin-right: auto; " >
-          <button ion-button clear  style="font-size: 15px; color: #000;"  >Now </button>
-          <br><span style="font-size: 2.2rem;
-          text-align: center;
-          font-weight: bold; color: #000;" *ngIf="globals.pickupsetting">({{globals.pickupsetting}})</span>
+          <div  class="col-4 center-block block" *ngIf="!segmentValue" (click)="Getscheduletime()">
+            <button ion-button clear class="time_heading" >Now </button>
+            <br><span class="mytime" *ngIf="globals.pickupsetting">({{globals.pickupsetting}})</span>
           </div>
           <!-- <div  class="col-4 center-block "  style="margin-top:0; margin-bottom:0 ; align-content: center ; text-align: center ">
           <button ion-button clear *ngIf="!segmentValue"  style="font-size: 15px;"  (click)="Getscheduletime()" >Now <span *ngIf="globals.pickupsetting">({{globals.pickupsetting}})</span></button>
           </div> -->
-          <!-- <div class="col-4 center-block " style="margin-top:0; margin-bottom:0 ; align-content: center; text-align: center">
-          <button  ion-button clear *ngIf="segmentValue == 'Asap'" style="font-size: 15px;" (click)="secondModal()">Now({{globals.pickupsetting}})</button>
-          </div> -->
-          <div class="col-4 center-block " style="margin-top:0; margin-bottom:0 ;align-content: center ;text-align: center">
-          <button  ion-button clear *ngIf="segmentValue == 'today'" style="font-size: 15px;" (click)="secondModal()">Today({{convertDate}})</button>
+          <div class="col-4 center-block block" *ngIf="segmentValue == 'Asap'" (click)="secondModal()">
+            <button  ion-button clear class="time_heading" >Now</button>
+            <br><span class="mytime" *ngIf="globals.pickupsetting">({{globals.pickupsetting}})</span>
+          </div>
+          <div class="col-4 center-block block" *ngIf="segmentValue == 'today'" (click)="secondModal()">
+          <button  ion-button clear class="time_heading" >Today</button>
+          <br><span class="mytime" *ngIf="convertDate">({{convertDate}})</span>
         </div>
-        <div class="col-4 center-block "  style="margin-top:0; margin-bottom:0 ;align-content: center; text-align: center">
-          <button  ion-button clear  *ngIf="segmentValue == 'later'" style="font-size: 15px;" (click)="secondModal()"  >Schedule({{datenow}})</button>
+        <div class="col-4 center-block block" *ngIf="segmentValue == 'later'" (click)="secondModal()">
+          <button  ion-button clear  class="time_heading"  >Schedule</button>
+          <br><span class="mytime" *ngIf="datenow">({{datenow}})</span>
         </div>
         </ion-item>
         <ion-item >
@@ -152,33 +149,23 @@
           <div style=" margin-top: 0 ; padding-top: 0%">
         <ion-item no-lines>
             <h5 style="text-align: center ; font-size: 18px;"><b>When would you like your order ?</b></h5>
-            <div *ngIf="!segmentValue"  class="col-4 center-block " (click)="Getscheduletime()"  style="margin-top:0; margin-bottom:0 ; align-content: center; text-align: center; border-radius: 9px;
-            border: 3px #000 solid;
-            width: 45%;
-            margin-left: auto;
-            margin-right: auto;">
-            <button ion-button clear  style="font-size: 15px; color: #000;"  >Now </button>
-            <br><span style="font-size: 2.2rem;
-            text-align: center;
-            font-weight: bold; color: #000;" *ngIf="globals.pickup_Time">({{globals.pickup_Time}})</span>
+            <div *ngIf="!segmentValue"  class="col-4 center-block block" (click)="Getscheduletime()">
+            <button ion-button clear class="time_heading" >Now </button>
+            <br><span class="mytime" *ngIf="globals.pickup_Time">({{globals.pickup_Time}})</span>
             </div>
-            <div *ngIf="segmentValue == 'Asap'"  class="col-4 center-block " (click)="Getscheduletime()"  style="margin-top:0; margin-bottom:0 ; align-content: center; text-align: center; border-radius: 9px;
-            border: 3px #000 solid;
-            width: 45%;
-            margin-left: auto;
-            margin-right: auto;">
-            <button ion-button clear  style="font-size: 15px; color: #000;"  >Now </button>
-            <br><span style="font-size: 2.2rem;
-            text-align: center;
-            font-weight: bold; color: #000;" *ngIf="globals.pickup_Time">({{globals.pickup_Time}})</span>
+            <div *ngIf="segmentValue == 'Asap'"  class="col-4 center-block block" (click)="Getscheduletime()" >
+            <button ion-button clear  class="time_heading" >Now </button>
+            <br><span class="mytime"  *ngIf="globals.pickup_Time">({{globals.pickup_Time}})</span>
             </div>
 
             
-          <div class="col-4 center-block"  *ngIf="segmentValue == 'today'"  style="margin-top:10; margin-bottom:0;align-content: center ;text-align: center" >
-            <button ion-button clear  style="font-size: 15px;"  (click)="Getscheduletime()" >Today({{convertDate}})</button>
+          <div class="col-4 center-block block"  *ngIf="segmentValue == 'today'" (click)="Getscheduletime()" >
+            <button ion-button clear  class="time_heading"  >Today</button>
+            <br><span class="mytime"  *ngIf="convertDate">({{convertDate}})</span>
           </div>
-          <div class="col-4 center-block"  *ngIf="segmentValue == 'later'" style="margin-top:10; margin-bottom:0; align-content: center ;text-align: center "  >
-            <button ion-button clear   style="font-size: 15px;"    (click)="Getscheduletime()" >Schedule({{datenow}})</button>
+          <div class="col-4 center-block block"  *ngIf="segmentValue == 'later'" (click)="Getscheduletime()" >
+            <button ion-button clear  class="time_heading" >Schedule</button>
+            <br><span class="mytime"  *ngIf="datenow">({{datenow}})</span>
           </div>
         </ion-item>
         </div>

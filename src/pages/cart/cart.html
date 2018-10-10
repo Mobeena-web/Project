@@ -20,10 +20,7 @@
 <ion-content  class="Open-Sans-regular">
 
   <ion-card *ngFor="let prod of globals.Product; let i = index" class="Open-Sans-regular padd-">
-
-
     <ion-row>
-
       <ion-col col-3>
         <ion-thumbnail item-start>
 
@@ -34,6 +31,8 @@
       <ion-col col-6>
         <p style="font-size:1.7rem;  color:#666;  margin-top: 0;"> {{prod.menuItem}} </p>
         <p style="font-size:2.0rem;color:#666;"> ${{prod.totalPrice | number : '1.2-2'}}</p>
+        <button *ngIf="prod.menuExtrasSelected.length > 0 " style=" background-color: #ccc;border-radius: 2px;padding:5px;color: #444; font-size: 1.1rem;"
+          (click)="showExtras(prod)"> Extras </button>
        
 
         <!-- <ion-label style="font-size:2.0rem; margin-top:0">Price <p style="float:right;font-size:2.0rem;color:black"> ${{prod.basePrice}} </p>  </ion-label>  -->
@@ -85,11 +84,10 @@
       <ion-col col-3 style="text-align:right">
         <!-- <p style="font-size:2.0rem;color:black;padding-bottom:5px"> ${{prod.basePrice}} </p>  -->
         <ion-icon name="close" (click)="RemoveItem(prod)"  class="cross_icon"></ion-icon>
-        <ion-label style="font-size:1.4rem; margin-bottom:0; color:#666;margin-top: 14px;">
+        <ion-label style="font-size:2.0rem; margin-bottom:0; color:#666;margin-top: 22px;">
             <ion-icon style="color:#666" name="basket"></ion-icon> {{prod.quantity}} </ion-label>
 
-        <button *ngIf="prod.menuExtrasSelected.length > 0 " style=" background-color: #ccc;border-radius: 2px;padding:5px;color: #444; font-size: 1.1rem;"
-          (click)="showExtras(prod)"> Extras </button>
+        
 
         <!-- <button  style="background: transparent"
           (click)="RemoveItem(prod)">
@@ -309,7 +307,7 @@
               </div>
        
         </ion-list>
-        <ion-list *ngSwitchCase="'order'">
+        <ion-list >
             <div class="bill">
 
                 <ion-label style="padding:0px;font-size:1.3rem;margin:0px; color:#444;  ">
@@ -323,7 +321,7 @@
              
                  <ion-label *ngIf="globals.BusinessDiscount > 0 && globals.availed_discount_count < globals.business_discount_count" style="padding:0px;font-size:1.3rem;margin:0px;color:#444;">
                    <!-- <ion-icon style="padding-right: 5px;  position: relative; top: 3px;" ios="ios-cut" md="md-cut"> </ion-icon> -->
-                    Discount
+                    Business <ion-icon name="heart" color="danger"></ion-icon>
                    <p style="float:right;font-size:1.3rem;margin:0px;color:#444;">${{discountTotal}}</p>
                  </ion-label>
              
@@ -332,12 +330,12 @@
              
                  <ion-label *ngIf="globals.deliveryCharges != '' && globals.OrderType == 'delivery'" style="padding:0px;font-size:1.3rem;margin:0px;color:#444;">
                    <!-- <ion-icon style="    padding-right: 5px;  position: relative; top: 3px;" name="bicycle"> </ion-icon>  -->
-                   Delivery Charge
+                   Convenient Fee
                    <p style="float:right;font-size:1.3rem;margin:0px;color:#444;">${{globals.deliveryCharges}}.00</p>
                  </ion-label>
                  <ion-label *ngIf="globals.deliveryCharges == '' " style="padding:0px;font-size:1.3rem;margin:0px;color:#444;">
                    <!-- <ion-icon style="    padding-right: 5px;  position: relative; top: 3px;" name="bicycle"> </ion-icon> -->
-                   Delivery Charge
+                   Convenient Fee
                    <p style="float:right;font-size:1.3rem;margin:0px;color:#444;">$0</p>
                  </ion-label>
              
@@ -378,27 +376,36 @@
                  </ion-label>
                  <ion-label *ngIf="check_points && pointsInput.description " style="padding:0px;font-size:1.3rem;margin:0px;color:#444;">
                    <!-- <ion-icon style="    padding-right: 5px;  position: relative; top: 3px;" ios="ios-cut" md="md-cut"> </ion-icon> -->
-                    Points Discount
-                   <p style="float:right;font-size:1.3rem;margin:0px;color:#444;">- ${{pointsInput.description}}</p>
+                    Points Used
+                   <p style="float:right;font-size:1.3rem;margin:0px;color:#444;">- ${{point_show}}</p>
                  </ion-label>
                  <ion-label *ngIf="check_points && !pointsInput.description " style="padding:0px;font-size:1.3rem;margin:0px;color:#444;">
                    <!-- <ion-icon style="    padding-right: 5px;  position: relative; top: 3px;" ios="ios-cut" md="md-cut"> </ion-icon>  -->
-                   Points Discount
+                   Point Used
                    <p style="float:right;font-size:1.3rem;margin:0px;color:#444;">- $0</p>
                  </ion-label>
              
                  <ion-label *ngIf="globals.GainDiscount > 0" style="padding:0px;font-size:1.3rem;margin:0px; color:#444;">
                    <!-- <ion-icon style="    padding-right: 5px;  position: relative; top: 3px;" ios="ios-cut" md="md-cut"> </ion-icon> -->
-                    Amazing Deli Discount
+                     Discount
                    <p style="float:right;font-size:1.3rem;margin:0px;color:#444;"> - ${{globals.GainDiscount}}</p>
                  </ion-label>
              
                  <ion-label style="padding:0px;padding:0px;font-size:1.3rem;margin:0px;color:#444; ">
                    <!-- <ion-icon style="padding-right: 5px;  position: relative; top: 3px;" name="copy"> </ion-icon>  -->
-                   Tip(not included in total)
+                   Gratuity(tip excluded from total)
                    <!-- <p style="margin: -28px; margin-left: 26px"></p> -->
                    <p style="float:right;font-size:1.3rem;margin:0px;color:#444;"> ${{Tip}}</p>
                  </ion-label>
+                 <ion-label *ngIf="notes" style="padding:0px;padding:0px;font-size:1.3rem;margin:0px;color:#444; ">
+                  <!-- <ion-icon style="padding-right: 5px;  position: relative; top: 3px;" name="copy"> </ion-icon>  -->
+                  Notes
+                  <!-- <p style="margin: -28px; margin-left: 26px"></p> -->
+                  <p style="float:right;font-size:1.3rem;margin:0px;color:#444;    text-overflow: ellipsis;
+                  white-space: nowrap;
+                  overflow: hidden;
+                  max-width: 100%;"> {{notes}}</p>
+                </ion-label>
              
                  
              
@@ -411,18 +418,15 @@
 
 </ion-content>
 <ion-footer>
-    <ion-segment [(ngModel)]="cart_detail">
-        <ion-segment-button value="tip">
-          Tip
+    <ion-segment >
+        <ion-segment-button [disabled]="!pointExists" (click)="add_points()">
+          Redeem Points
         </ion-segment-button>
-        <ion-segment-button value="notes" style="padding: 0px">
-          Notes
+        <ion-segment-button  style="padding: 0px" (click)="add_notes()">
+          Add Notes
         </ion-segment-button>
-        <ion-segment-button value="point" style="overflow:unset !important;padding: 0px">
-            Redeem Points
-        </ion-segment-button>
-        <ion-segment-button value="order">
-             Summary
+        <ion-segment-button style="overflow:unset !important;padding: 0px" (click)="add_gratuity()">
+            Add Gratuity
         </ion-segment-button>
       </ion-segment>
     <ion-label style="font-size:25px;margin:0px;padding:0px;padding-top: 10px; color:#444; padding: 16px;">

@@ -155,14 +155,14 @@ export class ModalPage {
     if(this.type == "delivery"){
    
       this.globals.OrderType = "delivery";
-      this.segmentValue = "Asap"
+      // this.segmentValue = "Asap"
       this.globals.delivery == true;
       console.log("testing segment changed delivery" ,this.globals.OrderType);
      // localStorage.setItem("type","delivery" )
     }
     else{
       this.globals.OrderType = "pickup";
-      this.segmentValue = "Asap"
+      // this.segmentValue = "Asap"
       this.globals.pickup == true;
       console.log("testing segment changed pickup" ,this.globals.OrderType);
       //localStorage.setItem("type","pickup" );
@@ -221,19 +221,14 @@ export class ModalPage {
       //   this.getCurrentLocation().then((resp) => {
       //   this.reverseGeoCoding(resp.coords.latitude, resp.coords.longitude);
       // });
-      console.log("testing11",this.globals.pickup , this.globals.delivery)
-
+    
     if(this.order_pickup && !this.order_delivery){
       this.type = "pickup";
-      this.globals.OrderType = this.type;
+      // this.globals.OrderType = this.type;
     }
     else if(this.order_delivery && this.order_pickup){
-      console.log("testing")
       this.type = "delivery";
-      this.globals.OrderType = this.type;
-    }
-    else{
-      this.type = "delivery";
+      // this.globals.OrderType = this.type;
     }
     
   }
@@ -292,6 +287,7 @@ export class ModalPage {
     let response = this.server.getAddress(mycoordinates);
     var myadress="";
     response.subscribe(data => {
+      this.loadMap(lat, lng);
         
         myadress = data.address;
         console.log("myadress",myadress)
@@ -337,7 +333,6 @@ export class ModalPage {
       this.getCurrentLocation().then((resp) => {
         this.reverseGeoCoding(resp.coords.latitude, resp.coords.longitude);
         this.NEW = false;
-        this.loadMap(resp.coords.latitude, resp.coords.longitude);
         this.lat = resp.coords.latitude;
         this.long = resp.coords.longitude;
       }).catch(e => {

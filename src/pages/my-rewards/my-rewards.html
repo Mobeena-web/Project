@@ -25,7 +25,7 @@
       <ion-badge color="danger" item-left *ngIf="globals.PointCount > 0">{{globals.PointCount}}</ion-badge>
       POINTS
     </ion-segment-button>
-    <ion-segment-button style="font-size:1.1rem" value="punch_cards">
+    <ion-segment-button style="font-size:1.1rem" value="punch_cards" (click)="getPunchReward()">
         <ion-badge color="danger" item-left *ngIf="globals.punchCount > 0">{{globals.punchCount}}</ion-badge>
         PUNCH CARDS
       </ion-segment-button>
@@ -36,7 +36,7 @@
   </ion-segment>
 
 
-  <div [ngSwitch]="option">
+  <div [ngSwitch]="option" style="height: 100%;">
     <!-- <div *ngSwitchCase="'gain'">
       <ion-searchbar *ngIf="!flag" [(ngModel)]="searchTerm" (input)="setFilteredItems()" [formControl]="searchControl"></ion-searchbar>
 
@@ -78,7 +78,7 @@
       </div>
 
     </div> -->
-    <div *ngSwitchCase="'punch_cards'">
+    <div *ngSwitchCase="'punch_cards'" class="back">
       <!-- <ion-searchbar *ngIf="!flag" [(ngModel)]="searchTerm" (input)="setFilteredItems()" [formControl]="searchControl"></ion-searchbar> -->
 
       <p style="text-align: center; margin-top: 60%;" *ngIf="punchflag">Currently you do not have any punch cards... </p>
@@ -86,6 +86,8 @@
         <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull down to refresh" refreshingSpinner="circles" refreshingText="Refreshing...">
         </ion-refresher-content>
       </ion-refresher>
+      <div class="circle" id="circles2"></div>
+
       <div *ngIf="!punchflag">
 
         <!-- <ion-card *ngFor="let rewards of punchdata" style="margin-right: 4px !important;
@@ -119,7 +121,7 @@
         <div *ngFor="let rewards of punchdata">
             <div style="height:90%">
 
-                <img style="padding: 10px; height:100%" src="{{rewards.punched_image}}">
+                <!-- <img style="padding: 10px; height:100%" src="{{rewards.punched_image}}"> -->
                 <!-- <div class = "punch-logo">    
                    <div style="display:inline-block; padding:5px;" *ngFor="let item of createRange(punch_count)" >
                   <img style="height:50px; width: 50px;" src="{{punched_icon_image}}">    
@@ -134,7 +136,7 @@
                  </div> -->
                 <!--<div style="top: 5%; position: absolute;width: 100%;"><h1 style="text-align:center;color:rgb(140,133,177); ">{{business_username}} </h1> </div>-->
                 <div style="    position: absolute;
-                  top: 18%;
+                  top: 27%;
                   width: 100%;">
                   <ion-label *ngIf="rewards.punch_count.length == 2" class="Open-Sans-bold" style="font-size: 10rem;margin: 10px;position: absolute;   margin-left: 28%;    text-shadow: -1px -1px 0 #f8f8f8, 1px -1px 0 #f8f8f8, -1px 1px 0 #f8f8f8, 1px 1px 0 #f8f8f8; color:black">{{rewards.punch_count}} </ion-label>
                   <p *ngIf="rewards.punch_count.length == 2" style="    position: absolute;    top: 84px; font-size: 3rem;  left: 57%; text-shadow: -1px -1px 0 #f8f8f8, 1px -1px 0 #f8f8f8, -1px 1px 0 #f8f8f8, 1px 1px 0 #f8f8f8; color: black;">
