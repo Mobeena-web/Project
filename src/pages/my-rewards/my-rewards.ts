@@ -265,7 +265,7 @@ export class MyRewardsPage {
         loading.present();
 
         response.subscribe(data => {
-            this.globals.circle_graph('circles2',150,20);
+            this.globals.circle_graph('circles2',150,20,'#fff');
 
             this.data.response = data;
             this.punch_reward = this.data.response;

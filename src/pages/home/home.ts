@@ -185,9 +185,13 @@ export class HomePage {
                     this.flag = true;
                     this.geolocation.getCurrentPosition().then((position) => {
                         this.coordinates = position.coords.latitude + "," + position.coords.longitude;
+                        this.globals.RewardsPos = this.coordinates;
                         this.globals.mycoordinates = this.coordinates;
                         this.getPoints(this.coordinates);
                         this.getPunches(this.coordinates);
+                        this.server.CheckUserPunchCards();
+                        this.server.CheckUserReward();
+                        this.server.CheckUserBadgePoints();
                     }, (err) => {
                         console.log(err);
 
@@ -205,6 +209,9 @@ export class HomePage {
 
                 this.getPoints("0,0");
                 this.getPunches("0,0");
+                this.server.CheckUserPunchCards();
+                this.server.CheckUserReward();
+                this.server.CheckUserBadgePoints();
 
                 let alert = this.alertCtrl.create({
                     title: 'Location is disabled',
@@ -271,7 +278,7 @@ export class HomePage {
                 this.punch_limt_ = 0;
                 this.globals.percent = (parseInt(this.punch_) / parseInt(this.punch_limt_))*100;
                 console.log("percent",this.globals.percent)
-                this.globals.circle_graph('circles1',50,7);
+                this.globals.circle_graph('circles1',50,7,'#ccc');
             }
           
              this.punch_ = data.cards[0].punch_count;
@@ -280,7 +287,7 @@ export class HomePage {
 
              this.globals.percent = (parseInt(this.punch_) / parseInt(this.punch_limt_))*100;
              console.log("percent",this.globals.percent)
-             this.globals.circle_graph('circles1',50,7);
+             this.globals.circle_graph('circles1',50,7,'#ccc');
              
             
         

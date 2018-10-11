@@ -9,6 +9,7 @@
     <!-- <ion-title style="color: #27ae60 !important" *ngIf="globals.title != 'Dusstuk'"  >{{globals.title}}</ion-title> -->
     <ion-buttons class="left-btn" start>
       <button ion-button style="font-size:3rem" menuToggle>
+        <ion-badge color="danger" *ngIf="globals.TotalbadgeValue > 0 && globals.TotalbadgeValue != null" >{{globals.TotalbadgeValue}}</ion-badge>
         <ion-icon  name="md-menu"></ion-icon>
       </button>
     </ion-buttons>
@@ -33,9 +34,9 @@
 
     <ion-slides pager *ngIf="banner" style="height:184px" autoplay="{{time}}" speed="3000" loop="true" autoplayDisableOnInteraction="false">
         <ion-slide *ngFor="let banners of Images" style="height:100%">
-          <img style="height: 173px; width:100% !important;border-radius: 7px;object-fit: cover" src="{{banners?.image}}" (tap)="launch(banners?.url)">
+          <img style="height: 173px; width:100% !important;border-radius: 7px;object-fit: cover" src="{{banners?.image}}">
         </ion-slide>
-      </ion-slides>
+    </ion-slides>
     
 
   <!-- <ion-card (tap)="ordersPage()">
@@ -53,8 +54,6 @@
         <div class="points_design" *ngIf="points">{{points}} <ion-icon class="point-star" name="star"></ion-icon></div>
 
        <div class="pts">Points</div> 
-
-       <!-- <div class="points_design">700</div> -->
 
     </ion-col>
 

@@ -30,18 +30,14 @@
        background:white">
       <ion-col style="font-size:1.7rem">
         <div>
-          <p style="font-size: 2rem;
-            margin: 0;
-            font-weight: bold;">{{res_name}} </p>
-          <p style="font-weight: bold;">Order# {{o_id}} </p>
+          <p class="order_head">Order# {{o_id}} </p>
         </div>
+        <p class="tt"> Total: ${{tot}}</p>
         <p> Placed Time: {{time}} </p>
         <p> Scheduled Time: {{schedule_time}} </p>
-        <p> Total: ${{tot}}</p>
+        
         <div style="margin-bottom:5px" *ngIf="instructions != null">
-          <ion-label style="
-            font-weight: bold;
-        "> Instructions:</ion-label>
+          <ion-label  style="font-weight: bold;font-size: 24px;"> Instructions</ion-label>
           <p> Type: {{instructions.Type}}</p>
           <p *ngIf="instructions.GainDiscount > 0">Gain Discount: ${{instructions.GainDiscount}}</p>
           <p *ngIf="instructions.BusinessDiscount > 0">Business Discount: {{instructions.BusinessDiscount}}%</p>
@@ -53,7 +49,7 @@
       </ion-col>
     </ion-row>
 
-    <ion-label style="    text-align: center;
+    <ion-label style="text-align: center;
   font-size: 1.7rem;
   background: #333;
   margin-bottom: 0;

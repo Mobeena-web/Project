@@ -112,7 +112,7 @@ export class GlobalVariable {
         toast.present();
     }
 
-    circle_graph(id,radius,width){
+    circle_graph(id,radius,width,color){
        
         var myCircle = Circles.create({
             id:                  id,
@@ -121,7 +121,7 @@ export class GlobalVariable {
             maxValue:            100,
             width:               width,
             text:                function(value){return '';},
-            colors:              ['#ccc', '#333'],
+            colors:              [color, '#333'],
             duration:            400,
             wrpClass:            'circles-wrp',
             textClass:           'circles-text',

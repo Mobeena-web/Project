@@ -626,7 +626,6 @@ export class OrderListingPage {
             else{
                 this.errorMenu = false;
             }
-            console.log("usman ordeer",this.data);
             if (this.data.success != true) {
 
                 let alert = this.alertCtrl.create({
@@ -638,7 +637,6 @@ export class OrderListingPage {
 
                 alert.present();
 
-
             }
 
             else {
@@ -649,7 +647,7 @@ export class OrderListingPage {
                     //  this.subscription = timer
                     t = 1;
                     this.data.orders.forEach(element => {
-                        console.log(t);
+                       
                         if (element.deliveryTimeLeft > 0) {
                             element.deliveryTimeLeft = element.deliveryTimeLeft - t;
                         }
