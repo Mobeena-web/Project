@@ -678,12 +678,12 @@ export class OrderListingPage {
         return result;
 
     }
-    detail(data, time, instructions, schedule_time, res, tot, o_id) {
-        console.log(res, "res", tot, o_id);
+    detail(data, time, instructions,schedule_time, res, tot, o_id,p_type) {
+        console.log("res", tot, o_id,p_type);
         console.log("instruction checking" ,instructions, "schedule_time",schedule_time);
         // let profileModal = this.modalCtrl.create('OrderPlacedDetailPage', {data:data});
         // profileModal.present();
-        this.navCtrl.push('OrderPlacedDetailPage', { data: data, time: time, instructions: instructions, schedule_time: schedule_time, res: res, tot: tot, o_id: o_id });
+        this.navCtrl.push('OrderPlacedDetailPage', { p_type:p_type,data: data, time: time, instructions: instructions, schedule_time: schedule_time, res: res, tot: tot, o_id: o_id });
     }
 
     doRefresh1(refresher) {

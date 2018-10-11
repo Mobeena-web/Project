@@ -254,13 +254,8 @@ export class Modal2Page {
           else {
             this.viewCtrl.dismiss('CategoryPage');
             this.presentModal();
-         
-              return true;
-              
+              return true;   
           }
-  
-  
-  
       }
       else {
           console.log("else");

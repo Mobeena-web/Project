@@ -29,7 +29,7 @@ export class OrderPlacedDetailPage {
     categories: any;
     category: any;
     object: any;
-
+    payment_type:any;
     constructor(public globals: GlobalVariable, public alertCtrl: AlertController, public loadingCtrl: LoadingController, public server: ServerProvider, public viewCtrl: ViewController, public navCtrl: NavController, public navParams: NavParams) {
         this.orders = navParams.get('data');
         this.time = navParams.get('time');
@@ -38,8 +38,7 @@ export class OrderPlacedDetailPage {
         this.res_name = navParams.get('res');
         this.tot = navParams.get('tot');
         this.o_id = navParams.get('o_id');
-        console.log(this.orders,this.res_name,this.tot);
-        
+        this.payment_type = navParams.get('p_type');
     } 
   
     ionViewDidLoad() {
