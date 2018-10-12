@@ -5,9 +5,9 @@
     </ion-toolbar>
   </ion-header>
 
-  <ion-content>
+  <ion-content class="back_menu">
     <ion-list>
-      <button menuClose ion-item (click)="OpenEvents()" *ngIf="globals.events_enabled == 1">
+      <button  menuClose ion-item (click)="OpenEvents()" *ngIf="globals.events_enabled == 1">
           <ion-icon name="calendar" class="myicon"></ion-icon>Events
       </button>
       <button menuClose ion-item (click)="openRewards()">
@@ -17,19 +17,19 @@
         <button menuClose ion-item (click)="openOrder()">
             <ion-icon name="restaurant" class="myicon"></ion-icon> Order
           </button>
-          <button menuClose ion-item (click)="openHistory()">
+          <button  menuClose ion-item (click)="openHistory()">
               <ion-icon name="list" class="myicon"></ion-icon> Order History
             </button>
-        <button menuClose ion-item (click)="openReviews()">
+        <button  menuClose ion-item (click)="openReviews()">
             <ion-icon name="clipboard" class="myicon"></ion-icon> Reviews
           </button>
-          <button menuClose ion-item (click)="scanQR()">
+          <button  menuClose ion-item (click)="scanQR()" *ngIf="!globals.guess_login">
             <ion-icon name="camera" class="myicon"></ion-icon> Scan
           </button>
-          <button menuClose ion-item (click)="show_gallery()" *ngIf="globals.gallery_enabled == 1">
+          <button  menuClose ion-item (click)="show_gallery()" *ngIf="globals.gallery_enabled == 1">
               <ion-icon name="image" class="myicon"></ion-icon> Gallery
           </button>
-      <button menuClose ion-item (click)="OpenSettingPage()">
+      <button  menuClose ion-item (click)="OpenSettingPage()">
           <ion-icon name="settings" class="myicon"></ion-icon>Settings
       </button>
        <button menuClose ion-item (click)="logout()">

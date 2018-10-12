@@ -15,7 +15,7 @@
 
 <ion-content>
 
-  <ion-segment style="padding:5px" color="primary" [(ngModel)]="option" (ionChange)="SegmentChange()">
+  <ion-segment  color="primary" [(ngModel)]="option" (ionChange)="SegmentChange()">
     <!-- <ion-segment-button style="font-size:1.1rem" value="gain">
       <ion-badge color="danger" item-left *ngIf="globals.RewardCount > 0">{{globals.RewardCount}}</ion-badge>
       GAIN
@@ -138,16 +138,16 @@
                 <div style="    position: absolute;
                   top: 27%;
                   width: 100%;">
-                  <ion-label *ngIf="rewards.punch_count.length == 2" class="Open-Sans-bold" style="font-size: 10rem;margin: 10px;position: absolute;   margin-left: 28%;    text-shadow: -1px -1px 0 #f8f8f8, 1px -1px 0 #f8f8f8, -1px 1px 0 #f8f8f8, 1px 1px 0 #f8f8f8; color:black">{{rewards.punch_count}} </ion-label>
-                  <p *ngIf="rewards.punch_count.length == 2" style="    position: absolute;    top: 84px; font-size: 3rem;  left: 57%; text-shadow: -1px -1px 0 #f8f8f8, 1px -1px 0 #f8f8f8, -1px 1px 0 #f8f8f8, 1px 1px 0 #f8f8f8; color: black;">
+                  <ion-label *ngIf="rewards.punch_count.length == 2" class="Open-Sans-bold" style="font-size: 10rem;margin: 10px;position: absolute;   margin-left: 28%;  color:black">{{rewards.punch_count}} </ion-label>
+                  <p *ngIf="rewards.punch_count.length == 2" style="    position: absolute;    top: 84px; font-size: 3rem;  left: 57%;  color: black;">
                     /{{rewards.punch_limit}}</p>
             
-                  <ion-label *ngIf="rewards.punch_count.length == 3" class="Open-Sans-bold" style="font-size: 10rem;margin: 10px;position: absolute;   margin-left: 15%;    text-shadow: -1px -1px 0 #f8f8f8, 1px -1px 0 #f8f8f8, -1px 1px 0 #f8f8f8, 1px 1px 0 #f8f8f8; color:black">{{rewards.punch_count}} </ion-label>
-                  <p *ngIf="rewards.punch_count.length == 3" style="    position: absolute;    top: 84px; font-size: 3rem;  left: 59%; text-shadow: -1px -1px 0 #f8f8f8, 1px -1px 0 #f8f8f8, -1px 1px 0 #f8f8f8, 1px 1px 0 #f8f8f8; color: black;">
+                  <ion-label *ngIf="rewards.punch_count.length == 3" class="Open-Sans-bold" style="font-size: 10rem;margin: 10px;position: absolute;   margin-left: 15%;color:black">{{rewards.punch_count}} </ion-label>
+                  <p *ngIf="rewards.punch_count.length == 3" style="    position: absolute;    top: 84px; font-size: 3rem;  left: 59%;  color: black;">
                     /{{rewards.punch_limit}}</p>
             
-                  <ion-label *ngIf="rewards.punch_count.length == 1" class="Open-Sans-bold" style="font-size: 10rem;margin: 10px;position: absolute;      margin-left: 37%;   text-shadow: -1px -1px 0 #f8f8f8, 1px -1px 0 #f8f8f8, -1px 1px 0 #f8f8f8, 1px 1px 0 #f8f8f8; color:black">{{rewards.punch_count}} </ion-label>
-                  <p *ngIf="rewards.punch_count.length == 1 " style="    position: absolute;    top: 84px; font-size: 3rem;      left: 51%; text-shadow: -1px -1px 0 #f8f8f8, 1px -1px 0 #f8f8f8, -1px 1px 0 #f8f8f8, 1px 1px 0 #f8f8f8; color:black">
+                  <ion-label *ngIf="rewards.punch_count.length == 1" class="Open-Sans-bold" style="font-size: 10rem;margin: 10px;position: absolute;      margin-left: 37%;    color:black">{{rewards.punch_count}} </ion-label>
+                  <p *ngIf="rewards.punch_count.length == 1 " style="    position: absolute;    top: 84px; font-size: 3rem;      left: 51%;  color:black">
                     /{{rewards.punch_limit}} </p>
             
                 </div>

@@ -69,7 +69,9 @@ export class HomePage {
     punch_:any;
     email:any;
     constructor(private geolocation: Geolocation,private diagnostic: Diagnostic,public app: App, public server: ServerProvider, public globals: GlobalVariable, private nativeAudio: NativeAudio, private iab: InAppBrowser, private nativeStorage: NativeStorage, public loadingCtrl: LoadingController, public modalCtrl: ModalController, public _nav: NavController, public _navParams: NavParams, public alertCtrl: AlertController, public platform: Platform) {
-        this.reward_notification();
+        if(!this.globals.guess_login){
+            this.reward_notification();
+        }
         this.loadBanner();
         
         this.cartflag = _navParams.get('CartFlag');
@@ -185,9 +187,13 @@ export class HomePage {
                     this.flag = true;
                     this.geolocation.getCurrentPosition().then((position) => {
                         this.coordinates = position.coords.latitude + "," + position.coords.longitude;
+                        this.globals.RewardsPos = this.coordinates;
                         this.globals.mycoordinates = this.coordinates;
                         this.getPoints(this.coordinates);
                         this.getPunches(this.coordinates);
+                        this.server.CheckUserPunchCards();
+                        this.server.CheckUserReward();
+                        this.server.CheckUserBadgePoints();
                     }, (err) => {
                         console.log(err);
 
@@ -205,6 +211,9 @@ export class HomePage {
 
                 this.getPoints("0,0");
                 this.getPunches("0,0");
+                this.server.CheckUserPunchCards();
+                this.server.CheckUserReward();
+                this.server.CheckUserBadgePoints();
 
                 let alert = this.alertCtrl.create({
                     title: 'Location is disabled',
@@ -271,7 +280,7 @@ export class HomePage {
                 this.punch_limt_ = 0;
                 this.globals.percent = (parseInt(this.punch_) / parseInt(this.punch_limt_))*100;
                 console.log("percent",this.globals.percent)
-                this.globals.circle_graph('circles1',50,7);
+                this.globals.circle_graph('circles1',50,7,'#ccc');
             }
           
              this.punch_ = data.cards[0].punch_count;
@@ -280,7 +289,7 @@ export class HomePage {
 
              this.globals.percent = (parseInt(this.punch_) / parseInt(this.punch_limt_))*100;
              console.log("percent",this.globals.percent)
-             this.globals.circle_graph('circles1',50,7);
+             this.globals.circle_graph('circles1',50,7,'#ccc');
              
             
         
@@ -407,6 +416,7 @@ export class HomePage {
         response.subscribe(data => {
             this.banner = data;
             this.Images = this.banner.data;
+            this.globals.banner_image = this.banner.data;
             this.time = this.banner.time;
             this.globals.android_url  = this.banner.android_url;
             this.globals.ios_url = this.banner.ios_url;

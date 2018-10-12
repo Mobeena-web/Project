@@ -92,9 +92,13 @@ export class GlobalVariable {
     update_message:any;
     app_version = "1";
     notifications:any;
+    guess_login:boolean = false;
+    banner_image:any;
+   
     constructor(public alertCtrl: AlertController,public toastCtrl: ToastController) {
      this.BaseUrl = 'https://onlineordering.mikronexus.com/online-ordering-new/index.php/';
     }
+    
 
     alertMessage(title, subTitle) {
         let alert = this.alertCtrl.create({
@@ -112,7 +116,7 @@ export class GlobalVariable {
         toast.present();
     }
 
-    circle_graph(id,radius,width){
+    circle_graph(id,radius,width,color){
        
         var myCircle = Circles.create({
             id:                  id,
@@ -121,7 +125,7 @@ export class GlobalVariable {
             maxValue:            100,
             width:               width,
             text:                function(value){return '';},
-            colors:              ['#ccc', '#333'],
+            colors:              [color, '#333'],
             duration:            400,
             wrpClass:            'circles-wrp',
             textClass:           'circles-text',

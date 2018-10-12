@@ -159,7 +159,7 @@
 
   
   <button ion-button type="submit" clear (click)="changeAddress()" style="margin-top:-3%;width:95%; margin-left:1.9%;color:#444"
-  block> <u>Update Address</u> </button>
+  block> <u>Update Delivery or Pickup</u> </button>
 
     <div [ngSwitch]="cart_detail">
         <ion-list *ngSwitchCase="'tip'">
@@ -393,10 +393,16 @@
              
                  <ion-label style="padding:0px;padding:0px;font-size:1.3rem;margin:0px;color:#444; ">
                    <!-- <ion-icon style="padding-right: 5px;  position: relative; top: 3px;" name="copy"> </ion-icon>  -->
-                   Gratuity(tip excluded from total)
+                   Gratuity
                    <!-- <p style="margin: -28px; margin-left: 26px"></p> -->
                    <p style="float:right;font-size:1.3rem;margin:0px;color:#444;"> ${{Tip}}</p>
                  </ion-label>
+                 <ion-label *ngIf="per_tip" style="padding:0px;padding:0px;font-size:1.3rem;margin:0px;color:#444; ">
+                    <!-- <ion-icon style="padding-right: 5px;  position: relative; top: 3px;" name="copy"> </ion-icon>  -->
+                    Tip
+                    <!-- <p style="margin: -28px; margin-left: 26px"></p> -->
+                    <p style="float:right;font-size:1.3rem;margin:0px;color:#444;"> ${{per_tip}}</p>
+                  </ion-label>
                  <ion-label *ngIf="notes" style="padding:0px;padding:0px;font-size:1.3rem;margin:0px;color:#444; ">
                   <!-- <ion-icon style="padding-right: 5px;  position: relative; top: 3px;" name="copy"> </ion-icon>  -->
                   Notes
@@ -414,6 +420,19 @@
         </ion-list>
       </div>
     <button ion-button block style="width: 80%;margin-left: 10%;color: #fff;border-radius: 7px;margin-top: 50px;" (click)="paymentPage()"> Proceed To Checkout </button>
+      <h3>Tip</h3>
+      <ion-row>
+        <ion-col col-4>
+          <button ion-button block (click)="percent_tip(8)"> 8% </button>
+        </ion-col>
+        <ion-col col-4>
+         <button ion-button block (click)="percent_tip(10)"> 10% </button>
+        </ion-col>
+        <ion-col col-4>
+            <button ion-button block (click)="percent_tip(15)"> 15% </button>
+          </ion-col>
+      </ion-row>
+
 
 
 </ion-content>
@@ -426,7 +445,7 @@
           Add Notes
         </ion-segment-button>
         <ion-segment-button style="overflow:unset !important;padding: 0px" (click)="add_gratuity()">
-            Add Gratuity
+            Custom Gratuity
         </ion-segment-button>
       </ion-segment>
     <ion-label style="font-size:25px;margin:0px;padding:0px;padding-top: 10px; color:#444; padding: 16px;">

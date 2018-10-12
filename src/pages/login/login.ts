@@ -68,10 +68,11 @@ export class LoginPage {
                 this.data.response = data;
                 
                 if (this.data.response != "invalid") {
+                    this.globals.guess_login = false;
                    this.navCtrl.setRoot(HomePage,{imageData:this.data.response.url,Flag:false});
                     //this.navCtrl.push('AcceptTermsPage');
                     this.globals.udid = this.data.response.udid;
-
+                  
                     this.globals.firstName = this.data.response.firstname;
                     this.globals.lastName = this.data.response.lastname;
                     this.nativeStorage.setItem('user',

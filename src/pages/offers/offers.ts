@@ -30,15 +30,15 @@ export class OffersPage {
     let response = this.server.get_offers();
     response.subscribe(data => {
         loading.dismiss();
-
-        console.log("offers_usman",data);
-        this.offers = data.data.offers;
-        if(this.offers.length == 0){
+        if(data.data.length == 0){
           this.errorMenu = true;
         }
         else{
           this.errorMenu = false;
         }
+        console.log("offers_usman",data);
+        this.offers = data.data.offers;
+       
     
     }, error => {
         this.global.alertMessage("Failure","Something went wrong check your internet connection.")

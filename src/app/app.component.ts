@@ -46,7 +46,7 @@ export class MyApp {
         this.data.response = '';
         this.LoadSound();
         this.list();
-       this.server.CheckUserReward1();
+        
       setTimeout(() => this.splashscreen.hide(), 400);
       this.statusbar.hide();
 
@@ -210,7 +210,12 @@ export class MyApp {
   }
 
   OpenSettingPage() {
-    this.nav.push('SettingsPage')
+    if(this.globals.guess_login){
+        this.presentConfirm();
+    }
+    else{
+        this.nav.push('SettingsPage')
+    }
   }
   logout() {
   this.nativeStorage.clear()
@@ -231,21 +236,40 @@ export class MyApp {
 }
 
 OpenEvents(){
-  this.nav.push('EventsPage');
+    if(this.globals.guess_login){
+        this.presentConfirm();
+    }
+    else{
+        this.nav.push('EventsPage');
+    }
 }
 openRewards(){
-  this.nav.push('MyRewardsPage')
+    if(this.globals.guess_login){
+        this.presentConfirm();
+    }
+    else{
+        this.nav.push('MyRewardsPage')
+    }
 }
 openReviews(){
-  this.nav.push('ReviewsPage')
+    if(this.globals.guess_login){
+        this.presentConfirm();
+    }
+    else{
+        this.nav.push('ReviewsPage')
+    }
 
 }
 openOrder(){
-  this.nav.push('CategoryPage')
-
+    this.nav.push('CategoryPage')
 }
 openHistory(){
-  this.nav.push('OrderListingPage')
+    if(this.globals.guess_login){
+        this.presentConfirm();
+    }
+    else{
+        this.nav.push('OrderListingPage')
+    }
 }
 
 public scanQR() {
@@ -488,8 +512,37 @@ list() {
 }
 
 show_gallery(){
+    if(this.globals.guess_login){
+        this.presentConfirm();
+    }
+    else{
     this.nav.push("GalleryPage")
+
+    }
 }
+
+presentConfirm() {
+    let alert = this.alertCtrl.create({
+      title: 'Login',
+      message: 'You need to be logged in to use this feature.',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'login',
+          handler: () => {
+            this.nav.setRoot('LoginPage')
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
 
 
 

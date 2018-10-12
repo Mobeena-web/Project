@@ -64,6 +64,7 @@ export class CartPage {
     instruct:Boolean=true;
     Address : any ; 
     point_show:any = 0;
+    per_tip :any = 0;
     constructor(public loadingCtrl: LoadingController, public server: ServerProvider, public modalCtrl: ModalController, public alertCtrl: AlertController, private nativeStorage: NativeStorage, public appCtrl: App, public globals: GlobalVariable, public viewCtrl: ViewController, public navCtrl: NavController, public navParams: NavParams) {
         console.log(globals.type, "@@@type");
         //  console.log("here is my items of global" ,this.globals.itemInstruction);
@@ -112,6 +113,14 @@ export class CartPage {
     // ionViewWillEnter(){
     //     this.total();
     // }
+
+    percent_tip(tip){
+        this.Total = Number(this.Total) - Number(this.per_tip);
+
+        this.per_tip =((Number(this.Total) /100) * tip).toFixed(2);
+        this.Total = (Number(this.Total) + Number(this.per_tip)).toFixed(2);
+
+    }
 
     ionViewDidLoad() {
         console.log('ionViewDidLoad CartPage');
@@ -786,211 +795,241 @@ export class CartPage {
             }
         }
     }
+    presentConfirm() {
+        let alert = this.alertCtrl.create({
+          title: 'Login',
+          message: 'You need to be logged in to use this feature.',
+          buttons: [
+            {
+              text: 'Cancel',
+              role: 'cancel',
+              handler: () => {
+                console.log('Cancel clicked');
+              }
+            },
+            {
+              text: 'login',
+              handler: () => {
+                this.navCtrl.setRoot('LoginPage')
+              }
+            }
+          ]
+        });
+        alert.present();
+      }
 
 
     paymentPage() {
-        let proceedFlag = true;
-        console.log(this.Total, this.globals.minimun_order);
-        let alert12 = this.alertCtrl.create({
-            title: 'Alert',
-            subTitle: 'Please add more items in the cart.Minimum delivery order amount is $' + this.globals.minimun_order,
-            buttons: ['Okay']
-        });
-        if (this.ProductsTotal < this.globals.minimun_order && this.Deliver == true) {
-            alert12.present();
-            proceedFlag = false;
+        console.log("gurst",this.globals.guess_login)
+        if(this.globals.guess_login){
+            this.presentConfirm();
         }
-
-        else {
-
-            // if(this.globals.BusinessDiscount > 0 && this.globals.BusinessDiscountFlag == false)
-            // {
-            //     console.log("business discount",this.globals.BusinessDiscount,this.globals.BusinessDiscountFlag == false);
-            //     this.discountTotal = Number(this.ProductsTotal)*this.globals.BusinessDiscount/100;
-            //     console.log(this.ProductsTotal,this.discountTotal);
-            //     this.ProductsTotal -=this.discountTotal;
-            //     this.ProductsTotal = this.ProductsTotal.toFixed(2);
-            //     console.log(this.ProductsTotal);
-            //     if(this.Deliver == true)
-            //         {
-            //         this.Total = Number(this.ProductsTotal) + this.globals.deliveryCharges;
-            //         }
-            //         else{
-            //             this.Total =  Number(this.ProductsTotal) ;
-            //         }
-            //    this.Total =  this.Total.toFixed(2);
-            //     this.globals.BusinessDiscountFlag = true;
-
-            //     if((Number(this.ProductsTotal) < this.globals.minimun_order || Number(this.ProductsTotal) < 0) && this.Deliver == true)
-            //         {
-            //             alert12.present();   
-            //             this.total();
-            //             this.globals.BusinessDiscountFlag = false;
-            //             proceedFlag = false;
-
-            //         }
-
-
-            // }
-            if (this.globals.GainDiscount > 0) {
-                proceedFlag = true;
-
-
-                let alert = this.alertCtrl.create({
-                    title: 'Confirm',
-                    message: 'Do you want to avail your Gain offer?',
-                    buttons: [
-                        {
-                            text: 'Cancel',
-                            role: 'cancel',
-                            handler: () => {
-                                console.log('Cancel clicked');
-
-                            }
-                        },
-                        {
-                            text: 'Avail',
-                            handler: () => {
-                                console.log('Buy clicked');
-                                Number(this.globals.GainDiscount);
-                                if (this.globals.GainDiscount > this.ProductsTotal) {
-
-                                    let alert = this.alertCtrl.create({
-                                        title: 'Sorry',
-                                        subTitle: 'In order to avail your discount,please add more items.',
-                                        buttons: ['OK']
-                                    });
-                                    alert.present();
-                                    proceedFlag = false;
+        else{
+            let proceedFlag = true;
+            console.log(this.Total, this.globals.minimun_order);
+            let alert12 = this.alertCtrl.create({
+                title: 'Alert',
+                subTitle: 'Please add more items in the cart.Minimum delivery order amount is $' + this.globals.minimun_order,
+                buttons: ['Okay']
+            });
+            if (this.ProductsTotal < this.globals.minimun_order && this.Deliver == true) {
+                alert12.present();
+                proceedFlag = false;
+            }
+    
+            else {
+    
+                // if(this.globals.BusinessDiscount > 0 && this.globals.BusinessDiscountFlag == false)
+                // {
+                //     console.log("business discount",this.globals.BusinessDiscount,this.globals.BusinessDiscountFlag == false);
+                //     this.discountTotal = Number(this.ProductsTotal)*this.globals.BusinessDiscount/100;
+                //     console.log(this.ProductsTotal,this.discountTotal);
+                //     this.ProductsTotal -=this.discountTotal;
+                //     this.ProductsTotal = this.ProductsTotal.toFixed(2);
+                //     console.log(this.ProductsTotal);
+                //     if(this.Deliver == true)
+                //         {
+                //         this.Total = Number(this.ProductsTotal) + this.globals.deliveryCharges;
+                //         }
+                //         else{
+                //             this.Total =  Number(this.ProductsTotal) ;
+                //         }
+                //    this.Total =  this.Total.toFixed(2);
+                //     this.globals.BusinessDiscountFlag = true;
+    
+                //     if((Number(this.ProductsTotal) < this.globals.minimun_order || Number(this.ProductsTotal) < 0) && this.Deliver == true)
+                //         {
+                //             alert12.present();   
+                //             this.total();
+                //             this.globals.BusinessDiscountFlag = false;
+                //             proceedFlag = false;
+    
+                //         }
+    
+    
+                // }
+                if (this.globals.GainDiscount > 0) {
+                    proceedFlag = true;
+    
+    
+                    let alert = this.alertCtrl.create({
+                        title: 'Confirm',
+                        message: 'Do you want to avail your Gain offer?',
+                        buttons: [
+                            {
+                                text: 'Cancel',
+                                role: 'cancel',
+                                handler: () => {
+                                    console.log('Cancel clicked');
+    
                                 }
-                                else {
-                                    console.log(this.globals.GainDiscountFlag, "gain discount flag")
-                                    if (this.globals.GainDiscountFlag == false) {
-                                        console.log("gaindiscount")
-                                        this.ProductsTotal -= this.globals.GainDiscount;
-                                        this.ProductsTotal = this.ProductsTotal.toFixed(2);
-                                        if (this.Deliver == true) {
-                                            this.Total = Number(this.ProductsTotal) + this.globals.deliveryCharges;
-                                        }
-                                        else {
-                                            this.Total = Number(this.ProductsTotal);
-                                        }
-                                        this.Total = this.Total.toFixed(2);
-                                        this.globals.GainDiscountFlag = true;
-                                        proceedFlag = true;
-                                        if ((Number(this.ProductsTotal) < this.globals.minimun_order || Number(this.ProductsTotal) < 0) && this.Deliver == true) {
-                                            alert12.present();
-                                            proceedFlag = false;
-                                            this.total();
-                                            this.globals.GainDiscountFlag = false;
-
-                                        }
-                                        else {
-
-                                            let alert = this.alertCtrl.create({
-                                                title: 'Congratulation',
-                                                subTitle: 'You have availed your Gain discount',
-                                                buttons: ['Okay']
-                                            });
-                                            alert.present();
+                            },
+                            {
+                                text: 'Avail',
+                                handler: () => {
+                                    console.log('Buy clicked');
+                                    Number(this.globals.GainDiscount);
+                                    if (this.globals.GainDiscount > this.ProductsTotal) {
+    
+                                        let alert = this.alertCtrl.create({
+                                            title: 'Sorry',
+                                            subTitle: 'In order to avail your discount,please add more items.',
+                                            buttons: ['OK']
+                                        });
+                                        alert.present();
+                                        proceedFlag = false;
+                                    }
+                                    else {
+                                        console.log(this.globals.GainDiscountFlag, "gain discount flag")
+                                        if (this.globals.GainDiscountFlag == false) {
+                                            console.log("gaindiscount")
+                                            this.ProductsTotal -= this.globals.GainDiscount;
+                                            this.ProductsTotal = this.ProductsTotal.toFixed(2);
+                                            if (this.Deliver == true) {
+                                                this.Total = Number(this.ProductsTotal) + this.globals.deliveryCharges;
+                                            }
+                                            else {
+                                                this.Total = Number(this.ProductsTotal);
+                                            }
+                                            this.Total = this.Total.toFixed(2);
+                                            this.globals.GainDiscountFlag = true;
                                             proceedFlag = true;
+                                            if ((Number(this.ProductsTotal) < this.globals.minimun_order || Number(this.ProductsTotal) < 0) && this.Deliver == true) {
+                                                alert12.present();
+                                                proceedFlag = false;
+                                                this.total();
+                                                this.globals.GainDiscountFlag = false;
+    
+                                            }
+                                            else {
+    
+                                                let alert = this.alertCtrl.create({
+                                                    title: 'Congratulation',
+                                                    subTitle: 'You have availed your Gain discount',
+                                                    buttons: ['Okay']
+                                                });
+                                                alert.present();
+                                                proceedFlag = true;
+                                            }
                                         }
                                     }
+                                    console.log(this.ProductsTotal);
+    
+                                    //  this.navCtrl.push('CheckoutProcessPage',{amount:this.Total});
+    
                                 }
-                                console.log(this.ProductsTotal);
-
-                                //  this.navCtrl.push('CheckoutProcessPage',{amount:this.Total});
-
                             }
-                        }
-                    ]
-                });
-                alert.present();
-            }
-
-            // if(this.Tip > 0 && this.globals.TipAdded == false) 
-            //     {
-            //      this.Total = Number(this.Total) + Number(this.Tip);
-            //      this.Total = this.Total.toFixed(2);
-            //      this.globals.TipAdded = true;
-            //     }
-
-            // if (this.Tip) {
-            //     this.Total = Number(this.Total) + Number(this.Tip);
-            //     this.Total = this.Total.toFixed(2);
-            // }
-
-            if (this.globals.MobileDiscount > 0 && this.globals.MobileDiscountFlag == true) {
-                let mob = this.globals.MobileDiscount;
-                let subtract_value = Number(this.ProductsTotal) - mob;
-                if (subtract_value >= this.globals.minimun_order) {
-                    console.log(this.globals.MobileDiscount, "mobile discount");
-
-                    console.log("mobile discount, product total", this.ProductsTotal, this.globals.MobileDiscount);
-
-                    this.ProductsTotal = Number(this.ProductsTotal) - Number(this.globals.MobileDiscount);
-                    console.log("product total after subtraction", this.ProductsTotal);
-
-                    this.ProductsTotal = this.ProductsTotal.toFixed(2);
-                    console.log("product total after toFixed", this.ProductsTotal);
-                    this.Total = this.ProductsTotal;
-                    console.log(this.Total, "total = producttotal");
+                        ]
+                    });
+                    alert.present();
                 }
-                else {
-                    alert12.present();
-                    proceedFlag = false;
-                }
-
-                if (this.Deliver == true) {
-                    console.log("delivey type checking");
-                    console.log(this.globals.deliveryCharges, "delivery charges");
-
-                    this.Total = Number(this.ProductsTotal) + Number(this.globals.deliveryCharges);
-                    console.log(this.Total, "product addition");
-
-                }
-                else {
-                    this.Total = Number(this.ProductsTotal);
-                }
-                this.Total = this.Total.toFixed(2);
-
-                if ((Number(this.ProductsTotal) < this.globals.minimun_order || Number(this.ProductsTotal) < 0) && this.Deliver == true) {
-                    alert12.present();
-                    this.total();
-                    proceedFlag = false;
-                }
-                // else{
-                //     this.globals.MobileDiscount = 0;
+    
+                // if(this.Tip > 0 && this.globals.TipAdded == false) 
+                //     {
+                //      this.Total = Number(this.Total) + Number(this.Tip);
+                //      this.Total = this.Total.toFixed(2);
+                //      this.globals.TipAdded = true;
                 //     }
-
+    
+                // if (this.Tip) {
+                //     this.Total = Number(this.Total) + Number(this.Tip);
+                //     this.Total = this.Total.toFixed(2);
+                // }
+    
+                if (this.globals.MobileDiscount > 0 && this.globals.MobileDiscountFlag == true) {
+                    let mob = this.globals.MobileDiscount;
+                    let subtract_value = Number(this.ProductsTotal) - mob;
+                    if (subtract_value >= this.globals.minimun_order) {
+                        console.log(this.globals.MobileDiscount, "mobile discount");
+    
+                        console.log("mobile discount, product total", this.ProductsTotal, this.globals.MobileDiscount);
+    
+                        this.ProductsTotal = Number(this.ProductsTotal) - Number(this.globals.MobileDiscount);
+                        console.log("product total after subtraction", this.ProductsTotal);
+    
+                        this.ProductsTotal = this.ProductsTotal.toFixed(2);
+                        console.log("product total after toFixed", this.ProductsTotal);
+                        this.Total = this.ProductsTotal;
+                        console.log(this.Total, "total = producttotal");
+                    }
+                    else {
+                        alert12.present();
+                        proceedFlag = false;
+                    }
+    
+                    if (this.Deliver == true) {
+                        console.log("delivey type checking");
+                        console.log(this.globals.deliveryCharges, "delivery charges");
+    
+                        this.Total = Number(this.ProductsTotal) + Number(this.globals.deliveryCharges);
+                        console.log(this.Total, "product addition");
+    
+                    }
+                    else {
+                        this.Total = Number(this.ProductsTotal);
+                    }
+                    this.Total = this.Total.toFixed(2);
+    
+                    if ((Number(this.ProductsTotal) < this.globals.minimun_order || Number(this.ProductsTotal) < 0) && this.Deliver == true) {
+                        alert12.present();
+                        this.total();
+                        proceedFlag = false;
+                    }
+                    // else{
+                    //     this.globals.MobileDiscount = 0;
+                    //     }
+    
+                }
+                // if(this.pointExists && this.check_points && this.pointsAvailed == false)
+                // {   
+    
+                //     let tot = Number(this.Total);
+                //     let sub = tot - this.pointsInput;
+                //     if(sub < this.globals.minimun_order)   
+                //     {
+                //         alert12.present();
+                //         proceedFlag = false;
+                //         this.pointsAvailed = false;
+    
+                //     }   
+                //     else{
+                //         this.pointsAvailed = true;
+                //         proceedFlag= true;
+                //         this.Total = sub;
+                //         this.globals.points_availed = this.pointsInput;
+                //         this.Total = this.Total.toFixed(2)
+                //     }
+                // }
+    
+    
+    
+                if (proceedFlag) {
+                    this.navCtrl.push('PaymentPage', { amount: this.Total, tip: this.Tip, notes: this.notes, RewardAvailed: this.RewardStoreCreditAvailed, BirthdayCreditavailed: this.birthdayStoreCreditavailed });
+                }
             }
-            // if(this.pointExists && this.check_points && this.pointsAvailed == false)
-            // {   
 
-            //     let tot = Number(this.Total);
-            //     let sub = tot - this.pointsInput;
-            //     if(sub < this.globals.minimun_order)   
-            //     {
-            //         alert12.present();
-            //         proceedFlag = false;
-            //         this.pointsAvailed = false;
-
-            //     }   
-            //     else{
-            //         this.pointsAvailed = true;
-            //         proceedFlag= true;
-            //         this.Total = sub;
-            //         this.globals.points_availed = this.pointsInput;
-            //         this.Total = this.Total.toFixed(2)
-            //     }
-            // }
-
-
-
-            if (proceedFlag) {
-                this.navCtrl.push('PaymentPage', { amount: this.Total, tip: this.Tip, notes: this.notes, RewardAvailed: this.RewardStoreCreditAvailed, BirthdayCreditavailed: this.birthdayStoreCreditavailed });
-            }
         }
+       
 
     }
 
@@ -1183,6 +1222,7 @@ export class CartPage {
                     }
                     else{
                         this.Tip = data.tip;
+                        this.Total = (Number(this.Total) + Number(this.Tip)).toFixed(2);
                     }
                 }
               }

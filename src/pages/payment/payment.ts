@@ -185,7 +185,7 @@ export class PaymentPage {
 
         
         this.amount = this.navParams.get('amount');
-        this.amount = Number(this.amount) + Number(this.Tip);
+        this.amount = Number(this.amount) ;
         console.log("tip added ",this.amount);
         //this.Address = this.navParams.get('Address');
         console.log("adress",this.Address);

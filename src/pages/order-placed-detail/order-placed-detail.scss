@@ -2,5 +2,14 @@ page-order-placed-detail {
 
     p{
        color: #666 !important;
+       margin: 0;
+    }
+    .order_head{
+        font-weight: bold;
+        font-size: 23px;
+    }
+    .tt{
+        font-weight: bold;
+        font-size: 20px;
     }
 }
