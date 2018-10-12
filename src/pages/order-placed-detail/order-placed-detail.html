@@ -35,7 +35,7 @@
         <p class="tt"> Total: ${{tot}}</p>
         <p> Placed Time: {{time}} </p>
         <p> Scheduled Time: {{schedule_time}} </p>
-        <p *ngIf="p_type">Payment Type:{{p_type}}</p>
+        <p *ngIf="payment_type">Payment Type:{{payment_type}}</p>
         
         <div style="margin-bottom:5px" *ngIf="instructions != null">
           <ion-label  style="font-weight: bold;font-size: 24px;"> Instructions</ion-label>
@@ -99,6 +99,12 @@
 
 
       </ion-row>
+      <!-- <ion-label style="text-align: center;font-size: 1.7rem;background: #333;margin-bottom: 0;margin-right: 0;color: white;margin-top:0;padding: 15px;">Customer Detail</ion-label>
+      <p> Name: {{globals.firstName}}{{globals.lastName}} </p>
+      <p>Phone:{{globals.o_phone}}</p>
+      <p>Email:{{globals.o_email}}</p> -->
+
+      
 
     </div>
 

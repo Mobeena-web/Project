@@ -69,7 +69,9 @@ export class HomePage {
     punch_:any;
     email:any;
     constructor(private geolocation: Geolocation,private diagnostic: Diagnostic,public app: App, public server: ServerProvider, public globals: GlobalVariable, private nativeAudio: NativeAudio, private iab: InAppBrowser, private nativeStorage: NativeStorage, public loadingCtrl: LoadingController, public modalCtrl: ModalController, public _nav: NavController, public _navParams: NavParams, public alertCtrl: AlertController, public platform: Platform) {
-        this.reward_notification();
+        if(!this.globals.guess_login){
+            this.reward_notification();
+        }
         this.loadBanner();
         
         this.cartflag = _navParams.get('CartFlag');
@@ -414,6 +416,7 @@ export class HomePage {
         response.subscribe(data => {
             this.banner = data;
             this.Images = this.banner.data;
+            this.globals.banner_image = this.banner.data;
             this.time = this.banner.time;
             this.globals.android_url  = this.banner.android_url;
             this.globals.ios_url = this.banner.ios_url;

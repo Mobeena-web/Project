@@ -9,6 +9,11 @@
 
 
 <ion-content padding>
+    <ion-slides pager *ngIf="global.banner_image" autoplay="2000" style="height:184px"  speed="3000" loop="true" autoplayDisableOnInteraction="false">
+        <ion-slide *ngFor="let banners of global.banner_image" style="height:100%">
+          <img style="height: 173px; width:100% !important;border-radius: 7px;object-fit: cover" src="{{banners?.image}}">
+        </ion-slide>
+    </ion-slides>
     <div *ngIf="errorMenu == true">
         <p style="padding-top: calc(50% - 11px); padding-right:20px; padding-left:20px; text-align: center; font-size: 22px; color:#a8a3a3;"><ion-icon name="eye-off"></ion-icon></p>
         <p no-margin style="padding-right:20px; padding-left:20px; text-align: center; font-size: 14px;">No Images</p>

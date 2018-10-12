@@ -39,6 +39,7 @@ export class OrderPlacedDetailPage {
         this.tot = navParams.get('tot');
         this.o_id = navParams.get('o_id');
         this.payment_type = navParams.get('p_type');
+        console.log("payment type",this.payment_type)
     } 
   
     ionViewDidLoad() {
