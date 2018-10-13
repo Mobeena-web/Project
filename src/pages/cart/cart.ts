@@ -65,6 +65,7 @@ export class CartPage {
     Address : any ; 
     point_show:any = 0;
     per_tip :any = 0;
+    tip_cus:any = 0;
     constructor(public loadingCtrl: LoadingController, public server: ServerProvider, public modalCtrl: ModalController, public alertCtrl: AlertController, private nativeStorage: NativeStorage, public appCtrl: App, public globals: GlobalVariable, public viewCtrl: ViewController, public navCtrl: NavController, public navParams: NavParams) {
         console.log(globals.type, "@@@type");
         //  console.log("here is my items of global" ,this.globals.itemInstruction);
@@ -114,13 +115,7 @@ export class CartPage {
     //     this.total();
     // }
 
-    percent_tip(tip){
-        this.Total = Number(this.Total) - Number(this.per_tip);
-
-        this.per_tip =((Number(this.Total) /100) * tip).toFixed(2);
-        this.Total = (Number(this.Total) + Number(this.per_tip)).toFixed(2);
-
-    }
+    
 
     ionViewDidLoad() {
         console.log('ionViewDidLoad CartPage');
@@ -1195,6 +1190,15 @@ export class CartPage {
         activeElement && activeElement.blur && activeElement.blur();
     }
 
+    percent_tip(tip){
+        this.Total = Number(this.Total) - Number(this.Tip);
+
+        this.per_tip = ((Number(this.ProductsTotal) /100) * tip).toFixed(2);
+        this.Tip = this.per_tip;
+        this.Total = (Number(this.Total) + Number(this.per_tip)).toFixed(2);
+
+    }
+
     add_gratuity(){
         let alert = this.alertCtrl.create({
             title: 'Add Gratuity',
@@ -1221,7 +1225,9 @@ export class CartPage {
                         this.Tip = 0;
                     }
                     else{
+                        this.Total = this.Total - Number(this.Tip);
                         this.Tip = data.tip;
+                        this.tip_cus = data.tip;
                         this.Total = (Number(this.Total) + Number(this.Tip)).toFixed(2);
                     }
                 }

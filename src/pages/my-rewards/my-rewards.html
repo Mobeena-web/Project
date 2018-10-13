@@ -138,17 +138,17 @@
                 <div style="    position: absolute;
                   top: 27%;
                   width: 100%;">
-                  <ion-label *ngIf="rewards.punch_count.length == 2" class="Open-Sans-bold" style="font-size: 10rem;margin: 10px;position: absolute;   margin-left: 28%;  color:black">{{rewards.punch_count}} </ion-label>
+                  <ion-label *ngIf="rewards.punch_count.length == 2" class="Open-Sans-bold" style="font-size: 10rem;margin: 10px;position: absolute;   margin-left: 28%;  color:black">{{globals.punch_}} </ion-label>
                   <p *ngIf="rewards.punch_count.length == 2" style="    position: absolute;    top: 84px; font-size: 3rem;  left: 57%;  color: black;">
-                    /{{rewards.punch_limit}}</p>
+                    /{{globals.punch_limit_}}</p>
             
-                  <ion-label *ngIf="rewards.punch_count.length == 3" class="Open-Sans-bold" style="font-size: 10rem;margin: 10px;position: absolute;   margin-left: 15%;color:black">{{rewards.punch_count}} </ion-label>
+                  <ion-label *ngIf="rewards.punch_count.length == 3" class="Open-Sans-bold" style="font-size: 10rem;margin: 10px;position: absolute;   margin-left: 15%;color:black">{{globals.punch_}} </ion-label>
                   <p *ngIf="rewards.punch_count.length == 3" style="    position: absolute;    top: 84px; font-size: 3rem;  left: 59%;  color: black;">
-                    /{{rewards.punch_limit}}</p>
+                    /{{globals.punch_limit_}}</p>
             
-                  <ion-label *ngIf="rewards.punch_count.length == 1" class="Open-Sans-bold" style="font-size: 10rem;margin: 10px;position: absolute;      margin-left: 37%;    color:black">{{rewards.punch_count}} </ion-label>
-                  <p *ngIf="rewards.punch_count.length == 1 " style="    position: absolute;    top: 84px; font-size: 3rem;      left: 51%;  color:black">
-                    /{{rewards.punch_limit}} </p>
+                  <ion-label  class="Open-Sans-bold" style="font-size: 10rem;margin: 10px;position: absolute;      margin-left: 37%;    color:black">{{globals.punch_}} </ion-label>
+                  <p  style="position: absolute;    top: 84px; font-size: 3rem;      left: 51%;  color:black">
+                    /{{globals.punch_limit_}} </p>
             
                 </div>
                

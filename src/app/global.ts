@@ -54,7 +54,7 @@ export class GlobalVariable {
     points_availed: any = 0;
     reservation_id: any;
     type: any;
-    OrderType : any = "delivery"
+    OrderType : any;
     username: any;
     punchCount: any = 0;
     RewardCount: any = 0;
@@ -90,11 +90,12 @@ export class GlobalVariable {
     android_url:any;
     ios_url:any;
     update_message:any;
-    app_version = "1";
+    app_version = "1.5";
     notifications:any;
     guess_login:boolean = false;
     banner_image:any;
-   
+    punch_:any;
+    punch_limit_:any;
     constructor(public alertCtrl: AlertController,public toastCtrl: ToastController) {
      this.BaseUrl = 'https://onlineordering.mikronexus.com/online-ordering-new/index.php/';
     }

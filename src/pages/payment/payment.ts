@@ -472,12 +472,13 @@ export class PaymentPage {
                     this.userBusinessDiscountUpdate();
                 }
 
-                let alert = this.alertCtrl.create({
-                    title: 'Congratulation',
-                    subTitle: 'Your order has been sucessfully placed.',
-                    buttons: ['Okay']
-                });
-                alert.present();
+                // let alert = this.alertCtrl.create({
+                //     title: 'Congratulation',
+                //     subTitle: 'Your order has been sucessfully placed.',
+                //     buttons: ['Okay']
+                // });
+                // alert.present();
+                this.thankyou();
 
 
             }
@@ -799,6 +800,7 @@ export class PaymentPage {
                                 buttons: ['OK']
                             });
                             alert.present();
+                            // this.thankyou();
 
                             this.setArray();
                             if (this.RewardCreditAvailed > 0) {
@@ -931,12 +933,7 @@ export class PaymentPage {
                             localStorage.removeItem("GetAddress");
                             localStorage.removeItem("scheduled_time");
 
-                            let alert = this.alertCtrl.create({
-                                title: 'Congratulation',
-                                subTitle: this.data.message,
-                                buttons: ['OK']
-                            });
-                            alert.present();
+                            
 
                             this.setArray();
                             if (this.RewardCreditAvailed > 0) {
@@ -958,7 +955,7 @@ export class PaymentPage {
                                 this.userBusinessDiscountUpdate();
                             }
 
-                            this.navCtrl.popToRoot();
+                            this.thankyou();
 
                             this.FirstimeFlag();
 
@@ -1080,12 +1077,12 @@ export class PaymentPage {
                             localStorage.removeItem("GetAddress");
                             localStorage.removeItem("scheduled_time");
 
-                            let alert = this.alertCtrl.create({
-                                title: 'Congratulation',
-                                subTitle: this.data.message,
-                                buttons: ['OK']
-                            });
-                            alert.present();
+                            // let alert = this.alertCtrl.create({
+                            //     title: 'Congratulation',
+                            //     subTitle: this.data.message,
+                            //     buttons: ['OK']
+                            // });
+                            // alert.present();
 
                             this.setArray();
                             if (this.RewardCreditAvailed > 0) {
@@ -1107,7 +1104,7 @@ export class PaymentPage {
                                 this.userBusinessDiscountUpdate();
                             }
 
-                            this.navCtrl.popToRoot();
+                            this.thankyou();
 
                             //this.FirstimeFlag();
 
@@ -1240,6 +1237,11 @@ export class PaymentPage {
 
 
         console.log(this.PaymentForm.value.cardinfo);
+    }
+    thankyou(){
+        // let modal = this.modalCtrl.create('ThankyouPage');
+        // modal.present();
+        this.navCtrl.push('ThankyouPage')
     }
 
 

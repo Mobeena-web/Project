@@ -221,15 +221,25 @@ export class ModalPage {
       //   this.getCurrentLocation().then((resp) => {
       //   this.reverseGeoCoding(resp.coords.latitude, resp.coords.longitude);
       // });
+
+
+      if(!this.globals.OrderType){
+      console.log("usman",this.globals.OrderType)
+
+        if(this.order_pickup && !this.order_delivery){
+          this.type = "pickup";
+        }
+        else if(this.order_delivery && this.order_pickup){
+          this.type = "delivery";
+        }
+      }
+      else{
+      console.log("usman1",this.globals.OrderType)
+
+        this.type = this.globals.OrderType;
+      }
     
-    if(this.order_pickup && !this.order_delivery){
-      this.type = "pickup";
-      // this.globals.OrderType = this.type;
-    }
-    else if(this.order_delivery && this.order_pickup){
-      this.type = "delivery";
-      // this.globals.OrderType = this.type;
-    }
+ 
     
   }
   
@@ -256,6 +266,7 @@ export class ModalPage {
       error => console.error('Error storing item', error)
   );
     //this.checkTiming();            
+    this.globals.OrderType = 'delivery';
     this.viewCtrl.dismiss();
     this.globals.save_check = true;
   }
@@ -391,6 +402,7 @@ export class ModalPage {
     //   );
     
   // this.navCtrl.setRoot("MainTabsPage",{page:1})
+  this.globals.OrderType = "pickup"
   this.viewCtrl.dismiss();
   this.globals.save_check = true;
 
