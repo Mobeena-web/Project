@@ -151,6 +151,15 @@
                     /{{globals.punch_limit_}} </p>
             
                 </div>
+                <div text-center>
+                 <p *ngIf="punchdata[0].punch_reward_4" class="klm"><span>4 Punches <ion-icon name="md-arrow-forward"></ion-icon></span> {{punchdata[0].punch_reward_4}}</p> 
+                 <p *ngIf="punchdata[0].punch_reward_8" class="klm"><span>8 Punches <ion-icon name="md-arrow-forward"></ion-icon></span> {{punchdata[0].punch_reward_8}}</p> 
+
+                 <p *ngIf="punchdata[0].punch_reward_10" class="klm"><span>10 Punches <ion-icon name="md-arrow-forward"></ion-icon></span> {{punchdata[0].punch_reward_10}}</p> 
+
+                 <p *ngIf="punchdata[0].punch_reward_12" class="klm"><span>12 Punches <ion-icon name="md-arrow-forward"></ion-icon></span> {{punchdata[0].punch_reward_12}}</p> 
+
+                </div>
                
                 </div>
         </div>
