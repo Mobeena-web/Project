@@ -54,7 +54,7 @@ export class GlobalVariable {
     points_availed: any = 0;
     reservation_id: any;
     type: any;
-    OrderType : any = "delivery"
+    OrderType : any;
     username: any;
     punchCount: any = 0;
     RewardCount: any = 0;

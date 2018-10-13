@@ -156,7 +156,7 @@ page-home {
 }
 
 .credit-card{ 
-    background: #f1c40f;
+     background: url(../assets/imgs/home-card.png);;
     color: #fff;
     width: 90%;
     height: auto;
@@ -303,8 +303,8 @@ font-weight: bold;
     }
     .credit-card{ 
 
-        background: url(../assets/imgs/card1.png);
-        width: 90%;
+        background: url(../assets/imgs/home-card.png);
+        
         height: auto;
         min-height: 500px;
         position: absolute;
