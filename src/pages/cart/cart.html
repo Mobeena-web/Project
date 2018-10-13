@@ -318,10 +318,9 @@
              
              
              <!-- <discount start here> -->
-             
-                 <ion-label *ngIf="globals.BusinessDiscount > 0 && globals.availed_discount_count < globals.business_discount_count" style="padding:0px;font-size:1.3rem;margin:0px;color:#444;">
+                 <ion-label *ngIf="globals.BusinessDiscount > 0 && globals.availed_discount_count < globals.business_discount_count"  style="padding:0px;font-size:1.3rem;margin:0px;color:#444;">
                    <!-- <ion-icon style="padding-right: 5px;  position: relative; top: 3px;" ios="ios-cut" md="md-cut"> </ion-icon> -->
-                    Business <ion-icon name="heart" color="danger"></ion-icon>
+                    Business <ion-icon class="animated infinite tada delay-4s fs" name="heart" color="danger"></ion-icon>
                    <p style="float:right;font-size:1.3rem;margin:0px;color:#444;">${{discountTotal}}</p>
                  </ion-label>
              
@@ -397,12 +396,7 @@
                    <!-- <p style="margin: -28px; margin-left: 26px"></p> -->
                    <p style="float:right;font-size:1.3rem;margin:0px;color:#444;"> ${{Tip}}</p>
                  </ion-label>
-                 <ion-label *ngIf="per_tip" style="padding:0px;padding:0px;font-size:1.3rem;margin:0px;color:#444; ">
-                    <!-- <ion-icon style="padding-right: 5px;  position: relative; top: 3px;" name="copy"> </ion-icon>  -->
-                    Tip
-                    <!-- <p style="margin: -28px; margin-left: 26px"></p> -->
-                    <p style="float:right;font-size:1.3rem;margin:0px;color:#444;"> ${{per_tip}}</p>
-                  </ion-label>
+                 
                  <ion-label *ngIf="notes" style="padding:0px;padding:0px;font-size:1.3rem;margin:0px;color:#444; ">
                   <!-- <ion-icon style="padding-right: 5px;  position: relative; top: 3px;" name="copy"> </ion-icon>  -->
                   Notes
