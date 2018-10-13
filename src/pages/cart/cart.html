@@ -420,23 +420,22 @@
         </ion-list>
       </div>
     <button ion-button block style="width: 80%;margin-left: 10%;color: #fff;border-radius: 7px;margin-top: 50px;" (click)="paymentPage()"> Proceed To Checkout </button>
-      <h3>Tip</h3>
-      <ion-row>
-        <ion-col col-4>
-          <button ion-button block (click)="percent_tip(8)"> 8% </button>
-        </ion-col>
-        <ion-col col-4>
-         <button ion-button block (click)="percent_tip(10)"> 10% </button>
-        </ion-col>
-        <ion-col col-4>
-            <button ion-button block (click)="percent_tip(15)"> 15% </button>
-          </ion-col>
-      </ion-row>
-
-
-
+     
 </ion-content>
 <ion-footer>
+    <h3 style="margin-left: 4%;">Tip</h3>
+    <ion-row>
+      <ion-col col-4>
+        <button ion-button block (click)="percent_tip(8)"> 8% </button>
+      </ion-col>
+      <ion-col col-4>
+       <button ion-button block (click)="percent_tip(10)"> 10% </button>
+      </ion-col>
+      <ion-col col-4>
+          <button ion-button block (click)="percent_tip(15)"> 15% </button>
+        </ion-col>
+    </ion-row>
+
     <ion-segment >
         <ion-segment-button [disabled]="!pointExists" (click)="add_points()">
           Redeem Points

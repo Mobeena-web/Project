@@ -1221,6 +1221,7 @@ export class CartPage {
                         this.Tip = 0;
                     }
                     else{
+                        this.Total = this.Total - this.Tip;
                         this.Tip = data.tip;
                         this.Total = (Number(this.Total) + Number(this.Tip)).toFixed(2);
                     }

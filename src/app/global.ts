@@ -94,7 +94,8 @@ export class GlobalVariable {
     notifications:any;
     guess_login:boolean = false;
     banner_image:any;
-   
+    punch_:any;
+    punch_limit_:any;
     constructor(public alertCtrl: AlertController,public toastCtrl: ToastController) {
      this.BaseUrl = 'https://onlineordering.mikronexus.com/online-ordering-new/index.php/';
     }

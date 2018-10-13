@@ -278,6 +278,8 @@ export class HomePage {
             if(data.success == "No data"){
                 this.punch_ = 0;
                 this.punch_limt_ = 0;
+                this.globals.punch_ = 0;
+                this.globals.punch_limit_ = 0;
                 this.globals.percent = (parseInt(this.punch_) / parseInt(this.punch_limt_))*100;
                 console.log("percent",this.globals.percent)
                 this.globals.circle_graph('circles1',50,7,'#ccc');
@@ -285,7 +287,8 @@ export class HomePage {
           
              this.punch_ = data.cards[0].punch_count;
              this.punch_limt_ = data.cards[0].punch_limit;
-             
+             this.globals.punch_ = this.punch_;
+             this.globals.punch_limit_ = this.punch_limt_;
 
              this.globals.percent = (parseInt(this.punch_) / parseInt(this.punch_limt_))*100;
              console.log("percent",this.globals.percent)
