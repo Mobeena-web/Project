@@ -242,6 +242,9 @@ export class ItemDetailPage {
 
 
   AddtoCart() {
+    if(!this.checkTiming()){
+      return;
+    }
     let cartAdditionLoader = this.loadingCtrl.create(
       {
         content: "Adding...",

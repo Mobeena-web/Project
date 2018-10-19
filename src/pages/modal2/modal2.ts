@@ -232,7 +232,7 @@ export class Modal2Page {
           localStorage.setItem("scheduled_time",  this.date );
           let current_day = this.globals.Timing[this.day];
           // this.time = this.time.toString();
-          console.log(this.time,"current day", current_day );
+          console.log(this.time,"current day", current_day,this.day );
           console.log(this.globals.Timing);
           if (current_day[0] != 'opened') {
               if (Number(this.time) <= Number(current_day[0]) || Number(this.time) >= Number(current_day[1]) || current_day[0] == 'closed') {
