@@ -827,7 +827,7 @@ export class CartPage {
                 subTitle: 'Please add more items in the cart.Minimum delivery order amount is $' + this.globals.minimun_order,
                 buttons: ['Okay']
             });
-            if (this.ProductsTotal < this.globals.minimun_order && this.Deliver == true) {
+            if (this.ProductsTotal < this.globals.minimun_order && this.Deliver == true && this.globals.OrderType == 'delivery') {
                 alert12.present();
                 proceedFlag = false;
             }

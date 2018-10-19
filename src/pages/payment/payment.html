@@ -34,6 +34,7 @@
             <ion-label>Pay at store</ion-label>
             <ion-checkbox [(ngModel)]="cash_on_delivery" (click)="deliveryBox()"></ion-checkbox>
           </ion-item>
+          <p class="kkkj" *ngIf="globals.cash_enabled && globals.OrderType == 'pickup'" >You can pay by cash, debit card or credit card at the store</p>
     
         <ion-item *ngIf="globals.type =='reservation'" style="background: transparent;color: #aaa">
           <ion-label>Pay on Venue</ion-label>
