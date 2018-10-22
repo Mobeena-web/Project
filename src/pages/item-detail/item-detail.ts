@@ -198,16 +198,16 @@ export class ItemDetailPage {
   }
 
   Cart() {
+    this.AddtoCart();
 
-    if (this.globals.BusinessID == '-1' || this.globals.BusinessID == this.Business_id) {
-      this.globals.BusinessID = this.Business_id;
+    // if (this.globals.BusinessID == '-1' || this.globals.BusinessID == this.Business_id) {
+    //   this.globals.BusinessID = this.Business_id;
 
-      this.AddtoCart();
-    }
-    else {
-      this.showPrompt();
+    // }
+    // else {
+    //   this.showPrompt();
 
-    }
+    // }
 
   }
 

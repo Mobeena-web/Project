@@ -9,6 +9,7 @@ import { EmailValidator } from '../../validators/email';
 import { MainTabsPage } from '../main-tabs/main-tabs';
 import { IntroPage3Page } from '../intro-page3/intro-page3';
 
+declare var FB:any;
 
 @IonicPage()
 @Component({
@@ -29,6 +30,7 @@ export class LoginPage {
         public formBilder: FormBuilder
     ) {
 
+
         this.loginForm = formBilder.group({
             email: ['', Validators.compose([Validators.required, EmailValidator.isValid])],
             password: ['', Validators.compose([Validators.minLength(6), Validators.required])]
@@ -39,9 +41,7 @@ export class LoginPage {
 
     }
 
-    ionViewDidLoad() {
-        console.log('ionViewDidLoad LoginPage');
-    }
+   
 
     createAccount() {
         this.navCtrl.push(IntroPage3Page);

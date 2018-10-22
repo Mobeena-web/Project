@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams,ViewController } from 'ionic-angular';
-import { HomePage } from '../../pages/home/home';
+import { GlobalVariable } from '../../app/global';
 
 
 
@@ -11,7 +11,7 @@ import { HomePage } from '../../pages/home/home';
 })
 export class ThankyouPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,public viewCtrl: ViewController) {
+  constructor(public globals: GlobalVariable,public navCtrl: NavController, public navParams: NavParams,public viewCtrl: ViewController) {
   }
 
   done(){
