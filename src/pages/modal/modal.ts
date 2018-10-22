@@ -111,6 +111,10 @@ export class ModalPage {
   },1);
 
   }
+  closetohome(){
+    this.viewCtrl.dismiss();
+    //  this.navCtrl.popAll();
+  }
   
   getdata(){
     console.log("modal 1 time" , this.nativeStorage.getItem('orderdetail'));
