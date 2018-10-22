@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { LaunchNavigator, LaunchNavigatorOptions } from '@ionic-native/launch-navigator';
+import { SocialSharing } from '@ionic-native/social-sharing';
 declare var google;
 
 
@@ -13,7 +14,7 @@ declare var google;
 export class EventDetailPage {
   detail:any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,private launchNavigator: LaunchNavigator) {
+  constructor(private socialSharing: SocialSharing,public navCtrl: NavController, public navParams: NavParams,private launchNavigator: LaunchNavigator) {
     this.detail = this.navParams.get('detail');
   }
 
@@ -58,6 +59,14 @@ export class EventDetailPage {
         success => console.log('Launched navigator'),
         error => console.log('Error launching navigator', error)
       );
+  }
+
+  share(image,title){
+    this.socialSharing.share(title, '', image, '').then(() => {
+      // Success!
+    }).catch(() => {
+      // Error!
+    });
   }
 
 

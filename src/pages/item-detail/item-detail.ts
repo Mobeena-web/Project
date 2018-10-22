@@ -198,16 +198,16 @@ export class ItemDetailPage {
   }
 
   Cart() {
+    this.AddtoCart();
 
-    if (this.globals.BusinessID == '-1' || this.globals.BusinessID == this.Business_id) {
-      this.globals.BusinessID = this.Business_id;
+    // if (this.globals.BusinessID == '-1' || this.globals.BusinessID == this.Business_id) {
+    //   this.globals.BusinessID = this.Business_id;
 
-      this.AddtoCart();
-    }
-    else {
-      this.showPrompt();
+    // }
+    // else {
+    //   this.showPrompt();
 
-    }
+    // }
 
   }
 
@@ -242,6 +242,9 @@ export class ItemDetailPage {
 
 
   AddtoCart() {
+    if(!this.checkTiming()){
+      return;
+    }
     let cartAdditionLoader = this.loadingCtrl.create(
       {
         content: "Adding...",

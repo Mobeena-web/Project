@@ -3,6 +3,11 @@
 
   <ion-navbar color='primary'>
     <ion-title>Offer Details</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only color="royal" (click)="share(detail.image,detail.title)">
+        <ion-icon name="share"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
