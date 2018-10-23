@@ -175,9 +175,9 @@ export class CategoryPage {
             this.globals.model_flag = false;
             console.log(this.globals.model_flag,"model flag2")
 
-            // this.navCtrl.push("ModalPage");
-            let modal = this.modalCtrl.create('ModalPage');
-            modal.present();
+            this.navCtrl.push("ModalPage");
+            // let modal = this.modalCtrl.create('ModalPage');
+            // modal.present();
 
         }
         

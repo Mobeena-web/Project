@@ -29,11 +29,11 @@
           <button  menuClose ion-item (click)="show_gallery()" *ngIf="globals.gallery_enabled == 1">
               <ion-icon name="image" class="myicon"></ion-icon> Gallery
           </button>
-          <button  menuClose ion-item  >
-              <ion-icon name="image" class="myicon"></ion-icon> 
-              <div id="fb-root"></div>
+          <button  menuClose ion-item  (click)="followUs()">
+              <ion-icon name="md-share" class="myicon"></ion-icon> Follow Us
+              <!-- <div id="fb-root"></div>
 
-              <div class="fb-page" data-href="https://www.facebook.com/mikronexus/" data-tabs="timeline" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/mikronexus/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/mikronexus/">Follow Us Mikronexus</a></blockquote></div>
+              <div class="fb-page" data-href="https://www.facebook.com/mikronexus/" data-tabs="timeline" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/mikronexus/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/mikronexus/">Follow Us Mikronexus</a></blockquote></div> -->
 
           </button>
       <button  menuClose ion-item (click)="OpenSettingPage()">

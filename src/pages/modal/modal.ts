@@ -9,6 +9,7 @@ import { Platform } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Geolocation, Geoposition } from '@ionic-native/geolocation';
 import { ServerProvider } from '../../providers/server/server';
+import { HomePage } from '../home/home';
 declare var google;
 
 // import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResult } from '@ionic-native/native-geocoder';
@@ -112,8 +113,8 @@ export class ModalPage {
 
   }
   closetohome(){
-    this.viewCtrl.dismiss();
-    //  this.navCtrl.popAll();
+    // this.viewCtrl.dismiss();
+    this.navCtrl.popToRoot();
   }
   
   getdata(){
@@ -271,7 +272,8 @@ export class ModalPage {
   );
     //this.checkTiming();            
     this.globals.OrderType = 'delivery';
-    this.viewCtrl.dismiss();
+    this.navCtrl.pop();
+    // this.viewCtrl.dismiss();
     this.globals.save_check = true;
   }
   
@@ -407,7 +409,8 @@ export class ModalPage {
     
   // this.navCtrl.setRoot("MainTabsPage",{page:1})
   this.globals.OrderType = "pickup"
-  this.viewCtrl.dismiss();
+  // this.viewCtrl.dismiss();
+  this.navCtrl.pop();
   this.globals.save_check = true;
 
   }

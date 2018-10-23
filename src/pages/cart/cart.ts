@@ -623,15 +623,14 @@ export class CartPage {
     }
 
     changeAddress() {
-        // this.navCtrl.push("ModalPage");
-
-        //  this.total();
+        this.navCtrl.push("ModalPage");
+         this.total();
          
-        let modal = this.modalCtrl.create('ModalPage');
-        modal.onDidDismiss(data => {
-            this.total();
-        });
-        modal.present();
+        // let modal = this.modalCtrl.create('ModalPage');
+        // modal.onDidDismiss(data => {
+        //     this.total();
+        // });
+        // modal.present();
       }
 
     AddmoreItem() {

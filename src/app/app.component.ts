@@ -457,6 +457,9 @@ launch(url) {
   this.iab.create(url, "_self");
 
 }
+followUs(){
+    this.iab.create('https://www.facebook.com/mikronexus/', "_self");
+}
 
 modal(response, response_status, business, logo, image, string, bid) {
 
