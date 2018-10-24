@@ -173,6 +173,14 @@ getdeals(){
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
 
+  get_social() {
+    var link = this.global.BaseUrl + 'events/get_socials';
+    var data = JSON.stringify({ businessId:this.global.new_id, });
+    return this.http.post(link, data)
+      .map((res: any) => res.json())
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+  }
+
   MobileVerification() {
     var link = this.global.BaseUrl + "Customer_controller/send_verification_message";
 

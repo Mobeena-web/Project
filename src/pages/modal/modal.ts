@@ -328,7 +328,7 @@ export class ModalPage {
   loadMap(lati, longi) {
     // var latlng = this.coordinates.split(",")
     console.log("mylat",lati,longi)
-    var myLatLng = new google.maps.LatLng(lati, longi);;
+    var myLatLng = new google.maps.LatLng(lati, longi);
 
     var map = new google.maps.Map(document.getElementById('map'), {
       zoom: 15,

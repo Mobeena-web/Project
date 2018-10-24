@@ -36,7 +36,7 @@ export class MyApp {
   pages: Array<{ title: string, component: any }>;
   data: any;
   places:any;
-
+  social_links:any;
   constructor(private nativeAudio: NativeAudio,public loadingCtrl: LoadingController,private iab: InAppBrowser,private barcodeScanner:BarcodeScanner,public alertCtrl: AlertController,public app: App,public server: ServerProvider, private _notification: OneSignal, public alertctrl: AlertController, public modalCtrl: ModalController, public globals: GlobalVariable, private statusbar: StatusBar, private splashscreen: SplashScreen, private nativeStorage: NativeStorage, public platform: Platform,private geolocation: Geolocation) {
 
 
@@ -46,6 +46,7 @@ export class MyApp {
         this.data.response = '';
         this.LoadSound();
         this.list();
+        this.get_social();
         
       setTimeout(() => this.splashscreen.hide(), 400);
       this.statusbar.hide();
@@ -509,6 +510,19 @@ list() {
             buttons: ['OK']
         });
         alert.present();
+
+    });
+ 
+}
+
+get_social() {
+    let response = this.server.get_social();
+    response.subscribe(data => {
+     this.social_links = data.data;
+     console.log("mohsin issue",this.social_links)
+
+    }, error => {
+        console.log(error);
 
     });
  
