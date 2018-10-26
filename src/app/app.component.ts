@@ -111,11 +111,6 @@ export class MyApp {
   }
 
 
-
-
-
-
-
   initializePushToken() {
     console.log("intializing push token");
 
@@ -262,7 +257,7 @@ openReviews(){
 
 }
 openOrder(){
-    this.nav.push('CategoryPage')
+    this.nav.push('ResturantListPage')
 }
 openHistory(){
     if(this.globals.guess_login){
@@ -271,6 +266,10 @@ openHistory(){
     else{
         this.nav.push('OrderListingPage')
     }
+}
+
+aboutus(){
+    this.nav.push('AboutusPage');
 }
 
 public scanQR() {

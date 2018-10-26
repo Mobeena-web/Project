@@ -60,7 +60,9 @@ export class CategoryPage {
         this.business_id = this.globals.bussinessId;
         this.currentBusinessDiscount = "10";
         this.globals.BusinessDiscount = this.currentBusinessDiscount;
-        this.list();
+        // this.list();
+        this.Categories();
+
         this.getLocation();
 
         this.myChoice.push('abcd');

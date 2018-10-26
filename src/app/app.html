@@ -33,6 +33,9 @@
       <button  menuClose ion-item (click)="OpenSettingPage()">
           <ion-icon name="settings" class="myicon"></ion-icon>Settings
       </button>
+      <button  menuClose ion-item (click)="aboutus()">
+          <ion-icon name="information-circle" class="myicon"></ion-icon>About Us
+      </button>
       <div *ngFor="let item of social_links">
         <button  menuClose ion-item *ngIf="item.url"  (click)="launch(item.url)" >
           <ion-icon name={{item.icon}} class="myicon"></ion-icon> {{item.name}} 
