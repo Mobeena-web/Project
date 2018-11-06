@@ -36,7 +36,6 @@ export class MyApp {
   pages: Array<{ title: string, component: any }>;
   data: any;
   places:any;
-
   constructor(private nativeAudio: NativeAudio,public loadingCtrl: LoadingController,private iab: InAppBrowser,private barcodeScanner:BarcodeScanner,public alertCtrl: AlertController,public app: App,public server: ServerProvider, private _notification: OneSignal, public alertctrl: AlertController, public modalCtrl: ModalController, public globals: GlobalVariable, private statusbar: StatusBar, private splashscreen: SplashScreen, private nativeStorage: NativeStorage, public platform: Platform,private geolocation: Geolocation) {
 
 
@@ -108,11 +107,6 @@ export class MyApp {
     }
 
   }
-
-
-
-
-
 
 
   initializePushToken() {
@@ -261,7 +255,7 @@ openReviews(){
 
 }
 openOrder(){
-    this.nav.push('CategoryPage')
+    this.nav.push('ResturantListPage')
 }
 openHistory(){
     if(this.globals.guess_login){
@@ -270,6 +264,10 @@ openHistory(){
     else{
         this.nav.push('OrderListingPage')
     }
+}
+
+aboutus(){
+    this.nav.push('AboutusPage');
 }
 
 public scanQR() {
@@ -457,6 +455,9 @@ launch(url) {
   this.iab.create(url, "_self");
 
 }
+followUs(){
+    this.iab.create('https://www.facebook.com/mikronexus/', "_self");
+}
 
 modal(response, response_status, business, logo, image, string, bid) {
 
@@ -483,7 +484,9 @@ list() {
        this.globals.events_enabled = this.places[0].events_enabled;
        this.globals.gallery_enabled = this.places[0].gallery_enabled;
        this.globals.pickup = this.places[0].pickup;
-
+       this.globals.latitude = this.places[0].latitude;
+       this.globals.longitude = this.places[0].longitude;
+       this.globals.hours_operation = this.places[0].hours_operation;
         if (this.globals.pickup == '1') {
             this.globals.pickup = true;
         }
@@ -496,6 +499,8 @@ list() {
         else {
             this.globals.delivery = false;
         }
+    this.globals.hours_operation = this.update_time_(this.globals.hours_operation)
+
      
     }, error => {
         console.log(error);
@@ -511,6 +516,8 @@ list() {
  
 }
 
+
+
 show_gallery(){
     if(this.globals.guess_login){
         this.presentConfirm();
@@ -519,6 +526,9 @@ show_gallery(){
     this.nav.push("GalleryPage")
 
     }
+}
+openDeals(){
+    this.nav.push('DealsListPage')
 }
 
 presentConfirm() {
@@ -543,6 +553,61 @@ presentConfirm() {
     });
     alert.present();
   }
+
+  update_time_(p_hours){
+    p_hours.forEach(element => {
+      if(element[0] != 'opened' && element[0] != 'closed'){
+        element[0] = this.tConvert(element[0])
+      }
+      if(element[1] != 'opened' && element[1] != 'closed'){
+        element[1] = this.tConvert(element[1])
+      }
+    });
+    return p_hours;
+  }
+
+  tConvert (time_) {
+    if(time_ == 0){
+      time_ = 12;
+     }
+ 
+ if(time_ > 12){
+     var ti = time_.split('.');
+  
+     ti[0] = parseFloat(ti[0])
+     ti[0] = ti[0] - 12;
+    
+     if(ti[1] == "5"){
+       ti[1] = ':30'
+     }
+     else if(ti[1] != "5"){
+       ti[1] = ':00'
+     }
+    time_ = ti[0] + ti[1] + 'PM'
+ }
+ else{
+   var ti = time_.split('.');
+  
+  
+   if(ti[1] == "5"){
+     ti[1] = ':30'
+     time_='';
+
+      time_ = ti[0] + ti[1] + 'AM'
+
+   }
+   else if(ti[1] == undefined){
+     console.log(ti[1],time_)
+     time_='';
+
+     ti[1] = ':00'
+     time_ = ti[0] + ti[1] + 'AM'
+   }
+
+ }
+
+   return time_; // return adjusted time_ or original string
+ }
 
 
 

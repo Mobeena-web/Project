@@ -1,6 +1,5 @@
 page-before-login {
     .btn-margin{
-        margin-top: 124px;
         box-shadow: 0px 0px 20px #999 !important;
     }
    
@@ -9,6 +8,13 @@ page-before-login {
         font-size: 20px;
          margin-bottom: 20px;
 
+    }
+    .jk{
+        position: absolute;
+    
+        bottom: 20px;
+        right: 0px;
+        left: 0px;
     }
     .background_image1{
         background-image: url("../assets/imgs/login_back.png");

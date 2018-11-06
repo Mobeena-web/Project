@@ -1,0 +1,202 @@
+page-resturant-list {
+    button {
+        ion-badge {
+          position: absolute;
+          top: -0.2rem;
+          right: -0.2rem;
+          opacity: 0.9;
+      
+          & ~ ion-icon {
+            margin-right: 1.2rem;
+          }
+        }
+      }
+    
+    .toolbar-title{
+      color: #fff !important
+    }
+    .select-text{
+      display: none !important;
+    }
+    .select-icon{
+      width:0 !important;
+      height: 0!important;
+    }
+    .select-icon-inner{
+    
+      color:white !important;
+      display: none;
+    }
+    .bar-buttons{
+      color: #fff !important
+    }
+    .bar-button-default {
+      color: #fff !important;
+    }
+    
+        ul {
+            padding: 0px;
+            margin: 0px !important;
+            padding-top: 3px;
+              padding-bottom: 3px;
+           
+            &.rating li {
+              padding: 0px !important;
+              background: none;
+              color: #ffb400;
+           
+              ion-icon {
+               // font-size: 30px;
+              }
+            } 
+          }
+          
+          .image{
+            border-radius: 4px;
+            height: 130px;
+            width: 130px;
+            margin-left: auto;
+            margin-right: auto;
+            border: 1px solid #ccc;
+            padding: 5px;
+          }
+          .background_c{
+            background: #eee;
+          }
+          .delivery{
+           font-size:1.2rem;
+          }
+          .discount-text{
+            color:red;     
+            font-size: 1.0rem;
+          }
+          .distance{
+            font-size: 1.2rem; 
+            text-align:right;
+            padding-right:5px
+          }
+          .review-btn{
+             position: absolute;
+              bottom: 0px;
+              width: 45px;
+               height: 45px;
+               border-radius: 50%;
+                right:10px
+          
+          }
+          .min-order{
+            color: #c0392b
+          }
+          .fg{
+            display: inline;
+            float: right;
+            margin-top: -20px;
+            color: #27ae60;
+          }
+              .heading{
+                    font-weight: bold;
+                    color: #000;
+                    font-size: 1.8rem;
+              }
+              
+          @media only screen and (min-width: 768px) { 
+          
+            
+          .image{
+            border-radius: 4px; 
+            height:140px;
+          }
+          .delivery{
+           font-size:2.4rem;
+          }
+          .discount-text{
+            color:red;     
+            font-size: 2.0rem;
+          }
+          .rating{
+          
+            font-size:2.5rem;
+          }
+          
+          .heading{
+            font-size:3rem;
+          }
+            
+          .distance{
+            font-size: 2.4rem
+          }
+          .review-btn{
+             position: absolute;
+              bottom: 0px;
+              width: 90px;
+               height: 90px;
+               border-radius: 50%;
+                right:10px
+          
+          }
+              .review-btn ion-icon{
+            font-size:4rem
+          
+          }
+          }
+    
+    
+    
+          .index{
+            font-size:3.5rem;
+             text-align:center; 
+             color:white ;
+             margin-top:25%;
+        }   
+     
+        .status{
+            text-align: center;
+            color: #666;
+            border:solid;    
+             position: absolute; 
+           width: 95%;
+             bottom: 0;    
+             padding: 10px;
+        }
+         .order-total{
+             font-size:2.5rem;
+              font-weight: bold;
+         }
+             .time{
+                 margin:0;
+                 font-size:1.6rem;
+                 color:#666;
+                // margin-top:18px;
+             }
+     
+        @media only screen and (device-aspect-ratio: 40/71)
+     {
+     
+        .status{
+            text-align: center;
+            color: #666;
+            border:solid;    
+            position: absolute; 
+            width: 95%;
+             bottom: 0;    
+             padding: 5px;
+        }
+     
+         .index{
+            font-size:2.5rem;
+             text-align:center; 
+             color:white 
+        }
+           .order-total{
+             font-size:2.5rem;
+              color:black
+         }
+              .time{
+                 margin:0;
+                 font-size:2rem;
+                 color:#666
+             }
+     
+     
+     }
+}

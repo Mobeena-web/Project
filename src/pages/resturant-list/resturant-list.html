@@ -1,0 +1,191 @@
+<!--
+  Generated template for the OrderListingPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header class="Open-Sans-bold">
+
+  <ion-navbar color="primary">
+    <ion-title>Resturants</ion-title>
+
+    <ion-buttons end *ngIf="option == 'orders_placed'" (click)="info()">
+      <button ion-button style="font-size: 3rem; padding-right: 10px;">
+        <ion-icon ios="ios-information-circle-outline" md="md-information-circle"> </ion-icon>
+      </button>
+
+    </ion-buttons>
+    <!-- <ion-buttons *ngIf="option == 'orders'" end style="    width: 30%;">
+
+      <ion-icon style="color:white;font-size:3rem; float:right;margin-top:2px" name="options"> </ion-icon>
+
+
+      <ion-select style="font-weight: bold;  max-width: unset;width: 76px;   padding-left: 0;
+        padding-right: 5px;  float: right;padding-bottom: 0;
+        color: white;" (ionChange)="Radiusvalue()" [(ngModel)]="radius" [selectOptions]="selectOptions">
+
+        <ion-option value="5">5 miles</ion-option>
+        <ion-option value="10">10 miles</ion-option>
+        <ion-option value="50">50 miles</ion-option>
+        <ion-option value="100">100 miles</ion-option>
+
+        <ion-option value="100000" [selected]="true">All</ion-option>
+
+      </ion-select>
+
+
+    </ion-buttons> -->
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content class="Open-Sans-regular background_c">
+ 
+  <div [ngSwitch]="option">
+    <div *ngSwitchCase="'orders'">
+      <ion-searchbar [(ngModel)]="searchTerm" (input)="setFilteredItems()" [formControl]="searchControl"></ion-searchbar>
+
+      <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull down to refresh" refreshingSpinner="circles" refreshingText="Refreshing...">
+        </ion-refresher-content>
+      </ion-refresher>
+
+      <!-- <p style="text-align: center; margin-top: 60%;" *ngIf="flag == true">Fetching data... </p> -->
+      <p style="text-align: center; margin-top: 60%;" *ngIf="arrayStatus">No place available in this range... </p>
+      <div *ngIf="!arrayStatus && !flag">
+        <div *ngFor="let place of places">
+          <ion-card *ngIf="place.orders_enabled == 'active'" text-center>
+            <ion-grid>
+              <ion-row>
+                <ion-col >
+                  <img class="image" src="{{place.logo}}">
+               
+                <p class="Open-Sans-bold" class="heading">{{place.name}} </p>
+
+                  <!-- <rating class="rating" [(ngModel)]="place.average_rating" readOnly="true" max="5" emptyStarIconName="star-outline" halfStarIconName="star-half"
+                    starIconName="star" nullable="false"></rating> -->
+                    <p class="Open-Sans-regular" color="primary">
+                      <ion-icon name="pin"> </ion-icon> {{place.distanceValue}} mi </p>
+                
+                  <p class="min-order" *ngIf="place.minimum_order">
+                    Minimum Order: ${{place.minimum_order}}
+                  </p>
+                  <div>
+                    <div style="display:inline-block;">
+                      <p class="delivery" *ngIf="place.pickup_time != '' ">
+                        <ion-icon ios="ios-time-outline" md="md-time"> </ion-icon> Pickup time: {{place.pickup_time}} </p>
+                    </div>
+                    <div style="display:inline-block;">
+                      <p class="delivery" *ngIf="place.delivery_time != '' ">
+                        <ion-icon ios="ios-time-outline" md="md-time"> </ion-icon> Delivery time: {{place.delivery_time}} </p>
+                    </div>
+
+                    <div style="display:inline-block;">
+                      <p class="delivery" *ngIf="place.delivery_fee != '' ">
+                        <ion-icon ios="ios-bicycle" md="md-bicycle"> </ion-icon> Delivery charges: ${{place.delivery_fee}} </p>
+                    </div>
+                  </div>
+                  <!-- <p *ngIf="place.discount_text && place.customer_discount_availed_count < place.business_discount_count" class="Open-Sans-bold"
+                    class="discount-text">{{place.discount_text}}, {{place.discount}}% </p> -->
+
+
+              
+                 
+
+                  <!-- <button ion-button small block class="review-btn" (tap)="Reviews(place.username)">
+                    <ion-icon name="list-box"> </ion-icon>
+                  </button> -->
+          <button ion-button block margin-top style="    height: 37px;font-size: 13px;"   color='primary' 
+          (click)="OrderCategory(place.pickup_time,place.delivery_time,place.business_id,place.paypal_id,place.discount,place.stripe_id,place.hours_operation,place.minimum_order,place.delivery_time,place.delivery_fee,place.tax,place.delivery,place.pickup,place.admin_stripe_enabled,place.username,place.customer_discount_availed_count,place.business_discount_count)"
+           block>VIEW MENU</button>
+
+                </ion-col>
+              </ion-row>
+
+            </ion-grid>
+
+          </ion-card>
+        </div>
+      </div>
+      <ion-infinite-scroll (ionInfinite)="$event.waitFor(doInfinite())" threshold="2px">
+        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+        </ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+
+    </div>
+
+    <div *ngSwitchCase="'orders_placed'">
+      <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull down to refresh" refreshingSpinner="circles" refreshingText="Refreshing...">
+        </ion-refresher-content>
+      </ion-refresher>
+
+      <div *ngIf="data">
+        <div *ngFor="let order of data.orders; let i =index">
+          <ion-card *ngIf="order.status">
+            <ion-row>
+              <ion-col (click)="detail(order.order_data,order.date_time,order.instructions,order.scheduled_time,order.restaurant_name,order.total,order.o_id)"
+                *ngIf="order.status == 'PENDING'" col-2 style="    background: #e67e22; color: #fff;  margin: 0;padding-top: 15px;">
+                <p class="index">{{i+1}} </p>
+              </ion-col>
+              <ion-col *ngIf="order.status == 'ACCEPTED'" (click)="detail(order.order_data,order.date_time,order.instructions,order.scheduled_time,order.restaurant_name,order.total,order.o_id)"
+                col-2 style="    background: #2ecc71; color: #fff;  margin: 0;padding-top: 15px;">
+                <p class="index">{{i+1}} </p>
+              </ion-col>
+              <ion-col *ngIf="order.status == 'DISPATCHED'" (click)="detail(order.order_data,order.date_time,order.instructions,order.scheduled_time,order.restaurant_name,order.total,order.o_id)"
+                col-2 style="    background: #34495e; color: #fff;  margin: 0;padding-top: 15px;">
+                <p class="index">{{i+1}} </p>
+              </ion-col>
+              <ion-col col-6 style="padding-bottom: 2px;
+              padding-right: 0;">
+
+                <p (click)="detail(order.order_data,order.date_time,order.instructions,order.scheduled_time,order.restaurant_name,order.total,order.o_id)"
+                  style="font-size:1.8rem;font-weight:bold;margin-left:5px">
+                  {{order.restaurant_name}} </p>
+
+                <p style="margin-bottom:2px" (click)="detail(order.order_data,order.date_time,order.instructions,order.scheduled_time,order.restaurant_name,order.total,order.o_id)"
+                  class="time">
+                  {{order.date_time}} </p>
+
+
+                <ion-label style="margin-bottom:2px" (click)="detail(order.order_data,order.date_time,order.instructions,order.scheduled_time,order.restaurant_name,order.total,order.o_id)"
+                  *ngIf="order.deliveryTimeLeft > 0 && order.status == 'ACCEPTED' " class="time">
+                  <ion-icon name="time-outline"> </ion-icon>{{SecondsTohhmmss(order.deliveryTimeLeft) }} </ion-label>
+                <ion-label style="margin-bottom:2px;font-size: 2.6rem;" (click)="detail(order.order_data,order.date_time,order.instructions,order.scheduled_time,order.restaurant_name,order.total,order.o_id)"
+                  *ngIf="order.status == 'PENDING' " class="time">
+                  <ion-icon name="time-outline" style="font-size: 1em;"> </ion-icon> - -:- -:- - </ion-label>
+                <ion-label style="margin-bottom:2px" (click)="detail(order.order_data,order.date_time,order.instructions,order.scheduled_time,order.restaurant_name,order.total,order.o_id)"
+                  *ngIf="order.status == 'ACCEPTED' && order.deliveryTimeLeft == 0 " class="time">
+                  <ion-icon name="time-outline"> </ion-icon> - -:- -:- - </ion-label>
+                <ion-label style="margin-bottom:2px" (click)="detail(order.order_data,order.date_time,order.instructions,order.scheduled_time,order.restaurant_name,order.total,order.o_id)"
+                  *ngIf="order.status == 'DISPATCHED'" class="time">
+                  <ion-icon name="time-outline"> </ion-icon> - -:- -:- -</ion-label>
+
+
+                <!-- <button ion-button color="primary" (click)="ReorderVerificationPrompt(order.order_data)" style="font-size: 1.3rem;margin-bottom:0;float:right;">
+                      <ion-icon name="repeat"></ion-icon>  </button> -->
+              </ion-col>
+
+              <ion-col col-4 style="text-align: center;" (click)="detail(order.order_data,order.date_time,order.instructions,order.scheduled_time,order.restaurant_name,order.total,order.o_id)">
+                <p class="order-total"> ${{order.total}}</p>
+
+                <p *ngIf="order.status != 'DISPATCHED'" class="status">{{order.status}}</p>
+                <p *ngIf="order.status == 'DISPATCHED'" class="status">DELIVERED</p>
+                <!-- <p *ngIf="order.status == 'PENDING'" style="background-color:#e67e22"  class="status">PENDING</p>
+                <p *ngIf="order.status == 'ACCEPTED'"  style="background-color:#2ecc71" class="status">ACCEPTED</p> -->
+
+              </ion-col>
+
+
+            </ion-row>
+
+
+          </ion-card>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</ion-content>

@@ -1,0 +1,28 @@
+page-deals-list {
+    .background_set{
+        background-color: #eee;
+    }
+    ion-card{
+        width: 100% !important;
+        margin: 0px !important;
+        img{
+            height: 100px;
+            width: 100%;
+            object-fit: cover;
+        }
+        
+    }
+    .nj{
+        font-weight: bold;
+        margin-top: 10px !important;
+    }
+    .mm{
+        margin-top: 23px;
+    }
+    .cc{
+        font-weight: bold;
+    }
+    .button{
+        height: 32px;
+    }
+}

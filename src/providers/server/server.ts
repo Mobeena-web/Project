@@ -133,7 +133,7 @@ getdeals(){
   getRestaurantslist(radius, businesType, coordinates, offset, type) {
     var link = this.global.BaseUrl + 'Customer_controller/getplaces';
     var data = JSON.stringify({ coordinates: coordinates, radius: radius, business_type: businesType, offset, type: type, udid: this.global.udid });
-    console.log(data);
+    console.log("usman data",data);
     return this.http.post(link, data)
       .map((res: any) => res.json());
 
@@ -168,6 +168,14 @@ getdeals(){
   ForgotPassword(email) {
     var link = this.global.BaseUrl + 'Customer_controller/forgot_password';
     var data = JSON.stringify({ email: email });
+    return this.http.post(link, data)
+      .map((res: any) => res.json())
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+  }
+
+  get_social() {
+    var link = this.global.BaseUrl + 'events/get_socials';
+    var data = JSON.stringify({ businessId:this.global.new_id, });
     return this.http.post(link, data)
       .map((res: any) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));

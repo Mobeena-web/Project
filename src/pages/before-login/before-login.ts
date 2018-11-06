@@ -28,7 +28,7 @@ export class BeforeLoginPage {
   }
   guestlogin(){
     this.global.guess_login = true;
-    this.navCtrl.push('CategoryPage');
+    this.navCtrl.push('ResturantListPage');
   }
 
 }

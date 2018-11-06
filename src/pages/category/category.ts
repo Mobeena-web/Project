@@ -60,7 +60,9 @@ export class CategoryPage {
         this.business_id = this.globals.bussinessId;
         this.currentBusinessDiscount = "10";
         this.globals.BusinessDiscount = this.currentBusinessDiscount;
-        this.list();
+        // this.list();
+        this.Categories();
+
         this.getLocation();
 
         this.myChoice.push('abcd');
@@ -80,7 +82,6 @@ export class CategoryPage {
                
                     this.geolocation.getCurrentPosition().then((position) => {
                         this.coordinates = position.coords.latitude + "," + position.coords.longitude;
-                        this.list();
                        
                     }, (err) => {
                         let alert = this.alertCtrl.create({
@@ -175,9 +176,9 @@ export class CategoryPage {
             this.globals.model_flag = false;
             console.log(this.globals.model_flag,"model flag2")
 
-            // this.navCtrl.push("ModalPage");
-            let modal = this.modalCtrl.create('ModalPage');
-            modal.present();
+            this.navCtrl.push("ModalPage");
+            // let modal = this.modalCtrl.create('ModalPage');
+            // modal.present();
 
         }
         

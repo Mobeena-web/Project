@@ -296,79 +296,16 @@ font-weight: bold;
     left: 42%;
 }
 
-
 @media screen and (min-width: 700px) {
-    .height{
-        min-height: 600px;
-    }
     .credit-card{ 
-
-        background: url(../assets/imgs/home-card.png);
-        
-        height: auto;
-        min-height: 500px;
-        position: absolute;
-        top: 0;
-        left: 0;
-        background-size: cover;
-        border-radius: 12px;
-        margin: 5%;
-        margin-right: 0;
-    }
-    .strip{
-
-        position: absolute;
-        top: 150px;
-        left: 0;
-        width: 100%;
-        background: rgba(0, 0, 0, 0.5);
+        min-height: 235px;
     }
     .label4{
-        position: absolute;
-        /* bottom: 20px; */
-        /* top: 50%; */
-        left: 20%;    
-        top: 50%;
-        font-size:3rem;  
-        z-index: 1;
-        font-weight: bold;
+        left: 7% !important;
     }
-    
+}
 
-    .label1{
-        font-size: 3rem !important;
-        position: absolute;
-        bottom: 0;
-        /* left: -35%; */
-        color: whitesmoke !important;
-        right: 3px;
-        top: 10px;
-        margin-top:0;
-        font-weight: bold;
-    }
-    .label2{
-        position: absolute;
-        /* left: 13%; */
-        color: whitesmoke !important;
-        font-size: 3rem !important;
-        bottom: 35px;
-        text-align: center;
-        right: 15px;
-        margin: 0;
-    }
 
-    .label3{
-        position: absolute;
-        /* left: 0%; */
-        color: whitesmoke !important;
-        font-size: 3rem!important;
-        bottom: -5px;
-        right: 3px;
-        font-weight: bold;
-    }
-    
-   
-    }
     
     ion-card {
         position: relative;

@@ -1,0 +1,43 @@
+
+<ion-header>
+
+  <ion-navbar color='primary'>
+    <ion-title>About Us</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-row >
+    <ion-col col-4>
+      <div class="fb">Days</div>
+      <div *ngFor="let day of daysInWeek">{{day}}</div>
+      
+    </ion-col>
+      <ion-col col-4 text-center>
+      <div class="fb">Opening Time</div>
+
+        <div *ngFor="let item of globals.hours_operation">
+           {{item[0]}}
+        </div>
+       </ion-col>
+        <ion-col col-4 text-center>
+      <div class="fb">Closing Time</div>
+          <div *ngFor="let item of globals.hours_operation">
+              {{item[1]}}
+          </div>
+        </ion-col>
+
+    
+  </ion-row>
+  <div #map id="map"></div>
+
+</ion-content>
+<ion-footer padding>
+    <ion-row>
+        <ion-col  *ngFor="let item of social_links">
+             <ion-icon *ngIf="item.url" name={{item.icon}} class="myicon1" (click)="launch(item.url)"></ion-icon> 
+         </ion-col>
+     </ion-row>
+</ion-footer>

@@ -23,15 +23,24 @@
         <button  menuClose ion-item (click)="openReviews()">
             <ion-icon name="clipboard" class="myicon"></ion-icon> Reviews
           </button>
+          <button  menuClose ion-item (click)="openDeals()">
+            <ion-icon name="clipboard" class="myicon"></ion-icon> Deals
+          </button>
           <!-- <button  menuClose ion-item (click)="scanQR()" *ngIf="!globals.guess_login">
             <ion-icon name="camera" class="myicon"></ion-icon> Scan
           </button> -->
           <button  menuClose ion-item (click)="show_gallery()" *ngIf="globals.gallery_enabled == 1">
               <ion-icon name="image" class="myicon"></ion-icon> Gallery
           </button>
+         
       <button  menuClose ion-item (click)="OpenSettingPage()">
           <ion-icon name="settings" class="myicon"></ion-icon>Settings
       </button>
+      <button  menuClose ion-item (click)="aboutus()">
+          <ion-icon name="information-circle" class="myicon"></ion-icon>About Us
+      </button>
+      
+      
        <button menuClose ion-item (click)="logout()">
           <ion-icon name="log-out" class="myicon"></ion-icon> Logout
       </button>

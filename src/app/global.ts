@@ -96,6 +96,10 @@ export class GlobalVariable {
     banner_image:any;
     punch_:any;
     punch_limit_:any;
+    latitude:any;
+    longitude:any;
+    hours_operation;
+    
     constructor(public alertCtrl: AlertController,public toastCtrl: ToastController) {
      this.BaseUrl = 'https://onlineordering.mikronexus.com/mikronexus-dashboard-material/index.php/';
     }

@@ -157,9 +157,9 @@ export class Modal2Page {
   }
   presentModal() {
     console.log("modal pickupsett",this.globals.pickupsetting);
-    let modal = this.modalCtrl.create('ModalPage');
-    modal.present();
-    // this.navCtrl.push("ModalPage");
+    // let modal = this.modalCtrl.create('ModalPage');
+    // modal.present();
+    this.navCtrl.push("ModalPage");
   }
   Today(){
     console.log("type checking Today",this.type);
