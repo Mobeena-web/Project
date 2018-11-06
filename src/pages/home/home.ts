@@ -424,7 +424,7 @@ export class HomePage {
             this.globals.android_url  = this.banner.android_url;
             this.globals.ios_url = this.banner.ios_url;
             this.globals.update_message = this.banner.message;
-            console.log(data);
+            console.log("banner data", data);
             this.content.resize();
 
             if(this.banner.is_latest_build){

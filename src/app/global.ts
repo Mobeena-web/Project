@@ -97,7 +97,7 @@ export class GlobalVariable {
     punch_:any;
     punch_limit_:any;
     constructor(public alertCtrl: AlertController,public toastCtrl: ToastController) {
-     this.BaseUrl = 'https://onlineordering.mikronexus.com/online-ordering-new/index.php/';
+     this.BaseUrl = 'https://onlineordering.mikronexus.com/mikronexus-dashboard-material/index.php/';
     }
     
 
