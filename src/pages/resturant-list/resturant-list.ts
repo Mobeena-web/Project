@@ -252,9 +252,12 @@ export class ResturantListPage {
        console.log(state);
          if (state){
       this.status = false;
-      console.log("if ",state)
+  
+      let loading = this.loadingCtrl.create({
+        content: "Loading",
 
-
+    });
+    loading.present();
        this.arrayStatus = false;
           this.flag = true;
       this.geolocation.getCurrentPosition().then((position)=>{
@@ -262,11 +265,11 @@ export class ResturantListPage {
       //     this.coordinates = position.coords.latitude+","+position.coords.longitude
       console.log(this.radius, this.coordinates);
 
-      let response = this.server.getRestaurantslist(this.radius, 'main', this.coordinates, this.offset.toString(), 'order');
+      let response = this.server.getRestaurantslist(this.radius, 'branches', this.coordinates, this.offset.toString(), 'order');
 
       response.subscribe(data => {
           console.log(data);
-
+            loading.dismiss();
           this.places = data.results;
           console.log("mobilecheck", this.mobileFlagcheck)
           // if (this.mobileFlagcheck == 'false') {
@@ -275,8 +278,7 @@ export class ResturantListPage {
           console.log(this.places);
 
           if (typeof data.success != 'undefined' || data.success == 'No data') {
-              console.log("heloo");
-              this.arrayStatus = true;
+             this.arrayStatus = true;
               this.flag = false;
           }
           else {
@@ -289,7 +291,7 @@ export class ResturantListPage {
 
       }, error => {
           console.log(error);
-
+        loading.dismiss()
           this.flag = false;
           let alert = this.alertCtrl.create({
               title: 'Error',
@@ -418,7 +420,7 @@ export class ResturantListPage {
           console.log("else", this.searchTerm);
 
           this.offset = 0;
-          let response = this.server.getRestaurantslist(this.radius, 'main', this.coordinates, this.offset.toString(), 'order');
+          let response = this.server.getRestaurantslist(this.radius, 'branches', this.coordinates, this.offset.toString(), 'order');
 
           response.subscribe(data => {
               this.places = data.results;;
@@ -427,7 +429,7 @@ export class ResturantListPage {
               console.log("testing pickup !!!!!!",this.places.pickup_time);
           }, error => {
               console.log(error);
-
+            
               this.flag = false;
               let alert = this.alertCtrl.create({
                   title: 'Error',

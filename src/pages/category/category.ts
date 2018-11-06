@@ -82,7 +82,6 @@ export class CategoryPage {
                
                     this.geolocation.getCurrentPosition().then((position) => {
                         this.coordinates = position.coords.latitude + "," + position.coords.longitude;
-                        this.list();
                        
                     }, (err) => {
                         let alert = this.alertCtrl.create({

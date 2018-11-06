@@ -52,8 +52,16 @@ page-resturant-list {
           }
           
           .image{
-            border-radius: 4px; 
-            height:70px;
+            border-radius: 4px;
+            height: 130px;
+            width: 130px;
+            margin-left: auto;
+            margin-right: auto;
+            border: 1px solid #ccc;
+            padding: 5px;
+          }
+          .background_c{
+            background: #eee;
           }
           .delivery{
            font-size:1.2rem;
@@ -76,8 +84,19 @@ page-resturant-list {
                 right:10px
           
           }
+          .min-order{
+            color: #c0392b
+          }
+          .fg{
+            display: inline;
+            float: right;
+            margin-top: -20px;
+            color: #27ae60;
+          }
               .heading{
                     font-weight: bold;
+                    color: #000;
+                    font-size: 1.8rem;
               }
               
           @media only screen and (min-width: 768px) { 

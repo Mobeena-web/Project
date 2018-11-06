@@ -40,7 +40,7 @@
 </ion-header>
 
 
-<ion-content class="Open-Sans-regular">
+<ion-content class="Open-Sans-regular background_c">
  
   <div [ngSwitch]="option">
     <div *ngSwitchCase="'orders'">
@@ -51,23 +51,26 @@
         </ion-refresher-content>
       </ion-refresher>
 
-      <p style="text-align: center; margin-top: 60%;" *ngIf="flag == true">Fetching data... </p>
+      <!-- <p style="text-align: center; margin-top: 60%;" *ngIf="flag == true">Fetching data... </p> -->
       <p style="text-align: center; margin-top: 60%;" *ngIf="arrayStatus">No place available in this range... </p>
       <div *ngIf="!arrayStatus && !flag">
         <div *ngFor="let place of places">
-          <ion-card *ngIf="place.orders_enabled == 'active'">
+          <ion-card *ngIf="place.orders_enabled == 'active'" text-center>
             <ion-grid>
               <ion-row>
-                <ion-col col-3 (tap)="OrderCategory(place.pickup_time,place.delivery_time,place.business_id,place.paypal_id,place.discount,place.stripe_id,place.hours_operation,place.minimum_order,place.delivery_time,place.delivery_fee,place.tax,place.delivery,place.pickup,place.admin_stripe_enabled,place.username,place.customer_discount_availed_count,place.business_discount_count)">
+                <ion-col >
                   <img class="image" src="{{place.logo}}">
-                </ion-col>
-
-                <ion-col col-6 (tap)="OrderCategory(place.pickup_time,place.delivery_time,place.business_id,place.paypal_id,place.discount,place.stripe_id,place.hours_operation,place.minimum_order,place.delivery_time,place.delivery_fee,place.tax,place.delivery,place.pickup,place.admin_stripe_enabled,place.username,place.customer_discount_availed_count,place.business_discount_count)">
-                  <p class="Open-Sans-bold" class="heading">{{place.name}} </p>
+               
+                <p class="Open-Sans-bold" class="heading">{{place.name}} </p>
 
                   <!-- <rating class="rating" [(ngModel)]="place.average_rating" readOnly="true" max="5" emptyStarIconName="star-outline" halfStarIconName="star-half"
                     starIconName="star" nullable="false"></rating> -->
-
+                    <p class="Open-Sans-regular" color="primary">
+                      <ion-icon name="pin"> </ion-icon> {{place.distanceValue}} mi </p>
+                
+                  <p class="min-order" *ngIf="place.minimum_order">
+                    Minimum Order: ${{place.minimum_order}}
+                  </p>
                   <div>
                     <div style="display:inline-block;">
                       <p class="delivery" *ngIf="place.pickup_time != '' ">
@@ -83,19 +86,20 @@
                         <ion-icon ios="ios-bicycle" md="md-bicycle"> </ion-icon> Delivery charges: ${{place.delivery_fee}} </p>
                     </div>
                   </div>
-                  <p *ngIf="place.discount_text && place.customer_discount_availed_count < place.business_discount_count" class="Open-Sans-bold"
-                    class="discount-text">{{place.discount_text}}, {{place.discount}}% </p>
+                  <!-- <p *ngIf="place.discount_text && place.customer_discount_availed_count < place.business_discount_count" class="Open-Sans-bold"
+                    class="discount-text">{{place.discount_text}}, {{place.discount}}% </p> -->
 
 
-                </ion-col>
+              
+                 
 
-                <ion-col style="padding: 0px !important;" col-3>
-                  <p class="Open-Sans-regular" color="primary" class="distance">
-                    <ion-icon name="pin"> </ion-icon> {{place.distanceValue}} mi </p>
-
-                  <button ion-button small block class="review-btn" (tap)="Reviews(place.username)">
+                  <!-- <button ion-button small block class="review-btn" (tap)="Reviews(place.username)">
                     <ion-icon name="list-box"> </ion-icon>
-                  </button>
+                  </button> -->
+          <button ion-button block margin-top style="    height: 37px;font-size: 13px;"   color='primary' 
+          (click)="OrderCategory(place.pickup_time,place.delivery_time,place.business_id,place.paypal_id,place.discount,place.stripe_id,place.hours_operation,place.minimum_order,place.delivery_time,place.delivery_fee,place.tax,place.delivery,place.pickup,place.admin_stripe_enabled,place.username,place.customer_discount_availed_count,place.business_discount_count)"
+           block>VIEW MENU</button>
+
                 </ion-col>
               </ion-row>
 

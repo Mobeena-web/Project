@@ -23,6 +23,9 @@
         <button  menuClose ion-item (click)="openReviews()">
             <ion-icon name="clipboard" class="myicon"></ion-icon> Reviews
           </button>
+          <button  menuClose ion-item (click)="openDeals()">
+            <ion-icon name="clipboard" class="myicon"></ion-icon> Deals
+          </button>
           <!-- <button  menuClose ion-item (click)="scanQR()" *ngIf="!globals.guess_login">
             <ion-icon name="camera" class="myicon"></ion-icon> Scan
           </button> -->
@@ -36,12 +39,7 @@
       <button  menuClose ion-item (click)="aboutus()">
           <ion-icon name="information-circle" class="myicon"></ion-icon>About Us
       </button>
-      <div *ngFor="let item of social_links">
-        <button  menuClose ion-item *ngIf="item.url"  (click)="launch(item.url)" >
-          <ion-icon name={{item.icon}} class="myicon"></ion-icon> {{item.name}} 
-       
-      </button>
-      </div>
+      
       
        <button menuClose ion-item (click)="logout()">
           <ion-icon name="log-out" class="myicon"></ion-icon> Logout
