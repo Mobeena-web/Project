@@ -89,13 +89,9 @@
                   <!-- <p *ngIf="place.discount_text && place.customer_discount_availed_count < place.business_discount_count" class="Open-Sans-bold"
                     class="discount-text">{{place.discount_text}}, {{place.discount}}% </p> -->
 
-
-              
-                 
-
-                  <!-- <button ion-button small block class="review-btn" (tap)="Reviews(place.username)">
+                  <button ion-button small block class="review-btn" (tap)="Reviews(place.username)">
                     <ion-icon name="list-box"> </ion-icon>
-                  </button> -->
+                  </button>
           <button ion-button block margin-top style="    height: 37px;font-size: 13px;"   color='primary' 
           (click)="OrderCategory(place.pickup_time,place.delivery_time,place.business_id,place.paypal_id,place.discount,place.stripe_id,place.hours_operation,place.minimum_order,place.delivery_time,place.delivery_fee,place.tax,place.delivery,place.pickup,place.admin_stripe_enabled,place.username,place.customer_discount_availed_count,place.business_discount_count)"
            block>VIEW MENU</button>

@@ -423,7 +423,7 @@ export class ResturantListPage {
           let response = this.server.getRestaurantslist(this.radius, 'branches', this.coordinates, this.offset.toString(), 'order');
 
           response.subscribe(data => {
-              this.places = data.results;;
+              this.places = data.results;
               
               console.log(this.places);
               console.log("testing pickup !!!!!!",this.places.pickup_time);

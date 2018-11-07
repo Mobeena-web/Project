@@ -15,7 +15,7 @@
           <ion-badge color="danger" class="rewards_badge" *ngIf="globals.TotalbadgeValue > 0 && globals.TotalbadgeValue != null" >{{globals.TotalbadgeValue}}</ion-badge>
         </button>
         <button menuClose ion-item (click)="openOrder()">
-            <ion-icon name="restaurant" class="myicon"></ion-icon> Order
+            <ion-icon name="restaurant" class="myicon"></ion-icon> Order Now
           </button>
           <button  menuClose ion-item (click)="openHistory()">
               <ion-icon name="list" class="myicon"></ion-icon> Order History
@@ -23,9 +23,9 @@
         <button  menuClose ion-item (click)="openReviews()">
             <ion-icon name="clipboard" class="myicon"></ion-icon> Reviews
           </button>
-          <button  menuClose ion-item (click)="openDeals()">
+          <!-- <button  menuClose ion-item (click)="openDeals()">
             <ion-icon name="clipboard" class="myicon"></ion-icon> Deals
-          </button>
+          </button> -->
           <!-- <button  menuClose ion-item (click)="scanQR()" *ngIf="!globals.guess_login">
             <ion-icon name="camera" class="myicon"></ion-icon> Scan
           </button> -->

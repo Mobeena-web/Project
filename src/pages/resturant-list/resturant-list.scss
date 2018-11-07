@@ -76,12 +76,13 @@ page-resturant-list {
             padding-right:5px
           }
           .review-btn{
-             position: absolute;
-              bottom: 0px;
-              width: 45px;
-               height: 45px;
-               border-radius: 50%;
-                right:10px
+            position: absolute;
+            bottom: unset;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            right: 10px;
+            top: 77px;
           
           }
           .min-order{
@@ -126,12 +127,13 @@ page-resturant-list {
             font-size: 2.4rem
           }
           .review-btn{
-             position: absolute;
-              bottom: 0px;
-              width: 90px;
-               height: 90px;
-               border-radius: 50%;
-                right:10px
+            position: absolute;
+          bottom: unset;
+          width: 45px;
+          height: 45px;
+          border-radius: 50%;
+          right: 10px;
+          top: 77px;
           
           }
               .review-btn ion-icon{
