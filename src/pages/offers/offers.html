@@ -16,10 +16,12 @@
  
     <ion-card *ngFor="let item of offers" (click)="offerDetail(item)">
       <ion-row>
-        <ion-col col-3>
+        <ion-col col-4>
           <img src={{item.image}}>
+          <button margin-top ion-button block class="or">Order Now</button>
+
         </ion-col>
-        <ion-col col-9>
+        <ion-col col-8>
             <div class="myfontsize">{{item.title}}</div>
             <div >{{item.date}}</div>
 

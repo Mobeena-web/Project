@@ -84,6 +84,10 @@ export class HomePage {
         localStorage.removeItem("scheduled_time");
     }
 
+    orderNow(){
+        this._nav.push('ResturantListPage')
+    }
+
     reward_notification(){
         let response = this.server.reward_notification();
         response.subscribe(data => {

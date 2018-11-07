@@ -15,26 +15,91 @@ declare var google;
 export class AboutusPage {
   daysInWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   op_hours:any;
-  social_links:any;
-
+  name:any;
+  business_id:any;
+  hours_operation:any;
+  latitude:any;
+  longitude:any;
+  reviewData:any;
+  length:any;
+  username:any;
   constructor(private iab: InAppBrowser,public server: ServerProvider,public globals: GlobalVariable,public navCtrl: NavController, public navParams: NavParams) {
-    this.get_social();
+    this.name = this.navParams.get('name');
+    this.business_id = this.navParams.get('business_id')
+
+    this.hours_operation = this.navParams.get('hours_operation')
+    this.latitude = this.navParams.get('latitude')
+    this.longitude = this.navParams.get('longitude');
+    this.username = this.navParams.get('username')
+
+    this.hours_operation = this.update_time_(this.hours_operation);
+    this.reviewdata();
+
   }
 
   ionViewWillEnter() {
     this.loadMap();
   }
 
-  launch(url) {
-    console.log("url function");
-    console.log(url);
-    this.iab.create(url, "_self");
-  
+  update_time_(p_hours){
+    p_hours.forEach(element => {
+      if(element[0] != 'opened' && element[0] != 'closed'){
+        element[0] = this.tConvert(element[0])
+      }
+      if(element[1] != 'opened' && element[1] != 'closed'){
+        element[1] = this.tConvert(element[1])
+      }
+    });
+    return p_hours;
   }
+
+  tConvert (time_) {
+    if(time_ == 0){
+      time_ = 12;
+     }
+ 
+ if(time_ > 12){
+     var ti = time_.split('.');
+  
+     ti[0] = parseFloat(ti[0])
+     ti[0] = ti[0] - 12;
+    
+     if(ti[1] == "5"){
+       ti[1] = ':30'
+     }
+     else if(ti[1] != "5"){
+       ti[1] = ':00'
+     }
+    time_ = ti[0] + ti[1] + 'PM'
+ }
+ else{
+   var ti = time_.split('.');
+  
+  
+   if(ti[1] == "5"){
+     ti[1] = ':30'
+     time_='';
+
+      time_ = ti[0] + ti[1] + 'AM'
+
+   }
+   else if(ti[1] == undefined){
+     console.log(ti[1],time_)
+     time_='';
+
+     ti[1] = ':00'
+     time_ = ti[0] + ti[1] + 'AM'
+   }
+
+ }
+
+   return time_; // return adjusted time_ or original string
+ }
+ 
   
 
   loadMap() {
-    var myLatLng = new google.maps.LatLng(parseFloat(this.globals.latitude), parseFloat(this.globals.longitude));
+    var myLatLng = new google.maps.LatLng(parseFloat(this.latitude), parseFloat(this.longitude));
 
     var map = new google.maps.Map(document.getElementById('map'), {
       zoom: 15,
@@ -49,17 +114,21 @@ export class AboutusPage {
 
   }
 
-  get_social() {
-    let response = this.server.get_social();
+  reviewdata() {
+    let response = this.server.BusinessInformation(this.username);
+    
     response.subscribe(data => {
-     this.social_links = data.data;
+       
+        this.reviewData = data.reviews;
+        this.length = this.reviewData.length;
+        console.log(this.reviewData)
 
     }, error => {
-        console.log(error);
-
+     
     });
- 
 }
+
+  
   
    
 
