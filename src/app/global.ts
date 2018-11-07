@@ -101,7 +101,7 @@ export class GlobalVariable {
     hours_operation;
     
     constructor(public alertCtrl: AlertController,public toastCtrl: ToastController) {
-     this.BaseUrl = 'https://onlineordering.mikronexus.com/mikronexus-dashboard-material/index.php/';
+     this.BaseUrl = 'https://onlineordering.mikronexus.com/online-ordering-new/index.php/';
     }
     
 
