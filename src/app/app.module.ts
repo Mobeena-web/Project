@@ -62,11 +62,7 @@ import { PhotoViewer } from '@ionic-native/photo-viewer';
     IntroPage4Page,
     IntroPage5Page,
     MobileVerificationPromptPage
-    //IntroPage6Page,
-    // IntroPage7Page,
-    // IntroPage8Page
-    
-   // ModalPage
+
     
   ], 
   imports: [

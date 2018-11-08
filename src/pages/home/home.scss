@@ -386,7 +386,34 @@ font-weight: bold;
       }
       .order_btn{
           padding: 28px;
-          margin-top: 60px;
+      }
+      .sof{
+        background: #8e44ad;
+        padding: 10px;
+        color: #fff;
+        border-radius: 6px;
+        ion-icon{
+            background: #fff;
+            color: #8e44ad;
+            height: 30px;
+            width: 30px;
+            padding-top: 8px;
+            border-radius: 50%;
+        }
+      }
+      .sof1{
+        background: #16a085;
+        padding: 10px;
+        color: #fff;
+        border-radius: 6px;
+        ion-icon{
+            background: #fff;
+            color: #16a085;
+            height: 30px;
+            width: 30px;
+            padding-top: 8px;
+            border-radius: 50%;
+        }
       }
       
       .overlay{
