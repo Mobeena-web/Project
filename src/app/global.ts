@@ -90,7 +90,7 @@ export class GlobalVariable {
     android_url:any;
     ios_url:any;
     update_message:any;
-    app_version = "1.5";
+    app_version = "2";
     notifications:any;
     guess_login:boolean = false;
     banner_image:any;

@@ -44,29 +44,26 @@ getdeals(){
 
   LoadBannersOnHomePage() {
     var link = this.global.BaseUrl + 'Customer_controller/get_banners';
-    var data = JSON.stringify({business_id:this.global.new_id,app_version:this.global.app_version });
-
-    return this.http.get(link,data)
-      .map((res: any) => res.json())
-      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+    var data = JSON.stringify({ business_id: this.global.new_id,app_version: this.global.app_version });
+    return this.http.post(link, data)
+      .map((res: any) => res.json());
+   
   }
 
   welcome_screen() {
     var link = this.global.BaseUrl + 'Customer_controller/get_welcome_screen';
-    var data = JSON.stringify({business_id:this.global.new_id });
+    var data = JSON.stringify({ business_id: this.global.new_id});
+    return this.http.post(link, data)
+      .map((res: any) => res.json());
 
-    return this.http.get(link,data)
-      .map((res: any) => res.json())
-      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
 
   reward_notification() {
     var link = this.global.BaseUrl + 'Customer_controller/get_punch_notifications';
-    var data = JSON.stringify({business_id:this.global.new_id,udid: this.global.udid });
+    var data = JSON.stringify({business_id: this.global.new_id,udid: this.global.udid });
    
-    return this.http.get(link,data)
+    return this.http.post(link,data)
       .map((res: any) => res.json())
-      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
 
   GetPunchcards(coordinates) {

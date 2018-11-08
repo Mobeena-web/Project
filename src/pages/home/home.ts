@@ -70,7 +70,7 @@ export class HomePage {
     email:any;
     constructor(private geolocation: Geolocation,private diagnostic: Diagnostic,public app: App, public server: ServerProvider, public globals: GlobalVariable, private nativeAudio: NativeAudio, private iab: InAppBrowser, private nativeStorage: NativeStorage, public loadingCtrl: LoadingController, public modalCtrl: ModalController, public _nav: NavController, public _navParams: NavParams, public alertCtrl: AlertController, public platform: Platform) {
         if(!this.globals.guess_login){
-            this.reward_notification();
+             this.reward_notification();
         }
         this.loadBanner();
         
@@ -406,8 +406,8 @@ export class HomePage {
             this.content.resize();
 
             if(this.banner.is_latest_build){
-                    let mobile_update = this.modalCtrl.create('MobileUpdatePage');
-                    mobile_update.present();
+                    // let mobile_update = this.modalCtrl.create('MobileUpdatePage');
+                    // mobile_update.present();
             }
         }
             , error => {

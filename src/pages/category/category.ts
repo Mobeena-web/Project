@@ -264,8 +264,8 @@ export class CategoryPage {
         response.subscribe(data => {
             this.data = data;
             loading.dismiss();
-            // console.log(this.data.categories);
             this.category = this.data.categories;
+            console.log("categories",this.category)
             this.name = this.data.restaurant.name;
             this.globals.title = this.name;
             this.globals.category_name = this.name;

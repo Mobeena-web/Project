@@ -28,8 +28,10 @@ export class BeforeLoginPage {
     response.subscribe(data => {
         loading.dismiss();
         this.welcome = data;
-     
+        console.log("welcome data",this.welcome)
     }, error => {
+      loading.dismiss();
+
         this.global.alertMessage("Failure","Something went wrong check your internet connection.")
 
     });
