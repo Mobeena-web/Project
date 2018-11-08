@@ -38,9 +38,8 @@ export class MyApp {
   places:any;
   constructor(private nativeAudio: NativeAudio,public loadingCtrl: LoadingController,private iab: InAppBrowser,private barcodeScanner:BarcodeScanner,public alertCtrl: AlertController,public app: App,public server: ServerProvider, private _notification: OneSignal, public alertctrl: AlertController, public modalCtrl: ModalController, public globals: GlobalVariable, private statusbar: StatusBar, private splashscreen: SplashScreen, private nativeStorage: NativeStorage, public platform: Platform,private geolocation: Geolocation) {
 
-
-
     platform.ready().then(() => {
+        this.welcome_data();
         this.data = {};
         this.data.response = '';
         this.LoadSound();
@@ -56,14 +55,10 @@ export class MyApp {
           // user is previously logged and we have his data
           // we will let him access the app
 
-          console.log(data);
           this.globals.udid = data.udid;
           this.globals.firstName = data.firstName;
           this.globals.lastName = data.lastName;
           this.initializePushToken();
-
-          console.log("global", this.globals.udid);
-
 
           env.nav.setRoot(HomePage);
           this.globals.showFabFlag = true;
@@ -77,16 +72,20 @@ export class MyApp {
         }).catch(err => { console.log(err) });
 
       this.splashscreen.hide();
-      // geolocation.getCurrentPosition().then(pos => {
-      //   console.log('lat: ' + pos.coords.latitude + ', lon: ' + pos.coords.longitude);
-      // });
-
-      // const watch = geolocation.watchPosition().subscribe(pos => {
-      //   console.log('lat: ' + pos.coords.latitude + ', lon: ' + pos.coords.longitude);
-      // });
-      // watch.unsubscribe();
+     
     });
   }
+
+  welcome_data() {
+
+    let response = this.server.welcome_screen();
+    response.subscribe(data => {
+        this.globals.welcome_data = data;
+     
+    }, error => {
+      
+    });
+}
 
 
   cartpage() {
@@ -110,8 +109,7 @@ export class MyApp {
 
 
   initializePushToken() {
-    console.log("intializing push token");
-
+   
     if (this.platform.is('ios')) {
       var iosSettings = {};
       iosSettings["kOSSettingsKeyAutoPrompt"] = true;
@@ -124,7 +122,6 @@ export class MyApp {
     this._notification.inFocusDisplaying(this._notification.OSInFocusDisplayOption.None);
     this._notification.getIds()
       .then((ids) => {
-        console.log("ids from one signal", ids);
         this.server.updateToken(ids.userId).toPromise()
           .then((data) => { console.log("server response on token update", data) })
 
@@ -175,7 +172,7 @@ export class MyApp {
   Homepage() {
     let view = this.nav.getActive();
     var name = view.component.name.toString();
-    console.log(name);
+   
     if (name != 'MainTabsPage') {
 
       this.nav.setRoot(HomePage);
@@ -188,7 +185,7 @@ export class MyApp {
   Page() {
     let view = this.nav.getActive();
     var name = view.component.name.toString();
-    console.log(name);
+  
     if (name != 'LoginPage') {
       return true;
     }
@@ -216,7 +213,6 @@ export class MyApp {
       .then(data => {
           this.nativeStorage.remove('user')
               .then(data => {
-                  console.log('data removed');
                   this.globals.Product.length = 0;
                   this.globals.cartflag = false;
 
@@ -422,17 +418,13 @@ public scanQR() {
 
   this.nativeAudio.preloadSimple('spinner', 'assets/sounds/Spinner.mp3')
       .then(function (msg) {
-          console.log(msg);
 
       }, function (error) {
-          console.log(error);
       });
       this.nativeAudio.preloadSimple('failure', 'assets/sounds/failure.mp3')
       .then(function (msg) {
-          console.log(msg);
 
       }, function (error) {
-          console.log(error);
       });
       this.nativeAudio.preloadSimple('success', 'assets/sounds/success.mp3')
       .then(function (msg) {
@@ -450,8 +442,6 @@ ShowCustomQModel(data, flag) {
 }
 
 launch(url) {
-  console.log("url function");
-  console.log(url);
   this.iab.create(url, "_self");
 
 }
@@ -461,8 +451,6 @@ followUs(){
 
 modal(response, response_status, business, logo, image, string, bid) {
 
-  console.log("image", image);
-  console.log(bid, 'businesusername');
 
   let profileModal = this.modalCtrl.create('CongratulationPage', { reward: response, status: response_status, place: business, Logo: logo, lottery_image: image, RewardString: string, id: bid });
   profileModal.present();
@@ -472,13 +460,11 @@ modal(response, response_status, business, logo, image, string, bid) {
 list() {
     let response = this.server.getRestaurantslist('100000', 'main', "0,0", '0', 'order');
     response.subscribe(data => {
-        console.log('usmna_resturants',data)
         this.places = data.results;
         var new_id = this.globals.new_id;
         this.places = this.places.filter(function(item) {
          return item.business_id === new_id;
        });
-       console.log("pages",this.places)
        
        this.globals.special_offer = this.places[0].special_offer;
        this.globals.events_enabled = this.places[0].events_enabled;
@@ -502,8 +488,7 @@ list() {
 
      
     }, error => {
-        console.log(error);
-
+       
         let alert = this.alertCtrl.create({
             title: 'Error',
             subTitle: 'Server times out, please try again',
@@ -539,7 +524,6 @@ presentConfirm() {
           text: 'Cancel',
           role: 'cancel',
           handler: () => {
-            console.log('Cancel clicked');
           }
         },
         {

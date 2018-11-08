@@ -99,7 +99,7 @@ export class GlobalVariable {
     latitude:any;
     longitude:any;
     hours_operation;
-    
+    welcome_data:any;
     constructor(public alertCtrl: AlertController,public toastCtrl: ToastController) {
      this.BaseUrl = 'https://onlineordering.mikronexus.com/online-ordering-new/index.php/';
     }

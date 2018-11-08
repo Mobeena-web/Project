@@ -51,6 +51,15 @@ getdeals(){
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
 
+  welcome_screen() {
+    var link = this.global.BaseUrl + 'Customer_controller/get_welcome_screen';
+    var data = JSON.stringify({business_id:this.global.new_id });
+
+    return this.http.get(link,data)
+      .map((res: any) => res.json())
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+  }
+
   reward_notification() {
     var link = this.global.BaseUrl + 'Customer_controller/get_punch_notifications';
     var data = JSON.stringify({business_id:this.global.new_id,udid: this.global.udid });
@@ -132,8 +141,7 @@ getdeals(){
 
   getRestaurantslist(radius, businesType, coordinates, offset, type) {
     var link = this.global.BaseUrl + 'Customer_controller/getplaces';
-    var data = JSON.stringify({ coordinates: coordinates, radius: radius, business_type: businesType, offset, type: type, udid: this.global.udid });
-    console.log("usman data",data);
+    var data = JSON.stringify({ business_id: this.global.new_id,coordinates: coordinates, radius: radius, business_type: businesType, offset, type: type, udid: this.global.udid });
     return this.http.post(link, data)
       .map((res: any) => res.json());
 
@@ -142,8 +150,7 @@ getdeals(){
   BusinessInformation(placeName) {
     var link = this.global.BaseUrl + 'Customer_controller/getbusinessinfo';
     var data = JSON.stringify({ business_username: placeName });
-    console.log(data);
-    return this.http.post(link, data)
+  return this.http.post(link, data)
       .map((res: any) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }

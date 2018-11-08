@@ -59,17 +59,13 @@ export class ItemDetailPage {
   constructor(public server: ServerProvider, public alertCtrl: AlertController, public loadingCtrl: LoadingController, public globals: GlobalVariable, public modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams) {
 
     this.thumbimage = navParams.get('image');
-    console.log(this.thumbimage);
-    console.log("istruc",localStorage.getItem("instructions")) ;
-    
+  
     // this.name = navParams.get('Name');  
     // this.price = navParams.get('Price');
-    console.log("  this.globals.BusinessDiscount detail ", this.globals.BusinessDiscount);
     
    
     this.ItemId = navParams.get('item_id');
     this.Business_id = navParams.get('BusinesId');
-    console.log(this.Business_id, this.ItemId);
 
 
     // this.globals.BusinessID = this.Business_id;
@@ -77,11 +73,9 @@ export class ItemDetailPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ItemDetailPage');
 
   }
   presentModal() {
-    console.log("modal pickupsett",this.globals.pickupsetting);
     let modal = this.modalCtrl.create('InstructionModalPage');
     modal.present();
   }
@@ -163,33 +157,24 @@ export class ItemDetailPage {
 
 
   addOptionQuantity(heading, object) {
-    console.log(heading, object);
 
     object.quantity += 1;
     var value1 = this.myChoices.indexOf([object]);
-    console.log('value1', value1);
-    console.log(this.myChoices);
     this.myChoices.splice(value1, 1);
-    console.log(this.myChoices);
 
     var data = { heading: heading, optionNameSelected: [{ name: object.name, price: Number(object.price), quantity: object.quantity, total: Number(object.price) * object.quantity, isFree: false }] }
     this.myChoices.push(data);
 
-    console.log(this.myChoices);
 
   }
   removeOptionQuantity(heading, object) {
-    console.log(heading, object);
     if (object.quantity <= 1) {
       object.quantity = 1;
     }
     else {
       object.quantity -= 1;
       var value1 = this.myChoices.indexOf([object]);
-      console.log('value1', value1);
-      console.log(this.myChoices);
       this.myChoices.splice(value1, 1);
-      console.log(this.myChoices);
       var data = { heading: heading, optionNameSelected: [{ name: object.name, price: Number(object.price), quantity: object.quantity, total: Number(object.price) * object.quantity, isFree: false }] }
       this.myChoices.push(data);
     }
@@ -227,7 +212,6 @@ export class ItemDetailPage {
         {
           text: 'OKAY',
           handler: data => {
-            console.log('Saved clicked');
             this.globals.Product.length = 0;
             this.globals.BusinessID = this.Business_id;
             this.globals.BusinessDiscount = this.CurrentBusinessDiscount;
@@ -321,16 +305,13 @@ export class ItemDetailPage {
         }
       });
       if (isMenuItemSame) {
-        console.log("We are genuises!");
         for (let i = 0; i < this.globals.Product.length; i++) {
           if (this.name == this.globals.Product[i].menuItem) {
             let currentQuantity = this.globals.Product[i].quantity;
-            console.log("Current item quanity:", currentQuantity);
             currentQuantity += this.quantity;
             let current_total = this.quantity * this.price;
             this.globals.Product[i].quantity = currentQuantity;
             this.globals.Product[i].totalPrice += current_total;
-            console.log("Updated Item quantity again:", this.globals.Product[i].quantity);
             break;
           }
         }
@@ -338,25 +319,19 @@ export class ItemDetailPage {
 
       }
       else {
-        console.log("We are NOT genuises!");
         this.totalCost = this.quantity * this.price;
         let i = 1;
 
-        console.log("i", i);
 
         for (let sub of this.myChoices) {
           for (let op of sub.optionNameSelected) {
-            console.log("price,index,quantity", op.price, i, op.quantity);
 
             if (Number(this.No_of_Free_Extras) >= 1) {
-              console.log(i, "if");
               if (op.quantity > 1) {
-                console.log(op.quantity);
                 let prod_quantity = op.quantity;
 
                 for (let j = prod_quantity; j > 0; j--) {
 
-                  console.log(op.quantity, prod_quantity);
                   if (this.No_of_Free_Extras >= 1) {
                     prod_quantity = prod_quantity - 1;
                     this.No_of_Free_Extras--;
@@ -372,39 +347,31 @@ export class ItemDetailPage {
                 // var remain = Number(this.No_of_Free_Extras) - i;
                 // var new_qantity = op.quantity - remain;
                 // this.extratotal = new_qantity*op.price;
-                console.log("extratotal,op.quantity,no_of_free_extras", this.extratotal, op.quantity, this.No_of_Free_Extras);
-                console.log(prod_quantity, 'prod');
+              
                 op.quantity = prod_quantity;
 
               }
               else {
                 this.extratotal = 0;
-                console.log(this.extratotal, "extratotal");
                 op.isFree = true;
                 this.No_of_Free_Extras--;
               }
             }
             else {
-              console.log("else");
-
-              console.log(i, "quanttiy,price", op.quantity, op.price);
-
+            
               this.extratotal += op.quantity * op.price;
             }
             i = i++;
 
-            console.log("i,quantity", i, op.quantity);
 
           }
         }
-        console.log("extratotal", this.extratotal);
         // this.objectPrice = this.totalCost + this.extratotal;
         this.objectPrice = Number(this.item_price);
 
         this.objectPrice.toFixed(2);
         this.instructions = localStorage.getItem("instructions");
         this.globals.itemInstruction = this.instructions;
-        console.log("global instruction ",this.globals.itemInstruction );
         this.globals.Product.push({ menuId: "1", restId: this.globals.bussinessId, uniqueId: this.ItemId, menuItem: this.name, image: this.thumbimage, quantity: this.quantity, itemInstructions: this.instructions, basePrice: this.price, totalPrice: this.objectPrice, menuExtrasSelected: this.myChoices });
         this.navCtrl.pop();
         localStorage.removeItem("instructions");
@@ -432,7 +399,6 @@ export class ItemDetailPage {
 
     });
     loading.present();
-    console.log("item_id", this.ItemId);
 
     let response = this.server.ProductItemDetail(this.ItemId);
 
@@ -440,8 +406,7 @@ export class ItemDetailPage {
       this.data = data;
       // console.log(this.data.categories);
       loading.dismiss();
-      console.log("data-overall", this.data);
-      console.log("data", this.data.item);
+     
       this.bannerimage = this.data.item.image;
 
       this.description = this.data.item.description;
@@ -451,9 +416,7 @@ export class ItemDetailPage {
       this.price = this.data.item.price;
       this.item_price = this.price;
       this.No_of_Free_Extras = Number(this.data.item.freeExtras);
-      console.log(this.No_of_Free_Extras);
 
-      console.log("description", this.description);
       if (this.data.item.extras.length > 0) {
         var noExtras = false;
         this.extras = this.data.item.extras;

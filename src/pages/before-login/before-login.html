@@ -1,16 +1,16 @@
 
-<ion-content padding class="background_image1">
+<ion-content padding class="background_image1" [ngStyle]="{'background-image': 'url(' + welcome?.welcome_screen_image + ')'}">
     <h3 text-center class="welcome">WELCOME TO</h3>
     <img src="assets/imgs/icon.png" class="icon_img">
 
-    <div >
+    <div>
    
         <ion-card text-center class="btn-margin jk">
                 <h3 class="kk">
-                    REAL FOOD. REAL EASY.
+                    {{welcome?.welcome_screen_title}}
                 </h3>
                 <p class="nn">
-                    Skip the line order ahead and Earn Points for every dollar you spend.
+                    {{welcome?.welcome_screen_subtitle}}
                 </p>
                 <button ion-button block round outline class="order-now" (click)="guestlogin()">Order Now </button>
                 <ion-row class="mm">

@@ -36,7 +36,6 @@ export class OffersPage {
         else{
           this.errorMenu = false;
         }
-        console.log("offers_usman",data);
         this.offers = data.data.offers;
        
     

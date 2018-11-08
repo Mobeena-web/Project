@@ -85,7 +85,6 @@ export class ResturantListPage {
       this.hours = this.date.getHours();
       this.forToday = this.hours + ":" + this.min;
       this.globals.MinValue = this.forToday;
-      console.log("min value ", this.forToday,this.globals.MinValue );
       //this. getLocationAddress();
      // localStorage.setItem("type","delivery" );
      // console.log("localstorage data ", localStorage.getItem("orderdetail"));
@@ -181,7 +180,6 @@ export class ResturantListPage {
   }
 
   ionViewDidLoad() {
-      console.log('ionViewDidLoad OrderListingPage');
       this.getCurrentLocation().then((resp) => {
           // this.reverseGeoCoding(resp.coords.latitude, resp.coords.longitude);
         });
@@ -205,7 +203,6 @@ export class ResturantListPage {
   }
 
   ionViewDidLeave() {
-      console.log('leave');
       if (this.timer != undefined) {
           this.timer.unsubscribe();
       }
@@ -216,7 +213,6 @@ export class ResturantListPage {
         this.geolocation.getCurrentPosition().then((resp) => {
           resolve(resp);
         }).catch((error) => {
-          console.log();
         })
       })
     }
@@ -249,7 +245,6 @@ export class ResturantListPage {
 
        this.diagnostic.isLocationEnabled()
         .then((state) => {
-       console.log(state);
          if (state){
       this.status = false;
   
@@ -263,19 +258,15 @@ export class ResturantListPage {
       this.geolocation.getCurrentPosition().then((position)=>{
 
       //     this.coordinates = position.coords.latitude+","+position.coords.longitude
-      console.log(this.radius, this.coordinates);
 
       let response = this.server.getRestaurantslist(this.radius, 'branches', this.coordinates, this.offset.toString(), 'order');
 
       response.subscribe(data => {
-          console.log(data);
             loading.dismiss();
           this.places = data.results;
-          console.log("mobilecheck", this.mobileFlagcheck)
           // if (this.mobileFlagcheck == 'false') {
           //     this.MobileVerificationPrompt();
           // }
-          console.log(this.places);
 
           if (typeof data.success != 'undefined' || data.success == 'No data') {
              this.arrayStatus = true;
@@ -290,7 +281,6 @@ export class ResturantListPage {
 
 
       }, error => {
-          console.log(error);
         loading.dismiss()
           this.flag = false;
           let alert = this.alertCtrl.create({
@@ -330,13 +320,9 @@ export class ResturantListPage {
 
       this.globals.availed_discount_count = Number(availed_discount_count);
       this.globals.business_discount_count = Number(b_discount_count);
-      console.log(this.globals.availed_discount_count, this.globals.business_discount_count);
 
-      console.log("id", businessId);
       this.globals.bussinessId = businessId;
-      console.log(this.globals.bussinessId);
       this.globals.username = username;
-      console.log("businessdiscount", this.globals.BusinessDiscount);
       this.globals.paypalId = paypalId;
       this.globals.pickup_Time = pickup_time;
       this.globals.estimated_time = time;
@@ -350,11 +336,7 @@ export class ResturantListPage {
       this.globals.pickup = pickup;
       // console.log(this.globals.admin_stripe);
       //console.log("delivery local ", delivery);
-      console.log("pickup",pickup, "pickup_time",this.globals.pickup_Time);
-      console.log("delivery global", this.globals.delivery);
-      console.log("pickup@@@@@", this.globals.pickup)
-      console.log("pickupsett",this.globals.pickupsetting,"time",this.time,this.globals.pickup_Time);
-
+   
       if (delivery == '0') {
           this.globals.delivery = false;
       }
@@ -365,22 +347,17 @@ export class ResturantListPage {
           this.globals.pickup = false;
       }
       else {
-          console.log("else")
           this.globals.pickup = true;
       }
-      console.log("min", min);
       if (min == '') {
           this.globals.minimun_order = 0;
       }
       else {
           this.globals.minimun_order = Number(min);
       }
-      console.log("time", this.globals.Timing);
-      console.log(delivery, pickup, this.globals.delivery, this.globals.pickup);
-
+     
       this.navCtrl.push('CategoryPage', { pageflag: this.pageFlag, BusinessId: businessId, paypal: paypalId, discount: discountvalue });
       // this.navCtrl.push('Modal2Page', { 'pickup' : pickup});
-      console.log("username",username, "pickup",pickup);
       
   }
 
@@ -395,17 +372,14 @@ export class ResturantListPage {
       // else{
       //     return;
       // }
-      console.log(this.searchTerm);
 
       if (this.searchTerm.length >= 3) {
           let response = this.server.LiveSearch(this.searchTerm.toLowerCase(), this.coordinates, this.radius, 'main');
 
           response.subscribe(data => {
-              console.log("data$$$$$$$",data);
 
               if (data.status == 'true') {
                   this.places = data.results;
-                  console.log("data$$$$$$$",this.places );
               }
               else {
                   return;
@@ -417,7 +391,6 @@ export class ResturantListPage {
 
       }
       if (!this.searchTerm) {
-          console.log("else", this.searchTerm);
 
           this.offset = 0;
           let response = this.server.getRestaurantslist(this.radius, 'branches', this.coordinates, this.offset.toString(), 'order');
@@ -426,7 +399,6 @@ export class ResturantListPage {
               this.places = data.results;
               
               console.log(this.places);
-              console.log("testing pickup !!!!!!",this.places.pickup_time);
           }, error => {
               console.log(error);
             
@@ -446,10 +418,8 @@ export class ResturantListPage {
   getLocation() {
       this.diagnostic.isLocationEnabled()
           .then((state) => {
-              console.log(state);
               if (state) {
                   this.status = false;
-                  console.log("if ", state)
                   this.arrayStatus = false;
                   this.flag = true;
                   this.geolocation.getCurrentPosition().then((position) => {
@@ -592,7 +562,6 @@ export class ResturantListPage {
       this.nativeStorage.getItem('MobileFlagSave').then(data => {
           this.mobileFlagcheck = data.MobileFlag;
           this.globals.MobileDiscount = data.MobileDiscount;
-          console.log(this.globals.MobileDiscount, "mobile disocunt");
       }, error => {
           this.mobileFlagcheck = 'false'
 
@@ -612,7 +581,6 @@ export class ResturantListPage {
 
       response.subscribe(data => {
           this.data = data;
-          console.log(this.data);
           if (this.data.success != true) {
 
               let alert = this.alertCtrl.create({
@@ -628,14 +596,12 @@ export class ResturantListPage {
           }
 
           else {
-              console.log(this.data.orders);
               this.sub = Observable.timer(1000, 1000);
               this.timer = this.sub.subscribe(t => {
 
                   //  this.subscription = timer
                   t = 1;
                   this.data.orders.forEach(element => {
-                      console.log(t);
                       if (element.deliveryTimeLeft > 0) {
                           element.deliveryTimeLeft = element.deliveryTimeLeft - t;
                       }
@@ -667,8 +633,6 @@ export class ResturantListPage {
 
   }
   detail(data, time, instructions, schedule_time, res, tot, o_id) {
-      console.log(res, "res", tot, o_id);
-      console.log("instruction checking" ,instructions, "schedule_time",schedule_time);
       // let profileModal = this.modalCtrl.create('OrderPlacedDetailPage', {data:data});
       // profileModal.present();
       this.navCtrl.push('OrderPlacedDetailPage', { data: data, time: time, instructions: instructions, schedule_time: schedule_time, res: res, tot: tot, o_id: o_id });
@@ -715,43 +679,32 @@ export class ResturantListPage {
 
       });
       loading.present();
-      console.log(orderdata);
 
       let response = this.server.GetBusinessMenuCategories(orderdata[0].restId);
       response.subscribe(data => {
           var res = data;
-          console.log(res);
           loading.dismiss();
           // console.log(this.data.categories);
           this.category = res.categories;
-          console.log("data", this.category);
           //this.userChoices.length = 0;
-          console.log(orderdata);
 
           orderdata.forEach(userdata => {
 
-              console.log(userdata);
               this.category.forEach(element => {
-                  console.log(userdata.menuItem, element, element.tax);
                   this.globals.tax = element.tax;
                   element.items.forEach(subelement => {
 
                       if (userdata.menuItem == subelement.name) {
                           if (userdata.menuExtrasSelected.length == 0) {
-                              console.log(userdata.quantity, userdata.restId);
 
                               let total_price = Number(userdata.quantity) * Number(subelement.price);
-                              console.log(this.globals.Product);
 
                               this.globals.Product.push({ menuId: "1", restId: userdata.restId, uniqueId: userdata.uniqueId, menuItem: subelement.name, image: subelement.image, quantity: userdata.quantity, basePrice: Number(subelement.price), totalPrice: Number(total_price), menuExtrasSelected: [] });
 
                           }
                           else {
-                              console.log(userdata.menuExtrasSelected, subelement);
-                              console.log("else");
-
+                           
                               this.total_price_with_extras = Number(userdata.quantity) * Number(subelement.price);
-                              console.log(this.globals.Product);
                               this.getExtras(subelement.id, userdata.menuExtrasSelected);
 
 
@@ -788,16 +741,11 @@ export class ResturantListPage {
       let response = this.server.ProductItemDetail(ItemId);
 
       response.subscribe(data => {
-          console.log(data.item.extras);
-          console.log(userExtras);
-
+        
           userExtras.forEach(userextra_element => {
-              console.log(userextra_element);
 
               data.item.extras.forEach(data_extra_element => {
-                  console.log(data.item.extras);
-                  console.log(userextra_element.optionNameSelected);
-
+                
                   userextra_element.optionNameSelected.forEach(user_option_element => {
 
                       data_extra_element.options.forEach(data_option_element => {
@@ -805,9 +753,7 @@ export class ResturantListPage {
 
                               this.total_price_with_extras += user_option_element.quantity * Number(data_option_element.price);
                               var data = { heading: data_extra_element.heading, optionNameSelected: [{ name: data_option_element.name, price: Number(data_option_element.price), quantity: user_option_element.quantity, total: Number(data_option_element.price) * user_option_element.quantity, isFree: false }] }
-                              console.log(data);
                               this.userChoices.push(data);
-                              console.log(this.userChoices);
                           }
                       });
                   });
