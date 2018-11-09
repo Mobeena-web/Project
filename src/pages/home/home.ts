@@ -405,9 +405,9 @@ export class HomePage {
            
             this.content.resize();
 
-            if(this.banner.is_latest_build){
-                    // let mobile_update = this.modalCtrl.create('MobileUpdatePage');
-                    // mobile_update.present();
+            if(!this.banner.is_latest_build){
+                    let mobile_update = this.modalCtrl.create('MobileUpdatePage');
+                    mobile_update.present();
             }
         }
             , error => {

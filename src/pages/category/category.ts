@@ -75,7 +75,6 @@ export class CategoryPage {
     }
 
     checkTiming(Timing) {
-        console.log(Timing)
         if(Timing){
             var date = new Date();
             var  day = date.getDay();
