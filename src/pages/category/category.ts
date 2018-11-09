@@ -74,6 +74,28 @@ export class CategoryPage {
 
     }
 
+    checkTiming(Timing) {
+        if(Timing){
+            var date = new Date();
+            var  day = date.getDay();
+            var time = date.getHours();
+            console.log("day", "hours", day, time);
+            var current_day = this.globals.Timing[day];
+            console.log(current_day);
+            if (time < current_day[0] || time >= current_day[1]) {
+            return false;
+            }
+            else {
+            return true;
+            }
+        }
+        else{
+            return true;
+
+        }
+         
+      }
+
     getLocation() {
        
         this.diagnostic.isLocationEnabled()
@@ -278,6 +300,10 @@ export class CategoryPage {
 
                 });
             });
+            var that = this;
+            this.category = this.category.filter(function(item) {
+                return that.checkTiming(item.timings) == true;
+              });
 
             if (this.data.categories.length == 0) {
 
