@@ -75,12 +75,13 @@ export class CategoryPage {
     }
 
     checkTiming(Timing) {
+        console.log(Timing)
         if(Timing){
             var date = new Date();
             var  day = date.getDay();
             var time = date.getHours();
             console.log("day", "hours", day, time);
-            var current_day = this.globals.Timing[day];
+            var current_day = Timing[day];
             console.log(current_day);
             if (time < current_day[0] || time >= current_day[1]) {
             return false;
