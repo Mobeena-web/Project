@@ -316,7 +316,7 @@ export class ResturantListPage {
 
   }
 
-  OrderCategory( pickup_time, delivery_time,businessId, paypalId, discountvalue, stripeId, hours, min, time, deliveryFee, tax, delivery, pickup, admin_stripe, username, availed_discount_count, b_discount_count) {
+  OrderCategory( pickup_time, delivery_time,businessId, paypalId, discountvalue, stripeId, hours, min, time, deliveryFee, tax, delivery, pickup, admin_stripe, username, availed_discount_count, b_discount_count,cash_enabled) {
 
       this.globals.availed_discount_count = Number(availed_discount_count);
       this.globals.business_discount_count = Number(b_discount_count);
@@ -355,10 +355,16 @@ export class ResturantListPage {
       else {
           this.globals.minimun_order = Number(min);
       }
+
+    if(cash_enabled == '1'){
+        this.globals.cash_enabled = true;
+    }
+    else{
+        this.globals.cash_enabled = false;
+    }
      
       this.navCtrl.push('CategoryPage', { pageflag: this.pageFlag, BusinessId: businessId, paypal: paypalId, discount: discountvalue });
-      // this.navCtrl.push('Modal2Page', { 'pickup' : pickup});
-      
+     
   }
 
   setFilteredItems() {

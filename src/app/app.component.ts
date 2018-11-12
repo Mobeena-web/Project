@@ -473,6 +473,7 @@ list() {
        this.globals.latitude = this.places[0].latitude;
        this.globals.longitude = this.places[0].longitude;
        this.globals.hours_operation = this.places[0].hours_operation;
+       this.globals.branch_enabled = this.places[0].branch_enabled;
         if (this.globals.pickup == '1') {
             this.globals.pickup = true;
         }

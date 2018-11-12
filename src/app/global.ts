@@ -100,6 +100,7 @@ export class GlobalVariable {
     longitude:any;
     hours_operation;
     welcome_data:any;
+    branch_enabled:any;
     constructor(public alertCtrl: AlertController,public toastCtrl: ToastController) {
      this.BaseUrl = 'https://onlineordering.mikronexus.com/online-ordering-new/index.php/';
     }
