@@ -251,7 +251,12 @@ openReviews(){
 
 }
 openOrder(){
-    this.nav.push('ResturantListPage')
+    if(this.globals.branch_enabled == 1){
+        this.nav.push('ResturantListPage')
+    }
+    else{
+        this.nav.push('CategoryPage')
+    }
 }
 openHistory(){
     if(this.globals.guess_login){

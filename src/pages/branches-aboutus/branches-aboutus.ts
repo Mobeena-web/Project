@@ -14,10 +14,14 @@ export class BranchesAboutusPage {
   places:any;
   social_links:any;
   aboutus:any;
+  daysInWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  hours_operation:any;
   constructor(public loadingCtrl: LoadingController,private iab: InAppBrowser,public navCtrl: NavController, public navParams: NavParams,public globals: GlobalVariable,public server: ServerProvider) {
     this.resturant_list();
     this.get_social();
-    this.get_aboutus()
+    this.get_aboutus();
+    this.hours_operation = this.update_time_(this.globals.hours_operation);
+
 
   }
   ionViewWillEnter() {
@@ -39,6 +43,61 @@ export class BranchesAboutusPage {
     });
 
   }
+
+  update_time_(p_hours){
+    p_hours.forEach(element => {
+      if(element[0] != 'opened' && element[0] != 'closed'){
+        element[0] = this.tConvert(element[0])
+      }
+      if(element[1] != 'opened' && element[1] != 'closed'){
+        element[1] = this.tConvert(element[1])
+      }
+    });
+    return p_hours;
+  }
+
+  tConvert (time_) {
+    if(time_ == 0){
+      time_ = 12;
+     }
+ 
+ if(time_ > 12){
+     var ti = time_.split('.');
+  
+     ti[0] = parseFloat(ti[0])
+     ti[0] = ti[0] - 12;
+    
+     if(ti[1] == "5"){
+       ti[1] = ':30'
+     }
+     else if(ti[1] != "5"){
+       ti[1] = ':00'
+     }
+    time_ = ti[0] + ti[1] + 'PM'
+ }
+ else{
+   var ti:any='';
+   ti = time_.split('.');
+  
+  
+   if(ti[1] == "5"){
+     ti[1] = ':30'
+     time_='';
+
+      time_ = ti[0] + ti[1] + 'AM'
+
+   }
+   else if(ti[1] == undefined){
+    time_='';
+
+     ti[1] = ':00'
+     time_ = ti[0] + ti[1] + 'AM'
+   }
+
+ }
+ var t = time_.split(':');
+   return t[0] +':'+t[1]; // return adjusted time_ or original string
+ }
 
  
 

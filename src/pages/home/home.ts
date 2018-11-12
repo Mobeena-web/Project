@@ -85,7 +85,12 @@ export class HomePage {
     }
 
     orderNow(){
-        this._nav.push('ResturantListPage')
+        if(this.globals.branch_enabled == 1){
+            this._nav.push('ResturantListPage')
+        }
+        else{
+            this._nav.push('CategoryPage')
+        }
     }
 
     reward_notification(){
