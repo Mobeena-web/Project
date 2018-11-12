@@ -61,7 +61,6 @@ export class CategoryPage {
         this.currentBusinessDiscount = "10";
         this.globals.BusinessDiscount = this.currentBusinessDiscount;
         
-        this.Categories();
 
         this.getLocation();
 
@@ -69,8 +68,11 @@ export class CategoryPage {
         this.myChoice.pop();
 
         // this.toggleGroup(0);
-        if(this.globals.branch_enabled == 1){
+        if(this.globals.branch_enabled != 1){
             this.list();      
+        }
+        else{
+            this.Categories();
         }
 
 

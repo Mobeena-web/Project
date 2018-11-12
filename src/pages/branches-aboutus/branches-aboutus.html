@@ -53,7 +53,7 @@
 
 
 </ion-content>
-<ion-footer padding>
+<ion-footer padding margin-top>
     <ion-row>
         <ion-col  *ngFor="let item of social_links">
              <ion-icon *ngIf="item.url" name={{item.icon}} class="myicon1" (click)="launch(item.url)"></ion-icon> 

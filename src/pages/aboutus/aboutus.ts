@@ -28,16 +28,17 @@ export class AboutusPage {
     this.business_id = this.navParams.get('business_id')
 
     this.hours_operation = this.navParams.get('hours_operation')
-    this.latitude = this.navParams.get('latitude')
-    this.longitude = this.navParams.get('longitude');
+    
     this.username = this.navParams.get('username')
-
+console.log(this.latitude,this.longitude,"oo")
     this.hours_operation = this.update_time_(this.hours_operation);
     this.reviewdata();
 
   }
 
   ionViewWillEnter() {
+    this.latitude = this.navParams.get('latitude')
+    this.longitude = this.navParams.get('longitude');
     this.loadMap();
   }
 
@@ -100,7 +101,7 @@ export class AboutusPage {
 
   loadMap() {
     var myLatLng = new google.maps.LatLng(parseFloat(this.latitude), parseFloat(this.longitude));
-
+    console.log(this.latitude,this.longitude)
     var map = new google.maps.Map(document.getElementById('map'), {
       zoom: 15,
       center: myLatLng
