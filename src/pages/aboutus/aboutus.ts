@@ -30,10 +30,9 @@ export class AboutusPage {
     this.hours_operation = this.navParams.get('hours_operation')
     
     this.username = this.navParams.get('username')
-console.log(this.latitude,this.longitude,"oo")
     this.hours_operation = this.update_time_(this.hours_operation);
     this.reviewdata();
-
+  
   }
 
   ionViewWillEnter() {
@@ -101,8 +100,8 @@ console.log(this.latitude,this.longitude,"oo")
 
   loadMap() {
     var myLatLng = new google.maps.LatLng(parseFloat(this.latitude), parseFloat(this.longitude));
-    console.log(this.latitude,this.longitude)
-    var map = new google.maps.Map(document.getElementById('map'), {
+    console.log(myLatLng)
+    var map = new google.maps.Map(document.getElementById('mapabout'), {
       zoom: 15,
       center: myLatLng
     });
