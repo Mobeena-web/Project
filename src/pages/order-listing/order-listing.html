@@ -177,7 +177,7 @@
                       <ion-icon name="repeat"></ion-icon>  </button> -->
               </ion-col>
 
-              <ion-col col-3 style="text-align: center;" (click)="detail(order.order_data,order.date_time,order.instructions,order.scheduled_time,order.restaurant_name,order.total,order.o_id,order.payment_type)">
+              <ion-col col-3 style="text-align: center;" >
 
                 <p *ngIf="order.status != 'DISPATCHED'" class="status">{{order.status}}</p>
                 <p *ngIf="order.status == 'DISPATCHED'" class="status">DELIVERED</p>

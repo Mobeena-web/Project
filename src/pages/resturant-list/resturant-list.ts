@@ -112,6 +112,12 @@ export class ResturantListPage {
       };
 
   }
+  business_info(){
+      this.navCtrl.push('BranchesAboutusPage');
+  }
+  reviews(name,business_id,hours_operation,latitude,longitude,username){
+    this.navCtrl.push('AboutusPage',{name:name,business_id:business_id,hours_operation:hours_operation,latitude:latitude,longitude:longitude,username:username});
+  }
 
   doInfinite(): Promise<any> {
       console.log('Begin async operation');

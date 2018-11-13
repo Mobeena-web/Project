@@ -94,11 +94,11 @@ getdeals(){
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
 
-  get_about_us() {
+  get_about_us(id) {
 
     var link = this.global.BaseUrl + 'events/get_aboutus';
 
-    var data = JSON.stringify({ business_id: this.global.new_id });
+    var data = JSON.stringify({ business_id:id });
     return this.http.post(link, data)
       .map((res: any) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));

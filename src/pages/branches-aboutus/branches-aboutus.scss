@@ -18,4 +18,21 @@ page-branches-aboutus {
         width: 100%;
         height: 200px;
       }
+      .myimage{
+          width: 100%;
+          object-fit: cover;
+          height: 150px;
+      }
+      .ion-footer{
+          background: #fff;
+      }
+      .branches{
+          font-size: 22px;
+      }
+      ion-card{
+          width: 100% !important;
+          margin: 0px !important;
+          margin-top: 20px !important;
+
+      }
 }

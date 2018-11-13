@@ -23,6 +23,8 @@ export class AboutusPage {
   reviewData:any;
   length:any;
   username:any;
+  aboutus:any;
+
   constructor(private iab: InAppBrowser,public server: ServerProvider,public globals: GlobalVariable,public navCtrl: NavController, public navParams: NavParams) {
     this.name = this.navParams.get('name');
     this.business_id = this.navParams.get('business_id')
@@ -32,6 +34,21 @@ export class AboutusPage {
     this.username = this.navParams.get('username')
     this.hours_operation = this.update_time_(this.hours_operation);
     this.reviewdata();
+    this.get_aboutus();
+  
+  }
+
+  get_aboutus() {
+    let response = this.server.get_about_us(this.business_id);
+    response.subscribe(data => {
+     console.log("ddn",data.data.about[0])
+  
+     this.aboutus = data.data.about[0];
+  
+    }, error => {
+        console.log(error);
+  
+    });
   
   }
 

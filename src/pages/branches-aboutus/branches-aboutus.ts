@@ -132,7 +132,7 @@ export class BranchesAboutusPage {
 }
 
 get_aboutus() {
-  let response = this.server.get_about_us();
+  let response = this.server.get_about_us(this.globals.new_id);
   response.subscribe(data => {
    console.log("dd",data.data.about[0])
 
