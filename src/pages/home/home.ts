@@ -225,7 +225,12 @@ export class HomePage {
     }
 
     offers(){
-        this._nav.push("OffersPage")
+        if(this.globals.branch_enabled == 1){
+            this._nav.push('ResturantListPage',{deals:1})
+        }
+        else{
+            this._nav.push("OffersPage");
+        }
     }
   
 

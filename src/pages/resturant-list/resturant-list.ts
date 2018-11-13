@@ -78,8 +78,9 @@ export class ResturantListPage {
   myResp : any;
   GetAddress : any ;
   AdrressString : any ;
+  deals_flag:any;
   constructor(public toastCtrl: ToastController, private diagnostic: Diagnostic, public server: ServerProvider, public nativeStorage: NativeStorage, public events: Events, private app: App, public globals: GlobalVariable, public modalCtrl: ModalController, public alertCtrl: AlertController, private geolocation: Geolocation, public loadingCtrl: LoadingController, public http: Http, public navCtrl: NavController, public navParams: NavParams) {
-
+      this.deals_flag = this.navParams.get('deals');
       this.date = new Date();
       this.min = this.date.getMinutes();
       this.hours = this.date.getHours();
@@ -363,7 +364,14 @@ export class ResturantListPage {
         this.globals.cash_enabled = false;
     }
      
-      this.navCtrl.push('CategoryPage', { pageflag: this.pageFlag, BusinessId: businessId, paypal: paypalId, discount: discountvalue });
+    if(this.deals_flag ==1){
+        this.navCtrl.push('OffersPage', { pageflag: this.pageFlag, BusinessId: businessId, paypal: paypalId, discount: discountvalue });
+
+    }
+    else{
+        this.navCtrl.push('CategoryPage', { pageflag: this.pageFlag, BusinessId: businessId, paypal: paypalId, discount: discountvalue });
+
+    }
      
   }
 

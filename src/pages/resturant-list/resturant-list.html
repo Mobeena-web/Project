@@ -7,7 +7,9 @@
 <ion-header class="Open-Sans-bold">
 
   <ion-navbar color="primary">
-    <ion-title>Resturants</ion-title>
+    <ion-title *ngIf="deals_flag != 1">Resturants</ion-title>
+    <ion-title *ngIf="deals_flag == 1">Special Offers</ion-title>
+
 
     <ion-buttons end *ngIf="option == 'orders_placed'" (click)="info()">
       <button ion-button style="font-size: 3rem; padding-right: 10px;">
@@ -15,7 +17,7 @@
       </button>
 
     </ion-buttons>
-    <ion-buttons  end style="    width: 30%;">
+    <ion-buttons  end style="width: 30%;">
 
       <ion-icon style="color:white;font-size:3rem; float:right;margin-top:2px" name="options"> </ion-icon>
 
@@ -92,9 +94,14 @@
                   <!-- <button ion-button small block class="review-btn" (tap)="Reviews(place.username)">
                     <ion-icon name="list-box"> </ion-icon>
                   </button> -->
-                  <button ion-button block margin-top style="height: 37px;font-size: 13px;"   color='primary' 
+                  <button *ngIf="deals_flag == 1" ion-button block margin-top style="height: 37px;font-size: 13px;"   color='primary' 
                   (click)="OrderCategory(place.pickup_time,place.delivery_time,place.business_id,place.paypal_id,place.discount,place.stripe_id,place.hours_operation,place.minimum_order,place.delivery_time,place.delivery_fee,place.tax,place.delivery,place.pickup,place.admin_stripe_enabled,place.username,place.customer_discount_availed_count,place.business_discount_count,place.cash_enabled)"
-                  block>VIEW MENU</button>
+                  block>VIEW SPECIAL OFFERS
+                </button>
+                <button *ngIf="deals_flag != 1" ion-button block margin-top style="height: 37px;font-size: 13px;"   color='primary' 
+                  (click)="OrderCategory(place.pickup_time,place.delivery_time,place.business_id,place.paypal_id,place.discount,place.stripe_id,place.hours_operation,place.minimum_order,place.delivery_time,place.delivery_fee,place.tax,place.delivery,place.pickup,place.admin_stripe_enabled,place.username,place.customer_discount_availed_count,place.business_discount_count,place.cash_enabled)"
+                  block>VIEW MENU
+                </button>
 
                 </ion-col>
               </ion-row>
