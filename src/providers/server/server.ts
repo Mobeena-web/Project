@@ -148,7 +148,7 @@ getdeals(){
 
   getRestaurantslist(radius, businesType, coordinates, offset, type) {
     var link = this.global.BaseUrl + 'Customer_controller/getplaces';
-    var data = JSON.stringify({ business_id: this.global.new_id,coordinates: coordinates, radius: radius, business_type: businesType, offset, type: type, udid: this.global.udid });
+    var data = JSON.stringify({ business_id: this.global.new_id ,coordinates: coordinates, radius: radius, business_type: businesType, offset, type: type, udid: this.global.udid });
     return this.http.post(link, data)
       .map((res: any) => res.json());
 
