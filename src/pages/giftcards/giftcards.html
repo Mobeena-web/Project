@@ -1,0 +1,52 @@
+
+<ion-header>
+
+  <ion-navbar color='primary'>
+    <ion-title>Gift Cards</ion-title>
+  </ion-navbar>
+  <ion-segment [(ngModel)]="giftcard" class="pt">
+    <ion-segment-button value="notbuyed">
+      Gift Cards
+    </ion-segment-button>
+    <ion-segment-button value="buyed">
+      My Gift Cards
+    </ion-segment-button>
+  </ion-segment>
+</ion-header>
+
+
+<ion-content padding class="background_">
+  <div [ngSwitch]="giftcard">
+    <ion-list *ngSwitchCase="'notbuyed'">
+     <ion-card *ngFor='let item of gifts'>
+       <ion-row>
+         <ion-col col-8 >
+          <h3 class="gc">${{item.amount}}</h3>
+          <!-- <div class="names">Usman Arshad</div>
+          <div>usman@gmail.com</div> -->
+         </ion-col>
+         <ion-col col-4 class="bl">
+          <button ion-button color='primary' class="share" (click)="buy(item.giftcard_id)">Buy</button>
+
+         </ion-col>
+       </ion-row>
+     </ion-card>
+    </ion-list>
+  
+    <ion-list *ngSwitchCase="'buyed'">
+        <ion-card *ngFor='let item of mygifts'>
+            <ion-row>
+              <ion-col col-8 >
+               <h3 class="gc">${{item.amount}}</h3>
+               <!-- <div class="names">Usman Arshad</div>
+               <div>usman@gmail.com</div> -->
+              </ion-col>
+              <ion-col col-4 class="bl">
+               <button ion-button color='primary' class="share">Share</button>
+     
+              </ion-col>
+            </ion-row>
+          </ion-card>
+    </ion-list>
+    </div>
+</ion-content>

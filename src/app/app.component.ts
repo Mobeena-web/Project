@@ -233,6 +233,10 @@ OpenEvents(){
         this.nav.push('EventsPage');
     }
 }
+
+openGiftCard(){
+    this.nav.push('GiftcardsPage');
+}
 openRewards(){
     if(this.globals.guess_login){
         this.presentConfirm();
@@ -480,6 +484,8 @@ list() {
        this.globals.longitude = this.places[0].longitude;
        this.globals.hours_operation = this.places[0].hours_operation;
        this.globals.branch_enabled = this.places[0].branch_enabled;
+       this.globals.giftcard_enabled = this.places[0].giftcard_enabled;
+
         if (this.globals.pickup == '1') {
             this.globals.pickup = true;
         }

@@ -43,7 +43,9 @@
           <ion-icon name="calendar" class="myicon"></ion-icon>Events
       </button>
      
-        
+      <button  menuClose ion-item (click)="openGiftCard()" *ngIf="globals.giftcard_enabled == 1">
+        <ion-icon name="medal" class="myicon"></ion-icon>Gift Cards
+      </button>
        
           <!-- <button  menuClose ion-item (click)="openDeals()">
             <ion-icon name="clipboard" class="myicon"></ion-icon> Deals
