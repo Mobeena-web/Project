@@ -123,6 +123,7 @@ export class BranchesAboutusPage {
     let response = this.server.get_social();
     response.subscribe(data => {
      this.social_links = data.data;
+     
 
     }, error => {
         console.log(error);
