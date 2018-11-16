@@ -81,7 +81,7 @@
     <div *ngSwitchCase="'punch_cards'" class="back">
       <!-- <ion-searchbar *ngIf="!flag" [(ngModel)]="searchTerm" (input)="setFilteredItems()" [formControl]="searchControl"></ion-searchbar> -->
 
-      <p style="text-align: center; margin-top: 60%;" *ngIf="punchflag">Currently you do not have any punch cards... </p>
+      <p style="text-align: center;" *ngIf="punchflag">Currently you do not have any punch cards... </p>
       <ion-refresher (ionRefresh)="doRefresh($event)">
         <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull down to refresh" refreshingSpinner="circles" refreshingText="Refreshing...">
         </ion-refresher-content>
