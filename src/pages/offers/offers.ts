@@ -49,7 +49,7 @@ export class OffersPage {
   quantity_value: any = 1;
   coordinates:any;
   places:any;
-
+  errorMenu:boolean = false;
   constructor(private geolocation: Geolocation,private diagnostic: Diagnostic,public server: ServerProvider, public alertCtrl: AlertController, public loadingCtrl: LoadingController, private nativeStorage: NativeStorage, private toastCtrl: ToastController, public globals: GlobalVariable, public http: Http, public navCtrl: NavController, public navParams: NavParams,public modalCtrl: ModalController) {
         
     this.presentModal();
@@ -296,7 +296,6 @@ Categories() {
         this.globals.category_name = this.name;
 
         this.data.categories.forEach(element => {
-
             element.items.forEach(subelement => {
 
                 subelement.quantity = 1;
@@ -307,6 +306,16 @@ Categories() {
         this.category = this.category.filter(function(item) {
             return that.checkTiming(item.timings) == true;
           });
+
+        var checkoffers = this.category.filter(function(item) {
+            return item.dealFlag == 'true';
+          });
+          if(checkoffers.length == 0){
+            this.errorMenu = true;
+          }
+          else{
+            this.errorMenu = false;
+          }
 
         if (this.data.categories.length == 0) {
 

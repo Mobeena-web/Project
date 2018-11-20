@@ -1,7 +1,7 @@
 
 <ion-header>
   <ion-navbar color="primary">
-    <ion-title>{{name}}</ion-title>
+    <ion-title>Special Offers</ion-title>
     <ion-buttons end>
         <button ion-button    (click)="cartpage()">
             <ion-badge color="danger" *ngIf="globals.Product.length > 0">{{globals.Product.length}}</ion-badge>
@@ -14,6 +14,10 @@
 
 
 <ion-content padding style="background: #eee">
+        <div *ngIf="errorMenu == true">
+            <p style="padding-top: calc(50% - 11px); padding-right:20px; padding-left:20px; text-align: center; font-size: 22px; color:#333;"><ion-icon name="eye-off"></ion-icon></p>
+            <p no-margin style="padding-right:20px; padding-left:20px; text-align: center; font-size: 14px;">No Special Offers</p>
+        </div>
   <div *ngFor="let d of category; let i=index">
   
     <div *ngIf="d.dealFlag == 'true'" >
