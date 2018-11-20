@@ -93,6 +93,13 @@ export class HomePage {
         }
     }
 
+    gifts(){
+        this._nav.push('GiftcardsPage');
+    }
+    rewards(){
+        this._nav.push('MyRewardsPage')
+
+    }
     reward_notification(){
         let response = this.server.reward_notification();
         response.subscribe(data => {

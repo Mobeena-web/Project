@@ -27,7 +27,7 @@
 
 
 
-<ion-content padding>
+<ion-content padding class="bak">
 
     <ion-refresher (ionRefresh)="doRefresh($event)">
         <ion-refresher-content></ion-refresher-content>
@@ -68,16 +68,31 @@
   </ion-row>
   
   <ion-row>
-    <ion-col col-6 *ngIf="globals.special_offer == '1' && !globals.guess_login">
+    <ion-col col *ngIf="globals.special_offer == '1' && !globals.guess_login">
       <div text-center (click)="offers()" class="sof">
           <ion-icon name="heart"></ion-icon>
           <div>Special Offers</div>
       </div>
     </ion-col>
-    <ion-col col-6>
+    <ion-col col>
        <div text-center (click)="orderNow()" class="sof1">
           <ion-icon name="restaurant"></ion-icon>
           <div>Order Now</div>
+      </div>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col col *ngIf="globals.giftcard_enabled == 1">
+      <div text-center (click)="gifts()" class="sof2">
+          <ion-icon name="medal"></ion-icon>
+          <div>Gift Cards</div>
+      </div>
+    </ion-col>
+    <ion-col col>
+       <div text-center (click)="rewards()" class="sof3">
+          <ion-icon name="star"></ion-icon>
+          <div>My Rewards</div>
       </div>
     </ion-col>
   </ion-row>
@@ -99,8 +114,10 @@
     </ion-col>
   </ion-row> -->
 
-  <div class="credit-card">
-    <ion-row>
+  <div >
+      <img class="qrcode1" src="{{barocde_image}}">
+
+    <!-- <ion-row>
       <ion-col col-6>
           <img class="qrcode1" src="{{barocde_image}}">
           <ion-label class="label4" style="color: #fff;margin-top: 16px;font-size: 14px;font-weight: normal">{{udid}}</ion-label>
@@ -110,7 +127,7 @@
              <ion-label  style="color: #fff;margin-top: 35px;margin-bottom: 0px">{{name}} {{lastname}}</ion-label>
              <div  style="color: #fff;font-weight: normal;font-size: 14px;line-height: .9">{{email}}</div>   
         </ion-col>
-    </ion-row>
+    </ion-row> -->
     <!-- <ion-label class="label4" style="color: whitesmoke;">Usman Arshad{{name}} {{lastname}}</ion-label>
     <div class="strip">
       <div>
