@@ -11,10 +11,9 @@
 <ion-content >
     <img *ngIf="aboutus?.image" src={{aboutus?.image}} class="myimage">
   <div padding>
-      <h3 >
-          {{aboutus?.title}}
-            </h3>
-            <h5 >{{aboutus?.description}}</h5>
+    <h3  [innerHTML]="aboutus?.title">
+    </h3>
+    <h5 [innerHTML]="aboutus?.description"></h5>
       <ion-row >
           <ion-col col-4>
             <div class="fb">Days</div>
