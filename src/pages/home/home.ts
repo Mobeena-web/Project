@@ -408,14 +408,9 @@ export class HomePage {
 
 
     loadBanner() {
-        let loading = this.loadingCtrl.create({
-            content: "Loading...",
-
-        });
-        loading.present();
+        
         let response = this.server.LoadBannersOnHomePage()
         response.subscribe(data => {
-            loading.dismiss();
             this.banner = data;
             this.Images = this.banner.data;
             this.globals.banner_image = this.banner.data;
@@ -433,7 +428,6 @@ export class HomePage {
             }
         }
             , error => {
-                loading.dismiss();
             });
     }
 

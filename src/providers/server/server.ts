@@ -311,9 +311,25 @@ getdeals(){
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
 
-  buy_gift_cards(token,id) {
+  search_user(email) {
+    var link = (this.global.BaseUrl + 'giftcard/search_user');
+    var data = JSON.stringify({ business_id: this.global.new_id , email: email});
+    return this.http.post(link, data)
+      .map((res: any) => res.json())
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+  }
+
+  craete_user(email,fname,lname) {
+    var link = (this.global.BaseUrl + 'giftcard/create_user');
+    var data = JSON.stringify({ business_id: this.global.new_id , email: email, first_name:fname, last_name:lname});
+    return this.http.post(link, data)
+      .map((res: any) => res.json())
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+  }
+
+  buy_gift_cards(token,id,udid_r) {
     var link = (this.global.BaseUrl + 'giftcard/buy_giftcard');
-    var data = JSON.stringify({ business_id: this.global.new_id , udid: this.global.udid,token:token, giftcard_id:id});
+    var data = JSON.stringify({udid_r:udid_r, business_id: this.global.new_id, udid_s: this.global.udid,token:token, giftcard_id:id});
     return this.http.post(link, data)
       .map((res: any) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));

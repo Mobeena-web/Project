@@ -8,7 +8,7 @@ page-giftcards {
     .gc{
         font-size: 25px;
         text-align: center;
-        padding-top: 16px;
+        padding-top: 14px;
     }
     .pt{
         padding-top: 5px;
@@ -25,5 +25,8 @@ page-giftcards {
     }
     ion-card{
         border-radius: 7px !important;
+    }
+    .time{
+        margin-top: 10px;
     }
 }

@@ -24,6 +24,7 @@ export class BuygiftcardsPage {
 submitAttempt: boolean = false;
 PaymentForm: FormGroup;
 gift_id:any;
+udid_r:any;
   constructor(public server: ServerProvider, private nativeStorage: NativeStorage, public alertCtrl: AlertController, public loadingCtrl: LoadingController, public globals: GlobalVariable,public viewCtrl: ViewController, public formBuilder: FormBuilder, public stripe: Stripe, public http: Http, public navCtrl: NavController, public navParams: NavParams) {
     this.PaymentForm = formBuilder.group({
       creditcardno: ['', Validators.compose([Validators.minLength(10), Validators.maxLength(16), Validators.pattern('[0-9]*'), Validators.required])],
@@ -32,7 +33,9 @@ gift_id:any;
       CVC: ['', Validators.compose([Validators.required])],
       cardinfo: [false]
   })
-  this.gift_id = this.navParams.get('gift_id')
+  this.gift_id = this.navParams.get('gift_id');
+  this.udid_r = this.navParams.get('udid_r');
+  console.log(this.udid_r,"mm",this.globals.StripId)
   }
 
   ionViewDidLoad() {
@@ -44,6 +47,7 @@ gift_id:any;
     console.log("encode", a);
     console.log("decode", atob(a));
     console.log(PaymentData.creditcardno);
+    console.log(this.udid_r)
     if (!this.PaymentForm.valid) {
         this.submitAttempt = true;
         console.log(' Some values were not given or were incorrect, please fill them');
@@ -94,13 +98,13 @@ gift_id:any;
             this.stripe.setPublishableKey(this.globals.StripId);
             this.stripe.createCardToken(this.cardinfo).then((Token) => {
                
-                let response = this.server.buy_gift_cards( Token, this.gift_id)
+                let response = this.server.buy_gift_cards( Token.id, this.gift_id,this.udid_r)
                 console.log("response without json", response);
                 response.subscribe(data => {
                     console.log("data without json", data);
                     let alert = this.alertCtrl.create({
                         title: 'Success',
-                        subTitle: 'Sucessfully buyed.',
+                        subTitle: data.message,
                         buttons: ['OK']
                     });
         
