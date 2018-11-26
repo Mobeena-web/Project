@@ -25,7 +25,7 @@
         <ion-thumbnail item-start>
 
           <img *ngIf="prod.image != '' && prod.image != 'undefined'  " style="    border-radius: 4px;object-fit: contain" src="{{prod.image}}">
-          <img *ngIf="prod.image == '' || prod.image == 'undefined' " style=" border-radius: 4px;object-fit: contain" src="assets/imgs/icon.png">
+          <img *ngIf="prod.image == '' || prod.image == 'undefined' " style=" border-radius: 4px;object-fit: contain" src={{globals.b_logo}}>
         </ion-thumbnail>
       </ion-col>
       <ion-col col-6>

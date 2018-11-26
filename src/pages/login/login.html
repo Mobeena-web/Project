@@ -3,7 +3,7 @@
 <ion-content style="background-color: #fff;" class="Open-Sans-regular">
 
   <div style="font-family: Open Sans;" class="title1">
-    <img src="assets/imgs/icon.png" style="    position: relative; left: 26%;  width: 50%;  height: auto;  ">
+    <img src={{globals.b_logo}} style="    position: relative; left: 26%;  width: 50%;  height: auto;  ">
   </div>
   <h2 text-center class="signin_label">Sign In</h2>
 
@@ -17,7 +17,7 @@
           <ion-col>
             <ion-item class="no-padding">
               <ion-label floating>Username</ion-label>
-              <ion-input type="submit" formControlName="email" type="email"></ion-input>
+              <ion-input type="submit" formControlName="email" type="email" value="usman@gmail.com"></ion-input>
             </ion-item>
             <div class="no-border" *ngIf="!loginForm.controls.email.valid  &&
             (loginForm.controls.email.dirty || submitAttempt)">
@@ -30,7 +30,7 @@
           <ion-col>
             <ion-item class="no-padding">
               <ion-label floating>Password</ion-label>
-              <ion-input type="submit" formControlName="password" type="password" ></ion-input>
+              <ion-input type="submit" formControlName="password" type="password" value="12345678"></ion-input>
             </ion-item>
           </ion-col>
 

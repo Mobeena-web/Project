@@ -22,7 +22,7 @@
 
 
 <ion-content class="Open-Sans-regular" >
-    <img src="assets/imgs/icon.png" class="icon-main">
+    <img src={{globals.b_logo}} class="icon-main">
 
     <ion-row>
         <ion-col col-3>
@@ -55,7 +55,7 @@
                     <ion-col col-3 style="margin: auto;" (click)="Detail(a.id,a.image,a.freeExtras)">
                         
                         <img class="itm-img" *ngIf="a.image" src="{{a.image}}">
-                        <img class="itm-img" *ngIf="a.image == '' || !a.image" src="assets/imgs/icon.png">
+                        <img class="itm-img" *ngIf="a.image == '' || !a.image" src={{globals.b_logo}}>
                     </ion-col>
                     <ion-col col-6 style="margin:auto">
                          

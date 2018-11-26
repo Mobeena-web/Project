@@ -26,7 +26,7 @@
                 <ion-col col-5>
                     
                     <img class="itm-img" *ngIf="a.image" src="{{a.image}}">
-                    <img class="itm-img" *ngIf="a.image == '' || !a.image" src="assets/imgs/icon.png">
+                    <img class="itm-img" *ngIf="a.image == '' || !a.image" src={{globals.b_logo}}>
                 </ion-col>
                 <ion-col col-7 padding-left>
                      

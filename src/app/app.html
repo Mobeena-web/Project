@@ -46,6 +46,9 @@
       <button  menuClose ion-item (click)="openGiftCard()" *ngIf="globals.giftcard_enabled == 1">
         <ion-icon name="medal" class="myicon"></ion-icon>Gift Cards
       </button>
+      <button  menuClose ion-item (click)="business_list()" *ngIf="globals.new_id == '76'">
+          <ion-icon name="list-box" class="myicon"></ion-icon>Resturants
+        </button>
        
           <!-- <button  menuClose ion-item (click)="openDeals()">
             <ion-icon name="clipboard" class="myicon"></ion-icon> Deals

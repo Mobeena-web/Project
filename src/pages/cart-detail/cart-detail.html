@@ -21,7 +21,7 @@
 
 
     <img *ngIf="product.image"  src="{{product.image}}">
-    <img *ngIf="!product.image || product.image == ''"  src="assets/imgs/icon.png">
+    <img *ngIf="!product.image || product.image == ''"  src={{globals.b_logo}}>
     <ion-row class="strip">
       <ion-col style="    margin: auto;">
         <p style="font-size:2.4rem;color:#444;text-align: center;margin: 0px">

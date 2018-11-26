@@ -466,12 +466,17 @@ modal(response, response_status, business, logo, image, string, bid) {
 
 }
 
+business_list(){
+    this.nav.push('BusinessListPage')
+}
+
 list() {
     let response = this.server.getRestaurantslist('100000', 'main', "0,0", '0', 'order');
     response.subscribe(data => {
         this.places = data.results;
         var new_id = this.globals.new_id;
         console.log("places",this.places)
+        this.globals.business_list = this.places;
         this.places = this.places.filter(function(item) {
          return item.business_id === new_id;
        });
@@ -485,6 +490,7 @@ list() {
        this.globals.hours_operation = this.places[0].hours_operation;
        this.globals.branch_enabled = this.places[0].branch_enabled;
        this.globals.giftcard_enabled = this.places[0].giftcard_enabled;
+       this.globals.b_logo = this.places[0].logo;
 
         if (this.globals.pickup == '1') {
             this.globals.pickup = true;
