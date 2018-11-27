@@ -44,20 +44,26 @@ getdeals(){
 
   LoadBannersOnHomePage() {
     var link = this.global.BaseUrl + 'Customer_controller/get_banners';
-    var data = JSON.stringify({business_id:this.global.new_id,app_version:this.global.app_version });
+    var data = JSON.stringify({ business_id: this.global.new_id,app_version: this.global.app_version });
+    return this.http.post(link, data)
+      .map((res: any) => res.json());
+   
+  }
 
-    return this.http.get(link,data)
-      .map((res: any) => res.json())
-      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+  welcome_screen() {
+    var link = this.global.BaseUrl + 'Customer_controller/get_welcome_screen';
+    var data = JSON.stringify({ business_id: this.global.new_id});
+    return this.http.post(link, data)
+      .map((res: any) => res.json());
+
   }
 
   reward_notification() {
     var link = this.global.BaseUrl + 'Customer_controller/get_punch_notifications';
-    var data = JSON.stringify({business_id:this.global.new_id,udid: this.global.udid });
+    var data = JSON.stringify({business_id: this.global.new_id,udid: this.global.udid });
    
-    return this.http.get(link,data)
+    return this.http.post(link,data)
       .map((res: any) => res.json())
-      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
 
   GetPunchcards(coordinates) {
@@ -83,6 +89,16 @@ getdeals(){
     var link = this.global.BaseUrl + 'events/get_events';
     console.log(this.global.bussinessId)
     var data = JSON.stringify({ businessId: this.global.new_id });
+    return this.http.post(link, data)
+      .map((res: any) => res.json())
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+  }
+
+  get_about_us() {
+
+    var link = this.global.BaseUrl + 'events/get_aboutus';
+
+    var data = JSON.stringify({ business_id: this.global.new_id });
     return this.http.post(link, data)
       .map((res: any) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
@@ -132,8 +148,7 @@ getdeals(){
 
   getRestaurantslist(radius, businesType, coordinates, offset, type) {
     var link = this.global.BaseUrl + 'Customer_controller/getplaces';
-    var data = JSON.stringify({ coordinates: coordinates, radius: radius, business_type: businesType, offset, type: type, udid: this.global.udid });
-    console.log("usman data",data);
+    var data = JSON.stringify({ business_id: this.global.new_id,coordinates: coordinates, radius: radius, business_type: businesType, offset, type: type, udid: this.global.udid });
     return this.http.post(link, data)
       .map((res: any) => res.json());
 
@@ -142,8 +157,7 @@ getdeals(){
   BusinessInformation(placeName) {
     var link = this.global.BaseUrl + 'Customer_controller/getbusinessinfo';
     var data = JSON.stringify({ business_username: placeName });
-    console.log(data);
-    return this.http.post(link, data)
+  return this.http.post(link, data)
       .map((res: any) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }

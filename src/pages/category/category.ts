@@ -74,11 +74,32 @@ export class CategoryPage {
 
     }
 
+    checkTiming(Timing) {
+        if(Timing){
+            var date = new Date();
+            var  day = date.getDay();
+            var time = date.getHours();
+            console.log("day", "hours", day, time);
+            var current_day = Timing[day];
+            console.log(current_day);
+            if (time < current_day[0] || time >= current_day[1]) {
+            return false;
+            }
+            else {
+            return true;
+            }
+        }
+        else{
+            return true;
+
+        }
+         
+      }
+
     getLocation() {
        
         this.diagnostic.isLocationEnabled()
             .then((state) => {
-                console.log("usman",state);
                
                     this.geolocation.getCurrentPosition().then((position) => {
                         this.coordinates = position.coords.latitude + "," + position.coords.longitude;
@@ -104,7 +125,6 @@ export class CategoryPage {
     list() {
        let response = this.server.getRestaurantslist('100000', 'main', this.coordinates, '0', 'order');
        response.subscribe(data => {
-           console.log('usmna_resturants',data)
            this.places = data.results;
            var new_id = this.globals.new_id;
            this.places = this.places.filter(function(item) {
@@ -171,10 +191,8 @@ export class CategoryPage {
 
 
     presentModal() {
-        console.log(this.globals.model_flag,"model flag")
         if(this.globals.model_flag){
             this.globals.model_flag = false;
-            console.log(this.globals.model_flag,"model flag2")
 
             this.navCtrl.push("ModalPage");
             // let modal = this.modalCtrl.create('ModalPage');
@@ -203,12 +221,10 @@ export class CategoryPage {
 
     Cart(object, flag, id, image, freeextras) {
 
-        console.log("cordova check", this.globals.BusinessID, this.business_id);
 
         if (this.globals.BusinessID == '-1' || this.globals.BusinessID == this.business_id) {
 
             this.globals.BusinessID = this.business_id;
-            console.log("business", this.business_id, this.globals.BusinessID);
 
             this.AddtoCart(object, flag, id, image, freeextras);
         }
@@ -269,16 +285,13 @@ export class CategoryPage {
         let response = this.server.GetBusinessMenuCategories(this.globals.bussinessId);
         response.subscribe(data => {
             this.data = data;
-            console.log(this.data);
             loading.dismiss();
-            // console.log(this.data.categories);
             this.category = this.data.categories;
+            console.log("categories",this.category)
             this.name = this.data.restaurant.name;
             this.globals.title = this.name;
             this.globals.category_name = this.name;
-            console.log(this.globals.title, "global title");
 
-            console.log("data", this.data);
             this.data.categories.forEach(element => {
 
                 element.items.forEach(subelement => {
@@ -287,8 +300,11 @@ export class CategoryPage {
 
                 });
             });
+            var that = this;
+            this.category = this.category.filter(function(item) {
+                return that.checkTiming(item.timings) == true;
+              });
 
-            console.log("data1", this.data);
             if (this.data.categories.length == 0) {
 
                 this.DataFlag = true;
@@ -297,7 +313,6 @@ export class CategoryPage {
             // console.log(this.category);
         }
             , error => {
-                console.log(error);
                 loading.dismiss();
                 let alert = this.alertCtrl.create({
                     title: 'Error',
@@ -310,7 +325,6 @@ export class CategoryPage {
     }
 
     Detail(id, image, freeextras) {
-        console.log("id", id, freeextras)
         this.navCtrl.push('ItemDetailPage', { item_id: id, image: image, BusinesId: this.business_id, free_extras: freeextras })
     }
 
@@ -320,15 +334,12 @@ export class CategoryPage {
 
 
     AddtoCart(object, flag, id, image, freeextras) {
-        console.log(object);
         this.cartObjectQuantity = 1;
         //this.globals.Product.push({menuId:"1",restId:"1",uniqueId:"1",menuItem:Name, image:Image,quantity: 1, basePrice:Price,totalPrice:Price,menuExtrasSelected:this.myChoice});
         this.subtotal = object.price * object.quantity;
         if (this.globals.Product.length > 0) {
-            console.log("big if");
             this.globals.cartflag = true;
             this.globals.Product.forEach(element => {
-                console.log(element.menuItem, object.name);
                 if (!this.isexist) {
                     if (element.menuItem == object.name) {
                         this.index = this.globals.Product.indexOf(element);
@@ -342,7 +353,6 @@ export class CategoryPage {
                 }
 
             });
-            console.log("exist", this.isexist);
 
             if (this.isexist) {
                 if (flag == true) {
@@ -375,7 +385,6 @@ export class CategoryPage {
 
         }
         else {
-            console.log("big else");
             if (flag == true) {
                 this.globals.Product.push({ menuId: "1", restId: this.globals.bussinessId, uniqueId: id, menuItem: object.name, image: object.image, quantity: object.quantity, basePrice: Number(object.price), totalPrice: this.subtotal, menuExtrasSelected: this.myChoice });
                 this.toastPresent('Item is successfully added to cart');
@@ -384,12 +393,10 @@ export class CategoryPage {
                 this.globals.cartflag = true;
             }
         }
-        console.log(this.globals.BusinessID);
         this.Savecart();
     }
 
     Savecart() {
-        console.log("save to cart", this.globals.BusinessID)
         this.nativeStorage.setItem('Product', {
             array: this.globals.Product,
             businessDiscount: this.globals.BusinessDiscount,
@@ -411,14 +418,12 @@ export class CategoryPage {
     // }
 
     addQuantity(object) {
-        console.log(object);
 
         object.quantity += 1;
 
 
     }
     removeQuantity(object) {
-        console.log(object);
         if (object.quantity <= 1) {
             object.quantity = 1;
         }
@@ -442,9 +447,7 @@ export class CategoryPage {
 
     cartpage() {
 
-        console.log("cart page checking");
         if (this.globals.Product.length == 0) {
-            console.log("cart button if condition");
             let alert = this.alertCtrl.create({
                 title: "Oops",
                 message: "Your cart is empty.",

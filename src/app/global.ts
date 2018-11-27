@@ -90,7 +90,7 @@ export class GlobalVariable {
     android_url:any;
     ios_url:any;
     update_message:any;
-    app_version = "1.5";
+    app_version = "2";
     notifications:any;
     guess_login:boolean = false;
     banner_image:any;
@@ -99,7 +99,7 @@ export class GlobalVariable {
     latitude:any;
     longitude:any;
     hours_operation;
-    
+    welcome_data:any;
     constructor(public alertCtrl: AlertController,public toastCtrl: ToastController) {
      this.BaseUrl = 'https://onlineordering.mikronexus.com/online-ordering-new/index.php/';
     }

@@ -44,7 +44,7 @@ export class HomePage {
     punch=[];
     punch_limt=[];
     places:any;
-
+    ring_image:any;
     @ViewChild(Slides) slides: Slides;
     @ViewChild(Content) content: Content;
     @ViewChild('myTabs') tabRef: Tabs;
@@ -70,7 +70,7 @@ export class HomePage {
     email:any;
     constructor(private geolocation: Geolocation,private diagnostic: Diagnostic,public app: App, public server: ServerProvider, public globals: GlobalVariable, private nativeAudio: NativeAudio, private iab: InAppBrowser, private nativeStorage: NativeStorage, public loadingCtrl: LoadingController, public modalCtrl: ModalController, public _nav: NavController, public _navParams: NavParams, public alertCtrl: AlertController, public platform: Platform) {
         if(!this.globals.guess_login){
-            this.reward_notification();
+             this.reward_notification();
         }
         this.loadBanner();
         
@@ -91,7 +91,6 @@ export class HomePage {
     reward_notification(){
         let response = this.server.reward_notification();
         response.subscribe(data => {
-            console.log("notifications",data);
             if(data.status == true){
                 this.globals.notifications = data.notifications;
                 let mobile_update = this.modalCtrl.create('RewardNotificationPage');
@@ -125,20 +124,13 @@ export class HomePage {
                 this.mobile_verify = data.phone_verify;
 
                 this.globals.udid = this.udid;
-                console.log(this.barocde_image, "barcode");
-
-
-                console.log(this.name);
-                console.log(this.user_id);
-                console.log(this.discount_value);
+               
                 this.value = this.pad(this.user_id, 12);
                 this.slicedValue = this.value.slice(0, 4) + " " + this.value.slice(4, 8) + " " + this.value.slice(8, 12);
-                console.log(this.slicedValue);
+              
                 this.month = this.user_date.substring(0, 2);
                 this.year = this.user_date.substring(8);
-                console.log(this.month, this.year);
-
-
+              
                 if (this.GainFlag) {
                     this.showDiscountMessage();
                 }
@@ -170,12 +162,10 @@ export class HomePage {
                 this.globals.GainDiscount = data.discountValue;
 
 
-                console.log("gain discount", this.globals.GainDiscount);
 
             }).catch(err => console.log);
     
         setTimeout(() => {
-          console.log('Async operation has ended');
           refresher.complete();
         }, 2000);
       }
@@ -185,7 +175,6 @@ export class HomePage {
     getLocation() {
         this.diagnostic.isLocationEnabled()
             .then((state) => {
-                console.log(state);
                 if (state) {
                  
                     this.flag = true;
@@ -254,9 +243,7 @@ export class HomePage {
 
         let response = this.server.getPoints(coordinates);
         response.subscribe(data => {
-            console.log("points_usman",data);
-            console.log(data.status,data.message)
-
+         
             if(data.status == "error"){
                 this.points = 0;
                 this.globals.points_ = 0;
@@ -278,14 +265,12 @@ export class HomePage {
 
         let response = this.server.getPunch(coordinates);
         response.subscribe(data => {
-            console.log("punch_usman",data);
             if(data.success == "No data"){
                 this.punch_ = 0;
                 this.punch_limt_ = 0;
                 this.globals.punch_ = 0;
                 this.globals.punch_limit_ = 0;
                 this.globals.percent = (parseInt(this.punch_) / parseInt(this.punch_limt_))*100;
-                console.log("percent",this.globals.percent)
                 this.globals.circle_graph('circles1',50,7,'#ccc');
             }
           
@@ -295,7 +280,6 @@ export class HomePage {
              this.globals.punch_limit_ = this.punch_limt_;
 
              this.globals.percent = (parseInt(this.punch_) / parseInt(this.punch_limt_))*100;
-             console.log("percent",this.globals.percent)
              this.globals.circle_graph('circles1',50,7,'#ccc');
              
             
@@ -327,18 +311,11 @@ export class HomePage {
                 this.mobile_verify = data.phone_verify;
 
                 this.globals.udid = this.udid;
-                console.log(this.barocde_image, "barcode");
-
-
-                console.log(this.name);
-                console.log(this.user_id);
-                console.log(this.discount_value);
+               
                 this.value = this.pad(this.user_id, 12);
                 this.slicedValue = this.value.slice(0, 4) + " " + this.value.slice(4, 8) + " " + this.value.slice(8, 12);
-                console.log(this.slicedValue);
                 this.month = this.user_date.substring(0, 2);
                 this.year = this.user_date.substring(8);
-                console.log(this.month, this.year);
 
 
                 if (this.GainFlag) {
@@ -372,7 +349,6 @@ export class HomePage {
                 this.globals.GainDiscount = data.discountValue;
 
 
-                console.log("gain discount", this.globals.GainDiscount);
 
             }).catch(err => console.log);
         // var that = this;
@@ -393,8 +369,7 @@ export class HomePage {
 
 
     showDiscountMessage() {
-        console.log("discounted value", this.discount_value);
-
+      
         let alert = this.alertCtrl.create({
             title: 'Congratulation',
             subTitle: this.discount_text,
@@ -404,8 +379,6 @@ export class HomePage {
     }
 
     launch(url) {
-        console.log("url function");
-        console.log(url);
         this.iab.create(url, "_self");
 
     }
@@ -428,10 +401,11 @@ export class HomePage {
             this.globals.android_url  = this.banner.android_url;
             this.globals.ios_url = this.banner.ios_url;
             this.globals.update_message = this.banner.message;
-            console.log("banner data", data);
+            this.ring_image = this.banner.ring_image
+           
             this.content.resize();
 
-            if(this.banner.is_latest_build){
+            if(!this.banner.is_latest_build){
                     let mobile_update = this.modalCtrl.create('MobileUpdatePage');
                     mobile_update.present();
             }

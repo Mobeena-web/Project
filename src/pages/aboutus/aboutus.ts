@@ -73,7 +73,8 @@ export class AboutusPage {
     time_ = ti[0] + ti[1] + 'PM'
  }
  else{
-   var ti = time_.split('.');
+   var ti:any='';
+   ti = time_.split('.');
   
   
    if(ti[1] == "5"){
@@ -84,16 +85,15 @@ export class AboutusPage {
 
    }
    else if(ti[1] == undefined){
-     console.log(ti[1],time_)
-     time_='';
+    time_='';
 
      ti[1] = ':00'
      time_ = ti[0] + ti[1] + 'AM'
    }
 
  }
-
-   return time_; // return adjusted time_ or original string
+ var t = time_.split(':');
+   return t[0] +':'+t[1]; // return adjusted time_ or original string
  }
  
   

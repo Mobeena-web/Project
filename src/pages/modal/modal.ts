@@ -74,25 +74,13 @@ export class ModalPage {
   order_pickup = this.globals.pickup;
   order_delivery = this.globals.delivery;
   constructor(public server: ServerProvider,public geolocation: Geolocation, public alertCtrl: AlertController,public navCtrl: NavController,public formBuilder: FormBuilder, public navParams: NavParams, public viewCtrl: ViewController, public globals: GlobalVariable, public modalCtrl: ModalController, public nativeStorage: NativeStorage,public plt: Platform) {
-    console.log("testing11",this.globals.pickup , this.globals.delivery)
   
-    console.log("min value ", this.forToday,this.globals.MinValue );
-   console.log("places", localStorage.getItem("places"));
-   //this.type = this.globals.OrderType;
-
-   console.log("date&&&&&&&S",this.new_time);
- 
-   console.log(this.globals);
    this.segmentValue = localStorage.getItem("segmentvalue");
    this.deliveryTime =  this.globals.pickupsetting;
    this.pickup_time = this.globals.pickup_Time;
   //  this.type = this.globals.OrderType;
   
-   console.log("pickup time in Modal 1 ", this.deliveryTime);
-  // this.deliveryTime = this.deliveryTime.split('min');
-   console.log("pickup time in Modal 1 ", this.deliveryTime);
-   console.log("#####segmemnt value ",localStorage.getItem("segmentvalue"), this.segmentValue);
-   
+  
     //this.type = localStorage.getItem("type");
     // this.checktype();
     //console.log("localstorage data for testing ", localStorage.getItem("type"));
@@ -108,7 +96,6 @@ export class ModalPage {
     // this.unregisterBackButtonAction && this.unregisterBackButtonAction(); 
    this.getdata();
    plt.registerBackButtonAction(() => {
-    console.log("backPressed 1");
   },1);
 
   }
@@ -118,13 +105,12 @@ export class ModalPage {
   }
   
   getdata(){
-    console.log("modal 1 time" , this.nativeStorage.getItem('orderdetail'));
     this.time =  localStorage.getItem("scheduled_time");
    
     this.date = new Date(this.time );
      let timeis = new Date(this.time).toLocaleString('en-US', { hour12: false });
     //             this.date = new Date(local_datetime);
-                console.log("local @@@@@@")
+               
       // let timeis =  new Date(this.time).toJSON().split('T')[0];
     // this.convertDate.toString();
     let hourss = this.date.getHours();
@@ -133,7 +119,6 @@ export class ModalPage {
     this.datenow = timeis ;
    
      this.convertDate = this.datenow ;
-     console.log("hello am here ", this.datenow, hourss);
     //   let local_datetime = new Date(this.time).toLocaleString('en-US', { hour12: false });
     //       this.date = new Date(local_datetime );
     // console.log("getting time", localStorage.getItem("scheduled_time"),this.convertDate , "local date", this.date);
@@ -154,22 +139,18 @@ export class ModalPage {
 
   onsegmentChanged(){
     // this.loadMap(this.lat,this.long)
-    console.log("my")
     this.CurrentAdressBox();
-    console.log("printing e value ");
     if(this.type == "delivery"){
    
       this.globals.OrderType = "delivery";
       // this.segmentValue = "Asap"
       this.globals.delivery == true;
-      console.log("testing segment changed delivery" ,this.globals.OrderType);
      // localStorage.setItem("type","delivery" )
     }
     else{
       this.globals.OrderType = "pickup";
       // this.segmentValue = "Asap"
       this.globals.pickup == true;
-      console.log("testing segment changed pickup" ,this.globals.OrderType);
       //localStorage.setItem("type","pickup" );
       
     }
@@ -229,7 +210,6 @@ export class ModalPage {
 
 
       if(!this.globals.OrderType){
-      console.log("usman",this.globals.OrderType)
 
         if(this.order_pickup && !this.order_delivery){
           this.type = "pickup";
@@ -239,7 +219,6 @@ export class ModalPage {
         }
       }
       else{
-      console.log("usman1",this.globals.OrderType)
 
         this.type = this.globals.OrderType;
       }
@@ -257,12 +236,10 @@ export class ModalPage {
   
   process(ProcessData: any){
     
-   console.log("process data",this.Address);
    localStorage.setItem("GetAddress",this.Address);
   //  localStorage.setItem("zipcode",this.zipcode);
   //  localStorage.setItem("city",this.city);
   //  localStorage.setItem("zipcode",this.state);
-  console.log("local storage",localStorage.getItem("address"));
     this.nativeStorage.setItem('address',
     {
       address: ProcessData.Address,
@@ -280,7 +257,6 @@ export class ModalPage {
   secondModal(){
     
    // this.checktype();
-    console.log("2nd Modal pickupsett",this.globals.pickupsetting);
     this.viewCtrl.dismiss();
       let modal = this.modalCtrl.create('Modal2Page');
       modal.present();
@@ -292,13 +268,11 @@ export class ModalPage {
       this.geolocation.getCurrentPosition().then((resp) => {
         resolve(resp);
       }).catch((error) => {
-        console.log();
       })
     })
   }
 
   reverseGeoCoding(lat, lng) {
-    console.log("7788", lat , lng);
    
     var mycoordinates = lat + "," + lng;
     let response = this.server.getAddress(mycoordinates);
@@ -307,7 +281,6 @@ export class ModalPage {
       this.loadMap(lat, lng);
         
         myadress = data.address;
-        console.log("myadress",myadress)
         this.Address = myadress;
         localStorage.setItem("GetAddress",myadress);
 
@@ -327,7 +300,6 @@ export class ModalPage {
   }
   loadMap(lati, longi) {
     // var latlng = this.coordinates.split(",")
-    console.log("mylat",lati,longi)
     var myLatLng = new google.maps.LatLng(lati, longi);
 
     var map = new google.maps.Map(document.getElementById('map'), {
@@ -343,7 +315,6 @@ export class ModalPage {
 
   }
   CurrentAdressBox(){
-    console.log("i m current check");
     // this.NEW = true;
     if (this.CurrentAdress == true ) {
       
@@ -360,8 +331,6 @@ export class ModalPage {
       // this.city = "lahore";
       // this.zipcode = "54000";
       // this.state = "punjab";
-      console.log("current Address",this.Address)
-      console.log("i m current check 2");
       this.NewAddress = false;
   }
   else {
@@ -370,17 +339,13 @@ export class ModalPage {
   }
   }
   NewAddressBox(){
-    console.log("i m newaddress check 2");
     this.NEW = true;
     this.NewAddress = true;
-    console.log("newaddress: ", this.NEW);
     if(this.NewAddress == true){
       this.CurrentAdress = true;
-      console.log("Current address: ", this.CurrentAdress);
       this.removedata();
       localStorage.setItem("address",this.Address);
-      console.log("new address",this.Address);
-      console.log("i m newaddress check 2");
+      
         //this.CurrentAdress = false;
     }
     else{
