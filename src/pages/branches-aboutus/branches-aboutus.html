@@ -38,7 +38,7 @@
             </ion-row>
             <div #map id="map" margin-top></div>
 
-            <ion-card>
+            <ion-card >
                 <h2 *ngIf="globals.branch_enabled == 1"  margin-top text-center class="branches">Branches</h2>
 
                 <div *ngIf="globals.branch_enabled == 1">
@@ -55,14 +55,11 @@
                 </div>
             </ion-card>
            
-          
-          
-
   </div>
  
 
 </ion-content>
-<ion-footer padding margin-top>
+<ion-footer padding margin-top class="foter">
     <ion-row>
         <ion-col  *ngFor="let item of social_links">
              <ion-icon *ngIf="item.url" name={{item.icon}} class="myicon1" (click)="launch(item.url)"></ion-icon> 

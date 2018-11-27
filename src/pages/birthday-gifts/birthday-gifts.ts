@@ -13,10 +13,10 @@ import { Geolocation } from '@ionic-native/geolocation';
 
 @IonicPage()
 @Component({
-  selector: 'page-offers',
-  templateUrl: 'offers.html',
+  selector: 'page-birthday-gifts',
+  templateUrl: 'birthday-gifts.html',
 })
-export class OffersPage {
+export class BirthdayGiftsPage {
   cartObjectQuantity: number;
   subtotal: number;
   index: any;
@@ -50,7 +50,7 @@ export class OffersPage {
   coordinates:any;
   places:any;
   errorMenu:boolean = false;
-  constructor(private geolocation: Geolocation,private diagnostic: Diagnostic,public server: ServerProvider, public alertCtrl: AlertController, public loadingCtrl: LoadingController, private nativeStorage: NativeStorage, private toastCtrl: ToastController, public globals: GlobalVariable, public http: Http, public navCtrl: NavController, public navParams: NavParams,public modalCtrl: ModalController) {
+   constructor(private geolocation: Geolocation,private diagnostic: Diagnostic,public server: ServerProvider, public alertCtrl: AlertController, public loadingCtrl: LoadingController, private nativeStorage: NativeStorage, private toastCtrl: ToastController, public globals: GlobalVariable, public http: Http, public navCtrl: NavController, public navParams: NavParams,public modalCtrl: ModalController) {
         
     this.presentModal();
     
@@ -483,6 +483,5 @@ cartpage() {
           });
     }
 }
-
 
 }

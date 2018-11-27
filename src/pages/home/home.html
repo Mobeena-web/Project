@@ -66,7 +66,15 @@
         <!-- <img class="qrcode1" src="{{barocde_image}}"> -->
     </ion-col>
   </ion-row>
-  
+  <ion-row *ngIf="globals.is_birthday == true || globals.is_anniversary == true">
+    <ion-col col >
+      <div text-center (click)="birthday_gifts()" class="sof5">
+          <ion-icon name="md-card"></ion-icon>
+          <div>Birthday gift</div>
+      </div>
+    </ion-col>
+   
+  </ion-row>
   <ion-row>
     <ion-col col *ngIf="globals.special_offer == '1' && !globals.guess_login">
       <div text-center (click)="offers()" class="sof">

@@ -397,6 +397,22 @@ font-weight: bold;
       .order_btn{
           padding: 28px;
       }
+      .sof5{
+        background: #B33771;
+        padding: 12px;
+        color: #fff;
+        border-radius: 6px;
+        box-shadow: 0px 0px 20px #bbb;
+
+        ion-icon{
+            background: #fff;
+            color: #B33771;
+            height: 30px;
+            width: 30px;
+            padding-top: 8px;
+            border-radius: 50%;
+        }
+      }
       .sof{
         background: #ec008c;
         padding: 32px;

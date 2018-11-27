@@ -1,0 +1,41 @@
+
+<ion-header>
+
+  <ion-navbar color='primary'>
+    <ion-title>Birthday Gifts</ion-title>
+    <ion-buttons end>
+      <button ion-button    (click)="cartpage()">
+          <ion-badge color="danger" *ngIf="globals.Product.length > 0">{{globals.Product.length}}</ion-badge>
+          <ion-icon name="cart" style="font-size: 2.5rem;"> </ion-icon>
+      </button>
+
+  </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <div *ngFor="let d of category; let i=index">
+  
+    <div *ngIf="d.is_anniversary != 'false' || d.is_birthday != 'false'" >
+         <ion-card *ngFor="let a of d.items" >
+            <ion-row>
+                <ion-col col-5>
+                    
+                    <img class="itm-img" *ngIf="a.image" src="{{a.image}}">
+                    <img class="itm-img" *ngIf="a.image == '' || !a.image" src={{globals.b_logo}}>
+                </ion-col>
+                <ion-col col-7 padding-left>
+                     
+                    <p  style="color:#444;font-size:1.8rem;line-height: .9">{{a.name}} </p>
+                    <p  style="font-size:1.3rem;">{{a.tagline}} </p>
+                 
+                  <button ion-button color='primary' class="or-" (click)="Detail(a.id,a.image,a.freeExtras)">Get Now</button>
+                </ion-col>
+               
+            </ion-row>
+        </ion-card>
+    </div>
+</div>
+</ion-content>

@@ -104,6 +104,8 @@ export class GlobalVariable {
     giftcard_enabled:any;
     business_list:any;
     b_logo:any;
+    is_birthday:any;
+    is_anniversary:any;
     constructor(public alertCtrl: AlertController,public toastCtrl: ToastController) {
      this.BaseUrl = 'https://onlineordering.mikronexus.com/online-ordering-new/index.php/';
     }

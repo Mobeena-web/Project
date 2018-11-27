@@ -79,8 +79,11 @@ export class ResturantListPage {
   GetAddress : any ;
   AdrressString : any ;
   deals_flag:any;
+  birthday_flag:any;
   constructor(public toastCtrl: ToastController, private diagnostic: Diagnostic, public server: ServerProvider, public nativeStorage: NativeStorage, public events: Events, private app: App, public globals: GlobalVariable, public modalCtrl: ModalController, public alertCtrl: AlertController, private geolocation: Geolocation, public loadingCtrl: LoadingController, public http: Http, public navCtrl: NavController, public navParams: NavParams) {
       this.deals_flag = this.navParams.get('deals');
+      this.birthday_flag = this.navParams.get('birthdaygift');
+
       this.date = new Date();
       this.min = this.date.getMinutes();
       this.hours = this.date.getHours();
@@ -372,6 +375,11 @@ export class ResturantListPage {
      
     if(this.deals_flag ==1){
         this.navCtrl.push('OffersPage', { pageflag: this.pageFlag, BusinessId: businessId, paypal: paypalId, discount: discountvalue });
+
+    }
+    else if(this.birthday_flag == 2){
+       
+        this.navCtrl.push('BirthdayGiftsPage', { pageflag: this.pageFlag, BusinessId: businessId, paypal: paypalId, discount: discountvalue });
 
     }
     else{

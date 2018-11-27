@@ -1,0 +1,165 @@
+page-birthday-gifts {
+    ion-card{
+        border-radius: 7px !important;
+        width: 100% !important;
+        margin: 0px !important;
+        margin-bottom: 18px !important;
+        padding: 5px;
+      }
+      .accrodian{
+        font-size: 1.9rem;
+        position: relative;
+        padding: 15px;
+        padding-left: 50px;
+        color: #fff;
+        margin-bottom: 0px;
+        border-radius: 10px 10px 0px 0px;
+        margin-right: 10px;
+        margin-left: 10px;
+        transition: 0.9s;
+    
+        ion-icon{
+          float:right;padding-right:5px;padding-top:6px
+        }
+      }
+      .cat-img1{
+        position: absolute;
+        z-index: 999;
+        top: -13px;
+        /* width: 109px; */
+        height: 65px;
+        object-fit: contain;
+      }
+      .u-d{
+        color: #333;
+        font-size: 12px;
+        text-decoration: underline;
+      }
+      .active_accrodian{
+        padding: 50px;
+      }
+      ion-footer{
+        background: #ecf0f1;
+      }
+    
+    .toolbar-title{
+        color: #fff !important
+      }
+      
+      .bar-buttons{
+        color: #fff !important
+      }
+      .bar-button-default {
+        color: #fff !important;
+      }  
+       
+        .ion-icon{
+    
+            font-size: 2.0rem !important;
+        }
+        .icon-main{
+          display: block;
+        
+          object-fit: contain;
+          margin-top: 20px;
+          height: 150px;
+          width: 60%;
+          margin-left: 20%;
+        }
+    
+        .ion-tabs .ion-navbar-section { display: none; }
+    
+    
+        button {
+          ion-badge {
+            position: absolute;
+            top: -0.2rem;
+            right: -0.2rem;
+            opacity: 0.9;
+        
+            & ~ ion-icon {
+              margin-right: 1.2rem;
+            }
+          }
+        }
+    .price-btn{
+    
+      background: transparent !important;
+      font-weight:bold;
+    }
+    .or-{
+      height: 33px;
+      font-size: 15px;
+      float: right;
+      margin-top: 43px;
+    }
+    
+    .cat-img{
+    
+      height: 110px;;
+    
+    }
+    .itm-img{
+    
+      height: 120px;
+      border-radius: 7px;
+      -o-object-fit: contain;
+      object-fit: cover;
+    
+    }
+    
+    @media only screen and (device-aspect-ratio: 40/71)
+    {
+    
+     .price-btn{
+    
+        padding:0 !important;
+     height: 45px;
+      width: 45px;
+      border-radius: 50%;
+        font-weight:bold;
+    }   
+    }
+    
+    @media only screen and (min-width: 768px) { 
+    
+    
+    
+    .cat-img{
+    
+        height:200px;
+    
+    }
+    
+    
+    
+     .price-btn{
+    
+        padding:0 !important;
+     height: 100px;
+      width: 100px;
+      border-radius: 50%;
+        font-weight:bold;
+    }  
+    
+    }
+    .for-badge{
+    margin-bottom: -25px;
+    margin-top: -12px;
+    //margin-left: 155px;
+    z-index: 5;
+    position: relative;
+    color: inherit;
+    padding-top: 0;
+    padding-left: 25px;
+    
+    
+    }
+    .rotate90 {
+      -webkit-transform: rotate(15deg);
+      -moz-transform: rotate(15deg);
+      -o-transform: rotate(15deg);
+      -ms-transform: rotate(15deg);
+      transform: rotate(15deg);
+    }
+}

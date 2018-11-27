@@ -38,44 +38,46 @@
     <ion-card *ngIf="DataFlag" style="text-align:center; padding: 20px; font-size: 2rem; font-weight: bold; color:#333;margin-top:40%">
         Menus coming soon 
     </ion-card>
-
-    <div style="position: relative;" *ngFor="let d of category; let i=index" text-wrap [ngClass]="{active: isGroupShown(i)}">
-        <img  class="cat-img1" *ngIf="d.dealFlag == 'true'" src="assets/imgs/promotion.png">
-       <!-- <img *ngIf="!d.image" class="cat-img" src="assets/imgs/Category-Placeholder.png"-->
-        <p (click)="toggleGroup(i)"  [ngStyle]="{'background-color': d.color}" class="accrodian" [ngClass]="{active_accrodian: !isGroupShown(i)}">
-            {{d.name}}
-            <ion-icon  item-right [name]="isGroupShown(i) ? 'ios-arrow-down' : 'ios-arrow-forward'"></ion-icon>
-        </p>
-
-
-        <div *ngIf="isGroupShown(i)" >
-            <ion-list >
-                <ion-card *ngFor="let a of d.items">
-                <ion-row>
-                    <ion-col col-3 style="margin: auto;" (click)="Detail(a.id,a.image,a.freeExtras)">
-                        
-                        <img class="itm-img" *ngIf="a.image" src="{{a.image}}">
-                        <img class="itm-img" *ngIf="a.image == '' || !a.image" src={{globals.b_logo}}>
-                    </ion-col>
-                    <ion-col col-6 style="margin:auto">
-                         
-                        <p (click)="Detail(a.id,a.image,a.freeExtras)" style="color:#444;font-size:1.8rem">{{a.name}} </p>
-                        <p (click)="Detail(a.id,a.image,a.freeExtras)" style="font-size:1.3rem;    padding-bottom: 10px;">{{a.tagline}} </p>
-
-
-                    </ion-col>
-                    <ion-col col-3 text-right style="color:#444;margin: auto;padding: 0;" (click)="Detail(a.id,a.image,a.freeExtras)">
-                            <div *ngIf="i==0" class="for-badge">
-                                    <ion-badge  style="background-color: transparent">  </ion-badge>
-                            </div>
+    <div *ngFor="let d of category; let i=index">
+        <div style="position: relative;" *ngIf="d.is_anniversary == 'false' && d.is_birthday == 'false'"  text-wrap [ngClass]="{active: isGroupShown(i)}">
+            <img  class="cat-img1" *ngIf="d.dealFlag == 'true'" src="assets/imgs/promotion.png">
+           <!-- <img *ngIf="!d.image" class="cat-img" src="assets/imgs/Category-Placeholder.png"-->
+            <p (click)="toggleGroup(i)"  [ngStyle]="{'background-color': d.color}" class="accrodian" [ngClass]="{active_accrodian: !isGroupShown(i)}">
+                {{d.name}}
+                <ion-icon  item-right [name]="isGroupShown(i) ? 'ios-arrow-down' : 'ios-arrow-forward'"></ion-icon>
+            </p>
+    
+    
+            <div *ngIf="isGroupShown(i)" >
+                <ion-list >
+                    <ion-card *ngFor="let a of d.items">
+                    <ion-row>
+                        <ion-col col-3 style="margin: auto;" (click)="Detail(a.id,a.image,a.freeExtras)">
                             
-                            <span *ngIf="a.quantity * a.price != 0 || a.quantity * a.price != '0'">${{a.quantity * a.price | number : '1.2-2'}}</span>
-                    </ion-col>
-                </ion-row>
-            </ion-card>
-            </ion-list>
+                            <img class="itm-img" *ngIf="a.image" src="{{a.image}}">
+                            <img class="itm-img" *ngIf="a.image == '' || !a.image" src={{globals.b_logo}}>
+                        </ion-col>
+                        <ion-col col-6 style="margin:auto">
+                             
+                            <p (click)="Detail(a.id,a.image,a.freeExtras)" style="color:#444;font-size:1.8rem">{{a.name}} </p>
+                            <p (click)="Detail(a.id,a.image,a.freeExtras)" style="font-size:1.3rem;    padding-bottom: 10px;">{{a.tagline}} </p>
+    
+    
+                        </ion-col>
+                        <ion-col col-3 text-right style="color:#444;margin: auto;padding: 0;" (click)="Detail(a.id,a.image,a.freeExtras)">
+                                <div *ngIf="i==0" class="for-badge">
+                                        <ion-badge  style="background-color: transparent">  </ion-badge>
+                                </div>
+                                
+                                <span *ngIf="a.quantity * a.price != 0 || a.quantity * a.price != '0'">${{a.quantity * a.price | number : '1.2-2'}}</span>
+                        </ion-col>
+                    </ion-row>
+                </ion-card>
+                </ion-list>
+            </div>
         </div>
     </div>
+    
 
     <!--<ion-item-group *ngFor="let group of groupedContacts">
    

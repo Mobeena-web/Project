@@ -411,6 +411,8 @@ export class HomePage {
         
         let response = this.server.LoadBannersOnHomePage()
         response.subscribe(data => {
+            console.log(data)
+
             this.banner = data;
             this.Images = this.banner.data;
             this.globals.banner_image = this.banner.data;
@@ -418,7 +420,9 @@ export class HomePage {
             this.globals.android_url  = this.banner.android_url;
             this.globals.ios_url = this.banner.ios_url;
             this.globals.update_message = this.banner.message;
-            this.ring_image = this.banner.ring_image
+            this.ring_image = this.banner.ring_image;
+            this.globals.is_anniversary = this.banner.is_anniversary;
+            this.globals.is_birthday = this.banner.is_birthday;
            
             this.content.resize();
 
@@ -471,6 +475,14 @@ export class HomePage {
         this._nav.push('ReservationPage');
     }
 
+    birthday_gifts(){
+        if(this.globals.branch_enabled == 1){
+            this._nav.push('ResturantListPage',{birthdaygift:2})
+        }
+        else{
+        this._nav.push('BirthdayGiftsPage');
+        }
+    }
   
 
 

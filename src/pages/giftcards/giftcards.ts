@@ -100,7 +100,11 @@ export class GiftcardsPage {
   }
 
   search_user(email,id){
-    let loading = this.loadingCtrl.create({
+    if(!this.validateEmail(email)){
+      this.global.presentToast("Invalid Email Format.")
+    }
+    else{
+      let loading = this.loadingCtrl.create({
         content: "Loading...",
     });
     loading.present();
@@ -121,6 +125,8 @@ export class GiftcardsPage {
         this.global.alertMessage("Failure","Something went wrong check your internet connection.")
 
     });
+    }
+   
   }
 
   get_gift_cards() {
@@ -169,7 +175,6 @@ create_new(email,fname,lname,id){
 
   let response = this.server.craete_user(email,fname,lname);
   response.subscribe(data => {
-     console.log("cc",data)
      if(data.status == true){
       this.navCtrl.push('BuygiftcardsPage',{gift_id:id,udid_r:data.udid}); 
 
@@ -219,4 +224,8 @@ showPrompt_craete_user(email,id) {
   prompt.present();
 }
 
+validateEmail(email) {
+  var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(String(email).toLowerCase());
+}
 }

@@ -678,11 +678,10 @@ export class CartPage {
             if (user_reward.status != 'error') {
                 console.log(user_reward.rewards);
                 user_reward.rewards.forEach(element => {
-
-                    if (element.businessid == this.globals.BusinessID) {
+                    console.log(this.globals.BusinessID,"ll")
+                    if (element.businessid == this.globals.new_id) {
                         console.log("businessexist exist");
 
-                        //  element.reward  = 'one pizza' ;
                         if (element.reward_string == 'null' && element.is_birthday == 'false') {
                             this.storecreditExist = true;
                             this.reward_amount = Number(element.reward);
