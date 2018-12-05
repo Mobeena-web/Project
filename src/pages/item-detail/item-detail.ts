@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController, LoadingController, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, LoadingController, AlertController, ToastController } from 'ionic-angular';
 import { GlobalVariable } from '../../app/global';
 import { CategoryPage } from "../category/category";
 import { ServerProvider } from "../../providers/server/server";
@@ -56,7 +56,7 @@ export class ItemDetailPage {
   extraChecked: boolean = false;
   instructions : any;
   item_price:any = 0;
-  constructor(public server: ServerProvider, public alertCtrl: AlertController, public loadingCtrl: LoadingController, public globals: GlobalVariable, public modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public server: ServerProvider, public alertCtrl: AlertController, public loadingCtrl: LoadingController, public globals: GlobalVariable, public modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams, private toastCtrl: ToastController) {
 
     this.thumbimage = navParams.get('image');
   
@@ -452,7 +452,7 @@ export class ItemDetailPage {
 
   Selectedoption(heading, op, a, i, max, event) {
 
-    console.log(heading, op, max);
+    console.log("3 Params ", heading, op, max);
     // console.log("op", op.IsSelected);
     var checked = false;
     let flag: boolean = false;
@@ -480,23 +480,37 @@ export class ItemDetailPage {
             op.IsSelected = false;
             event.checked = false;
 
-            let alert = this.alertCtrl.create({
-              title: "Oops",
-              message: "You have added max number of extras",
-              buttons: [
-                {
-                  text: 'Okay',
-                  handler: data => {
+            // let alert = this.alertCtrl.create({
+            //   title: "Oops",
+            //   message: "You have added max number of extras",
+            //   buttons: [
+            //     {
+            //       text: 'Okay',
+            //       handler: data => {
 
 
-                    this.flag = false;
-                    console.log(flag);
-                  }
-                }
-              ]
+            //         this.flag = false;
+            //         console.log(flag);
+            //       }
+            //     }
+            //   ]
 
+            // });
+            // alert.present();
+
+            let toast = this.toastCtrl.create({
+              message: 'Oops !! You have added max number of extras',
+              duration: 2000,
+              position: 'bottom'
             });
-            alert.present();
+          
+            toast.onDidDismiss(() => {
+              console.log('Dismissed toast');
+              this.flag = false;
+              console.log(flag);
+            });
+          
+            toast.present();
           }
 
           else {
@@ -577,7 +591,15 @@ export class ItemDetailPage {
         }
       }
       console.log(this.myChoices);
-      this.item_price = (Number(this.item_price) - (Number(op.price) * this.quantity)).toFixed(2);
+      console.log("Item $ ", this.item_price);
+      console.log("op $ ", op.price);
+      console.log("Quantity $ ", this.quantity);
+      
+      if(this.flag == true){
+        console.log("No calculate ");
+      }else{
+        this.item_price = (Number(this.item_price) - (Number(op.price) * this.quantity)).toFixed(2);
+      }
 
       // }
       // else{

@@ -423,6 +423,7 @@ export class HomePage {
             this.ring_image = this.banner.ring_image;
             this.globals.is_anniversary = this.banner.is_anniversary;
             this.globals.is_birthday = this.banner.is_birthday;
+            // this.globals.is_birthday = true;
            
             this.content.resize();
 

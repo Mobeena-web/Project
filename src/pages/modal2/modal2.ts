@@ -176,6 +176,7 @@ export class Modal2Page {
    
     this.type = this.globals.OrderType;
     localStorage.setItem("segmentvalue",this.settings);
+    console.log("My Date ",this.myDate);
     // var future_date = new Date(this.myDate);
     // console.log(future_date);
     // var future_day = future_date.getDay();
@@ -235,6 +236,7 @@ export class Modal2Page {
       var future_date = new Date(this.myDate);
       var future_day = future_date.getDay();
       this.myDate = this.myDate.toString();
+      
       this.future_hours = future_date.getHours();
       this.future_min = future_date.getMinutes();
   
