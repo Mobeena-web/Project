@@ -76,6 +76,8 @@ export class AboutusPage {
      }
  
  if(time_ > 12){
+     time_ = time_ + '';
+
      var ti = time_.split('.');
   
      ti[0] = parseFloat(ti[0])
@@ -91,6 +93,8 @@ export class AboutusPage {
  }
  else{
    var ti:any='';
+   time_ = time_ + '';
+
    ti = time_.split('.');
   
   
@@ -109,6 +113,8 @@ export class AboutusPage {
    }
 
  }
+ time_ = time_ + '';
+
  var t = time_.split(':');
    return t[0] +':'+t[1]; // return adjusted time_ or original string
  }

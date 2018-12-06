@@ -32,20 +32,14 @@
     <ion-refresher (ionRefresh)="doRefresh($event)">
         <ion-refresher-content></ion-refresher-content>
       </ion-refresher>
-
+      <p class="marquee message" *ngIf="today_message"><span>{{today_message}}</span></p>
+   
     <ion-slides pager *ngIf="banner" style="height:184px" autoplay="{{time}}" speed="3000" loop="true" autoplayDisableOnInteraction="false">
         <ion-slide *ngFor="let banners of Images" style="height:100%">
           <img style="height: 173px; width:100% !important;border-radius: 7px;object-fit: cover" src="{{banners?.image}}">
         </ion-slide>
     </ion-slides>
-    
-
-  <!-- <ion-card (tap)="ordersPage()">
-    <div class="overlay"></div>
-    <img src="assets/imgs/online_order.jpeg" class="main"/>
-    <img src="assets/imgs/order_icon.png" class="icon-order">
-    <div class="card-title">Order Online</div>
-  </ion-card> -->
+   
 
   <ion-row *ngIf="!globals.guess_login">
     <ion-col col-6 class="point_s">

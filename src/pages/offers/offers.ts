@@ -85,11 +85,11 @@ checkTiming(Timing) {
         console.log("day", "hours", day, time);
         var current_day = Timing[day];
         console.log(current_day);
-        if (time < current_day[0] || time >= current_day[1]) {
-        return false;
+        if((current_day[0] <= this.time && current_day[1] > this.time) || (current_day[0] <= this.time && current_day[1] < current_day[0])){
+            return true;
         }
         else {
-        return true;
+            return false;
         }
     }
     else{
@@ -285,7 +285,7 @@ Categories() {
 
     });
     loading.present();
-    let response = this.server.GetBusinessMenuCategories(this.globals.new_id);
+    let response = this.server.GetBusinessMenuCategories(this.globals.bussinessId);
     response.subscribe(data => {
         this.data = data;
         loading.dismiss();

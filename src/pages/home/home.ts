@@ -8,7 +8,7 @@ import { NativeAudio } from '@ionic-native/native-audio';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { Diagnostic } from '@ionic-native/diagnostic';
 import { Geolocation } from '@ionic-native/geolocation';
-
+import * as $ from "jquery";
 declare var Circles;
 
 
@@ -68,6 +68,7 @@ export class HomePage {
     punch_limt_:any;
     punch_:any;
     email:any;
+    today_message:any;
     constructor(private geolocation: Geolocation,private diagnostic: Diagnostic,public app: App, public server: ServerProvider, public globals: GlobalVariable, private nativeAudio: NativeAudio, private iab: InAppBrowser, private nativeStorage: NativeStorage, public loadingCtrl: LoadingController, public modalCtrl: ModalController, public _nav: NavController, public _navParams: NavParams, public alertCtrl: AlertController, public platform: Platform) {
         if(!this.globals.guess_login){
              this.reward_notification();
@@ -82,6 +83,11 @@ export class HomePage {
         this.barocde_image = _navParams.get('imageData');
         localStorage.removeItem("GetAddress");
         localStorage.removeItem("scheduled_time");
+
+        var date = new Date();
+        var day = date.getDay();
+        var current_day = this.globals.hours_operation[day];
+        this.today_message = current_day[2];
     }
 
     orderNow(){
@@ -308,7 +314,6 @@ export class HomePage {
     }
 
     ionViewDidLoad() {
-        
         this.getLocation();
         if (this.globals.Product.length > 0) {
             this.globals.cartflag = true;

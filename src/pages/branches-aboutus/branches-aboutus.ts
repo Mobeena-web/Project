@@ -62,6 +62,7 @@ export class BranchesAboutusPage {
      }
  
  if(time_ > 12){
+   time_ = time_ + '';
      var ti = time_.split('.');
   
      ti[0] = parseFloat(ti[0])
@@ -76,6 +77,8 @@ export class BranchesAboutusPage {
     time_ = ti[0] + ti[1] + 'PM'
  }
  else{
+  time_ = time_ + '';
+
    var ti:any='';
    ti = time_.split('.');
   
@@ -95,6 +98,7 @@ export class BranchesAboutusPage {
    }
 
  }
+ time_ = time_ + '';
  var t = time_.split(':');
    return t[0] +':'+t[1]; // return adjusted time_ or original string
  }

@@ -1,0 +1,18 @@
+
+<ion-header>
+
+  <ion-navbar color='primary'>
+    <ion-title>Gift Card Design</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+<h3 text-center>Select Card Design</h3>
+ <ion-slides pager *ngIf="banner" style="height:184px" autoplay="{{time}}" speed="3000" loop="true" autoplayDisableOnInteraction="false">
+      <ion-slide *ngFor="let banners of banner" style="height:100%" (click)="selectDesign(banners.design_id)">
+        <img style="height: 173px; width:100% !important;border-radius: 7px;object-fit: cover" src="{{banners?.image}}">
+      </ion-slide>
+  </ion-slides>
+</ion-content>

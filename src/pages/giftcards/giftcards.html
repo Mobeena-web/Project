@@ -18,12 +18,11 @@
 <ion-content padding class="background_">
   <div [ngSwitch]="giftcard">
     <ion-list *ngSwitchCase="'notbuyed'">
+       
      <ion-card *ngFor='let item of gifts'>
        <ion-row>
          <ion-col col-8 >
           <h3 class="gc">${{item.amount}}</h3>
-          <!-- <div class="names">Usman Arshad</div>
-          <div>usman@gmail.com</div> -->
          </ion-col>
          <ion-col col-4 class="bl">
           <button ion-button color='primary' class="share" (click)="buy(item.giftcard_id)">Buy</button>

@@ -105,10 +105,13 @@ export class ItemDetailPage {
     this.date = new Date();
     this.day = this.date.getDay();
     this.time = this.date.getHours();
-    console.log("day", "hours", this.day, this.time);
     var current_day = this.globals.Timing[this.day];
-    console.log(current_day);
-    if (this.time < current_day[0] || this.time >= current_day[1]) {
+    if((current_day[0] <= this.time && current_day[1] > this.time) || (current_day[0] <= this.time && current_day[1] < current_day[0])){
+    // if (this.time < current_day[0] || this.time >= current_day[1]) {
+      return true;
+      
+    }
+    else {
       let alert = this.alertCtrl.create({
         title: 'Sorry',
         subTitle: 'Restaurants currently closed.',
@@ -116,9 +119,6 @@ export class ItemDetailPage {
       });
       alert.present();
       return false;
-    }
-    else {
-      return true;
     }
   }
 
