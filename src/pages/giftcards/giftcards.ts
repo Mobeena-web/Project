@@ -11,42 +11,44 @@ import { ServerProvider } from '../../providers/server/server';
 })
 export class GiftcardsPage {
   giftcard:any = 'notbuyed';
-  gifts:any;
   mygifts:any;
   banner:any;
  
   constructor(public alertCtrl:AlertController,public loadingCtrl: LoadingController, public server: ServerProvider, public global: GlobalVariable,public navCtrl: NavController, public navParams: NavParams) {
-    this.get_gift_cards();
+ 
     this.my_gift_cards();
+    this.loadBanner_design()
+
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad GiftcardsPage');
   }
-  buy(id){
-   this.navCtrl.push('GiftcardBannerPage',{id:id})
+  buy(banner){
+   this.navCtrl.push('GiftcardBannerPage',{banner:banner})
   }
+  
 
- 
-
-  get_gift_cards() {
+  loadBanner_design() {
     let loading = this.loadingCtrl.create({
-        content: "Loading...",
-    });
-    loading.present();
-
-    let response = this.server.gift_cards();
+      content: "Loading...",
+  });
+  loading.present();
+    let response = this.server.my_gift_cards_design();
     response.subscribe(data => {
-        this.gifts = data;
-       
-        loading.dismiss();
-    
-    }, error => {
-        loading.dismiss();
-        this.global.alertMessage("Failure","Something went wrong check your internet connection.")
+      loading.dismiss();
+      this.banner = data;
+        console.log("design",data)
+      
+    }
+    , error => {
+      loading.dismiss();
 
     });
 }
+ 
+
+  
 
 my_gift_cards() {
   let loading = this.loadingCtrl.create({

@@ -36,8 +36,9 @@ design_card:any;
   })
   this.gift_id = this.navParams.get('gift_id');
   this.udid_r = this.navParams.get('udid_r');
-  console.log(this.udid_r,"mm",this.globals.StripId);
   this.design_card = this.navParams.get('design_id');
+
+  console.log(this.udid_r,"mm",this.gift_id,this.design_card);
   }
 
   ionViewDidLoad() {

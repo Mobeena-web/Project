@@ -10,34 +10,38 @@ import { ServerProvider } from '../../providers/server/server';
 })
 export class GiftcardBannerPage {
 banner:any;
-card_id:any;
+card_banner:any;
 design_id:any;
+gifts:any;
+
   constructor(public alertCtrl:AlertController,public loadingCtrl: LoadingController, public server: ServerProvider, public global: GlobalVariable,public navCtrl: NavController, public navParams: NavParams) {
-   this.card_id =  this.navParams.get('id');
-   this.loadBanner_design()
+   this.card_banner =  this.navParams.get('banner');
+   this.get_gift_cards();
+   this.design_id = this.card_banner.design_id;
+  }
+  buy(id){
+    this.showConfirm(id)
   }
 
-  loadBanner_design() {
-    let loading = this.loadingCtrl.create({
+
+
+get_gift_cards() {
+  let loading = this.loadingCtrl.create({
       content: "Loading...",
   });
   loading.present();
-    let response = this.server.my_gift_cards_design();
-    response.subscribe(data => {
-      loading.dismiss();
-      this.banner = data;
-        console.log("design",data)
-      
-    }
-    , error => {
-      loading.dismiss();
 
-    });
-}
+  let response = this.server.gift_cards();
+  response.subscribe(data => {
+      this.gifts = data;
+     
+      loading.dismiss();
+  
+  }, error => {
+      loading.dismiss();
+      this.global.alertMessage("Failure","Something went wrong check your internet connection.")
 
-selectDesign(design_id){
-  this.design_id = design_id;
-  this.showConfirm(this.card_id)
+  });
 }
 
 showConfirm(id) {
@@ -172,10 +176,12 @@ create_new(email,fname,lname,id){
 }
 
 showPrompt_craete_user(email,id) {
+  var bool = true;
   const prompt = this.alertCtrl.create({
     title: 'Create Account',
-    message: "Enter your friend details.",
+    message: "Enter your friend details of email " + email,
     inputs: [
+      
       {
         name: 'fname',
         placeholder: 'First Name'

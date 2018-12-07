@@ -205,7 +205,7 @@ export class Modal2Page {
           let current_day = this.globals.Timing[this.day];
           // this.time = this.time.toString();
           if (current_day[0] != 'opened') {
-            if((Number(current_day[0]) <= Number(this.time) && Number(current_day[1]) > Number(this.time)) || (Number(current_day[0]) <= Number(this.time) && Number(current_day[1]) < Number(current_day[0])) ||  (current_day[0] != 'closed')){
+            if((Number(current_day[0]) <= Number(this.time) && Number(current_day[1]) > Number(this.time)) || (Number(current_day[0]) <= Number(this.time) && Number(current_day[1]) < Number(current_day[0])) ||  (current_day[0] == 'opened')){
                  
                   this.viewCtrl.dismiss('CategoryPage');
                   this.presentModal();
@@ -303,21 +303,22 @@ export class Modal2Page {
           // this.time = this.time.toString();
          
           if (current_day[0] != 'opened') {
-              if (Number(this.time) <= Number(current_day[0]) || Number(this.time) >= Number(current_day[1]) || current_day[0] == 'closed') {
-                  let alert = this.alertCtrl.create({
-                      title: 'Sorry',
-                      subTitle: 'Restaurants currently closed.',
-                      buttons: ['OK']
-                  });
-                  alert.present();
-
-                   return false;
-              }
-              else {
+            if((Number(current_day[0]) <= Number(this.time) && Number(current_day[1]) > Number(this.time)) || (Number(current_day[0]) <= Number(this.time) && Number(current_day[1]) < Number(current_day[0])) ||  (current_day[0] == 'opened')){
+                 
                 this.viewCtrl.dismiss('CategoryPage');
                 this.presentModal();
                   return true;
-              }
+            }
+            else {
+              let alert = this.alertCtrl.create({
+                  title: 'Sorry',
+                  subTitle: 'Restaurants currently closed.',
+                  buttons: ['OK']
+              });
+              alert.present();
+           
+              return false;
+            }
           }
           else {
               console.log("$$$elseeeee");

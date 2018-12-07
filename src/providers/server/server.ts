@@ -138,6 +138,14 @@ getdeals(){
       .map((res: any) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
+
+  getUserLotteryRewards_new() {
+    var link = this.global.BaseUrl + 'Customer_controller/get_rewards_new';
+    var data = JSON.stringify({ business_id:this.global.new_id,udid: this.global.udid });
+    return this.http.post(link, data)
+      .map((res: any) => res.json())
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+  }
   SendQRcodeToServer(barcodeData) {
     var link = this.global.BaseUrl + 'Customer_controller/scanqr';
     var request = JSON.stringify({ udid: this.global.udid, businessname: barcodeData });

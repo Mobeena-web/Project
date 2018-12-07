@@ -222,30 +222,19 @@
       </ion-refresher>
       <p style="text-align: center; margin-top: 60%;" *ngIf="gain_flag">Currently you do not have any rewards... </p>
 
-
-      <div *ngIf="!gain_flag">
         <div *ngFor="let rewards of lotery">
-          <ion-card *ngIf="rewards.is_birthday == 'true'" style="    margin-right: 4px !important;
-                  margin-left: 4px !important; width: calc(100% - 8px)!important;">
+          <ion-card [ngClass]="{ 'redeem': rewards.redeemed != 'no' }">
             <ion-grid>
               <ion-row>
-                <ion-col col-3>
-                  <img style="border-radius: 4px; height:70px;" src="{{rewards?.image}}">
+                <ion-col col-3 *ngIf="rewards?.image">
+                  <img style="border-radius: 4px; height:70px;"  src="{{rewards?.image}}">
                 </ion-col>
 
-                <ion-col col-6>
-                  <h3 color="primary" style=" font-size: 1.4rem;color:#666;font-weight:bold">{{rewards?.businessname}} </h3>
-                  <ion-label style="color:black" *ngIf="rewards.isnumber == true ">Store Credit:
-                    <p style="color:red; font-size: 3rem;"> ${{rewards?.reward}} </p>
-                  </ion-label>
-                  <p style="color:red; font-size: 2.0rem;" *ngIf="rewards.isnumber == false"> {{rewards?.reward_string}} </p>
-                    <p > Date:   {{rewards?.date}} </p>
+                <ion-col col-9>
+                  <h3 color="primary" style=" font-size: 1.4rem;color:#666;font-weight:bold">{{rewards?.reward_text}} </h3>
+                  <p> Date:   {{rewards?.time}} </p>
                 </ion-col>
 
-                <ion-col style="padding: 0px !important;" col-3>
-                  <img src="{{rewards?.redeem_qr}}">
-                  <p style="text-align:center;"> {{rewards?.qr_text}}</p>
-                </ion-col>
               </ion-row>
 
             </ion-grid>
@@ -253,7 +242,6 @@
           </ion-card>
         </div>
 
-      </div>
     </div>
   </div>
 
