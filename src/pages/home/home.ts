@@ -8,7 +8,7 @@ import { NativeAudio } from '@ionic-native/native-audio';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { Diagnostic } from '@ionic-native/diagnostic';
 import { Geolocation } from '@ionic-native/geolocation';
-import * as $ from "jquery";
+
 declare var Circles;
 
 
@@ -84,11 +84,8 @@ export class HomePage {
         localStorage.removeItem("GetAddress");
         localStorage.removeItem("scheduled_time");
 
-        var date = new Date();
-        var day = date.getDay();
-        var current_day = this.globals.hours_operation[day];
-        this.today_message = current_day[2];
     }
+   
 
     orderNow(){
         if(this.globals.branch_enabled == 1){
@@ -315,6 +312,7 @@ export class HomePage {
 
     ionViewDidLoad() {
         this.getLocation();
+           
         if (this.globals.Product.length > 0) {
             this.globals.cartflag = true;
         }
@@ -436,10 +434,24 @@ export class HomePage {
                     let mobile_update = this.modalCtrl.create('MobileUpdatePage');
                     mobile_update.present();
             }
+         
         }
             , error => {
             });
     }
+
+    ngAfterViewInit(){
+        setTimeout( ()=>{
+            var date = new Date();
+            var day = date.getDay();
+            console.log("gh",this.globals.hours_operation)
+            if(this.globals.hours_operation && this.globals.hours_operation[day]){
+                
+                var current_day = this.globals.hours_operation[day];
+                this.today_message = current_day[2];
+        }
+        }, 3000)
+      }
 
 
 
