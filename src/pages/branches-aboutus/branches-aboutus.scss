@@ -18,4 +18,42 @@ page-branches-aboutus {
         width: 100%;
         height: 200px;
       }
+      .myimage{
+          width: 100%;
+          object-fit: cover;
+          height: 150px;
+      }
+      .ion-footer{
+          background: #fff;
+      }
+      .branches{
+          font-size: 22px;
+      }
+      ion-card{
+          width: 100% !important;
+          margin-top: 20px !important;
+
+      }
+      .ion-logo-facebook{
+          color: #3C5A99 !important;
+      }
+      .ion-logo-twitter{
+        color:#00aced;
+      }
+      .ion-logo-instagram{
+        color: #fb3958;
+      }
+      .ion-logo-snapchat{
+        color:#FFFC00;
+      }
+      .ion-logo-youtube{
+        color:#FF0000;
+      }
+      .ion-logo-googleplus{
+          color: #DD4B39;
+      }
+
+      .foter{
+        background: #fff;
+      }
 }

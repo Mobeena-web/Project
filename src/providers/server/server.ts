@@ -44,7 +44,7 @@ getdeals(){
 
   LoadBannersOnHomePage() {
     var link = this.global.BaseUrl + 'Customer_controller/get_banners';
-    var data = JSON.stringify({ business_id: this.global.new_id,app_version: this.global.app_version });
+    var data = JSON.stringify({udid: this.global.udid, business_id: this.global.new_id,app_version: this.global.app_version });
     return this.http.post(link, data)
       .map((res: any) => res.json());
    
@@ -94,11 +94,11 @@ getdeals(){
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
 
-  get_about_us() {
+  get_about_us(id) {
 
     var link = this.global.BaseUrl + 'events/get_aboutus';
 
-    var data = JSON.stringify({ business_id: this.global.new_id });
+    var data = JSON.stringify({ business_id:id });
     return this.http.post(link, data)
       .map((res: any) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
@@ -148,10 +148,9 @@ getdeals(){
 
   getRestaurantslist(radius, businesType, coordinates, offset, type) {
     var link = this.global.BaseUrl + 'Customer_controller/getplaces';
-    var data = JSON.stringify({ business_id: this.global.new_id,coordinates: coordinates, radius: radius, business_type: businesType, offset, type: type, udid: this.global.udid });
+    var data = JSON.stringify({ business_id: this.global.new_id ,coordinates: coordinates, radius: radius, business_type: businesType, offset, type: type, udid: this.global.udid });
     return this.http.post(link, data)
       .map((res: any) => res.json());
-
   }
 
   BusinessInformation(placeName) {
@@ -291,6 +290,46 @@ getdeals(){
   gallery_list() {
     var link = (this.global.BaseUrl + 'events/get_gallery_list');
     var data = JSON.stringify({ business_id: this.global.new_id });
+    return this.http.post(link, data)
+      .map((res: any) => res.json())
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+  }
+
+  gift_cards() {
+    var link = (this.global.BaseUrl + 'giftcard/get_business_giftcards');
+    var data = JSON.stringify({ business_id: this.global.new_id });
+    return this.http.post(link, data)
+      .map((res: any) => res.json())
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+  }
+
+  my_gift_cards() {
+    var link = (this.global.BaseUrl + 'giftcard/get_customer_giftcards');
+    var data = JSON.stringify({ business_id: this.global.new_id , udid: this.global.udid});
+    return this.http.post(link, data)
+      .map((res: any) => res.json())
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+  }
+
+  search_user(email) {
+    var link = (this.global.BaseUrl + 'giftcard/search_user');
+    var data = JSON.stringify({ business_id: this.global.new_id , email: email});
+    return this.http.post(link, data)
+      .map((res: any) => res.json())
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+  }
+
+  craete_user(email,fname,lname) {
+    var link = (this.global.BaseUrl + 'giftcard/create_user');
+    var data = JSON.stringify({ business_id: this.global.new_id , email: email, first_name:fname, last_name:lname});
+    return this.http.post(link, data)
+      .map((res: any) => res.json())
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+  }
+
+  buy_gift_cards(token,id,udid_r) {
+    var link = (this.global.BaseUrl + 'giftcard/buy_giftcard');
+    var data = JSON.stringify({udid_r:udid_r, business_id: this.global.new_id, udid_s: this.global.udid,token:token, giftcard_id:id});
     return this.http.post(link, data)
       .map((res: any) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));

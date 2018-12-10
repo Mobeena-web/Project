@@ -85,9 +85,21 @@ export class HomePage {
     }
 
     orderNow(){
-        this._nav.push('ResturantListPage')
+        if(this.globals.branch_enabled == 1){
+            this._nav.push('ResturantListPage')
+        }
+        else{
+            this._nav.push('CategoryPage')
+        }
     }
 
+    gifts(){
+        this._nav.push('GiftcardsPage');
+    }
+    rewards(){
+        this._nav.push('MyRewardsPage')
+
+    }
     reward_notification(){
         let response = this.server.reward_notification();
         response.subscribe(data => {
@@ -220,7 +232,12 @@ export class HomePage {
     }
 
     offers(){
-        this._nav.push("OffersPage")
+        if(this.globals.branch_enabled == 1){
+            this._nav.push('ResturantListPage',{deals:1})
+        }
+        else{
+            this._nav.push("OffersPage");
+        }
     }
   
 
@@ -391,9 +408,11 @@ export class HomePage {
 
 
     loadBanner() {
-
+        
         let response = this.server.LoadBannersOnHomePage()
         response.subscribe(data => {
+            console.log(data)
+
             this.banner = data;
             this.Images = this.banner.data;
             this.globals.banner_image = this.banner.data;
@@ -401,7 +420,9 @@ export class HomePage {
             this.globals.android_url  = this.banner.android_url;
             this.globals.ios_url = this.banner.ios_url;
             this.globals.update_message = this.banner.message;
-            this.ring_image = this.banner.ring_image
+            this.ring_image = this.banner.ring_image;
+            this.globals.is_anniversary = this.banner.is_anniversary;
+            this.globals.is_birthday = this.banner.is_birthday;
            
             this.content.resize();
 
@@ -411,14 +432,6 @@ export class HomePage {
             }
         }
             , error => {
-                console.log("Error!");
-
-                let alert = this.alertCtrl.create({
-                    title: 'Error',
-                    subTitle: 'Server times out, please try again',
-                    buttons: ['OK']
-                });
-                alert.present();
             });
     }
 
@@ -462,6 +475,14 @@ export class HomePage {
         this._nav.push('ReservationPage');
     }
 
+    birthday_gifts(){
+        if(this.globals.branch_enabled == 1){
+            this._nav.push('ResturantListPage',{birthdaygift:2})
+        }
+        else{
+        this._nav.push('BirthdayGiftsPage');
+        }
+    }
   
 
 

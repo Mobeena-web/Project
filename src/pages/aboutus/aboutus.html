@@ -8,48 +8,55 @@
 </ion-header>
 
 
-<ion-content padding>
-  <ion-row >
-    <ion-col col-4>
-      <div class="fb">Days</div>
-      <div *ngFor="let day of daysInWeek">{{day}}</div>
+<ion-content >
+    <img *ngIf="aboutus?.image" src={{aboutus?.image}} class="myimage">
+  <div padding>
+    <h3  [innerHTML]="aboutus?.title">
+    </h3>
+    <h5 [innerHTML]="aboutus?.description"></h5>
+      <ion-row >
+          <ion-col col-4>
+            <div class="fb">Days</div>
+            <div *ngFor="let day of daysInWeek">{{day}}</div>
+            
+          </ion-col>
+            <ion-col col-4 text-center>
+            <div class="fb">Opening Time</div>
       
-    </ion-col>
-      <ion-col col-4 text-center>
-      <div class="fb">Opening Time</div>
-
-        <div *ngFor="let item of hours_operation">
-           {{item[0]}}
-        </div>
-       </ion-col>
-        <ion-col col-4 text-center>
-      <div class="fb">Closing Time</div>
-          <div *ngFor="let item of hours_operation">
-              {{item[1]}}
+              <div *ngFor="let item of hours_operation">
+                 {{item[0]}}
+              </div>
+             </ion-col>
+              <ion-col col-4 text-center>
+            <div class="fb">Closing Time</div>
+                <div *ngFor="let item of hours_operation">
+                    {{item[1]}}
+                </div>
+              </ion-col>
+      
+          
+        </ion-row>
+        <div #map id="mapabout"></div>
+      <h3 text-center>Reviews</h3>
+        <div *ngIf="length == 0">
+            <p style="margin: 0px;padding-top: 10%; padding-right:20px; padding-left:20px; text-align: center; font-size: 22px; color:#a8a3a3;"><ion-icon name="eye-off"></ion-icon></p>
+            <p no-margin style="padding-right:20px; padding-left:20px; text-align: center; font-size: 14px;">No reviews</p>
           </div>
-        </ion-col>
-
-    
-  </ion-row>
-  <div #map id="map"></div>
-<h3 text-center>Reviews</h3>
-  <div *ngIf="length == 0">
-      <p style="margin: 0px;padding-top: 10%; padding-right:20px; padding-left:20px; text-align: center; font-size: 22px; color:#a8a3a3;"><ion-icon name="eye-off"></ion-icon></p>
-      <p no-margin style="padding-right:20px; padding-left:20px; text-align: center; font-size: 14px;">No reviews</p>
-    </div>
-  
-    <ion-card  *ngFor="let review of reviewData" style="padding:5px;border-radius: 0px;border:1px solid #ccc">
-  
-      <!--   <ion-avatar style="margin: -55px 16px 8px 0 !important;" item-left>
-            <img src="https://api.adorable.io/avatars/75/{{review.title}}">
-          </ion-avatar> -->
-  
-      <h2 style="font-weight:normal;padding-left:10px"> {{review.description}}</h2>
-      <rating [(ngModel)]="review.rating" readOnly="true" max="5" emptyStarIconName="star-outline" halfStarIconName="star-half"
-        starIconName="star" nullable="false" (ngModelChange)="onModelChange($event)"></rating>
-      <p style="padding-left:10px;font-weight: bold">{{review.first_name}} {{review.last_name}}</p>
-  
-    </ion-card>
-
+        
+          <ion-card  *ngFor="let review of reviewData" style="padding:5px;border-radius: 0px;border:1px solid #ccc">
+        
+            <!--   <ion-avatar style="margin: -55px 16px 8px 0 !important;" item-left>
+                  <img src="https://api.adorable.io/avatars/75/{{review.title}}">
+                </ion-avatar> -->
+        
+            <h2 style="font-weight:normal;padding-left:10px"> {{review.description}}</h2>
+            <rating [(ngModel)]="review.rating" readOnly="true" max="5" emptyStarIconName="star-outline" halfStarIconName="star-half"
+              starIconName="star" nullable="false" (ngModelChange)="onModelChange($event)"></rating>
+            <p style="padding-left:10px;font-weight: bold">{{review.first_name}} {{review.last_name}}</p>
+        
+          </ion-card>
+      
+  </div>
+ 
 </ion-content>
 

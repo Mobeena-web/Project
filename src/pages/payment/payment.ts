@@ -11,12 +11,7 @@ import { CategoryPage } from "../category/category";
 import { OrderListingPage } from "../order-listing/order-listing";
 import { NativeStorage } from "@ionic-native/native-storage";
 import { ServerProvider } from "../../providers/server/server";
-/**
-* Generated class for the PaymentPage page.
-*
-* See http://ionicframework.com/docs/components/#navigation for more info
-* on Ionic pages and navigation.
-*/
+
 @IonicPage()
 @Component({
     selector: 'page-payment',

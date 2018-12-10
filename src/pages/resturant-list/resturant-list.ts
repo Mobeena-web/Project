@@ -78,7 +78,11 @@ export class ResturantListPage {
   myResp : any;
   GetAddress : any ;
   AdrressString : any ;
+  deals_flag:any;
+  birthday_flag:any;
   constructor(public toastCtrl: ToastController, private diagnostic: Diagnostic, public server: ServerProvider, public nativeStorage: NativeStorage, public events: Events, private app: App, public globals: GlobalVariable, public modalCtrl: ModalController, public alertCtrl: AlertController, private geolocation: Geolocation, public loadingCtrl: LoadingController, public http: Http, public navCtrl: NavController, public navParams: NavParams) {
+      this.deals_flag = this.navParams.get('deals');
+      this.birthday_flag = this.navParams.get('birthdaygift');
 
       this.date = new Date();
       this.min = this.date.getMinutes();
@@ -110,6 +114,12 @@ export class ResturantListPage {
           title: 'Distance'
       };
 
+  }
+  business_info(){
+      this.navCtrl.push('BranchesAboutusPage');
+  }
+  reviews(name,business_id,hours_operation,latitude,longitude,username){
+    this.navCtrl.push('AboutusPage',{name:name,business_id:business_id,hours_operation:hours_operation,latitude:latitude,longitude:longitude,username:username});
   }
 
   doInfinite(): Promise<any> {
@@ -316,7 +326,7 @@ export class ResturantListPage {
 
   }
 
-  OrderCategory( pickup_time, delivery_time,businessId, paypalId, discountvalue, stripeId, hours, min, time, deliveryFee, tax, delivery, pickup, admin_stripe, username, availed_discount_count, b_discount_count) {
+  OrderCategory( pickup_time, delivery_time,businessId, paypalId, discountvalue, stripeId, hours, min, time, deliveryFee, tax, delivery, pickup, admin_stripe, username, availed_discount_count, b_discount_count,cash_enabled) {
 
       this.globals.availed_discount_count = Number(availed_discount_count);
       this.globals.business_discount_count = Number(b_discount_count);
@@ -355,10 +365,28 @@ export class ResturantListPage {
       else {
           this.globals.minimun_order = Number(min);
       }
+
+    if(cash_enabled == '1'){
+        this.globals.cash_enabled = true;
+    }
+    else{
+        this.globals.cash_enabled = false;
+    }
      
-      this.navCtrl.push('CategoryPage', { pageflag: this.pageFlag, BusinessId: businessId, paypal: paypalId, discount: discountvalue });
-      // this.navCtrl.push('Modal2Page', { 'pickup' : pickup});
-      
+    if(this.deals_flag ==1){
+        this.navCtrl.push('OffersPage', { pageflag: this.pageFlag, BusinessId: businessId, paypal: paypalId, discount: discountvalue });
+
+    }
+    else if(this.birthday_flag == 2){
+       
+        this.navCtrl.push('BirthdayGiftsPage', { pageflag: this.pageFlag, BusinessId: businessId, paypal: paypalId, discount: discountvalue });
+
+    }
+    else{
+        this.navCtrl.push('CategoryPage', { pageflag: this.pageFlag, BusinessId: businessId, paypal: paypalId, discount: discountvalue });
+
+    }
+     
   }
 
   setFilteredItems() {

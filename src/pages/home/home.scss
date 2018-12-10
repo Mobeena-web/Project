@@ -2,11 +2,17 @@ page-home {
     .qrcode1{
 
         margin-top: 20px;
-        height: 80px;
+        height: 200px;
         width: auto;
         display: block;
-        margin-left: 23px;
+        margin-left: auto;
         margin-right: auto;
+        border: 5px solid #fff;
+        box-shadow: 0px 0px 20px #bbb;
+        border-radius: 5px;
+    }
+    .bak{
+        background: #eee;
     }
 
     .header_logo{
@@ -21,6 +27,7 @@ page-home {
         left: calc(50% - 32px);
         font-size: 55px;
         color: #333;
+        height: 64px;
     }
 
     .toolbar-background-md{
@@ -255,6 +262,9 @@ page-home {
 .height{
     min-height: 250px;
 }
+.qr-line{
+    line-height: 1.5;
+}
 
 .label4{
 
@@ -387,11 +397,29 @@ font-weight: bold;
       .order_btn{
           padding: 28px;
       }
-      .sof{
-        background: #ec008c;
-        padding: 10px;
+      .sof5{
+        background: #B33771;
+        padding: 12px;
         color: #fff;
         border-radius: 6px;
+        box-shadow: 0px 0px 20px #bbb;
+
+        ion-icon{
+            background: #fff;
+            color: #B33771;
+            height: 30px;
+            width: 30px;
+            padding-top: 8px;
+            border-radius: 50%;
+        }
+      }
+      .sof{
+        background: #ec008c;
+        padding: 32px;
+        color: #fff;
+        border-radius: 6px;
+        box-shadow: 0px 0px 20px #bbb;
+
         ion-icon{
             background: #fff;
             color: #ec008c;
@@ -402,17 +430,30 @@ font-weight: bold;
         }
       }
       .sof1{
-        background: #16a085;
-        padding: 10px;
-        color: #fff;
-        border-radius: 6px;
+        @extend .sof;
+        background: #20bf6b;
+       
         ion-icon{
-            background: #fff;
-            color: #16a085;
-            height: 30px;
-            width: 30px;
-            padding-top: 8px;
-            border-radius: 50%;
+           color: #20bf6b;
+            
+        }
+      }
+
+      .sof2{
+        @extend .sof;
+        background: #3498db;
+        ion-icon{
+            color: #3498db;
+        }
+      }
+
+      .sof3{
+        @extend .sof;
+        background: #f39c12;
+       
+        ion-icon{
+            color: #f39c12;
+           
         }
       }
       

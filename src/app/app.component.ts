@@ -233,6 +233,10 @@ OpenEvents(){
         this.nav.push('EventsPage');
     }
 }
+
+openGiftCard(){
+    this.nav.push('GiftcardsPage');
+}
 openRewards(){
     if(this.globals.guess_login){
         this.presentConfirm();
@@ -251,7 +255,12 @@ openReviews(){
 
 }
 openOrder(){
-    this.nav.push('ResturantListPage')
+    if(this.globals.branch_enabled == 1){
+        this.nav.push('ResturantListPage')
+    }
+    else{
+        this.nav.push('CategoryPage')
+    }
 }
 openHistory(){
     if(this.globals.guess_login){
@@ -457,15 +466,21 @@ modal(response, response_status, business, logo, image, string, bid) {
 
 }
 
+business_list(){
+    this.nav.push('BusinessListPage')
+}
+
 list() {
     let response = this.server.getRestaurantslist('100000', 'main', "0,0", '0', 'order');
     response.subscribe(data => {
         this.places = data.results;
         var new_id = this.globals.new_id;
+        console.log("places",this.places)
+        this.globals.business_list = this.places;
         this.places = this.places.filter(function(item) {
          return item.business_id === new_id;
        });
-       console.log("places",this.places)
+      
        this.globals.special_offer = this.places[0].special_offer;
        this.globals.events_enabled = this.places[0].events_enabled;
        this.globals.gallery_enabled = this.places[0].gallery_enabled;
@@ -473,6 +488,11 @@ list() {
        this.globals.latitude = this.places[0].latitude;
        this.globals.longitude = this.places[0].longitude;
        this.globals.hours_operation = this.places[0].hours_operation;
+       this.globals.branch_enabled = this.places[0].branch_enabled;
+       this.globals.giftcard_enabled = this.places[0].giftcard_enabled;
+       this.globals.b_logo = this.places[0].logo;
+       this.globals.StripId = this.places[0].stripe_id;
+
         if (this.globals.pickup == '1') {
             this.globals.pickup = true;
         }

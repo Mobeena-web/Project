@@ -83,6 +83,15 @@
         <splash height="480" src="resources/ios/splash/Default~iphone.png" width="320" />
         <splash height="2732" src="resources/ios/splash/Default@2x~universal~anyany.png" width="2732" />
     </platform>
+    <edit-config file="*-Info.plist" mode="merge" target="NSCameraUsageDescription">
+        <string>This app requires access to your camera to scan QR codes.</string>
+    </edit-config>
+    <edit-config file="*-Info.plist" mode="merge" target="NSLocationWhenInUseUsageDescription">
+        <string>This app requires access to your location for food delivery at your address.</string>
+    </edit-config>
+    <edit-config file="*-Info.plist" mode="merge" target="NSPhotoLibraryUsageDescription">
+        <string>This app requires access to your photos to store restaurant gallery images.</string>
+    </edit-config>
     <engine name="android" spec="7.0.0" />
     <engine name="ios" spec="4.5.5" />
     <plugin name="cordova-plugin-nativeaudio" spec="^3.0.9" />

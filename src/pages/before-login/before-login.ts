@@ -46,7 +46,12 @@ export class BeforeLoginPage {
   }
   guestlogin(){
     this.global.guess_login = true;
-    this.navCtrl.push('ResturantListPage');
+    if(this.global.branch_enabled == 1){
+      this.navCtrl.push('ResturantListPage')
+    }
+    else{
+        this.navCtrl.push('CategoryPage')
+    }
   }
 
 }

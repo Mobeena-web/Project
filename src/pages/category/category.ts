@@ -60,8 +60,7 @@ export class CategoryPage {
         this.business_id = this.globals.bussinessId;
         this.currentBusinessDiscount = "10";
         this.globals.BusinessDiscount = this.currentBusinessDiscount;
-        // this.list();
-        this.Categories();
+        
 
         this.getLocation();
 
@@ -69,7 +68,12 @@ export class CategoryPage {
         this.myChoice.pop();
 
         // this.toggleGroup(0);
-       
+        if(this.globals.branch_enabled != 1){
+            this.list();      
+        }
+        else{
+            this.Categories();
+        }
 
 
     }
@@ -79,15 +83,18 @@ export class CategoryPage {
             var date = new Date();
             var  day = date.getDay();
             var time = date.getHours();
-            console.log("day", "hours", day, time);
             var current_day = Timing[day];
-            console.log(current_day);
-            if (time < current_day[0] || time >= current_day[1]) {
-            return false;
+            if(current_day){
+                if (time < current_day[0] || time >= current_day[1]) {
+                    return false;
+                }
+                else {
+                    return true;
+                }
             }
-            else {
-            return true;
-            }
+            else{
+                return true;
+            }      
         }
         else{
             return true;

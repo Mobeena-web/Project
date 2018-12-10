@@ -1,34 +1,45 @@
 
 <ion-header>
-
-  <ion-navbar color='primary'>
+  <ion-navbar color="primary">
     <ion-title>Special Offers</ion-title>
-  </ion-navbar>
+    <ion-buttons end>
+        <button ion-button    (click)="cartpage()">
+            <ion-badge color="danger" *ngIf="globals.Product.length > 0">{{globals.Product.length}}</ion-badge>
+            <ion-icon name="cart" style="font-size: 2.5rem;"> </ion-icon>
+        </button>
 
+    </ion-buttons>
+</ion-navbar>
 </ion-header>
 
 
-<ion-content padding>
-  <div *ngIf="errorMenu == true">
-    <p style="padding-top: calc(50% - 11px); padding-right:20px; padding-left:20px; text-align: center; font-size: 22px; color:#a8a3a3;"><ion-icon name="eye-off"></ion-icon></p>
-    <p no-margin style="padding-right:20px; padding-left:20px; text-align: center; font-size: 14px;">No Offers</p>
+<ion-content padding style="background: #eee">
+        <div *ngIf="errorMenu == true">
+            <p style="padding-top: calc(50% - 11px); padding-right:20px; padding-left:20px; text-align: center; font-size: 22px; color:#333;"><ion-icon name="eye-off"></ion-icon></p>
+            <p no-margin style="padding-right:20px; padding-left:20px; text-align: center; font-size: 14px;">No Special Offers</p>
+        </div>
+  <div *ngFor="let d of category; let i=index">
+  
+    <div *ngIf="d.dealFlag == 'true'" >
+         <ion-card *ngFor="let a of d.items" >
+            <ion-row>
+                <ion-col col-5>
+                    
+                    <img class="itm-img" *ngIf="a.image" src="{{a.image}}">
+                    <img class="itm-img" *ngIf="a.image == '' || !a.image" src={{globals.b_logo}}>
+                </ion-col>
+                <ion-col col-7 padding-left>
+                     
+                    <p  style="color:#444;font-size:1.8rem;line-height: .9">{{a.name}} </p>
+                    <p  style="font-size:1.3rem;">{{a.tagline}} </p>
+                 
+                      <p>${{a.quantity * a.price | number : '1.2-2'}}</p>
+                  <button ion-button color='primary' class="or-" (click)="Detail(a.id,a.image,a.freeExtras)">Order Now</button>
+                </ion-col>
+               
+            </ion-row>
+        </ion-card>
+    </div>
 </div>
- 
-    <ion-card *ngFor="let item of offers" (click)="offerDetail(item)">
-      <ion-row>
-        <ion-col col-4>
-          <img src={{item.image}}>
-          <button margin-top ion-button block class="or">Order Now</button>
-
-        </ion-col>
-        <ion-col col-8>
-            <div class="myfontsize">{{item.title}}</div>
-            <div >{{item.date}}</div>
-
-        </ion-col>
-      </ion-row>
-      <!-- <div [innerHTML]="item.description"></div> -->
-      
-    </ion-card>
 
 </ion-content>
