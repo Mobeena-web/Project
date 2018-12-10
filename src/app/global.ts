@@ -106,6 +106,7 @@ export class GlobalVariable {
     b_logo:any;
     is_birthday:any;
     is_anniversary:any;
+    order_instructions:any;
     constructor(public alertCtrl: AlertController,public toastCtrl: ToastController) {
      this.BaseUrl = 'https://onlineordering.mikronexus.com/online-ordering-new/index.php/';
     }

@@ -1,8 +1,22 @@
 page-category {
+  .b_image{
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+   
+    margin: 19px 10px 0px 10px;
+    border-radius: 4px;
+
+  }
 
   ion-card{
     border-radius: 7px !important;
     padding: 5px;
+    margin-top: 0px !important;
+  }
+  .overlay{
+    background: rgba(0,0,0,.3);
+    margin: 0px !important;
   }
   .accrodian{
     font-size: 1.9rem;
@@ -11,15 +25,16 @@ page-category {
     padding-left: 50px;
     color: #fff;
     margin-bottom: 0px;
-    border-radius: 10px 10px 0px 0px;
+    border-radius: 4px;
     margin-right: 10px;
     margin-left: 10px;
     transition: 0.9s;
-
+    text-shadow: 0px 0px 20px #000;
     ion-icon{
       float:right;padding-right:5px;padding-top:6px
     }
   }
+ 
   .cat-img1{
     position: absolute;
     z-index: 999;
@@ -28,6 +43,9 @@ page-category {
     height: 65px;
     object-fit: contain;
   }
+  .content {
+    background-color: #efefef;
+}
   .u-d{
     color: #333;
     font-size: 12px;

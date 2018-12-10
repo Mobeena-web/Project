@@ -142,33 +142,12 @@ export class MyRewardsPage {
         });
         loading.present();
 
-        let response = this.server.getUserLotteryRewards(this.coordinates);
+        let response = this.server.getUserLotteryRewards_new();
         response.subscribe(data => {
-            this.data.response = data;
-            this.reward = this.data.response.rewards;
-            this.Status = this.data.response.status;
-            console.log(this.reward, data);
+            this.lotery = data;
+          
             loading.dismiss();
-            if (this.Status == "error") {
-                this.gain_flag = true;
-
-            }
-
-            else {
-                this.lotery = this.reward;
-                this.lotery.forEach(element => {
-                    if (element.reward_string == 'null') {
-                        element.isnumber = true;
-                    }
-                    else {
-                        element.isnumber = false;
-                    }
-                });
-
-
-                this.gain_flag = false;
-
-            }
+            
         }, error => {
             console.log("Oooops!");
             loading.dismiss();

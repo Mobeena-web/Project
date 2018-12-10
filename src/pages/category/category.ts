@@ -79,17 +79,19 @@ export class CategoryPage {
     }
 
     checkTiming(Timing) {
-        if(Timing){
+
+        if(Timing.length > 0){
             var date = new Date();
             var  day = date.getDay();
             var time = date.getHours();
             var current_day = Timing[day];
+  
             if(current_day){
-                if (time < current_day[0] || time >= current_day[1]) {
-                    return false;
+                if((current_day[0] <= this.time && current_day[1] > this.time) || (current_day[0] <= this.time && current_day[1] < current_day[0]) || (current_day[1] == 'opened' && current_day[1] == 'opened')){
+                    return true;
                 }
                 else {
-                    return true;
+                    return false;
                 }
             }
             else{

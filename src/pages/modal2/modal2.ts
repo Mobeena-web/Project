@@ -176,6 +176,7 @@ export class Modal2Page {
    
     this.type = this.globals.OrderType;
     localStorage.setItem("segmentvalue",this.settings);
+    console.log("My Date ",this.myDate);
     // var future_date = new Date(this.myDate);
     // console.log(future_date);
     // var future_day = future_date.getDay();
@@ -204,20 +205,21 @@ export class Modal2Page {
           let current_day = this.globals.Timing[this.day];
           // this.time = this.time.toString();
           if (current_day[0] != 'opened') {
-              if (Number(this.time) <= Number(current_day[0]) || Number(this.time) >= Number(current_day[1]) || current_day[0] == 'closed') {
-                  let alert = this.alertCtrl.create({
-                      title: 'Sorry',
-                      subTitle: 'Restaurants currently closed.',
-                      buttons: ['OK']
-                  });
-                  alert.present();
-               
-                  return false;
+            if((Number(current_day[0]) <= Number(this.time) && Number(current_day[1]) > Number(this.time)) || (Number(current_day[0]) <= Number(this.time) && Number(current_day[1]) < Number(current_day[0])) ||  (current_day[0] == 'opened')){
+                 
+                  this.viewCtrl.dismiss('CategoryPage');
+                  this.presentModal();
+                    return true;
               }
               else {
-                this.viewCtrl.dismiss('CategoryPage');
-                this.presentModal();
-                  return true;
+                let alert = this.alertCtrl.create({
+                    title: 'Sorry',
+                    subTitle: 'Restaurants currently closed.',
+                    buttons: ['OK']
+                });
+                alert.present();
+             
+                return false;
               }
           }
           else {
@@ -235,6 +237,7 @@ export class Modal2Page {
       var future_date = new Date(this.myDate);
       var future_day = future_date.getDay();
       this.myDate = this.myDate.toString();
+      
       this.future_hours = future_date.getHours();
       this.future_min = future_date.getMinutes();
   
@@ -300,21 +303,22 @@ export class Modal2Page {
           // this.time = this.time.toString();
          
           if (current_day[0] != 'opened') {
-              if (Number(this.time) <= Number(current_day[0]) || Number(this.time) >= Number(current_day[1]) || current_day[0] == 'closed') {
-                  let alert = this.alertCtrl.create({
-                      title: 'Sorry',
-                      subTitle: 'Restaurants currently closed.',
-                      buttons: ['OK']
-                  });
-                  alert.present();
-
-                   return false;
-              }
-              else {
+            if((Number(current_day[0]) <= Number(this.time) && Number(current_day[1]) > Number(this.time)) || (Number(current_day[0]) <= Number(this.time) && Number(current_day[1]) < Number(current_day[0])) ||  (current_day[0] == 'opened')){
+                 
                 this.viewCtrl.dismiss('CategoryPage');
                 this.presentModal();
                   return true;
-              }
+            }
+            else {
+              let alert = this.alertCtrl.create({
+                  title: 'Sorry',
+                  subTitle: 'Restaurants currently closed.',
+                  buttons: ['OK']
+              });
+              alert.present();
+           
+              return false;
+            }
           }
           else {
               console.log("$$$elseeeee");

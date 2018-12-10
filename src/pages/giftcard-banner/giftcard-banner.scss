@@ -1,0 +1,38 @@
+page-giftcard-banner {
+    .bl{
+        border-left: 1px dashed #333;
+    }
+    .background_{
+        background: #ccc;
+    }
+    .gc{
+        font-size: 25px;
+        text-align: center;
+        padding-top: 14px;
+    }
+    .pt{
+        padding-top: 5px;
+    }
+    .names{
+        line-height: .9;
+        margin-top: 10px;
+    }
+    .share{
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 6px; 
+    }
+    ion-card{
+        border-radius: 7px !important;
+    }
+    .time{
+        margin-top: 10px;
+    }
+    img{
+        height: 180px;
+        border-radius: 7px;
+        object-fit: cover;
+        width: 100%;
+    }
+}

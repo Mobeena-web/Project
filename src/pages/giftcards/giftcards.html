@@ -15,22 +15,14 @@
 </ion-header>
 
 
-<ion-content padding class="background_">
+<ion-content padding >
   <div [ngSwitch]="giftcard">
     <ion-list *ngSwitchCase="'notbuyed'">
-     <ion-card *ngFor='let item of gifts'>
-       <ion-row>
-         <ion-col col-8 >
-          <h3 class="gc">${{item.amount}}</h3>
-          <!-- <div class="names">Usman Arshad</div>
-          <div>usman@gmail.com</div> -->
-         </ion-col>
-         <ion-col col-4 class="bl">
-          <button ion-button color='primary' class="share" (click)="buy(item.giftcard_id)">Buy</button>
-
-         </ion-col>
-       </ion-row>
-     </ion-card>
+      <h3 text-center>Select Card Design</h3>
+     <div *ngFor="let banners of banner" style="height:100%" (click)="buy(banners)">
+        <img style="height: 173px; width:100% !important;border-radius: 7px;object-fit: cover" src="{{banners?.image}}">
+     </div>
+    
     </ion-list>
   
     <ion-list *ngSwitchCase="'buyed'">

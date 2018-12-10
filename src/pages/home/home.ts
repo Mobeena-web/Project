@@ -68,6 +68,7 @@ export class HomePage {
     punch_limt_:any;
     punch_:any;
     email:any;
+    today_message:any;
     constructor(private geolocation: Geolocation,private diagnostic: Diagnostic,public app: App, public server: ServerProvider, public globals: GlobalVariable, private nativeAudio: NativeAudio, private iab: InAppBrowser, private nativeStorage: NativeStorage, public loadingCtrl: LoadingController, public modalCtrl: ModalController, public _nav: NavController, public _navParams: NavParams, public alertCtrl: AlertController, public platform: Platform) {
         if(!this.globals.guess_login){
              this.reward_notification();
@@ -82,7 +83,9 @@ export class HomePage {
         this.barocde_image = _navParams.get('imageData');
         localStorage.removeItem("GetAddress");
         localStorage.removeItem("scheduled_time");
+
     }
+   
 
     orderNow(){
         if(this.globals.branch_enabled == 1){
@@ -308,8 +311,8 @@ export class HomePage {
     }
 
     ionViewDidLoad() {
-        
         this.getLocation();
+           
         if (this.globals.Product.length > 0) {
             this.globals.cartflag = true;
         }
@@ -423,6 +426,7 @@ export class HomePage {
             this.ring_image = this.banner.ring_image;
             this.globals.is_anniversary = this.banner.is_anniversary;
             this.globals.is_birthday = this.banner.is_birthday;
+            // this.globals.is_birthday = true;
            
             this.content.resize();
 
@@ -430,10 +434,24 @@ export class HomePage {
                     let mobile_update = this.modalCtrl.create('MobileUpdatePage');
                     mobile_update.present();
             }
+         
         }
             , error => {
             });
     }
+
+    ngAfterViewInit(){
+        setTimeout( ()=>{
+            var date = new Date();
+            var day = date.getDay();
+            console.log("gh",this.globals.hours_operation)
+            if(this.globals.hours_operation && this.globals.hours_operation[day]){
+                
+                var current_day = this.globals.hours_operation[day];
+                this.today_message = current_day[2];
+        }
+        }, 3000)
+      }
 
 
 

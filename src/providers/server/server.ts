@@ -138,6 +138,14 @@ getdeals(){
       .map((res: any) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
+
+  getUserLotteryRewards_new() {
+    var link = this.global.BaseUrl + 'Customer_controller/get_rewards_new';
+    var data = JSON.stringify({ business_id:this.global.new_id,udid: this.global.udid });
+    return this.http.post(link, data)
+      .map((res: any) => res.json())
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+  }
   SendQRcodeToServer(barcodeData) {
     var link = this.global.BaseUrl + 'Customer_controller/scanqr';
     var request = JSON.stringify({ udid: this.global.udid, businessname: barcodeData });
@@ -311,6 +319,14 @@ getdeals(){
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
 
+  my_gift_cards_design() {
+    var link = (this.global.BaseUrl + 'giftcard/get_giftcard_designs');
+    var data = JSON.stringify({ business_id: this.global.new_id});
+    return this.http.post(link, data)
+      .map((res: any) => res.json())
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+  }
+
   search_user(email) {
     var link = (this.global.BaseUrl + 'giftcard/search_user');
     var data = JSON.stringify({ business_id: this.global.new_id , email: email});
@@ -327,9 +343,9 @@ getdeals(){
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
 
-  buy_gift_cards(token,id,udid_r) {
+  buy_gift_cards(token,id,udid_r,design_id) {
     var link = (this.global.BaseUrl + 'giftcard/buy_giftcard');
-    var data = JSON.stringify({udid_r:udid_r, business_id: this.global.new_id, udid_s: this.global.udid,token:token, giftcard_id:id});
+    var data = JSON.stringify({udid_r:udid_r, business_id: this.global.new_id, udid_s: this.global.udid,token:token, giftcard_id:id,design_id:design_id});
     return this.http.post(link, data)
       .map((res: any) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));

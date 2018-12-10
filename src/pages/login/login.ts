@@ -69,7 +69,7 @@ export class LoginPage {
                 
                 if (this.data.response != "invalid") {
                     this.globals.guess_login = false;
-                     this.navCtrl.setRoot(HomePage,{imageData:this.data.response.url,Flag:false});
+                     //this.navCtrl.setRoot(HomePage,{imageData:this.data.response.url,Flag:false});
                     //this.navCtrl.push('AcceptTermsPage');
                     this.globals.udid = this.data.response.udid;
                   

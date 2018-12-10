@@ -78,18 +78,19 @@ export class OffersPage {
 }
 
 checkTiming(Timing) {
-    if(Timing){
+    console.log("timming",Timing)
+    if(Timing.length > 0){
         var date = new Date();
         var  day = date.getDay();
         var time = date.getHours();
         console.log("day", "hours", day, time);
         var current_day = Timing[day];
         console.log(current_day);
-        if (time < current_day[0] || time >= current_day[1]) {
-        return false;
+        if((current_day[0] <= this.time && current_day[1] > this.time) || (current_day[0] <= this.time && current_day[1] < current_day[0])  || (current_day[1] == 'opened' && current_day[1] == 'opened')){
+            return true;
         }
         else {
-        return true;
+            return false;
         }
     }
     else{
@@ -285,7 +286,7 @@ Categories() {
 
     });
     loading.present();
-    let response = this.server.GetBusinessMenuCategories(this.globals.new_id);
+    let response = this.server.GetBusinessMenuCategories(this.globals.bussinessId);
     response.subscribe(data => {
         this.data = data;
         loading.dismiss();
@@ -310,6 +311,7 @@ Categories() {
         var checkoffers = this.category.filter(function(item) {
             return item.dealFlag == 'true';
           });
+          console.log(checkoffers,"ff")
           if(checkoffers.length == 0){
             this.errorMenu = true;
           }
