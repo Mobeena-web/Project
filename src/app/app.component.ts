@@ -492,6 +492,7 @@ list() {
        this.globals.giftcard_enabled = this.places[0].giftcard_enabled;
        this.globals.b_logo = this.places[0].logo;
        this.globals.StripId = this.places[0].stripe_id;
+       this.globals.order_instructions = this.places[0].instructions_enabled;
 
         if (this.globals.pickup == '1') {
             this.globals.pickup = true;
