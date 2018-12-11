@@ -94,7 +94,6 @@ export class ModalPage {
   })
 
     // this.unregisterBackButtonAction && this.unregisterBackButtonAction(); 
-   this.getdata();
    plt.registerBackButtonAction(() => {
   },1);
 
@@ -103,26 +102,47 @@ export class ModalPage {
     // this.viewCtrl.dismiss();
     this.navCtrl.popToRoot();
   }
+
+   tConvert (time) {
+    // Check correct time format and split into components
+    time = time.toString ().match (/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [time];
+  
+    if (time.length > 1) { // If time format correct
+      time = time.slice (1);  // Remove full string match value
+      time[5] = +time[0] < 12 ? 'AM' : 'PM'; // Set AM/PM
+      time[0] = +time[0] % 12 || 12; // Adjust hours
+    }
+    return time.join (''); // return adjusted time or original string
+  }
   
   getdata(){
     this.time =  localStorage.getItem("scheduled_time");
-    
-    this.date = new Date(new Date().setHours(new Date().getHours() + 2));
-    console.log("Storage Time from modal ", this.date);
-    
-     let timeis = new Date(this.date).toLocaleString('en-US', { hour12: true });
-     console.log("Time from modal 2 ", timeis);
-     console.log("Time from modal 2 Date ", this.date);
-    //             this.date = new Date(local_datetime);
+    console.log(this.time,"to")
+    if(this.time){
+      var res = this.time.split("T");
+
+      var res1 = res[1].split(".")
+      this.datenow = res[0] + ' '+ this.tConvert(res1[0]);
+      this.convertDate = res[0] + ' '+ this.tConvert(res1[0]);
+      // this.date = new Date(this.time );
+      // var timeis = new Date(this.time).toLocaleString('en-US', { hour12: true });
+    }
+    else{
+      this.date = new Date(new Date().setHours(new Date().getHours()));
+      var timeis = new Date(this.date).toLocaleString('en-US', { hour12: true });
+      this.datenow = timeis ;
+   
+      this.convertDate = timeis ;
+    }
+  
+    //this.date = new Date(local_datetime);
                
       // let timeis =  new Date(this.time).toJSON().split('T')[0];
     // this.convertDate.toString();
-    let hourss = this.date.getHours();
-    let mins = this.date.getMinutes();
-  let dayyy = this.date;
-    this.datenow = timeis ;
-   
-     this.convertDate = this.datenow ;
+  //   let hourss = this.date.getHours();
+  //   let mins = this.date.getMinutes();
+  // let dayyy = this.date;
+
     //   let local_datetime = new Date(this.time).toLocaleString('en-US', { hour12: false });
     //       this.date = new Date(local_datetime );
     // console.log("getting time", localStorage.getItem("scheduled_time"),this.convertDate , "local date", this.date);
@@ -212,14 +232,19 @@ export class ModalPage {
       //   this.reverseGeoCoding(resp.coords.latitude, resp.coords.longitude);
       // });
 
-
+      this.getdata();
+    console.log(this.globals.OrderType,this.type,"op")
       if(!this.globals.OrderType){
 
         if(this.order_pickup && !this.order_delivery){
           this.type = "pickup";
+          this.globals.OrderType = this.type;
+
         }
         else if(this.order_delivery && this.order_pickup){
           this.type = "delivery";
+          this.globals.OrderType = this.type;
+
         }
       }
       else{
