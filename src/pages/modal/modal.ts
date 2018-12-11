@@ -107,10 +107,17 @@ export class ModalPage {
   getdata(){
     this.time =  localStorage.getItem("scheduled_time");
     
-    this.date = new Date(new Date().setHours(new Date().getHours() + 2));
-    console.log("Storage Time from modal ", this.date);
+    if(this.time){
+      this.date = new Date(this.time );
+      var timeis = new Date(this.time).toLocaleString('en-US', { hour12: false });
+    }
+    else{
+      this.date = new Date(new Date().setHours(new Date().getHours() + 2));
+      var timeis = new Date(this.date).toLocaleString('en-US', { hour12: true });
+
+    }
+      console.log("Storage Time from modal ", this.date);
     
-     let timeis = new Date(this.date).toLocaleString('en-US', { hour12: true });
      console.log("Time from modal 2 ", timeis);
      console.log("Time from modal 2 Date ", this.date);
     //             this.date = new Date(local_datetime);
