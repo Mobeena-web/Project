@@ -94,7 +94,6 @@ export class ModalPage {
   })
 
     // this.unregisterBackButtonAction && this.unregisterBackButtonAction(); 
-   this.getdata();
    plt.registerBackButtonAction(() => {
   },1);
 
@@ -106,10 +105,10 @@ export class ModalPage {
   
   getdata(){
     this.time =  localStorage.getItem("scheduled_time");
-    
+    console.log(this.time,"to")
     if(this.time){
       this.date = new Date(this.time );
-      var timeis = new Date(this.time).toLocaleString('en-US', { hour12: false });
+      var timeis = new Date(this.time).toLocaleString('en-US', { hour12: true });
     }
     else{
       this.date = new Date(new Date().setHours(new Date().getHours() + 2));
@@ -219,14 +218,19 @@ export class ModalPage {
       //   this.reverseGeoCoding(resp.coords.latitude, resp.coords.longitude);
       // });
 
-
+      this.getdata();
+    console.log(this.globals.OrderType,this.type,"op")
       if(!this.globals.OrderType){
 
         if(this.order_pickup && !this.order_delivery){
           this.type = "pickup";
+          this.globals.OrderType = this.type;
+
         }
         else if(this.order_delivery && this.order_pickup){
           this.type = "delivery";
+          this.globals.OrderType = this.type;
+
         }
       }
       else{

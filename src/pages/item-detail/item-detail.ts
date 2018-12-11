@@ -3,6 +3,8 @@ import { IonicPage, NavController, NavParams, ModalController, LoadingController
 import { GlobalVariable } from '../../app/global';
 import { CategoryPage } from "../category/category";
 import { ServerProvider } from "../../providers/server/server";
+import { PhotoViewer } from '@ionic-native/photo-viewer';
+
 /**
  * Generated class for the ItemDetailPage page.
  *
@@ -56,7 +58,7 @@ export class ItemDetailPage {
   extraChecked: boolean = false;
   instructions : any;
   item_price:any = 0;
-  constructor(public server: ServerProvider, public alertCtrl: AlertController, public loadingCtrl: LoadingController, public globals: GlobalVariable, public modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams, private toastCtrl: ToastController) {
+  constructor(private photoViewer: PhotoViewer,public server: ServerProvider, public alertCtrl: AlertController, public loadingCtrl: LoadingController, public globals: GlobalVariable, public modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams, private toastCtrl: ToastController) {
 
     this.thumbimage = navParams.get('image');
   
@@ -78,6 +80,10 @@ export class ItemDetailPage {
   presentModal() {
     let modal = this.modalCtrl.create('InstructionModalPage');
     modal.present();
+  }
+
+  image_show(image){
+    this.photoViewer.show(image, '', {share: true});
   }
 
   cartpage() {

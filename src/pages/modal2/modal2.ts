@@ -193,6 +193,8 @@ export class Modal2Page {
     if (this.type = "delivery") {
       
         if (this.globals.Timing) {
+          console.log(this.type,this.myDate,"kl")
+
           let local_datetime = new Date(this.myDate).toLocaleString('en-US', { hour12: true });
           this.date = new Date(local_datetime );
          // var future_day = future_date.getDay();
