@@ -109,7 +109,7 @@ export class Modal2Page {
       this.new_time = new Date (this.current_Time + ( this.deliveryTime*60*1000));
       this.globals.DeliveryTime = this.new_time;
       
-      localStorage.setItem("scheduled_time",this.new_time);
+      localStorage.setItem("scheduled_time","");
       
     console.log("add pickup time",this.new_time);
     // this.nativeStorage.setItem('orderdetail', {
@@ -195,15 +195,15 @@ export class Modal2Page {
         if (this.globals.Timing) {
           console.log(this.type,this.myDate,"kl")
 
-          let local_datetime = new Date(this.myDate).toLocaleString('en-US', { hour12: true });
+          let local_datetime = new Date(this.myDate).toLocaleString('en-US', {timeZone:"America/New_York" , hour12: true });
+          console.log(local_datetime,this.myDate,"kl")
+
           this.date = new Date(local_datetime );
-         // var future_day = future_date.getDay();
-        //   this.myDate = this.myDate.toSetring();
           this.day = this.date.getDay(this.date);
           this.time = this.date.getHours();
           this.min = this.date.getMinutes();
           this.time = this.time + "." + this.min;
-          localStorage.setItem("scheduled_time",  this.date );
+          localStorage.setItem("scheduled_time",  this.myDate );
           let current_day = this.globals.Timing[this.day];
           // this.time = this.time.toString();
           if (current_day[0] != 'opened') {
@@ -249,7 +249,7 @@ export class Modal2Page {
       if (this.globals.Timing) {
   
           var current_day = this.globals.Timing[future_day];
-          localStorage.setItem("scheduled_time", current_day);
+          localStorage.setItem("scheduled_time", this.myDate);
           //  console.log(parseFloat(time) , parseFloat(current_day[0]),parseFloat(current_day[1]))
           if (current_day[0] != 'opened') {
               if (Number(this.future_time) <= Number(current_day[0]) || Number(this.future_time) >= Number(current_day[1]) || current_day[0] == 'closed') {
@@ -300,7 +300,7 @@ export class Modal2Page {
           this.min = this.date.getMinutes();
           this.time = this.time + "." + this.min;
          
-           localStorage.setItem("scheduled_time", this.date);
+           localStorage.setItem("scheduled_time", this.myDate);
           let current_day = this.globals.Timing[this.day];
           // this.time = this.time.toString();
          
@@ -351,7 +351,7 @@ export class Modal2Page {
 
           var current_day = this.globals.Timing[future_day];
 
-          localStorage.setItem("scheduled_time", current_day);
+          localStorage.setItem("scheduled_time", this.myDate);
 
           //  console.log(parseFloat(time) , parseFloat(current_day[0]),parseFloat(current_day[1]))
           if (current_day[0] != 'opened') {
