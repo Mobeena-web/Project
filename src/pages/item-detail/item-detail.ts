@@ -207,30 +207,34 @@ export class ItemDetailPage {
 
 
   showPrompt() {
-    let prompt = this.alertCtrl.create({
-      title: 'Warning!',
-      message: "Are you sure you want to switch Restaurant? This will clear your current cart.",
+    // let prompt = this.alertCtrl.create({
+    //   title: 'Warning!',
+    //   message: "Are you sure you want to switch Restaurant? This will clear your current cart.",
 
-      buttons: [
-        {
-          text: 'Cancel',
-          handler: data => {
-            console.log('Cancel clicked');
-          }
-        },
-        {
-          text: 'OKAY',
-          handler: data => {
-            this.globals.Product.length = 0;
-            this.globals.BusinessID = this.Business_id;
-            this.globals.BusinessDiscount = this.CurrentBusinessDiscount;
-            this.AddtoCart();
+    //   buttons: [
+    //     {
+    //       text: 'Cancel',
+    //       handler: data => {
+    //         console.log('Cancel clicked');
+    //       }
+    //     },
+    //     {
+    //       text: 'OKAY',
+    //       handler: data => {
+    //         this.globals.Product.length = 0;
+    //         this.globals.BusinessID = this.Business_id;
+    //         this.globals.BusinessDiscount = this.CurrentBusinessDiscount;
+    //         this.AddtoCart();
 
-          }
-        }
-      ]
-    });
-    prompt.present();
+    //       }
+    //     }
+    //   ]
+    // });
+    // prompt.present();
+    this.globals.Product.length = 0;
+    this.globals.BusinessID = this.Business_id;
+    this.globals.BusinessDiscount = this.CurrentBusinessDiscount;
+    this.AddtoCart();
   }
 
 
