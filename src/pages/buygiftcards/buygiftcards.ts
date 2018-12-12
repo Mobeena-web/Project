@@ -26,6 +26,8 @@ PaymentForm: FormGroup;
 gift_id:any;
 udid_r:any;
 design_card:any;
+message:any;
+amount:any;
   constructor(public server: ServerProvider, private nativeStorage: NativeStorage, public alertCtrl: AlertController, public loadingCtrl: LoadingController, public globals: GlobalVariable,public viewCtrl: ViewController, public formBuilder: FormBuilder, public stripe: Stripe, public http: Http, public navCtrl: NavController, public navParams: NavParams) {
     this.PaymentForm = formBuilder.group({
       creditcardno: ['', Validators.compose([Validators.minLength(10), Validators.maxLength(16), Validators.pattern('[0-9]*'), Validators.required])],
@@ -37,8 +39,11 @@ design_card:any;
   this.gift_id = this.navParams.get('gift_id');
   this.udid_r = this.navParams.get('udid_r');
   this.design_card = this.navParams.get('design_id');
+  this.message = this.navParams.get('message');
+  this.amount = this.navParams.get('amount');
 
-  console.log(this.udid_r,"mm",this.gift_id,this.design_card);
+
+  console.log(this.udid_r,"mm",this.gift_id,this.design_card,this.message,this.amount);
   }
 
   ionViewDidLoad() {
@@ -101,7 +106,7 @@ design_card:any;
             this.stripe.setPublishableKey(this.globals.StripId);
             this.stripe.createCardToken(this.cardinfo).then((Token) => {
                
-                let response = this.server.buy_gift_cards( Token.id, this.gift_id,this.udid_r,this.design_card)
+                let response = this.server.buy_gift_cards( Token.id, this.gift_id,this.udid_r,this.design_card,this.amount,this.message)
                 console.log("response without json", response);
                 response.subscribe(data => {
                     console.log("data without json", data);

@@ -110,10 +110,12 @@ export class ItemDetailPage {
   checkTiming() {
     this.date = new Date();
     this.day = this.date.getDay();
-    this.time = this.date.getHours();
+    this.time = this.date.getHours()+ "." + this.date.getMinutes();
+    this.time = Number(this.time);
+
     var current_day = this.globals.Timing[this.day];
     console.log(current_day,"cd")
-    if((current_day[0] <= this.time && current_day[1] > this.time) || (current_day[0] <= this.time && current_day[1] < current_day[0]) || (current_day[1] == 'opened' && current_day[1] == 'opened')){
+    if((Number(current_day[0]) <= this.time && Number(current_day[1]) > this.time) || (Number(current_day[0]) <= this.time && Number(current_day[1]) < Number(current_day[0])) || (current_day[1] == 'opened' && current_day[1] == 'opened')){
     // if (this.time < current_day[0] || this.time >= current_day[1]) {
       return true;
       
@@ -205,30 +207,34 @@ export class ItemDetailPage {
 
 
   showPrompt() {
-    let prompt = this.alertCtrl.create({
-      title: 'Warning!',
-      message: "Are you sure you want to switch Restaurant? This will clear your current cart.",
+    // let prompt = this.alertCtrl.create({
+    //   title: 'Warning!',
+    //   message: "Are you sure you want to switch Restaurant? This will clear your current cart.",
 
-      buttons: [
-        {
-          text: 'Cancel',
-          handler: data => {
-            console.log('Cancel clicked');
-          }
-        },
-        {
-          text: 'OKAY',
-          handler: data => {
-            this.globals.Product.length = 0;
-            this.globals.BusinessID = this.Business_id;
-            this.globals.BusinessDiscount = this.CurrentBusinessDiscount;
-            this.AddtoCart();
+    //   buttons: [
+    //     {
+    //       text: 'Cancel',
+    //       handler: data => {
+    //         console.log('Cancel clicked');
+    //       }
+    //     },
+    //     {
+    //       text: 'OKAY',
+    //       handler: data => {
+    //         this.globals.Product.length = 0;
+    //         this.globals.BusinessID = this.Business_id;
+    //         this.globals.BusinessDiscount = this.CurrentBusinessDiscount;
+    //         this.AddtoCart();
 
-          }
-        }
-      ]
-    });
-    prompt.present();
+    //       }
+    //     }
+    //   ]
+    // });
+    // prompt.present();
+    this.globals.Product.length = 0;
+    this.globals.BusinessID = this.Business_id;
+    this.globals.BusinessDiscount = this.CurrentBusinessDiscount;
+    this.AddtoCart();
   }
 
 

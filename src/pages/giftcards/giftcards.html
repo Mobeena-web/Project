@@ -18,10 +18,16 @@
 <ion-content padding >
   <div [ngSwitch]="giftcard">
     <ion-list *ngSwitchCase="'notbuyed'">
-      <h3 text-center>Select Card Design</h3>
-     <div *ngFor="let banners of banner" style="height:100%" (click)="buy(banners)">
-        <img style="height: 173px; width:100% !important;border-radius: 7px;object-fit: cover" src="{{banners?.image}}">
-     </div>
+    <div *ngFor="let b of banner">
+        <h5 text-center>{{b?.category_name}}</h5>
+    
+        <ion-slides pager *ngIf="b.design_list" style="height:110px" autoplay="2000" speed="3000"  slidesPerView="4" autoplayDisableOnInteraction="false">
+         <ion-slide *ngFor="let banners of b.design_list" style="height:100%" (click)="buy(banners)">
+           <img style="height: 100px; width:100% !important;border-radius: 7px;object-fit: cover" src="{{banners?.image}}">
+         </ion-slide>
+     </ion-slides>
+    </div>
+     
     
     </ion-list>
   
