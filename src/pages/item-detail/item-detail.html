@@ -113,9 +113,10 @@
         
             <ion-row style="border-bottom: solid thin #ccc;">
               <ion-col col-9>
-                  <p *ngIf="toppings.heading != ''" style="font-size: 1.6rem;padding:7px;color:black; ">
+                  <p *ngIf="toppings.heading != ''" style="font-size: 1.6rem;padding:7px;color:black; line-height: 0">
                       {{toppings.heading}}
-                      <p>
+                  </p>
+                        <small>{{toppings.sub_heading}}</small>
               </ion-col>
               <ion-col col-3 *ngIf="toppings.min" style="margin:auto">
                   <ion-badge item-end color='primary'>Required</ion-badge>
