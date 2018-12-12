@@ -15,6 +15,8 @@ design_id:any;
 gifts:any;
 amount:any;
 otherselected:boolean = false;
+card_id:any;
+message:any;
   constructor(public alertCtrl:AlertController,public loadingCtrl: LoadingController, public server: ServerProvider, public global: GlobalVariable,public navCtrl: NavController, public navParams: NavParams) {
    this.card_banner =  this.navParams.get('banner');
    this.get_gift_cards();
@@ -22,8 +24,7 @@ otherselected:boolean = false;
   }
   buy(id){
     this.otherselected = false;
-
-    this.showConfirm(id);
+    this.card_id = id;
 
   }
   otherselect(){
@@ -59,7 +60,7 @@ showConfirm(id) {
       {
         text: 'Buy',
         handler: () => {
-           this.navCtrl.push('BuygiftcardsPage',{gift_id:id,udid_r:this.global.udid,design_id:this.design_id});   
+           this.navCtrl.push('BuygiftcardsPage',{gift_id:id,udid_r:this.global.udid,design_id:this.design_id,amount:this.amount,message:this.message});   
         }
       },
       {
@@ -144,7 +145,7 @@ search_user(email,id){
 
       }
       else{
-          this.navCtrl.push('BuygiftcardsPage',{gift_id:id,udid_r:data[0].udid,design_id:this.design_id}); 
+          this.navCtrl.push('BuygiftcardsPage',{gift_id:id,udid_r:data[0].udid,design_id:this.design_id,amount:this.amount,message:this.message}); 
       }
       loading.dismiss();
   
@@ -166,7 +167,7 @@ create_new(email,fname,lname,id){
   let response = this.server.craete_user(email,fname,lname);
   response.subscribe(data => {
      if(data.status == true){
-      this.navCtrl.push('BuygiftcardsPage',{gift_id:id,udid_r:data.udid,design_id:this.design_id}); 
+      this.navCtrl.push('BuygiftcardsPage',{gift_id:id,udid_r:data.udid,design_id:this.design_id,amount:this.amount,message:this.message}); 
 
      }
      else{
@@ -219,6 +220,17 @@ showPrompt_craete_user(email,id) {
 validateEmail(email) {
   var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return re.test(String(email).toLowerCase());
+}
+
+proceed(){
+  if(this.otherselected){
+    this.showConfirm('');
+
+  }
+  else{
+    this.showConfirm(this.card_id);
+
+  }
 }
 
 }

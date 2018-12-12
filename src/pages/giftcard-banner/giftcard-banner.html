@@ -27,6 +27,11 @@
   <ion-input type="number" [(ngModel)]="amount"></ion-input>
 </ion-item>
 
+<ion-item>
+    <ion-label color="primary" floating>Message</ion-label>
+    <ion-input type="text"  [(ngModel)]="message"></ion-input>
+  </ion-item>
+
 <!-- <ion-card *ngFor='let item of gifts'>
        <ion-row>
          <ion-col col-8 >
@@ -38,5 +43,5 @@
          </ion-col>
        </ion-row>
      </ion-card> -->
-     <button ion-button block>Proceed</button>
+     <button ion-button block class="p_btn" (click)="proceed()">Proceed</button>
 </ion-content>
