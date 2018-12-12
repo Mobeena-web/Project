@@ -110,10 +110,12 @@ export class ItemDetailPage {
   checkTiming() {
     this.date = new Date();
     this.day = this.date.getDay();
-    this.time = this.date.getHours();
+    this.time = this.date.getHours()+ "." + this.date.getMinutes();
+    this.time = Number(this.time);
+
     var current_day = this.globals.Timing[this.day];
     console.log(current_day,"cd")
-    if((current_day[0] <= this.time && current_day[1] > this.time) || (current_day[0] <= this.time && current_day[1] < current_day[0]) || (current_day[1] == 'opened' && current_day[1] == 'opened')){
+    if((Number(current_day[0]) <= this.time && Number(current_day[1]) > this.time) || (Number(current_day[0]) <= this.time && Number(current_day[1]) < Number(current_day[0])) || (current_day[1] == 'opened' && current_day[1] == 'opened')){
     // if (this.time < current_day[0] || this.time >= current_day[1]) {
       return true;
       

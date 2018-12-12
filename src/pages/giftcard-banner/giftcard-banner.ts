@@ -13,14 +13,21 @@ banner:any;
 card_banner:any;
 design_id:any;
 gifts:any;
-
+amount:any;
+otherselected:boolean = false;
   constructor(public alertCtrl:AlertController,public loadingCtrl: LoadingController, public server: ServerProvider, public global: GlobalVariable,public navCtrl: NavController, public navParams: NavParams) {
    this.card_banner =  this.navParams.get('banner');
    this.get_gift_cards();
    this.design_id = this.card_banner.design_id;
   }
   buy(id){
-    this.showConfirm(id)
+    this.otherselected = false;
+
+    this.showConfirm(id);
+
+  }
+  otherselect(){
+    this.otherselected = true;
   }
 
 

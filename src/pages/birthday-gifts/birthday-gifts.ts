@@ -78,19 +78,25 @@ export class BirthdayGiftsPage {
 }
 
 checkTiming(Timing) {
-    if(Timing){
+
+    if(Timing.length > 0){
         var date = new Date();
         var  day = date.getDay();
-        var time = date.getHours();
-        console.log("day", "hours", day, time);
+        var time:any = date.getHours() + "." + date.getMinutes();
         var current_day = Timing[day];
-        console.log(current_day);
-        if((current_day[0] <= this.time && current_day[1] > this.time) || (current_day[0] <= this.time && current_day[1] < current_day[0]) || (current_day[1] == 'opened' && current_day[1] == 'opened')){
+        time = Number(time);
+        console.log(Number(current_day[1]),time)
+        if(current_day){
+            if((Number(current_day[0]) <= time && Number(current_day[1]) > time) || (Number(current_day[0]) <= time && Number(current_day[1]) < Number(current_day[0])) || (current_day[1] == 'opened' && current_day[1] == 'opened')){
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+        else{
             return true;
-        }
-        else {
-            return false;
-        }
+        }      
     }
     else{
         return true;

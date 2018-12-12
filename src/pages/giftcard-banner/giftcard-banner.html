@@ -8,10 +8,26 @@
 </ion-header>
 
 
-<ion-content padding class="background_">
+<ion-content padding>
 <img src={{card_banner.image}}>
 
-<ion-card *ngFor='let item of gifts'>
+<ion-item class="margin-top">
+  <ion-label>Amount</ion-label>
+  <ion-select [(ngModel)]="amount">
+    <div *ngFor='let item of gifts'>
+      <ion-option  (ionSelect)="buy(item.giftcard_id)" value={{item.amount}}>$ {{item.amount}}</ion-option>
+    </div>
+    <ion-option (ionSelect)="otherselect()" >other</ion-option>
+
+  </ion-select>
+</ion-item>
+
+<ion-item *ngIf="otherselected" margin-top>
+  <ion-label color="primary" floating>Enter Amount</ion-label>
+  <ion-input type="number" [(ngModel)]="amount"></ion-input>
+</ion-item>
+
+<!-- <ion-card *ngFor='let item of gifts'>
        <ion-row>
          <ion-col col-8 >
           <h3 class="gc">${{item.amount}}</h3>
@@ -21,5 +37,6 @@
 
          </ion-col>
        </ion-row>
-     </ion-card>
+     </ion-card> -->
+     <button ion-button block>Proceed</button>
 </ion-content>

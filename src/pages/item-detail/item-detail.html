@@ -106,14 +106,21 @@
 
 </ion-list>-->
     <div *ngIf="extras && !noExtras">
-      <ion-label color="primary" style="font-size:2.5rem;padding:10px;padding-left:20px;   color: #333 ; margin-right: 0; margin-bottom:0;padding-bottom:0;">
-        Extras</ion-label>
+     
 
       <ion-list no-lines style="padding:10px;" *ngFor="let toppings of extras;let a=index ">
 
-        <p *ngIf="toppings.heading != ''" style="padding:7px;color:black; border-bottom: solid thin #ccc;">
-          {{toppings.heading}}
-          <p>
+        
+            <ion-row style="border-bottom: solid thin #ccc;">
+              <ion-col col-9>
+                  <p *ngIf="toppings.heading != ''" style="font-size: 1.6rem;padding:7px;color:black; ">
+                      {{toppings.heading}}
+                      <p>
+              </ion-col>
+              <ion-col col-3 *ngIf="toppings.min" style="margin:auto">
+                  <ion-badge item-end color='primary'>Required</ion-badge>
+              </ion-col>
+            </ion-row>
             <div *ngFor="let option of toppings.options;let i = index; ">
               <ion-row *ngIf="option.name != ''" >
                 <ion-col col-12 style="display: inline-flex;margin: auto;">

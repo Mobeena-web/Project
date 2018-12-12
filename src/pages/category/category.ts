@@ -83,11 +83,12 @@ export class CategoryPage {
         if(Timing.length > 0){
             var date = new Date();
             var  day = date.getDay();
-            var time = date.getHours();
+            var time:any = date.getHours() + "." + date.getMinutes();
             var current_day = Timing[day];
-  
+            time = Number(time);
+            console.log(Number(current_day[1]),time)
             if(current_day){
-                if((current_day[0] <= this.time && current_day[1] > this.time) || (current_day[0] <= this.time && current_day[1] < current_day[0]) || (current_day[1] == 'opened' && current_day[1] == 'opened')){
+                if((Number(current_day[0]) <= time && Number(current_day[1]) > time) || (Number(current_day[0]) <= time && Number(current_day[1]) < Number(current_day[0])) || (current_day[1] == 'opened' && current_day[1] == 'opened')){
                     return true;
                 }
                 else {
