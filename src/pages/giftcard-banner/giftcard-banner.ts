@@ -17,6 +17,7 @@ amount:any;
 otherselected:boolean = false;
 card_id:any;
 message:any;
+policy:any;
   constructor(public alertCtrl:AlertController,public loadingCtrl: LoadingController, public server: ServerProvider, public global: GlobalVariable,public navCtrl: NavController, public navParams: NavParams) {
    this.card_banner =  this.navParams.get('banner');
    this.get_gift_cards();
@@ -41,8 +42,8 @@ get_gift_cards() {
 
   let response = this.server.gift_cards();
   response.subscribe(data => {
-      this.gifts = data;
-     
+      this.gifts = data.giftcards;
+      this.policy = data.policy;
       loading.dismiss();
   
   }, error => {
@@ -223,14 +224,20 @@ validateEmail(email) {
 }
 
 proceed(){
-  if(this.otherselected){
-    this.showConfirm('');
-
+  if(Number(this.amount) > 0){
+    if(this.otherselected){
+      this.showConfirm('');
+  
+    }
+    else{
+      this.showConfirm(this.card_id);
+  
+    }
   }
   else{
-    this.showConfirm(this.card_id);
-
+    this.global.presentToast("Enter Valid Amount")
   }
+ 
 }
 
 }
