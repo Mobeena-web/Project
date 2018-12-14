@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { LaunchNavigator, LaunchNavigatorOptions } from '@ionic-native/launch-navigator';
 import { SocialSharing } from '@ionic-native/social-sharing';
 declare var google;
 
@@ -14,7 +13,7 @@ declare var google;
 export class EventDetailPage {
   detail:any;
 
-  constructor(private socialSharing: SocialSharing,public navCtrl: NavController, public navParams: NavParams,private launchNavigator: LaunchNavigator) {
+  constructor(private socialSharing: SocialSharing,public navCtrl: NavController, public navParams: NavParams) {
     this.detail = this.navParams.get('detail');
   }
 
@@ -41,25 +40,25 @@ export class EventDetailPage {
 
   }
 
-  navigator(){
-    var latlng = this.detail.coordinates.split(",")
+  // navigator(){
+  //   var latlng = this.detail.coordinates.split(",")
   
-    var adress = [];
-    adress.push(parseFloat(latlng[0]));
-    adress.push(parseFloat(latlng[1]));
-    console.log(adress,"address")
+  //   var adress = [];
+  //   adress.push(parseFloat(latlng[0]));
+  //   adress.push(parseFloat(latlng[1]));
+  //   console.log(adress,"address")
 
-    let options: LaunchNavigatorOptions = {
-      // start: 'pakistan',
-      // app: LaunchNavigator.APP.GOOGLE_MAPS
-    };
+  //   let options: LaunchNavigatorOptions = {
+  //     // start: 'pakistan',
+  //     // app: LaunchNavigator.APP.GOOGLE_MAPS
+  //   };
     
-    this.launchNavigator.navigate(adress, options)
-      .then(
-        success => console.log('Launched navigator'),
-        error => console.log('Error launching navigator', error)
-      );
-  }
+  //   this.launchNavigator.navigate(adress, options)
+  //     .then(
+  //       success => console.log('Launched navigator'),
+  //       error => console.log('Error launching navigator', error)
+  //     );
+  // }
 
   share(image,title){
     this.socialSharing.share(title, '', image, '').then(() => {
