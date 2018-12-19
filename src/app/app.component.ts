@@ -15,6 +15,7 @@ import { HttpModule } from '@angular/http';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { NativeAudio } from "@ionic-native/native-audio";
+import { CodePush, InstallMode, SyncStatus } from '@ionic-native/code-push';
 
 
 
@@ -36,10 +37,10 @@ export class MyApp {
   pages: Array<{ title: string, component: any }>;
   data: any;
   places:any;
-  constructor(private nativeAudio: NativeAudio,public loadingCtrl: LoadingController,private iab: InAppBrowser,private barcodeScanner:BarcodeScanner,public alertCtrl: AlertController,public app: App,public server: ServerProvider, private _notification: OneSignal, public alertctrl: AlertController, public modalCtrl: ModalController, public globals: GlobalVariable, private statusbar: StatusBar, private splashscreen: SplashScreen, private nativeStorage: NativeStorage, public platform: Platform,private geolocation: Geolocation) {
+  constructor(private codePush: CodePush,private nativeAudio: NativeAudio,public loadingCtrl: LoadingController,private iab: InAppBrowser,private barcodeScanner:BarcodeScanner,public alertCtrl: AlertController,public app: App,public server: ServerProvider, private _notification: OneSignal, public alertctrl: AlertController, public modalCtrl: ModalController, public globals: GlobalVariable, private statusbar: StatusBar, private splashscreen: SplashScreen, private nativeStorage: NativeStorage, public platform: Platform,private geolocation: Geolocation) {
 
     platform.ready().then(() => {
-        
+        this.checkCodePush();
         this.data = {};
         this.data.response = '';
         this.LoadSound();
@@ -75,6 +76,28 @@ export class MyApp {
      
     });
   }
+
+  checkCodePush() {
+    
+    this.codePush.sync({
+     updateDialog: {
+      appendReleaseDescription: true,
+      descriptionPrefix: "\n\nChange log:\n"   
+     },
+     installMode: InstallMode.IMMEDIATE,
+     
+  }).subscribe(
+    (data) => {
+     console.log('CODE PUSH SUCCESSFUL: ' + data);
+     
+    },
+    (err) => {
+     console.log('CODE PUSH ERROR: ' + err);
+     
+    }
+  );
+ }
+
 
   welcome_data() {
 

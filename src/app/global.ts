@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core'
 import { AlertController  } from 'ionic-angular';
 import { ToastController } from 'ionic-angular';
-
+import {CONFIG} from '../../app-config';
 declare var Circles;
 
 
@@ -72,9 +72,9 @@ export class GlobalVariable {
     PhoneNo: any ;
     phone_verified :boolean;
     email_verified :boolean;
-    business_username = "mknx";
+    business_username = CONFIG.business_username;;
     jackemial:any;
-    new_id='76';
+    new_id=CONFIG.business_id;
     model_flag :boolean = true;
     signupData:any;
     percent:any;
