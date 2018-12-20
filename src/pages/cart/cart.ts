@@ -861,81 +861,81 @@ export class CartPage {
     
     
                 // }
-                if (this.globals.GainDiscount > 0) {
-                    proceedFlag = true;
+                // if (this.globals.GainDiscount > 0) {
+                //     proceedFlag = true;
     
     
-                    let alert = this.alertCtrl.create({
-                        title: 'Confirm',
-                        message: 'Do you want to avail your Gain offer?',
-                        buttons: [
-                            {
-                                text: 'Cancel',
-                                role: 'cancel',
-                                handler: () => {
-                                    console.log('Cancel clicked');
+                //     let alert = this.alertCtrl.create({
+                //         title: 'Confirm',
+                //         message: 'Do you want to avail your Gain offer?',
+                //         buttons: [
+                //             {
+                //                 text: 'Cancel',
+                //                 role: 'cancel',
+                //                 handler: () => {
+                //                     console.log('Cancel clicked');
     
-                                }
-                            },
-                            {
-                                text: 'Avail',
-                                handler: () => {
-                                    console.log('Buy clicked');
-                                    Number(this.globals.GainDiscount);
-                                    if (this.globals.GainDiscount > this.ProductsTotal) {
+                //                 }
+                //             },
+                //             {
+                //                 text: 'Avail',
+                //                 handler: () => {
+                //                     console.log('Buy clicked');
+                //                     Number(this.globals.GainDiscount);
+                //                     if (this.globals.GainDiscount > this.ProductsTotal) {
     
-                                        let alert = this.alertCtrl.create({
-                                            title: 'Sorry',
-                                            subTitle: 'In order to avail your discount,please add more items.',
-                                            buttons: ['OK']
-                                        });
-                                        alert.present();
-                                        proceedFlag = false;
-                                    }
-                                    else {
-                                        console.log(this.globals.GainDiscountFlag, "gain discount flag")
-                                        if (this.globals.GainDiscountFlag == false) {
-                                            console.log("gaindiscount")
-                                            this.ProductsTotal -= this.globals.GainDiscount;
-                                            this.ProductsTotal = this.ProductsTotal.toFixed(2);
-                                            if (this.Deliver == true) {
-                                                this.Total = Number(this.ProductsTotal) + this.globals.deliveryCharges;
-                                            }
-                                            else {
-                                                this.Total = Number(this.ProductsTotal);
-                                            }
-                                            this.Total = this.Total.toFixed(2);
-                                            this.globals.GainDiscountFlag = true;
-                                            proceedFlag = true;
-                                            if ((Number(this.ProductsTotal) < this.globals.minimun_order || Number(this.ProductsTotal) < 0) && this.Deliver == true) {
-                                                alert12.present();
-                                                proceedFlag = false;
-                                                this.total();
-                                                this.globals.GainDiscountFlag = false;
+                //                         let alert = this.alertCtrl.create({
+                //                             title: 'Sorry',
+                //                             subTitle: 'In order to avail your discount,please add more items.',
+                //                             buttons: ['OK']
+                //                         });
+                //                         alert.present();
+                //                         proceedFlag = false;
+                //                     }
+                //                     else {
+                //                         console.log(this.globals.GainDiscountFlag, "gain discount flag")
+                //                         if (this.globals.GainDiscountFlag == false) {
+                //                             console.log("gaindiscount")
+                //                             this.ProductsTotal -= this.globals.GainDiscount;
+                //                             this.ProductsTotal = this.ProductsTotal.toFixed(2);
+                //                             if (this.Deliver == true) {
+                //                                 this.Total = Number(this.ProductsTotal) + this.globals.deliveryCharges;
+                //                             }
+                //                             else {
+                //                                 this.Total = Number(this.ProductsTotal);
+                //                             }
+                //                             this.Total = this.Total.toFixed(2);
+                //                             this.globals.GainDiscountFlag = true;
+                //                             proceedFlag = true;
+                //                             if ((Number(this.ProductsTotal) < this.globals.minimun_order || Number(this.ProductsTotal) < 0) && this.Deliver == true) {
+                //                                 alert12.present();
+                //                                 proceedFlag = false;
+                //                                 this.total();
+                //                                 this.globals.GainDiscountFlag = false;
     
-                                            }
-                                            else {
+                //                             }
+                //                             else {
     
-                                                let alert = this.alertCtrl.create({
-                                                    title: 'Congratulation',
-                                                    subTitle: 'You have availed your Gain discount',
-                                                    buttons: ['Okay']
-                                                });
-                                                alert.present();
-                                                proceedFlag = true;
-                                            }
-                                        }
-                                    }
-                                    console.log(this.ProductsTotal);
+                //                                 let alert = this.alertCtrl.create({
+                //                                     title: 'Congratulation',
+                //                                     subTitle: 'You have availed your Gain discount',
+                //                                     buttons: ['Okay']
+                //                                 });
+                //                                 alert.present();
+                //                                 proceedFlag = true;
+                //                             }
+                //                         }
+                //                     }
+                //                     console.log(this.ProductsTotal);
     
-                                    //  this.navCtrl.push('CheckoutProcessPage',{amount:this.Total});
+                //                     //  this.navCtrl.push('CheckoutProcessPage',{amount:this.Total});
     
-                                }
-                            }
-                        ]
-                    });
-                    alert.present();
-                }
+                //                 }
+                //             }
+                //         ]
+                //     });
+                //     alert.present();
+                // }
     
                 // if(this.Tip > 0 && this.globals.TipAdded == false) 
                 //     {
@@ -1017,7 +1017,36 @@ export class CartPage {
     
     
                 if (proceedFlag) {
+                     this.Address =localStorage.getItem("GetAddress");
+
+                    if(this.globals.OrderType == 'delivery'){
+                        let alert = this.alertCtrl.create({
+                            title: 'Please Confirm Your Address',
+                            message: this.Address,
+                            buttons: [
+                              {
+                                text: 'Update Address',
+                                handler: () => {
+                                  this.changeAddress();
+                                }
+                              },
+                              {
+                                text: 'Proceed to Checkout',
+                                handler: () => {
+                                  this.navCtrl.push('PaymentPage', { amount: this.Total, tip: this.Tip, notes: this.notes, RewardAvailed: this.RewardStoreCreditAvailed, BirthdayCreditavailed: this.birthdayStoreCreditavailed });
+                                  
+                                }
+                              }
+                            ]
+                          });
+                          alert.present();
+                    }
+                    else{
                     this.navCtrl.push('PaymentPage', { amount: this.Total, tip: this.Tip, notes: this.notes, RewardAvailed: this.RewardStoreCreditAvailed, BirthdayCreditavailed: this.birthdayStoreCreditavailed });
+                        
+                    }
+                    
+                      
                 }
             }
 

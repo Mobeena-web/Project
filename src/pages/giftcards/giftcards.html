@@ -21,14 +21,14 @@
     <div *ngFor="let b of banner;let i=index">
         <h5 text-center>{{b?.category_name}}</h5>
     
-        <ion-slides *ngIf="i != 0 && b.design_list" pager  style="height:110px" autoplay="2000" speed="3000"  slidesPerView="4" autoplayDisableOnInteraction="false">
-         <ion-slide *ngFor="let banners of b.design_list" style="height:100%" (click)="buy(banners)">
-           <img style="height: 100px; width:100% !important;border-radius: 7px;object-fit: cover" src="{{banners?.image}}">
+        <ion-slides *ngIf="i != 0 && b.design_list" pager  style="height:auto" autoplay="2000" speed="3000"  slidesPerView="2" autoplayDisableOnInteraction="false">
+         <ion-slide *ngFor="let banners of b.design_list" style="padding: 10px;" (click)="buy(banners)">
+           <img style="border-radius: 7px;object-fit: cover;box-shadow: 2px 5px 15px #bbb;" src="{{banners?.image}}">
          </ion-slide>
      </ion-slides>
      <ion-slides *ngIf="i == 0 && b.design_list" pager  style="height:190px" autoplay="2000" speed="3000"  slidesPerView="1" autoplayDisableOnInteraction="false">
-      <ion-slide *ngFor="let banners of b.design_list" style="height:100%" (click)="buy(banners)">
-        <img style="height: 180px; width:100% !important;border-radius: 7px;object-fit: cover" src="{{banners?.image}}">
+      <ion-slide *ngFor="let banners of b.design_list" style="height:100%;padding: 10px;" (click)="buy(banners)">
+        <img style="height: 180px; width:100% !important;border-radius: 7px;object-fit: cover;box-shadow: 2px 5px 15px #bbb;" src="{{banners?.image}}">
       </ion-slide>
   </ion-slides>
     </div>
@@ -41,12 +41,10 @@
             <ion-row>
               <ion-col col-6 >
                <h3 class="gc">${{item.amount}}</h3>
-               <!-- <div class="names">Usman Arshad</div>
-               <div>usman@gmail.com</div> -->
+               
               </ion-col>
               <ion-col col-6 class="bl">
-               <!-- <button ion-button color='primary' class="share">Share</button> -->
-                <p text-center class="time">{{item.time}}</p>
+              <p text-center class="time">{{item.time}}</p>
               </ion-col>
             </ion-row>
           </ion-card>

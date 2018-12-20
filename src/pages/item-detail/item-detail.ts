@@ -116,7 +116,6 @@ export class ItemDetailPage {
     var current_day = this.globals.Timing[this.day];
     console.log(current_day,"cd")
     if((Number(current_day[0]) <= this.time && Number(current_day[1]) > this.time) || (Number(current_day[0]) <= this.time && Number(current_day[1]) < Number(current_day[0])) || (current_day[1] == 'opened' && current_day[1] == 'opened')){
-    // if (this.time < current_day[0] || this.time >= current_day[1]) {
       return true;
       
     }
