@@ -175,42 +175,29 @@
 
            <div class="pts">Points</div> 
       </div>
-      <p style="text-align: center; margin-top: 27%;" *ngIf="pointflag">Currently you do not have any points... </p>
+      <p style="text-align: center; margin-top: 27%;" *ngIf="business_reward_flag">Currently you do not have any rewards... </p>
       <ion-refresher (ionRefresh)="doRefresh($event)">
         <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull down to refresh" refreshingSpinner="circles" refreshingText="Refreshing...">
         </ion-refresher-content>
       </ion-refresher>
-      <div *ngIf="!pointflag">
-        <div *ngFor="let rewards of points_lotery">
-          <ion-card *ngFor="let reward of rewards.available_rewards" >
-            <ion-grid>
-              <ion-row>
-                <ion-col col-3>
-                  <img style="border-radius: 4px; height:70px;    height: 70px;
-                  width: 70px;
-                  object-fit: cover;
-                  border-radius: 50%;" src="{{rewards?.image}}">
-                </ion-col>
 
-                <ion-col col-6 style="font-size: 19px;
-                margin-top: 12px;">
-                <h4>Rewards</h4>
-                  {{reward.description}}
-                  
-                </ion-col>
-
-                <ion-col style="font-size: 22px;
-                margin-top: 12px;"  text-center col-3>
-                <h4>Points</h4>
-                  {{reward.points}}
-                </ion-col>
-              </ion-row>
-
-            </ion-grid>
-
-          </ion-card>
-
-        </div>
+      <div *ngIf="!business_reward_flag">
+        <ion-list>
+          <ion-item *ngFor="let item of business_reward_data" (click)="rewardredeem(item)">
+            <ion-row>
+              <ion-col col-3>
+                <img src={{item.image}} class="b_r_i">
+              </ion-col>
+              <ion-col col-6 class="p-t">
+                <div>{{item.name}}</div>
+                <p>{{item.description}}</p>
+              </ion-col>
+              <ion-col col-3>
+                <button clear ion-button color='jack' class="rede"> Redeem</button>
+              </ion-col>
+            </ion-row>
+          </ion-item>
+        </ion-list>
       </div>
 
     </div>
@@ -229,10 +216,14 @@
                 <ion-col col-3 *ngIf="rewards?.image">
                   <img style="border-radius: 4px; height:70px;"  src="{{rewards?.image}}">
                 </ion-col>
+                <ion-col col-6>
+                    <h3 color="primary" style=" font-size: 1.4rem;color:#666;font-weight:bold">{{rewards?.name}} </h3>
+                    <p>{{rewards?.description}}</p>
 
-                <ion-col col-9>
-                  <h3 color="primary" style=" font-size: 1.4rem;color:#666;font-weight:bold">{{rewards?.reward_text}} </h3>
-                  <p> Date:   {{rewards?.time}} </p>
+                </ion-col>
+                <ion-col col-3>
+                  <p>points:{{rewards?.points}}</p>
+                  <p>{{rewards?.time}} </p>
                 </ion-col>
 
               </ion-row>
