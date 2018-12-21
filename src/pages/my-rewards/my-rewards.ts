@@ -55,6 +55,7 @@ export class MyRewardsPage {
     searchControl: FormControl;
     business_reward_data:any;
     business_reward_flag:boolean = false;
+    redeem_history:boolean = false;
     // ngAfterViewInit()
     // {
     //     this.indicator = document.getElementById("indicator");
@@ -153,6 +154,11 @@ export class MyRewardsPage {
             if(this.lotery.length == 0){
                 this.gain_flag = true;
             }
+            this.lotery.forEach(element => {
+                if(element.redeemed == 'yes'){
+                    this.redeem_history = true;
+                }
+            });
             loading.dismiss();
             
         }, error => {
