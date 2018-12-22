@@ -59,7 +59,7 @@ getdeals(){
   }
 
   reward_notification() {
-    var link = this.global.BaseUrl + 'Customer_controller/get_punch_notifications';
+    var link = this.global.BaseUrl + 'Customer_controller/get_reward_notifications';
     var data = JSON.stringify({business_id: this.global.new_id,udid: this.global.udid });
    
     return this.http.post(link,data)
