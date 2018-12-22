@@ -1019,7 +1019,7 @@ export class CartPage {
                 if (proceedFlag) {
                      this.Address =localStorage.getItem("GetAddress");
 
-                    if(this.globals.OrderType == 'delivery'){
+                    if(this.globals.OrderType == 'delivery' && this.globals.caos_flag == false){
                         let alert = this.alertCtrl.create({
                             title: 'Please Confirm Your Address',
                             message: this.Address,

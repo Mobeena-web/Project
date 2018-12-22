@@ -55,7 +55,14 @@ export class CategoryPage {
     forsearch:any;
     constructor(private geolocation: Geolocation,private diagnostic: Diagnostic,public server: ServerProvider, public alertCtrl: AlertController, public loadingCtrl: LoadingController, private nativeStorage: NativeStorage, private toastCtrl: ToastController, public globals: GlobalVariable, public http: Http, public navCtrl: NavController, public navParams: NavParams,public modalCtrl: ModalController) {
         
-        this.presentModal();
+        if(!this.globals.caos_flag){
+            this.presentModal();
+
+        }
+        else{
+            this.globals.OrderType = 'pickup'
+
+        }
         
         this.cartflag = this.navParams.get('CartFlag');
         this.PageFlag = this.navParams.get('pageflag');

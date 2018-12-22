@@ -54,4 +54,13 @@ export class BeforeLoginPage {
     }
   }
 
+  coaslogin(){
+    if(this.global.branch_enabled == 1){
+      this.navCtrl.push('ResturantListPage')
+    }
+    else{
+        this.navCtrl.push('CategoryPage')
+    }
+  }
+
 }
