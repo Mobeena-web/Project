@@ -108,6 +108,7 @@ export class GlobalVariable {
     is_anniversary:any;
     order_instructions:any;
     caos_flag:boolean = true; 
+    caos_udid = 'e2c40e9f0a';
     constructor(public alertCtrl: AlertController,public toastCtrl: ToastController) {
      this.BaseUrl = 'https://onlineordering.mikronexus.com/online-ordering-new/index.php/';
     }
