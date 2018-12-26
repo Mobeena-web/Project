@@ -69,8 +69,15 @@ export class LoginPage {
                 
                 if (this.data.response != "invalid") {
                     this.globals.guess_login = false;
-                     //this.navCtrl.setRoot(HomePage,{imageData:this.data.response.url,Flag:false});
-                    //this.navCtrl.push('AcceptTermsPage');
+                    if(this.globals.caos_flag){
+                    this.globals.caos_flag = false;
+
+                        this.navCtrl.push('CategoryPage')
+                    }
+                    else{
+                        this.navCtrl.setRoot(HomePage, { imageData: this.data.response.url, Flag: false });
+
+                    }
                     this.globals.udid = this.data.response.udid;
                   
                     this.globals.firstName = this.data.response.firstname;
@@ -94,8 +101,15 @@ export class LoginPage {
 
                             this.SaveMobileNumberFlag(this.data.response.mobile_verification_amount, this.data.response.phone_verified);
 
-                            this.globals.udid = this.data.response.udid;
-                             this.navCtrl.setRoot(HomePage, { imageData: this.data.response.url, Flag: false });
+                            if(this.globals.caos_flag){
+                                this.globals.caos_flag = false;
+
+                                this.navCtrl.push('CategoryPage')
+                            }
+                            else{
+                                this.navCtrl.setRoot(HomePage, { imageData: this.data.response.url, Flag: false });
+
+                            }
                             //this.navCtrl.push('AcceptTermsPage')
                             this.server.initializePushToken();
                         })

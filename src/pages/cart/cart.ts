@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, Navbar, ModalController, AlertCont
 import { ServerProvider } from '../../providers/server/server';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { GlobalVariable } from '../../app/global';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 /**
  * Generated class for the CartPage page.
@@ -801,7 +802,7 @@ export class CartPage {
               }
             },
             {
-              text: 'login',
+              text: 'Login',
               handler: () => {
                 this.navCtrl.setRoot('LoginPage')
               }
@@ -809,6 +810,30 @@ export class CartPage {
           ]
         });
         alert.present();
+      }
+
+      coas_type(){
+        let alert = this.alertCtrl.create({
+            title: 'Login',
+            message: 'You Want to Login or Proceed to Checkout',
+            buttons: [
+                {
+                    text: 'Login',
+                    handler: () => {
+                      this.navCtrl.setRoot('LoginPage')
+                    }
+                  },
+              {
+                text: 'Proceed to Checkout',
+                handler: () => {
+                    this.navCtrl.push('PaymentPage', { amount: this.Total, tip: this.Tip, notes: this.notes, RewardAvailed: this.RewardStoreCreditAvailed, BirthdayCreditavailed: this.birthdayStoreCreditavailed });
+                  
+                }
+              }
+              
+            ]
+          });
+          alert.present();
       }
 
 
@@ -1018,31 +1043,55 @@ export class CartPage {
     
                 if (proceedFlag) {
                      this.Address =localStorage.getItem("GetAddress");
-
+                    
                     if(this.globals.OrderType == 'delivery' && this.globals.caos_flag == false){
-                        let alert = this.alertCtrl.create({
-                            title: 'Please Confirm Your Address',
-                            message: this.Address,
-                            buttons: [
-                              {
-                                text: 'Update Address',
-                                handler: () => {
-                                  this.changeAddress();
-                                }
-                              },
-                              {
-                                text: 'Proceed to Checkout',
-                                handler: () => {
-                                  this.navCtrl.push('PaymentPage', { amount: this.Total, tip: this.Tip, notes: this.notes, RewardAvailed: this.RewardStoreCreditAvailed, BirthdayCreditavailed: this.birthdayStoreCreditavailed });
-                                  
-                                }
-                              }
-                            ]
-                          });
-                          alert.present();
+                        if(this.Address){
+                            let alert = this.alertCtrl.create({
+                                title: 'Please Confirm Your Address',
+                                message: this.Address,
+                                buttons: [
+                                  {
+                                    text: 'Update Address',
+                                    handler: () => {
+                                      this.changeAddress();
+                                    }
+                                  },
+                                  {
+                                    text: 'Proceed to Checkout',
+                                    handler: () => {
+                                      this.navCtrl.push('PaymentPage', { amount: this.Total, tip: this.Tip, notes: this.notes, RewardAvailed: this.RewardStoreCreditAvailed, BirthdayCreditavailed: this.birthdayStoreCreditavailed });
+                                      
+                                    }
+                                  }
+                                ]
+                              });
+                              alert.present();
+                        }
+                        else{
+                            let alert = this.alertCtrl.create({
+                                title: 'Please Enter your Delivery Address.',
+                               
+                                buttons: [
+                                  {
+                                    text: 'Enter Address',
+                                    handler: () => {
+                                      this.changeAddress();
+                                    }
+                                  }
+                                ]
+                              });
+                              alert.present();
+                        }
+                      
                     }
                     else{
-                    this.navCtrl.push('PaymentPage', { amount: this.Total, tip: this.Tip, notes: this.notes, RewardAvailed: this.RewardStoreCreditAvailed, BirthdayCreditavailed: this.birthdayStoreCreditavailed });
+                        if(this.globals.caos_flag){
+                            this.coas_type();
+                        }
+                        else{
+                            this.navCtrl.push('PaymentPage', { amount: this.Total, tip: this.Tip, notes: this.notes, RewardAvailed: this.RewardStoreCreditAvailed, BirthdayCreditavailed: this.birthdayStoreCreditavailed });
+
+                        }
                         
                     }
                     

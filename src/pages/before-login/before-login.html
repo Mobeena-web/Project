@@ -15,7 +15,7 @@
                 <button  *ngIf="!global.caos_flag" ion-button block round outline class="order-now" (click)="guestlogin()">Order Now </button>
                 <button  *ngIf="global.caos_flag" ion-button block round outline class="order-now" (click)="coaslogin()">Order Now </button>
                 
-                <ion-row class="mm" *ngIf="!global.caos_flag">
+                <ion-row class="mm" >
                     <ion-col col-6 (click)="register()" class="bb">
                         SIGN UP
                     </ion-col>
