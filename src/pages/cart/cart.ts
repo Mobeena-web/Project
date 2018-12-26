@@ -996,12 +996,9 @@ export class CartPage {
                     }
     
                     if (this.Deliver == true) {
-                        console.log("delivey type checking");
-                        console.log(this.globals.deliveryCharges, "delivery charges");
-    
+                      
                         this.Total = Number(this.ProductsTotal) + Number(this.globals.deliveryCharges);
-                        console.log(this.Total, "product addition");
-    
+                       
                     }
                     else {
                         this.Total = Number(this.ProductsTotal);
@@ -1085,7 +1082,8 @@ export class CartPage {
                       
                     }
                     else{
-                        if(this.globals.caos_flag){
+                        console.log(this.globals.Email, "emaill")
+                        if(!this.globals.udid && !this.globals.guess_login){
                             this.coas_type();
                         }
                         else{

@@ -34,7 +34,7 @@ export class AcceptTermsPage {
   homePage(){
     if(this.privacy && this.terms){
       if(this.globals.caos_flag){
-        this.globals.caos_flag = false;
+        // this.globals.caos_flag = false;
 
         this.navCtrl.push('CategoryPage')
       }else{

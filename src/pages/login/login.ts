@@ -69,8 +69,13 @@ export class LoginPage {
                 
                 if (this.data.response != "invalid") {
                     this.globals.guess_login = false;
+                    this.globals.udid = this.data.response.udid;
+                  
+                    this.globals.firstName = this.data.response.firstname;
+                    this.globals.lastName = this.data.response.lastname;
+                    
                     if(this.globals.caos_flag){
-                    this.globals.caos_flag = false;
+                    // this.globals.caos_flag = false;
 
                         this.navCtrl.push('CategoryPage')
                     }
@@ -78,10 +83,7 @@ export class LoginPage {
                         this.navCtrl.setRoot(HomePage, { imageData: this.data.response.url, Flag: false });
 
                     }
-                    this.globals.udid = this.data.response.udid;
-                  
-                    this.globals.firstName = this.data.response.firstname;
-                    this.globals.lastName = this.data.response.lastname;
+                   
                     this.nativeStorage.setItem('user',
                         {
                             email: LoginData.email,

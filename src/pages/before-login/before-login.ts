@@ -28,7 +28,6 @@ export class BeforeLoginPage {
     response.subscribe(data => {
         loading.dismiss();
         this.welcome = data;
-        console.log("welcome data",this.welcome)
     }, error => {
       loading.dismiss();
 

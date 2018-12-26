@@ -15,7 +15,13 @@ export class ThankyouPage {
   }
 
   done(){
-    this.navCtrl.popToRoot();
+    if(this.globals.caos_flag){
+      this.navCtrl.setRoot('BeforeLoginPage')
+    }
+    else{
+      this.navCtrl.popToRoot();
+
+    }
   }
 
 }
