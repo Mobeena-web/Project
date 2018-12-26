@@ -59,7 +59,7 @@ getdeals(){
   }
 
   reward_notification() {
-    var link = this.global.BaseUrl + 'Customer_controller/get_punch_notifications';
+    var link = this.global.BaseUrl + 'Customer_controller/get_reward_notifications';
     var data = JSON.stringify({business_id: this.global.new_id,udid: this.global.udid });
    
     return this.http.post(link,data)
@@ -106,8 +106,26 @@ getdeals(){
 
   get_offers() {
     var link = this.global.BaseUrl + 'events/get_offers';
-    console.log(this.global.bussinessId)
+
     var data = JSON.stringify({ business_id: this.global.new_id });
+    return this.http.post(link, data)
+      .map((res: any) => res.json())
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+  }
+
+  get_business_reward() {
+    var link = this.global.BaseUrl + 'rewards/get_business_rewards';
+    
+    var data = JSON.stringify({ business_id: this.global.new_id });
+    return this.http.post(link, data)
+      .map((res: any) => res.json())
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+  }
+
+  redeem_point_reward(reward_id){
+    var link = this.global.BaseUrl + 'rewards/buy_reward';
+    
+    var data = JSON.stringify({ business_id: this.global.new_id,udid:this.global.udid,reward_id:reward_id });
     return this.http.post(link, data)
       .map((res: any) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
@@ -141,6 +159,13 @@ getdeals(){
 
   getUserLotteryRewards_new() {
     var link = this.global.BaseUrl + 'Customer_controller/get_rewards_new';
+    var data = JSON.stringify({ business_id:this.global.new_id,udid: this.global.udid });
+    return this.http.post(link, data)
+      .map((res: any) => res.json())
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+  }
+  get_all_Rewards_new() {
+    var link = this.global.BaseUrl + 'rewards/get_customer_rewards';
     var data = JSON.stringify({ business_id:this.global.new_id,udid: this.global.udid });
     return this.http.post(link, data)
       .map((res: any) => res.json())

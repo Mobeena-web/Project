@@ -51,9 +51,18 @@ export class CategoryPage {
     quantity_value: any = 1;
     coordinates:any;
     places:any;
+    keyword:any;
+    forsearch:any;
     constructor(private geolocation: Geolocation,private diagnostic: Diagnostic,public server: ServerProvider, public alertCtrl: AlertController, public loadingCtrl: LoadingController, private nativeStorage: NativeStorage, private toastCtrl: ToastController, public globals: GlobalVariable, public http: Http, public navCtrl: NavController, public navParams: NavParams,public modalCtrl: ModalController) {
         
-        this.presentModal();
+        if(!this.globals.caos_flag){
+            this.presentModal();
+
+        }
+        else{
+            this.globals.OrderType = 'pickup'
+
+        }
         
         this.cartflag = this.navParams.get('CartFlag');
         this.PageFlag = this.navParams.get('pageflag');
@@ -315,6 +324,8 @@ export class CategoryPage {
                 return that.checkTiming(item.timings) == true;
               });
 
+              this.forsearch = this.category;
+
             if (this.data.categories.length == 0) {
 
                 this.DataFlag = true;
@@ -481,6 +492,26 @@ export class CategoryPage {
               });
         }
     }
+
+    searchnew() {
+        let val = this.keyword;
+        if(val){
+          if (val && val.trim() != '') {
+            this.category = this.forsearch;
+            this.category = this.category.filter((item) => {
+              return (item.name.toLowerCase().indexOf(val.toLowerCase()) > -1);
+            })
+          }
+        }
+        else{
+          this.category = this.forsearch;
+        }
+      }
+      
+      
+      onCancel(e){
+        this.category = this.forsearch;
+      }
 
     
 

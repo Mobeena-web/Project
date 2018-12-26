@@ -3,12 +3,7 @@
 
     <ion-navbar color="primary">
         <ion-title>{{name}}</ion-title>
-        <!-- <ion-buttons start>
-            <button ion-button    (click)="historypage()">
-                <ion-icon name="time" style="font-size: 2.5rem;"> </ion-icon>
-            </button>
-
-        </ion-buttons> -->
+       
         <ion-buttons end>
             <button ion-button    (click)="cartpage()">
                 <ion-badge color="danger" *ngIf="globals.Product.length > 0">{{globals.Product.length}}</ion-badge>
@@ -22,15 +17,17 @@
 
 
 <ion-content class="Open-Sans-regular" >
+        <ion-searchbar [(ngModel)]="keyword" [showCancelButton]="shouldShowCancel"  (ionInput)="searchnew()" name="first"></ion-searchbar>        
+
     <img src={{globals.b_logo}} class="icon-main">
+
 
     <ion-row>
         <ion-col col-3>
 
         </ion-col>
         <ion-col col-6>
-                <!-- <button ion-button outline block round color="primary" (click)="historypage()">Order History</button> -->
-                <button ion-button outline block round clear class="u-d" color="primary" (click)="presentModal1()">Update Delivery or Pickup</button>
+                <button *ngIf="!globals.caos_flag" ion-button outline block round clear class="u-d" color="primary" (click)="presentModal1()">Update Delivery or Pickup</button>
 
             </ion-col>
     </ion-row>

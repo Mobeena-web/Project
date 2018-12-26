@@ -1,0 +1,12 @@
+
+<ion-content>
+  <ion-icon name="arrow-round-back" (click)="back()" class="back"> </ion-icon>
+  <img src={{reward_detail.image}}>
+  <div padding>
+    <h1>{{reward_detail.name}}</h1>
+    <p>{{reward_detail.description}}</p>
+    <button ion-button block round (click)="redeem_reward()">Redeem</button>
+    <p margin-top>{{reward_detail.points_description}}</p>
+  </div>
+ 
+</ion-content>

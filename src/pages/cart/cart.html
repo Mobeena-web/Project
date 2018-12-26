@@ -10,7 +10,7 @@
     <ion-title>Your Order</ion-title>
     <ion-buttons end>
       <button ion-button icon-only color="royal" (click)="paymentPage()">
-        Proceed
+        Checkout
       </button>
     </ion-buttons>
   </ion-navbar>
@@ -158,7 +158,7 @@
 
 
   
-  <button ion-button type="submit" clear (click)="changeAddress()" style="margin-top:-3%;width:95%; margin-left:1.9%;color:#444"
+  <button *ngIf="!globals.caos_flag" ion-button type="submit" clear (click)="changeAddress()" style="margin-top:-3%;width:95%; margin-left:1.9%;color:#444"
   block> <u>Update Delivery or Pickup</u> </button>
   <!-- <ion-list no-lines style="margin-left: 10px; margin-right: 10px;margin-bottom:10px; width:94%;   display: inline-flex;">
 

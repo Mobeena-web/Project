@@ -28,7 +28,6 @@ export class BeforeLoginPage {
     response.subscribe(data => {
         loading.dismiss();
         this.welcome = data;
-        console.log("welcome data",this.welcome)
     }, error => {
       loading.dismiss();
 
@@ -46,6 +45,15 @@ export class BeforeLoginPage {
   }
   guestlogin(){
     this.global.guess_login = true;
+    if(this.global.branch_enabled == 1){
+      this.navCtrl.push('ResturantListPage')
+    }
+    else{
+        this.navCtrl.push('CategoryPage')
+    }
+  }
+
+  coaslogin(){
     if(this.global.branch_enabled == 1){
       this.navCtrl.push('ResturantListPage')
     }

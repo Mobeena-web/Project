@@ -17,7 +17,7 @@
     <div *ngFor='let item of gifts'>
       <ion-option  (ionSelect)="buy(item.giftcard_id)" value={{item.amount}}>$ {{item.amount}}</ion-option>
     </div>
-    <ion-option (ionSelect)="otherselect()" >other</ion-option>
+    <ion-option (ionSelect)="otherselect()" >Other</ion-option>
 
   </ion-select>
 </ion-item>
