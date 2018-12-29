@@ -31,7 +31,7 @@ export class BeforeLoginPage {
     }, error => {
       loading.dismiss();
 
-        this.global.alertMessage("Failure","Something went wrong check your internet connection.")
+        this.global.presentToast("Something went wrong check your internet connection.")
 
     });
 }

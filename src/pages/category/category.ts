@@ -194,12 +194,8 @@ export class CategoryPage {
        }, error => {
            console.log(error);
 
-           let alert = this.alertCtrl.create({
-               title: 'Error',
-               subTitle: 'Server times out, please try again',
-               buttons: ['OK']
-           });
-           alert.present();
+           this.globals.presentToast("Something went wrong check your internet connection.")
+
 
        });
     
@@ -335,12 +331,8 @@ export class CategoryPage {
         }
             , error => {
                 loading.dismiss();
-                let alert = this.alertCtrl.create({
-                    title: 'Error',
-                    subTitle: 'Server times out, please try again',
-                    buttons: ['OK']
-                });
-                alert.present();
+                this.globals.presentToast("Something went wrong check your internet connection.")
+
 
             });
     }
