@@ -7,7 +7,7 @@
     </div>
     
         <!-- <iframe *ngIf="global.caos_flag" height="315" src="assets/videos/kiosk.mp4" frameborder="0" style="width: 100%"></iframe> -->
-        <video *ngIf="global.caos_flag" style="height: 100%" loop autoplay>
+        <video *ngIf="global.caos_flag" style="height: 100%" loop autoplay showWhen="android">
             <source src="assets/videos/kiosk.mp4" type="video/mp4">
           
           </video>
