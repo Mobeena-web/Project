@@ -1,14 +1,20 @@
 
-<ion-content class="back">
+<ion-content >
   <ion-icon name="close" class="close_icon" (click)="dismiss()"></ion-icon>
-  <img src={{global.notifications.logo}} class="icon_img">
-  <div class="main_head">
-      {{global.notifications.title}}
-  </div>
-  <div class="head">
-    {{global.notifications.sub_title}}
-  </div>
-  <button ion-button block outline round  block class="ok_btn" (click)="dismiss()">OK</button>
+  <ion-slides pager *ngIf="global.notifications" style="height:550px"  speed="3000" loop="true" autoplayDisableOnInteraction="false">
+    <ion-slide style="height:100%" *ngFor="let banners of global.notifications" >
+      <img src={{banners?.image}} class="bi">
+      <img src={{banners.logo}} class="icon_img">
+      <div class="main_head">
+          {{banners.title}}
+      </div>
+      <div class="head">
+        {{banners.sub_title}}
+      </div>
+    </ion-slide>
+</ion-slides>
+ 
+  <button ion-button block outline round  class="ok_btn" (click)="dismiss()">OK</button>
   
 
 </ion-content>

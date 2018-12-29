@@ -268,8 +268,11 @@ export class HomePage {
                 this.points = 0;
                 this.globals.points_ = 0;
             }
-            this.points = data.rewards[0].points;
-            this.globals.points_ = this.points;
+            else{
+                this.points = data.rewards[0].points;
+                this.globals.points_ = this.points;
+            }
+            
             
             // loading.dismiss();
         
@@ -293,14 +296,17 @@ export class HomePage {
                 this.globals.percent = (parseInt(this.punch_) / parseInt(this.punch_limt_))*100;
                 this.globals.circle_graph('circles1',50,7,'#ccc');
             }
-          
-             this.punch_ = data.cards[0].punch_count;
-             this.punch_limt_ = data.cards[0].punch_limit;
-             this.globals.punch_ = this.punch_;
-             this.globals.punch_limit_ = this.punch_limt_;
+            else{
 
-             this.globals.percent = (parseInt(this.punch_) / parseInt(this.punch_limt_))*100;
-             this.globals.circle_graph('circles1',50,7,'#ccc');
+                this.punch_ = data.cards[0].punch_count;
+                this.punch_limt_ = data.cards[0].punch_limit;
+                this.globals.punch_ = this.punch_;
+                this.globals.punch_limit_ = this.punch_limt_;
+   
+                this.globals.percent = (parseInt(this.punch_) / parseInt(this.punch_limt_))*100;
+                this.globals.circle_graph('circles1',50,7,'#ccc');
+            }
+          
              
             
         
@@ -426,7 +432,6 @@ export class HomePage {
             this.ring_image = this.banner.ring_image;
             this.globals.is_anniversary = this.banner.is_anniversary;
             this.globals.is_birthday = this.banner.is_birthday;
-            // this.globals.is_birthday = true;
            
             this.content.resize();
 

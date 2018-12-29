@@ -373,7 +373,7 @@ export class ModalPage {
     if(this.NewAddress == true){
       this.CurrentAdress = true;
       this.removedata();
-      localStorage.setItem("address",this.Address);
+      this.new_address_prompt();
       
         //this.CurrentAdress = false;
     }
@@ -383,6 +383,54 @@ export class ModalPage {
     
 
   }
+
+  new_address_prompt() {
+    let alert = this.alertCtrl.create({
+      title: 'Your Address',
+      inputs: [
+        {
+          name: 'street',
+          placeholder: 'Street'
+        },
+        {
+          name: 'apt',
+          placeholder: 'Apt#',
+        },
+        {
+          name: 'city',
+          placeholder: 'City',
+        },
+        {
+          name: 'state',
+          placeholder: 'State',
+        },
+        {
+          name: 'zip',
+          placeholder: 'Zip',
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Done',
+          handler: data => {
+            this.Address = data.street + ','+  data.apt +','+ data.city +' '+ data.state +','+ data.zip;
+            localStorage.setItem("address",this.Address);
+
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+
+
   removedata(){
     this.Address = "";
       this.city = "";

@@ -14,10 +14,19 @@
 <ion-item class="margin-top">
   <ion-label>Amount</ion-label>
   <ion-select [(ngModel)]="amount">
-    <div *ngFor='let item of gifts'>
-      <ion-option  (ionSelect)="buy(item.giftcard_id)" value={{item.amount}}>$ {{item.amount}}</ion-option>
-    </div>
-    <ion-option (ionSelect)="otherselect()" >other</ion-option>
+     <ion-option value="5">$5</ion-option>
+     <ion-option value="10">$10</ion-option>
+     <ion-option value="15">$15</ion-option>
+     <ion-option value="20">$20</ion-option>
+     <ion-option value="25">$25</ion-option>
+     <ion-option value="30">$30</ion-option>
+     <ion-option value="35">$35</ion-option>
+     <ion-option value="40">$40</ion-option>
+     <ion-option value="45">$45</ion-option>
+     <ion-option value="50">$50</ion-option>
+
+   
+    <ion-option (ionSelect)="otherselect()" >Other</ion-option>
 
   </ion-select>
 </ion-item>
@@ -31,6 +40,11 @@
     <ion-label color="primary" floating>Message</ion-label>
     <ion-input type="text"  [(ngModel)]="message"></ion-input>
   </ion-item>
+
+  <h3 text-center margin-top>Terms & Conditions</h3>
+  <div [innerHTML]="policy" margin-top>
+
+  </div>
 
 <!-- <ion-card *ngFor='let item of gifts'>
        <ion-row>

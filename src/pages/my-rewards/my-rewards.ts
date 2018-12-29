@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, Content, LoadingController, AlertController, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Content, LoadingController, AlertController, ModalController, Item } from 'ionic-angular';
 import { NativeStorage } from "@ionic-native/native-storage";
 import { FormControl } from '@angular/forms';
 import { GlobalVariable } from "../../app/global";
@@ -53,6 +53,9 @@ export class MyRewardsPage {
     status: boolean = true;
     time: any;
     searchControl: FormControl;
+    business_reward_data:any;
+    business_reward_flag:boolean = false;
+    redeem_history:boolean = false;
     // ngAfterViewInit()
     // {
     //     this.indicator = document.getElementById("indicator");
@@ -84,6 +87,7 @@ export class MyRewardsPage {
         this.server.CheckUserPunchCards();
         this.server.CheckUserReward();
         this.server.CheckUserBadgePoints();
+        this.business_reward();
         this.searchControl.valueChanges.debounceTime(700).subscribe(search => {
 
             this.setFilteredItems();
@@ -103,6 +107,8 @@ export class MyRewardsPage {
         this.status = true;
         this.getPoints();
         this.getReward();
+        this.business_reward();
+
     }
     getLocation() {
         this.diagnostic.isLocationEnabled()
@@ -142,14 +148,20 @@ export class MyRewardsPage {
         });
         loading.present();
 
-        let response = this.server.getUserLotteryRewards_new();
+        let response = this.server.get_all_Rewards_new();
         response.subscribe(data => {
             this.lotery = data;
-          
+            if(this.lotery.length == 0){
+                this.gain_flag = true;
+            }
+            this.lotery.forEach(element => {
+                if(element.redeemed == 'yes'){
+                    this.redeem_history = true;
+                }
+            });
             loading.dismiss();
             
         }, error => {
-            console.log("Oooops!");
             loading.dismiss();
             let alert = this.alertCtrl.create({
                 title: 'Error',
@@ -353,6 +365,36 @@ export class MyRewardsPage {
             alert.present();
 
         });
+    }
+
+    business_reward() {
+
+        let loading = this.loadingCtrl.create({
+            content: "Loading...",
+
+        });
+        loading.present();
+
+        let response = this.server.get_business_reward();
+        response.subscribe(data => {
+            loading.dismiss();
+            if(data.length > 0 ){
+                this.business_reward_data = data;
+            }
+            else{
+                this.business_reward_flag = true;
+
+            }
+
+        }, error => {
+            loading.dismiss();
+           this.globals.presentToast("Server time out. please try again.")
+
+        });
+    }
+
+    rewardredeem(item){
+        this.navCtrl.push('PointRewardsPage',{reward_data:item})
     }
 
     OpenPointsModel(rewards, banner) {

@@ -33,7 +33,14 @@ export class AcceptTermsPage {
 
   homePage(){
     if(this.privacy && this.terms){
-       this.navCtrl.setRoot(HomePage);
+      if(this.globals.caos_flag){
+        // this.globals.caos_flag = false;
+
+        this.navCtrl.push('CategoryPage')
+      }else{
+        this.navCtrl.setRoot(HomePage);
+
+      }
     }
     else{
       this.globals.presentToast("Please accept Privacy Policy and Terms & Conditions")

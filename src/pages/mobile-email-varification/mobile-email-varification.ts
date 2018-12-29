@@ -158,6 +158,7 @@ Verify() {
                 // this.navCtrl.setRoot('AcceptTermsPage', { imageData: this.data.response.url, discountText: this.data.response.discount_text, Flag: true, discount: this.data.response.discount_value });
                 this.globals.firstName = signupData.firstName;
                 this.globals.lastName = signupData.lastName;
+                this.globals.udid = this.data.response.udid;
                 this.nativeStorage.setItem('user',
                     {
 
