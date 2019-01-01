@@ -51,7 +51,30 @@ export class MyApp {
 
       let env = this;
 
-      this.nativeStorage.getItem('user')
+      if(this.globals.caos_flag){
+
+        this.nativeStorage.getItem('business')
+        .then(data => {
+          // user is previously logged and we have his data
+          // we will let him access the app
+
+          this.globals.new_id = data.business_id;
+          this.globals.business_username= data.business_username;
+        
+          env.nav.setRoot('BeforeLoginPage');
+        
+          this.splashscreen.hide();
+        }, error => {
+          //we don't have the user data so we will ask him to log in
+          
+             env.nav.setRoot('BusinessLoginPage');
+
+          this.splashscreen.hide();
+        }).catch(err => { console.log(err) });
+
+      }
+      else{
+        this.nativeStorage.getItem('user')
         .then(data => {
           // user is previously logged and we have his data
           // we will let him access the app
@@ -71,11 +94,37 @@ export class MyApp {
           this.globals.showFabFlag = false;
           this.splashscreen.hide();
         }).catch(err => { console.log(err) });
+      }
+
+      
 
       this.splashscreen.hide();
      
     });
   }
+
+  ngOnInit(){
+    this.welcome_data();
+
+  }
+
+  welcome_data() {
+    let loading = this.loadingCtrl.create({
+        content: "Loading...",
+    });
+    loading.present();
+
+    let response = this.server.welcome_screen();
+    response.subscribe(data => {
+        loading.dismiss();
+        this.globals.welcome = data;
+    }, error => {
+      loading.dismiss();
+
+        this.globals.presentToast("Something went wrong check your internet connection.")
+
+    });
+}
 
   checkCodePush() {
     
@@ -99,16 +148,7 @@ export class MyApp {
  }
 
 
-  welcome_data() {
-
-    let response = this.server.welcome_screen();
-    response.subscribe(data => {
-        this.globals.welcome_data = data;
-     
-    }, error => {
-      
-    });
-}
+ 
 
 
   cartpage() {
