@@ -56,6 +56,7 @@ export class MyRewardsPage {
     business_reward_data:any;
     business_reward_flag:boolean = false;
     redeem_history:boolean = false;
+    rewards_length:any;
     // ngAfterViewInit()
     // {
     //     this.indicator = document.getElementById("indicator");
@@ -151,8 +152,12 @@ export class MyRewardsPage {
         let response = this.server.get_all_Rewards_new();
         response.subscribe(data => {
             this.lotery = data;
+            this.rewards_length = this.lotery.length;
             if(this.lotery.length == 0){
                 this.gain_flag = true;
+            }
+            else{
+                this.gain_flag = false;
             }
             this.lotery.forEach(element => {
                 if(element.redeemed == 'yes'){
@@ -163,12 +168,8 @@ export class MyRewardsPage {
             
         }, error => {
             loading.dismiss();
-            let alert = this.alertCtrl.create({
-                title: 'Error',
-                subTitle: 'Server times out, please try again',
-                buttons: ['OK']
-            });
-            alert.present();
+        this.globals.presentToast("Something went wrong check your internet connection.")
+           
 
         });
 
@@ -301,12 +302,8 @@ export class MyRewardsPage {
         }, error => {
             console.log("Oooops!");
             loading.dismiss();
-            let alert = this.alertCtrl.create({
-                title: 'Error',
-                subTitle: 'Server times out,please try again',
-                buttons: ['OK']
-            });
-            alert.present();
+            this.globals.presentToast("Something went wrong check your internet connection.")
+
         });
 
     }
@@ -357,12 +354,8 @@ export class MyRewardsPage {
         }, error => {
             console.log("Oooops!");
             loading.dismiss();
-            let alert = this.alertCtrl.create({
-                title: 'Error',
-                subTitle: 'Server times out, please try again',
-                buttons: ['OK']
-            });
-            alert.present();
+            this.globals.presentToast("Something went wrong check your internet connection.")
+
 
         });
     }

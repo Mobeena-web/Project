@@ -279,7 +279,7 @@ export class HomePage {
         }, error => {
             // loading.dismiss();
 
-            this.globals.alertMessage("Failure","Something went wrong check your internet connection.")
+            this.globals.presentToast("Something went wrong check your internet connection.")
 
         });
     }
@@ -311,7 +311,7 @@ export class HomePage {
             
         
         }, error => {
-            this.globals.alertMessage("Failure","Something went wrong check your internet connection.")
+            this.globals.presentToast("Something went wrong check your internet connection.")
 
         });
     }

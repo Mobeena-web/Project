@@ -40,7 +40,7 @@ export class MyApp {
   constructor(private codePush: CodePush,private nativeAudio: NativeAudio,public loadingCtrl: LoadingController,private iab: InAppBrowser,private barcodeScanner:BarcodeScanner,public alertCtrl: AlertController,public app: App,public server: ServerProvider, private _notification: OneSignal, public alertctrl: AlertController, public modalCtrl: ModalController, public globals: GlobalVariable, private statusbar: StatusBar, private splashscreen: SplashScreen, private nativeStorage: NativeStorage, public platform: Platform,private geolocation: Geolocation) {
 
     platform.ready().then(() => {
-        this.checkCodePush();
+        // this.checkCodePush();
         this.data = {};
         this.data.response = '';
         this.LoadSound();
@@ -413,12 +413,8 @@ public scanQR() {
                  }, error => {
                      console.log("Oooops!");
                      loading.dismiss();
-                     let alert = this.alertCtrl.create({
-                         title: 'Error',
-                         subTitle: 'Server times out, please try again',
-                         buttons: ['OK']
-                     });
-                     alert.present();
+                     this.globals.presentToast("Something went wrong check your internet connection.")
+
                  });
              }
              // console.log(barcodeData.text);
@@ -498,7 +494,6 @@ list() {
     response.subscribe(data => {
         this.places = data.results;
         var new_id = this.globals.new_id;
-        console.log("places",this.places)
         this.globals.business_list = this.places;
         this.places = this.places.filter(function(item) {
          return item.business_id === new_id;
@@ -533,12 +528,9 @@ list() {
      
     }, error => {
        
-        let alert = this.alertCtrl.create({
-            title: 'Error',
-            subTitle: 'Server times out, please try again',
-            buttons: ['OK']
-        });
-        alert.present();
+        
+        this.globals.presentToast("Something went wrong check your internet connection.")
+
 
     });
  

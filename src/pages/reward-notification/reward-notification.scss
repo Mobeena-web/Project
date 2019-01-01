@@ -1,12 +1,14 @@
 page-reward-notification {
     .icon_img{
         width: 145px;
-        height: auto;
+        height: 110px;
         display: block;
         margin-left: auto;
         margin-right: auto;
         margin-top: -61px;
         z-index: 999;
+        object-fit: cover;
+
     }
     .main_head{
         font-size: 33px;
@@ -38,7 +40,7 @@ page-reward-notification {
         color: #333;
     }
     .bi{
-        height: 200px;
+        height: 140px;
         width: 100%;
         object-fit: cover;
     }

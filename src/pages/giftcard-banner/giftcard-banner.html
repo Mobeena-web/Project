@@ -3,6 +3,11 @@
 
   <ion-navbar color='primary'>
     <ion-title>Gift Card Designs</ion-title>
+    <ion-buttons end>
+        <button ion-button icon-only color="royal" (click)="proceed()">
+          Proceed
+        </button>
+      </ion-buttons>
   </ion-navbar>
 
 </ion-header>
@@ -57,5 +62,5 @@
          </ion-col>
        </ion-row>
      </ion-card> -->
-     <button ion-button block class="p_btn" (click)="proceed()">Proceed</button>
+     <button ion-button block class="p_btn" (click)="proceed()">Proceed to Checkout</button>
 </ion-content>
