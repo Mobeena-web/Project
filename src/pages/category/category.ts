@@ -70,8 +70,9 @@ export class CategoryPage {
         this.currentBusinessDiscount = "10";
         this.globals.BusinessDiscount = this.currentBusinessDiscount;
         
-
-        this.getLocation();
+        if(!this.globals.caos_flag){
+            this.getLocation();    
+        }
 
         this.myChoice.push('abcd');
         this.myChoice.pop();

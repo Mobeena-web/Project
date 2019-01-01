@@ -74,16 +74,14 @@ export class LoginPage {
                     this.globals.firstName = this.data.response.firstname;
                     this.globals.lastName = this.data.response.lastname;
                     
-                    // if(this.globals.caos_flag){
+                    if(this.globals.caos_flag){
                 
-                    //     this.navCtrl.push('CategoryPage')
-                    // }
-                    // else{
-                    //     this.navCtrl.setRoot(HomePage, { imageData: this.data.response.url, Flag: false });
+                        this.navCtrl.push('CartPage')
+                    }
+                    else{
+                        this.navCtrl.setRoot(HomePage, { imageData: this.data.response.url, Flag: false });
 
-                    // }
-                   
-                    this.nativeStorage.setItem('user',
+                        this.nativeStorage.setItem('user',
                         {
                             email: LoginData.email,
                             udid: this.data.response.udid,
@@ -103,8 +101,7 @@ export class LoginPage {
                             this.SaveMobileNumberFlag(this.data.response.mobile_verification_amount, this.data.response.phone_verified);
 
                             if(this.globals.caos_flag){
-                                this.globals.caos_flag = false;
-
+                             
                                 this.navCtrl.push('CartPage')
                             }
                             else{
@@ -114,6 +111,10 @@ export class LoginPage {
                             this.server.initializePushToken();
                         })
                         .catch((err) => { console.log("nativesstorage", err) });
+
+                    }
+                   
+                   
                 }
                 else {
                     console.log(this.data.response);

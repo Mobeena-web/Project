@@ -826,7 +826,7 @@ export class CartPage {
               {
                 text: 'Proceed to Checkout',
                 handler: () => {
-                    this.globals.udid = this.globals.caos_udid;
+                    
                     this.navCtrl.push('PaymentPage', { amount: this.Total, tip: this.Tip, notes: this.notes, RewardAvailed: this.RewardStoreCreditAvailed, BirthdayCreditavailed: this.birthdayStoreCreditavailed });
                   
                 }

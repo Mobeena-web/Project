@@ -694,6 +694,9 @@ export class PaymentPage {
     }
 
     payment_type(PaymentData) {
+        if(!this.globals.udid){
+            this.globals.udid = this.globals.caos_udid;
+        }
         console.log("make payment button  instruction key", this.instructions);
         if (this.globals.type == 'reservation') {
             this.pay_reservation(PaymentData);
@@ -1044,6 +1047,9 @@ export class PaymentPage {
 
             });
             loading.present();
+            if(!this.globals.udid){
+                this.globals.udid = this.globals.caos_udid;
+            }
                
                     // var data = 'stripetoken=' + token + '&amount=50';
                     if (this.globals.GainDiscountFlag == true) {
