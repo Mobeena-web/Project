@@ -105,7 +105,7 @@ export class LoginPage {
                             if(this.globals.caos_flag){
                                 this.globals.caos_flag = false;
 
-                                this.navCtrl.push('CategoryPage')
+                                this.navCtrl.push('CartPage')
                             }
                             else{
                                 this.navCtrl.setRoot(HomePage, { imageData: this.data.response.url, Flag: false });
