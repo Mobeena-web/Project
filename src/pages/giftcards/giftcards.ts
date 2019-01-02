@@ -64,9 +64,36 @@ my_gift_cards() {
   
   }, error => {
       loading.dismiss();
-      this.global.alertMessage("Failure","Something went wrong check your internet connection.")
+      this.global.presentToast("Something went wrong check your internet connection.")
 
   });
+}
+
+gift_redeem(){
+
+}
+
+doRadio() {
+  let alert = this.alertCtrl.create();
+  alert.setTitle('Select Gift Card');
+
+  alert.addInput({
+    type: 'radio',
+    label: 'Blue',
+    value: 'blue',
+  });
+
+ 
+
+  alert.addButton('Cancel');
+  alert.addButton({
+    text: 'Ok',
+    handler: (data: any) => {
+      
+    }
+  });
+
+  alert.present();
 }
 
 

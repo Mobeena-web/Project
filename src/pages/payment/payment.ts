@@ -209,6 +209,11 @@ export class PaymentPage {
 
     }
 
+    login_kiosk(){
+        let modal = this.modalCtrl.create('LoginPage');
+         modal.present();
+    }
+
 
 
     ionViewDidLoad() {
@@ -591,7 +596,7 @@ export class PaymentPage {
                             if (this.globals.points_availed > 0) {
                                 let points = this.RedeemUserPoints();
                             }
-                            this.FirstimeFlag();
+                            //this.FirstimeFlag();
 
                         }
 
@@ -955,7 +960,7 @@ export class PaymentPage {
 
                             this.thankyou();
 
-                            this.FirstimeFlag();
+                            //this.FirstimeFlag();
 
                         }
 

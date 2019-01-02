@@ -101,6 +101,9 @@
   "devDependencies": {
     "@ionic/app-scripts": "3.1.7",
     "@types/jquery": "^3.3.23",
+    "electron": "^4.0.0",
+    "electron-installer-dmg": "^2.0.0",
+    "electron-packager": "^11.2.1",
     "typescript": "2.4.2"
   },
   "description": "An Ionic project",

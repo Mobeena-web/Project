@@ -3,6 +3,11 @@
 
   <ion-navbar color="primary">
     <ion-title>Payment</ion-title>
+    <ion-buttons end *ngIf="!this.globals.udid">
+      <button ion-button icon-only color="royal" (click)="login_kiosk()">
+        Login
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
@@ -140,7 +145,7 @@
       
     </ion-list>
 
-    <ion-list no-lines style="padding:5px ; margin-top:0px; padding-top: 0px;padding-bottom:0px;margin-bottom:0px;">
+    <ion-list *ngIf="!globals.coas_flag" no-lines style="padding:5px ; margin-top:0px; padding-top: 0px;padding-bottom:0px;margin-bottom:0px;">
       <ion-item style="background: transparent">
         <ion-label>Save Credit Card Information</ion-label>
         <ion-checkbox formControlName="cardinfo" (ionChange)="Savecreditcard()"></ion-checkbox>

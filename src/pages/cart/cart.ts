@@ -67,6 +67,7 @@ export class CartPage {
     point_show:any = 0;
     per_tip :any = 0;
     tip_cus:any = 0;
+    mygifts:any;
     constructor(public loadingCtrl: LoadingController, public server: ServerProvider, public modalCtrl: ModalController, public alertCtrl: AlertController, private nativeStorage: NativeStorage, public appCtrl: App, public globals: GlobalVariable, public viewCtrl: ViewController, public navCtrl: NavController, public navParams: NavParams) {
         console.log(globals.type, "@@@type");
         //  console.log("here is my items of global" ,this.globals.itemInstruction);
@@ -111,6 +112,7 @@ export class CartPage {
         this.CheckUserReward();
         this.CheckUserPoints();
         this.CheckMobileDiscount();
+        this.my_gift_cards();
     }
     // ionViewWillEnter(){
     //     this.total();
@@ -820,7 +822,8 @@ export class CartPage {
                 {
                     text: 'Login',
                     handler: () => {
-                      this.navCtrl.setRoot('LoginPage')
+                       let modal = this.modalCtrl.create('LoginPage');
+                        modal.present();
                     }
                   },
               {
@@ -1373,6 +1376,25 @@ export class CartPage {
           }
         });
         alert.present();
+      }
+
+      my_gift_cards() {
+        let loading = this.loadingCtrl.create({
+            content: "Loading...",
+        });
+        loading.present();
+      
+        let response = this.server.my_gift_cards();
+        response.subscribe(data => {
+            this.mygifts = data;
+           
+            loading.dismiss();
+        
+        }, error => {
+            loading.dismiss();
+            this.globals.presentToast("Something went wrong check your internet connection.")
+      
+        });
       }
 
 
