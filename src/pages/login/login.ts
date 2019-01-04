@@ -79,7 +79,7 @@ export class LoginPage {
                         this.viewCtrl.dismiss();
                     }
                     else{
-                        this.navCtrl.setRoot(HomePage, { imageData: this.data.response.url, Flag: false });
+                        //this.navCtrl.setRoot(HomePage, { imageData: this.data.response.url, Flag: false });
 
                         this.nativeStorage.setItem('user',
                         {
