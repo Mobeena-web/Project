@@ -5,12 +5,6 @@ import { NativeStorage } from '@ionic-native/native-storage';
 import { GlobalVariable } from '../../app/global';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
-/**
- * Generated class for the CartPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -67,7 +61,9 @@ export class CartPage {
     point_show:any = 0;
     per_tip :any = 0;
     tip_cus:any = 0;
-    mygifts:any;
+    gift_card_amount = 0;
+    mygifts = [];
+    gift_array=[];
     constructor(public loadingCtrl: LoadingController, public server: ServerProvider, public modalCtrl: ModalController, public alertCtrl: AlertController, private nativeStorage: NativeStorage, public appCtrl: App, public globals: GlobalVariable, public viewCtrl: ViewController, public navCtrl: NavController, public navParams: NavParams) {
         console.log(globals.type, "@@@type");
         //  console.log("here is my items of global" ,this.globals.itemInstruction);
@@ -1060,7 +1056,14 @@ export class CartPage {
                                   {
                                     text: 'Proceed to Checkout',
                                     handler: () => {
-                                      this.navCtrl.push('PaymentPage', { amount: this.Total, tip: this.Tip, notes: this.notes, RewardAvailed: this.RewardStoreCreditAvailed, BirthdayCreditavailed: this.birthdayStoreCreditavailed });
+                                        if(this.globals.inradius){
+                                            this.navCtrl.push('PaymentPage', {giftcard:this.gift_array, amount: this.Total, tip: this.Tip, notes: this.notes, RewardAvailed: this.RewardStoreCreditAvailed, BirthdayCreditavailed: this.birthdayStoreCreditavailed });
+
+                                        }
+                                        else{
+                                            this.globals.alertMessage("No Delivery","We d'nt Deliver in your Area.")
+
+                                        }
                                       
                                     }
                                   }
@@ -1091,7 +1094,7 @@ export class CartPage {
                             this.coas_type();
                         }
                         else{
-                            this.navCtrl.push('PaymentPage', { amount: this.Total, tip: this.Tip, notes: this.notes, RewardAvailed: this.RewardStoreCreditAvailed, BirthdayCreditavailed: this.birthdayStoreCreditavailed });
+                            this.navCtrl.push('PaymentPage', { giftcard:this.gift_array,amount: this.Total, tip: this.Tip, notes: this.notes, RewardAvailed: this.RewardStoreCreditAvailed, BirthdayCreditavailed: this.birthdayStoreCreditavailed });
 
                         }
                         
@@ -1365,8 +1368,7 @@ export class CartPage {
             var p = this.point_rewards.filter(function(item) {
                 return item.availed === false;
               });
-              console.log("p",p)
-
+            
               if(p.length > 0){
                 this.pointsInput = data;
                 this.check_points = true;
@@ -1379,22 +1381,170 @@ export class CartPage {
       }
 
       my_gift_cards() {
-        let loading = this.loadingCtrl.create({
-            content: "Loading...",
-        });
-        loading.present();
-      
+       
         let response = this.server.my_gift_cards();
         response.subscribe(data => {
             this.mygifts = data;
            
-            loading.dismiss();
         
         }, error => {
-            loading.dismiss();
             this.globals.presentToast("Something went wrong check your internet connection.")
       
         });
+      }
+
+      gift_alert(){
+        let alert = this.alertCtrl.create();
+        alert.setTitle('Select Gift Card');
+        
+        this.mygifts.forEach(e => {
+            alert.addInput({
+                type: 'radio',
+                label: '$' + e.amount,
+                value: e,
+              });
+            
+        });
+    
+        alert.addButton('Cancel');
+        alert.addButton({
+          text: 'OK',
+          handler: data => {
+              if(data){
+                if(Number(data.amount) > Number(this.Total)){
+                    this.full_reddem_or_partial(data);
+                }
+                else{
+                    this.partial_redeem(data)
+                }
+              }
+            
+ 
+          }
+        });
+        alert.present();
+      }
+
+      full_reddem_or_partial(data) {
+        let alert = this.alertCtrl.create({
+          title: 'Gift Card',
+          message: 'Do you want to Redeem Full Total Amount or Partial?',
+          buttons: [
+            {
+              text: 'Partial',
+              
+              handler: () => {
+               this.partial_redeem(data)
+              }
+            },
+            {
+              text: 'Redeem Full',
+              handler: () => {
+                this.full_redeem(data)
+              }
+            }
+          ]
+        });
+        alert.present();
+      }
+
+      full_redeem(data){
+        let alert = this.alertCtrl.create({
+            
+            message: 'Are you sure you want to place order and pay all with gift card?',
+            buttons: [
+              {
+                text: 'No',
+                role: 'cancel',
+                handler: () => {
+                  console.log('Cancel clicked');
+                }
+              },
+              {
+                text: 'Yes',
+                handler: () => {
+                    if(this.globals.inradius){
+                        var giftdata = {giftcard_id:data.giftcard_id,amount:this.Total}
+                        this.gift_array.push(giftdata)
+                      this.navCtrl.push('PaymentPage',{giftcard:this.gift_array,gift_flag:true})
+                    }
+                    else{
+                        this.globals.alertMessage("No Delivery","We D'nt Deliver in Your Area")
+                    }
+                   
+                }
+              }
+            ]
+          });
+          alert.present();
+      }
+      partial_redeem(data_gift){
+        let alert = this.alertCtrl.create({
+            title: 'Enter Amount you want to redeem from card.',
+            inputs: [
+              {
+                name: 'amount',
+                placeholder: 'Amount'
+              }
+            ],
+            buttons: [
+              {
+                text: 'Cancel',
+                role: 'cancel',
+                handler: data => {
+                  console.log('Cancel clicked');
+                }
+              },
+              {
+                text: 'Redeem',
+                handler: data => {
+                  if(Number(data_gift.amount) < Number(data.amount) ){
+                    this.globals.presentToast("You enter amount greater than your giftcard")
+                  }
+                  else{
+                      if(Number(data.amount) > Number(this.Total) ) {
+                        this.globals.presentToast("Please Enter More items in cart")
+                      }
+                      else{
+                        this.Total = (Number(this.Total) - Number(data.amount)).toFixed(2);
+                        this.mygifts.map(
+                            (checkitem, i, array) => {
+                              if (checkitem.giftcard_id == data_gift.giftcard_id) {
+                                checkitem.amount = Number(checkitem.amount) - Number(data.amount)
+                              }
+                            }
+                          );
+                          var not_in_array = true;
+                          this.gift_array.forEach(e => {
+                            if(e.giftcard_id == data_gift.giftcard_id){
+                                e.amount = Number(e.amount) + Number(data.amount);
+                                not_in_array = false;
+                            console.log("gifts_array",this.gift_array,this.mygifts)
+
+                            }
+                            
+                        });
+
+                        if(not_in_array){
+                            var giftdata = {giftcard_id:data_gift.giftcard_id,amount:data.amount}
+                            this.gift_array.push(giftdata);
+                            console.log("gifts_array",this.gift_array,this.mygifts)
+
+                        }
+                        this.gift_card_amount = 0;
+                        this.gift_array.forEach(e => {
+                           this.gift_card_amount =this.gift_card_amount +  Number(e.amount)
+                            
+                        });
+
+
+                      }
+                  }
+                }
+              }
+            ]
+          });
+          alert.present();
       }
 
 

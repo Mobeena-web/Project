@@ -376,11 +376,15 @@
                    <p style="float:right;font-size:1.3rem;margin:0px;color:#444;">- ${{point_show}}</p>
                  </ion-label>
                  <ion-label *ngIf="check_points && !pointsInput.description " style="padding:0px;font-size:1.3rem;margin:0px;color:#444;">
-                   <!-- <ion-icon style="    padding-right: 5px;  position: relative; top: 3px;" ios="ios-cut" md="md-cut"> </ion-icon>  -->
                    Point Used
                    <p style="float:right;font-size:1.3rem;margin:0px;color:#444;">- $0</p>
                  </ion-label>
-             
+
+                 <ion-label *ngIf="gift_card_amount > 0" style="padding:0px;font-size:1.3rem;margin:0px; color:#444;">
+                    Gift Card
+                  <p style="float:right;font-size:1.3rem;margin:0px;color:#444;"> - ${{gift_card_amount}}</p>
+                </ion-label>
+
                  <ion-label *ngIf="globals.GainDiscount > 0" style="padding:0px;font-size:1.3rem;margin:0px; color:#444;">
                    <!-- <ion-icon style="    padding-right: 5px;  position: relative; top: 3px;" ios="ios-cut" md="md-cut"> </ion-icon> -->
                      Discount
@@ -435,7 +439,7 @@
         <ion-segment-button style="overflow:unset !important;padding: 0px" (click)="add_gratuity()">
             Custom Gratuity
         </ion-segment-button>
-        <ion-segment-button style="overflow:unset !important;padding: 0px" (click)="gift_redeem()">
+        <ion-segment-button style="overflow:unset !important;padding: 0px" (click)="gift_alert()" *ngIf="mygifts.length > 0">
           Gifts
       </ion-segment-button>
       </ion-segment>
