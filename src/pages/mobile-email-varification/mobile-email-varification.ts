@@ -146,9 +146,9 @@ Verify() {
             dismissOnPageChange: true,
         });
         loading.present();
-        this.globals.PhoneNo = signupData.phonecode + signupData.phone  ;
+        // this.globals.PhoneNo = signupData.phonecode + signupData.phone  ;
 
-        let response = this.server.SignupData(signupData.firstName, signupData.lastName, signupData.email, signupData.password, signupData.phone, signupData.birthday, signupData.aniversary);
+        let response = this.server.SignupData(signupData.firstName, signupData.lastName, signupData.email, signupData.password, this.globals.PhoneNo, signupData.birthday, signupData.aniversary);
 
         response.subscribe(data => {
             console.log(data);
