@@ -623,7 +623,7 @@ export class CartPage {
 
     changeAddress() {
         this.navCtrl.push("ModalPage");
-         this.total();
+         //this.total();
          
         // let modal = this.modalCtrl.create('ModalPage');
         // modal.onDidDismiss(data => {
