@@ -515,12 +515,9 @@ export class ItemDetailPage {
               duration: 2000,
               position: 'bottom'
             });
+            this.flag = false;
           
-            toast.onDidDismiss(() => {
-              console.log('Dismissed toast');
-              this.flag = false;
-              console.log(flag);
-            });
+           
           
             toast.present();
           }
