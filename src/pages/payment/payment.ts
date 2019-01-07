@@ -69,7 +69,9 @@ export class PaymentPage {
     Notes: any;
     orderType : any ;
     cash_on_delivery:any;
-    instructions: any = { "Type": '', "BusinessDiscount": 0, "GainDiscount": 0, "StoreCredit": 0, "Tip": 0, "Points": 0, "Notes": '' };
+    gift_falg:boolean = false;
+    gift_data:any;
+    instructions: any = { "Type": '', "BusinessDiscount": 0, "GainDiscount": 0, "StoreCredit": 0, "Tip": 0, "Points": 0, "Notes": '',"giftcard":'' };
 
     month_array: any[] = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
@@ -135,7 +137,6 @@ export class PaymentPage {
 
 
         this.getAddress();
-        this.process();
 
         this.date = new Date();
         this.datenow = this.date.getDate();
@@ -176,9 +177,6 @@ export class PaymentPage {
         }
         console.log(this.value);
       
-
-
-        
         this.amount = this.navParams.get('amount');
         this.amount = Number(this.amount) ;
         console.log("tip added ",this.amount);
@@ -206,7 +204,21 @@ export class PaymentPage {
 
         this.getCreditCard();
 
+        this.gift_falg = this.navParams.get('gift_flag');
+        this.gift_data = this.navParams.get('giftcard');
+        this.process();
 
+        if(this.gift_falg){
+            
+            this.payment_on_delivery();
+        }
+        
+
+    }
+
+    login_kiosk(){
+        let modal = this.modalCtrl.create('LoginPage');
+         modal.present();
     }
 
 
@@ -591,7 +603,7 @@ export class PaymentPage {
                             if (this.globals.points_availed > 0) {
                                 let points = this.RedeemUserPoints();
                             }
-                            this.FirstimeFlag();
+                            //this.FirstimeFlag();
 
                         }
 
@@ -670,6 +682,10 @@ export class PaymentPage {
         if (this.globals.points_availed > 0) {
             this.instructions.Points = Number(this.globals.points_availed);
         }
+        console.log(this.gift_data,"ko")
+        if(this.gift_data.length > 0){
+            this.instructions.giftcard = this.gift_data;
+        }
 
         console.log(this.instructions);
 
@@ -694,6 +710,9 @@ export class PaymentPage {
     }
 
     payment_type(PaymentData) {
+        if(!this.globals.udid){
+            this.globals.udid = this.globals.caos_udid;
+        }
         console.log("make payment button  instruction key", this.instructions);
         if (this.globals.type == 'reservation') {
             this.pay_reservation(PaymentData);
@@ -952,7 +971,7 @@ export class PaymentPage {
 
                             this.thankyou();
 
-                            this.FirstimeFlag();
+                            //this.FirstimeFlag();
 
                         }
 
@@ -1044,6 +1063,9 @@ export class PaymentPage {
 
             });
             loading.present();
+            if(!this.globals.udid){
+                this.globals.udid = this.globals.caos_udid;
+            }
                
                     // var data = 'stripetoken=' + token + '&amount=50';
                     if (this.globals.GainDiscountFlag == true) {

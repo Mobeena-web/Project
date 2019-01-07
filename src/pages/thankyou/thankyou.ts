@@ -17,6 +17,7 @@ export class ThankyouPage {
 
   done(){
     if(this.globals.caos_flag){
+      this.globals.udid = undefined;
       this.logout();
     }
     else{
@@ -26,19 +27,10 @@ export class ThankyouPage {
   }
 
   logout() {
-    this.nativeStorage.clear()
-        .then(data => {
-            this.nativeStorage.remove('user')
-                .then(data => {
-                    this.globals.Product.length = 0;
-                    this.globals.cartflag = false;
-  
-                    this.navCtrl.setRoot('BeforeLoginPage')
-                }).catch(err => console.log());
-  
-            
-  
-        }).catch(err => console.log());
+    this.globals.Product.length = 0;
+    this.globals.cartflag = false;
+    this.navCtrl.setRoot('BeforeLoginPage')
+
   
   }
 

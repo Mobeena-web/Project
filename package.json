@@ -3,13 +3,21 @@
   "version": "0.0.1",
   "author": "Ionic Framework",
   "homepage": "http://ionicframework.com/",
+  "main": "src/electron-starter.js",
   "private": true,
   "scripts": {
     "clean": "ionic-app-scripts clean",
     "build": "ionic-app-scripts build",
     "lint": "ionic-app-scripts lint",
     "ionic:build": "ionic-app-scripts build",
-    "ionic:serve": "ionic-app-scripts serve"
+    "ionic:serve": "ionic-app-scripts serve",
+    "electron": "electron .",
+    "electron-serve": "ng build --prod && electron",
+    "mac-release": "electron-packager . --overwrite --platform=darwin --arch=x64 --icon=src/assets/icon.icns --prune=true --out=release-builds",
+    "windows-release": "electron-packager . electron-tutorial-app --overwrite --asar=true --platform=win32 --arch=ia32 --icon=src/assets/icon.ico --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName='Electron Tutorial App'",
+    "linux-release": "electron-packager . electron-tutorial-app --overwrite --asar=true --platform=linux --arch=x64 --icon=src/assets/icon.png --prune=true --out=release-builds",
+    "mac-build": "electron-installer-dmg ./release-builds/ionic-desktop-darwin-x64/ionic-desktop.app builds/ionic-desktop",
+    "windows-build": "node src/windows-build.js"
   },
   "dependencies": {
     "@angular/common": "5.0.3",
@@ -101,6 +109,9 @@
   "devDependencies": {
     "@ionic/app-scripts": "3.1.7",
     "@types/jquery": "^3.3.23",
+    "electron": "^4.0.0",
+    "electron-installer-dmg": "^2.0.0",
+    "electron-packager": "^11.2.1",
     "typescript": "2.4.2"
   },
   "description": "An Ionic project",

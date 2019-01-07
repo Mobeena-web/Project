@@ -311,12 +311,17 @@ export class ModalPage {
         
         myadress = data.address;
         this.Address = myadress;
+        this.globals.inradius = data.in_radius;
+        if(data.in_radius == false){
+          this.globals.alertMessage("No Delivery","We d'nt Deliver in your Area.")
+
+        }
         localStorage.setItem("GetAddress",myadress);
 
     }, error => {
         localStorage.setItem("GetAddress","");
 
-        this.globals.alertMessage("Failure","Something went wrong check your internet connection.")
+        this.globals.presentToast("Something went wrong check your internet connection.")
 
     });
 

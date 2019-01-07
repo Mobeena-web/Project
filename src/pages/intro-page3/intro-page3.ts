@@ -31,10 +31,10 @@ export class IntroPage3Page {
             firstName: ['', Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
             lastName: ['', Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
             email: ['', Validators.compose([Validators.required, EmailValidator.isValid])],
-            phone: ['', Validators.compose([Validators.maxLength(15), Validators.required])],
+            phone: ['', Validators.compose([Validators.maxLength(10), Validators.required])],
             // nextdigits: ['', Validators.compose([Validators.maxLength(4), Validators.required])],
             password: ['', Validators.compose([Validators.minLength(6), Validators.required])],
-            phonecode: ['+1', Validators.compose([Validators.required])],
+            phonecode: ['1', Validators.compose([Validators.required])],
             birthday:[],
             anniversary:[],
             
@@ -68,7 +68,7 @@ export class IntroPage3Page {
            localStorage.setItem("firstname",signupData.firstName);
            localStorage.setItem("lastname",signupData.lastName);
            localStorage.setItem("password",signupData.password);
-           this.globals.PhoneNo = signupData.phonecode + signupData.phone  ;
+           this.globals.PhoneNo = '+' + signupData.phonecode + signupData.phone  ;
            this.globals.Email = signupData.email;
            console.log("register_data",signupData)
 

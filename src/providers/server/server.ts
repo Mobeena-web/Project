@@ -34,6 +34,17 @@ getdeals(){
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
 
+  SendLogindataToServer(username,password) {
+
+    var data = JSON.stringify({ username: username, password: password });
+    var link = this.global.BaseUrl + 'Business_controller/app_login';
+
+    return this.http.post(link, data)
+      .map((res: any) => res.json())
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+
+  }
+
   SignupData(firstname, lastname, email, password, phone, Birthday, Anniversary) {
     var link = this.global.BaseUrl + 'Customer_controller/signup';
     var data = JSON.stringify({ business_id:this.global.new_id,firstname: firstname, lastname: lastname, email: email, password: password, phone: phone, birthday: Birthday, anniversary: Anniversary });
@@ -77,7 +88,7 @@ getdeals(){
 
   getAddress(coordinates) {
     var link = this.global.BaseUrl + 'Customer_controller/get_address_with_coordinates';
-    var data = JSON.stringify({ coordinates : coordinates });
+    var data = JSON.stringify({ business_id:this.global.new_id,coordinates : coordinates });
     return this.http.post(link, data)
       .map((res: any) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));

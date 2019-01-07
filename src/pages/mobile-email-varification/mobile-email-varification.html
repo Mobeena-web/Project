@@ -9,7 +9,11 @@
       <!-- <ion-input class="phone" [(ngModel)]="userPhone"></ion-input> -->
       <div>
         <!-- <p style=" text-align: center; font-size: 1.8rem;margin-top: 0;">Please enter the code send to your Phone.</p> -->
-        <ion-input class="codeinput"   maxlength="6"  placeholder="Phone Code"  type="tel" [(ngModel)]="Phonecode"></ion-input>
+        <ion-item>
+          <ion-label color="primary" stacked>Phone Code</ion-label>
+          <ion-input class="codeinput"   maxlength="6" type="tel" [(ngModel)]="Phonecode"></ion-input>
+        </ion-item>
+        
       </div>
     </div>
     <div >
