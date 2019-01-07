@@ -108,7 +108,6 @@ export class PaymentPage {
             this.creditcard = false;
             this.paypal = false;
         }
-        console.log("usmanid",this.globals.StripId)
         if(this.globals.StripId){
             this.creditcard = true;
             this.paypal = false; 
