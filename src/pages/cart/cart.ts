@@ -513,6 +513,15 @@ export class CartPage {
             }
         }
 
+        
+
+         if(this.gift_array.length > 0){
+            this.gift_array.forEach(e => {
+                this.Total = Number(this.Total) +  Number(e.amount)
+                 
+             });
+         }
+
     }
 
 
