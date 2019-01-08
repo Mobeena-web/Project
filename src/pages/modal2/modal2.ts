@@ -226,7 +226,7 @@ export class Modal2Page {
             if(data.success == true){
                this.day = data.day_id + 1;
                this.time = data.time;
-              localStorage.setItem("scheduled_time",  data.date +' ' + data.time.replace(".", ":") );
+              localStorage.setItem("scheduled_time",  this.myDate );
               let current_day = this.globals.Timing[this.day];
               // this.time = this.time.toString();
               console.log(this.day,this.time,current_day)
@@ -331,7 +331,7 @@ export class Modal2Page {
             if(data.success == true){
                this.day = data.day_id + 1;
                this.time = data.time;
-              localStorage.setItem("scheduled_time",  data.date +' ' + data.time.replace(".", ":") );
+              localStorage.setItem("scheduled_time",  this.myDate );
               let current_day = this.globals.Timing[this.day];
               // this.time = this.time.toString();
               console.log(this.day,this.time,current_day)
