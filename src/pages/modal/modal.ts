@@ -117,22 +117,24 @@ export class ModalPage {
   
   getdata(){
     this.time =  localStorage.getItem("scheduled_time");
-    console.log(this.time,"to")
+    
     if(this.time){
-      var res = this.time.split("T");
+      this.datenow = this.time;
+      this.convertDate = this.time;
+      // var res = this.time.split("T");
 
-      var res1 = res[1].split(".")
-      this.datenow = res[0] + ' '+ this.tConvert(res1[0]);
-      this.convertDate = res[0] + ' '+ this.tConvert(res1[0]);
+      // var res1 = res[1].split(".")
+      // this.datenow = res[0] + ' '+ this.tConvert(res1[0]);
+      // this.convertDate = res[0] + ' '+ this.tConvert(res1[0]);
       // this.date = new Date(this.time );
       // var timeis = new Date(this.time).toLocaleString('en-US', { hour12: true });
     }
     else{
       this.date = new Date(new Date().setHours(new Date().getHours()));
       var timeis = new Date(this.date).toLocaleString('en-US', { hour12: true });
-      this.datenow = timeis ;
+      this.datenow = timeis;
    
-      this.convertDate = timeis ;
+      this.convertDate = timeis;
     }
   
     //this.date = new Date(local_datetime);

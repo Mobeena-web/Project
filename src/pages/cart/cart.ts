@@ -513,6 +513,15 @@ export class CartPage {
             }
         }
 
+        
+
+         if(this.gift_array.length > 0){
+            this.gift_array.forEach(e => {
+                this.Total = Number(this.Total) +  Number(e.amount)
+                 
+             });
+         }
+
     }
 
 
@@ -623,7 +632,7 @@ export class CartPage {
 
     changeAddress() {
         this.navCtrl.push("ModalPage");
-         //this.total();
+         this.total();
          
         // let modal = this.modalCtrl.create('ModalPage');
         // modal.onDidDismiss(data => {

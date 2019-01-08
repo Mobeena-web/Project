@@ -238,6 +238,14 @@ getdeals(){
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
 
+  date_convert(date) {
+    var link = this.global.BaseUrl + '/menu/get_date_convert';
+    var data = JSON.stringify({ date:date });
+    return this.http.post(link, data)
+      .map((res: any) => res.json())
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+  }
+
   MobileVerification() {
     var link = this.global.BaseUrl + "Customer_controller/send_verification_message";
 
@@ -250,6 +258,8 @@ getdeals(){
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
 
   }
+
+
 
 
   SendVerificationCodeToServer(phoneCode) {

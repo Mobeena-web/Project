@@ -58,8 +58,8 @@
                 <p style=" font-size: 22px ; text-align: center;color: #000 "> {{name}} </p>
                 <p  *ngIf="type == 'delivery'" style="font-size: 20px ">{{type}}</p>
                 <p  *ngIf="type == 'pickup'" style="font-size: 22px ">{{type}}</p>
-                <p *ngIf="type == 'delivery'" style="font-size: 20px ">{{globals.pickupsetting}} mint</p>
-                <p  *ngIf="type == 'pickup'" style="font-size: 20px ">{{globals.pickup_Time}} mint</p>
+                <p *ngIf="type == 'delivery'" style="font-size: 20px ">{{globals.pickupsetting}}</p>
+                <p  *ngIf="type == 'pickup'" style="font-size: 20px ">{{globals.pickup_Time}}</p>
 
               </div>
               </ion-item>
@@ -101,7 +101,7 @@
         </ion-footer>
         <ion-footer *ngIf= "settings == 'today'" padding>
           <ion-buttons>
-            <button ion-button round  block (click)="Today()">Today</button>
+            <button ion-button round [disabled]="today_disable"  block (click)="Today()">Today</button>
             </ion-buttons>
         </ion-footer>
         <ion-footer *ngIf= "settings == 'later'" padding>
