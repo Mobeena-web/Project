@@ -119,13 +119,12 @@ export class ModalPage {
     this.time =  localStorage.getItem("scheduled_time");
     
     if(this.time){
-      this.datenow = this.time;
-      this.convertDate = this.time;
-      // var res = this.time.split("T");
+    
+      var res = this.time.split("T");
 
-      // var res1 = res[1].split(".")
-      // this.datenow = res[0] + ' '+ this.tConvert(res1[0]);
-      // this.convertDate = res[0] + ' '+ this.tConvert(res1[0]);
+      var res1 = res[1].split(".")
+      this.datenow = res[0] + ' '+ this.tConvert(res1[0]);
+      this.convertDate = res[0] + ' '+ this.tConvert(res1[0]);
       // this.date = new Date(this.time );
       // var timeis = new Date(this.time).toLocaleString('en-US', { hour12: true });
     }
