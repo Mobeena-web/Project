@@ -98,7 +98,7 @@ export class CategoryPage {
             time = Number(time);
             console.log(Number(current_day[1]),time)
             if(current_day){
-                if((Number(current_day[0]) <= time && Number(current_day[1]) > time) || (Number(current_day[0]) <= time && Number(current_day[1]) < Number(current_day[0])) || (current_day[1] == 'opened' && current_day[1] == 'opened')){
+                if((Number(current_day[0]) <= time && Number(current_day[1]) > time) || (Number(current_day[0]) <= time && Number(current_day[1]) < Number(current_day[0])) || (current_day[0] != 'closed' && current_day[1] != 'closed')){
                     return true;
                 }
                 else {

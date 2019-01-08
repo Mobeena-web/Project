@@ -1066,7 +1066,9 @@ export class CartPage {
                                     text: 'Proceed to Checkout',
                                     handler: () => {
                                         if(this.globals.inradius){
-                                            this.navCtrl.push('PaymentPage', {giftcard:this.gift_array, amount: this.Total, tip: this.Tip, notes: this.notes, RewardAvailed: this.RewardStoreCreditAvailed, BirthdayCreditavailed: this.birthdayStoreCreditavailed });
+                                             if(this.checkTiming()){
+                                                this.navCtrl.push('PaymentPage', {giftcard:this.gift_array, amount: this.Total, tip: this.Tip, notes: this.notes, RewardAvailed: this.RewardStoreCreditAvailed, BirthdayCreditavailed: this.birthdayStoreCreditavailed });
+                                              }
 
                                         }
                                         else{
@@ -1487,6 +1489,7 @@ export class CartPage {
           });
           alert.present();
       }
+
       partial_redeem(data_gift){
         let alert = this.alertCtrl.create({
             title: 'Enter Amount you want to redeem from card.',
@@ -1555,6 +1558,31 @@ export class CartPage {
           });
           alert.present();
       }
+
+      checkTiming() {
+        if(localStorage.getItem("scheduled_time")){
+            return true;
+        }
+        else{
+            var date = new Date();
+            var day = date.getDay();
+            var time:any = date.getHours()+ "." + date.getMinutes();
+             time = Number(time);
+        
+            var current_day = this.globals.Timing[day];
+            if((Number(current_day[0]) <= time && Number(current_day[1]) > time) || (Number(current_day[0]) <= time && Number(current_day[1]) < Number(current_day[0])) || (current_day[0] == 'opened' && current_day[1] == 'opened')){
+              return true;
+              
+            }
+            else {
+              this.globals.presentToast('Sorry, we are not serving at this time!')
+        
+              return false;
+            }
+        }
+        
+      }
+      
 
 
 }

@@ -107,28 +107,7 @@ export class ItemDetailPage {
 
 
 
-  checkTiming() {
-    this.date = new Date();
-    this.day = this.date.getDay();
-    this.time = this.date.getHours()+ "." + this.date.getMinutes();
-    this.time = Number(this.time);
-
-    var current_day = this.globals.Timing[this.day];
-    console.log(current_day,"cd")
-    if((Number(current_day[0]) <= this.time && Number(current_day[1]) > this.time) || (Number(current_day[0]) <= this.time && Number(current_day[1]) < Number(current_day[0])) || (current_day[1] == 'opened' && current_day[1] == 'opened')){
-      return true;
-      
-    }
-    else {
-      let alert = this.alertCtrl.create({
-        title: 'Sorry',
-        subTitle: 'Restaurants currently closed.',
-        buttons: ['OK']
-      });
-      alert.present();
-      return false;
-    }
-  }
+  
 
   addQuantity() {
     this.quantity += 1;
@@ -238,9 +217,7 @@ export class ItemDetailPage {
 
 
   AddtoCart() {
-    if(!this.checkTiming()){
-      return;
-    }
+   
     let cartAdditionLoader = this.loadingCtrl.create(
       {
         content: "Adding...",
@@ -391,12 +368,7 @@ export class ItemDetailPage {
       }
     }
     else {
-      let alert = this.alertCtrl.create({
-        title: 'Oops',
-        subTitle: 'Please select the required extras.',
-        buttons: ['OK']
-      });
-      alert.present();
+      this.globals.presentToast("Please select the required extras.")
     }
   }
 
