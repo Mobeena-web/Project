@@ -111,8 +111,10 @@ export class GlobalVariable {
     caos_udid = 'e2c40e9f0a';
     welcome:any;
     inradius:boolean = true;
+    pickup_timing:any;
+    delivery_timing:any;
     constructor(public alertCtrl: AlertController,public toastCtrl: ToastController) {
-     this.BaseUrl = 'https://onlineordering.mikronexus.com/online-ordering-new/index.php/';
+     this.BaseUrl = 'https://staging.onlineordering.mikronexus.com/index.php/';
     }
     
 
