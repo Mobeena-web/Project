@@ -58,8 +58,9 @@ export class ItemDetailPage {
   extraChecked: boolean = false;
   instructions : any;
   item_price:any = 0;
+  reward_item_flag:boolean = false;
   constructor(private photoViewer: PhotoViewer,public server: ServerProvider, public alertCtrl: AlertController, public loadingCtrl: LoadingController, public globals: GlobalVariable, public modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams, private toastCtrl: ToastController) {
-
+    this.reward_item_flag = navParams.get('reward_flag');
     this.thumbimage = navParams.get('image');
   
     // this.name = navParams.get('Name');  
@@ -361,7 +362,7 @@ export class ItemDetailPage {
         this.objectPrice.toFixed(2);
         this.instructions = localStorage.getItem("instructions");
         this.globals.itemInstruction = this.instructions;
-        this.globals.Product.push({ menuId: "1", restId: this.globals.bussinessId, uniqueId: this.ItemId, menuItem: this.name, image: this.thumbimage, quantity: this.quantity, itemInstructions: this.instructions, basePrice: this.price, totalPrice: this.objectPrice, menuExtrasSelected: this.myChoices });
+        this.globals.Product.push({ menuId: "1", restId: this.globals.bussinessId, uniqueId: this.ItemId, menuItem: this.name, image: this.thumbimage, quantity: this.quantity, itemInstructions: this.instructions, basePrice: this.price, totalPrice: this.objectPrice, menuExtrasSelected: this.myChoices,reward:this.reward_item_flag });
         this.navCtrl.pop();
         localStorage.removeItem("instructions");
         console.log("checking remove local storage ", localStorage.getItem("instructions"));

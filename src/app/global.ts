@@ -134,12 +134,12 @@ export class GlobalVariable {
         toast.present();
     }
 
-    circle_graph(id,radius,width,color){
+    circle_graph(value,id,radius,width,color){
        
         var myCircle = Circles.create({
             id:                  id,
             radius:              radius,
-            value:               this.percent,
+            value:               value,
             maxValue:            100,
             width:               width,
             text:                function(value){return '';},

@@ -270,7 +270,7 @@ export class HomePage {
             }
             else{
                 this.points = data.rewards[0].points;
-                this.globals.points_ = this.points;
+                this.globals.points_ = Number(this.points);
             }
             
             
@@ -294,7 +294,7 @@ export class HomePage {
                 this.globals.punch_ = 0;
                 this.globals.punch_limit_ = 0;
                 this.globals.percent = (parseInt(this.punch_) / parseInt(this.punch_limt_))*100;
-                this.globals.circle_graph('circles1',50,7,'#ccc');
+                this.globals.circle_graph(this.globals.percent,'homecircle1',50,7,'#ccc');
             }
             else{
 
@@ -304,7 +304,7 @@ export class HomePage {
                 this.globals.punch_limit_ = this.punch_limt_;
    
                 this.globals.percent = (parseInt(this.punch_) / parseInt(this.punch_limt_))*100;
-                this.globals.circle_graph('circles1',50,7,'#ccc');
+                this.globals.circle_graph(this.globals.percent,'homecircle1',50,7,'#ccc');
             }
           
              
