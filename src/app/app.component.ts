@@ -551,6 +551,8 @@ list() {
        this.globals.b_logo = this.places[0].logo;
        this.globals.StripId = this.places[0].stripe_id;
        this.globals.order_instructions = this.places[0].instructions_enabled;
+       this.globals.pickup_timing = this.places[0].pickup_timing;
+       this.globals.delivery_timing = this.places[0].delivery_timing;
 
         if (this.globals.pickup == '1') {
             this.globals.pickup = true;

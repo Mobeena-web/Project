@@ -213,9 +213,9 @@ export class Modal2Page {
   checkTimingLater(){
     this.type = this.globals.OrderType;
     console.log(this.globals.OrderType,"ordertype")
-    // if (this.type == "delivery") {
+     if (this.type == "delivery") {
       
-        if (this.globals.Timing) {
+        if (this.globals.delivery_timing) {
           let response = this.server.date_convert(this.myDate);
           let loading = this.loadingCtrl.create({
             content: "Loading...",
@@ -227,7 +227,7 @@ export class Modal2Page {
                this.day = data.day_id + 1;
                this.time = data.time;
               localStorage.setItem("scheduled_time",  this.myDate );
-              let current_day = this.globals.Timing[this.day];
+              let current_day = this.globals.delivery_timing[this.day];
               // this.time = this.time.toString();
               console.log(this.day,this.time,current_day)
               if (current_day[0] != 'opened') {
@@ -259,67 +259,65 @@ export class Modal2Page {
       else {
           return true;
       }
-  // }
-  // else {
+  }
+  else {
     
-  //     var future_date = new Date(this.myDate);
-  //     console.log(this.myDate,future_date,"ml")
-  //     var future_day = future_date.getDay();
-  //     this.myDate = this.myDate.toString();
-      
-  //     this.future_hours = future_date.getHours();
-  //     this.future_min = future_date.getMinutes();
+    if (this.globals.pickup_timing) {
+      let response = this.server.date_convert(this.myDate);
+      let loading = this.loadingCtrl.create({
+        content: "Loading...",
+      });
+      loading.present();
+      response.subscribe(data => {
+        loading.dismiss();
+        if(data.success == true){
+           this.day = data.day_id + 1;
+           this.time = data.time;
+          localStorage.setItem("scheduled_time",  this.myDate );
+          let current_day = this.globals.pickup_timing[this.day];
+          // this.time = this.time.toString();
+          console.log(this.day,this.time,current_day)
+          if (current_day[0] != 'opened') {
+            if((Number(current_day[0]) <= Number(this.time) && Number(current_day[1]) > Number(this.time)) || (Number(current_day[0]) <= Number(this.time) && Number(current_day[1]) < Number(current_day[0])) ||  (current_day[0] != 'closed')){
+                 
+                  this.viewCtrl.dismiss('CategoryPage');
+                  this.presentModal();
+                    return true;
+              }
+              else {
+                this.globals.presentToast('Sorry, we are not serving at this time!')
+             
+                return false;
+              }
+          }
+          else {
+            this.viewCtrl.dismiss('CategoryPage');
+            this.presentModal();
+              return true;   
+          }
+        }
   
-  //     this.future_time = this.future_hours + "." + this.future_min;
+      }, error => {
+          this.globals.presentToast("Something went wrong check your internet connection.")
   
+      });
+    
+  }
+  else {
+      return true;
+  }
   
-  //     if (this.globals.Timing) {
-  
-  //         var current_day = this.globals.Timing[future_day];
-  //         localStorage.setItem("scheduled_time", this.myDate);
-  //         //  console.log(parseFloat(time) , parseFloat(current_day[0]),parseFloat(current_day[1]))
-  //         if (current_day[0] != 'opened') {
-  //             if (Number(this.future_time) <= Number(current_day[0]) || Number(this.future_time) >= Number(current_day[1]) || current_day[0] == 'closed') {
-  //                 let alert = this.alertCtrl.create({
-  //                     title: 'Sorry',
-  //                     subTitle: 'Restaurants closed on the given time and date.',
-  //                     buttons: ['OK']
-  //                 });
-  
-  //                 alert.present();
-  //                 return false;
-  //             }
-  //             else {
-  //               this.viewCtrl.dismiss('CategoryPage');
-  //               this.presentModal();
-  //                 return true;
-  //             }
-  //         }
-  //         else {
-  //           this.viewCtrl.dismiss('CategoryPage');
-  //           this.presentModal();
-  //             return true;
-  //         }
-  
-  
-  
-  //     }
-  //     else {
-  //         console.log("else ");
-  //         return true;
-  //     }
-  
-  //     // return true;
-  // }
+      // return true;
+  }
   
   }
   checkTiming() {
     this.type = this.globals.OrderType;
 
-    // if (this.type == "delivery") {
+     if (this.type == "delivery") {
 
       
-        if (this.globals.Timing) {
+        if (this.globals.delivery_timing) {
 
        let response = this.server.date_convert(this.myDate);
           let loading = this.loadingCtrl.create({
@@ -332,7 +330,7 @@ export class Modal2Page {
                this.day = data.day_id + 1;
                this.time = data.time;
               localStorage.setItem("scheduled_time",  this.myDate );
-              let current_day = this.globals.Timing[this.day];
+              let current_day = this.globals.delivery_timing[this.day];
               // this.time = this.time.toString();
               console.log(this.day,this.time,current_day)
               if (current_day[0] != 'opened') {
@@ -366,55 +364,55 @@ export class Modal2Page {
       else {
           return true;
       }
-  // }
-  // else {
-  //     var future_date = new Date(this.myDate);
-  //     var future_day = future_date.getDay();
-  //     this.myDate = this.myDate.toString();
-  //     this.future_hours = future_date.getHours();
-  //     this.future_min = future_date.getMinutes();
+  }
+  else {
+    if (this.globals.pickup_timing) {
 
-  //     this.future_time = this.future_hours + "." + this.future_min;
-
+      let response = this.server.date_convert(this.myDate);
+         let loading = this.loadingCtrl.create({
+           content: "Loading...",
+         });
+         loading.present();
+         response.subscribe(data => {
+           loading.dismiss();
+           if(data.success == true){
+              this.day = data.day_id + 1;
+              this.time = data.time;
+             localStorage.setItem("scheduled_time",  this.myDate );
+             let current_day = this.globals.pickup_timing[this.day];
+             // this.time = this.time.toString();
+             console.log(this.day,this.time,current_day)
+             if (current_day[0] != 'opened') {
+               if((Number(current_day[0]) <= Number(this.time) && Number(current_day[1]) > Number(this.time)) || (Number(current_day[0]) <= Number(this.time) && Number(current_day[1]) < Number(current_day[0])) ||  (current_day[0] != 'closed')){
+                    
+                     this.viewCtrl.dismiss('CategoryPage');
+                     this.presentModal();
+                       return true;
+                 }
+                 else {
+                   this.globals.presentToast('Sorry, we are not serving at this time!')
+                
+                   return false;
+                 }
+             }
+             else {
+               this.viewCtrl.dismiss('CategoryPage');
+               this.presentModal();
+                 return true;   
+             }
+           }
      
-  //     if (this.globals.Timing) {
-
-  //         var current_day = this.globals.Timing[future_day];
-
-  //         localStorage.setItem("scheduled_time", this.myDate);
-
-  //         //  console.log(parseFloat(time) , parseFloat(current_day[0]),parseFloat(current_day[1]))
-  //         if (current_day[0] != 'opened') {
-  //             if (Number(this.future_time) <= Number(current_day[0]) || Number(this.future_time) >= Number(current_day[1]) || current_day[0] == 'closed') {
-  //                 let alert = this.alertCtrl.create({
-  //                     title: 'Sorry',
-  //                     subTitle: 'Restaurants closed on the given time and date.',
-  //                     buttons: ['OK']
-  //                 });
-
-  //                 alert.present();
-  //                 return false;
-  //             }
-  //             else {
-  //               this.viewCtrl.dismiss('CategoryPage');
-  //               this.presentModal();
-  //                 return true;
-  //             }
-  //         }
-  //         else {
-  //           this.viewCtrl.dismiss('CategoryPage');
-  //           this.presentModal();
-  //             return true;
-  //         }
+         }, error => {
+             this.globals.presentToast("Something went wrong check your internet connection.")
+     
+         });
 
 
 
-  //     }
-  //     else {
-  //         return true;
-  //     }
-
-  //     // return true;
-  // }
+     }
+     else {
+         return true;
+     }
+  }
 }
 }
