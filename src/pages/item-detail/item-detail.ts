@@ -58,8 +58,9 @@ export class ItemDetailPage {
   extraChecked: boolean = false;
   instructions : any;
   item_price:any = 0;
+  reward_item_flag:boolean = false;
   constructor(private photoViewer: PhotoViewer,public server: ServerProvider, public alertCtrl: AlertController, public loadingCtrl: LoadingController, public globals: GlobalVariable, public modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams, private toastCtrl: ToastController) {
-
+    this.reward_item_flag = navParams.get('reward_flag');
     this.thumbimage = navParams.get('image');
   
     // this.name = navParams.get('Name');  
@@ -107,28 +108,7 @@ export class ItemDetailPage {
 
 
 
-  checkTiming() {
-    this.date = new Date();
-    this.day = this.date.getDay();
-    this.time = this.date.getHours()+ "." + this.date.getMinutes();
-    this.time = Number(this.time);
-
-    var current_day = this.globals.Timing[this.day];
-    console.log(current_day,"cd")
-    if((Number(current_day[0]) <= this.time && Number(current_day[1]) > this.time) || (Number(current_day[0]) <= this.time && Number(current_day[1]) < Number(current_day[0])) || (current_day[1] == 'opened' && current_day[1] == 'opened')){
-      return true;
-      
-    }
-    else {
-      let alert = this.alertCtrl.create({
-        title: 'Sorry',
-        subTitle: 'Restaurants currently closed.',
-        buttons: ['OK']
-      });
-      alert.present();
-      return false;
-    }
-  }
+  
 
   addQuantity() {
     this.quantity += 1;
@@ -238,9 +218,7 @@ export class ItemDetailPage {
 
 
   AddtoCart() {
-    if(!this.checkTiming()){
-      return;
-    }
+   
     let cartAdditionLoader = this.loadingCtrl.create(
       {
         content: "Adding...",
@@ -384,19 +362,14 @@ export class ItemDetailPage {
         this.objectPrice.toFixed(2);
         this.instructions = localStorage.getItem("instructions");
         this.globals.itemInstruction = this.instructions;
-        this.globals.Product.push({ menuId: "1", restId: this.globals.bussinessId, uniqueId: this.ItemId, menuItem: this.name, image: this.thumbimage, quantity: this.quantity, itemInstructions: this.instructions, basePrice: this.price, totalPrice: this.objectPrice, menuExtrasSelected: this.myChoices });
+        this.globals.Product.push({ menuId: "1", restId: this.globals.bussinessId, uniqueId: this.ItemId, menuItem: this.name, image: this.thumbimage, quantity: this.quantity, itemInstructions: this.instructions, basePrice: this.price, totalPrice: this.objectPrice, menuExtrasSelected: this.myChoices,reward:this.reward_item_flag });
         this.navCtrl.pop();
         localStorage.removeItem("instructions");
         console.log("checking remove local storage ", localStorage.getItem("instructions"));
       }
     }
     else {
-      let alert = this.alertCtrl.create({
-        title: 'Oops',
-        subTitle: 'Please select the required extras.',
-        buttons: ['OK']
-      });
-      alert.present();
+      this.globals.presentToast("Please select the required extras.")
     }
   }
 
@@ -515,12 +488,9 @@ export class ItemDetailPage {
               duration: 2000,
               position: 'bottom'
             });
+            this.flag = false;
           
-            toast.onDidDismiss(() => {
-              console.log('Dismissed toast');
-              this.flag = false;
-              console.log(flag);
-            });
+           
           
             toast.present();
           }

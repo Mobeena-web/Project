@@ -5,12 +5,6 @@ import { NativeStorage } from '@ionic-native/native-storage';
 import { GlobalVariable } from '../../app/global';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
-/**
- * Generated class for the CartPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -67,8 +61,9 @@ export class CartPage {
     point_show:any = 0;
     per_tip :any = 0;
     tip_cus:any = 0;
-    mygifts:any;
-    gift_array:any;
+    gift_card_amount = 0;
+    mygifts = [];
+    gift_array=[];
     constructor(public loadingCtrl: LoadingController, public server: ServerProvider, public modalCtrl: ModalController, public alertCtrl: AlertController, private nativeStorage: NativeStorage, public appCtrl: App, public globals: GlobalVariable, public viewCtrl: ViewController, public navCtrl: NavController, public navParams: NavParams) {
         console.log(globals.type, "@@@type");
         //  console.log("here is my items of global" ,this.globals.itemInstruction);
@@ -517,6 +512,16 @@ export class CartPage {
                 this.Total = Number(this.Total) - this.birthdayStoreCreditavailed;
             }
         }
+
+        
+
+         if(this.gift_array.length > 0){
+            this.gift_array.forEach(e => {
+                console.log(e.amount,'f')
+                this.Total = Number(this.Total) -  Number(e.amount)
+                 
+             });
+         }
 
     }
 
@@ -1047,43 +1052,17 @@ export class CartPage {
                      this.Address =localStorage.getItem("GetAddress");
                     
                     if(this.globals.OrderType == 'delivery' && this.globals.caos_flag == false){
-                        if(this.Address){
-                            let alert = this.alertCtrl.create({
-                                title: 'Please Confirm Your Address',
-                                message: this.Address,
-                                buttons: [
-                                  {
-                                    text: 'Update Address',
-                                    handler: () => {
-                                      this.changeAddress();
-                                    }
-                                  },
-                                  {
-                                    text: 'Proceed to Checkout',
-                                    handler: () => {
-                                      this.navCtrl.push('PaymentPage', { amount: this.Total, tip: this.Tip, notes: this.notes, RewardAvailed: this.RewardStoreCreditAvailed, BirthdayCreditavailed: this.birthdayStoreCreditavailed });
-                                      
-                                    }
+                        if(this.globals.inradius){
+                               if(this.checkTiming(this.globals.delivery_timing)){
+                                    this.address_();
                                   }
-                                ]
-                              });
-                              alert.present();
+                       
                         }
                         else{
-                            let alert = this.alertCtrl.create({
-                                title: 'Please Enter your Delivery Address.',
-                               
-                                buttons: [
-                                  {
-                                    text: 'Enter Address',
-                                    handler: () => {
-                                      this.changeAddress();
-                                    }
-                                  }
-                                ]
-                              });
-                              alert.present();
+                            this.globals.presentToast("Sorry, We dn't deliver in your Area.")
+
                         }
+                        
                       
                     }
                     else{
@@ -1092,7 +1071,10 @@ export class CartPage {
                             this.coas_type();
                         }
                         else{
-                            this.navCtrl.push('PaymentPage', { amount: this.Total, tip: this.Tip, notes: this.notes, RewardAvailed: this.RewardStoreCreditAvailed, BirthdayCreditavailed: this.birthdayStoreCreditavailed });
+                            if(this.checkTiming(this.globals.pickup_timing)){
+                              this.navCtrl.push('PaymentPage', { giftcard:this.gift_array,amount: this.Total, tip: this.Tip, notes: this.notes, RewardAvailed: this.RewardStoreCreditAvailed, BirthdayCreditavailed: this.birthdayStoreCreditavailed });
+                            
+                              }
 
                         }
                         
@@ -1105,6 +1087,46 @@ export class CartPage {
         }
        
 
+    }
+
+    address_(){
+        if(this.Address){
+            let alert = this.alertCtrl.create({
+                title: 'Please Confirm Your Address',
+                message: this.Address,
+                buttons: [
+                  {
+                    text: 'Update Address',
+                    handler: () => {
+                      this.changeAddress();
+                    }
+                  },
+                  {
+                    text: 'Proceed to Checkout',
+                    handler: () => {
+                        this.navCtrl.push('PaymentPage', {giftcard:this.gift_array, amount: this.Total, tip: this.Tip, notes: this.notes, RewardAvailed: this.RewardStoreCreditAvailed, BirthdayCreditavailed: this.birthdayStoreCreditavailed });                       
+                      
+                    }
+                  }
+                ]
+              });
+              alert.present();
+        }
+        else{
+            let alert = this.alertCtrl.create({
+                title: 'Please Enter your Delivery Address.',
+               
+                buttons: [
+                  {
+                    text: 'Enter Address',
+                    handler: () => {
+                      this.changeAddress();
+                    }
+                  }
+                ]
+              });
+              alert.present();
+        }
     }
 
     // TipChange(){
@@ -1366,8 +1388,7 @@ export class CartPage {
             var p = this.point_rewards.filter(function(item) {
                 return item.availed === false;
               });
-              console.log("p",p)
-
+            
               if(p.length > 0){
                 this.pointsInput = data;
                 this.check_points = true;
@@ -1394,14 +1415,13 @@ export class CartPage {
 
       gift_alert(){
         let alert = this.alertCtrl.create();
-        alert.setTitle('Select Gift Card');
+        alert.setTitle('Select Giftcard');
         
         this.mygifts.forEach(e => {
             alert.addInput({
                 type: 'radio',
                 label: '$' + e.amount,
                 value: e,
-                disabled:e.availed
               });
             
         });
@@ -1410,10 +1430,15 @@ export class CartPage {
         alert.addButton({
           text: 'OK',
           handler: data => {
-            this.gift_array.push(data);
-            if(Number(data.amount) > Number(this.Total)){
-                this.full_reddem_or_partial(data);
-            }
+              if(data){
+                if(Number(data.amount) > Number(this.Total)){
+                    this.full_reddem_or_partial(data);
+                }
+                else{
+                    this.partial_redeem(data)
+                }
+              }
+            
  
           }
         });
@@ -1422,18 +1447,18 @@ export class CartPage {
 
       full_reddem_or_partial(data) {
         let alert = this.alertCtrl.create({
-          title: 'Gift Card',
-          message: 'Do you want to Redeem Full Total Amount or Partial?',
+          title: 'Giftcard',
+          message: 'Would you like to use your gift card for entire order?',
           buttons: [
             {
-              text: 'Partial',
+              text: 'No',
               
               handler: () => {
                this.partial_redeem(data)
               }
             },
             {
-              text: 'Redeem Full',
+              text: 'Yes',
               handler: () => {
                 this.full_redeem(data)
               }
@@ -1444,11 +1469,39 @@ export class CartPage {
       }
 
       full_redeem(data){
-
+        let alert = this.alertCtrl.create({
+            
+            message: 'Are you sure you want to place order and pay all with giftcard?',
+            buttons: [
+              {
+                text: 'No',
+                role: 'cancel',
+                handler: () => {
+                  console.log('Cancel clicked');
+                }
+              },
+              {
+                text: 'Yes',
+                handler: () => {
+                    if(this.globals.inradius){
+                        var giftdata = {giftcard_id:data.giftcard_id,amount:this.Total}
+                        this.gift_array.push(giftdata)
+                      this.navCtrl.push('PaymentPage',{giftcard:this.gift_array,gift_flag:true})
+                    }
+                    else{
+                        this.globals.presentToast("Sorry, We dn't deliver in Your Area")
+                    }
+                   
+                }
+              }
+            ]
+          });
+          alert.present();
       }
+
       partial_redeem(data_gift){
         let alert = this.alertCtrl.create({
-            title: 'Enter Amount you want to redeem from card.',
+            title: 'Enter amount you want to pay from giftcard.',
             inputs: [
               {
                 name: 'amount',
@@ -1464,7 +1517,7 @@ export class CartPage {
                 }
               },
               {
-                text: 'Redeem',
+                text: 'Pay',
                 handler: data => {
                   if(Number(data_gift.amount) < Number(data.amount) ){
                     this.globals.presentToast("You enter amount greater than your giftcard")
@@ -1473,12 +1526,71 @@ export class CartPage {
                       if(Number(data.amount) > Number(this.Total) ) {
                         this.globals.presentToast("Please Enter More items in cart")
                       }
+                      else{
+                        this.Total = (Number(this.Total) - Number(data.amount)).toFixed(2);
+                        this.mygifts.map(
+                            (checkitem, i, array) => {
+                              if (checkitem.giftcard_id == data_gift.giftcard_id) {
+                                checkitem.amount = Number(checkitem.amount) - Number(data.amount)
+                              }
+                            }
+                          );
+                          var not_in_array = true;
+                          this.gift_array.forEach(e => {
+                            if(e.giftcard_id == data_gift.giftcard_id){
+                                e.amount = Number(e.amount) + Number(data.amount);
+                                not_in_array = false;
+                            console.log("gifts_array",this.gift_array,this.mygifts)
+
+                            }
+                            
+                        });
+
+                        if(not_in_array){
+                            var giftdata = {giftcard_id:data_gift.giftcard_id,amount:data.amount}
+                            this.gift_array.push(giftdata);
+                            console.log("gifts_array",this.gift_array,this.mygifts)
+
+                        }
+                        this.gift_card_amount = 0;
+                        this.gift_array.forEach(e => {
+                           this.gift_card_amount =this.gift_card_amount +  Number(e.amount)
+                            
+                        });
+
+
+                      }
                   }
                 }
               }
             ]
           });
           alert.present();
+      }
+
+      checkTiming(timing) {
+        if(localStorage.getItem("scheduled_time")){
+            return true;
+        }
+        else{
+        
+            var date = new Date();
+            var day = date.getDay();
+            var time:any = date.getHours()+ "." + date.getMinutes();
+             time = Number(time);
+        
+            var current_day = timing[day];
+            if((Number(current_day[0]) <= time && Number(current_day[1]) > time) || (Number(current_day[0]) <= time && Number(current_day[1]) < Number(current_day[0])) || (current_day[0] == 'opened' && current_day[1] == 'opened')){
+              return true;
+              
+            }
+            else {
+              this.globals.presentToast('Sorry, we are not serving at this time!')
+        
+              return false;
+            }
+        }
+        
       }
       
 

@@ -110,8 +110,11 @@ export class GlobalVariable {
     caos_flag:boolean = false;
     caos_udid = 'e2c40e9f0a';
     welcome:any;
+    inradius:boolean = true;
+    pickup_timing:any;
+    delivery_timing:any;
     constructor(public alertCtrl: AlertController,public toastCtrl: ToastController) {
-     this.BaseUrl = 'https://onlineordering.mikronexus.com/online-ordering-new/index.php/';
+     this.BaseUrl = 'https://staging.onlineordering.mikronexus.com/index.php/';
     }
     
 
@@ -131,12 +134,12 @@ export class GlobalVariable {
         toast.present();
     }
 
-    circle_graph(id,radius,width,color){
+    circle_graph(value,id,radius,width,color){
        
         var myCircle = Circles.create({
             id:                  id,
             radius:              radius,
-            value:               this.percent,
+            value:               value,
             maxValue:            100,
             width:               width,
             text:                function(value){return '';},
