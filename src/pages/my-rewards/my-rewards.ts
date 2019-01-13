@@ -82,8 +82,7 @@ export class MyRewardsPage {
 
         this.img = navParams.get('qrcode');
         this.searchControl = new FormControl();
-        //this.getPunchReward();
-        //this.punch_items();
+        
 
     }
 
@@ -96,11 +95,11 @@ export class MyRewardsPage {
         this.server.CheckUserReward();
         this.server.CheckUserBadgePoints();
        // this.business_reward();
-        this.searchControl.valueChanges.debounceTime(700).subscribe(search => {
+        // this.searchControl.valueChanges.debounceTime(700).subscribe(search => {
 
-            this.setFilteredItems();
+        //     this.setFilteredItems();
 
-        });
+        // });
     }
 
     ionViewWillLeave() {
@@ -114,7 +113,7 @@ export class MyRewardsPage {
         console.log('enter RewardPage');
         this.status = true;
         this.point_items();
-        this.getPoints();
+        //this.getPoints();
         this.rewards_items();
         //this.getReward();
        // this.business_reward();
@@ -183,29 +182,29 @@ export class MyRewardsPage {
         });
 
     }
-    setFilteredItems() {
-        if (this.option == 'gain') {
-            if (this.lotery) {
-                this.lotery = this.reward.filter((item) => {
-                    return item.businessname.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1;
-                });
-            }
-        }
-        else if (this.option == 'punch_cards') {
-            console.log("usmanpunch",this.punch_array)
-            this.punchdata = this.punch_array.filter((item) => {
-                    return item.business_username.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1;
-                });
+    // setFilteredItems() {
+    //     if (this.option == 'gain') {
+    //         if (this.lotery) {
+    //             this.lotery = this.reward.filter((item) => {
+    //                 return item.businessname.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1;
+    //             });
+    //         }
+    //     }
+    //     else if (this.option == 'punch_cards') {
+    //         console.log("usmanpunch",this.punch_array)
+    //         this.punchdata = this.punch_array.filter((item) => {
+    //                 return item.business_username.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1;
+    //             });
             
           
-            console.log("filtered items", this.punchdata);
-        }
-        else if (this.option == 'points') {
-            this.points_lotery = this.points_reward.filter((item) => {
-                return item.businessname.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1;
-            });
-        }
-    }
+    //         console.log("filtered items", this.punchdata);
+    //     }
+    //     else if (this.option == 'points') {
+    //         this.points_lotery = this.points_reward.filter((item) => {
+    //             return item.businessname.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1;
+    //         });
+    //     }
+    // }
     SegmentChange() {
         if (this.option == 'gain' && this.gain_segment_flag == false) {
            // this.getReward();
@@ -213,9 +212,8 @@ export class MyRewardsPage {
             this.gain_segment_flag = true;
         }
         else if (this.option == 'punch_cards' && this.punchCard_segment_flag == false) {
-            //this.getPunchReward();
            this.punch_items();
-            this.punchCard_segment_flag = true;
+            //this.punchCard_segment_flag = true;
         }
         else if (this.option == 'points' && this.point_segment_flag == false) {
            // this.getPoints();
@@ -244,11 +242,11 @@ export class MyRewardsPage {
 
         }
         else if (this.option == 'points') {
-            this.getPoints();
+            this.point_items();
 
         }
         else if (this.option == 'gifts') {
-            this.getReward();
+            this.rewards_items();
         }
 
         this.content.resize();
@@ -542,7 +540,7 @@ export class MyRewardsPage {
                        i++;
     
                     });
-                 }, 1500);
+                 }, 1200);
                 
             }
             else{

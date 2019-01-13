@@ -61,6 +61,9 @@ export class ItemDetailPage {
   reward_item_flag:boolean = false;
   constructor(private photoViewer: PhotoViewer,public server: ServerProvider, public alertCtrl: AlertController, public loadingCtrl: LoadingController, public globals: GlobalVariable, public modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams, private toastCtrl: ToastController) {
     this.reward_item_flag = navParams.get('reward_flag');
+    if(!this.reward_item_flag){
+      this.reward_item_flag = false;
+    }
     this.thumbimage = navParams.get('image');
   
     // this.name = navParams.get('Name');  
@@ -75,9 +78,7 @@ export class ItemDetailPage {
     this.itemDetails();
   }
 
-  ionViewDidLoad() {
-
-  }
+  
   presentModal() {
     let modal = this.modalCtrl.create('InstructionModalPage');
     modal.present();
@@ -362,7 +363,8 @@ export class ItemDetailPage {
         this.objectPrice.toFixed(2);
         this.instructions = localStorage.getItem("instructions");
         this.globals.itemInstruction = this.instructions;
-        this.globals.Product.push({ menuId: "1", restId: this.globals.bussinessId, uniqueId: this.ItemId, menuItem: this.name, image: this.thumbimage, quantity: this.quantity, itemInstructions: this.instructions, basePrice: this.price, totalPrice: this.objectPrice, menuExtrasSelected: this.myChoices,reward:this.reward_item_flag });
+         this.globals.Product.push({ menuId: "1", restId: this.globals.new_id, uniqueId: this.ItemId, menuItem: this.name, image: this.thumbimage, quantity: this.quantity, itemInstructions: this.instructions, basePrice: this.price, totalPrice: this.objectPrice, menuExtrasSelected: this.myChoices,reward:this.reward_item_flag });
+
         this.navCtrl.pop();
         localStorage.removeItem("instructions");
         console.log("checking remove local storage ", localStorage.getItem("instructions"));
