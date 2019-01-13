@@ -68,6 +68,7 @@ export class CartPage {
     per_tip :any = 0;
     tip_cus:any = 0;
     mygifts:any;
+    gift_array:any;
     constructor(public loadingCtrl: LoadingController, public server: ServerProvider, public modalCtrl: ModalController, public alertCtrl: AlertController, private nativeStorage: NativeStorage, public appCtrl: App, public globals: GlobalVariable, public viewCtrl: ViewController, public navCtrl: NavController, public navParams: NavParams) {
         console.log(globals.type, "@@@type");
         //  console.log("here is my items of global" ,this.globals.itemInstruction);
@@ -1379,23 +1380,107 @@ export class CartPage {
       }
 
       my_gift_cards() {
-        let loading = this.loadingCtrl.create({
-            content: "Loading...",
-        });
-        loading.present();
-      
+       
         let response = this.server.my_gift_cards();
         response.subscribe(data => {
             this.mygifts = data;
            
-            loading.dismiss();
         
         }, error => {
-            loading.dismiss();
             this.globals.presentToast("Something went wrong check your internet connection.")
       
         });
       }
+
+      gift_alert(){
+        let alert = this.alertCtrl.create();
+        alert.setTitle('Select Gift Card');
+        
+        this.mygifts.forEach(e => {
+            alert.addInput({
+                type: 'radio',
+                label: '$' + e.amount,
+                value: e,
+                disabled:e.availed
+              });
+            
+        });
+    
+        alert.addButton('Cancel');
+        alert.addButton({
+          text: 'OK',
+          handler: data => {
+            this.gift_array.push(data);
+            if(Number(data.amount) > Number(this.Total)){
+                this.full_reddem_or_partial(data);
+            }
+ 
+          }
+        });
+        alert.present();
+      }
+
+      full_reddem_or_partial(data) {
+        let alert = this.alertCtrl.create({
+          title: 'Gift Card',
+          message: 'Do you want to Redeem Full Total Amount or Partial?',
+          buttons: [
+            {
+              text: 'Partial',
+              
+              handler: () => {
+               this.partial_redeem(data)
+              }
+            },
+            {
+              text: 'Redeem Full',
+              handler: () => {
+                this.full_redeem(data)
+              }
+            }
+          ]
+        });
+        alert.present();
+      }
+
+      full_redeem(data){
+
+      }
+      partial_redeem(data_gift){
+        let alert = this.alertCtrl.create({
+            title: 'Enter Amount you want to redeem from card.',
+            inputs: [
+              {
+                name: 'amount',
+                placeholder: 'Amount'
+              }
+            ],
+            buttons: [
+              {
+                text: 'Cancel',
+                role: 'cancel',
+                handler: data => {
+                  console.log('Cancel clicked');
+                }
+              },
+              {
+                text: 'Redeem',
+                handler: data => {
+                  if(Number(data_gift.amount) < Number(data.amount) ){
+                    this.globals.presentToast("You enter amount greater than your giftcard")
+                  }
+                  else{
+                      if(Number(data.amount) > Number(this.Total) ) {
+                        this.globals.presentToast("Please Enter More items in cart")
+                      }
+                  }
+                }
+              }
+            ]
+          });
+          alert.present();
+      }
+      
 
 
 }
