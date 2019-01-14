@@ -540,7 +540,7 @@ export class MyRewardsPage {
                 setTimeout(function(){ 
                     that.punch_menu.forEach(element => {
                         percent = (Number(element.punch_count) / Number(element.punch_limit))*100;
-                       that.globals.circle_graph(percent,'circles'+i,70,11,'#fff');
+                       that.globals.circle_graph(percent,'circles'+i,60,10,'#fff');
    
                        console.log(percent,'circles'+i)
                        i++;

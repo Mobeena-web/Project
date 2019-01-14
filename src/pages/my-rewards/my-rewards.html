@@ -88,16 +88,17 @@
         <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull down to refresh" refreshingSpinner="circles" refreshingText="Refreshing...">
         </ion-refresher-content>
       </ion-refresher>
-    
-    
-        <div *ngFor="let rewards of punch_menu ;let i=index">
-           <div class="circle" id="circles{{i}}"> </div>
-           <div>
-              <h5 text-center>{{rewards.punch_count}}/{{rewards.punch_limit}} Punches</h5>
+      <ion-row>
+        <ion-col col-6 *ngFor="let rewards of punch_menu ;let i=index">
+          <div class="circle" id="circles{{i}}"> </div>
+          <div>
+             <h5 text-center>{{rewards.punch_count}}/{{rewards.punch_limit}} Punches</h5>
 
-           </div>
-            <button ion-button round block *ngIf="rewards.punch_count == rewards.punch_limit" class="pll" (click)="redeem_point_menu_item(rewards.id,'punches')">Redeem</button>
-        </div>
+          </div>
+           <button ion-button round block *ngIf="rewards.punch_count == rewards.punch_limit" class="pll" (click)="redeem_point_menu_item(rewards.id,'punches')">Redeem</button>
+        </ion-col>
+      </ion-row>
+    
 
     </div>
     <div *ngSwitchCase="'points'">
