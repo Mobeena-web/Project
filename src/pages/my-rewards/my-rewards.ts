@@ -508,7 +508,6 @@ export class MyRewardsPage {
             }
             else{
                 this.reward_menu_flag = true;
-                this.globals.presentToast(data.message)
             }
             
           
@@ -548,9 +547,7 @@ export class MyRewardsPage {
                  }, 1200);
                 
             }
-            else{
-                this.globals.presentToast(data.message)
-            }
+           
             
           
         }
