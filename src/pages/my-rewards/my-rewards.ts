@@ -440,7 +440,6 @@ export class MyRewardsPage {
             }
             else{
                 this.point_menu_flag = true;
-                this.globals.presentToast(data.message)
             }
             
           
