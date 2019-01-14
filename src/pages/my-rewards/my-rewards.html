@@ -8,7 +8,9 @@
 
   <ion-navbar color="primary">
     <ion-title>My Rewards</ion-title>
+   
   </ion-navbar>
+  
 
 </ion-header>
 
@@ -25,7 +27,7 @@
       <ion-badge color="danger" item-left *ngIf="globals.PointCount > 0">{{globals.PointCount}}</ion-badge>
       POINTS
     </ion-segment-button>
-    <ion-segment-button style="font-size:1.1rem" value="punch_cards" (click)="getPunchReward()">
+    <ion-segment-button style="font-size:1.1rem" value="punch_cards" (click)="punch_items()">
         <ion-badge color="danger" item-left *ngIf="globals.punchCount > 0">{{globals.punchCount}}</ion-badge>
         PUNCH CARDS
       </ion-segment-button>
@@ -99,7 +101,7 @@
 
     </div>
     <div *ngSwitchCase="'points'">
-      <ion-searchbar *ngIf="!flag" [(ngModel)]="searchTerm" (input)="setFilteredItems()" [formControl]="searchControl"></ion-searchbar>
+      <!-- <ion-searchbar *ngIf="!flag" [(ngModel)]="searchTerm" (input)="setFilteredItems()" [formControl]="searchControl"></ion-searchbar> -->
       <div col-6 class="point_s">
           <div class="youhave">You Have</div>
            <div class="points_design" *ngIf="globals.points_">{{globals.points_}} <ion-icon class="point-star" name="star"></ion-icon></div>
@@ -153,7 +155,7 @@
                     <p  style="color:#444;font-size:1.5rem">{{a.name}} </p>
                     <p  style="font-size:1.3rem;    padding-bottom: 10px;">{{a.tagline}} </p>
 
-                    <button ion-button round block class="redem_btn" (click)="Detail(a.id,a.image,a.freeExtras)">REDEEM</button>
+                    <button ion-button round block class="redem_btn" (click)="Detail(a.id,a.image,a.freeExtras,a.reward_id)">Add to Cart</button>
                 </ion-col>
                
             </ion-row>

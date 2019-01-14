@@ -69,6 +69,7 @@ export class HomePage {
     punch_:any;
     email:any;
     today_message:any;
+    punch_menu:any;
     constructor(private geolocation: Geolocation,private diagnostic: Diagnostic,public app: App, public server: ServerProvider, public globals: GlobalVariable, private nativeAudio: NativeAudio, private iab: InAppBrowser, private nativeStorage: NativeStorage, public loadingCtrl: LoadingController, public modalCtrl: ModalController, public _nav: NavController, public _navParams: NavParams, public alertCtrl: AlertController, public platform: Platform) {
         if(!this.globals.guess_login){
              this.reward_notification();
@@ -198,7 +199,7 @@ export class HomePage {
                         this.globals.RewardsPos = this.coordinates;
                         this.globals.mycoordinates = this.coordinates;
                         this.getPoints(this.coordinates);
-                        this.getPunches(this.coordinates);
+                        this.getPunches();
                         this.server.CheckUserPunchCards();
                         this.server.CheckUserReward();
                         this.server.CheckUserBadgePoints();
@@ -218,7 +219,7 @@ export class HomePage {
             }).catch(e => {
 
                 this.getPoints("0,0");
-                this.getPunches("0,0");
+                this.getPunches();
                 this.server.CheckUserPunchCards();
                 this.server.CheckUserReward();
                 this.server.CheckUserBadgePoints();
@@ -284,32 +285,39 @@ export class HomePage {
         });
     }
 
-    getPunches(coordinates) {
+    getPunches() {
 
-        let response = this.server.getPunch(coordinates);
+        let response = this.server.getpunches_menuitems();
         response.subscribe(data => {
-            if(data.success == "No data"){
-                this.punch_ = 0;
-                this.punch_limt_ = 0;
-                this.globals.punch_ = 0;
-                this.globals.punch_limit_ = 0;
-                this.globals.percent = (parseInt(this.punch_) / parseInt(this.punch_limt_))*100;
-                this.globals.circle_graph(this.globals.percent,'homecircle1',50,7,'#ccc');
-            }
-            else{
+            if(data.status == true){
 
-                this.punch_ = data.cards[0].punch_count;
-                this.punch_limt_ = data.cards[0].punch_limit;
+              this.punch_menu = data.items;
+              if(this.punch_menu.length > 0){
+                this.punch_ = Number(this.punch_menu[0].punch_count);
+                this.punch_limt_ = Number(this.punch_menu[0].punch_limit);
                 this.globals.punch_ = this.punch_;
                 this.globals.punch_limit_ = this.punch_limt_;
    
-                this.globals.percent = (parseInt(this.punch_) / parseInt(this.punch_limt_))*100;
-                this.globals.circle_graph(this.globals.percent,'homecircle1',50,7,'#ccc');
+                var percent = (parseInt(this.punch_) / parseInt(this.punch_limt_))*100;
+                this.globals.circle_graph(percent,'homecircle1',50,7,'#ccc');
+              }
+              else{
+                this.punch_ = 0;
+                this.punch_limt_ = 0;
+
+                this.globals.circle_graph(0,'homecircle1',50,7,'#ccc');
+              }
+              
             }
+            else{
+                this.punch_ = 0;
+                this.punch_limt_ = 0;
+
+                this.globals.circle_graph(0,'homecircle1',50,7,'#ccc');
+                this.globals.presentToast(data.message)
+            }
+         
           
-             
-            
-        
         }, error => {
             this.globals.presentToast("Something went wrong check your internet connection.")
 

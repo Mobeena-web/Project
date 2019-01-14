@@ -553,7 +553,40 @@ list() {
        this.globals.order_instructions = this.places[0].instructions_enabled;
        this.globals.pickup_timing = this.places[0].pickup_timing;
        this.globals.delivery_timing = this.places[0].delivery_timing;
+       this.globals.business_username = this.places[0].username;
+       this.globals.estimated_time = this.places[0].delivery_time;
+       this.globals.business_discount_count = parseInt(this.places[0].business_discount_count);
+       this.globals.username = this.places[0].username;
+       this.globals.bussinessId = this.places[0].business_id;
+       this.globals.admin_stripe = this.places[0].admin_stripe_enabled;
+       this.globals.pickupsetting = this.places[0].delivery_time;
+       this.globals.tax = this.places[0].tax;
+       this.globals.deliveryCharges = this.places[0].delivery_fee;
+       this.globals.pickup_Time = this.places[0].pickup_time;
+       this.globals.minimun_order = parseInt(this.places[0].minimum_order);
+       this.globals.availed_discount_count = parseInt(this.places[0].customer_discount_availed_count);
+       this.globals.paypalId = this.places[0].paypal_id;
+       this.globals.Timing = this.places[0].hours_operation;
 
+         if (this.globals.pickup == '1') {
+             this.globals.pickup = true;
+         }
+         else {
+             this.globals.pickup = false;
+         }
+         if (this.places[0].delivery == '1') {
+             this.globals.delivery = true;
+         }
+         else {
+             this.globals.delivery = false;
+         }
+         if(this.places[0].cash_enabled == '1'){
+             this.globals.cash_enabled = true;
+         }
+         else{
+             this.globals.cash_enabled = false;
+
+         }
         if (this.globals.pickup == '1') {
             this.globals.pickup = true;
         }
