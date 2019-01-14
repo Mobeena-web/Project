@@ -59,11 +59,13 @@ export class ItemDetailPage {
   instructions : any;
   item_price:any = 0;
   reward_item_flag:boolean = false;
+  reward_id:any;
   constructor(private photoViewer: PhotoViewer,public server: ServerProvider, public alertCtrl: AlertController, public loadingCtrl: LoadingController, public globals: GlobalVariable, public modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams, private toastCtrl: ToastController) {
     this.reward_item_flag = navParams.get('reward_flag');
     if(!this.reward_item_flag){
       this.reward_item_flag = false;
     }
+    this.reward_id = navParams.get('reward_id')
     this.thumbimage = navParams.get('image');
   
     // this.name = navParams.get('Name');  
@@ -363,7 +365,7 @@ export class ItemDetailPage {
         this.objectPrice.toFixed(2);
         this.instructions = localStorage.getItem("instructions");
         this.globals.itemInstruction = this.instructions;
-         this.globals.Product.push({ menuId: "1", restId: this.globals.new_id, uniqueId: this.ItemId, menuItem: this.name, image: this.thumbimage, quantity: this.quantity, itemInstructions: this.instructions, basePrice: this.price, totalPrice: this.objectPrice, menuExtrasSelected: this.myChoices,reward:this.reward_item_flag });
+         this.globals.Product.push({ menuId: "1", restId: this.globals.new_id, uniqueId: this.ItemId, menuItem: this.name, image: this.thumbimage, quantity: this.quantity, itemInstructions: this.instructions, basePrice: this.price, totalPrice: this.objectPrice, menuExtrasSelected: this.myChoices,reward:this.reward_item_flag,reward_id:this.reward_id });
 
         this.navCtrl.pop();
         localStorage.removeItem("instructions");

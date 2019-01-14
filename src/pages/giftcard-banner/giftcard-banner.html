@@ -46,21 +46,8 @@
     <ion-input type="text"  [(ngModel)]="message"></ion-input>
   </ion-item>
 
-  <h3 text-center margin-top>Terms & Conditions</h3>
-  <div [innerHTML]="policy" margin-top>
+  <p (click)="termsandconditions()" text-center>Terms & Conditions</p>
 
-  </div>
 
-<!-- <ion-card *ngFor='let item of gifts'>
-       <ion-row>
-         <ion-col col-8 >
-          <h3 class="gc">${{item.amount}}</h3>
-         </ion-col>
-         <ion-col col-4 class="bl">
-          <button ion-button color='primary' class="share" (click)="buy(item.giftcard_id)">Buy</button>
-
-         </ion-col>
-       </ion-row>
-     </ion-card> -->
      <button ion-button block class="p_btn" (click)="proceed()">Proceed to Checkout</button>
 </ion-content>

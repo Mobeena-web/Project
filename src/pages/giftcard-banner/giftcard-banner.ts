@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams ,LoadingController,AlertController} from 'ionic-angular';
+import { IonicPage, NavController, NavParams ,LoadingController,AlertController,ModalController} from 'ionic-angular';
 import { GlobalVariable } from '../../app/global';
 import { ServerProvider } from '../../providers/server/server';
 
@@ -18,7 +18,7 @@ otherselected:boolean = false;
 card_id:any;
 message:any;
 policy:any;
-  constructor(public alertCtrl:AlertController,public loadingCtrl: LoadingController, public server: ServerProvider, public global: GlobalVariable,public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public modalCtrl:ModalController,public alertCtrl:AlertController,public loadingCtrl: LoadingController, public server: ServerProvider, public global: GlobalVariable,public navCtrl: NavController, public navParams: NavParams) {
    this.card_banner =  this.navParams.get('banner');
    this.get_gift_cards();
    this.design_id = this.card_banner.design_id;
@@ -238,6 +238,11 @@ proceed(){
     this.global.presentToast("Enter Valid Amount")
   }
  
+}
+
+termsandconditions(){
+  let modal = this.modalCtrl.create('GiftcardTermsandconditionsPage',{policy:this.policy});
+  modal.present();
 }
 
 }

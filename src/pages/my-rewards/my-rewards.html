@@ -8,7 +8,9 @@
 
   <ion-navbar color="primary">
     <ion-title>My Rewards</ion-title>
+   
   </ion-navbar>
+  
 
 </ion-header>
 
@@ -153,7 +155,7 @@
                     <p  style="color:#444;font-size:1.5rem">{{a.name}} </p>
                     <p  style="font-size:1.3rem;    padding-bottom: 10px;">{{a.tagline}} </p>
 
-                    <button ion-button round block class="redem_btn" (click)="Detail(a.id,a.image,a.freeExtras)">Add to Cart</button>
+                    <button ion-button round block class="redem_btn" (click)="Detail(a.id,a.image,a.freeExtras,a.reward_id)">Add to Cart</button>
                 </ion-col>
                
             </ion-row>

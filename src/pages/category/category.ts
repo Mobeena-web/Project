@@ -222,8 +222,6 @@ export class CategoryPage {
        
             let modal = this.modalCtrl.create('ModalPage');
             modal.present();
-
-        
       }
 
     ionViewDidLoad() {

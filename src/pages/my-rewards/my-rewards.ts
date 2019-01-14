@@ -71,7 +71,7 @@ export class MyRewardsPage {
     //     }
     // }
 
-    constructor( private geolocation: Geolocation,private diagnostic: Diagnostic,public modalctrl: ModalController, public server: ServerProvider, public globals: GlobalVariable, private nativeStorage: NativeStorage, public alertCtrl: AlertController, public loadingCtrl: LoadingController, public navCtrl: NavController, public navParams: NavParams) {
+    constructor( public modalCtrl:ModalController,private geolocation: Geolocation,private diagnostic: Diagnostic,public modalctrl: ModalController, public server: ServerProvider, public globals: GlobalVariable, private nativeStorage: NativeStorage, public alertCtrl: AlertController, public loadingCtrl: LoadingController, public navCtrl: NavController, public navParams: NavParams) {
 
         this.data = {};
 
@@ -222,7 +222,7 @@ export class MyRewardsPage {
         }
         else if (this.option == 'gifts' && this.gifts_segment_flag == false) {
             this.gifts_segment_flag = true;
-          
+            this.presentModal1();
             //this.getReward();
         }
 
@@ -451,8 +451,8 @@ export class MyRewardsPage {
             });
     }
 
-    Detail(id, image, freeextras) {
-        this.navCtrl.push('ItemDetailPage', { item_id: id, image: image, BusinesId: this.globals.new_id, free_extras: freeextras ,reward_flag:true})
+    Detail(id, image, freeextras,reward_id) {
+        this.navCtrl.push('ItemDetailPage', { item_id: id, image: image, BusinesId: this.globals.new_id, free_extras: freeextras ,reward_flag:true,reward_id:reward_id})
     }
 
     redeem_point_menu_item(id,type){
@@ -478,6 +478,12 @@ export class MyRewardsPage {
                 this.globals.presentToast("Something went wrong check your internet connection.")
             });
     }
+
+    presentModal1() {
+       
+        let modal = this.modalCtrl.create('ModalPage');
+        modal.present();
+  }
 
     rewards_items() {
         let loading = this.loadingCtrl.create({
@@ -553,5 +559,23 @@ export class MyRewardsPage {
             loading.dismiss();
             this.globals.presentToast("Something went wrong check your internet connection.")
         });
+    }
+
+    cartpage() {
+
+        //  let cartmodel = this.modalCtrl.create('CartPage');
+        // cartmodel.present();
+        if (this.globals.Product.length == 0) {
+            let alert = this.alertCtrl.create({
+                title: "Oops",
+                message: "Your cart is empty.",
+                buttons: ["Okay"]
+
+            });
+            alert.present();
+        }
+        else {
+            this.navCtrl.push('CartPage');
+        }
     }
 }
