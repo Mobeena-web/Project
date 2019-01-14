@@ -1,7 +1,6 @@
 page-my-rewards {
   .back{
     height: 100%;
-    background: linear-gradient(135deg, rgba(240,82,63,1) 0%,rgba(243,156,18,1) 77%,rgba(241,196,15,1) 100%)
   }
 
     .point_s{
@@ -35,7 +34,7 @@ page-my-rewards {
         text-align: center;
         display: block;
         margin: 0px;
-        padding-top: 27%;
+        padding-top: 4%;
     }
     .klm{
       font-size: 22px;
@@ -53,5 +52,22 @@ page-my-rewards {
     .rede{
       position: absolute;
       bottom: 0;
+    }
+
+    .point_card{
+      border-radius: 7px !important;
+      padding: 5px;
+      margin-top: 0px !important;
+      margin-bottom: 5px !important;
+    }
+    .redem_btn{
+      height: 36px;
+    font-size: 12px;
+    width: 80%;
+    }
+    .pll{
+      height: 30px;
+      width: 40%;
+      margin-left: 30%;
     }
 }

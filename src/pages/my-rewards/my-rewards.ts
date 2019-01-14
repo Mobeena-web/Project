@@ -56,6 +56,12 @@ export class MyRewardsPage {
     business_reward_data:any;
     business_reward_flag:boolean = false;
     redeem_history:boolean = false;
+    rewards_length:any;
+    point_menu:any;
+    point_menu_flag:boolean = false;
+    reward_menu:any;
+    reward_menu_flag:boolean = false;
+    punch_menu:any;
     // ngAfterViewInit()
     // {
     //     this.indicator = document.getElementById("indicator");
@@ -65,7 +71,7 @@ export class MyRewardsPage {
     //     }
     // }
 
-    constructor( private geolocation: Geolocation,private diagnostic: Diagnostic,public modalctrl: ModalController, public server: ServerProvider, public globals: GlobalVariable, private nativeStorage: NativeStorage, public alertCtrl: AlertController, public loadingCtrl: LoadingController, public navCtrl: NavController, public navParams: NavParams) {
+    constructor( public modalCtrl:ModalController,private geolocation: Geolocation,private diagnostic: Diagnostic,public modalctrl: ModalController, public server: ServerProvider, public globals: GlobalVariable, private nativeStorage: NativeStorage, public alertCtrl: AlertController, public loadingCtrl: LoadingController, public navCtrl: NavController, public navParams: NavParams) {
 
         this.data = {};
 
@@ -76,7 +82,8 @@ export class MyRewardsPage {
 
         this.img = navParams.get('qrcode');
         this.searchControl = new FormControl();
-        this.getPunchReward();
+        
+
     }
 
 
@@ -87,12 +94,12 @@ export class MyRewardsPage {
         this.server.CheckUserPunchCards();
         this.server.CheckUserReward();
         this.server.CheckUserBadgePoints();
-        this.business_reward();
-        this.searchControl.valueChanges.debounceTime(700).subscribe(search => {
+       // this.business_reward();
+        // this.searchControl.valueChanges.debounceTime(700).subscribe(search => {
 
-            this.setFilteredItems();
+        //     this.setFilteredItems();
 
-        });
+        // });
     }
 
     ionViewWillLeave() {
@@ -105,9 +112,11 @@ export class MyRewardsPage {
 
         console.log('enter RewardPage');
         this.status = true;
-        this.getPoints();
-        this.getReward();
-        this.business_reward();
+        this.point_items();
+        //this.getPoints();
+        this.rewards_items();
+        //this.getReward();
+       // this.business_reward();
 
     }
     getLocation() {
@@ -151,8 +160,12 @@ export class MyRewardsPage {
         let response = this.server.get_all_Rewards_new();
         response.subscribe(data => {
             this.lotery = data;
+            this.rewards_length = this.lotery.length;
             if(this.lotery.length == 0){
                 this.gain_flag = true;
+            }
+            else{
+                this.gain_flag = false;
             }
             this.lotery.forEach(element => {
                 if(element.redeemed == 'yes'){
@@ -163,59 +176,54 @@ export class MyRewardsPage {
             
         }, error => {
             loading.dismiss();
-            let alert = this.alertCtrl.create({
-                title: 'Error',
-                subTitle: 'Server times out, please try again',
-                buttons: ['OK']
-            });
-            alert.present();
+        this.globals.presentToast("Something went wrong check your internet connection.")
+           
 
         });
 
     }
-    setFilteredItems() {
-        if (this.option == 'gain') {
-            if (this.lotery) {
-                this.lotery = this.reward.filter((item) => {
-                    return item.businessname.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1;
-                });
-            }
-        }
-        else if (this.option == 'punch_cards') {
-            console.log("usmanpunch",this.punch_array)
-            this.punchdata = this.punch_array.filter((item) => {
-                    return item.business_username.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1;
-                });
+    // setFilteredItems() {
+    //     if (this.option == 'gain') {
+    //         if (this.lotery) {
+    //             this.lotery = this.reward.filter((item) => {
+    //                 return item.businessname.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1;
+    //             });
+    //         }
+    //     }
+    //     else if (this.option == 'punch_cards') {
+    //         console.log("usmanpunch",this.punch_array)
+    //         this.punchdata = this.punch_array.filter((item) => {
+    //                 return item.business_username.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1;
+    //             });
             
           
-            console.log("filtered items", this.punchdata);
-        }
-        else if (this.option == 'points') {
-            this.points_lotery = this.points_reward.filter((item) => {
-                return item.businessname.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1;
-            });
-        }
-    }
+    //         console.log("filtered items", this.punchdata);
+    //     }
+    //     else if (this.option == 'points') {
+    //         this.points_lotery = this.points_reward.filter((item) => {
+    //             return item.businessname.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1;
+    //         });
+    //     }
+    // }
     SegmentChange() {
         if (this.option == 'gain' && this.gain_segment_flag == false) {
-            this.getReward();
+           // this.getReward();
            
             this.gain_segment_flag = true;
         }
         else if (this.option == 'punch_cards' && this.punchCard_segment_flag == false) {
-            this.getPunchReward();
-           
-            this.punchCard_segment_flag = true;
+           this.punch_items();
+            //this.punchCard_segment_flag = true;
         }
         else if (this.option == 'points' && this.point_segment_flag == false) {
-            this.getPoints();
+           // this.getPoints();
            
             this.point_segment_flag = true;
         }
         else if (this.option == 'gifts' && this.gifts_segment_flag == false) {
             this.gifts_segment_flag = true;
-          
-            this.getReward();
+            this.presentModal1();
+            //this.getReward();
         }
 
 
@@ -230,15 +238,15 @@ export class MyRewardsPage {
 
         }
         else if (this.option == 'punch_cards') {
-            this.getPunchReward();
+            this.punch_items();
 
         }
         else if (this.option == 'points') {
-            this.getPoints();
+            this.point_items();
 
         }
         else if (this.option == 'gifts') {
-            this.getReward();
+            this.rewards_items();
         }
 
         this.content.resize();
@@ -256,7 +264,7 @@ export class MyRewardsPage {
         loading.present();
 
         response.subscribe(data => {
-            this.globals.circle_graph('circles2',150,20,'#fff');
+           // this.globals.circle_graph(this.globals.percent,'circles1',150,20,'#fff');
 
             this.data.response = data;
             this.punch_reward = this.data.response;
@@ -301,12 +309,8 @@ export class MyRewardsPage {
         }, error => {
             console.log("Oooops!");
             loading.dismiss();
-            let alert = this.alertCtrl.create({
-                title: 'Error',
-                subTitle: 'Server times out,please try again',
-                buttons: ['OK']
-            });
-            alert.present();
+            this.globals.presentToast("Something went wrong check your internet connection.")
+
         });
 
     }
@@ -334,7 +338,6 @@ export class MyRewardsPage {
             loading.dismiss();
             if (this.points_Status == "error") {
                 this.pointflag = true;
-
             }
 
             else {
@@ -357,12 +360,8 @@ export class MyRewardsPage {
         }, error => {
             console.log("Oooops!");
             loading.dismiss();
-            let alert = this.alertCtrl.create({
-                title: 'Error',
-                subTitle: 'Server times out, please try again',
-                buttons: ['OK']
-            });
-            alert.present();
+            this.globals.presentToast("Something went wrong check your internet connection.")
+
 
         });
     }
@@ -415,5 +414,168 @@ export class MyRewardsPage {
     detailPunch(punched_icon_image, business_username, punch_count, punch_limit, punch_qr, udid, punched_image, date, lowestreward) {
         this.navCtrl.push('PunchDetailPage', { punched_icon_image: punched_icon_image, business_username: business_username, punch_count: punch_count, punch_limit: punch_limit, punch_qr: punch_qr, udid: udid, punch_image: punched_image, Date: date, reward: lowestreward })
 
+    }
+
+    point_items() {
+        let loading = this.loadingCtrl.create({
+            content: "Loading...",
+
+        });
+        loading.present();
+        let response = this.server.getpoints_menuitems();
+        response.subscribe(data => {          
+            loading.dismiss();
+            if(data.status == true){
+                this.point_menu = data.items;
+                this.point_menu.forEach(subelement => {
+                     subelement.quantity = 1;
+ 
+                 });
+                 if (this.point_menu.length == 0) {
+                    this.point_menu_flag = true;
+                }
+                else{
+                    this.point_menu_flag = false;
+                }
+            }
+            else{
+                this.point_menu_flag = true;
+                this.globals.presentToast(data.message)
+            }
+            
+          
+        }
+            , error => {
+                loading.dismiss();
+                this.globals.presentToast("Something went wrong check your internet connection.")
+            });
+    }
+
+    Detail(id, image, freeextras,reward_id) {
+        this.navCtrl.push('ItemDetailPage', { item_id: id, image: image, BusinesId: this.globals.new_id, free_extras: freeextras ,reward_flag:true,reward_id:reward_id})
+    }
+
+    redeem_point_menu_item(id,type){
+        let loading = this.loadingCtrl.create({
+            content: "Loading...",
+
+        });
+        loading.present();
+        let response = this.server.redeem_point_menu_reward(id,type);
+            response.subscribe(data => {          
+                loading.dismiss();
+                if(data.status == true){
+                    this.globals.presentToast(data.message)                   
+                }
+                else{
+                    this.globals.presentToast(data.message)
+                }
+                
+            
+            }
+            , error => {
+                loading.dismiss();
+                this.globals.presentToast("Something went wrong check your internet connection.")
+            });
+    }
+
+    presentModal1() {
+       
+        let modal = this.modalCtrl.create('ModalPage');
+        modal.present();
+  }
+
+    rewards_items() {
+        let loading = this.loadingCtrl.create({
+            content: "Loading...",
+
+        });
+        loading.present();
+        let response = this.server.getrewards_menuitems();
+        response.subscribe(data => {          
+            loading.dismiss();
+            if(data.status == true){
+                this.reward_menu = data.items;
+                this.reward_menu.forEach(subelement => {
+                     subelement.quantity = 1;
+ 
+                 });
+                 if (this.reward_menu.length == 0) {
+                    this.reward_menu_flag = true;
+                }
+                else{
+                    this.reward_menu_flag = false;
+                }
+            }
+            else{
+                this.reward_menu_flag = true;
+                this.globals.presentToast(data.message)
+            }
+            
+          
+        }
+            , error => {
+                loading.dismiss();
+                this.globals.presentToast("Something went wrong check your internet connection.")
+            });
+    }
+
+    punch_items() {
+        let loading = this.loadingCtrl.create({
+            content: "Loading...",
+
+        });
+        loading.present();
+        let response = this.server.getpunches_menuitems();
+        response.subscribe(data => {       
+            //this.globals.circle_graph(this.globals.percent,'circles1',150,20,'#fff');
+
+            loading.dismiss();
+            if(data.status == true){
+
+                this.punch_menu = data.items;
+                var i=0;
+                var percent =0;
+                var that  = this;
+                setTimeout(function(){ 
+                    that.punch_menu.forEach(element => {
+                        percent = (Number(element.punch_count) / Number(element.punch_limit))*100;
+                       that.globals.circle_graph(percent,'circles'+i,70,11,'#fff');
+   
+                       console.log(percent,'circles'+i)
+                       i++;
+    
+                    });
+                 }, 1200);
+                
+            }
+            else{
+                this.globals.presentToast(data.message)
+            }
+            
+          
+        }
+        , error => {
+            loading.dismiss();
+            this.globals.presentToast("Something went wrong check your internet connection.")
+        });
+    }
+
+    cartpage() {
+
+        //  let cartmodel = this.modalCtrl.create('CartPage');
+        // cartmodel.present();
+        if (this.globals.Product.length == 0) {
+            let alert = this.alertCtrl.create({
+                title: "Oops",
+                message: "Your cart is empty.",
+                buttons: ["Okay"]
+
+            });
+            alert.present();
+        }
+        else {
+            this.navCtrl.push('CartPage');
+        }
     }
 }

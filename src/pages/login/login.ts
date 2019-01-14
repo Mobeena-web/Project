@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController, AlertController, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, AlertController, ModalController,ViewController } from 'ionic-angular';
 import { HomePage } from '../home/home';
 import { ServerProvider } from '../../providers/server/server';
 import { GlobalVariable } from '../../app/global';
@@ -23,7 +23,7 @@ export class LoginPage {
     // ID: any;
     // date: any;
 
-    constructor(public server: ServerProvider, public globals: GlobalVariable, private nativeStorage: NativeStorage, public modalCtrl: ModalController, public navCtrl: NavController,
+    constructor(public viewCtrl: ViewController,public server: ServerProvider, public globals: GlobalVariable, private nativeStorage: NativeStorage, public modalCtrl: ModalController, public navCtrl: NavController,
         public navParams: NavParams,
         public loadingCtrl: LoadingController,
         public alertCtrl: AlertController,
@@ -59,12 +59,12 @@ export class LoginPage {
             console.log(' Some values were not given or were incorrect, please fill them');
         } else {
             let loading = this.loadingCtrl.create({
-                content: "Please wait...",
-                dismissOnPageChange: true,
+                content: "Please wait..."
             });
             loading.present();
             let response = this.server.LoginData(LoginData);
             response.subscribe(data => {
+                loading.dismiss();
                 this.data.response = data;
                 
                 if (this.data.response != "invalid") {
@@ -75,16 +75,13 @@ export class LoginPage {
                     this.globals.lastName = this.data.response.lastname;
                     
                     if(this.globals.caos_flag){
-                    // this.globals.caos_flag = false;
-
-                        this.navCtrl.push('CategoryPage')
+                
+                        this.viewCtrl.dismiss();
                     }
                     else{
-                        this.navCtrl.setRoot(HomePage, { imageData: this.data.response.url, Flag: false });
+                       this.navCtrl.setRoot(HomePage, { imageData: this.data.response.url, Flag: false });
 
-                    }
-                   
-                    this.nativeStorage.setItem('user',
+                        this.nativeStorage.setItem('user',
                         {
                             email: LoginData.email,
                             udid: this.data.response.udid,
@@ -104,38 +101,29 @@ export class LoginPage {
                             this.SaveMobileNumberFlag(this.data.response.mobile_verification_amount, this.data.response.phone_verified);
 
                             if(this.globals.caos_flag){
-                                this.globals.caos_flag = false;
-
-                                this.navCtrl.push('CategoryPage')
+                             
+                                this.navCtrl.push('CartPage')
                             }
                             else{
                                 this.navCtrl.setRoot(HomePage, { imageData: this.data.response.url, Flag: false });
 
                             }
-                            //this.navCtrl.push('AcceptTermsPage')
                             this.server.initializePushToken();
                         })
                         .catch((err) => { console.log("nativesstorage", err) });
+
+                    }
+                   
+                   
                 }
                 else {
-                    console.log(this.data.response);
-                    let alert = this.alertCtrl.create({
-                        title: 'Failure!',
-                        subTitle: 'Invalid Email or Password',
-                        buttons: ['Retry']
-                    });
-                    alert.present();
-                    loading.dismiss();
+                    
+                    this.globals.presentToast("Invalid Email or Password")
+                    
                 }
             }, error => {
-                console.log("Oooops!");
-                loading.dismiss();
-                let alert = this.alertCtrl.create({
-                    title: 'Error',
-                    subTitle: 'Server times out, please try again',
-                    buttons: ['OK']
-                });
-                alert.present();
+                
+                this.globals.presentToast("Server times out, please try again")
 
 
             });

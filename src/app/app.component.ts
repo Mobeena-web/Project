@@ -40,7 +40,7 @@ export class MyApp {
   constructor(private codePush: CodePush,private nativeAudio: NativeAudio,public loadingCtrl: LoadingController,private iab: InAppBrowser,private barcodeScanner:BarcodeScanner,public alertCtrl: AlertController,public app: App,public server: ServerProvider, private _notification: OneSignal, public alertctrl: AlertController, public modalCtrl: ModalController, public globals: GlobalVariable, private statusbar: StatusBar, private splashscreen: SplashScreen, private nativeStorage: NativeStorage, public platform: Platform,private geolocation: Geolocation) {
 
     platform.ready().then(() => {
-        this.checkCodePush();
+        // this.checkCodePush();
         this.data = {};
         this.data.response = '';
         this.LoadSound();
@@ -51,7 +51,30 @@ export class MyApp {
 
       let env = this;
 
-      this.nativeStorage.getItem('user')
+      if(this.globals.caos_flag){
+
+        this.nativeStorage.getItem('business')
+        .then(data => {
+          // user is previously logged and we have his data
+          // we will let him access the app
+
+          this.globals.new_id = data.business_id;
+          this.globals.business_username= data.business_username;
+        
+          env.nav.setRoot('BeforeLoginPage');
+        
+          this.splashscreen.hide();
+        }, error => {
+          //we don't have the user data so we will ask him to log in
+          
+             env.nav.setRoot('BusinessLoginPage');
+
+          this.splashscreen.hide();
+        }).catch(err => { console.log(err) });
+
+      }
+      else{
+        this.nativeStorage.getItem('user')
         .then(data => {
           // user is previously logged and we have his data
           // we will let him access the app
@@ -71,11 +94,37 @@ export class MyApp {
           this.globals.showFabFlag = false;
           this.splashscreen.hide();
         }).catch(err => { console.log(err) });
+      }
+
+      
 
       this.splashscreen.hide();
      
     });
   }
+
+  ngOnInit(){
+    this.welcome_data();
+
+  }
+
+  welcome_data() {
+    let loading = this.loadingCtrl.create({
+        content: "Loading...",
+    });
+    loading.present();
+
+    let response = this.server.welcome_screen();
+    response.subscribe(data => {
+        loading.dismiss();
+        this.globals.welcome = data;
+    }, error => {
+      loading.dismiss();
+
+        this.globals.presentToast("Something went wrong check your internet connection.")
+
+    });
+}
 
   checkCodePush() {
     
@@ -99,16 +148,7 @@ export class MyApp {
  }
 
 
-  welcome_data() {
-
-    let response = this.server.welcome_screen();
-    response.subscribe(data => {
-        this.globals.welcome_data = data;
-     
-    }, error => {
-      
-    });
-}
+ 
 
 
   cartpage() {
@@ -413,12 +453,8 @@ public scanQR() {
                  }, error => {
                      console.log("Oooops!");
                      loading.dismiss();
-                     let alert = this.alertCtrl.create({
-                         title: 'Error',
-                         subTitle: 'Server times out, please try again',
-                         buttons: ['OK']
-                     });
-                     alert.present();
+                     this.globals.presentToast("Something went wrong check your internet connection.")
+
                  });
              }
              // console.log(barcodeData.text);
@@ -498,7 +534,6 @@ list() {
     response.subscribe(data => {
         this.places = data.results;
         var new_id = this.globals.new_id;
-        console.log("places",this.places)
         this.globals.business_list = this.places;
         this.places = this.places.filter(function(item) {
          return item.business_id === new_id;
@@ -516,7 +551,42 @@ list() {
        this.globals.b_logo = this.places[0].logo;
        this.globals.StripId = this.places[0].stripe_id;
        this.globals.order_instructions = this.places[0].instructions_enabled;
+       this.globals.pickup_timing = this.places[0].pickup_timing;
+       this.globals.delivery_timing = this.places[0].delivery_timing;
+       this.globals.business_username = this.places[0].username;
+       this.globals.estimated_time = this.places[0].delivery_time;
+       this.globals.business_discount_count = parseInt(this.places[0].business_discount_count);
+       this.globals.username = this.places[0].username;
+       this.globals.bussinessId = this.places[0].business_id;
+       this.globals.admin_stripe = this.places[0].admin_stripe_enabled;
+       this.globals.pickupsetting = this.places[0].delivery_time;
+       this.globals.tax = this.places[0].tax;
+       this.globals.deliveryCharges = this.places[0].delivery_fee;
+       this.globals.pickup_Time = this.places[0].pickup_time;
+       this.globals.minimun_order = parseInt(this.places[0].minimum_order);
+       this.globals.availed_discount_count = parseInt(this.places[0].customer_discount_availed_count);
+       this.globals.paypalId = this.places[0].paypal_id;
+       this.globals.Timing = this.places[0].hours_operation;
 
+         if (this.globals.pickup == '1') {
+             this.globals.pickup = true;
+         }
+         else {
+             this.globals.pickup = false;
+         }
+         if (this.places[0].delivery == '1') {
+             this.globals.delivery = true;
+         }
+         else {
+             this.globals.delivery = false;
+         }
+         if(this.places[0].cash_enabled == '1'){
+             this.globals.cash_enabled = true;
+         }
+         else{
+             this.globals.cash_enabled = false;
+
+         }
         if (this.globals.pickup == '1') {
             this.globals.pickup = true;
         }
@@ -533,12 +603,9 @@ list() {
      
     }, error => {
        
-        let alert = this.alertCtrl.create({
-            title: 'Error',
-            subTitle: 'Server times out, please try again',
-            buttons: ['OK']
-        });
-        alert.present();
+        
+        this.globals.presentToast("Something went wrong check your internet connection.")
+
 
     });
  

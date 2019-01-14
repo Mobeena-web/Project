@@ -1,7 +1,7 @@
 
 <ion-content >
   <ion-icon name="close" class="close_icon" (click)="dismiss()"></ion-icon>
-  <ion-slides pager *ngIf="global.notifications" style="height:550px"  speed="3000" loop="true" autoplayDisableOnInteraction="false">
+  <ion-slides pager *ngIf="global.notifications" style="height:430px"  speed="3000" loop="true" autoplayDisableOnInteraction="false">
     <ion-slide style="height:100%" *ngFor="let banners of global.notifications" >
       <img src={{banners?.image}} class="bi">
       <img src={{banners.logo}} class="icon_img">

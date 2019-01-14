@@ -3,6 +3,11 @@
 
   <ion-navbar color='primary'>
     <ion-title>Gift Card Designs</ion-title>
+    <ion-buttons end>
+        <button ion-button icon-only color="royal" (click)="proceed()">
+          Proceed
+        </button>
+      </ion-buttons>
   </ion-navbar>
 
 </ion-header>
@@ -14,9 +19,18 @@
 <ion-item class="margin-top">
   <ion-label>Amount</ion-label>
   <ion-select [(ngModel)]="amount">
-    <div *ngFor='let item of gifts'>
-      <ion-option  (ionSelect)="buy(item.giftcard_id)" value={{item.amount}}>$ {{item.amount}}</ion-option>
-    </div>
+     <ion-option value="5">$5</ion-option>
+     <ion-option value="10">$10</ion-option>
+     <ion-option value="15">$15</ion-option>
+     <ion-option value="20">$20</ion-option>
+     <ion-option value="25">$25</ion-option>
+     <ion-option value="30">$30</ion-option>
+     <ion-option value="35">$35</ion-option>
+     <ion-option value="40">$40</ion-option>
+     <ion-option value="45">$45</ion-option>
+     <ion-option value="50">$50</ion-option>
+
+   
     <ion-option (ionSelect)="otherselect()" >Other</ion-option>
 
   </ion-select>
@@ -32,20 +46,8 @@
     <ion-input type="text"  [(ngModel)]="message"></ion-input>
   </ion-item>
 
-  <div [innerHTML]="policy" margin-top>
+  <p (click)="termsandconditions()" text-center>Terms & Conditions</p>
 
-  </div>
 
-<!-- <ion-card *ngFor='let item of gifts'>
-       <ion-row>
-         <ion-col col-8 >
-          <h3 class="gc">${{item.amount}}</h3>
-         </ion-col>
-         <ion-col col-4 class="bl">
-          <button ion-button color='primary' class="share" (click)="buy(item.giftcard_id)">Buy</button>
-
-         </ion-col>
-       </ion-row>
-     </ion-card> -->
-     <button ion-button block class="p_btn" (click)="proceed()">Proceed</button>
+     <button ion-button block class="p_btn" (click)="proceed()">Proceed to Checkout</button>
 </ion-content>

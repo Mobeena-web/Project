@@ -117,8 +117,9 @@ export class ModalPage {
   
   getdata(){
     this.time =  localStorage.getItem("scheduled_time");
-    console.log(this.time,"to")
+    
     if(this.time){
+    
       var res = this.time.split("T");
 
       var res1 = res[1].split(".")
@@ -130,9 +131,9 @@ export class ModalPage {
     else{
       this.date = new Date(new Date().setHours(new Date().getHours()));
       var timeis = new Date(this.date).toLocaleString('en-US', { hour12: true });
-      this.datenow = timeis ;
+      this.datenow = timeis;
    
-      this.convertDate = timeis ;
+      this.convertDate = timeis;
     }
   
     //this.date = new Date(local_datetime);
@@ -311,12 +312,17 @@ export class ModalPage {
         
         myadress = data.address;
         this.Address = myadress;
+        this.globals.inradius = data.in_radius;
+        if(data.in_radius == false){
+          this.globals.alertMessage("No Delivery","We d'nt Deliver in your Area.")
+
+        }
         localStorage.setItem("GetAddress",myadress);
 
     }, error => {
         localStorage.setItem("GetAddress","");
 
-        this.globals.alertMessage("Failure","Something went wrong check your internet connection.")
+        this.globals.presentToast("Something went wrong check your internet connection.")
 
     });
 
@@ -373,7 +379,7 @@ export class ModalPage {
     if(this.NewAddress == true){
       this.CurrentAdress = true;
       this.removedata();
-      localStorage.setItem("address",this.Address);
+      this.new_address_prompt();
       
         //this.CurrentAdress = false;
     }
@@ -383,6 +389,54 @@ export class ModalPage {
     
 
   }
+
+  new_address_prompt() {
+    let alert = this.alertCtrl.create({
+      title: 'Your Address',
+      inputs: [
+        {
+          name: 'street',
+          placeholder: 'Street'
+        },
+        {
+          name: 'apt',
+          placeholder: 'Apt#',
+        },
+        {
+          name: 'city',
+          placeholder: 'City',
+        },
+        {
+          name: 'state',
+          placeholder: 'State',
+        },
+        {
+          name: 'zip',
+          placeholder: 'Zip',
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Done',
+          handler: data => {
+            this.Address = data.street + ','+  data.apt +','+ data.city +' '+ data.state +','+ data.zip;
+            localStorage.setItem("address",this.Address);
+
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+
+
   removedata(){
     this.Address = "";
       this.city = "";

@@ -34,6 +34,17 @@ getdeals(){
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
 
+  SendLogindataToServer(username,password) {
+
+    var data = JSON.stringify({ username: username, password: password });
+    var link = this.global.BaseUrl + 'Business_controller/app_login';
+
+    return this.http.post(link, data)
+      .map((res: any) => res.json())
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+
+  }
+
   SignupData(firstname, lastname, email, password, phone, Birthday, Anniversary) {
     var link = this.global.BaseUrl + 'Customer_controller/signup';
     var data = JSON.stringify({ business_id:this.global.new_id,firstname: firstname, lastname: lastname, email: email, password: password, phone: phone, birthday: Birthday, anniversary: Anniversary });
@@ -77,7 +88,7 @@ getdeals(){
 
   getAddress(coordinates) {
     var link = this.global.BaseUrl + 'Customer_controller/get_address_with_coordinates';
-    var data = JSON.stringify({ coordinates : coordinates });
+    var data = JSON.stringify({ business_id:this.global.new_id,coordinates : coordinates });
     return this.http.post(link, data)
       .map((res: any) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
@@ -126,6 +137,15 @@ getdeals(){
     var link = this.global.BaseUrl + 'rewards/buy_reward';
     
     var data = JSON.stringify({ business_id: this.global.new_id,udid:this.global.udid,reward_id:reward_id });
+    return this.http.post(link, data)
+      .map((res: any) => res.json())
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+  }
+
+  redeem_point_menu_reward(reward_id,reward_type ){
+    var link = this.global.BaseUrl + 'rewards/get_redeem_points';
+    
+    var data = JSON.stringify({ business_id: this.global.new_id,udid:this.global.udid,item_id:reward_id,reward_type:reward_type });
     return this.http.post(link, data)
       .map((res: any) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
@@ -227,6 +247,14 @@ getdeals(){
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
 
+  date_convert(date) {
+    var link = this.global.BaseUrl + '/menu/get_date_convert';
+    var data = JSON.stringify({ date:date });
+    return this.http.post(link, data)
+      .map((res: any) => res.json())
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+  }
+
   MobileVerification() {
     var link = this.global.BaseUrl + "Customer_controller/send_verification_message";
 
@@ -239,6 +267,8 @@ getdeals(){
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
 
   }
+
+
 
 
   SendVerificationCodeToServer(phoneCode) {
@@ -385,6 +415,32 @@ getdeals(){
 
   }
 
+  getpoints_menuitems() {
+    var link = (this.global.BaseUrl + 'rewards/get_point_rewards');
+    var data = JSON.stringify({ business_id: this.global.new_id });
+    return this.http.post(link, data)
+      .map((res: any) => res.json())
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+
+  }
+
+  getrewards_menuitems() {
+    var link = (this.global.BaseUrl + 'rewards/get_reward_list');
+    var data = JSON.stringify({ business_id: this.global.new_id ,udid:this.global.udid});
+    return this.http.post(link, data)
+      .map((res: any) => res.json())
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+
+  }
+
+  getpunches_menuitems() {
+    var link = (this.global.BaseUrl + 'rewards/get_punches_rewards');
+    var data = JSON.stringify({ business_id: this.global.new_id ,udid:this.global.udid});
+    return this.http.post(link, data)
+      .map((res: any) => res.json())
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+
+  }
 
 
   OrderStatusThroughPaypal(Address, instruction, myDate, cashpay) {

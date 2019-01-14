@@ -70,8 +70,9 @@ export class CategoryPage {
         this.currentBusinessDiscount = "10";
         this.globals.BusinessDiscount = this.currentBusinessDiscount;
         
-
-        this.getLocation();
+        if(!this.globals.caos_flag){
+            this.getLocation();    
+        }
 
         this.myChoice.push('abcd');
         this.myChoice.pop();
@@ -97,7 +98,7 @@ export class CategoryPage {
             time = Number(time);
             console.log(Number(current_day[1]),time)
             if(current_day){
-                if((Number(current_day[0]) <= time && Number(current_day[1]) > time) || (Number(current_day[0]) <= time && Number(current_day[1]) < Number(current_day[0])) || (current_day[1] == 'opened' && current_day[1] == 'opened')){
+                if((Number(current_day[0]) <= time && Number(current_day[1]) > time) || (Number(current_day[0]) <= time && Number(current_day[1]) < Number(current_day[0])) || (current_day[0] != 'closed' && current_day[1] != 'closed')){
                     return true;
                 }
                 else {
@@ -194,12 +195,8 @@ export class CategoryPage {
        }, error => {
            console.log(error);
 
-           let alert = this.alertCtrl.create({
-               title: 'Error',
-               subTitle: 'Server times out, please try again',
-               buttons: ['OK']
-           });
-           alert.present();
+           this.globals.presentToast("Something went wrong check your internet connection.")
+
 
        });
     
@@ -225,8 +222,6 @@ export class CategoryPage {
        
             let modal = this.modalCtrl.create('ModalPage');
             modal.present();
-
-        
       }
 
     ionViewDidLoad() {
@@ -335,12 +330,8 @@ export class CategoryPage {
         }
             , error => {
                 loading.dismiss();
-                let alert = this.alertCtrl.create({
-                    title: 'Error',
-                    subTitle: 'Server times out, please try again',
-                    buttons: ['OK']
-                });
-                alert.present();
+                this.globals.presentToast("Something went wrong check your internet connection.")
+
 
             });
     }
