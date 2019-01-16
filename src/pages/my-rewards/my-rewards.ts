@@ -480,12 +480,12 @@ export class MyRewardsPage {
     }
 
     punch_model(rewards){
-        let modal = this.modalCtrl.create('PointPunchModelPage', { title: "Punch Detail", udid:rewards.id, name:rewards.name, image: rewards.image, punch_count: rewards.punch_count, punch_limit: rewards.punch_limit});
+        let modal = this.modalCtrl.create('PointPunchModelPage', { title: "Punch Detail",tagline:rewards.punch_description, udid:rewards.id, name:rewards.name, image: rewards.image, punch_count: rewards.punch_count, punch_limit: rewards.punch_limit});
         modal.present();
     }
 
     point_model(a){
-        let modal = this.modalCtrl.create('PointPunchModelPage', { title: "Point Detail", image: a.image, name: a.name, tagline: a.tagline});
+        let modal = this.modalCtrl.create('PointPunchModelPage', { title: "Point Detail", image: a.image, name: a.name, tagline: a.points_description});
         modal.present();
     }
 
