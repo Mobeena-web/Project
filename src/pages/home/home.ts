@@ -393,7 +393,8 @@ export class HomePage {
     }
     ionViewWillEnter() {
         this.globals.showbackButton = false;
-        this.getPoints('0,0')
+        this.getPoints('0,0');
+        this.getPunches();
         // if(this.globals.mycoordinates){
         //     this.getPunches(this.globals.mycoordinates)
         // }

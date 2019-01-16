@@ -427,6 +427,7 @@ export class MyRewardsPage {
             loading.dismiss();
             if(data.status == true){
                 this.point_menu = data.items;
+                console.log("Point menu", this.point_menu);
                 this.point_menu.forEach(subelement => {
                      subelement.quantity = 1;
  
@@ -476,6 +477,16 @@ export class MyRewardsPage {
                 loading.dismiss();
                 this.globals.presentToast("Something went wrong check your internet connection.")
             });
+    }
+
+    punch_model(rewards){
+        let modal = this.modalCtrl.create('PointPunchModelPage', { title: "Punch Detail", udid:rewards.id, name:rewards.name, image: rewards.image, punch_count: rewards.punch_count, punch_limit: rewards.punch_limit});
+        modal.present();
+    }
+
+    point_model(a){
+        let modal = this.modalCtrl.create('PointPunchModelPage', { title: "Point Detail", image: a.image, name: a.name, tagline: a.tagline});
+        modal.present();
     }
 
     presentModal1() {
@@ -532,6 +543,7 @@ export class MyRewardsPage {
             if(data.status == true){
 
                 this.punch_menu = data.items;
+                console.log("Punches ", this.punch_menu);
                 var i=0;
                 var percent =0;
                 var that  = this;

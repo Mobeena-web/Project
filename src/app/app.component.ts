@@ -535,10 +535,13 @@ list() {
         this.places = data.results;
         var new_id = this.globals.new_id;
         this.globals.business_list = this.places;
-        this.places = this.places.filter(function(item) {
+        this.places = this.places.filter(function(item) {       
          return item.business_id === new_id;
-       });
-      
+       });    
+       this.globals.point_check = this.places[0].points_enabled;
+       this.globals.punch_check = this.places[0].punches_enabled;
+       console.log("POINTS", this.places[0].points_enabled);
+       console.log("PUNCHES", this.places[0].punches_enabled);
        this.globals.special_offer = this.places[0].special_offer;
        this.globals.events_enabled = this.places[0].events_enabled;
        this.globals.gallery_enabled = this.places[0].gallery_enabled;

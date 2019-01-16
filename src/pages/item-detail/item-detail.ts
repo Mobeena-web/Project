@@ -404,11 +404,23 @@ export class ItemDetailPage {
       this.image = this.data.item.image;
       this.price = this.data.item.price;
       this.item_price = this.price;
+      if(this.reward_item_flag == true){
+        this.item_price = 0;
+
+      }
       this.No_of_Free_Extras = Number(this.data.item.freeExtras);
 
       if (this.data.item.extras.length > 0) {
         var noExtras = false;
         this.extras = this.data.item.extras;
+        if(this.reward_item_flag == true){
+          this.extras.forEach(extra_price => {
+              extra_price.options.forEach(ex => {
+                ex.price = 0;
+              });
+            
+          });
+        }
         this.extras.forEach(element => {
           if (element.heading == '') {
             element.options.forEach(element1 => {
