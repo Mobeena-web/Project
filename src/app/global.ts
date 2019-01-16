@@ -114,7 +114,7 @@ export class GlobalVariable {
     pickup_timing:any;
     delivery_timing:any;
     constructor(public alertCtrl: AlertController,public toastCtrl: ToastController) {
-        this.BaseUrl = 'https://onlineordering.mikronexus.com/online-ordering-new/index.php/';
+        this.BaseUrl = 'https://staging.onlineordering.mikronexus.com/index.php/';
     }
     
 
