@@ -62,6 +62,8 @@ export class MyRewardsPage {
     reward_menu:any;
     reward_menu_flag:boolean = false;
     punch_menu:any;
+    punch_menu_flag:boolean = false;
+    reward_menu_length:any;
     // ngAfterViewInit()
     // {
     //     this.indicator = document.getElementById("indicator");
@@ -234,7 +236,7 @@ export class MyRewardsPage {
         this.server.CheckUserReward();
         this.server.CheckUserBadgePoints();
         if (this.option == 'gain') {
-            this.getReward();
+            //this.getReward();
 
         }
         else if (this.option == 'punch_cards') {
@@ -322,44 +324,16 @@ export class MyRewardsPage {
 
     getPoints() {
 
-        let loading = this.loadingCtrl.create({
-            content: "Loading...",
-
-        });
-        loading.present();
-
         let response = this.server.getUserPoints(this.coordinates);
         response.subscribe(data => {
            
-            this.data.response = data;
-            this.points_reward = this.data.response.rewards;
-            this.points_Status = this.data.response.status;
-            console.log("mypoints",data);
-            loading.dismiss();
-            if (this.points_Status == "error") {
-                this.pointflag = true;
+            if(data.status == "error"){
+                this.globals.points_ = 0;
             }
-
-            else {
-                this.points_lotery = this.points_reward;
-                // this.lotery.forEach(element => {
-                //     if(element.reward_string == 'null' )
-                //     {
-                //         element.isnumber = true;
-                //     }
-
-                //     else{
-                //         element.isnumber = false;
-                //     }
-                // });
-
-
-                this.pointflag = false;
-
+            else{
+                this.globals.points_ = Number(data.rewards[0].points);
             }
         }, error => {
-            console.log("Oooops!");
-            loading.dismiss();
             this.globals.presentToast("Something went wrong check your internet connection.")
 
 
@@ -465,7 +439,9 @@ export class MyRewardsPage {
             response.subscribe(data => {          
                 loading.dismiss();
                 if(data.status == true){
-                    this.globals.presentToast(data.message)                   
+                    this.globals.presentToast(data.message);
+                    this.getPoints();
+                    this.punch_items();
                 }
                 else{
                     this.globals.presentToast(data.message)
@@ -506,6 +482,7 @@ export class MyRewardsPage {
             loading.dismiss();
             if(data.status == true){
                 this.reward_menu = data.items;
+                this.reward_menu_length = this.reward_menu.length;
                 this.reward_menu.forEach(subelement => {
                      subelement.quantity = 1;
  
@@ -543,6 +520,13 @@ export class MyRewardsPage {
             if(data.status == true){
 
                 this.punch_menu = data.items;
+                if(this.punch_menu.length == 0){
+                    this.punch_menu_flag = true;
+                }
+                else{
+                    this.punch_menu_flag = false;
+
+                }
                 console.log("Punches ", this.punch_menu);
                 var i=0;
                 var percent =0;
@@ -550,7 +534,7 @@ export class MyRewardsPage {
                 setTimeout(function(){ 
                     that.punch_menu.forEach(element => {
                         percent = (Number(element.punch_count) / Number(element.punch_limit))*100;
-                       that.globals.circle_graph(percent,'circles'+i,55,8,'#fff');
+                       that.globals.circle_graph(percent,'circles'+i,55,8,'#ccc');
    
                        console.log(percent,'circles'+i)
                        i++;
@@ -560,8 +544,6 @@ export class MyRewardsPage {
                 
             }
            
-            
-          
         }
         , error => {
             loading.dismiss();
@@ -586,4 +568,30 @@ export class MyRewardsPage {
             this.navCtrl.push('CartPage');
         }
     }
+
+    points_buy_Confirm(id,type) {
+        let alert = this.alertCtrl.create({
+          title: 'Purchase Item',
+          message: 'Are you sure.You want to purchase item by points?',
+          buttons: [
+            {
+              text: 'Cancel',
+              role: 'cancel',
+              handler: () => {
+                console.log('Cancel clicked');
+              }
+            },
+            {
+              text: 'Buy',
+              handler: () => {
+                console.log('Buy clicked');
+                this.redeem_point_menu_item(id,type);
+              }
+            }
+          ]
+        });
+        alert.present();
+      }
+
+
 }
