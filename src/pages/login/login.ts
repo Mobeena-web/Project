@@ -123,7 +123,7 @@ export class LoginPage {
                 }
             }, error => {
                 
-                this.globals.presentToast("Server times out, please try again")
+                this.globals.presentToast("Something went wrong check your internet connection.")
 
 
             });

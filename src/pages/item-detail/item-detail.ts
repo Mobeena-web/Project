@@ -260,6 +260,7 @@ export class ItemDetailPage {
 
       let isMenuItemSame: boolean = false;
       this.globals.Product.forEach(menuItem => {
+        
         if (menuItem.uniqueId == this.ItemId) {
           if(this.instructions == '' && menuItem.instructions == ''){
             let menuExtraCategoryLength: any = menuItem.menuExtrasSelected.length;
@@ -365,7 +366,26 @@ export class ItemDetailPage {
         this.objectPrice.toFixed(2);
         this.instructions = localStorage.getItem("instructions");
         this.globals.itemInstruction = this.instructions;
-         this.globals.Product.push({ menuId: "1", restId: this.globals.new_id, uniqueId: this.ItemId, menuItem: this.name, image: this.thumbimage, quantity: this.quantity, itemInstructions: this.instructions, basePrice: this.price, totalPrice: this.objectPrice, menuExtrasSelected: this.myChoices,reward:this.reward_item_flag,reward_id:this.reward_id });
+        if(this.reward_item_flag == true){
+          var reward_duplicate = false;
+          this.globals.Product.forEach(menuItem => {
+            if(menuItem.reward_id == this.reward_id){
+              reward_duplicate = true;
+            }
+           
+          });
+          if(!reward_duplicate){
+           this.globals.Product.push({ menuId: "1", restId: this.globals.new_id, uniqueId: this.ItemId, menuItem: this.name, image: this.thumbimage, quantity: this.quantity, itemInstructions: this.instructions, basePrice: this.price, totalPrice: this.objectPrice, menuExtrasSelected: this.myChoices,reward:this.reward_item_flag,reward_id:this.reward_id });
+
+          }
+          else{
+            this.globals.presentToast("You have already add this reward in cart.")
+          }
+        }
+        else{
+          this.globals.Product.push({ menuId: "1", restId: this.globals.new_id, uniqueId: this.ItemId, menuItem: this.name, image: this.thumbimage, quantity: this.quantity, itemInstructions: this.instructions, basePrice: this.price, totalPrice: this.objectPrice, menuExtrasSelected: this.myChoices,reward:this.reward_item_flag,reward_id:this.reward_id });
+
+        }
 
         this.navCtrl.pop();
         localStorage.removeItem("instructions");
@@ -404,11 +424,23 @@ export class ItemDetailPage {
       this.image = this.data.item.image;
       this.price = this.data.item.price;
       this.item_price = this.price;
+      if(this.reward_item_flag == true){
+        this.item_price = 0;
+
+      }
       this.No_of_Free_Extras = Number(this.data.item.freeExtras);
 
       if (this.data.item.extras.length > 0) {
         var noExtras = false;
         this.extras = this.data.item.extras;
+        if(this.reward_item_flag == true){
+          this.extras.forEach(extra_price => {
+              extra_price.options.forEach(ex => {
+                ex.price = 0;
+              });
+            
+          });
+        }
         this.extras.forEach(element => {
           if (element.heading == '') {
             element.options.forEach(element1 => {

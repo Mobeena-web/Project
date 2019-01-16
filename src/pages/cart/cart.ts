@@ -82,14 +82,12 @@ export class CartPage {
             console.log("checking pickup and delivery");
             this.Deliver = true;
             this.pickup = false;
-            this.total();
-
+         
         }
         else {
             this.Deliver = false;
             this.pickup = true;
-            this.total();
-            
+          
             // this.Deliver = this.globals.delivery;
             // this.pickup = this.globals.pickup;
         }
@@ -493,14 +491,25 @@ export class CartPage {
             console.log("delivery charges", this.globals.deliveryCharges, this.Total);
         }
 
-        if ((Number(this.Total) < this.globals.minimun_order || Number(this.Total) < 0) && this.Deliver == true) {
-
-            let alert = this.alertCtrl.create({
-                title: 'Oops',
-                subTitle: 'Please add more item in the cart.',
-                buttons: ['Okay']
-            });
-            alert.present();
+        if ((Number(this.Total) < this.globals.minimun_order || Number(this.Total) < 0 ) && this.Deliver == true ) {
+            if(Number(this.ProductsTotal) == 0){
+                this.TaxCalculate();
+                if (this.RewardStoreCreditAvailed > 0) {
+                    this.Total = Number(this.Total) - this.RewardStoreCreditAvailed;
+                }
+                if (this.birthdayStoreCreditavailed > 0) {
+                    this.Total = Number(this.Total) - this.birthdayStoreCreditavailed;
+                }
+            }
+            else{
+                let alert = this.alertCtrl.create({
+                    title: 'Oops',
+                    subTitle: 'Please add more item in the cart.',
+                    buttons: ['Okay']
+                });
+                alert.present();
+            }
+           
 
         }
         else {
