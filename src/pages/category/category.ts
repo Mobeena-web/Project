@@ -78,14 +78,19 @@ export class CategoryPage {
         this.myChoice.pop();
 
         // this.toggleGroup(0);
+        
+
+
+    }
+
+    ionViewWillEnter() {
+        this.globals.title = this.globals.category_name;
         if(this.globals.branch_enabled != 1){
             this.list();      
         }
         else{
             this.Categories();
         }
-
-
     }
 
     checkTiming(Timing) {
@@ -106,7 +111,6 @@ export class CategoryPage {
                   if(data.success == true){
                       day = data.day_id + 1;
                       time = data.time;
-                 
                   }
             
                 }, error => {
@@ -122,6 +126,7 @@ export class CategoryPage {
             }
 
             var current_day = Timing[day];
+
             time = Number(time);
            if(current_day){
                 if((Number(current_day[0]) <= time && Number(current_day[1]) > time) || (Number(current_day[0]) <= time && Number(current_day[1]) < Number(current_day[0])) || (current_day[0] != 'closed' && current_day[1] != 'closed')){
@@ -255,9 +260,7 @@ export class CategoryPage {
         this.globals.showbackButton = true;
     }
 
-    ionViewDidEnter() {
-        this.globals.title = this.globals.category_name;
-    }
+   
 
 
     Cart(object, flag, id, image, freeextras) {
@@ -328,7 +331,6 @@ export class CategoryPage {
             this.data = data;
             loading.dismiss();
             this.category = this.data.categories;
-            console.log("categories",this.category)
             this.name = this.data.restaurant.name;
             this.globals.title = this.name;
             this.globals.category_name = this.name;
@@ -342,10 +344,13 @@ export class CategoryPage {
                 });
             });
             var that = this;
-            this.category = this.category.filter(function(item) {
-                return that.checkTiming(item.timings) == true;
-              });
-
+            for(var i=0;i<this.category.length;i++){
+                this.category[i].items = this.category[i].items.filter(function(item) {
+                    return that.checkTiming(item.item_timings) == true;
+                  });
+            }
+                
+         
               this.forsearch = this.category;
 
             if (this.data.categories.length == 0) {

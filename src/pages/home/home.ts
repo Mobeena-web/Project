@@ -75,7 +75,6 @@ export class HomePage {
              this.reward_notification();
         }
         this.loadBanner();
-        this.rewards_items();
         this.cartflag = _navParams.get('CartFlag');
         this.discount_text = _navParams.get('discountText');
         this.GainFlag = _navParams.get('Flag');
@@ -395,6 +394,8 @@ export class HomePage {
         this.globals.showbackButton = false;
         this.getPoints('0,0');
         this.getPunches();
+        this.rewards_items();
+
         // if(this.globals.mycoordinates){
         //     this.getPunches(this.globals.mycoordinates)
         // }
