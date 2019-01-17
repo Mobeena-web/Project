@@ -64,6 +64,8 @@ export class MyRewardsPage {
     punch_menu:any;
     punch_menu_flag:boolean = false;
     reward_menu_length:any;
+    reward_type_home:any;
+    cart_reward_view:boolean = false;
     // ngAfterViewInit()
     // {
     //     this.indicator = document.getElementById("indicator");
@@ -93,6 +95,16 @@ export class MyRewardsPage {
         console.log('ionViewDidLoad MyRewardsPage');
         this.getLocation();
         this.option = 'points';
+        this.reward_type_home = this.navParams.get('reward_type_home');
+        if(this.reward_type_home && this.reward_type_home == 'punch'){
+            this.option = 'punch_cards';
+            this.punch_items();
+
+        }
+        else if(this.reward_type_home && this.reward_type_home == 'reward'){
+            this.option = 'gifts';
+            this.cart_reward_view = true;
+        }
         this.server.CheckUserPunchCards();
         this.server.CheckUserReward();
         this.server.CheckUserBadgePoints();

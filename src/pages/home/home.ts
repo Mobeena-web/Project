@@ -75,7 +75,7 @@ export class HomePage {
              this.reward_notification();
         }
         this.loadBanner();
-        
+        this.rewards_items();
         this.cartflag = _navParams.get('CartFlag');
         this.discount_text = _navParams.get('discountText');
         this.GainFlag = _navParams.get('Flag');
@@ -100,8 +100,8 @@ export class HomePage {
     gifts(){
         this._nav.push('GiftcardsPage');
     }
-    rewards(){
-        this._nav.push('MyRewardsPage')
+    rewards(type){
+        this._nav.push('MyRewardsPage',{reward_type_home:type})
 
     }
     reward_notification(){
@@ -515,6 +515,23 @@ export class HomePage {
         this._nav.push('BirthdayGiftsPage');
         }
     }
+
+    rewards_items() {
+    
+        let response = this.server.getrewards_menuitems();
+        response.subscribe(data => {          
+            if(data.status == true){
+               
+                 if (data.items.length > 0) {
+                    this.globals.reward_menu_length = data.items.length;
+                }
+            }
+          
+        }
+            , error => {
+            });
+    }
+
   
 
 

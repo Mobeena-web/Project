@@ -1543,6 +1543,10 @@ export class CartPage {
         }
         
       }
+
+      add_reward(){
+        this.navCtrl.push('MyRewardsPage',{reward_type_home:'reward'})
+      }
       
 
 

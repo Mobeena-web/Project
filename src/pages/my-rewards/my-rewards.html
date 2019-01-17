@@ -17,13 +17,13 @@
 
 <ion-content>
 
-  <ion-segment color="primary" [(ngModel)]="option" (ionChange)="SegmentChange()">
+  <ion-segment color="primary" [(ngModel)]="option" (ionChange)="SegmentChange()" *ngIf="!cart_reward_view">
     <!-- <ion-segment-button style="font-size:1.1rem" value="gain">
       <ion-badge color="danger" item-left *ngIf="globals.RewardCount > 0">{{globals.RewardCount}}</ion-badge>
       GAIN
     </ion-segment-button> -->
 
-    <ion-segment-button style="font-size:1.1rem" value="points">
+    <ion-segment-button style="font-size:1.1rem" value="points" >
       <!-- <ion-badge color="danger" item-left *ngIf="globals.PointCount > 0">{{globals.PointCount}}</ion-badge> -->
       POINTS
     </ion-segment-button>
