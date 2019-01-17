@@ -8,32 +8,34 @@
 
   <ion-navbar color="primary">
     <ion-title>My Rewards</ion-title>
-   
+
   </ion-navbar>
-  
+
 
 </ion-header>
 
 
 <ion-content>
 
-  <ion-segment  color="primary" [(ngModel)]="option" (ionChange)="SegmentChange()">
+  <ion-segment color="primary" [(ngModel)]="option" (ionChange)="SegmentChange()">
     <!-- <ion-segment-button style="font-size:1.1rem" value="gain">
       <ion-badge color="danger" item-left *ngIf="globals.RewardCount > 0">{{globals.RewardCount}}</ion-badge>
       GAIN
     </ion-segment-button> -->
-   
+
     <ion-segment-button style="font-size:1.1rem" value="points">
       <ion-badge color="danger" item-left *ngIf="globals.PointCount > 0">{{globals.PointCount}}</ion-badge>
       POINTS
     </ion-segment-button>
+
     <ion-segment-button style="font-size:1.1rem" value="punch_cards" (click)="punch_items()">
-        <ion-badge color="danger" item-left *ngIf="globals.punchCount > 0">{{globals.punchCount}}</ion-badge>
-        PUNCH CARDS
-      </ion-segment-button>
+      <ion-badge color="danger" item-left *ngIf="globals.punchCount > 0">{{globals.punchCount}}</ion-badge>
+      PUNCH CARDS
+    </ion-segment-button>
+
     <ion-segment-button style="font-size:1.1rem" value="gifts">
       <ion-badge color="danger" item-left *ngIf="rewards_length > 0">{{rewards_length}}</ion-badge>
-      GIFTS
+      MY REWARDS
     </ion-segment-button>
   </ion-segment>
 
@@ -81,86 +83,109 @@
 
     </div> -->
     <div *ngSwitchCase="'punch_cards'" class="back">
+
       <!-- <ion-searchbar *ngIf="!flag" [(ngModel)]="searchTerm" (input)="setFilteredItems()" [formControl]="searchControl"></ion-searchbar> -->
 
       <!-- <p style="text-align: center;" *ngIf="punchflag">Currently you do not have any punch cards... </p> -->
       <ion-refresher (ionRefresh)="doRefresh($event)">
-        <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull down to refresh" refreshingSpinner="circles" refreshingText="Refreshing...">
+        <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull down to refresh" refreshingSpinner="circles"
+          refreshingText="Refreshing...">
         </ion-refresher-content>
       </ion-refresher>
-    
-    
-        <div *ngFor="let rewards of punch_menu ;let i=index">
-           <div class="circle" id="circles{{i}}"> </div>
-           <div>
-              <h5 text-center>{{rewards.punch_count}}/{{rewards.punch_limit}} Punches</h5>
 
-           </div>
+      <div *ngIf="this.globals.punch_check == 'true'">
+        <ion-row>
+          <ion-col col-6 *ngFor="let rewards of punch_menu ;let i=index" >
+            <div (click)="punch_model(rewards)">
+                <img class="cup_img" src="{{rewards.image}}" />
+                <div class="circle" id="circles{{i}}"> </div>
+                  <h5 text-center>{{rewards.name}}</h5>
+                  <h5 text-center>{{rewards.punch_count}}/{{rewards.punch_limit}} Punches</h5>
+    
+            </div>
+            
             <button ion-button round block *ngIf="rewards.punch_count == rewards.punch_limit" class="pll" (click)="redeem_point_menu_item(rewards.id,'punches')">Redeem</button>
-        </div>
+          </ion-col>
+        </ion-row>
+      </div>
 
     </div>
     <div *ngSwitchCase="'points'">
       <!-- <ion-searchbar *ngIf="!flag" [(ngModel)]="searchTerm" (input)="setFilteredItems()" [formControl]="searchControl"></ion-searchbar> -->
+      <div *ngIf="this.globals.point_check == 'true'">
       <div col-6 class="point_s">
-          <div class="youhave">You Have</div>
-           <div class="points_design" *ngIf="globals.points_">{{globals.points_}} <ion-icon class="point-star" name="star"></ion-icon></div>
-           <div class="points_design" *ngIf="!globals.points_">0 <ion-icon class="point-star" name="star"></ion-icon></div>
+        <div class="youhave">You Have</div>
+        <div class="points_design" *ngIf="globals.points_">{{globals.points_}} <ion-icon class="point-star" name="star"></ion-icon>
+        </div>
+        <div class="points_design" *ngIf="!globals.points_">0 <ion-icon class="point-star" name="star"></ion-icon>
+        </div>
 
-           <div class="pts">Points</div> 
+        <div class="pts">Points</div>
       </div>
       <ion-refresher (ionRefresh)="doRefresh($event)">
-        <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull down to refresh" refreshingSpinner="circles" refreshingText="Refreshing...">
+        <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull down to refresh" refreshingSpinner="circles"
+          refreshingText="Refreshing...">
         </ion-refresher-content>
       </ion-refresher>
       <div *ngFor="let a of point_menu">
-          <ion-card *ngIf="a.point_price < globals.points_ || a.point_price == globals.points_"  class="point_card">
-              <ion-row>
-                  <ion-col col-3 style="margin: auto;" >
-                      
-                      <img class="itm-img" *ngIf="a.image" src="{{a.image}}">
-                      <img class="itm-img" *ngIf="a.image == '' || !a.image" src={{globals.b_logo}}>
-                  </ion-col>
-                  <ion-col col-9 style="margin:auto">
-                        
-                      <p  style="color:#444;font-size:1.5rem">{{a.name}} </p>
-                      <p  style="font-size:1.3rem;    padding-bottom: 10px;">{{a.tagline}} </p>
+        <ion-card *ngIf="a.point_price < globals.points_ || a.point_price == globals.points_" class="point_card">
+          <ion-row>
+            <ion-col col-3 style="margin: auto;">
 
-                      <button ion-button round block class="redem_btn" (click)="redeem_point_menu_item(a.id,'point_store')">BUY ({{a.point_price}} points)</button>
-                  </ion-col>
-                 
+              <img class="itm-img" *ngIf="a.image" src="{{a.image}}">
+              <img class="itm-img" *ngIf="a.image == '' || !a.image" src={{globals.b_logo}}>
+            </ion-col>
+            <ion-col col-9 style="margin:auto">
+
+              <p style="color:#444;font-size:1.5rem">{{a.name}} </p>
+              <p style="font-size:1.3rem;    padding-bottom: 10px;">{{a.points_description}} </p>
+
+              <ion-row>
+                <ion-col col-7>
+                  <button ion-button round block class="redem_btn" (click)="redeem_point_menu_item(a.id,'point_store')">BUY
+                    ({{a.point_price}} points)</button>
+                </ion-col>
+                <ion-col col-5> 
+                  <button ion-button round block class="redem_btn" (click)="point_model(a)"> View Detail</button>
+                </ion-col>
               </ion-row>
-          </ion-card>
+              
+            </ion-col>
+
+          </ion-row>
+        </ion-card>
       </div>
-     
-       
+
+    </div>
     </div>
     <div *ngSwitchCase="'gifts'">
       <!-- <ion-searchbar *ngIf="!flag" [(ngModel)]="searchTerm" (input)="setFilteredItems()" [formControl]="searchControl"></ion-searchbar> -->
       <ion-refresher (ionRefresh)="doRefresh($event)">
-        <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull down to refresh" refreshingSpinner="circles" refreshingText="Refreshing...">
+        <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull down to refresh" refreshingSpinner="circles"
+          refreshingText="Refreshing...">
         </ion-refresher-content>
       </ion-refresher>
       <p style="text-align: center; margin-top: 60%;" *ngIf="gain_flag">Currently you do not have any rewards... </p>
       <div *ngFor="let a of reward_menu">
-        <ion-card  class="point_card">
-            <ion-row>
-                <ion-col col-3 style="margin: auto;" >
-                    
-                    <img class="itm-img" *ngIf="a.image" src="{{a.image}}">
-                    <img class="itm-img" *ngIf="a.image == '' || !a.image" src={{globals.b_logo}}>
-                </ion-col>
-                <ion-col col-9 style="margin:auto">
-                      
-                    <p  style="color:#444;font-size:1.5rem">{{a.name}} </p>
-                    <p  style="font-size:1.3rem;    padding-bottom: 10px;">{{a.tagline}} </p>
+        <ion-card class="point_card">
+          <ion-row>
+            <ion-col col-3 style="margin: auto;">
 
-                    <button ion-button round block class="redem_btn" (click)="Detail(a.id,a.image,a.freeExtras,a.reward_id)">Add to Cart</button>
-                </ion-col>
-               
-            </ion-row>
+              <img class="itm-img" *ngIf="a.image" src="{{a.image}}">
+              <img class="itm-img" *ngIf="a.image == '' || !a.image" src={{globals.b_logo}}>
+            </ion-col>
+            <ion-col col-9 style="margin:auto">
+
+              <p style="color:#444;font-size:1.5rem">{{a.name}} </p>
+              <p style="font-size:1.3rem;    padding-bottom: 10px;">{{a.tagline}} </p>
+
+              <button ion-button round block class="redem_btn" (click)="Detail(a.id,a.image,a.freeExtras,a.reward_id)">Add
+                to Cart</button>
+            </ion-col>
+
+          </ion-row>
         </ion-card>
-    </div>
+      </div>
     </div>
   </div>
 

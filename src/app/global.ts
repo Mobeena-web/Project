@@ -113,6 +113,11 @@ export class GlobalVariable {
     inradius:boolean = true;
     pickup_timing:any;
     delivery_timing:any;
+    // punch - point variable
+    punch_check: any;
+    point_check: any;
+    //
+
     constructor(public alertCtrl: AlertController,public toastCtrl: ToastController) {
         this.BaseUrl = 'https://staging.onlineordering.mikronexus.com/index.php/';
     }

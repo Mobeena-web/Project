@@ -3,6 +3,17 @@ page-my-rewards {
     height: 100%;
   }
 
+  .cup_img{
+    position: absolute;
+    border-radius: 50%;
+    width: 85px;
+    top: 11.5%;
+    left: calc(50% - 42.5px);
+    font-size: 55px;
+    color: #333;
+    height: 85px;
+  }
+
     .point_s{
         padding-top: 11px;
         text-align: center;
@@ -63,7 +74,7 @@ page-my-rewards {
     .redem_btn{
       height: 36px;
     font-size: 12px;
-    width: 80%;
+    
     }
     .pll{
       height: 30px;

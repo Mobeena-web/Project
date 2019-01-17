@@ -427,6 +427,7 @@ export class MyRewardsPage {
             loading.dismiss();
             if(data.status == true){
                 this.point_menu = data.items;
+                console.log("Point menu", this.point_menu);
                 this.point_menu.forEach(subelement => {
                      subelement.quantity = 1;
  
@@ -440,7 +441,6 @@ export class MyRewardsPage {
             }
             else{
                 this.point_menu_flag = true;
-                this.globals.presentToast(data.message)
             }
             
           
@@ -479,6 +479,16 @@ export class MyRewardsPage {
             });
     }
 
+    punch_model(rewards){
+        let modal = this.modalCtrl.create('PointPunchModelPage', { title: "Punch Detail",tagline:rewards.punch_description, udid:rewards.id, name:rewards.name, image: rewards.image, punch_count: rewards.punch_count, punch_limit: rewards.punch_limit});
+        modal.present();
+    }
+
+    point_model(a){
+        let modal = this.modalCtrl.create('PointPunchModelPage', { title: "Point Detail", image: a.image, name: a.name, tagline: a.points_description});
+        modal.present();
+    }
+
     presentModal1() {
        
         let modal = this.modalCtrl.create('ModalPage');
@@ -509,7 +519,6 @@ export class MyRewardsPage {
             }
             else{
                 this.reward_menu_flag = true;
-                this.globals.presentToast(data.message)
             }
             
           
@@ -534,13 +543,14 @@ export class MyRewardsPage {
             if(data.status == true){
 
                 this.punch_menu = data.items;
+                console.log("Punches ", this.punch_menu);
                 var i=0;
                 var percent =0;
                 var that  = this;
                 setTimeout(function(){ 
                     that.punch_menu.forEach(element => {
                         percent = (Number(element.punch_count) / Number(element.punch_limit))*100;
-                       that.globals.circle_graph(percent,'circles'+i,70,11,'#fff');
+                       that.globals.circle_graph(percent,'circles'+i,55,8,'#fff');
    
                        console.log(percent,'circles'+i)
                        i++;
@@ -549,9 +559,7 @@ export class MyRewardsPage {
                  }, 1200);
                 
             }
-            else{
-                this.globals.presentToast(data.message)
-            }
+           
             
           
         }
