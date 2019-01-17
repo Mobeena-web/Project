@@ -9,7 +9,7 @@
     <!-- <ion-title style="color: #27ae60 !important" *ngIf="globals.title != 'Dusstuk'"  >{{globals.title}}</ion-title> -->
     <ion-buttons class="left-btn" start>
       <button ion-button style="font-size:3rem" menuToggle>
-        <ion-badge color="danger" *ngIf="globals.TotalbadgeValue > 0 && globals.TotalbadgeValue != null">{{globals.TotalbadgeValue}}</ion-badge>
+        <ion-badge color="danger" *ngIf="globals.reward_menu_length > 0 ">{{globals.reward_menu_length}}</ion-badge>
         <ion-icon name="md-menu"></ion-icon>
       </button>
     </ion-buttons>
@@ -45,7 +45,7 @@
 
   <ion-row *ngIf="!globals.guess_login">
 
-    <ion-col col-6 class="point_s">
+    <ion-col col-6 class="point_s" (click)="rewards()">
       <div *ngIf="this.globals.point_check == 'true'">
         <div class="youhave">You Have</div>
         <div class="points_design" *ngIf="!points">0 <ion-icon class="point-star" name="star"></ion-icon>
@@ -59,7 +59,7 @@
     </ion-col>
 
 
-    <ion-col col-6 text-center>
+    <ion-col col-6 text-center (click)="rewards('punch')">
       <div *ngIf="this.globals.punch_check == 'true'">
         <img src={{ring_image}} class="cup_img">
         <div class="circle" id="homecircle1"></div>

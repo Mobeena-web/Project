@@ -91,13 +91,39 @@ export class CategoryPage {
     checkTiming(Timing) {
 
         if(Timing.length > 0){
-            var date = new Date();
-            var  day = date.getDay();
-            var time:any = date.getHours() + "." + date.getMinutes();
+            var scheduled_time_ = localStorage.getItem("scheduled_time");
+            var date:any;
+            var time:any;
+            var day:any;
+            if(scheduled_time_){
+                let response = this.server.date_convert(scheduled_time_);
+                let loading = this.loadingCtrl.create({
+                  content: "Loading...",
+                });
+                loading.present();
+                response.subscribe(data => {
+                  loading.dismiss();
+                  if(data.success == true){
+                      day = data.day_id + 1;
+                      time = data.time;
+                 
+                  }
+            
+                }, error => {
+                    this.globals.presentToast("Something went wrong check your internet connection.")
+            
+                });
+            }
+            else{
+                 date = new Date();
+                 day = date.getDay();
+                 time = date.getHours() + "." + date.getMinutes();
+                
+            }
+
             var current_day = Timing[day];
             time = Number(time);
-            console.log(Number(current_day[1]),time)
-            if(current_day){
+           if(current_day){
                 if((Number(current_day[0]) <= time && Number(current_day[1]) > time) || (Number(current_day[0]) <= time && Number(current_day[1]) < Number(current_day[0])) || (current_day[0] != 'closed' && current_day[1] != 'closed')){
                     return true;
                 }
@@ -107,7 +133,8 @@ export class CategoryPage {
             }
             else{
                 return true;
-            }      
+            } 
+               
         }
         else{
             return true;

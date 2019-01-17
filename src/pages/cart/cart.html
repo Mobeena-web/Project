@@ -109,9 +109,15 @@
     </ion-row>
   </ion-card>
 
-  <button ion-button class="addmore-btn" (click)="AddmoreItem()"> Add More  <ion-icon style="padding-left: 7px;" name="ios-add-circle-outline"></ion-icon> </button>
-
-
+<ion-row>
+  <ion-col>
+    <button ion-button class="addmore-btn" block (click)="AddmoreItem()"> Add More  <ion-icon style="padding-left: 7px;" name="ios-add-circle-outline"></ion-icon> </button>
+  </ion-col>
+  <ion-col>
+    <button ion-button class="addmore-btn" [disabled]="globals.reward_menu_length == 0"  block outline (click)="add_reward()"> Add Reward  <ion-icon style="padding-left: 7px;" name="trophy"></ion-icon> </button>
+  </ion-col>
+</ion-row>
+ 
 
 
   <!-- <div *ngIf="globals.type != 'reservation' ">
@@ -436,8 +442,8 @@
         <ion-segment-button  style="padding: 0px" (click)="add_notes()">
           Add Notes
         </ion-segment-button>
-        <ion-segment-button style="overflow:unset !important;padding: 0px" (click)="gift_alert()">
-            Custom Gratuity
+        <ion-segment-button style="overflow:unset !important;padding: 0px" (click)="add_gratuity()">
+            Gratuity
         </ion-segment-button>
         <ion-segment-button style="overflow:unset !important;padding: 0px" (click)="gift_alert()" *ngIf="mygifts.length > 0">
           Giftcards

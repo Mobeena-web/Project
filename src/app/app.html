@@ -24,7 +24,7 @@
 
             <button menuClose ion-item (click)="openRewards()">
                 <ion-icon name="star" class="myicon" ></ion-icon> My Rewards
-                <ion-badge color="danger" class="rewards_badge" *ngIf="globals.TotalbadgeValue > 0 && globals.TotalbadgeValue != null" >{{globals.TotalbadgeValue}}</ion-badge>
+                <ion-badge color="danger" class="rewards_badge" *ngIf="globals.reward_menu_length > 0 " >{{globals.reward_menu_length}}</ion-badge>
               </button>
 
 
