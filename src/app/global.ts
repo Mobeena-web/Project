@@ -118,7 +118,6 @@ export class GlobalVariable {
     point_check: any;
     //
     reward_menu_length:any = 0;
-
     constructor(public alertCtrl: AlertController,public toastCtrl: ToastController) {
      this.BaseUrl = 'https://staging.onlineordering.mikronexus.com/index.php/';
     }

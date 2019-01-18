@@ -299,6 +299,7 @@ export class HomePage {
    
                 var percent = (parseInt(this.punch_) / parseInt(this.punch_limt_))*100;
                 this.globals.circle_graph(percent,'homecircle1',50,7,'#ccc');
+             
               }
               else{
                 this.punch_ = 0;
