@@ -17,7 +17,7 @@
           <ion-col>
             <ion-item class="no-padding">
               <ion-label floating>Email</ion-label>
-              <ion-input type="submit" formControlName="email" type="email" value="usman@gmail.com"></ion-input>
+              <ion-input type="submit" formControlName="email" type="email"></ion-input>
             </ion-item>
             <div class="no-border" *ngIf="!loginForm.controls.email.valid  &&
             (loginForm.controls.email.dirty || submitAttempt)">
@@ -30,7 +30,7 @@
           <ion-col>
             <ion-item class="no-padding">
               <ion-label floating>Password</ion-label>
-              <ion-input type="submit" formControlName="password" type="password" value="12345678"></ion-input>
+              <ion-input type="submit" formControlName="password" type="password"></ion-input>
             </ion-item>
           </ion-col>
 
@@ -40,12 +40,12 @@
           <p style="color: #ea6153; text-align:center;">Your password needs more than 6 characters.</p>
         </div>
         <div>
-          <p style="float: right;color: #aaa" (click)="verify()">Forgot Password?</p>
+          <p style="float: right;color: #aaa" (tap)="verify()">Forgot Password?</p>
           <!-- <p style="float: right; padding-right:10px" (click)="OpenTermsAndPolicy()">Terms and policy</p> -->
         </div>
         <div class="signup-col">
-          <div class="signup_message">Don't have an Account? <span (click)="register()">Sign Up</span></div>
-          <button ion-button block margin-top   color='primary' type="submit" class="login" (click)="login(this.loginForm.value)" block>Sign In</button>
+          <div class="signup_message">Don't have an Account? <span (tap)="register()">Sign Up</span></div>
+          <button ion-button block margin-top   color='primary' type="submit" class="login" (tap)="login(this.loginForm.value)" block>Sign In</button>
           <!-- <button ion-button class="signUp" block (click)="createAccount()">Sign up</button> -->
         </div>
       </form>

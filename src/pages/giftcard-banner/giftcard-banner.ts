@@ -224,7 +224,7 @@ validateEmail(email) {
 }
 
 proceed(){
-  if(Number(this.amount) > 0){
+  if(Number(this.amount) > 0 && Number(this.amount) < 501){
     if(this.otherselected){
       this.showConfirm('');
   
@@ -235,7 +235,7 @@ proceed(){
     }
   }
   else{
-    this.global.presentToast("Enter Valid Amount")
+    this.global.presentToast("Enter Amount in Range 1-500")
   }
  
 }

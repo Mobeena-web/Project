@@ -184,7 +184,7 @@ export class PaymentPage {
         this.order_date = localStorage.getItem("scheduled_time");
         console.log("order_date", this.order_date);
         this.PaymentForm = formBuilder.group({
-            creditcardno: ['', Validators.compose([Validators.minLength(10), Validators.maxLength(16), Validators.pattern('[0-9]*'), Validators.required])],
+            creditcardno: ['', Validators.compose([Validators.minLength(15), Validators.maxLength(16), Validators.pattern('[0-9]*'), Validators.required])],
             expiryMonth: ['', Validators.compose([Validators.required])],
             expiryYear: ['', Validators.compose([Validators.required])],
             CVC: ['', Validators.compose([Validators.required])],
