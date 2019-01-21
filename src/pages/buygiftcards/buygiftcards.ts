@@ -109,14 +109,7 @@ amount:any;
                 let response = this.server.buy_gift_cards( Token.id, this.gift_id,this.udid_r,this.design_card,this.amount,this.message)
                 console.log("response without json", response);
                 response.subscribe(data => {
-                    console.log("data without json", data);
-                    let alert = this.alertCtrl.create({
-                        title: 'Success',
-                        subTitle: data.message,
-                        buttons: ['OK']
-                    });
-        
-                    alert.present();
+                    this.globals.presentToast(data.message)
                     this.navCtrl.popAll();
                     loading.dismiss();
                   
@@ -130,13 +123,7 @@ amount:any;
 
             }).catch((data) => {
                 loading.dismiss();
-                let alert = this.alertCtrl.create({
-                    title: 'Oops',
-                    subTitle: 'Invalid Credentials,please try again',
-                    buttons: ['OK']
-                });
-
-                alert.present();
+                this.globals.presentToast("Invalid Credentials,please try again")
 
             });
         }

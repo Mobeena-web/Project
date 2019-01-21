@@ -75,7 +75,6 @@ export class HomePage {
              this.reward_notification();
         }
         this.loadBanner();
-        this.rewards_items();
         this.cartflag = _navParams.get('CartFlag');
         this.discount_text = _navParams.get('discountText');
         this.GainFlag = _navParams.get('Flag');
@@ -300,6 +299,7 @@ export class HomePage {
    
                 var percent = (parseInt(this.punch_) / parseInt(this.punch_limt_))*100;
                 this.globals.circle_graph(percent,'homecircle1',50,7,'#ccc');
+             
               }
               else{
                 this.punch_ = 0;
@@ -395,6 +395,8 @@ export class HomePage {
         this.globals.showbackButton = false;
         this.getPoints('0,0');
         this.getPunches();
+        this.rewards_items();
+
         // if(this.globals.mycoordinates){
         //     this.getPunches(this.globals.mycoordinates)
         // }

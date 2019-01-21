@@ -309,9 +309,11 @@ Categories() {
             });
         });
         var that = this;
-        this.category = this.category.filter(function(item) {
-            return that.checkTiming(item.timings) == true;
-          });
+          for(var i=0;i<this.category.length;i++){
+            this.category[i].items = this.category[i].items.filter(function(item) {
+                return that.checkTiming(item.item_timings) == true;
+              });
+        }
 
         var checkoffers = this.category.filter(function(item) {
             return item.dealFlag == 'true';

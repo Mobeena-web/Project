@@ -1521,7 +1521,35 @@ export class CartPage {
 
       checkTiming(timing) {
         if(localStorage.getItem("scheduled_time")){
-            return true;
+            var scheduled_time_ = localStorage.getItem("scheduled_time");
+
+            let response = this.server.date_convert(scheduled_time_);
+            response.subscribe(data => {
+            if(data.success == true){
+                var day = data.day_id + 1;
+                var time = data.time;
+                var current_day = timing[day];
+                if((Number(current_day[0]) <= time && Number(current_day[1]) > time) || (Number(current_day[0]) <= time && Number(current_day[1]) < Number(current_day[0])) || (current_day[0] == 'opened' && current_day[1] == 'opened')){
+                return true;
+                
+                }
+                else {
+                this.globals.presentToast('Sorry, we are not serving at this time!')
+            
+                return false;
+                }
+            }
+            else{
+                this.globals.presentToast('Sorry, we are not serving at this time!')
+
+            }
+
+        
+            }, error => {
+                this.globals.presentToast("Something went wrong check your internet connection.")
+        
+            });
+            
         }
         else{
         

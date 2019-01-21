@@ -36,7 +36,7 @@
         Menus coming soon 
     </ion-card>
     <div *ngFor="let d of category; let i=index">
-        <div style="position: relative;" *ngIf="d.is_anniversary == 'false' && d.is_birthday == 'false'"  text-wrap [ngClass]="{active: isGroupShown(i)}">
+        <div style="position: relative;" *ngIf="d.is_anniversary == 'false' && d.is_birthday == 'false' && d.items.length > 0"  text-wrap [ngClass]="{active: isGroupShown(i)}">
             <img  class="cat-img1" *ngIf="d.dealFlag == 'true'" src="assets/imgs/promotion.png">
            <!-- <img *ngIf="!d.image" class="cat-img" src="assets/imgs/Category-Placeholder.png"-->
             <div *ngIf="d.image" (click)="toggleGroup(i)" [ngStyle]="{'background-image': 'url('+d.image+')'}" class="b_image" >

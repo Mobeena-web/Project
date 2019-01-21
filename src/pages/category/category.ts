@@ -53,6 +53,8 @@ export class CategoryPage {
     places:any;
     keyword:any;
     forsearch:any;
+    s_day:any;
+    s_time:any;
     constructor(private geolocation: Geolocation,private diagnostic: Diagnostic,public server: ServerProvider, public alertCtrl: AlertController, public loadingCtrl: LoadingController, private nativeStorage: NativeStorage, private toastCtrl: ToastController, public globals: GlobalVariable, public http: Http, public navCtrl: NavController, public navParams: NavParams,public modalCtrl: ModalController) {
         
         if(!this.globals.caos_flag){
@@ -88,6 +90,11 @@ export class CategoryPage {
 
     }
 
+    ionViewWillEnter() {
+        this.globals.title = this.globals.category_name;
+       
+    }
+
     checkTiming(Timing) {
 
         if(Timing.length > 0){
@@ -96,23 +103,8 @@ export class CategoryPage {
             var time:any;
             var day:any;
             if(scheduled_time_){
-                let response = this.server.date_convert(scheduled_time_);
-                let loading = this.loadingCtrl.create({
-                  content: "Loading...",
-                });
-                loading.present();
-                response.subscribe(data => {
-                  loading.dismiss();
-                  if(data.success == true){
-                      day = data.day_id + 1;
-                      time = data.time;
-                 
-                  }
-            
-                }, error => {
-                    this.globals.presentToast("Something went wrong check your internet connection.")
-            
-                });
+                day = this.s_day;
+                time = this.s_time;
             }
             else{
                  date = new Date();
@@ -122,10 +114,12 @@ export class CategoryPage {
             }
 
             var current_day = Timing[day];
+
             time = Number(time);
            if(current_day){
-                if((Number(current_day[0]) <= time && Number(current_day[1]) > time) || (Number(current_day[0]) <= time && Number(current_day[1]) < Number(current_day[0])) || (current_day[0] != 'closed' && current_day[1] != 'closed')){
+                if((Number(current_day[0]) <= time && Number(current_day[1]) > time) || (Number(current_day[0]) <= time && Number(current_day[1]) < Number(current_day[0]))){
                     return true;
+                    // || (current_day[0] != 'closed' && current_day[1] != 'closed')
                 }
                 else {
                     return false;
@@ -141,6 +135,29 @@ export class CategoryPage {
 
         }
          
+      }
+
+      time_change(){
+        var scheduled_time_ = localStorage.getItem("scheduled_time");
+
+        let response = this.server.date_convert(scheduled_time_);
+        response.subscribe(data => {
+          if(data.success == true){
+              this.s_day = data.day_id + 1;
+              this.s_time = data.time;
+          }
+
+          var that = this;
+          for(var i=0;i<this.category.length;i++){
+            this.category[i].items = this.category[i].items.filter(function(item) {
+                return that.checkTiming(item.item_timings) == true;
+              });
+        }
+    
+        }, error => {
+            this.globals.presentToast("Something went wrong check your internet connection.")
+    
+        });
       }
 
     getLocation() {
@@ -239,6 +256,9 @@ export class CategoryPage {
 
             this.navCtrl.push("ModalPage");
             // let modal = this.modalCtrl.create('ModalPage');
+            // modal.onDidDismiss(data => {
+            //     this.Categories();
+            //   });
             // modal.present();
 
         }
@@ -247,17 +267,15 @@ export class CategoryPage {
 
       presentModal1() {
        
-            let modal = this.modalCtrl.create('ModalPage');
-            modal.present();
+            let modal1 = this.modalCtrl.create('ModalPage');
+            modal1.present();
       }
 
     ionViewDidLoad() {
         this.globals.showbackButton = true;
     }
 
-    ionViewDidEnter() {
-        this.globals.title = this.globals.category_name;
-    }
+   
 
 
     Cart(object, flag, id, image, freeextras) {
@@ -325,10 +343,10 @@ export class CategoryPage {
         loading.present();
         let response = this.server.GetBusinessMenuCategories(this.globals.bussinessId);
         response.subscribe(data => {
+            console.log("get business categories", data);
             this.data = data;
             loading.dismiss();
             this.category = this.data.categories;
-            console.log("categories",this.category)
             this.name = this.data.restaurant.name;
             this.globals.title = this.name;
             this.globals.category_name = this.name;
@@ -341,11 +359,8 @@ export class CategoryPage {
 
                 });
             });
-            var that = this;
-            this.category = this.category.filter(function(item) {
-                return that.checkTiming(item.timings) == true;
-              });
-
+            this.time_change();
+        
               this.forsearch = this.category;
 
             if (this.data.categories.length == 0) {
