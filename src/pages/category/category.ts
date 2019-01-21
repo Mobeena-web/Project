@@ -344,7 +344,7 @@ export class CategoryPage {
         return this.shownGroup === group;
     };
 
-    Categories() {
+    Categories() { 
         let loading = this.loadingCtrl.create({
             content: "Loading...",
 
