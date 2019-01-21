@@ -94,6 +94,9 @@ export class CategoryPage {
         this.globals.title = this.globals.category_name;
        
     }
+    ionViewDidEnter(){
+        console.log("I'm here in this once");
+    }
 
     checkTiming(Timing) {
 
@@ -139,9 +142,11 @@ export class CategoryPage {
 
       time_change(){
         var scheduled_time_ = localStorage.getItem("scheduled_time");
+        console.log("scheduled date is: ", scheduled_time_);
 
         let response = this.server.date_convert(scheduled_time_);
         response.subscribe(data => {
+            console.log("converted scheduled date", data);
           if(data.success == true){
               this.s_day = data.day_id + 1;
               this.s_time = data.time;
@@ -253,7 +258,7 @@ export class CategoryPage {
     presentModal() {
         if(this.globals.model_flag){
             this.globals.model_flag = false;
-
+            this.navCtrl.pop(); // added by jahanzaib 21-01-19
             this.navCtrl.push("ModalPage");
             // let modal = this.modalCtrl.create('ModalPage');
             // modal.onDidDismiss(data => {
@@ -267,8 +272,12 @@ export class CategoryPage {
 
       presentModal1() {
        
-            let modal1 = this.modalCtrl.create('ModalPage');
-            modal1.present();
+            // let modal1 = this.modalCtrl.create('ModalPage');
+            // modal1.present();
+            console.log("in present modal");
+            this.globals.model_flag = false;
+            this.navCtrl.pop(); // added by jahanzaib 21-01-19
+            this.navCtrl.push("ModalPage");
       }
 
     ionViewDidLoad() {
