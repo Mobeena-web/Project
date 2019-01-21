@@ -231,11 +231,16 @@ export class Modal2Page {
               // this.time = this.time.toString();
               console.log(this.day,this.time,current_day)
               if (current_day[0] != 'opened') {
-                if((Number(current_day[0]) <= Number(this.time) && Number(current_day[1]) > Number(this.time)) || (Number(current_day[0]) <= Number(this.time) && Number(current_day[1]) < Number(current_day[0])) ||  (current_day[0] != 'closed')){
+                if((Number(current_day[0]) <= Number(this.time) && Number(current_day[1]) > Number(this.time)) || (Number(current_day[0]) <= Number(this.time) && Number(current_day[1]) < Number(current_day[0]))){
                      
                       this.viewCtrl.dismiss('CategoryPage');
                       this.presentModal();
                         return true;
+                  }
+                  else if(current_day[0] == 'opened' && current_day[1] == 'opened' ){
+                    this.viewCtrl.dismiss('CategoryPage');
+                    this.presentModal();
+                    return true;
                   }
                   else {
                     this.globals.presentToast('Sorry, we are not serving at this time!')
@@ -277,24 +282,30 @@ export class Modal2Page {
           let current_day = this.globals.pickup_timing[this.day];
           // this.time = this.time.toString();
           console.log(this.day,this.time,current_day)
-          if (current_day[0] != 'opened') {
-            if((Number(current_day[0]) <= Number(this.time) && Number(current_day[1]) > Number(this.time)) || (Number(current_day[0]) <= Number(this.time) && Number(current_day[1]) < Number(current_day[0])) ||  (current_day[0] != 'closed')){
+          //if (current_day[0] != 'opened') {
+            if((Number(current_day[0]) <= Number(this.time) && Number(current_day[1]) > Number(this.time)) || (Number(current_day[0]) <= Number(this.time) && Number(current_day[1]) < Number(current_day[0]))){
                  
                   this.viewCtrl.dismiss('CategoryPage');
                   this.presentModal();
                     return true;
               }
+              else if(current_day[0] == 'opened' && current_day[1] == 'opened' ){
+                this.viewCtrl.dismiss('CategoryPage');
+                this.presentModal();
+                return true;
+              }
+              
               else {
                 this.globals.presentToast('Sorry, we are not serving at this time!')
              
                 return false;
               }
-          }
-          else {
-            this.viewCtrl.dismiss('CategoryPage');
-            this.presentModal();
-              return true;   
-          }
+          // }
+          // else {
+          //   this.viewCtrl.dismiss('CategoryPage');
+          //   this.presentModal();
+          //     return true;   
+          // }
         }
   
       }, error => {
@@ -333,24 +344,29 @@ export class Modal2Page {
               let current_day = this.globals.delivery_timing[this.day];
               // this.time = this.time.toString();
               console.log(this.day,this.time,current_day)
-              if (current_day[0] != 'opened') {
-                if((Number(current_day[0]) <= Number(this.time) && Number(current_day[1]) > Number(this.time)) || (Number(current_day[0]) <= Number(this.time) && Number(current_day[1]) < Number(current_day[0])) ||  (current_day[0] != 'closed')){
+             // if (current_day[0] != 'opened') {
+                if((Number(current_day[0]) <= Number(this.time) && Number(current_day[1]) > Number(this.time)) || (Number(current_day[0]) <= Number(this.time) && Number(current_day[1]) < Number(current_day[0]))){
                      
                       this.viewCtrl.dismiss('CategoryPage');
                       this.presentModal();
                         return true;
+                  }
+                  else if(current_day[0] == 'opened' && current_day[1] == 'opened' ){
+                    this.viewCtrl.dismiss('CategoryPage');
+                    this.presentModal();
+                    return true;
                   }
                   else {
                     this.globals.presentToast('Sorry, we are not serving at this time!')
                  
                     return false;
                   }
-              }
-              else {
-                this.viewCtrl.dismiss('CategoryPage');
-                this.presentModal();
-                  return true;   
-              }
+              // }
+              // else {
+              //   this.viewCtrl.dismiss('CategoryPage');
+              //   this.presentModal();
+              //     return true;   
+              // }
             }
       
           }, error => {
@@ -382,24 +398,29 @@ export class Modal2Page {
              let current_day = this.globals.pickup_timing[this.day];
              // this.time = this.time.toString();
              console.log(this.day,this.time,current_day)
-             if (current_day[0] != 'opened') {
-               if((Number(current_day[0]) <= Number(this.time) && Number(current_day[1]) > Number(this.time)) || (Number(current_day[0]) <= Number(this.time) && Number(current_day[1]) < Number(current_day[0])) ||  (current_day[0] != 'closed')){
+             //if (current_day[0] != 'opened') {
+               if((Number(current_day[0]) <= Number(this.time) && Number(current_day[1]) > Number(this.time)) || (Number(current_day[0]) <= Number(this.time) && Number(current_day[1]) < Number(current_day[0]))){
                     
                      this.viewCtrl.dismiss('CategoryPage');
                      this.presentModal();
                        return true;
                  }
+                 else if(current_day[0] == 'opened' && current_day[1] == 'opened' ){
+                  this.viewCtrl.dismiss('CategoryPage');
+                  this.presentModal();
+                  return true;
+                }
                  else {
                    this.globals.presentToast('Sorry, we are not serving at this time!')
                 
                    return false;
                  }
-             }
-             else {
-               this.viewCtrl.dismiss('CategoryPage');
-               this.presentModal();
-                 return true;   
-             }
+            //  }
+            //  else {
+            //    this.viewCtrl.dismiss('CategoryPage');
+            //    this.presentModal();
+            //      return true;   
+            //  }
            }
      
          }, error => {

@@ -119,8 +119,10 @@ export class CategoryPage {
            if(current_day){
                 if((Number(current_day[0]) <= time && Number(current_day[1]) > time) || (Number(current_day[0]) <= time && Number(current_day[1]) < Number(current_day[0]))){
                     return true;
-                    // || (current_day[0] != 'closed' && current_day[1] != 'closed')
                 }
+                else if(current_day[0] == 'opened' && current_day[1] == 'opened' ){
+                    return true;
+                  }
                 else {
                     return false;
                 }
