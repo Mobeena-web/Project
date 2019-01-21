@@ -757,34 +757,34 @@ getdeals(){
 
 
   initializePushToken() {
-    console.log("intializing push token");
+    // console.log("intializing push token");
 
-    if (this.platform.is('ios')) {
-      var iosSettings = {};
-      iosSettings["kOSSettingsKeyAutoPrompt"] = true;
-      iosSettings["kOSSettingsKeyInAppLaunchURL"] = false;
-      this._notification.startInit(this.appId).iOSSettings(iosSettings);
-    } else if (this.platform.is('android')) {
-      this._notification.startInit(this.appId, this.googleProjectId);
-    }
+    // if (this.platform.is('ios')) {
+    //   var iosSettings = {};
+    //   iosSettings["kOSSettingsKeyAutoPrompt"] = true;
+    //   iosSettings["kOSSettingsKeyInAppLaunchURL"] = false;
+    //   this._notification.startInit(this.appId).iOSSettings(iosSettings);
+    // } else if (this.platform.is('android')) {
+    //   this._notification.startInit(this.appId, this.googleProjectId);
+    // }
 
-    this._notification.inFocusDisplaying(this._notification.OSInFocusDisplayOption.None);
-    this._notification.getIds()
-      .then((ids) => {
-        console.log("ids from one signal", ids);
-        this.updateToken(ids.userId).toPromise()
-          .then((data) => { console.log("server response on token update", data) })
+    // this._notification.inFocusDisplaying(this._notification.OSInFocusDisplayOption.None);
+    // this._notification.getIds()
+    //   .then((ids) => {
+    //     console.log("ids from one signal", ids);
+    //     this.updateToken(ids.userId).toPromise()
+    //       .then((data) => { console.log("server response on token update", data) })
 
-      }
-      ).then(
-        () => {
-          this._notification.setSubscription(true);
-          //this.listenForNotification();
-        })
-      .catch(error => console.error("onesginal error", error));
+    //   }
+    //   ).then(
+    //     () => {
+    //       this._notification.setSubscription(true);
+    //       //this.listenForNotification();
+    //     })
+    //   .catch(error => console.error("onesginal error", error));
 
-    this._notification.setSubscription(true);
-    this._notification.endInit();
+    // this._notification.setSubscription(true);
+    // this._notification.endInit();
   }
 
   public logResponse(res: Response | any) {

@@ -260,12 +260,9 @@ export class CategoryPage {
     presentModal() {
         if(this.globals.model_flag){
             this.globals.model_flag = false;
-            this.navCtrl.pop(); // added by jahanzaib 21-01-19
-            this.navCtrl.push("ModalPage");
+            this.navCtrl.pop({animate:false}); // added by jahanzaib 21-01-19
+            this.navCtrl.push("ModalPage",{category_page:1},{animate: false});
             // let modal = this.modalCtrl.create('ModalPage');
-            // modal.onDidDismiss(data => {
-            //     this.Categories();
-            //   });
             // modal.present();
 
         }
@@ -278,8 +275,8 @@ export class CategoryPage {
             // modal1.present();
             console.log("in present modal");
             this.globals.model_flag = false;
-            this.navCtrl.pop(); // added by jahanzaib 21-01-19
-            this.navCtrl.push("ModalPage");
+            this.navCtrl.pop({animate:false}); // added by jahanzaib 21-01-19
+            this.navCtrl.push("ModalPage",{category_page:1} ,{animate: false});
       }
 
     ionViewDidLoad() {

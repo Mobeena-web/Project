@@ -1434,14 +1434,22 @@ export class CartPage {
               {
                 text: 'Yes',
                 handler: () => {
-                    if(this.globals.inradius){
-                        var giftdata = {giftcard_id:data.giftcard_id,amount:this.Total}
-                        this.gift_array.push(giftdata)
-                      this.navCtrl.push('PaymentPage',{giftcard:this.gift_array,gift_flag:true})
+                    if(this.globals.OrderType == 'delivery'){
+                        if(this.globals.inradius){
+                            var giftdata = {giftcard_id:data.giftcard_id,amount:this.Total}
+                            this.gift_array.push(giftdata)
+                          this.navCtrl.push('PaymentPage',{giftcard:this.gift_array,gift_flag:true})
+                        }
+                        else{
+                            this.globals.presentToast("Sorry, We dn't deliver in Your Area")
+                        }
                     }
                     else{
-                        this.globals.presentToast("Sorry, We dn't deliver in Your Area")
+                            var giftdata = {giftcard_id:data.giftcard_id,amount:this.Total}
+                            this.gift_array.push(giftdata)
+                            this.navCtrl.push('PaymentPage',{giftcard:this.gift_array,gift_flag:true})
                     }
+                    
                    
                 }
               }

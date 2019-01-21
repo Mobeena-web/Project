@@ -85,9 +85,11 @@ checkTiming(Timing) {
         var time:any = date.getHours() + "." + date.getMinutes();
         var current_day = Timing[day];
         time = Number(time);
-        console.log(Number(current_day[1]),time)
         if(current_day){
             if((Number(current_day[0]) <= time && Number(current_day[1]) > time) || (Number(current_day[0]) <= time && Number(current_day[1]) < Number(current_day[0]))){
+                return true;
+            }
+            else if(current_day[0] == 'opened' && current_day[1] == 'opened' ){
                 return true;
             }
             else {
