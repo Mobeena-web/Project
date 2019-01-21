@@ -148,7 +148,7 @@ export class GlobalVariable {
             maxValue:            100,
             width:               width,
             text:                function(value){return '';},
-            colors:              [color, '#333'],
+            colors:              [color, '#273C75'],
             duration:            400,
             wrpClass:            'circles-wrp',
             textClass:           'circles-text',

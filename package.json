@@ -75,7 +75,7 @@
     "cordova-plugin-dialogs": "^2.0.1",
     "cordova-plugin-email-composer": "^0.8.15",
     "cordova-plugin-file": "^4.3.3",
-    "cordova-plugin-file-transfer": "1.7.1",
+    "cordova-plugin-file-transfer": "^1.7.1",
     "cordova-plugin-geolocation": "^3.0.0",
     "cordova-plugin-inappbrowser": "^1.7.2",
     "cordova-plugin-ionic-webview": "^1.2.1",
@@ -157,8 +157,8 @@
       "cordova-plugin-zip": {}
     },
     "platforms": [
-      "android",
-      "ios"
+      "ios",
+      "android"
     ]
   }
 }
