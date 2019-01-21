@@ -280,6 +280,7 @@ export class ModalPage {
     //this.checkTiming();            
     this.globals.OrderType = 'delivery';
     this.navCtrl.pop();
+    this.navCtrl.push("CategoryPage");
     // this.viewCtrl.dismiss();
     this.globals.save_check = true;
   }
@@ -329,7 +330,10 @@ export class ModalPage {
   }
 
   Getscheduletime(){
-    this.viewCtrl.dismiss();
+    //commented by jahanzaib
+    // this.viewCtrl.dismiss();
+    this.navCtrl.pop();
+
       let modal = this.modalCtrl.create('Modal2Page');
       modal.present();
   }
@@ -459,6 +463,7 @@ export class ModalPage {
   this.globals.OrderType = "pickup"
   // this.viewCtrl.dismiss();
   this.navCtrl.pop();
+  this.navCtrl.push("CategoryPage");
   this.globals.save_check = true;
 
   }

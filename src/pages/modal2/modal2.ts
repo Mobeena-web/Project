@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams , ViewController,LoadingController} from 'ionic-angular';
 import { GlobalVariable } from '../../app/global';
-import { ModalController,AlertController } from 'ionic-angular';
+import { App, ModalController,AlertController } from 'ionic-angular';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { Calendar } from '@ionic-native/calendar';
 import { ServerProvider } from '../../providers/server/server';
@@ -49,7 +49,7 @@ export class Modal2Page {
   today_disable:boolean = false;
 
  // dd :any;
-  constructor( public loadingCtrl:LoadingController,public server: ServerProvider,public alertCtrl: AlertController,private calendar: Calendar,public navCtrl: NavController, public navParams: NavParams ,public globals: GlobalVariable, public viewCtrl: ViewController,public modalCtrl: ModalController, public nativeStorage: NativeStorage) {
+  constructor( public loadingCtrl:LoadingController,public server: ServerProvider,public alertCtrl: AlertController,private calendar: Calendar,public navCtrl: NavController, public navParams: NavParams ,public globals: GlobalVariable, public viewCtrl: ViewController,public modalCtrl: ModalController, public appCtrl: App, public nativeStorage: NativeStorage) {
     this.deliveryTime = this.globals.pickupsetting;
     this.deliveryTime = parseInt(this.deliveryTime);
     this.name =  this.globals.category_name;
@@ -153,8 +153,9 @@ export class Modal2Page {
       this.globals.savePickupTime = this.new_time;
       
     }
-    
-    this.viewCtrl.dismiss('CategoryPage');
+    //commented by jahanzaib 21-01-2019    
+    // this.viewCtrl.dismiss('CategoryPage');
+    this.viewCtrl.dismiss();
     this.presentModal();
     //window.location.reload();
     // this.navCtrl.push('ModalPage',{pickup:this.deliveryTime});
@@ -164,7 +165,13 @@ export class Modal2Page {
   presentModal() {
     // let modal = this.modalCtrl.create('ModalPage');
     // modal.present();
-    this.navCtrl.push("ModalPage");
+
+
+    //commented by jahanzaib 21-01-19
+    // this.navCtrl.push("ModalPage");
+    this.appCtrl.getRootNav().push("ModalPage");
+
+
   }
   Today(){
     this.type = this.globals.OrderType;
@@ -227,6 +234,7 @@ export class Modal2Page {
                this.day = data.day_id + 1;
                this.time = data.time;
               localStorage.setItem("scheduled_time",  this.myDate );
+              console.log("setting scheduled time 1", this.myDate);
               let current_day = this.globals.delivery_timing[this.day];
               // this.time = this.time.toString();
               console.log(this.day,this.time,current_day)
@@ -279,6 +287,7 @@ export class Modal2Page {
            this.day = data.day_id + 1;
            this.time = data.time;
           localStorage.setItem("scheduled_time",  this.myDate );
+          console.log("setting scheduled time 2", this.myDate);
           let current_day = this.globals.pickup_timing[this.day];
           // this.time = this.time.toString();
           console.log(this.day,this.time,current_day)
@@ -341,6 +350,7 @@ export class Modal2Page {
                this.day = data.day_id + 1;
                this.time = data.time;
               localStorage.setItem("scheduled_time",  this.myDate );
+              console.log("setting scheduled time 3", this.myDate);
               let current_day = this.globals.delivery_timing[this.day];
               // this.time = this.time.toString();
               console.log(this.day,this.time,current_day)
@@ -395,6 +405,7 @@ export class Modal2Page {
               this.day = data.day_id + 1;
               this.time = data.time;
              localStorage.setItem("scheduled_time",  this.myDate );
+             console.log("setting scheduled time 4", this.myDate);
              let current_day = this.globals.pickup_timing[this.day];
              // this.time = this.time.toString();
              console.log(this.day,this.time,current_day)
