@@ -119,7 +119,7 @@ export class GlobalVariable {
     //
     reward_menu_length:any = 0;
     constructor(public alertCtrl: AlertController,public toastCtrl: ToastController) {
-     this.BaseUrl = 'https://staging.onlineordering.mikronexus.com/index.php/';
+     this.BaseUrl = 'https://onlineordering.mikronexus.com/online-ordering-new/index.php/';
     }
     
 
@@ -148,7 +148,7 @@ export class GlobalVariable {
             maxValue:            100,
             width:               width,
             text:                function(value){return '';},
-            colors:              [color, '#333'],
+            colors:              [color, '#273C75'],
             duration:            400,
             wrpClass:            'circles-wrp',
             textClass:           'circles-text',
