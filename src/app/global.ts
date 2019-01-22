@@ -107,7 +107,7 @@ export class GlobalVariable {
     is_birthday:any;
     is_anniversary:any;
     order_instructions:any;
-    caos_flag:boolean = false;
+    caos_flag:boolean = true;
     caos_udid = 'e2c40e9f0a';
     welcome:any;
     inradius:boolean = true;
