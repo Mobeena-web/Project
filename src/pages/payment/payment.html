@@ -26,7 +26,7 @@
             <ion-checkbox [(ngModel)]="paypal" (click)="paypalbox()"></ion-checkbox>
           </ion-item>
         </div>
-        <ion-item style="background: transparent;color: #aaa" *ngIf="globals.StripId">
+        <ion-item style="background: transparent;color: #aaa" *ngIf="globals.StripId && amount > 0">
           <ion-label>Credit card</ion-label>
           <ion-checkbox [(ngModel)]="creditcard" (click)="creditBox()"></ion-checkbox>
         </ion-item>
@@ -39,7 +39,7 @@
             <ion-label>Pay at store</ion-label>
             <ion-checkbox [(ngModel)]="cash_on_delivery" (click)="deliveryBox()"></ion-checkbox>
           </ion-item>
-          <p class="kkkj" *ngIf="globals.cash_enabled && globals.OrderType == 'pickup'" >You can pay by cash, debit card or credit card at the store</p>
+          <p class="kkkj" *ngIf="globals.cash_enabled && globals.OrderType == 'pickup' && amount > 0" >You can pay by cash, debit card or credit card at the store</p>
     
         <ion-item *ngIf="globals.type =='reservation'" style="background: transparent;color: #aaa">
           <ion-label>Pay on Venue</ion-label>
@@ -85,7 +85,7 @@
       </ion-list> -->
 
   <form [formGroup]="PaymentForm" ng-submit="pay(this.PaymentForm.value)">
-    <div *ngIf="!cash_on_delivery && globals.StripId">
+    <div *ngIf="!cash_on_delivery && globals.StripId && amount > 0">
     <ion-list style="padding: 10px; padding-bottom:0px;margin-bottom: 3px;">
   <!-- <p class="Open-Sans-regular" style="font-family: Open Sans;" *ngIf="submitAttempt" style="color: #ea6153; margin-top:0px;margin-bottom:3px;text-align:center;">Please fill out all details accurately.</p> -->
       <ion-card class="payment_card background_image1" style="padding-top: 26px;">
@@ -188,8 +188,8 @@
     
        <ion-row style="margin-bottom: 22% !important;">
           <ion-col col-6>
-               <button  ion-button type="submit" color='jack' round *ngIf="!cash_on_delivery"  (click)="payment_type(this.PaymentForm.value)" block>Make Payment</button>
-               <button  ion-button type="submit" color='jack' round *ngIf="cash_on_delivery"  (click)="payment_on_delivery()" block>Submit</button>
+               <button  ion-button type="submit" color='jack' round *ngIf="!cash_on_delivery && amount > 0"  (click)="payment_type(this.PaymentForm.value)" block>Make Payment</button>
+               <button  ion-button type="submit" color='jack' round *ngIf="cash_on_delivery || amount == 0"  (click)="payment_on_delivery()" block>Submit</button>
 
           </ion-col>
           <ion-col col-6>

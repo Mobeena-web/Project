@@ -65,7 +65,7 @@
 
           <ion-col col-4 style=" margin: auto;  padding: 0;  height: inherit;  ;text-align: center;">
             
-            <button   small style="background-color:#fff;text-align: center; color: #fff;font-size: 1.3em; margin: 0;padding: 0;margin-top: 0.5em; height: 40px;width: 40px;border-radius: 50%; ">
+            <button [disabled]="reward_item_flag"   small style="background-color:#fff;text-align: center; color: #fff;font-size: 1.3em; margin: 0;padding: 0;margin-top: 0.5em; height: 40px;width: 40px;border-radius: 50%; ">
               <ion-icon style="font-size:40px;color: #273C75 ; "  name="ios-remove-circle-outline" (click)="removeQuantity()"> </ion-icon>
             </button>
           </ion-col>

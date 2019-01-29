@@ -641,14 +641,14 @@ export class CartPage {
     }
 
     changeAddress() {
-        this.navCtrl.push("ModalPage");
-         this.total();
+        // this.navCtrl.push("ModalPage");
+        //  this.total();
          
-        // let modal = this.modalCtrl.create('ModalPage');
-        // modal.onDidDismiss(data => {
-        //     this.total();
-        // });
-        // modal.present();
+        let modal = this.modalCtrl.create('ModalPage');
+        modal.onDidDismiss(data => {
+            this.total();
+        });
+        modal.present();
       }
 
     AddmoreItem() {
@@ -1434,14 +1434,22 @@ export class CartPage {
               {
                 text: 'Yes',
                 handler: () => {
-                    if(this.globals.inradius){
-                        var giftdata = {giftcard_id:data.giftcard_id,amount:this.Total}
-                        this.gift_array.push(giftdata)
-                      this.navCtrl.push('PaymentPage',{giftcard:this.gift_array,gift_flag:true})
+                    if(this.globals.OrderType == 'delivery'){
+                        if(this.globals.inradius){
+                            var giftdata = {giftcard_id:data.giftcard_id,amount:this.Total}
+                            this.gift_array.push(giftdata)
+                          this.navCtrl.push('PaymentPage',{giftcard:this.gift_array,gift_flag:true})
+                        }
+                        else{
+                            this.globals.presentToast("Sorry, We dn't deliver in Your Area")
+                        }
                     }
                     else{
-                        this.globals.presentToast("Sorry, We dn't deliver in Your Area")
+                            var giftdata = {giftcard_id:data.giftcard_id,amount:this.Total}
+                            this.gift_array.push(giftdata)
+                            this.navCtrl.push('PaymentPage',{giftcard:this.gift_array,gift_flag:true})
                     }
+                    
                    
                 }
               }
@@ -1529,14 +1537,15 @@ export class CartPage {
                 var day = data.day_id + 1;
                 var time = data.time;
                 var current_day = timing[day];
-                if((Number(current_day[0]) <= time && Number(current_day[1]) > time) || (Number(current_day[0]) <= time && Number(current_day[1]) < Number(current_day[0])) || (current_day[0] == 'opened' && current_day[1] == 'opened')){
-                return true;
-                
+                if((Number(current_day[0]) <= time && Number(current_day[1]) > time) || (Number(current_day[0]) <= time && Number(current_day[1]) < Number(current_day[0]))){
+                    return true;
+                }
+                else if(current_day[0] == 'opened' && current_day[1] == 'opened' ){
+                    return true;
                 }
                 else {
-                this.globals.presentToast('Sorry, we are not serving at this time!')
-            
-                return false;
+                    this.globals.presentToast('Sorry, we are not serving at this time!')
+                    return false;
                 }
             }
             else{
@@ -1559,9 +1568,11 @@ export class CartPage {
              time = Number(time);
         
             var current_day = timing[day];
-            if((Number(current_day[0]) <= time && Number(current_day[1]) > time) || (Number(current_day[0]) <= time && Number(current_day[1]) < Number(current_day[0])) || (current_day[0] == 'opened' && current_day[1] == 'opened')){
+            if((Number(current_day[0]) <= time && Number(current_day[1]) > time) || (Number(current_day[0]) <= time && Number(current_day[1]) < Number(current_day[0]))){
               return true;
-              
+            }
+            else if(current_day[0] == 'opened' && current_day[1] == 'opened' ){
+                return true;
             }
             else {
               this.globals.presentToast('Sorry, we are not serving at this time!')

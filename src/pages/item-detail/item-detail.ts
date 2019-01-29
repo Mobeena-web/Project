@@ -65,6 +65,9 @@ export class ItemDetailPage {
     if(!this.reward_item_flag){
       this.reward_item_flag = false;
     }
+    if(this.reward_item_flag){
+      this.presentModal1();
+    }
     this.reward_id = navParams.get('reward_id')
     this.thumbimage = navParams.get('image');
   
@@ -79,6 +82,12 @@ export class ItemDetailPage {
     // this.globals.BusinessID = this.Business_id;
     this.itemDetails();
   }
+
+  presentModal1() {
+       
+    let modal = this.modalCtrl.create('ModalPage');
+    modal.present();
+}
 
   
   presentModal() {
@@ -435,9 +444,12 @@ export class ItemDetailPage {
         this.extras = this.data.item.extras;
         if(this.reward_item_flag == true){
           this.extras.forEach(extra_price => {
+            if(Number(extra_price.min) > 0){
               extra_price.options.forEach(ex => {
                 ex.price = 0;
               });
+            }
+              
             
           });
         }

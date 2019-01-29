@@ -128,7 +128,7 @@ export class MyRewardsPage {
         this.status = true;
         this.point_items();
         //this.getPoints();
-        this.rewards_items();
+        //this.rewards_items();
         //this.getReward();
        // this.business_reward();
 
@@ -235,9 +235,11 @@ export class MyRewardsPage {
             this.point_segment_flag = true;
         }
         else if (this.option == 'gifts' && this.gifts_segment_flag == false) {
-            this.gifts_segment_flag = true;
-            this.presentModal1();
+            //this.gifts_segment_flag = true;
+            //this.presentModal1();
             //this.getReward();
+            this.rewards_items();
+
         }
 
 
