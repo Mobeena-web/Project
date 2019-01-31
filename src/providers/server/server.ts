@@ -7,6 +7,7 @@ import 'rxjs/Rx';
 import { GlobalVariable } from "../../app/global";
 import { OneSignal } from '@ionic-native/onesignal';
 import { Platform } from 'ionic-angular';
+import {CONFIG} from '../../../app-config';
 
 
 @Injectable()
@@ -16,8 +17,8 @@ export class ServerProvider {
   isBirthdayCount: any = 0;
   reward_count: any = 0;
   punchcount: any = 0;
-  appId: any = '77c7af42-a792-447b-bd4e-4d2f00346462';
-  googleProjectId: any = '773485528357';
+  appId: any = CONFIG.appId;
+  googleProjectId: any = CONFIG.googleProjectId;
   constructor(public platform: Platform, private _notification: OneSignal, public global: GlobalVariable, public http: Http) {
     console.log('Hello ServerProvider Provider');
     // this.global.udid ='5bda5bbc';
@@ -757,34 +758,34 @@ getdeals(){
 
 
   initializePushToken() {
-    // console.log("intializing push token");
+    console.log("intializing push token");
 
-    // if (this.platform.is('ios')) {
-    //   var iosSettings = {};
-    //   iosSettings["kOSSettingsKeyAutoPrompt"] = true;
-    //   iosSettings["kOSSettingsKeyInAppLaunchURL"] = false;
-    //   this._notification.startInit(this.appId).iOSSettings(iosSettings);
-    // } else if (this.platform.is('android')) {
-    //   this._notification.startInit(this.appId, this.googleProjectId);
-    // }
+    if (this.platform.is('ios')) {
+      var iosSettings = {};
+      iosSettings["kOSSettingsKeyAutoPrompt"] = true;
+      iosSettings["kOSSettingsKeyInAppLaunchURL"] = false;
+      this._notification.startInit(this.appId).iOSSettings(iosSettings);
+    } else if (this.platform.is('android')) {
+      this._notification.startInit(this.appId, this.googleProjectId);
+    }
 
-    // this._notification.inFocusDisplaying(this._notification.OSInFocusDisplayOption.None);
-    // this._notification.getIds()
-    //   .then((ids) => {
-    //     console.log("ids from one signal", ids);
-    //     this.updateToken(ids.userId).toPromise()
-    //       .then((data) => { console.log("server response on token update", data) })
+    this._notification.inFocusDisplaying(this._notification.OSInFocusDisplayOption.None);
+    this._notification.getIds()
+      .then((ids) => {
+        console.log("ids from one signal", ids);
+        this.updateToken(ids.userId).toPromise()
+          .then((data) => { console.log("server response on token update", data) })
 
-    //   }
-    //   ).then(
-    //     () => {
-    //       this._notification.setSubscription(true);
-    //       //this.listenForNotification();
-    //     })
-    //   .catch(error => console.error("onesginal error", error));
+      }
+      ).then(
+        () => {
+          this._notification.setSubscription(true);
+          //this.listenForNotification();
+        })
+      .catch(error => console.error("onesginal error", error));
 
-    // this._notification.setSubscription(true);
-    // this._notification.endInit();
+    this._notification.setSubscription(true);
+    this._notification.endInit();
   }
 
   public logResponse(res: Response | any) {
