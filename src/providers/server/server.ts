@@ -233,7 +233,7 @@ getdeals(){
 
   ForgotPassword(email) {
     var link = this.global.BaseUrl + 'Customer_controller/forgot_password';
-    var data = JSON.stringify({ email: email });
+    var data = JSON.stringify({ business_id:this.global.new_id, email: email });
     return this.http.post(link, data)
       .map((res: any) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
