@@ -92,6 +92,18 @@ export class Modal2Page {
       if(order_later[1] == 'days'){
         this.today_disable = true;
         this.datenow = Number(this.datenow) + Number(order_later[0])
+
+        // var d = new Date();
+        // console.log(d.getMonth,d.getFullYear)
+        // var totaldays = this.daysInMonth(d.getMonth,d.getFullYear)
+        // console.log(this.datenow , totaldays,"oo")
+        // if(this.datenow > totaldays){
+        //   console.log('di')
+        //   order_later[0] =  Number(order_later[0]) - (totaldays - Number(this.datenow))
+        //    this.datenow = Number(this.datenow) + Number(order_later[0])
+
+        // }
+       
         this.value = this.year + "-" + this.month + "-" + this.datenow;
       }
     }
@@ -105,6 +117,9 @@ export class Modal2Page {
     this.myDate = date1;
     
   }
+   daysInMonth (month, year) {
+    return new Date(year, month, 0).getDate();
+}
   createCalender(){
     this.calendar.createCalendar('MyCalendar').then(
       
