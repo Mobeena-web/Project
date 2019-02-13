@@ -5,6 +5,7 @@ import { App, ModalController,AlertController } from 'ionic-angular';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { Calendar } from '@ionic-native/calendar';
 import { ServerProvider } from '../../providers/server/server';
+import { CalendarComponentOptions } from 'ion2-calendar'
 
 // import {OrderListingPage} from '../order-listing/order-listing';
 /**
@@ -47,6 +48,10 @@ export class Modal2Page {
   pickup_time :any;
   future_min : any ;
   today_disable:boolean = false;
+  
+  optionsMulti: CalendarComponentOptions = {
+    disableWeeks: this.globals.delivery_day
+  };
 
  // dd :any;
   constructor( public loadingCtrl:LoadingController,public server: ServerProvider,public alertCtrl: AlertController,private calendar: Calendar,public navCtrl: NavController, public navParams: NavParams ,public globals: GlobalVariable, public viewCtrl: ViewController,public modalCtrl: ModalController, public appCtrl: App, public nativeStorage: NativeStorage) {
@@ -78,6 +83,7 @@ export class Modal2Page {
     this.minvalue =  new Date().toJSON().split('T')[0];
     this.minvalue.toString();
     this.value = this.year + "-" + this.month + "-" + this.datenow;
+    console.log(this.value,"vf")
     if(this.globals.OrderType == 'delivery'){
       var order_later = this.globals.pickupsetting.split(' ')
       if(order_later[1] == 'days'){
@@ -88,23 +94,30 @@ export class Modal2Page {
       }
     }
     else{
-      var order_later = this.globals.pickup_Time.split(' ')
+      var order_later = this.globals.pickup_Time.split(' ');
+      console.log('hello')
       if(order_later[1] == 'days'){
         this.today_disable = true;
         this.datenow = Number(this.datenow) + Number(order_later[0])
 
         // var d = new Date();
-        // console.log(d.getMonth,d.getFullYear)
-        // var totaldays = this.daysInMonth(d.getMonth,d.getFullYear)
+        // console.log(d.getMonth(),d.getFullYear())
+        // var totaldays = this.daysInMonth(d.getMonth(),d.getFullYear())
         // console.log(this.datenow , totaldays,"oo")
         // if(this.datenow > totaldays){
-        //   console.log('di')
-        //   order_later[0] =  Number(order_later[0]) - (totaldays - Number(this.datenow))
-        //    this.datenow = Number(this.datenow) + Number(order_later[0])
+        //   console.log('di',totaldays,this.datenow,order_later[0])
+          
+        //    this.datenow =  (Number(this.datenow) - totaldays);
+        //     this.month = Number(this.month) + 2;
 
         // }
-       
+        
+      //  console.log(this.value,'pp')
+      //  this.month = this.n(Number(this.month));
+      //  this.datenow = this.n(Number(this.datenow));
         this.value = this.year + "-" + this.month + "-" + this.datenow;
+       console.log(this.value,'pppp')
+
       }
     }
     this.value.toString();
@@ -119,6 +132,9 @@ export class Modal2Page {
   }
    daysInMonth (month, year) {
     return new Date(year, month, 0).getDate();
+}
+n(n){
+  return n > 9 ? "" + n: "0" + n;
 }
   createCalender(){
     this.calendar.createCalendar('MyCalendar').then(

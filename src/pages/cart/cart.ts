@@ -911,10 +911,10 @@ export class CartPage {
         
                     }
                   
-        
+                    
                     if (proceedFlag) {
                          this.Address =localStorage.getItem("GetAddress");
-                        
+                        console.log(this.Address,"lo")
                         if(this.globals.OrderType == 'delivery' && this.globals.caos_flag == false){
                             if(this.globals.inradius){
                                    if(this.checkTiming(this.globals.delivery_timing)){
@@ -1001,12 +1001,13 @@ export class CartPage {
     
                 if (proceedFlag) {
                      this.Address =localStorage.getItem("GetAddress");
+                     console.log(this.globals.Email, "emaill")
                     
                     if(this.globals.OrderType == 'delivery' && this.globals.caos_flag == false){
                         if(this.globals.inradius){
                                if(this.checkTiming(this.globals.delivery_timing)){
                                     this.address_();
-                                  }
+                                }
                        
                         }
                         else{

@@ -7,11 +7,11 @@
 
 
 
-<ion-content class="main-view">
-  <div class="overlay">
+<ion-content class="main-view " [ngClass]="{'content_1': globals.specific_delivery_day === 'false'}">
+  <div class="overlay" *ngIf="globals.specific_delivery_day === 'false'">
    
   </div>
-  <div class="modal_content">
+  <div  [ngClass]="{'modal_content': globals.specific_delivery_day === 'false'}">
     <ion-row>
       <ion-col col-2 style="margin-left: 0;padding-left: 0 ">
         <ion-buttons start style="margin-left:0%; padding-left: 0%">
@@ -86,8 +86,12 @@
             </ion-list>
             <ion-list *ngSwitchCase="'later'" >
                 <p text-center>Click on time to Schedule</p>
-
-              <ion-item class="time_d">
+                <ion-calendar [(ngModel)]="myDate"
+                  [type]="type"
+                  [options]="optionsMulti"
+                  [format]="'YYYY-MM-DD'">
+              </ion-calendar>
+              <ion-item class="time_d" *ngIf="globals.specific_delivery_day == 'false'">
                   <ion-datetime  min="{{value}}"  displayFormat=" MMM DD h:mm a" pickerFormat=" DD h:mm a"    [(ngModel)]="myDate">
                     </ion-datetime>
               </ion-item>

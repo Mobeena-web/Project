@@ -570,7 +570,8 @@ list() {
        this.globals.availed_discount_count = parseInt(this.places[0].customer_discount_availed_count);
        this.globals.paypalId = this.places[0].paypal_id;
        this.globals.Timing = this.places[0].hours_operation;
-
+       this.globals.specific_delivery_day = this.places[0].specific_delivery_day;
+       this.globals.delivery_day = this.places[0].delivery_day;
          if (this.globals.pickup == '1') {
              this.globals.pickup = true;
          }
