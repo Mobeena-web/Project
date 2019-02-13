@@ -1530,6 +1530,9 @@ export class CartPage {
 
       checkTiming(timing) {
         if(localStorage.getItem("scheduled_time")){
+            if(this.globals.specific_delivery_day == 'true'){
+                return true;
+            }
             var scheduled_time_ = localStorage.getItem("scheduled_time");
 
             let response = this.server.date_convert(scheduled_time_);

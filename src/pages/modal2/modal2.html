@@ -87,6 +87,7 @@
             <ion-list *ngSwitchCase="'later'" >
                 <p text-center>Click on time to Schedule</p>
                 <ion-calendar [(ngModel)]="myDate"
+                (onChange)="specific_schedule_change($event)"
                   [type]="type"
                   [options]="optionsMulti"
                   [format]="'YYYY-MM-DD'">
@@ -108,7 +109,7 @@
             <button ion-button round [disabled]="today_disable"  block (click)="Today()">Today</button>
             </ion-buttons>
         </ion-footer>
-        <ion-footer *ngIf= "settings == 'later'" padding>
+        <ion-footer *ngIf= "settings == 'later'" [ngClass]="{'padding_1': globals.specific_delivery_day === 'false'}">
           <ion-buttons>
             <button ion-button round block (click)="Later()" >Schedule </button>
             </ion-buttons>

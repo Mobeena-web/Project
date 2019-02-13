@@ -48,6 +48,7 @@ export class Modal2Page {
   pickup_time :any;
   future_min : any ;
   today_disable:boolean = false;
+  specific_schedule:boolean = false;
   
   optionsMulti: CalendarComponentOptions = {
     disableWeeks: this.globals.delivery_day
@@ -233,20 +234,19 @@ n(n){
     //this.checkTiming();
   }
   Later(){
-   
+   if(this.globals.specific_delivery_day == 'true' && this.specific_schedule == true){
     this.type = this.globals.OrderType;
     localStorage.setItem("segmentvalue",this.settings);
-    console.log("My Date ",this.myDate);
-    // var future_date = new Date(this.myDate);
-    // console.log(future_date);
-    // var future_day = future_date.getDay();
-    // this.myDate = this.myDate.toString();
-      this.checkTimingLater();
-    //   localStorage.setItem("scheduled_time",this.myDate);
-    //   console.log("later schedule time",this.myDate);
-    // console.log("checking date for later",this.myDate);
    
-  
+      this.checkTimingLater();
+   }
+   else{
+     this.globals.presentToast("Please select schedule time.")
+   }
+    
+  }
+  specific_schedule_change(){
+    this.specific_schedule = true;
   }
   checkTimingLater(){
     this.type = this.globals.OrderType;
