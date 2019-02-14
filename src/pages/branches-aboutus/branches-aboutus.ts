@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams,LoadingController } from 'ionic-ang
 import { ServerProvider } from '../../providers/server/server';
 import { GlobalVariable } from '../../app/global';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { timestamp } from 'rxjs/operator/timestamp';
 declare var google;
 
 @IonicPage()
@@ -16,6 +17,8 @@ export class BranchesAboutusPage {
   aboutus:any;
   daysInWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   hours_operation:any;
+  phone:any;
+  address:any;
   constructor(public loadingCtrl: LoadingController,private iab: InAppBrowser,public navCtrl: NavController, public navParams: NavParams,public globals: GlobalVariable,public server: ServerProvider) {
     this.resturant_list();
     this.get_social();
@@ -139,10 +142,9 @@ export class BranchesAboutusPage {
 get_aboutus() {
   let response = this.server.get_about_us(this.globals.new_id);
   response.subscribe(data => {
-   console.log("dd",data.data.about[0])
-
    this.aboutus = data.data.about[0];
-
+    this.phone = data.data.phone;
+    this.address = data.data.address;
   }, error => {
       console.log(error);
 

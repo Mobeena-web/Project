@@ -128,7 +128,7 @@ export class MyRewardsPage {
         this.status = true;
         this.point_items();
         //this.getPoints();
-        this.rewards_items();
+        //this.rewards_items();
         //this.getReward();
        // this.business_reward();
 
@@ -235,9 +235,11 @@ export class MyRewardsPage {
             this.point_segment_flag = true;
         }
         else if (this.option == 'gifts' && this.gifts_segment_flag == false) {
-            this.gifts_segment_flag = true;
-            this.presentModal1();
+            //this.gifts_segment_flag = true;
+            //this.presentModal1();
             //this.getReward();
+            this.rewards_items();
+
         }
 
 
@@ -468,12 +470,12 @@ export class MyRewardsPage {
     }
 
     punch_model(rewards){
-        let modal = this.modalCtrl.create('PointPunchModelPage', { title: "Punch Detail",tagline:rewards.punch_description, udid:rewards.id, name:rewards.name, image: rewards.image, punch_count: rewards.punch_count, punch_limit: rewards.punch_limit});
+        let modal = this.modalCtrl.create('PointPunchModelPage', { title: "Punch Detail",terms:rewards.terms,tagline:rewards.punch_description, udid:rewards.id, name:rewards.name, image: rewards.image, punch_count: rewards.punch_count, punch_limit: rewards.punch_limit});
         modal.present();
     }
 
     point_model(a){
-        let modal = this.modalCtrl.create('PointPunchModelPage', { title: "Point Detail", image: a.image, name: a.name, tagline: a.points_description});
+        let modal = this.modalCtrl.create('PointPunchModelPage', { title: "Point Detail",terms:a.terms, image: a.image, name: a.name, tagline: a.points_description});
         modal.present();
     }
 

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget android-versionCode="29" id="com.mikronexus.hotbox.customer" version="0.0.10" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.mikronexus.hotbox.customer" version="0.0.9" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Hot Box ToGo</name>
     <description>A reward and loyalty punch card app.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Mikronexus</author>
@@ -134,4 +134,5 @@
     <plugin name="cordova-plugin-zip" spec="^3.1.0" />
     <engine name="ios" spec="4.5.5" />
     <engine name="android" spec="7.0.0" />
+    <engine name="browser" spec="5.0.4" />
 </widget>

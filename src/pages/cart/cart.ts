@@ -641,14 +641,14 @@ export class CartPage {
     }
 
     changeAddress() {
-        this.navCtrl.push("ModalPage");
-         this.total();
+        // this.navCtrl.push("ModalPage");
+        //  this.total();
          
-        // let modal = this.modalCtrl.create('ModalPage');
-        // modal.onDidDismiss(data => {
-        //     this.total();
-        // });
-        // modal.present();
+        let modal = this.modalCtrl.create('ModalPage');
+        modal.onDidDismiss(data => {
+            this.total();
+        });
+        modal.present();
       }
 
     AddmoreItem() {
@@ -911,10 +911,10 @@ export class CartPage {
         
                     }
                   
-        
+                    
                     if (proceedFlag) {
                          this.Address =localStorage.getItem("GetAddress");
-                        
+                        console.log(this.Address,"lo")
                         if(this.globals.OrderType == 'delivery' && this.globals.caos_flag == false){
                             if(this.globals.inradius){
                                    if(this.checkTiming(this.globals.delivery_timing)){
@@ -1001,12 +1001,13 @@ export class CartPage {
     
                 if (proceedFlag) {
                      this.Address =localStorage.getItem("GetAddress");
+                     console.log(this.globals.Email, "emaill")
                     
                     if(this.globals.OrderType == 'delivery' && this.globals.caos_flag == false){
                         if(this.globals.inradius){
                                if(this.checkTiming(this.globals.delivery_timing)){
                                     this.address_();
-                                  }
+                                }
                        
                         }
                         else{
@@ -1527,8 +1528,11 @@ export class CartPage {
           alert.present();
       }
 
-      checkTiming(timing) {
+     async checkTiming(timing) {
         if(localStorage.getItem("scheduled_time")){
+            if(this.globals.specific_delivery_day == 'true'){
+                return true;
+            }
             var scheduled_time_ = localStorage.getItem("scheduled_time");
 
             let response = this.server.date_convert(scheduled_time_);
@@ -1538,13 +1542,18 @@ export class CartPage {
                 var time = data.time;
                 var current_day = timing[day];
                 if((Number(current_day[0]) <= time && Number(current_day[1]) > time) || (Number(current_day[0]) <= time && Number(current_day[1]) < Number(current_day[0]))){
+                    
                     return true;
+                    
                 }
                 else if(current_day[0] == 'opened' && current_day[1] == 'opened' ){
+
                     return true;
+
                 }
                 else {
                     this.globals.presentToast('Sorry, we are not serving at this time!')
+
                     return false;
                 }
             }
@@ -1553,6 +1562,7 @@ export class CartPage {
 
             }
 
+            console.log("h5")
         
             }, error => {
                 this.globals.presentToast("Something went wrong check your internet connection.")
@@ -1561,6 +1571,7 @@ export class CartPage {
             
         }
         else{
+            console.log("h6")
         
             var date = new Date();
             var day = date.getDay();

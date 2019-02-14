@@ -40,7 +40,7 @@ export class MyApp {
   constructor(private codePush: CodePush,private nativeAudio: NativeAudio,public loadingCtrl: LoadingController,private iab: InAppBrowser,private barcodeScanner:BarcodeScanner,public alertCtrl: AlertController,public app: App,public server: ServerProvider, private _notification: OneSignal, public alertctrl: AlertController, public modalCtrl: ModalController, public globals: GlobalVariable, private statusbar: StatusBar, private splashscreen: SplashScreen, private nativeStorage: NativeStorage, public platform: Platform,private geolocation: Geolocation) {
 
     platform.ready().then(() => {
-        // this.checkCodePush();
+        this.checkCodePush();
         this.data = {};
         this.data.response = '';
         this.LoadSound();
@@ -570,7 +570,9 @@ list() {
        this.globals.availed_discount_count = parseInt(this.places[0].customer_discount_availed_count);
        this.globals.paypalId = this.places[0].paypal_id;
        this.globals.Timing = this.places[0].hours_operation;
+       this.globals.specific_delivery_day = this.places[0].specific_delivery_day;
 
+       this.globals.delivery_day = this.places[0].delivery_day;
          if (this.globals.pickup == '1') {
              this.globals.pickup = true;
          }

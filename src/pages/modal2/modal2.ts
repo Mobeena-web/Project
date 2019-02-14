@@ -5,7 +5,6 @@ import { App, ModalController,AlertController } from 'ionic-angular';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { Calendar } from '@ionic-native/calendar';
 import { ServerProvider } from '../../providers/server/server';
-import { CalendarModal, CalendarModalOptions, DayConfig, CalendarResult } from "ion2-calendar";
 import { CalendarComponentOptions } from 'ion2-calendar'
 
 // import {OrderListingPage} from '../order-listing/order-listing';
@@ -53,6 +52,11 @@ export class Modal2Page {
   pickup_time :any;
   future_min : any ;
   today_disable:boolean = false;
+  specific_schedule:boolean = false;
+  check_flag:boolean = false;
+  optionsMulti: CalendarComponentOptions = {
+    disableWeeks: this.globals.delivery_day
+  };
 
  // dd :any;
   constructor( public loadingCtrl:LoadingController,public server: ServerProvider,public alertCtrl: AlertController,private calendar: Calendar,public navCtrl: NavController, public navParams: NavParams ,public globals: GlobalVariable, public viewCtrl: ViewController,public modalCtrl: ModalController, public appCtrl: App, public nativeStorage: NativeStorage) {
@@ -84,6 +88,7 @@ export class Modal2Page {
     this.minvalue =  new Date().toJSON().split('T')[0];
     this.minvalue.toString();
     this.value = this.year + "-" + this.month + "-" + this.datenow;
+    console.log(this.value,"vf")
     if(this.globals.OrderType == 'delivery'){
       var order_later = this.globals.pickupsetting.split(' ')
       if(order_later[1] == 'days'){
@@ -94,11 +99,30 @@ export class Modal2Page {
       }
     }
     else{
-      var order_later = this.globals.pickup_Time.split(' ')
+      var order_later = this.globals.pickup_Time.split(' ');
+      console.log('hello')
       if(order_later[1] == 'days'){
         this.today_disable = true;
         this.datenow = Number(this.datenow) + Number(order_later[0])
+
+        // var d = new Date();
+        // console.log(d.getMonth(),d.getFullYear())
+        // var totaldays = this.daysInMonth(d.getMonth(),d.getFullYear())
+        // console.log(this.datenow , totaldays,"oo")
+        // if(this.datenow > totaldays){
+        //   console.log('di',totaldays,this.datenow,order_later[0])
+          
+        //    this.datenow =  (Number(this.datenow) - totaldays);
+        //     this.month = Number(this.month) + 2;
+
+        // }
+        
+      //  console.log(this.value,'pp')
+      //  this.month = this.n(Number(this.month));
+      //  this.datenow = this.n(Number(this.datenow));
         this.value = this.year + "-" + this.month + "-" + this.datenow;
+       console.log(this.value,'pppp')
+
       }
     }
     this.value.toString();
@@ -111,23 +135,12 @@ export class Modal2Page {
     this.myDate = date1;
     
   }
-
-  openCalendar() {
-    const options: CalendarModalOptions = {
-      disableWeeks: [0, 6]
-    };
- 
-    let myCalendar =  this.modalCtrl.create(CalendarModal, {
-      options: options
-    });
- 
-    myCalendar.present();
- 
-    myCalendar.onDidDismiss((date: CalendarResult, type: string) => {
-      console.log(date);
-    });
-  }
-
+   daysInMonth (month, year) {
+    return new Date(year, month, 0).getDate();
+}
+n(n){
+  return n > 9 ? "" + n: "0" + n;
+}
   createCalender(){
     this.calendar.createCalendar('MyCalendar').then(
       
@@ -225,20 +238,36 @@ export class Modal2Page {
     //this.checkTiming();
   }
   Later(){
-   
+  
     this.type = this.globals.OrderType;
     localStorage.setItem("segmentvalue",this.settings);
-    console.log("My Date ",this.myDate);
-    // var future_date = new Date(this.myDate);
-    // console.log(future_date);
-    // var future_day = future_date.getDay();
-    // this.myDate = this.myDate.toString();
+    console.log(this.date,this.myDate,this.datenow)
+    // var s_day = this.myDate.getDay()
+    // console.log(s_day)
+    if(this.globals.specific_delivery_day == 'true'){
+      if(this.check_flag == false && this.specific_schedule == true){
+        this.checkTimingLater();
+      }
+      else{
+        this.globals.presentToast("Sorry we can't deliver this day.Please select next.")
+      }
+    }
+    else{
       this.checkTimingLater();
-    //   localStorage.setItem("scheduled_time",this.myDate);
-    //   console.log("later schedule time",this.myDate);
-    // console.log("checking date for later",this.myDate);
+    }
+    
    
-  
+    
+  }
+  specific_schedule_change(e){
+    if(Number(e.format('DD')) < this.datenow && Number(e.format('MM')) == (this.date.getMonth() + 1)){
+      this.check_flag = true;
+      this.globals.presentToast("Sorry we can't deliver this day.Please select next.")
+    }
+    else{
+      this.check_flag = false;
+    }
+    this.specific_schedule = true;
   }
   checkTimingLater(){
     this.type = this.globals.OrderType;
@@ -246,7 +275,15 @@ export class Modal2Page {
      if (this.type == "delivery") {
       
         if (this.globals.delivery_timing) {
-          let response = this.server.date_convert(this.myDate);
+          var response:any;
+
+          if(this.globals.specific_delivery_day == 'true'){
+             response = this.server.date_convert(this.myDate.format('DD-MM-YYYY'));
+            
+           }
+           else{
+             response = this.server.date_convert(this.myDate);            
+           }
           let loading = this.loadingCtrl.create({
             content: "Loading...",
           });
@@ -255,8 +292,16 @@ export class Modal2Page {
             loading.dismiss();
             if(data.success == true){
                this.day = data.day_id + 1;
+               if(this.day == 7){
+                this.day = 0;
+               }
                this.time = data.time;
-              localStorage.setItem("scheduled_time",  this.myDate );
+               if(this.globals.specific_delivery_day == 'true'){
+                localStorage.setItem("scheduled_time",  this.myDate.format('DD-MM-YYYY') );
+               }
+               else{
+                localStorage.setItem("scheduled_time",  this.myDate );
+               }
               console.log("setting scheduled time 1", this.myDate);
               let current_day = this.globals.delivery_timing[this.day];
               // this.time = this.time.toString();
@@ -299,7 +344,14 @@ export class Modal2Page {
   else {
     
     if (this.globals.pickup_timing) {
-      let response = this.server.date_convert(this.myDate);
+      var response:any;
+      if(this.globals.specific_delivery_day == 'true'){
+        response = this.server.date_convert(this.myDate.format('DD-MM-YYYY'));
+       
+      }
+      else{
+        response = this.server.date_convert(this.myDate);            
+      }
       let loading = this.loadingCtrl.create({
         content: "Loading...",
       });
@@ -308,8 +360,16 @@ export class Modal2Page {
         loading.dismiss();
         if(data.success == true){
            this.day = data.day_id + 1;
+           if(this.day == 7){
+            this.day = 0;
+           }
            this.time = data.time;
-          localStorage.setItem("scheduled_time",  this.myDate );
+           if(this.globals.specific_delivery_day == 'true'){
+            localStorage.setItem("scheduled_time",  this.myDate.format('DD-MM-YYYY') );
+           }
+           else{
+            localStorage.setItem("scheduled_time",  this.myDate );
+           }
           console.log("setting scheduled time 2", this.myDate);
           let current_day = this.globals.pickup_timing[this.day];
           // this.time = this.time.toString();

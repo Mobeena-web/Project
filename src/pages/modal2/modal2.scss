@@ -1,5 +1,5 @@
 page-modal2 {
-    .content{
+    .content_1{
         background: transparent;
       }
       .overlay {
@@ -10,6 +10,9 @@ page-modal2 {
         z-index: 1;
         opacity: .5;
         background-color: #273C75;
+      }
+      .padding_1{
+        padding: 16px;
       }
       .modal_content {
         position: absolute;

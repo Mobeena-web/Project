@@ -90,7 +90,7 @@
       <ion-col col-2 style="text-align:right">
         <!-- <p style="font-size:2.0rem;color:black;padding-bottom:5px"> ${{prod.basePrice}} </p>  -->
         <ion-icon name="close" (click)="RemoveItem(prod)"  class="cross_icon"></ion-icon>
-        <ion-label style="font-size:2.0rem; margin-bottom:0; color:#666;margin-top: 22px;">
+        <ion-label style="font-size:1.3rem; margin-bottom:0; color:#666;margin-top: 22px;">
             <ion-icon style="color:#666" name="basket"></ion-icon> {{prod.quantity}} </ion-label>
 
         
@@ -335,7 +335,7 @@
                    Convenient Fee
                    <p style="float:right;font-size:1.3rem;margin:0px;color:#444;">${{globals.deliveryCharges}}.00</p>
                  </ion-label>
-                 <ion-label *ngIf="globals.deliveryCharges == '' " style="padding:0px;font-size:1.3rem;margin:0px;color:#444;">
+                 <ion-label *ngIf="globals.deliveryCharges == '' && globals.OrderType == 'delivery'" style="padding:0px;font-size:1.3rem;margin:0px;color:#444;">
                    <!-- <ion-icon style="    padding-right: 5px;  position: relative; top: 3px;" name="bicycle"> </ion-icon> -->
                    Convenient Fee
                    <p style="float:right;font-size:1.3rem;margin:0px;color:#444;">$0</p>
