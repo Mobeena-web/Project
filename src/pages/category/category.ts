@@ -94,6 +94,9 @@ export class CategoryPage {
         this.globals.title = this.globals.category_name;
        
     }
+    ionViewDidEnter(){
+        console.log("I'm here in this once");
+    }
 
     checkTiming(Timing) {
 
@@ -117,9 +120,12 @@ export class CategoryPage {
 
             time = Number(time);
            if(current_day){
-                if((Number(current_day[0]) <= time && Number(current_day[1]) > time) || (Number(current_day[0]) <= time && Number(current_day[1]) < Number(current_day[0])) || (current_day[0] != 'closed' && current_day[1] != 'closed')){
+                if((Number(current_day[0]) <= time && Number(current_day[1]) > time) || (Number(current_day[0]) <= time && Number(current_day[1]) < Number(current_day[0]))){
                     return true;
                 }
+                else if(current_day[0] == 'opened' && current_day[1] == 'opened' ){
+                    return true;
+                  }
                 else {
                     return false;
                 }
@@ -138,9 +144,11 @@ export class CategoryPage {
 
       time_change(){
         var scheduled_time_ = localStorage.getItem("scheduled_time");
+        console.log("scheduled date is: ", scheduled_time_);
 
         let response = this.server.date_convert(scheduled_time_);
         response.subscribe(data => {
+            console.log("converted scheduled date", data);
           if(data.success == true){
               this.s_day = data.day_id + 1;
               this.s_time = data.time;
@@ -252,12 +260,9 @@ export class CategoryPage {
     presentModal() {
         if(this.globals.model_flag){
             this.globals.model_flag = false;
-
-            this.navCtrl.push("ModalPage");
+            this.navCtrl.pop({animate:false}); // added by jahanzaib 21-01-19
+            this.navCtrl.push("ModalPage",{category_page:1},{animate: false});
             // let modal = this.modalCtrl.create('ModalPage');
-            // modal.onDidDismiss(data => {
-            //     this.Categories();
-            //   });
             // modal.present();
 
         }
@@ -266,8 +271,12 @@ export class CategoryPage {
 
       presentModal1() {
        
-            let modal1 = this.modalCtrl.create('ModalPage');
-            modal1.present();
+            // let modal1 = this.modalCtrl.create('ModalPage');
+            // modal1.present();
+            console.log("in present modal");
+            this.globals.model_flag = false;
+            this.navCtrl.pop({animate:false}); // added by jahanzaib 21-01-19
+            this.navCtrl.push("ModalPage",{category_page:1} ,{animate: false});
       }
 
     ionViewDidLoad() {
@@ -334,7 +343,7 @@ export class CategoryPage {
         return this.shownGroup === group;
     };
 
-    Categories() {
+    Categories() { 
         let loading = this.loadingCtrl.create({
             content: "Loading...",
 
@@ -342,6 +351,7 @@ export class CategoryPage {
         loading.present();
         let response = this.server.GetBusinessMenuCategories(this.globals.bussinessId);
         response.subscribe(data => {
+            console.log("get business categories", data);
             this.data = data;
             loading.dismiss();
             this.category = this.data.categories;

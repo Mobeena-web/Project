@@ -45,8 +45,8 @@
 
   <ion-row *ngIf="!globals.guess_login">
 
-    <ion-col col-6 class="point_s" (click)="rewards()">
-      <div *ngIf="this.globals.point_check == 'true'">
+    <ion-col  class="point_s" (click)="rewards()" *ngIf="this.globals.point_check == 'true'">
+      <div >
         <div class="youhave">You Have</div>
         <div class="points_design" *ngIf="!points">0 <ion-icon class="point-star" name="star"></ion-icon>
         </div>
@@ -59,8 +59,8 @@
     </ion-col>
 
 
-    <ion-col col-6 text-center (click)="rewards('punch')">
-      <div *ngIf="this.globals.punch_check == 'true'">
+    <ion-col  text-center (click)="rewards('punch')" *ngIf="this.globals.punch_check == 'true'">
+      <div >
         <img src={{ring_image}} class="cup_img">
         <div class="circle" id="homecircle1"></div>
 

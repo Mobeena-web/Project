@@ -73,11 +73,13 @@ export class ModalPage {
   coordinates: any;
   order_pickup = this.globals.pickup;
   order_delivery = this.globals.delivery;
+  category_page:any;
   constructor(public server: ServerProvider,public geolocation: Geolocation, public alertCtrl: AlertController,public navCtrl: NavController,public formBuilder: FormBuilder, public navParams: NavParams, public viewCtrl: ViewController, public globals: GlobalVariable, public modalCtrl: ModalController, public nativeStorage: NativeStorage,public plt: Platform) {
   
    this.segmentValue = localStorage.getItem("segmentvalue");
    this.deliveryTime =  this.globals.pickupsetting;
    this.pickup_time = this.globals.pickup_Time;
+   this.category_page = this.navParams.get('category_page')
   //  this.type = this.globals.OrderType;
   
   
@@ -279,7 +281,11 @@ export class ModalPage {
   );
     //this.checkTiming();            
     this.globals.OrderType = 'delivery';
-    this.navCtrl.pop();
+    this.navCtrl.pop({animate:false});
+    if(this.category_page == 1){
+      this.navCtrl.push("CategoryPage",{},{animate: false});
+
+    }
     // this.viewCtrl.dismiss();
     this.globals.save_check = true;
   }
@@ -314,7 +320,7 @@ export class ModalPage {
         this.Address = myadress;
         this.globals.inradius = data.in_radius;
         if(data.in_radius == false){
-          this.globals.alertMessage("No Delivery","We d'nt Deliver in your Area.")
+          this.globals.alertMessage("Sorry","We dn't deliver in your Area.")
 
         }
         localStorage.setItem("GetAddress",myadress);
@@ -329,7 +335,10 @@ export class ModalPage {
   }
 
   Getscheduletime(){
-    this.viewCtrl.dismiss();
+    //commented by jahanzaib
+    // this.viewCtrl.dismiss();
+    this.navCtrl.pop();
+
       let modal = this.modalCtrl.create('Modal2Page');
       modal.present();
   }
@@ -458,7 +467,11 @@ export class ModalPage {
   // this.navCtrl.setRoot("MainTabsPage",{page:1})
   this.globals.OrderType = "pickup"
   // this.viewCtrl.dismiss();
-  this.navCtrl.pop();
+  this.navCtrl.pop({animate:false});
+    if(this.category_page == 1){
+      this.navCtrl.push("CategoryPage",{},{animate: false});
+
+    }
   this.globals.save_check = true;
 
   }

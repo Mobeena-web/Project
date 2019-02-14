@@ -44,6 +44,8 @@ import { GetlocationProvider } from '../providers/getlocation/getlocation';
 import {MobileVerificationPromptPage} from '../pages/mobile-verification-prompt/mobile-verification-prompt';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { CodePush } from '@ionic-native/code-push';
+import { CalendarModule } from "ion2-calendar";
+
 //import { TextMaskModule } from 'angular2-text-mask';
 
 // import{Modal2Page} from '../pages/modal2/modal2';
@@ -76,6 +78,7 @@ import { CodePush } from '@ionic-native/code-push';
     IntroPage8PageModule,
     //MobileVerificationPromptPage,
     MainTabsPageModule,
+    
    // TextMaskModule
    
   

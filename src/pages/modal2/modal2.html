@@ -88,9 +88,19 @@
                 <p text-center>Click on time to Schedule</p>
 
               <ion-item class="time_d">
-                  <ion-datetime  min="{{value}}"  displayFormat=" MMM DD h:mm a" pickerFormat=" DD h:mm a"    [(ngModel)]="myDate">
+                  <ion-datetime weekdayValues="0,2"  min="{{value}}"  displayFormat=" MMM DD h:mm a" pickerFormat=" DD h:mm a"    [(ngModel)]="myDate">
                     </ion-datetime>
               </ion-item>
+<p (click)="openCalendar()">hello</p>
+
+              <ion-calendar [(ngModel)]="date"
+              (onChange)="onChange($event)"
+              [options]="optionsRange"
+
+              [type]="type"
+              [format]="'YYYY-MM-DD'">
+</ion-calendar>
+
               
               </ion-list>
         </div>

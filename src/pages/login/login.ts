@@ -79,7 +79,7 @@ export class LoginPage {
                         this.viewCtrl.dismiss();
                     }
                     else{
-                       //this.navCtrl.setRoot(HomePage, { imageData: this.data.response.url, Flag: false });
+                        //this.navCtrl.setRoot(HomePage, { imageData: this.data.response.url, Flag: false });
 
                         this.nativeStorage.setItem('user',
                         {
@@ -110,7 +110,21 @@ export class LoginPage {
                             }
                             this.server.initializePushToken();
                         })
-                        .catch((err) => { console.log("nativesstorage", err) });
+                        .catch((err) => { console.log("nativesstorage", err)
+                    
+                        this.SaveMobileNumberFlag(this.data.response.mobile_verification_amount, this.data.response.phone_verified);
+
+                            if(this.globals.caos_flag){
+                             
+                                this.navCtrl.push('CartPage')
+                            }
+                            else{
+                                this.navCtrl.setRoot(HomePage, { imageData: this.data.response.url, Flag: false });
+
+                            }
+                            this.server.initializePushToken();
+                    });
+
 
                     }
                    

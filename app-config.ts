@@ -1,3 +1,3 @@
 export let CONFIG = { 
-    business_username: "hotbox",
-    business_id: "117"};
+    business_username: "",
+    business_id: "76"};

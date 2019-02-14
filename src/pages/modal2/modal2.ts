@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams , ViewController,LoadingController} from 'ionic-angular';
 import { GlobalVariable } from '../../app/global';
-import { ModalController,AlertController } from 'ionic-angular';
+import { App, ModalController,AlertController } from 'ionic-angular';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { Calendar } from '@ionic-native/calendar';
 import { ServerProvider } from '../../providers/server/server';
+import { CalendarModal, CalendarModalOptions, DayConfig, CalendarResult } from "ion2-calendar";
+import { CalendarComponentOptions } from 'ion2-calendar'
 
 // import {OrderListingPage} from '../order-listing/order-listing';
 /**
@@ -20,6 +22,10 @@ import { ServerProvider } from '../../providers/server/server';
   templateUrl: 'modal2.html',
 })
 export class Modal2Page {
+  optionsRange: CalendarComponentOptions = {
+    disableWeeks: [0, 6]
+
+  };
   settings: string = "Asap";
   min: any;
   hours: any;
@@ -49,7 +55,7 @@ export class Modal2Page {
   today_disable:boolean = false;
 
  // dd :any;
-  constructor( public loadingCtrl:LoadingController,public server: ServerProvider,public alertCtrl: AlertController,private calendar: Calendar,public navCtrl: NavController, public navParams: NavParams ,public globals: GlobalVariable, public viewCtrl: ViewController,public modalCtrl: ModalController, public nativeStorage: NativeStorage) {
+  constructor( public loadingCtrl:LoadingController,public server: ServerProvider,public alertCtrl: AlertController,private calendar: Calendar,public navCtrl: NavController, public navParams: NavParams ,public globals: GlobalVariable, public viewCtrl: ViewController,public modalCtrl: ModalController, public appCtrl: App, public nativeStorage: NativeStorage) {
     this.deliveryTime = this.globals.pickupsetting;
     this.deliveryTime = parseInt(this.deliveryTime);
     this.name =  this.globals.category_name;
@@ -105,6 +111,23 @@ export class Modal2Page {
     this.myDate = date1;
     
   }
+
+  openCalendar() {
+    const options: CalendarModalOptions = {
+      disableWeeks: [0, 6]
+    };
+ 
+    let myCalendar =  this.modalCtrl.create(CalendarModal, {
+      options: options
+    });
+ 
+    myCalendar.present();
+ 
+    myCalendar.onDidDismiss((date: CalendarResult, type: string) => {
+      console.log(date);
+    });
+  }
+
   createCalender(){
     this.calendar.createCalendar('MyCalendar').then(
       
@@ -153,8 +176,9 @@ export class Modal2Page {
       this.globals.savePickupTime = this.new_time;
       
     }
-    
-    this.viewCtrl.dismiss('CategoryPage');
+    //commented by jahanzaib 21-01-2019    
+    // this.viewCtrl.dismiss('CategoryPage');
+    this.viewCtrl.dismiss();
     this.presentModal();
     //window.location.reload();
     // this.navCtrl.push('ModalPage',{pickup:this.deliveryTime});
@@ -164,7 +188,13 @@ export class Modal2Page {
   presentModal() {
     // let modal = this.modalCtrl.create('ModalPage');
     // modal.present();
-    this.navCtrl.push("ModalPage");
+
+
+    //commented by jahanzaib 21-01-19
+    // this.navCtrl.push("ModalPage");
+    this.appCtrl.getRootNav().push("ModalPage");
+
+
   }
   Today(){
     this.type = this.globals.OrderType;
@@ -227,15 +257,21 @@ export class Modal2Page {
                this.day = data.day_id + 1;
                this.time = data.time;
               localStorage.setItem("scheduled_time",  this.myDate );
+              console.log("setting scheduled time 1", this.myDate);
               let current_day = this.globals.delivery_timing[this.day];
               // this.time = this.time.toString();
               console.log(this.day,this.time,current_day)
               if (current_day[0] != 'opened') {
-                if((Number(current_day[0]) <= Number(this.time) && Number(current_day[1]) > Number(this.time)) || (Number(current_day[0]) <= Number(this.time) && Number(current_day[1]) < Number(current_day[0])) ||  (current_day[0] != 'closed')){
+                if((Number(current_day[0]) <= Number(this.time) && Number(current_day[1]) > Number(this.time)) || (Number(current_day[0]) <= Number(this.time) && Number(current_day[1]) < Number(current_day[0]))){
                      
                       this.viewCtrl.dismiss('CategoryPage');
                       this.presentModal();
                         return true;
+                  }
+                  else if(current_day[0] == 'opened' && current_day[1] == 'opened' ){
+                    this.viewCtrl.dismiss('CategoryPage');
+                    this.presentModal();
+                    return true;
                   }
                   else {
                     this.globals.presentToast('Sorry, we are not serving at this time!')
@@ -274,27 +310,34 @@ export class Modal2Page {
            this.day = data.day_id + 1;
            this.time = data.time;
           localStorage.setItem("scheduled_time",  this.myDate );
+          console.log("setting scheduled time 2", this.myDate);
           let current_day = this.globals.pickup_timing[this.day];
           // this.time = this.time.toString();
           console.log(this.day,this.time,current_day)
-          if (current_day[0] != 'opened') {
-            if((Number(current_day[0]) <= Number(this.time) && Number(current_day[1]) > Number(this.time)) || (Number(current_day[0]) <= Number(this.time) && Number(current_day[1]) < Number(current_day[0])) ||  (current_day[0] != 'closed')){
+          //if (current_day[0] != 'opened') {
+            if((Number(current_day[0]) <= Number(this.time) && Number(current_day[1]) > Number(this.time)) || (Number(current_day[0]) <= Number(this.time) && Number(current_day[1]) < Number(current_day[0]))){
                  
                   this.viewCtrl.dismiss('CategoryPage');
                   this.presentModal();
                     return true;
               }
+              else if(current_day[0] == 'opened' && current_day[1] == 'opened' ){
+                this.viewCtrl.dismiss('CategoryPage');
+                this.presentModal();
+                return true;
+              }
+              
               else {
                 this.globals.presentToast('Sorry, we are not serving at this time!')
              
                 return false;
               }
-          }
-          else {
-            this.viewCtrl.dismiss('CategoryPage');
-            this.presentModal();
-              return true;   
-          }
+          // }
+          // else {
+          //   this.viewCtrl.dismiss('CategoryPage');
+          //   this.presentModal();
+          //     return true;   
+          // }
         }
   
       }, error => {
@@ -330,27 +373,33 @@ export class Modal2Page {
                this.day = data.day_id + 1;
                this.time = data.time;
               localStorage.setItem("scheduled_time",  this.myDate );
+              console.log("setting scheduled time 3", this.myDate);
               let current_day = this.globals.delivery_timing[this.day];
               // this.time = this.time.toString();
               console.log(this.day,this.time,current_day)
-              if (current_day[0] != 'opened') {
-                if((Number(current_day[0]) <= Number(this.time) && Number(current_day[1]) > Number(this.time)) || (Number(current_day[0]) <= Number(this.time) && Number(current_day[1]) < Number(current_day[0])) ||  (current_day[0] != 'closed')){
+             // if (current_day[0] != 'opened') {
+                if((Number(current_day[0]) <= Number(this.time) && Number(current_day[1]) > Number(this.time)) || (Number(current_day[0]) <= Number(this.time) && Number(current_day[1]) < Number(current_day[0]))){
                      
                       this.viewCtrl.dismiss('CategoryPage');
                       this.presentModal();
                         return true;
+                  }
+                  else if(current_day[0] == 'opened' && current_day[1] == 'opened' ){
+                    this.viewCtrl.dismiss('CategoryPage');
+                    this.presentModal();
+                    return true;
                   }
                   else {
                     this.globals.presentToast('Sorry, we are not serving at this time!')
                  
                     return false;
                   }
-              }
-              else {
-                this.viewCtrl.dismiss('CategoryPage');
-                this.presentModal();
-                  return true;   
-              }
+              // }
+              // else {
+              //   this.viewCtrl.dismiss('CategoryPage');
+              //   this.presentModal();
+              //     return true;   
+              // }
             }
       
           }, error => {
@@ -379,27 +428,33 @@ export class Modal2Page {
               this.day = data.day_id + 1;
               this.time = data.time;
              localStorage.setItem("scheduled_time",  this.myDate );
+             console.log("setting scheduled time 4", this.myDate);
              let current_day = this.globals.pickup_timing[this.day];
              // this.time = this.time.toString();
              console.log(this.day,this.time,current_day)
-             if (current_day[0] != 'opened') {
-               if((Number(current_day[0]) <= Number(this.time) && Number(current_day[1]) > Number(this.time)) || (Number(current_day[0]) <= Number(this.time) && Number(current_day[1]) < Number(current_day[0])) ||  (current_day[0] != 'closed')){
+             //if (current_day[0] != 'opened') {
+               if((Number(current_day[0]) <= Number(this.time) && Number(current_day[1]) > Number(this.time)) || (Number(current_day[0]) <= Number(this.time) && Number(current_day[1]) < Number(current_day[0]))){
                     
                      this.viewCtrl.dismiss('CategoryPage');
                      this.presentModal();
                        return true;
                  }
+                 else if(current_day[0] == 'opened' && current_day[1] == 'opened' ){
+                  this.viewCtrl.dismiss('CategoryPage');
+                  this.presentModal();
+                  return true;
+                }
                  else {
                    this.globals.presentToast('Sorry, we are not serving at this time!')
                 
                    return false;
                  }
-             }
-             else {
-               this.viewCtrl.dismiss('CategoryPage');
-               this.presentModal();
-                 return true;   
-             }
+            //  }
+            //  else {
+            //    this.viewCtrl.dismiss('CategoryPage');
+            //    this.presentModal();
+            //      return true;   
+            //  }
            }
      
          }, error => {

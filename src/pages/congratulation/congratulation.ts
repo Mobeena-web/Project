@@ -75,7 +75,7 @@ export class CongratulationPage {
             else{
                 that.nativeAudio.play('success');
             }
-        }, 10000);
+        }, 9000);
 
         console.log(that.status);
 
