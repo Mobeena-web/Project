@@ -323,8 +323,8 @@
              <!-- <discount start here> -->
                  <ion-label *ngIf="globals.BusinessDiscount > 0 && globals.availed_discount_count < globals.business_discount_count"  style="padding:0px;font-size:1.3rem;margin:0px;color:#444;">
                    <!-- <ion-icon style="padding-right: 5px;  position: relative; top: 3px;" ios="ios-cut" md="md-cut"> </ion-icon> -->
-                    Business <ion-icon class="animated infinite tada delay-4s fs" name="heart" color="danger"></ion-icon>
-                   <p style="float:right;font-size:1.3rem;margin:0px;color:#444;">${{discountTotal}}</p>
+                    Business Discount <ion-icon class="animated infinite tada delay-4s fs" name="heart" color="danger"></ion-icon>
+                   <p style="float:right;font-size:1.3rem;margin:0px;color:#444;"> -${{discountTotal}}</p>
                  </ion-label>
              
              <!-- <discount end here> -->

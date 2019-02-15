@@ -7,11 +7,11 @@
 
 
 
-<ion-content class="main-view">
-  <div class="overlay">
+<ion-content class="main-view " [ngClass]="{'content_1': globals.specific_delivery_day === 'false'}">
+  <div class="overlay" *ngIf="globals.specific_delivery_day === 'false'">
    
   </div>
-  <div class="modal_content">
+  <div  [ngClass]="{'modal_content': globals.specific_delivery_day === 'false'}">
     <ion-row>
       <ion-col col-2 style="margin-left: 0;padding-left: 0 ">
         <ion-buttons start style="margin-left:0%; padding-left: 0%">
@@ -25,8 +25,8 @@
         <h2 style="text-align: center"> Schedule My Order</h2>
       </ion-col>
     </ion-row>
-      <p style="padding-left: 67px;color:#27ae60;margin: 0px;">Select a delivery time up to 5 days</p>
-      <p style=" text-align: center; margin-top:-10px;color:#27ae60"> in advance</p>
+      <p style="padding-left: 67px;color:#27ae60;margin: 0px;" *ngIf="globals.specific_delivery_day == 'false'">Select a delivery time up to 5 days</p>
+      <p style=" text-align: center; margin-top:-10px;color:#27ae60" *ngIf="globals.specific_delivery_day == 'false'"> in advance</p>
       <!-- <ion-row>
         <ion-col>
           <button  ion-button small>ASAP</button>
@@ -86,12 +86,18 @@
             </ion-list>
             <ion-list *ngSwitchCase="'later'" >
                 <p text-center>Click on time to Schedule</p>
-
-              <ion-item class="time_d">
+                <ion-calendar *ngIf="globals.specific_delivery_day != 'false'" [(ngModel)]="myDate"
+                (onChange)="specific_schedule_change($event)"
+                  [type]="type"
+                  [options]="optionsMulti"
+                  [format]="'YYYY-MM-DD'">
+              </ion-calendar>
+              <ion-item class="time_d" *ngIf="globals.specific_delivery_day == 'false'">
                   <ion-datetime  min="{{value}}"  displayFormat=" MMM DD h:mm a" pickerFormat=" DD h:mm a"    [(ngModel)]="myDate">
                     </ion-datetime>
               </ion-item>
-              
+
+         
               </ion-list>
         </div>
         <ion-footer *ngIf= "settings == 'Asap'" padding>
@@ -104,7 +110,7 @@
             <button ion-button round [disabled]="today_disable"  block (click)="Today()">Today</button>
             </ion-buttons>
         </ion-footer>
-        <ion-footer *ngIf= "settings == 'later'" padding>
+        <ion-footer *ngIf= "settings == 'later'" [ngClass]="{'padding_1': globals.specific_delivery_day === 'false'}">
           <ion-buttons>
             <button ion-button round block (click)="Later()" >Schedule </button>
             </ion-buttons>
