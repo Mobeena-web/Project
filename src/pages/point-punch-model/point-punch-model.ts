@@ -21,6 +21,7 @@ export class PointPunchModelPage {
   tagline: any;
   punch_count: any;
   punch_limit: any;
+  terms:any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,public viewCtrl:ViewController) {
     this.title = navParams.get('title');
@@ -29,6 +30,8 @@ export class PointPunchModelPage {
     this.tagline = navParams.get('tagline');
     this.punch_count = navParams.get('punch_count');
     this.punch_limit = navParams.get('punch_limit');
+    this.terms = navParams.get('terms');
+
   }
 
   ionViewDidLoad() {

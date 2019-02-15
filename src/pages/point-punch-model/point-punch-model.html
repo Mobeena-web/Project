@@ -24,6 +24,7 @@
     <img src={{image}}>
     <h5 text-center>{{name}}</h5>
     <h5 text-center>{{punch_count}}/{{punch_limit}} Punches</h5>
+    <p text-center><b>{{tagline}}</b></p>
   </div>
 
   <div *ngIf="title == 'Point Detail'">
@@ -31,4 +32,6 @@
     <h5 text-center>{{name}}</h5>
     <p text-center><b>{{tagline}}</b></p>
   </div>
+  <h2 text-center margin-top>Terms</h2>
+  <p>{{terms}}</p>
 </ion-content>

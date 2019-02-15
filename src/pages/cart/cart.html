@@ -64,11 +64,11 @@
 
         <!-- <ion-label style="font-size:2.0rem; margin-top:0 ;font-weight:bold">Subtotal: <p style="float:right;font-size:2.0rem;color:black"> ${{prod.totalPrice}}  </p>  </ion-label>  -->
         <!-- <ion-row style="      
- background: #333;
- margin: 5px; background: #333">
+ background: #273C75;
+ margin: 5px; background: #273C75">
 
-          <ion-col col-4 style="    margin: auto;  padding: 0;  background: #333;text-align: center;" (tap)="removeQuantity(prod)">
-            <button ion-button small style="    background-color: #333;text-align: center;  padding: 0; margin: 0;">
+          <ion-col col-4 style="    margin: auto;  padding: 0;  background: #273C75;text-align: center;" (tap)="removeQuantity(prod)">
+            <button ion-button small style="    background-color: #273C75;text-align: center;  padding: 0; margin: 0;">
               <ion-icon style="font-weight:bold" name="remove"> </ion-icon>
             </button>
 
@@ -78,8 +78,8 @@
             <p style=" color:white;font-weight:bold"> {{prod.quantity}} </p>
           </ion-col>
 
-          <ion-col col-4 style="    margin: auto;  padding: 0;   background: #333;text-align: center;" (tap)="addQuantity(prod)">
-            <button ion-button small style="    background-color: #333;text-align: center;   padding: 0; margin: 0;">
+          <ion-col col-4 style="    margin: auto;  padding: 0;   background: #273C75;text-align: center;" (tap)="addQuantity(prod)">
+            <button ion-button small style="    background-color: #273C75;text-align: center;   padding: 0; margin: 0;">
               <ion-icon style="font-weight:bold" name="add"> </ion-icon>
             </button>
 
@@ -90,7 +90,7 @@
       <ion-col col-2 style="text-align:right">
         <!-- <p style="font-size:2.0rem;color:black;padding-bottom:5px"> ${{prod.basePrice}} </p>  -->
         <ion-icon name="close" (click)="RemoveItem(prod)"  class="cross_icon"></ion-icon>
-        <ion-label style="font-size:2.0rem; margin-bottom:0; color:#666;margin-top: 22px;">
+        <ion-label style="font-size:1.3rem; margin-bottom:0; color:#666;margin-top: 22px;">
             <ion-icon style="color:#666" name="basket"></ion-icon> {{prod.quantity}} </ion-label>
 
         
@@ -192,8 +192,8 @@
 
       <ion-col col-5 style="margin: auto;">
 
-        <p style="font-size:1.3rem; color:#333;text-align: center; ">Points </p>
-        <p style="font-size:3rem; color:#333;text-align: center; ">{{points}} </p>
+        <p style="font-size:1.3rem; color:#273C75;text-align: center; ">Points </p>
+        <p style="font-size:3rem; color:#273C75;text-align: center; ">{{points}} </p>
       </ion-col>
 
       <ion-col style="margin:auto">
@@ -220,11 +220,11 @@
       <ion-row style=" border: none;height: 65px;">
         <ion-col col-5 style="margin: auto;">
 
-          <p style="font-size:1.3rem; color:#333;text-align: center; ">Reward </p>
-          <p style="font-size:3rem; color:#333;text-align: center; ">{{reward_amount}} </p>
+          <p style="font-size:1.3rem; color:#273C75;text-align: center; ">Reward </p>
+          <p style="font-size:3rem; color:#273C75;text-align: center; ">{{reward_amount}} </p>
         </ion-col>
         <ion-col style="height: inherit; padding:0">
-          <ion-row style=" border: none;height: inherit; background:#333">
+          <ion-row style=" border: none;height: inherit; background:#273C75">
             <ion-col col-3 style=" padding: 0;text-align: center;margin:auto" (click)="removeStoreCreditValue()">
               <button ion-button [disabled]="!storeCredit" style="padding: 0; font-size: 2rem">
                 <ion-icon style="    font-size: 5rem; font-weight: bold;" name="remove"> </ion-icon>
@@ -253,11 +253,11 @@
       <ion-row style=" border: none;height: 65px;">
         <ion-col col-5 style="margin: auto;">
 
-          <p style="font-size:1.3rem; color:#333;text-align: center; ">Gift</p>
-          <p style="font-size:3rem; color:#333;text-align: center; ">{{birthday_amount}} </p>
+          <p style="font-size:1.3rem; color:#273C75;text-align: center; ">Gift</p>
+          <p style="font-size:3rem; color:#273C75;text-align: center; ">{{birthday_amount}} </p>
         </ion-col>
         <ion-col style="height: inherit; padding:0">
-          <ion-row style=" border: none;height: inherit; background:#333">
+          <ion-row style=" border: none;height: inherit; background:#273C75">
             <ion-col col-3 style=" padding: 0;text-align: center;margin:auto" (click)="removeBirthdayStoreCreditValue()">
               <button ion-button [disabled]="!storeCredit" style="padding: 0; font-size: 2rem">
                 <ion-icon style="    font-size: 5rem; font-weight: bold;" name="remove"> </ion-icon>
@@ -335,7 +335,7 @@
                    Convenient Fee
                    <p style="float:right;font-size:1.3rem;margin:0px;color:#444;">${{globals.deliveryCharges}}.00</p>
                  </ion-label>
-                 <ion-label *ngIf="globals.deliveryCharges == '' " style="padding:0px;font-size:1.3rem;margin:0px;color:#444;">
+                 <ion-label *ngIf="globals.deliveryCharges == '' && globals.OrderType == 'delivery'" style="padding:0px;font-size:1.3rem;margin:0px;color:#444;">
                    <!-- <ion-icon style="    padding-right: 5px;  position: relative; top: 3px;" name="bicycle"> </ion-icon> -->
                    Convenient Fee
                    <p style="float:right;font-size:1.3rem;margin:0px;color:#444;">$0</p>
@@ -360,9 +360,9 @@
                    <p style="float:right;font-size:1.3rem;margin:0px;color:#444;"> - ${{StoreCreditInput}}</p>
                  </ion-label>
              <!-- 
-                 <ion-label *ngIf="globals.BusinessDiscount > 0 && globals.availed_discount_count < globals.business_discount_count" style="font-size:1.3rem;margin:0px;color:#333;margin-left: 8px;     border-bottom: solid thin #ccc;">
+                 <ion-label *ngIf="globals.BusinessDiscount > 0 && globals.availed_discount_count < globals.business_discount_count" style="font-size:1.3rem;margin:0px;color:#273C75;margin-left: 8px;     border-bottom: solid thin #ccc;">
                    <ion-icon style="padding-right: 5px;  position: relative; top: 3px;" ios="ios-cut" md="md-cut"> </ion-icon> Discount
-                   <p style="float:right;font-size:1.3rem;margin:0px;color:#333">{{globals.BusinessDiscount}}%</p>
+                   <p style="float:right;font-size:1.3rem;margin:0px;color:#273C75">{{globals.BusinessDiscount}}%</p>
                  </ion-label> -->
              
                  <ion-label *ngIf="globals.MobileDiscount > 0 && globals.MobileDiscountFlag == false " style="padding:0px;font-size:1.3rem;margin:0px;color:#444;;">
