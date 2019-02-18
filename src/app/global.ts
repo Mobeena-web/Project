@@ -120,6 +120,7 @@ export class GlobalVariable {
     reward_menu_length:any = 0;
     specific_delivery_day:any;
     delivery_day:any;
+    review_enabled:any;
     constructor(public alertCtrl: AlertController,public toastCtrl: ToastController) {
         this.BaseUrl = 'https://staging.onlineordering.mikronexus.com/index.php/';
     //  this.BaseUrl = 'https://onlineordering.mikronexus.com/online-ordering-new/index.php/';

@@ -66,6 +66,7 @@ export class MyRewardsPage {
     reward_menu_length:any;
     reward_type_home:any;
     cart_reward_view:boolean = false;
+    store_points:any;
     // ngAfterViewInit()
     // {
     //     this.indicator = document.getElementById("indicator");
@@ -127,7 +128,7 @@ export class MyRewardsPage {
         console.log('enter RewardPage');
         this.status = true;
         this.point_items();
-        //this.getPoints();
+        this.getPoints();
         //this.rewards_items();
         //this.getReward();
        // this.business_reward();
@@ -346,6 +347,7 @@ export class MyRewardsPage {
             }
             else{
                 this.globals.points_ = Number(data.rewards[0].points);
+                this.store_points = data.rewards[0].available_rewards;
             }
         }, error => {
             this.globals.presentToast("Something went wrong check your internet connection.")

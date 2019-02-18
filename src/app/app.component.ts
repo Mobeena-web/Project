@@ -571,8 +571,9 @@ list() {
        this.globals.paypalId = this.places[0].paypal_id;
        this.globals.Timing = this.places[0].hours_operation;
        this.globals.specific_delivery_day = this.places[0].specific_delivery_day;
-
+       this.globals.review_enabled = this.places[0].review_enabled;
        this.globals.delivery_day = this.places[0].delivery_day;
+       
          if (this.globals.pickup == '1') {
              this.globals.pickup = true;
          }

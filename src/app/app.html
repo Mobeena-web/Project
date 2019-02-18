@@ -32,7 +32,7 @@
                 <ion-icon name="image" class="myicon"></ion-icon> Gallery
             </button>
 
-            <button  menuClose ion-item (click)="openReviews()">
+            <button  menuClose ion-item (click)="openReviews()" *ngIf="globals.review_enabled == 'true'">
                 <ion-icon name="clipboard" class="myicon"></ion-icon> Reviews
               </button>
 
