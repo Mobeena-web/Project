@@ -1539,6 +1539,9 @@ export class CartPage {
             response.subscribe(data => {
             if(data.success == true){
                 var day = data.day_id + 1;
+                if(day == 7){
+                    day = 0;
+                }
                 var time = data.time;
                 var current_day = timing[day];
                 if((Number(current_day[0]) <= time && Number(current_day[1]) > time) || (Number(current_day[0]) <= time && Number(current_day[1]) < Number(current_day[0]))){

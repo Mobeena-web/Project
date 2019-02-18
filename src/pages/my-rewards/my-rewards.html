@@ -132,8 +132,19 @@
           refreshingText="Refreshing...">
         </ion-refresher-content>
       </ion-refresher>
+       <ion-card *ngFor="let item of store_points" text-center class="store">
+          <ion-row>
+            <ion-col col-6>
+              {{item.points}} Points
+            </ion-col>
+            <ion-col col-6>
+              {{item.description}}
+            </ion-col>
+          </ion-row>
+        </ion-card>
+    
       <div *ngFor="let a of point_menu">
-        <ion-card *ngIf="a.point_price < globals.points_ || a.point_price == globals.points_" class="point_card">
+        <ion-card *ngIf="a.point_price < globals.points_ || a.point_price == globals.points_" class="point_list point_card">
           <ion-row>
             <ion-col col-3 style="margin: auto;">
 

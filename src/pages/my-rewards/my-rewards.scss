@@ -13,11 +13,15 @@ page-my-rewards {
     color: #273C75;
     height: 85px;
   }
-  ion-card{
+  .point_list{
     margin: 0px !important;
     width: 100% !important;
     padding-top: 10px;
     padding-bottom: 10px;
+  }
+  .store{
+    padding: 6px;
+    border-radius: 25px;
   }
 
     .point_s{
