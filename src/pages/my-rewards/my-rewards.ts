@@ -134,6 +134,9 @@ export class MyRewardsPage {
        // this.business_reward();
 
     }
+    store_points_fun(){
+        this.globals.presentToast("You can avail this discount by adding items in cart.")
+    }
     getLocation() {
         this.diagnostic.isLocationEnabled()
             .then((state) => {
