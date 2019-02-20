@@ -121,6 +121,10 @@ export class GlobalVariable {
     specific_delivery_day:any;
     delivery_day:any;
     review_enabled:any;
+    
+    admin_stripe_enabled:boolean = false;
+    authorize_enabled:boolean = false;
+    card_enabled:boolean = false;
     constructor(public alertCtrl: AlertController,public toastCtrl: ToastController) {
         this.BaseUrl = 'https://staging.onlineordering.mikronexus.com/index.php/';
     //  this.BaseUrl = 'https://onlineordering.mikronexus.com/online-ordering-new/index.php/';
