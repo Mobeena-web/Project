@@ -95,7 +95,19 @@ export class MyRewardsPage {
     ionViewDidLoad() {
         console.log('ionViewDidLoad MyRewardsPage');
         this.getLocation();
-        this.option = 'points';
+        if(this.globals.point_check != 'true' && this.globals.punch_check != 'true'){
+            this.option = 'gifts';
+            this.rewards_items();
+
+        }
+        else if(this.globals.point_check != 'true' && this.globals.punch_check == 'true'){
+            this.option = 'punch_cards';
+            this.punch_items();
+
+        }
+        else{
+            this.option = 'points';
+        }
         this.reward_type_home = this.navParams.get('reward_type_home');
         if(this.reward_type_home && this.reward_type_home == 'punch'){
             this.option = 'punch_cards';

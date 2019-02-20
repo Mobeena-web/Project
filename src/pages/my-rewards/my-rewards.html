@@ -23,12 +23,12 @@
       GAIN
     </ion-segment-button> -->
 
-    <ion-segment-button style="font-size:1.1rem" value="points" >
+    <ion-segment-button style="font-size:1.1rem" value="points" *ngIf="globals.point_check == 'true'">
       <!-- <ion-badge color="danger" item-left *ngIf="globals.PointCount > 0">{{globals.PointCount}}</ion-badge> -->
       POINTS
     </ion-segment-button>
 
-    <ion-segment-button style="font-size:1.1rem" value="punch_cards" (click)="punch_items()">
+    <ion-segment-button style="font-size:1.1rem" value="punch_cards" (click)="punch_items()" *ngIf="globals.punch_check == 'true'">
       <ion-badge color="danger" item-left *ngIf="globals.punchCount > 0">{{globals.punchCount}}</ion-badge>
       PUNCH CARDS
     </ion-segment-button>

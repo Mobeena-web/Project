@@ -502,12 +502,8 @@ export class CartPage {
                 }
             }
             else{
-                let alert = this.alertCtrl.create({
-                    title: 'Oops',
-                    subTitle: 'Please add more item in the cart.',
-                    buttons: ['Okay']
-                });
-                alert.present();
+                this.globals.presentToast('Please add more items in the cart.')
+
             }
            
 
@@ -1436,19 +1432,25 @@ export class CartPage {
                 text: 'Yes',
                 handler: () => {
                     if(this.globals.OrderType == 'delivery'){
-                        if(this.globals.inradius){
-                            var giftdata = {giftcard_id:data.giftcard_id,amount:this.Total}
-                            this.gift_array.push(giftdata)
-                          this.navCtrl.push('PaymentPage',{giftcard:this.gift_array,gift_flag:true})
+                        if(this.ProductsTotal < this.globals.minimun_order){
+                            this.globals.presentToast("Please add more items in cart.")
                         }
                         else{
-                            this.globals.presentToast("Sorry, We dn't deliver in Your Area")
+                            if(this.globals.inradius){
+                                var giftdata = {giftcard_id:data.giftcard_id,amount:this.Total}
+                                this.gift_array.push(giftdata)
+                              this.navCtrl.push('PaymentPage',{amount: 0,giftcard:this.gift_array,gift_flag:true})
+                            }
+                            else{
+                                this.globals.presentToast("Sorry, We dn't deliver in Your Area")
+                            }
                         }
+                        
                     }
                     else{
                             var giftdata = {giftcard_id:data.giftcard_id,amount:this.Total}
                             this.gift_array.push(giftdata)
-                            this.navCtrl.push('PaymentPage',{giftcard:this.gift_array,gift_flag:true})
+                            this.navCtrl.push('PaymentPage',{amount: 0,giftcard:this.gift_array,gift_flag:true})
                     }
                     
                    
