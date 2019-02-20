@@ -23,12 +23,12 @@
       GAIN
     </ion-segment-button> -->
 
-    <ion-segment-button style="font-size:1.1rem" value="points" >
+    <ion-segment-button style="font-size:1.1rem" value="points" *ngIf="globals.point_check == 'true'">
       <!-- <ion-badge color="danger" item-left *ngIf="globals.PointCount > 0">{{globals.PointCount}}</ion-badge> -->
       POINTS
     </ion-segment-button>
 
-    <ion-segment-button style="font-size:1.1rem" value="punch_cards" (click)="punch_items()">
+    <ion-segment-button style="font-size:1.1rem" value="punch_cards" (click)="punch_items()" *ngIf="globals.punch_check == 'true'">
       <ion-badge color="danger" item-left *ngIf="globals.punchCount > 0">{{globals.punchCount}}</ion-badge>
       PUNCH CARDS
     </ion-segment-button>
@@ -132,7 +132,8 @@
           refreshingText="Refreshing...">
         </ion-refresher-content>
       </ion-refresher>
-       <ion-card *ngFor="let item of store_points" text-center class="store">
+      <h3 text-center *ngIf="store_points?.length > 0">Cash Discount</h3>
+       <ion-card *ngFor="let item of store_points" text-center class="store" (click)="store_points_fun()">
           <ion-row>
             <ion-col col-6>
               {{item.points}} Points
@@ -142,7 +143,7 @@
             </ion-col>
           </ion-row>
         </ion-card>
-    
+    <h3 text-center *ngIf="point_menu?.length > 0"> Point Store</h3>
       <div *ngFor="let a of point_menu">
         <ion-card *ngIf="a.point_price < globals.points_ || a.point_price == globals.points_" class="point_list point_card">
           <ion-row>

@@ -11,7 +11,6 @@ import { CategoryPage } from "../category/category";
 import { OrderListingPage } from "../order-listing/order-listing";
 import { NativeStorage } from "@ionic-native/native-storage";
 import { ServerProvider } from "../../providers/server/server";
-
 @IonicPage()
 @Component({
     selector: 'page-payment',
@@ -108,7 +107,7 @@ export class PaymentPage {
             this.creditcard = false;
             this.paypal = false;
         }
-        if(this.globals.StripId){
+        if(this.globals.card_enabled){
             this.creditcard = true;
             this.paypal = false; 
         }
@@ -900,120 +899,185 @@ export class PaymentPage {
 
             });
             loading.present();
-            if (this.globals.StripId == '') {
-                loading.dismiss();
-
-                let alert = this.alertCtrl.create({
-                    title: 'Oops',
-                    subTitle: 'Payments not available,please try again',
-                    buttons: ['OK']
-                });
-
-                alert.present();
-            }
-            else {
+            console.log(this.globals.authorize_enabled,this.globals.admin_stripe_enabled,"p")
+            if(this.globals.authorize_enabled){
+                if (this.globals.GainDiscountFlag == true) {
+                    this.globals.GainDiscount = 0;
+                    this.setDiscount();
+                }
+                var status;
+                  status = 'Authorize';
                 
-
-                this.stripe.setPublishableKey(this.globals.StripId);
-                this.stripe.createCardToken(this.cardinfo).then((Token) => {
-                   // var data = 'stripetoken=' + token + '&amount=50';
-                    if (this.globals.GainDiscountFlag == true) {
-                        this.globals.GainDiscount = 0;
-                        this.setDiscount();
-                    }
-                    var status;
-                    if (this.globals.admin_stripe == 'true') {
-                        status = 'Gain';
-                    }
-                    else {
-                        status = 'Stripe';
-                    }
-                    console.log(" pass instrunctions in strip function", this.instructions);
-                    if(this.globals.OrderType == "pickup"){
-                        this.Address = '';
-                    }
-                    let response = this.server.PaymentThroughStripe(this.Address, this.instructions, this.amount, this.order_date, Token, status)
-                    console.log("response without json", response);
-                    response.subscribe(data => {
-                        console.log("data without json", data);
-                        this.data = data;
-                        loading.dismiss();
-                        // console.log(this.data.categories);
-
-                        console.log("data", this.data);
-
-                        if (this.data.success) {
-                            localStorage.removeItem("GetAddress");
-                            localStorage.removeItem("scheduled_time");
-
-                            
-
-                            this.setArray();
-                            if (this.RewardCreditAvailed > 0) {
-                                console.log("lottery availed");
-
-                                this.RadeemStoreCredit(false);
-                            }
-                            if (this.BirthdayCreditAvailed > 0) {
-                                console.log("birthday availed");
-                                this.RadeemStoreCredit(true);
-                            }
-                            if (this.globals.points_availed > 0) {
-                                console.log("point availed");
-
-                                this.RedeemUserPoints();
-                            }
-
-                            if (this.globals.BusinessDiscount > 0 && this.globals.availed_discount_count < this.globals.business_discount_count) {
-                                this.userBusinessDiscountUpdate();
-                            }
-
-                            this.thankyou();
-
-                            //this.FirstimeFlag();
-
-                        }
-
-                        else {
-                            let alert_error = this.alertCtrl.create({
-                                title: 'Error',
-                                subTitle: this.data.message,
-                                buttons: [
-                                    {
-                                        text: 'Okay',
-                                        handler: data => {
-
-                                        }
-                                    }
-                                ]
-                            });
-
-                            alert_error.present();
-
-
-                        }
-
-                    }
-                        , error => {
-                            console.log("Error!");
-                            console.log("this is our error", error);
-
-                        });
-
-                }).catch((data) => {
+                console.log(" pass instrunctions in strip function", this.instructions);
+                if(this.globals.OrderType == "pickup"){
+                    this.Address = '';
+                }
+                let response = this.server.PaymentThroughStripe(this.Address, this.instructions, this.amount, this.order_date, '', status,this.cardinfo)
+                console.log("response without json", response);
+                response.subscribe(data => {
+                    console.log("data without json", data);
+                    this.data = data;
                     loading.dismiss();
+                    // console.log(this.data.categories);
+
+                    console.log("data", this.data);
+
+                    if (this.data.success) {
+                        localStorage.removeItem("GetAddress");
+                        localStorage.removeItem("scheduled_time");
+
+                        
+
+                        this.setArray();
+                        if (this.RewardCreditAvailed > 0) {
+                            console.log("lottery availed");
+
+                            this.RadeemStoreCredit(false);
+                        }
+                        if (this.BirthdayCreditAvailed > 0) {
+                            console.log("birthday availed");
+                            this.RadeemStoreCredit(true);
+                        }
+                        if (this.globals.points_availed > 0) {
+                            console.log("point availed");
+
+                            this.RedeemUserPoints();
+                        }
+
+                        if (this.globals.BusinessDiscount > 0 && this.globals.availed_discount_count < this.globals.business_discount_count) {
+                            this.userBusinessDiscountUpdate();
+                        }
+
+                        this.thankyou();
+
+                    }
+
+                    else {
+                        this.globals.presentToast(this.data.message)
+                    }
+
+                }
+                    , error => {
+                        console.log("Error!");
+                        console.log("this is our error", error);
+
+                    });
+            }
+            else{
+                if (this.globals.StripId == '') {
+                    loading.dismiss();
+    
                     let alert = this.alertCtrl.create({
                         title: 'Oops',
-                        subTitle: 'Invalid Credentials,please try again',
+                        subTitle: 'Payments not available,please try again',
                         buttons: ['OK']
                     });
     
                     alert.present();
-
-                });
+                }
+                else {
+                    
+    
+                    this.stripe.setPublishableKey(this.globals.StripId);
+                    this.stripe.createCardToken(this.cardinfo).then((Token) => {
+                       // var data = 'stripetoken=' + token + '&amount=50';
+                        if (this.globals.GainDiscountFlag == true) {
+                            this.globals.GainDiscount = 0;
+                            this.setDiscount();
+                        }
+                        var status;
+                        status = 'Stripe';
+                        
+                        console.log(" pass instrunctions in strip function", this.instructions);
+                        if(this.globals.OrderType == "pickup"){
+                            this.Address = '';
+                        }
+                        let response = this.server.PaymentThroughStripe(this.Address, this.instructions, this.amount, this.order_date, Token, status)
+                        console.log("response without json", response);
+                        response.subscribe(data => {
+                            console.log("data without json", data);
+                            this.data = data;
+                            loading.dismiss();
+                            // console.log(this.data.categories);
+    
+                            console.log("data", this.data);
+    
+                            if (this.data.success) {
+                                localStorage.removeItem("GetAddress");
+                                localStorage.removeItem("scheduled_time");
+    
+                                
+    
+                                this.setArray();
+                                if (this.RewardCreditAvailed > 0) {
+                                    console.log("lottery availed");
+    
+                                    this.RadeemStoreCredit(false);
+                                }
+                                if (this.BirthdayCreditAvailed > 0) {
+                                    console.log("birthday availed");
+                                    this.RadeemStoreCredit(true);
+                                }
+                                if (this.globals.points_availed > 0) {
+                                    console.log("point availed");
+    
+                                    this.RedeemUserPoints();
+                                }
+    
+                                if (this.globals.BusinessDiscount > 0 && this.globals.availed_discount_count < this.globals.business_discount_count) {
+                                    this.userBusinessDiscountUpdate();
+                                }
+    
+                                this.thankyou();
+    
+                                //this.FirstimeFlag();
+    
+                            }
+    
+                            else {
+                                let alert_error = this.alertCtrl.create({
+                                    title: 'Error',
+                                    subTitle: this.data.message,
+                                    buttons: [
+                                        {
+                                            text: 'Okay',
+                                            handler: data => {
+    
+                                            }
+                                        }
+                                    ]
+                                });
+    
+                                alert_error.present();
+    
+    
+                            }
+    
+                        }
+                            , error => {
+                                console.log("Error!");
+                                console.log("this is our error", error);
+    
+                            });
+    
+                    }).catch((data) => {
+                        loading.dismiss();
+                        let alert = this.alertCtrl.create({
+                            title: 'Oops',
+                            subTitle: 'Invalid Credentials,please try again',
+                            buttons: ['OK']
+                        });
+        
+                        alert.present();
+    
+                    });
+                }
             }
+            
         }
     }
+
+    
 
 
     DeliveryConfirm() {
@@ -1299,6 +1363,5 @@ export class PaymentPage {
         this.Address;
 
     }
-
 
 }

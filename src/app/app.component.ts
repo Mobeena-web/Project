@@ -573,7 +573,9 @@ list() {
        this.globals.specific_delivery_day = this.places[0].specific_delivery_day;
        this.globals.review_enabled = this.places[0].review_enabled;
        this.globals.delivery_day = this.places[0].delivery_day;
-       
+       this.globals.authorize_enabled = this.places[0].authorize_enabled;
+       this.globals.card_enabled = this.places[0].card_enabled;
+       this.globals.admin_stripe_enabled = this.places[0].admin_stripe_enabled;
          if (this.globals.pickup == '1') {
              this.globals.pickup = true;
          }

@@ -462,10 +462,10 @@ getdeals(){
   }
 
 
-  PaymentThroughStripe(Address, instruction, amount, order_date, Token, status) {
+  PaymentThroughStripe(Address, instruction, amount, order_date, Token, status,cardinfo?) {
 
     var link = (this.global.BaseUrl + 'menu/place_order');
-    var orderdata = JSON.stringify({ udid: this.global.udid, payment_info: { address: Address, token: Token }, order_info: this.global.Product, instruction: instruction, total: amount, scheduled_time: order_date, payment_type: status })
+    var orderdata = JSON.stringify({ udid: this.global.udid, payment_info: { address: Address, token: Token,cardInfo:cardinfo,admin_stripe_enabled:this.global.admin_stripe_enabled,authorize_enabled:this.global.authorize_enabled }, order_info: this.global.Product, instruction: instruction, total: amount, scheduled_time: order_date, payment_type: status })
     console.log("stripe", orderdata, order_date);
 
     return this.http.post(link, orderdata)

@@ -26,7 +26,7 @@
             <ion-checkbox [(ngModel)]="paypal" (click)="paypalbox()"></ion-checkbox>
           </ion-item>
         </div>
-        <ion-item style="background: transparent;color: #aaa" *ngIf="globals.StripId && amount > 0">
+        <ion-item style="background: transparent;color: #aaa" *ngIf="globals.card_enabled && amount > 0">
           <ion-label>Credit card</ion-label>
           <ion-checkbox [(ngModel)]="creditcard" (click)="creditBox()"></ion-checkbox>
         </ion-item>
@@ -41,10 +41,7 @@
           </ion-item>
           <p class="kkkj" *ngIf="globals.cash_enabled && globals.OrderType == 'pickup' && amount > 0" >You can pay by cash, debit card or credit card at the store</p>
     
-        <ion-item *ngIf="globals.type =='reservation'" style="background: transparent;color: #aaa">
-          <ion-label>Pay on Venue</ion-label>
-          <ion-checkbox [(ngModel)]="pay_on_venue" (ionChange)="payonVenueBox()"></ion-checkbox>
-        </ion-item>
+       
       </ion-list>
     
       <!-- <p class="Open-Sans-regular" style="font-family: Open Sans;" *ngIf="submitAttempt" style="color: #ea6153; text-align:center;">Please fill out all details accurately.</p> -->
@@ -85,7 +82,7 @@
       </ion-list> -->
 
   <form [formGroup]="PaymentForm" ng-submit="pay(this.PaymentForm.value)">
-    <div *ngIf="!cash_on_delivery && globals.StripId && amount > 0">
+    <div *ngIf="!cash_on_delivery && globals.card_enabled && amount > 0">
     <ion-list style="padding: 10px; padding-bottom:0px;margin-bottom: 3px;">
   <!-- <p class="Open-Sans-regular" style="font-family: Open Sans;" *ngIf="submitAttempt" style="color: #ea6153; margin-top:0px;margin-bottom:3px;text-align:center;">Please fill out all details accurately.</p> -->
       <ion-card class="payment_card background_image1" style="padding-top: 26px;">
@@ -203,7 +200,6 @@
   </form>
   
 </div>
-
 
 
 </ion-content>
