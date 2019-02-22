@@ -7,7 +7,6 @@ import { LoginPage } from '../login/login';
 import { GlobalVariable } from '../../app/global';
 
 import { SocialSharing } from '@ionic-native/social-sharing';
-import { SMS } from '@ionic-native/sms';
 import { Http } from "@angular/http";
 import { HomePage } from "../home/home";
 import { NativeStorage } from "@ionic-native/native-storage";
@@ -53,7 +52,7 @@ export class SettingsPage {
     Unedit:boolean = true;
 
 
-    constructor(public app: App, public server: ServerProvider, private pinDialog: PinDialog, public globals: GlobalVariable, public modalCtrl: ModalController, private socialSharing: SocialSharing, private nativeStorage: NativeStorage, public loadingCtrl: LoadingController, public alertCtrl: AlertController, public http: Http, public smsVar: SMS, public actionSheetCtrl: ActionSheetController, public navCtrl: NavController, public navParams: NavParams, public platform: Platform) {
+    constructor(public app: App, public server: ServerProvider, private pinDialog: PinDialog, public globals: GlobalVariable, public modalCtrl: ModalController, private socialSharing: SocialSharing, private nativeStorage: NativeStorage, public loadingCtrl: LoadingController, public alertCtrl: AlertController, public http: Http, public actionSheetCtrl: ActionSheetController, public navCtrl: NavController, public navParams: NavParams, public platform: Platform) {
         this.data = {};
 
 
@@ -279,41 +278,41 @@ export class SettingsPage {
 
 
 
-    public presentActionSheet() {
+    // public presentActionSheet() {
 
-        let actionSheet = this.actionSheetCtrl.create({
-            title: 'Share Jack Jacks Coffee House',
-            buttons: [
-                {
-                    text: 'Via Facebook',
-                    icon: 'logo-facebook',
-                    handler: () => {
-                        this.ShareViaFacebook('Hey this app is great!', null, this.url);
-                    }
-                },
-                {
-                    text: 'Via Whatsapp',
-                    icon: 'logo-whatsapp',
-                    handler: () => {
-                        this.whatsappShare('Hey this app is great!', null, this.url);
-                    }
-                },
-                {
-                    text: 'Via SMS',
-                    icon: 'mail',
-                    handler: () => {
-                        this.SMS();
-                    }
-                },
-                {
-                    text: 'Cancel',
-                    icon: 'close',
-                    role: 'cancel'
-                }
-            ]
-        });
-        actionSheet.present();
-    }
+    //     let actionSheet = this.actionSheetCtrl.create({
+    //         title: 'Share Jack Jacks Coffee House',
+    //         buttons: [
+    //             {
+    //                 text: 'Via Facebook',
+    //                 icon: 'logo-facebook',
+    //                 handler: () => {
+    //                     this.ShareViaFacebook('Hey this app is great!', null, this.url);
+    //                 }
+    //             },
+    //             {
+    //                 text: 'Via Whatsapp',
+    //                 icon: 'logo-whatsapp',
+    //                 handler: () => {
+    //                     this.whatsappShare('Hey this app is great!', null, this.url);
+    //                 }
+    //             },
+    //             {
+    //                 text: 'Via SMS',
+    //                 icon: 'mail',
+    //                 handler: () => {
+    //                     this.SMS();
+    //                 }
+    //             },
+    //             {
+    //                 text: 'Cancel',
+    //                 icon: 'close',
+    //                 role: 'cancel'
+    //             }
+    //         ]
+    //     });
+    //     actionSheet.present();
+    // }
 
 
     whatsappShare(message, image, url) {
@@ -340,21 +339,21 @@ export class SettingsPage {
         });
     }
 
-    SMS() {
-        var options = {
-            replaceLineBreaks: true, // true to replace \n by a new line, false by default
-            android: {
-                intent: 'INTENT'  // Opens Default sms app
-                //intent: '' // Sends sms without opening default sms app
-            }
-        }
-        this.smsVar.send('', this.url, options)
-            .then(() => {
-                console.log("success");
-            }, () => {
-                //  alert("failed");
-            });
-    }
+    // SMS() {
+    //     var options = {
+    //         replaceLineBreaks: true, // true to replace \n by a new line, false by default
+    //         android: {
+    //             intent: 'INTENT'  // Opens Default sms app
+    //             //intent: '' // Sends sms without opening default sms app
+    //         }
+    //     }
+    //     this.smsVar.send('', this.url, options)
+    //         .then(() => {
+    //             console.log("success");
+    //         }, () => {
+    //             //  alert("failed");
+    //         });
+    // }
 
 
 

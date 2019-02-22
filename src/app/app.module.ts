@@ -27,7 +27,7 @@ import { Camera } from '@ionic-native/camera';
 import { Crop } from '@ionic-native/crop';
 import { Diagnostic } from '@ionic-native/diagnostic';
 import { SocialSharing } from '@ionic-native/social-sharing';
-import { SMS } from '@ionic-native/sms';
+
 import { Stripe } from '@ionic-native/stripe';
 import { IntroPage1Page } from '../pages/intro-page1/intro-page1';
 import { IntroPage2Page } from '../pages/intro-page2/intro-page2';
@@ -108,7 +108,7 @@ import { CalendarModule } from "ion2-calendar";
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     
     ServerProvider ,GlobalVariable,NativeStorage,BarcodeScanner,InAppBrowser,PinDialog,NativeAudio,Geolocation
-    ,CallNumber,EmailComposer,Camera,Crop,Diagnostic,SocialSharing,SMS,Stripe,OneSignal,Calendar,
+    ,CallNumber,EmailComposer,Camera,Crop,Diagnostic,SocialSharing,Stripe,OneSignal,Calendar,
     GetlocationProvider,PhotoViewer,CodePush
     
   ]
