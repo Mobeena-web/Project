@@ -5,7 +5,6 @@ import { Http } from '@angular/http';
 import { HomePage } from "../home/home";
 import { ModalController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { PayPal, PayPalPayment, PayPalConfiguration } from '@ionic-native/paypal';
 import { GlobalVariable } from '../../app/global';
 import { CategoryPage } from "../category/category";
 import { OrderListingPage } from "../order-listing/order-listing";
@@ -83,7 +82,7 @@ export class PaymentPage {
     }
     submitAttempt: boolean = false;
     PaymentForm: FormGroup;
-    constructor(public server: ServerProvider, public modalCtrl: ModalController, private nativeStorage: NativeStorage, public alertCtrl: AlertController, public loadingCtrl: LoadingController, public globals: GlobalVariable, private payPal: PayPal, public viewCtrl: ViewController, private app: App, public formBuilder: FormBuilder, public stripe: Stripe, public http: Http, public navCtrl: NavController, public navParams: NavParams) {
+    constructor(public server: ServerProvider, public modalCtrl: ModalController, private nativeStorage: NativeStorage, public alertCtrl: AlertController, public loadingCtrl: LoadingController, public globals: GlobalVariable, public viewCtrl: ViewController, private app: App, public formBuilder: FormBuilder, public stripe: Stripe, public http: Http, public navCtrl: NavController, public navParams: NavParams) {
        
         this.cashpay = this.navParams.get('amount');
         this.storevalue = this.navParams.get('StoreCredit');
@@ -534,7 +533,7 @@ export class PaymentPage {
                 console.log(this.orderId);
 
 
-                this.Paypal(this.data.orderId)
+                //this.Paypal(this.data.orderId)
             }
             else {
                 let alert = this.alertCtrl.create({
@@ -555,93 +554,93 @@ export class PaymentPage {
         });
     }
 
-    Paypal(id) {
+    // Paypal(id) {
 
 
-        console.log("id", id);
-        this.globals.OrderId = id;
-        if (this.globals.paypalId == '') {
-            let alert = this.alertCtrl.create({
-                title: 'Oops',
-                subTitle: 'Payments not available,please try again',
-                buttons: ['OK']
-            });
-            alert.present();
-        }
-        else {
+    //     console.log("id", id);
+    //     this.globals.OrderId = id;
+    //     if (this.globals.paypalId == '') {
+    //         let alert = this.alertCtrl.create({
+    //             title: 'Oops',
+    //             subTitle: 'Payments not available,please try again',
+    //             buttons: ['OK']
+    //         });
+    //         alert.present();
+    //     }
+    //     else {
 
-            this.payPal.init({
-                PayPalEnvironmentProduction: '',
-                PayPalEnvironmentSandbox: this.globals.paypalId
-            }).then(() => {
-                // Environments: PayPalEnvironmentNoNetwork, PayPalEnvironmentSandbox, PayPalEnvironmentProduction
-                this.payPal.prepareToRender('PayPalEnvironmentSandbox', new PayPalConfiguration({
-                    // Only needed if you get an "Internal Service Error" after PayPal login!
-                    //payPalShippingAddressOption: 2 // PayPalShippingAddressOptionPayPal
-                })).then(() => {
-                    let payment = new PayPalPayment(this.cashpay.toString(), 'USD', 'Order no:' + id.toString(), 'sale');
-                    this.payPal.renderSinglePaymentUI(payment).then((data) => {
-                        // Successfully paid
-                        console.log(data);
-                        // Example sandbox response
-                        //
-                        this.payapalresponse = data;
+    //         this.payPal.init({
+    //             PayPalEnvironmentProduction: '',
+    //             PayPalEnvironmentSandbox: this.globals.paypalId
+    //         }).then(() => {
+    //             // Environments: PayPalEnvironmentNoNetwork, PayPalEnvironmentSandbox, PayPalEnvironmentProduction
+    //             this.payPal.prepareToRender('PayPalEnvironmentSandbox', new PayPalConfiguration({
+    //                 // Only needed if you get an "Internal Service Error" after PayPal login!
+    //                 //payPalShippingAddressOption: 2 // PayPalShippingAddressOptionPayPal
+    //             })).then(() => {
+    //                 let payment = new PayPalPayment(this.cashpay.toString(), 'USD', 'Order no:' + id.toString(), 'sale');
+    //                 this.payPal.renderSinglePaymentUI(payment).then((data) => {
+    //                     // Successfully paid
+    //                     console.log(data);
+    //                     // Example sandbox response
+    //                     //
+    //                     this.payapalresponse = data;
 
-                        console.log(this.payapalresponse);
-                        console.log(this.payapalresponse.response.state);
+    //                     console.log(this.payapalresponse);
+    //                     console.log(this.payapalresponse.response.state);
 
-                        if (this.payapalresponse.response.state == 'approved') {
-                            this.ConfirmOrder();
-                            if (this.RewardCreditAvailed > 0) {
-                                this.RadeemStoreCredit(false);
-                            }
-                            if (this.BirthdayCreditAvailed > 0) {
-                                this.RadeemStoreCredit(true);
-                            }
-                            if (this.globals.points_availed > 0) {
-                                let points = this.RedeemUserPoints();
-                            }
-                            //this.FirstimeFlag();
+    //                     if (this.payapalresponse.response.state == 'approved') {
+    //                         this.ConfirmOrder();
+    //                         if (this.RewardCreditAvailed > 0) {
+    //                             this.RadeemStoreCredit(false);
+    //                         }
+    //                         if (this.BirthdayCreditAvailed > 0) {
+    //                             this.RadeemStoreCredit(true);
+    //                         }
+    //                         if (this.globals.points_availed > 0) {
+    //                             let points = this.RedeemUserPoints();
+    //                         }
+    //                         //this.FirstimeFlag();
 
-                        }
+    //                     }
 
-                        else {
+    //                     else {
 
-                            let alert = this.alertCtrl.create({
-                                title: 'Error',
-                                subTitle: 'Please Try again',
-                                buttons: ['OK']
-                            });
-                            alert.present();
+    //                         let alert = this.alertCtrl.create({
+    //                             title: 'Error',
+    //                             subTitle: 'Please Try again',
+    //                             buttons: ['OK']
+    //                         });
+    //                         alert.present();
 
-                        }
-                        // {
-                        //   "client": {
-                        //     "environment": "sandbox",
-                        //     "product_name": "PayPal iOS SDK",
-                        //     "paypal_sdk_version": "2.16.0",
-                        //     "platform": "iOS"
-                        //   },
-                        //   "response_type": "payment",
-                        //   "response": {
-                        //     "id": "PAY-1AB23456CD789012EF34GHIJ",
-                        //     "state": "approved",
-                        //     "create_time": "2016-10-03T13:33:33Z",
-                        //     "intent": "sale"
-                        //   }
-                        // }
-                    }, () => {
-                        // Error or render dialog closed without being successful
-                    });
-                }, () => {
-                    // Error in configuration
-                });
-            }, () => {
-                // Error in initialization, maybe PayPal isn't supported or something else
-            });
+    //                     }
+    //                     // {
+    //                     //   "client": {
+    //                     //     "environment": "sandbox",
+    //                     //     "product_name": "PayPal iOS SDK",
+    //                     //     "paypal_sdk_version": "2.16.0",
+    //                     //     "platform": "iOS"
+    //                     //   },
+    //                     //   "response_type": "payment",
+    //                     //   "response": {
+    //                     //     "id": "PAY-1AB23456CD789012EF34GHIJ",
+    //                     //     "state": "approved",
+    //                     //     "create_time": "2016-10-03T13:33:33Z",
+    //                     //     "intent": "sale"
+    //                     //   }
+    //                     // }
+    //                 }, () => {
+    //                     // Error or render dialog closed without being successful
+    //                 });
+    //             }, () => {
+    //                 // Error in configuration
+    //             });
+    //         }, () => {
+    //             // Error in initialization, maybe PayPal isn't supported or something else
+    //         });
 
-        }
-    }
+    //     }
+    // }
 
     Instruction() {
         console.log("bussines disscount flag", this.globals.BusinessDiscountFlag)

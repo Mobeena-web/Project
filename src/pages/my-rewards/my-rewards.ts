@@ -116,6 +116,8 @@ export class MyRewardsPage {
         }
         else if(this.reward_type_home && this.reward_type_home == 'reward'){
             this.option = 'gifts';
+            this.rewards_items();
+
             this.cart_reward_view = true;
         }
         this.server.CheckUserPunchCards();

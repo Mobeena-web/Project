@@ -160,8 +160,8 @@
     },
     "platforms": [
       "ios",
-      "android",
-      "browser"
+      "browser",
+      "android"
     ]
   }
 }
