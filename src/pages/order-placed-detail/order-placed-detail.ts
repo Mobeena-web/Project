@@ -66,8 +66,14 @@ export class OrderPlacedDetailPage {
                     text: 'Okay',
                     handler: data => {
 
-                        console.log('OK clicked');
-                        this.Categories(orderdata);
+                        console.log('OK clicked',orderdata);
+                        orderdata = orderdata.filter(function(item) {
+                            return item.reward === false;
+                          });
+                        this.globals.Product = orderdata;
+                        this.navCtrl.popToRoot();
+
+                        // this.Categories(orderdata);
 
                     }
                 }
@@ -109,8 +115,9 @@ export class OrderPlacedDetailPage {
 
                                 let total_price = Number(userdata.quantity) * Number(subelement.price);
                                 console.log(this.globals.Product);
-
-                                this.globals.Product.push({ menuId: "1", restId: userdata.restId, uniqueId: "1", menuItem: subelement.name, image: subelement.image, quantity: userdata.quantity, basePrice: Number(subelement.price), totalPrice: Number(total_price), menuExtrasSelected: [] });
+                                if(userdata.reward == false){
+                                    this.globals.Product.push({ menuId: "1", restId: userdata.restId, uniqueId: "1", menuItem: subelement.name, image: subelement.image, quantity: userdata.quantity, basePrice: Number(subelement.price), totalPrice: Number(total_price), menuExtrasSelected: [] });
+                                }
                                 console.log("global product",this.globals.Product);
                                 this.navCtrl.popToRoot();
                             }
@@ -122,9 +129,9 @@ export class OrderPlacedDetailPage {
                                 console.log("global product",this.globals.Product);
                                 this.getExtras(subelement.id, userdata.menuExtrasSelected);
 
-
-                                this.globals.Product.push({ menuId: "1", restId: userdata.restId, uniqueId: "1", menuItem: subelement.name, image: subelement.image, quantity: userdata.quantity, basePrice: Number(subelement.price), totalPrice: Number(this.total_price_with_extras), menuExtrasSelected: this.userChoices });
-
+                                if(userdata.reward == false){
+                                    this.globals.Product.push({ menuId: "1", restId: userdata.restId, uniqueId: "1", menuItem: subelement.name, image: subelement.image, quantity: userdata.quantity, basePrice: Number(subelement.price), totalPrice: Number(this.total_price_with_extras), menuExtrasSelected: this.userChoices });
+                                }
                                 console.log("global product",this.globals.Product);
                                 this.navCtrl.popToRoot();
                                 

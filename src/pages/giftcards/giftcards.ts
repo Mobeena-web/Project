@@ -69,32 +69,12 @@ my_gift_cards() {
   });
 }
 
-gift_redeem(){
+refill(item){
+  this.navCtrl.push('BuygiftcardsPage',{gift_id:item.giftcard_id,udid_r:this.global.udid,design_id:item.giftcard_id,amount:item.amount,message:item.message});   
 
 }
 
-doRadio() {
-  let alert = this.alertCtrl.create();
-  alert.setTitle('Select Gift Card');
 
-  alert.addInput({
-    type: 'radio',
-    label: 'Blue',
-    value: 'blue',
-  });
-
- 
-
-  alert.addButton('Cancel');
-  alert.addButton({
-    text: 'Ok',
-    handler: (data: any) => {
-      
-    }
-  });
-
-  alert.present();
-}
 
 
 }

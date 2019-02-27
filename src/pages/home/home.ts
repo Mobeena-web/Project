@@ -119,7 +119,8 @@ export class HomePage {
 
     doRefresh(refresher) {
         this.loadBanner();
-
+        this.getPoints('0,0');
+        this.getPunches();
         this.getLocation();
         if (this.globals.Product.length > 0) {
             this.globals.cartflag = true;
@@ -146,40 +147,9 @@ export class HomePage {
                 this.month = this.user_date.substring(0, 2);
                 this.year = this.user_date.substring(8);
               
-                if (this.GainFlag) {
-                    this.showDiscountMessage();
-                }
-
 
             }).catch(err => console.log);
 
-        // this.nativeStorage.getItem('Product')
-        // .then (data => {
-        //     this.globals.Product = data.array;
-        //     this.globals.BusinessDiscount = data.BusinessDiscount;
-        //     this.globals.minimun_order = data.MinimumOrder;
-        //     this.globals.deliveryCharges =  data.DeliveryCharges;
-
-
-        //     console.log("global array",this.globals.Product,"data",data.BusinessDiscount,data.MinimumOrder,data.DeliveryCharges);
-
-        //     if(this.globals.Product.length > 0)
-        //     {
-        //         this.globals.cartflag = true;
-        //     }
-        //     console.log("global flag " , this.globals.cartflag);
-
-        // }).catch(err => console.log);
-
-
-        this.nativeStorage.getItem('discount')
-            .then(data => {
-                this.globals.GainDiscount = data.discountValue;
-
-
-
-            }).catch(err => console.log);
-    
         setTimeout(() => {
           refresher.complete();
         }, 2000);
@@ -197,11 +167,7 @@ export class HomePage {
                         this.coordinates = position.coords.latitude + "," + position.coords.longitude;
                         this.globals.RewardsPos = this.coordinates;
                         this.globals.mycoordinates = this.coordinates;
-                        this.getPoints(this.coordinates);
-                        this.getPunches();
-                        this.server.CheckUserPunchCards();
-                        this.server.CheckUserReward();
-                        this.server.CheckUserBadgePoints();
+                        
                     }, (err) => {
                         console.log(err);
 
@@ -216,13 +182,6 @@ export class HomePage {
                     alert.present();
                 }
             }).catch(e => {
-
-                this.getPoints("0,0");
-                this.getPunches();
-                this.server.CheckUserPunchCards();
-                this.server.CheckUserReward();
-                this.server.CheckUserBadgePoints();
-
                 let alert = this.alertCtrl.create({
                     title: 'Location is disabled',
                     subTitle: 'In order to proceed, Please enable your location',
@@ -253,17 +212,10 @@ export class HomePage {
         }
     }
 
+
     getPoints(coordinates) {
-
-        // let loading = this.loadingCtrl.create({
-        //     content: "Loading...",
-
-        // });
-        // loading.present();
-
         let response = this.server.getPoints(coordinates);
         response.subscribe(data => {
-         
             if(data.status == "error"){
                 this.points = 0;
                 this.globals.points_ = 0;
@@ -272,20 +224,14 @@ export class HomePage {
                 this.points = data.rewards[0].points;
                 this.globals.points_ = Number(this.points);
             }
-            
-            
-            // loading.dismiss();
-        
         }, error => {
-            // loading.dismiss();
-
             this.globals.presentToast("Something went wrong check your internet connection.")
 
         });
     }
 
-    getPunches() {
 
+    getPunches() {
         let response = this.server.getpunches_menuitems();
         response.subscribe(data => {
             if(data.status == true){
@@ -326,6 +272,7 @@ export class HomePage {
 
     ionViewDidLoad() {
         this.getLocation();
+        this.rewards_items();
            
         if (this.globals.Product.length > 0) {
             this.globals.cartflag = true;
@@ -359,49 +306,20 @@ export class HomePage {
 
             }).catch(err => console.log);
 
-        // this.nativeStorage.getItem('Product')
-        // .then (data => {
-        //     this.globals.Product = data.array;
-        //     this.globals.BusinessDiscount = data.BusinessDiscount;
-        //     this.globals.minimun_order = data.MinimumOrder;
-        //     this.globals.deliveryCharges =  data.DeliveryCharges;
-
-
-        //     console.log("global array",this.globals.Product,"data",data.BusinessDiscount,data.MinimumOrder,data.DeliveryCharges);
-
-        //     if(this.globals.Product.length > 0)
-        //     {
-        //         this.globals.cartflag = true;
-        //     }
-        //     console.log("global flag " , this.globals.cartflag);
-
-        // }).catch(err => console.log);
-
-
-        this.nativeStorage.getItem('discount')
-            .then(data => {
-                this.globals.GainDiscount = data.discountValue;
+            this.nativeStorage.getItem('discount')
+                .then(data => {
+                    this.globals.GainDiscount = data.discountValue;
 
 
 
-            }).catch(err => console.log);
-        // var that = this;
-        // setTimeout(function () {
-        //     // that.slides.autoplayDisableOnInteraction = false;
-        // }, 6000);
-
+                }).catch(err => console.log);
     }
+
+
     ionViewWillEnter() {
         this.globals.showbackButton = false;
         this.getPoints('0,0');
         this.getPunches();
-        this.rewards_items();
-
-        // if(this.globals.mycoordinates){
-        //     this.getPunches(this.globals.mycoordinates)
-        // }
-
-
     }
 
 
@@ -460,7 +378,7 @@ export class HomePage {
         setTimeout( ()=>{
             var date = new Date();
             var day = date.getDay();
-            console.log("gh",this.globals.hours_operation)
+
             if(this.globals.hours_operation && this.globals.hours_operation[day]){
                 
                 var current_day = this.globals.hours_operation[day];
@@ -474,15 +392,13 @@ export class HomePage {
     OpenSettingPage() {
         this._nav.push('SettingsPage')
     }
+
     ordersPage() {
         // this._nav.parent.tabRef[0].isSelected=false;
         this._nav.push('OrderListingPage')
     }
 
     cartpage() {
-
-        //  let cartmodel = this.modalCtrl.create('CartPage');
-        // cartmodel.present();
         if (this.globals.Product.length == 0) {
             let alert = this.alertCtrl.create({
                 title: "Oops",
@@ -530,8 +446,8 @@ export class HomePage {
             }
           
         }
-            , error => {
-            });
+        , error => {
+        });
     }
 
   

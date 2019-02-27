@@ -105,7 +105,7 @@
                   <h5 text-center>{{rewards.name}}</h5>
                   <h5 text-center>{{rewards.punch_count}}/{{rewards.punch_limit}} Punches</h5>
     
-            <button ion-button round block [disabled]="rewards.punch_count != rewards.punch_limit" class="pll" (click)="redeem_point_menu_item(rewards.id,'punches')">Redeem</button>
+            <!-- <button ion-button round block [disabled]="rewards.punch_count != rewards.punch_limit" class="pll" (click)="redeem_point_menu_item(rewards.id,'punches')">Redeem</button> -->
             <button ion-button round block outline  class="pll" (click)="punch_model(rewards)">View Detail</button>
 
           </ion-card>

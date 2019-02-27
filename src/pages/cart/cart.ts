@@ -1038,7 +1038,7 @@ export class CartPage {
     }
 
     address_(){
-        if(this.Address){
+        if(this.Address && this.Address != undefined){
             let alert = this.alertCtrl.create({
                 title: 'Please Confirm Your Address',
                 message: this.Address,
