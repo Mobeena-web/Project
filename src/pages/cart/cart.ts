@@ -1530,7 +1530,7 @@ export class CartPage {
           alert.present();
       }
 
-     async checkTiming(timing) {
+    checkTiming(timing) {
         if(localStorage.getItem("scheduled_time")){
             if(this.globals.specific_delivery_day == 'true'){
                 return true;
@@ -1546,6 +1546,16 @@ export class CartPage {
                 }
                 var time = data.time;
                 var current_day = timing[day];
+                var n = current_day[0].indexOf('.');
+                if(n != -1){
+                    var res = current_day[0].split(".");
+                    current_day[0] = res[0] + '.' + '3'
+                }
+                var n1 = current_day[1].indexOf('.');
+                if(n1 != -1){
+                    var res = current_day[1].split(".");
+                    current_day[1] = res[0] + '.' + '3'
+                }
                 if((Number(current_day[0]) <= time && Number(current_day[1]) > time) || (Number(current_day[0]) <= time && Number(current_day[1]) < Number(current_day[0]))){
                     
                     return true;
@@ -1567,8 +1577,6 @@ export class CartPage {
 
             }
 
-            console.log("h5")
-        
             }, error => {
                 this.globals.presentToast("Something went wrong check your internet connection.")
         
@@ -1576,14 +1584,25 @@ export class CartPage {
             
         }
         else{
-            console.log("h6")
-        
+         
             var date = new Date();
             var day = date.getDay();
             var time:any = date.getHours()+ "." + date.getMinutes();
              time = Number(time);
         
             var current_day = timing[day];
+            var n = current_day[0].indexOf('.');
+            if(n != -1){
+                var res = current_day[0].split(".");
+                current_day[0] = res[0] + '.' + '3'
+            }
+            var n1 = current_day[1].indexOf('.');
+            if(n1 != -1){
+                var res = current_day[1].split(".");
+                current_day[1] = res[0] + '.' + '3'
+            }
+            //console.log(Number(current_day[0]) ,Number(current_day[1]), time,"time_")
+
             if((Number(current_day[0]) <= time && Number(current_day[1]) > time) || (Number(current_day[0]) <= time && Number(current_day[1]) < Number(current_day[0]))){
               return true;
             }

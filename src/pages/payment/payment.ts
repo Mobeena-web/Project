@@ -108,11 +108,11 @@ export class PaymentPage {
         }
         if(this.globals.card_enabled){
             this.creditcard = true;
-            this.paypal = false; 
+           
         }
         else{
             this.cash_on_delivery = true;
-            this.paypal = false;
+           
         }
 
 
