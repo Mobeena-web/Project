@@ -244,7 +244,6 @@ export class ModalPage {
       // });
 
       this.getdata();
-    console.log(this.globals.OrderType,this.type,"op")
       if(!this.globals.OrderType){
 
         if(this.order_pickup && !this.order_delivery){
@@ -252,7 +251,7 @@ export class ModalPage {
           this.globals.OrderType = this.type;
 
         }
-        else if(this.order_delivery && this.order_pickup){
+        else if(this.order_delivery){
           this.type = "delivery";
           this.globals.OrderType = this.type;
 

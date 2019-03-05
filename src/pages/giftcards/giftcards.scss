@@ -2,11 +2,16 @@ page-giftcards {
     .bl{
         border-left: 1px dashed #273C75;
     }
+    .g_image{
+        height: 100px;
+        width: 100%;
+        object-fit: cover
+    }
     .background_{
         background: #ccc;
     }
     .gc{
-        font-size: 25px;
+        font-size: 20px;
         text-align: center;
         padding-top: 14px;
     }
@@ -25,6 +30,10 @@ page-giftcards {
     }
     ion-card{
         border-radius: 7px !important;
+        background-repeat: no-repeat !important;
+        background-size: cover !important;
+        width: 100% !important;
+        margin: 0px !important;
     }
     .time{
         margin-top: 10px;

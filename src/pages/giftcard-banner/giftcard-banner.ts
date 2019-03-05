@@ -109,8 +109,8 @@ share_(id){
 
 showConfirm_new_user(email,id) {
   const confirm = this.alertCtrl.create({
-    title: 'Failure',
-    message: 'User not exists,you want to create new account of your friend.',
+    title: 'User does not exist.',
+    message: 'Do you want to create new account?',
     buttons: [
       {
         text: 'Cancel',

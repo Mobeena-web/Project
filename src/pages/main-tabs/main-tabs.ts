@@ -53,13 +53,6 @@ export class MainTabsPage {
         if(this._navParams.get('page') == 1){
             this.tabRef.select(3);
         }
-        console.log("ionView will enter Main TABS");
-        this.server.CheckUserPunchCards();
-        this.server.CheckUserReward();
-        this.server.CheckUserBadgePoints();
-
-       
-
     }
 
     cartpage() {

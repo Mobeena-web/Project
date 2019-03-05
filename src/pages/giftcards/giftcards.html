@@ -37,17 +37,27 @@
     </ion-list>
   
     <ion-list *ngSwitchCase="'buyed'">
-        <ion-card *ngFor='let item of mygifts'>
-            <ion-row>
-              <ion-col col-6 >
-               <h3 class="gc">${{item.amount}}</h3>
-               
-              </ion-col>
-              <ion-col col-6 class="bl">
-              <p text-center class="time">{{item.time}}</p>
-              </ion-col>
-            </ion-row>
-          </ion-card>
+      <ion-row>
+        <ion-col col-6 *ngFor='let item of mygifts'>
+            <ion-card>
+                  <img src={{item.image}} class="g_image">
+                  <ion-row>
+                    <ion-col col-5>
+                        <h3 class="gc">${{item.amount}}</h3>
+                    </ion-col>
+                    <ion-col col-7>
+                      <button ion-button block round (click)="refill(item)">ReFill</button>
+                    </ion-col>
+                  </ion-row>
+                  <!-- <ion-row>
+                    <ion-col>
+                        <p *ngIf="item.message">{{item.message}}</p>
+                    </ion-col>
+                  </ion-row> -->
+              </ion-card>
+        </ion-col>
+      </ion-row>
+        
     </ion-list>
     </div>
 </ion-content>

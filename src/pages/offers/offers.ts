@@ -84,6 +84,16 @@ checkTiming(Timing) {
         var  day = date.getDay();
         var time:any = date.getHours() + "." + date.getMinutes();
         var current_day = Timing[day];
+        var n = current_day[0].indexOf('.');
+        if(n != -1){
+            var res = current_day[0].split(".");
+            current_day[0] = res[0] + '.' + '3'
+        }
+        var n1 = current_day[1].indexOf('.');
+        if(n1 != -1){
+            var res = current_day[1].split(".");
+            current_day[1] = res[0] + '.' + '3'
+        }
         time = Number(time);
         console.log(Number(current_day[1]),time)
         if(current_day){

@@ -119,9 +119,6 @@ export class MyRewardsPage {
             this.rewards_items();
             this.cart_reward_view = true;
         }
-        this.server.CheckUserPunchCards();
-        this.server.CheckUserReward();
-        this.server.CheckUserBadgePoints();
        // this.business_reward();
         // this.searchControl.valueChanges.debounceTime(700).subscribe(search => {
 
@@ -263,9 +260,7 @@ export class MyRewardsPage {
     }
 
     doRefresh(refresher) {
-        this.server.CheckUserPunchCards();
-        this.server.CheckUserReward();
-        this.server.CheckUserBadgePoints();
+      
         if (this.option == 'gain') {
             //this.getReward();
 

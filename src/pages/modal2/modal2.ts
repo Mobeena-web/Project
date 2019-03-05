@@ -304,6 +304,16 @@ n(n){
                }
               console.log("setting scheduled time 1", this.myDate);
               let current_day = this.globals.delivery_timing[this.day];
+              var n = current_day[0].indexOf('.');
+                if(n != -1){
+                    var res = current_day[0].split(".");
+                    current_day[0] = res[0] + '.' + '3'
+                }
+                var n1 = current_day[1].indexOf('.');
+                if(n1 != -1){
+                    var res = current_day[1].split(".");
+                    current_day[1] = res[0] + '.' + '3'
+                }
               // this.time = this.time.toString();
               console.log(this.day,this.time,current_day)
               if (current_day[0] != 'opened') {
@@ -372,6 +382,16 @@ n(n){
            }
           console.log("setting scheduled time 2", this.myDate);
           let current_day = this.globals.pickup_timing[this.day];
+          var n = current_day[0].indexOf('.');
+          if(n != -1){
+              var res = current_day[0].split(".");
+              current_day[0] = res[0] + '.' + '3'
+          }
+          var n1 = current_day[1].indexOf('.');
+          if(n1 != -1){
+              var res = current_day[1].split(".");
+              current_day[1] = res[0] + '.' + '3'
+          }
           // this.time = this.time.toString();
           console.log(this.day,this.time,current_day)
           //if (current_day[0] != 'opened') {
@@ -435,6 +455,16 @@ n(n){
               localStorage.setItem("scheduled_time",  this.myDate );
               console.log("setting scheduled time 3", this.myDate);
               let current_day = this.globals.delivery_timing[this.day];
+              var n = current_day[0].indexOf('.');
+                if(n != -1){
+                    var res = current_day[0].split(".");
+                    current_day[0] = res[0] + '.' + '3'
+                }
+                var n1 = current_day[1].indexOf('.');
+                if(n1 != -1){
+                    var res = current_day[1].split(".");
+                    current_day[1] = res[0] + '.' + '3'
+                }
               // this.time = this.time.toString();
               console.log(this.day,this.time,current_day)
              // if (current_day[0] != 'opened') {
@@ -490,6 +520,16 @@ n(n){
              localStorage.setItem("scheduled_time",  this.myDate );
              console.log("setting scheduled time 4", this.myDate);
              let current_day = this.globals.pickup_timing[this.day];
+             var n = current_day[0].indexOf('.');
+              if(n != -1){
+                  var res = current_day[0].split(".");
+                  current_day[0] = res[0] + '.' + '3'
+              }
+              var n1 = current_day[1].indexOf('.');
+              if(n1 != -1){
+                  var res = current_day[1].split(".");
+                  current_day[1] = res[0] + '.' + '3'
+              }
              // this.time = this.time.toString();
              console.log(this.day,this.time,current_day)
              //if (current_day[0] != 'opened') {
