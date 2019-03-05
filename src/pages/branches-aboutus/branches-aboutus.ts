@@ -19,6 +19,7 @@ export class BranchesAboutusPage {
   hours_operation:any;
   phone:any;
   address:any;
+  email:any;
   constructor(public loadingCtrl: LoadingController,private iab: InAppBrowser,public navCtrl: NavController, public navParams: NavParams,public globals: GlobalVariable,public server: ServerProvider) {
     this.resturant_list();
     this.get_social();
@@ -145,6 +146,7 @@ get_aboutus() {
    this.aboutus = data.data.about[0];
     this.phone = data.data.phone;
     this.address = data.data.address;
+    this.email = data.data.email;
   }, error => {
       console.log(error);
 
