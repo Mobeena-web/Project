@@ -58,10 +58,8 @@
     "angular-ticker": "^1.0.0",
     "animate.css": "^3.7.0",
     "call-number": "^1.0.1",
-    "card.io.cordova.mobilesdk": "^2.1.0",
     "code-push": "^2.0.6",
     "com-sarriaroman-photoviewer": "^1.1.18",
-    "com.paypal.cordova.mobilesdk": "^3.5.0",
     "cordova-android": "^7.1.4",
     "cordova-browser": "5.0.4",
     "cordova-ios": "4.5.5",
@@ -90,7 +88,6 @@
     "cordova-plugin-x-socialsharing": "^5.4.3",
     "cordova-plugin-x-toast": "^2.7.2",
     "cordova-plugin-zip": "^3.1.0",
-    "cordova-sms-plugin": "^0.1.13",
     "cordova.plugins.diagnostic": "^3.9.2",
     "es6-promise-plugin": "^4.2.2",
     "ion2-calendar": "^2.2.0",
@@ -139,14 +136,12 @@
       "cordova-plugin-x-socialsharing": {
         "ANDROID_SUPPORT_V4_VERSION": "24.1.1+"
       },
-      "cordova-sms-plugin": {},
       "ionic-plugin-keyboard": {},
       "cordova-plugin-whitelist": {},
       "cordova-plugin-device": {},
       "cordova-plugin-splashscreen": {},
       "cordova-plugin-ionic-webview": {},
       "cordova-plugin-stripe": {},
-      "com.paypal.cordova.mobilesdk": {},
       "cordova-plugin-calendar": {
         "CALENDAR_USAGE_DESCRIPTION": " "
       },
@@ -160,7 +155,8 @@
     },
     "platforms": [
       "ios",
-      "browser"
+      "browser",
+      "android"
     ]
   }
 }

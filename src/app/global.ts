@@ -126,8 +126,8 @@ export class GlobalVariable {
     authorize_enabled:boolean = false;
     card_enabled:boolean = false;
     constructor(public alertCtrl: AlertController,public toastCtrl: ToastController) {
-        this.BaseUrl = 'https://staging.onlineordering.mikronexus.com/index.php/';
-    //  this.BaseUrl = 'https://onlineordering.mikronexus.com/online-ordering-new/index.php/';
+        // this.BaseUrl = 'https://staging.onlineordering.mikronexus.com/index.php/';
+     this.BaseUrl = 'https://onlineordering.mikronexus.com/online-ordering-new/index.php/';
     }
     
 
