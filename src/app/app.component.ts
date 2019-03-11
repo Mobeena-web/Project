@@ -540,8 +540,6 @@ list() {
        });    
        this.globals.point_check = this.places[0].points_enabled;
        this.globals.punch_check = this.places[0].punches_enabled;
-       console.log("POINTS", this.places[0].points_enabled);
-       console.log("PUNCHES", this.places[0].punches_enabled);
        this.globals.special_offer = this.places[0].special_offer;
        this.globals.events_enabled = this.places[0].events_enabled;
        this.globals.gallery_enabled = this.places[0].gallery_enabled;
@@ -576,6 +574,8 @@ list() {
        this.globals.authorize_enabled = this.places[0].authorize_enabled;
        this.globals.card_enabled = this.places[0].card_enabled;
        this.globals.admin_stripe_enabled = this.places[0].admin_stripe_enabled;
+       this.globals.catering_enabled = this.places[0].catering_enabled;
+       this.globals.catering_cart_enabled = this.places[0].catering_cart_enabled;
          if (this.globals.pickup == '1') {
              this.globals.pickup = true;
          }
@@ -610,8 +610,6 @@ list() {
 
      
     }, error => {
-       
-        
         this.globals.presentToast("Something went wrong check your internet connection.")
 
 
