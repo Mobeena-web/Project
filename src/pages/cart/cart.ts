@@ -633,7 +633,7 @@ export class CartPage {
 
     detail(id) {
         console.log(id, "id");
-        this.navCtrl.push('ItemDetailPage', { item_id: id, BusinesId: this.globals.BusinessID })
+        this.navCtrl.push('ItemDetailPage', { type:true,item_id: id, BusinesId: this.globals.BusinessID })
     }
 
     changeAddress() {

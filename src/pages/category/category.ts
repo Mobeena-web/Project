@@ -81,12 +81,12 @@ export class CategoryPage {
         this.myChoice.pop();
 
         // this.toggleGroup(0);
-        if(this.globals.branch_enabled != 1){
-            this.list();      
-        }
-        else{
+        // if(this.globals.branch_enabled != 1){
+        //     this.list();      
+        // }
+        // else{
             this.Categories();
-        }
+        //}
 
 
     }

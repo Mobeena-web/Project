@@ -60,7 +60,7 @@ export class ItemDetailPage {
   item_price:any = 0;
   reward_item_flag:boolean = false;
   reward_id:any;
-  type:any;
+  type:boolean =true;
   constructor(private photoViewer: PhotoViewer,public server: ServerProvider, public alertCtrl: AlertController, public loadingCtrl: LoadingController, public globals: GlobalVariable, public modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams, private toastCtrl: ToastController) {
     this.reward_item_flag = navParams.get('reward_flag');
     if(!this.reward_item_flag){

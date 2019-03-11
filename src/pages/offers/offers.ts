@@ -359,7 +359,7 @@ Categories() {
 }
 
 Detail(id, image, freeextras) {
-    this.navCtrl.push('ItemDetailPage', { item_id: id, image: image, BusinesId: this.business_id, free_extras: freeextras })
+    this.navCtrl.push('ItemDetailPage', { type:true,item_id: id, image: image, BusinesId: this.business_id, free_extras: freeextras })
 }
 
 OpenSettingPage() {
