@@ -72,7 +72,7 @@ export class IntroPage3Page {
            this.globals.Email = signupData.email;
            console.log("register_data",signupData)
 
-            this.DoMobileVerification(signupData);
+            this.register(signupData);
           
         }
     }
@@ -81,6 +81,77 @@ export class IntroPage3Page {
         let model = this.modalCtrl.create(MobileVerificationPromptPage);
          model.present();
     
+    }
+
+    register(signupData) {
+        let loading = this.loadingCtrl.create({
+            content: "Please wait...",
+            dismissOnPageChange: true,
+        });
+        loading.present();
+      
+        let response = this.server.SignupData(signupData.firstName, signupData.lastName, signupData.email, signupData.password, this.globals.PhoneNo, signupData.birthday, signupData.aniversary);
+
+        response.subscribe(data => {
+            console.log(data);
+
+            this.data.response = data; 
+            if (this.data.response.status != "error") {
+                // this.navCtrl.setRoot('AcceptTermsPage', { imageData: this.data.response.url, discountText: this.data.response.discount_text, Flag: true, discount: this.data.response.discount_value });
+                this.globals.firstName = signupData.firstName;
+                this.globals.lastName = signupData.lastName;
+                this.globals.udid = this.data.response.udid;
+                loading.dismiss();
+                this.nativeStorage.setItem('user',
+                    {
+
+                        email: signupData.email,
+                        udid: this.data.response.udid,
+                        firstName: signupData.firstName,
+                        lastName: signupData.lastName,
+                        phone: signupData.phone,
+                        password: signupData.password,
+                        image: this.data.response.url,
+                        ID: this.data.response.id,
+                        date: this.data.response.date_joined,
+                        discountValue: this.data.response.discount_value,
+                        birthday: signupData.birthday,
+                        aniversary: signupData.aniversary
+
+                    }).then(() => {
+                        this.nativeStorage.setItem('discount', { discountValue: this.data.response.discount_value })
+                            .then(
+                                () => console.log('Stored item!'),
+                                error => console.error('Error storing item', error)
+                            );
+                        // console.log("b discount value", this.data.response.discount_value);
+                        this.globals.udid = this.data.response.udid;
+                         this.server.initializePushToken();
+                        this.navCtrl.setRoot('AcceptTermsPage', { imageData: this.data.response.url, discountText: this.data.response.discount_text, Flag: true, discount: this.data.response.discount_value });
+                        
+                    })
+                    .catch((err) => { console.log(err) });
+
+            }
+            else {
+                let alert = this.alertCtrl.create({
+                    title: 'Error!',
+                    subTitle: this.data.response.description,
+
+                    buttons: ['Retry']
+                });
+                loading.dismiss();
+                alert.present();
+
+                this.navCtrl.setRoot('LoginPage');
+
+            }
+        }, error => {
+            this.globals.presentToast("Server times out, please try again")
+
+        });
+
+
     }
 
     DoMobileVerification(signupData) {
@@ -117,78 +188,6 @@ export class IntroPage3Page {
 
     }
 
-    register(signupData) {
-        let loading = this.loadingCtrl.create({
-            content: "Please wait...",
-            dismissOnPageChange: true,
-        });
-        loading.present();
-
-        let response = this.server.SignupData(signupData.firstName, signupData.lastName, signupData.email, signupData.password, signupData.phone, signupData.birthday, signupData.aniversary);
-
-        response.subscribe(data => {
-            console.log(data);
-
-            this.data.response = data; 
-            if (this.data.response.status != "error") {
-                // this.navCtrl.setRoot('AcceptTermsPage', { imageData: this.data.response.url, discountText: this.data.response.discount_text, Flag: true, discount: this.data.response.discount_value });
-
-                this.nativeStorage.setItem('user',
-                    {
-
-                        email: signupData.email,
-                        udid: this.data.response.udid,
-                        firstName: signupData.firstName,
-                        lastName: signupData.lastName,
-                        phone: signupData.phone,
-                        password: signupData.password,
-                        image: this.data.response.url,
-                        ID: this.data.response.id,
-                        date: this.data.response.date_joined,
-                        discountValue: this.data.response.discount_value,
-                        birthday: signupData.birthday,
-                        aniversary: signupData.aniversary
-
-                    }).then(() => {
-                        this.nativeStorage.setItem('discount', { discountValue: this.data.response.discount_value })
-                            .then(
-                                () => console.log('Stored item!'),
-                                error => console.error('Error storing item', error)
-                            );
-                        console.log("b discount value", this.data.response.discount_value);
-                        this.navCtrl.setRoot('AcceptTermsPage', { imageData: this.data.response.url, discountText: this.data.response.discount_text, Flag: true, discount: this.data.response.discount_value });
-                        this.globals.udid = this.data.response.udid;
-                         this.server.initializePushToken();
-                    })
-                    .catch((err) => { console.log(err) });
-
-            }
-            else {
-                let alert = this.alertCtrl.create({
-                    title: 'Error!',
-                    subTitle: this.data.response.description,
-
-                    buttons: ['Retry']
-                });
-                loading.dismiss();
-                alert.present();
-
-                this.navCtrl.setRoot('LoginPage');
-
-            }
-        }, error => {
-            console.log("Oooops!");
-            loading.dismiss();
-            let alert = this.alertCtrl.create({
-                title: 'Error',
-                subTitle: 'Server times out, please try again',
-                buttons: ['OK']
-            });
-            alert.present();
-
-        });
-
-
-    }
+   
     
 }

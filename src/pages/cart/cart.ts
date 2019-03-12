@@ -65,7 +65,7 @@ export class CartPage {
     mygifts = [];
     gift_array=[];
     constructor(public loadingCtrl: LoadingController, public server: ServerProvider, public modalCtrl: ModalController, public alertCtrl: AlertController, private nativeStorage: NativeStorage, public appCtrl: App, public globals: GlobalVariable, public viewCtrl: ViewController, public navCtrl: NavController, public navParams: NavParams) {
-        console.log(globals.type, "@@@type");
+        console.log(globals.BusinessDiscount,globals.availed_discount_count,globals.business_discount_count, "@@@type");
         //  console.log("here is my items of global" ,this.globals.itemInstruction);
 
         this.Address =localStorage.getItem("GetAddress");
@@ -633,7 +633,7 @@ export class CartPage {
 
     detail(id) {
         console.log(id, "id");
-        this.navCtrl.push('ItemDetailPage', { item_id: id, BusinesId: this.globals.BusinessID })
+        this.navCtrl.push('ItemDetailPage', { type:true,item_id: id, BusinesId: this.globals.BusinessID })
     }
 
     changeAddress() {

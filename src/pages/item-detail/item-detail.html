@@ -186,8 +186,8 @@
 
 </ion-scroll>
 
-  <button ion-button block style=" width: 95%;  margin-left: 2.5%;color:#fff;" (click)="Cart()">
-    Add to cart <ion-icon name="cart" style="padding-left: 7px;color: #fff"></ion-icon></button>
+  <button ion-button block style=" width: 95%;  margin-left: 2.5%;color:#fff;" (click)="Cart()" *ngIf="type">
+    Add to cart <ion-icon name="cart" style="padding-left: 7px;color: #fff" ></ion-icon></button>
     <footer *ngIf="globals.order_instructions == '1'" style=" margin-bottom: 0; padding-bottom: 0;text-align: center"><button  ion-button clear style="margin-top: -5px;padding-top:0px; position: static;padding-bottom: 0;margin-bottom: 0" (click)="presentModal()" >Add Instructions</button></footer>
     
 </ion-content>

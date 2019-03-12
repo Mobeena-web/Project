@@ -453,7 +453,7 @@ export class MyRewardsPage {
     }
 
     Detail(id, image, freeextras,reward_id) {
-        this.navCtrl.push('ItemDetailPage', { item_id: id, image: image, BusinesId: this.globals.new_id, free_extras: freeextras ,reward_flag:true,reward_id:reward_id})
+        this.navCtrl.push('ItemDetailPage', { type:true,item_id: id, image: image, BusinesId: this.globals.new_id, free_extras: freeextras ,reward_flag:true,reward_id:reward_id})
     }
 
     redeem_point_menu_item(id,type){

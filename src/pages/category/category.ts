@@ -55,6 +55,7 @@ export class CategoryPage {
     forsearch:any;
     s_day:any;
     s_time:any;
+    categories_section: any = 'category'
     constructor(private geolocation: Geolocation,private diagnostic: Diagnostic,public server: ServerProvider, public alertCtrl: AlertController, public loadingCtrl: LoadingController, private nativeStorage: NativeStorage, private toastCtrl: ToastController, public globals: GlobalVariable, public http: Http, public navCtrl: NavController, public navParams: NavParams,public modalCtrl: ModalController) {
         
         if(!this.globals.caos_flag){
@@ -80,12 +81,12 @@ export class CategoryPage {
         this.myChoice.pop();
 
         // this.toggleGroup(0);
-        if(this.globals.branch_enabled != 1){
-            this.list();      
-        }
-        else{
+        // if(this.globals.branch_enabled != 1){
+        //     this.list();      
+        // }
+        // else{
             this.Categories();
-        }
+        //}
 
 
     }
@@ -100,7 +101,7 @@ export class CategoryPage {
 
     checkTiming(Timing) {
 
-        if(Timing.length > 0){
+        if(Timing && Timing.length > 0){
             var scheduled_time_ = localStorage.getItem("scheduled_time");
             var date:any;
             var time:any;
@@ -396,8 +397,8 @@ export class CategoryPage {
             });
     }
 
-    Detail(id, image, freeextras) {
-        this.navCtrl.push('ItemDetailPage', { item_id: id, image: image, BusinesId: this.business_id, free_extras: freeextras })
+    Detail(id, image, freeextras,type) {
+        this.navCtrl.push('ItemDetailPage', { type:type,item_id: id, image: image, BusinesId: this.business_id, free_extras: freeextras })
     }
 
     OpenSettingPage() {

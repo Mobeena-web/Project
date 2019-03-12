@@ -60,6 +60,7 @@ export class ItemDetailPage {
   item_price:any = 0;
   reward_item_flag:boolean = false;
   reward_id:any;
+  type:boolean =true;
   constructor(private photoViewer: PhotoViewer,public server: ServerProvider, public alertCtrl: AlertController, public loadingCtrl: LoadingController, public globals: GlobalVariable, public modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams, private toastCtrl: ToastController) {
     this.reward_item_flag = navParams.get('reward_flag');
     if(!this.reward_item_flag){
@@ -70,6 +71,7 @@ export class ItemDetailPage {
     }
     this.reward_id = navParams.get('reward_id')
     this.thumbimage = navParams.get('image');
+
   
     // this.name = navParams.get('Name');  
     // this.price = navParams.get('Price');
@@ -77,6 +79,7 @@ export class ItemDetailPage {
    
     this.ItemId = navParams.get('item_id');
     this.Business_id = navParams.get('BusinesId');
+    this.type = navParams.get('type');
 
 
     // this.globals.BusinessID = this.Business_id;

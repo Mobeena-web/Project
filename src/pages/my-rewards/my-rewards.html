@@ -8,7 +8,15 @@
 
   <ion-navbar color="primary">
     <ion-title>My Rewards</ion-title>
+    <ion-buttons end>
+        <button ion-button    (click)="cartpage()">
 
+            <ion-badge color="danger" *ngIf="globals.Product.length > 0">{{globals.Product.length}}</ion-badge>
+            <ion-icon name="cart" style="font-size: 2.5rem;"> </ion-icon>
+       
+          </button>
+
+    </ion-buttons>
   </ion-navbar>
 
 
@@ -195,11 +203,11 @@
               <img class="itm-img" *ngIf="a.image == '' || !a.image" src={{globals.b_logo}}>
             </ion-col>
             <ion-col col-9 style="margin:auto">
-
+                <ion-badge style="float:right" *ngIf="a.stock_quantity == 0" > Sold Out </ion-badge>
               <p style="color:#444;font-size:1.5rem">{{a.name}} </p>
               <p style="font-size:1.3rem;    padding-bottom: 10px;">{{a.tagline}} </p>
 
-              <button ion-button round block class="redem_btn" (click)="Detail(a.id,a.image,a.freeExtras,a.reward_id)">Add
+              <button ion-button round block [disabled]="a.stock_quantity == 0" class="redem_btn" (click)="Detail(a.id,a.image,a.freeExtras,a.reward_id)">Add
                 to Cart</button>
             </ion-col>
 
