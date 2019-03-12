@@ -576,6 +576,7 @@ list() {
        this.globals.admin_stripe_enabled = this.places[0].admin_stripe_enabled;
        this.globals.catering_enabled = this.places[0].catering_enabled;
        this.globals.catering_cart_enabled = this.places[0].catering_cart_enabled;
+       this.globals.giftcard_amount_limit = this.places[0].giftcard_limit;
          if (this.globals.pickup == '1') {
              this.globals.pickup = true;
          }
