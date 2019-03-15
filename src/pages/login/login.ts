@@ -73,7 +73,7 @@ export class LoginPage {
                   
                     this.globals.firstName = this.data.response.firstname;
                     this.globals.lastName = this.data.response.lastname;
-                    
+                    this.globals.Email = LoginData.email;
                     if(this.globals.caos_flag){
                 
                         this.viewCtrl.dismiss();
