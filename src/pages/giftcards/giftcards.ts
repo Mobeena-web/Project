@@ -69,9 +69,40 @@ my_gift_cards() {
   });
 }
 
-refill(item){
-  this.navCtrl.push('BuygiftcardsPage',{gift_id:item.giftcard_id,udid_r:this.global.udid,design_id:item.giftcard_id,amount:item.amount,message:item.message});   
-
+refill(item) {
+  var limit = this.global.giftcard_amount_limit - Number(item.amount)
+  const prompt = this.alertCtrl.create({
+    title: 'Refill Amount',
+    message: "Enter amount not greater than " + limit + '.',
+    inputs: [
+      {
+        name: 'amount',
+        placeholder: 'Amount',
+        type:'number'
+      },
+    ],
+    buttons: [
+      {
+        text: 'Cancel',
+        handler: data => {
+          console.log('Cancel clicked');
+        }
+      },
+      {
+        text: 'Refill',
+        handler: data => {
+          if(Number(data.amount) + Number(item.amount) <= this.global.giftcard_amount_limit){
+            this.navCtrl.push('BuygiftcardsPage',{gift_id:item.giftcard_id,udid_r:this.global.udid,design_id:item.giftcard_id,amount:data.amount,message:item.message,action:'refill'});
+          }
+          else{
+            this.global.presentToast("Your giftcard amount must not greater than "+ this.global.giftcard_amount_limit)
+          }
+          
+        }
+      }
+    ]
+  });
+  prompt.present();
 }
 
 

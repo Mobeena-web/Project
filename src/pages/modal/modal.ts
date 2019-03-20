@@ -286,7 +286,8 @@ export class ModalPage {
   }).then(() => console.log('Stored item!'),
       error => console.error('Error storing item', error)
   );
-    //this.checkTiming();            
+    //this.checkTiming();  
+    console.log(this.category_page,"p")         
     this.globals.OrderType = 'delivery';
     this.navCtrl.pop({animate:false});
     if(this.category_page == 1){
@@ -297,11 +298,20 @@ export class ModalPage {
     this.globals.save_check = true;
   }
   
-  secondModal(){
+   secondModal(){
     
    // this.checktype();
-    this.viewCtrl.dismiss();
-      let modal = this.modalCtrl.create('Modal2Page');
+    //this.viewCtrl.dismiss();
+      let modal = this.modalCtrl.create('Modal2Page' ,{ category_page: this.category_page });
+      modal.onDidDismiss(data => {
+        this.category_page = 1;
+
+        if(data == 'CategoryPage'){
+          this.category_page = 1;
+        console.log(data,"dta",this.category_page)
+
+        }
+      });
       modal.present();
     
   }  
@@ -344,9 +354,16 @@ export class ModalPage {
   Getscheduletime(){
     //commented by jahanzaib
     // this.viewCtrl.dismiss();
-    this.navCtrl.pop();
+   // this.navCtrl.pop();
 
       let modal = this.modalCtrl.create('Modal2Page');
+      modal.onDidDismiss(data => {
+        if(data == 'CategoryPage'){
+          this.category_page = 1;
+        console.log(data,"dta",this.category_page)
+
+        }
+      });
       modal.present();
   }
   loadMap(lati, longi) {
@@ -472,12 +489,12 @@ export class ModalPage {
     //   );
     
   // this.navCtrl.setRoot("MainTabsPage",{page:1})
+  console.log(this.category_page,"pp")
   this.globals.OrderType = "pickup"
   // this.viewCtrl.dismiss();
   this.navCtrl.pop({animate:false});
     if(this.category_page == 1){
       this.navCtrl.push("CategoryPage",{},{animate: false});
-
     }
   this.globals.save_check = true;
 

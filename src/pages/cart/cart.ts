@@ -1530,14 +1530,14 @@ export class CartPage {
           alert.present();
       }
 
-    checkTiming(timing) {
+   async checkTiming(timing) {
         if(localStorage.getItem("scheduled_time")){
             if(this.globals.specific_delivery_day == 'true'){
                 return true;
             }
             var scheduled_time_ = localStorage.getItem("scheduled_time");
 
-            let response = this.server.date_convert(scheduled_time_);
+            let response = await this.server.date_convert(scheduled_time_);
             response.subscribe(data => {
             if(data.success == true){
                 var day = data.day_id + 1;

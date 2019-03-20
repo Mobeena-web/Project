@@ -170,6 +170,7 @@ export class ItemDetailPage {
 
 
   }
+  
   removeOptionQuantity(heading, object) {
     if (object.quantity <= 1) {
       object.quantity = 1;
