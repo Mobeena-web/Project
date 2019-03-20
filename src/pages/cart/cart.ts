@@ -913,13 +913,14 @@ export class CartPage {
                         console.log(this.Address,"lo")
                         if(this.globals.OrderType == 'delivery' && this.globals.caos_flag == false){
                             if(this.globals.inradius){
+                                console.log("timings delivery 1", this.checkTiming(this.globals.delivery_timing));
                                    if(this.checkTiming(this.globals.delivery_timing)){
                                         this.address_();
                                       }
                            
                             }
                             else{
-                                this.globals.presentToast("Sorry, We dn't deliver in your Area.")
+                                this.globals.presentToast("Sorry, We don't deliver in your Area.")
     
                             }
                             
@@ -931,6 +932,7 @@ export class CartPage {
                                 this.coas_type();
                             }
                             else{
+                                console.log("timings delivery 2", this.checkTiming(this.globals.delivery_timing));
                                 if(this.checkTiming(this.globals.pickup_timing)){
                                   this.navCtrl.push('PaymentPage', { giftcard:this.gift_array,amount: this.Total, tip: this.Tip, notes: this.notes, RewardAvailed: this.RewardStoreCreditAvailed, BirthdayCreditavailed: this.birthdayStoreCreditavailed });
                                 
@@ -997,17 +999,23 @@ export class CartPage {
     
                 if (proceedFlag) {
                      this.Address =localStorage.getItem("GetAddress");
-                     console.log(this.globals.Email, "emaill")
+                     console.log(this.globals.Email, "emaill");
+                     console.log("delivery timings", this.globals.delivery_timing);
                     
                     if(this.globals.OrderType == 'delivery' && this.globals.caos_flag == false){
                         if(this.globals.inradius){
+                            console.log("timings delivery 3", this.checkTiming(this.globals.delivery_timing));
                                if(this.checkTiming(this.globals.delivery_timing)){
                                     this.address_();
+                                }
+                                else{
+                                    // this.globals.presentToast("Sorry, We are not serving at this time.");
+                                    
                                 }
                        
                         }
                         else{
-                            this.globals.presentToast("Sorry, We dn't deliver in your Area.")
+                            this.globals.presentToast("Sorry, We don't deliver in your area.")
 
                         }
                         
@@ -1019,6 +1027,7 @@ export class CartPage {
                             this.coas_type();
                         }
                         else{
+                            console.log("timings delivery 4", this.checkTiming(this.globals.delivery_timing));
                             if(this.checkTiming(this.globals.pickup_timing)){
                               this.navCtrl.push('PaymentPage', { giftcard:this.gift_array,amount: this.Total, tip: this.Tip, notes: this.notes, RewardAvailed: this.RewardStoreCreditAvailed, BirthdayCreditavailed: this.birthdayStoreCreditavailed });
                             
@@ -1442,7 +1451,7 @@ export class CartPage {
                               this.navCtrl.push('PaymentPage',{amount: 0,giftcard:this.gift_array,gift_flag:true})
                             }
                             else{
-                                this.globals.presentToast("Sorry, We dn't deliver in Your Area")
+                                this.globals.presentToast("Sorry, We don't deliver in your area")
                             }
                         }
                         
@@ -1530,7 +1539,7 @@ export class CartPage {
           alert.present();
       }
 
-    checkTiming(timing) {
+    async checkTiming(timing) {
         if(localStorage.getItem("scheduled_time")){
             if(this.globals.specific_delivery_day == 'true'){
                 return true;

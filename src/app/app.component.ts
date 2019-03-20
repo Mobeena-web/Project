@@ -82,6 +82,7 @@ export class MyApp {
           this.globals.udid = data.udid;
           this.globals.firstName = data.firstName;
           this.globals.lastName = data.lastName;
+          this.globals.Email = data.email;
           this.initializePushToken();
 
           env.nav.setRoot(HomePage);
