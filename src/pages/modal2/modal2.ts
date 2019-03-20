@@ -57,13 +57,14 @@ export class Modal2Page {
   optionsMulti: CalendarComponentOptions = {
     disableWeeks: this.globals.delivery_day
   };
-
+  category_page:any;
  // dd :any;
   constructor( public loadingCtrl:LoadingController,public server: ServerProvider,public alertCtrl: AlertController,private calendar: Calendar,public navCtrl: NavController, public navParams: NavParams ,public globals: GlobalVariable, public viewCtrl: ViewController,public modalCtrl: ModalController, public appCtrl: App, public nativeStorage: NativeStorage) {
     this.deliveryTime = this.globals.pickupsetting;
     this.deliveryTime = parseInt(this.deliveryTime);
     this.name =  this.globals.category_name;
     this.pickup_time = this.globals.pickup_Time ;
+    this.category_page = this.navParams.get('category_page')
   
     this.date = new Date();
     this.type = this.globals.OrderType;
@@ -154,7 +155,6 @@ n(n){
     this.type = this.globals.OrderType;
   }
   goToback(){
-    this.viewCtrl.dismiss();
     this.presentModal();
   }
   Asap(){
@@ -191,7 +191,7 @@ n(n){
     }
     //commented by jahanzaib 21-01-2019    
     // this.viewCtrl.dismiss('CategoryPage');
-    this.viewCtrl.dismiss();
+   
     this.presentModal();
     //window.location.reload();
     // this.navCtrl.push('ModalPage',{pickup:this.deliveryTime});
@@ -205,6 +205,15 @@ n(n){
 
     //commented by jahanzaib 21-01-19
     // this.navCtrl.push("ModalPage");
+    if(this.category_page == 1){
+      this.viewCtrl.dismiss('CategoryPage');
+
+    }
+    else{
+    this.viewCtrl.dismiss();
+
+    }
+
     this.appCtrl.getRootNav().push("ModalPage");
 
 
@@ -319,12 +328,10 @@ n(n){
               if (current_day[0] != 'opened') {
                 if((Number(current_day[0]) <= Number(this.time) && Number(current_day[1]) > Number(this.time)) || (Number(current_day[0]) <= Number(this.time) && Number(current_day[1]) < Number(current_day[0]))){
                      
-                      this.viewCtrl.dismiss('CategoryPage');
                       this.presentModal();
                         return true;
                   }
                   else if(current_day[0] == 'opened' && current_day[1] == 'opened' ){
-                    this.viewCtrl.dismiss('CategoryPage');
                     this.presentModal();
                     return true;
                   }
@@ -335,7 +342,6 @@ n(n){
                   }
               }
               else {
-                this.viewCtrl.dismiss('CategoryPage');
                 this.presentModal();
                   return true;   
               }
@@ -397,12 +403,10 @@ n(n){
           //if (current_day[0] != 'opened') {
             if((Number(current_day[0]) <= Number(this.time) && Number(current_day[1]) > Number(this.time)) || (Number(current_day[0]) <= Number(this.time) && Number(current_day[1]) < Number(current_day[0]))){
                  
-                  this.viewCtrl.dismiss('CategoryPage');
                   this.presentModal();
                     return true;
               }
               else if(current_day[0] == 'opened' && current_day[1] == 'opened' ){
-                this.viewCtrl.dismiss('CategoryPage');
                 this.presentModal();
                 return true;
               }
@@ -470,12 +474,10 @@ n(n){
              // if (current_day[0] != 'opened') {
                 if((Number(current_day[0]) <= Number(this.time) && Number(current_day[1]) > Number(this.time)) || (Number(current_day[0]) <= Number(this.time) && Number(current_day[1]) < Number(current_day[0]))){
                      
-                      this.viewCtrl.dismiss('CategoryPage');
                       this.presentModal();
                         return true;
                   }
                   else if(current_day[0] == 'opened' && current_day[1] == 'opened' ){
-                    this.viewCtrl.dismiss('CategoryPage');
                     this.presentModal();
                     return true;
                   }
@@ -535,12 +537,10 @@ n(n){
              //if (current_day[0] != 'opened') {
                if((Number(current_day[0]) <= Number(this.time) && Number(current_day[1]) > Number(this.time)) || (Number(current_day[0]) <= Number(this.time) && Number(current_day[1]) < Number(current_day[0]))){
                     
-                     this.viewCtrl.dismiss('CategoryPage');
                      this.presentModal();
                        return true;
                  }
                  else if(current_day[0] == 'opened' && current_day[1] == 'opened' ){
-                  this.viewCtrl.dismiss('CategoryPage');
                   this.presentModal();
                   return true;
                 }

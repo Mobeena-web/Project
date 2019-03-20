@@ -54,8 +54,6 @@ export class SettingsPage {
 
     constructor(public app: App, public server: ServerProvider, private pinDialog: PinDialog, public globals: GlobalVariable, public modalCtrl: ModalController, private socialSharing: SocialSharing, private nativeStorage: NativeStorage, public loadingCtrl: LoadingController, public alertCtrl: AlertController, public http: Http, public actionSheetCtrl: ActionSheetController, public navCtrl: NavController, public navParams: NavParams, public platform: Platform) {
         this.data = {};
-
-
         this.data.response = '';
     }
 

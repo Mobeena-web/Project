@@ -109,8 +109,8 @@ share_(id){
 
 showConfirm_new_user(email,id) {
   const confirm = this.alertCtrl.create({
-    title: 'User does not exist.',
-    message: 'Do you want to create new account?',
+    title: 'OOPS!',
+    message: 'Your friend is not registered member at our place.Please set up your friends profile.',
     buttons: [
       {
         text: 'Cancel',
@@ -119,7 +119,7 @@ showConfirm_new_user(email,id) {
         }
       },
       {
-        text: 'Create',
+        text: 'Continue',
         handler: () => {
           this.showPrompt_craete_user(email,id)
         }
@@ -224,7 +224,7 @@ validateEmail(email) {
 }
 
 proceed(){
-  if(Number(this.amount) > 0 && Number(this.amount) < 501){
+  if(Number(this.amount) > 0 && Number(this.amount) <= this.global.giftcard_amount_limit){
     if(this.otherselected){
       this.showConfirm('');
   
@@ -235,7 +235,7 @@ proceed(){
     }
   }
   else{
-    this.global.presentToast("Enter Amount in Range 1-500")
+    this.global.presentToast("Enter Amount in Range 1-" + this.global.giftcard_amount_limit)
   }
  
 }
