@@ -304,8 +304,7 @@ export class ModalPage {
     //this.viewCtrl.dismiss();
       let modal = this.modalCtrl.create('Modal2Page' ,{ category_page: this.category_page });
       modal.onDidDismiss(data => {
-        this.category_page = 1;
-
+       
         if(data == 'CategoryPage'){
           this.category_page = 1;
         console.log(data,"dta",this.category_page)

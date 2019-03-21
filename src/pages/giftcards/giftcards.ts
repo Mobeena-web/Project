@@ -70,7 +70,7 @@ my_gift_cards() {
 }
 
 refill(item) {
-  var limit = this.global.giftcard_amount_limit - Number(item.amount)
+  var limit = Number(this.global.giftcard_amount_limit - Number(item.amount)).toFixed(2)
   const prompt = this.alertCtrl.create({
     title: 'Refill Amount',
     message: "Enter amount not greater than " + limit + '.',
