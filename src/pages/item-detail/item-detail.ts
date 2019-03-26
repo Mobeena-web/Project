@@ -61,6 +61,7 @@ export class ItemDetailPage {
   reward_item_flag:boolean = false;
   reward_id:any;
   type:boolean =true;
+  stock_quantity:any;
   constructor(private photoViewer: PhotoViewer,public server: ServerProvider, public alertCtrl: AlertController, public loadingCtrl: LoadingController, public globals: GlobalVariable, public modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams, private toastCtrl: ToastController) {
     this.reward_item_flag = navParams.get('reward_flag');
     if(!this.reward_item_flag){
@@ -126,6 +127,8 @@ export class ItemDetailPage {
   
 
   addQuantity() {
+    if(this.quantity < this.stock_quantity){
+
     this.quantity += 1;
     var m_price = 0;
     this.myChoices.forEach(element => {
@@ -135,7 +138,10 @@ export class ItemDetailPage {
     });
 
     this.item_price = ((m_price * this.quantity) + (this.price * this.quantity)).toFixed(2);
-
+  }
+  else{
+    this.globals.presentToast("You have selected max. limit of item.")
+  }
   }
 
   removeQuantity() {
@@ -160,15 +166,13 @@ export class ItemDetailPage {
 
 
   addOptionQuantity(heading, object) {
-
-    object.quantity += 1;
-    var value1 = this.myChoices.indexOf([object]);
-    this.myChoices.splice(value1, 1);
-
-    var data = { heading: heading, optionNameSelected: [{ name: object.name, price: Number(object.price), quantity: object.quantity, total: Number(object.price) * object.quantity, isFree: false }] }
-    this.myChoices.push(data);
-
-
+      object.quantity += 1;
+      var value1 = this.myChoices.indexOf([object]);
+      this.myChoices.splice(value1, 1);
+  
+      var data = { heading: heading, optionNameSelected: [{ name: object.name, price: Number(object.price), quantity: object.quantity, total: Number(object.price) * object.quantity, isFree: false }] }
+      this.myChoices.push(data);
+  
   }
   
   removeOptionQuantity(heading, object) {
@@ -437,6 +441,7 @@ export class ItemDetailPage {
       this.image = this.data.item.image;
       this.price = this.data.item.price;
       this.item_price = this.price;
+      this.stock_quantity = this.data.item.stock_quantity;
       if(this.reward_item_flag == true){
         this.item_price = 0;
 
