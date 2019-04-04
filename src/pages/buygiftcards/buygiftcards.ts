@@ -151,6 +151,10 @@ action:any='';
     }
 }
 
+cancel(){
+    this.navCtrl.pop();
+}
+
 
 
 }
