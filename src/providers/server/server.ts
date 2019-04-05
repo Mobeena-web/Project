@@ -399,9 +399,9 @@ getdeals(){
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
 
-  buy_gift_cards(token,id,udid_r,design_id,amount,message,action) {
+  buy_gift_cards(token,id,udid_r,design_id,amount,message,action,cardinfo?) {
     var link = (this.global.BaseUrl + 'giftcard/buy_giftcard');
-    var data = JSON.stringify({udid_r:udid_r, business_id: this.global.new_id, udid_s: this.global.udid,token:token, giftcard_id:id,design_id:design_id,amount:amount,message:message,action:action});
+    var data = JSON.stringify({udid_r:udid_r, business_id: this.global.new_id, udid_s: this.global.udid,token:token, giftcard_id:id,design_id:design_id,amount:amount,message:message,action:action,card_info:cardinfo});
     return this.http.post(link, data)
       .map((res: any) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));

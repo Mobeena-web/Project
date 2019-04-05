@@ -90,45 +90,71 @@ action:any='';
 
         });
         loading.present();
-        if (this.globals.StripId == '') {
-            loading.dismiss();
-
-            let alert = this.alertCtrl.create({
-                title: 'Oops',
-                subTitle: 'Payments not available,please try again',
-                buttons: ['OK']
-            });
-
-            alert.present();
-        }
-        else {
-            
-
-            this.stripe.setPublishableKey(this.globals.StripId);
-            this.stripe.createCardToken(this.cardinfo).then((Token) => {
-               
-                let response = this.server.buy_gift_cards( Token.id, this.gift_id,this.udid_r,this.design_card,this.amount,this.message,this.action)
-                console.log("response without json", response);
-                response.subscribe(data => {
-                    this.globals.presentToast(data.message)
-                    this.navCtrl.popAll();
-                    loading.dismiss();
-                  
-
-                }
-                    , error => {
-                        console.log("Error!");
-                        console.log("this is our error", error);
-
-                    });
-
-            }).catch((data) => {
+        if(this.globals.authorize_enabled){
+            let response = this.server.buy_gift_cards('', this.gift_id,this.udid_r,this.design_card,this.amount,this.message,this.action,this.cardinfo)
+         
+           console.log("response without json", response);
+            response.subscribe(data => {
+                this.globals.presentToast(data.message)
+                this.navCtrl.pop();
                 loading.dismiss();
-                this.globals.presentToast("Invalid Credentials,please try again")
-
-            });
+            }
+                , error => {
+                loading.dismiss();
+                    this.globals.presentToast("Payment Failed")
+                });
         }
+        else{
+            if (this.globals.StripId == '') {
+                loading.dismiss();
+    
+                let alert = this.alertCtrl.create({
+                    title: 'Oops',
+                    subTitle: 'Payments not available,please try again',
+                    buttons: ['OK']
+                });
+    
+                alert.present();
+            }
+            else {
+                
+    
+                this.stripe.setPublishableKey(this.globals.StripId);
+                this.stripe.createCardToken(this.cardinfo).then((Token) => {
+                   
+                    let response = this.server.buy_gift_cards( Token.id, this.gift_id,this.udid_r,this.design_card,this.amount,this.message,this.action)
+                    console.log("response without json", response);
+                    response.subscribe(data => {
+                        this.globals.presentToast(data.message)
+                        this.navCtrl.pop();
+                        loading.dismiss();
+                      
+    
+                    }
+                        , error => {
+                        loading.dismiss();
+                        this.globals.presentToast("Payment Failed")
+
+                            console.log("Error!");
+                            console.log("this is our error", error);
+    
+                        });
+    
+                }).catch((data) => {
+                    loading.dismiss();
+                    this.globals.presentToast("Invalid Credentials,please try again")
+    
+                });
+            }
+        }
+        
     }
 }
+
+cancel(){
+    this.navCtrl.pop();
+}
+
+
 
 }
