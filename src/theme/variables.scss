@@ -50,6 +50,13 @@ $colors: (
   font-weight: 400;
   src:  url("#{$font-path}/jjch.otf") format("truetype");
 }
+
+// @font-face {
+//   font-family: "barcode";
+//   font-style: normal;
+//   font-weight: 400;
+//   src:  url("#{$font-path}/code128.ttf") format("truetype");
+// }
 // App iOS Variables
 // --------------------------------------------------
 // iOS only Sass variables can go here
