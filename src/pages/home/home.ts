@@ -70,6 +70,7 @@ export class HomePage {
     email:any;
     today_message:any;
     punch_menu:any;
+    encodedData:any;
     constructor(private geolocation: Geolocation,private diagnostic: Diagnostic,public app: App, public server: ServerProvider, public globals: GlobalVariable, private nativeAudio: NativeAudio, private iab: InAppBrowser, private nativeStorage: NativeStorage, public loadingCtrl: LoadingController, public modalCtrl: ModalController, public _nav: NavController, public _navParams: NavParams, public alertCtrl: AlertController, public platform: Platform) {
         if(!this.globals.guess_login){
              this.reward_notification();
@@ -83,7 +84,7 @@ export class HomePage {
         this.barocde_image = _navParams.get('imageData');
         localStorage.removeItem("GetAddress");
         localStorage.removeItem("scheduled_time");
-
+       
     }
    
 

@@ -153,7 +153,7 @@
         </ion-card>
     <h3 text-center *ngIf="point_menu?.length > 0"> Point Store</h3>
       <div *ngFor="let a of point_menu">
-        <ion-card *ngIf="a.point_price < globals.points_ || a.point_price == globals.points_" class="point_list point_card">
+        <ion-card class="point_list point_card">
           <ion-row>
             <ion-col col-3 style="margin: auto;">
 
@@ -163,15 +163,15 @@
             <ion-col col-9 style="margin:auto">
 
               <p style="color:#444;font-size:1.5rem">{{a.name}} </p>
-              <p style="font-size:1.3rem;    padding-bottom: 10px;">{{a.points_description}} </p>
+              <p style="font-size:1.3rem;padding-bottom: 10px;">{{a.points_description}} </p>
 
               <ion-row>
                 <ion-col col-7>
-                  <button ion-button round block class="redem_btn" (click)="points_buy_Confirm(a.id,'point_store')">BUY
+                  <button [disabled]="a.point_price > globals.points_" ion-button round block class="redem_btn" (click)="points_buy_Confirm(a.id,'point_store')">BUY
                     ({{a.point_price}} points)</button>
                 </ion-col>
                 <ion-col col-5> 
-                  <button ion-button round block class="redem_btn" (click)="point_model(a)"> View Detail</button>
+                  <button  ion-button round block class="redem_btn" (click)="point_model(a)"> View Detail</button>
                 </ion-col>
               </ion-row>
               
