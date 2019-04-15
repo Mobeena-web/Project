@@ -44,7 +44,7 @@ export class MyApp {
         this.data = {};
         this.data.response = '';
         this.LoadSound();
-        this.list();
+        // this.list();
         
       setTimeout(() => this.splashscreen.hide(), 400);
       this.statusbar.hide();
@@ -87,12 +87,13 @@ export class MyApp {
 
           env.nav.setRoot(HomePage);
           this.globals.showFabFlag = true;
-
+          this.list();
           this.splashscreen.hide();
         }, error => {
           //we don't have the user data so we will ask him to log in
           env.nav.setRoot('BeforeLoginPage');
           this.globals.showFabFlag = false;
+          this.list();
           this.splashscreen.hide();
         }).catch(err => { console.log(err) });
       }
@@ -609,6 +610,7 @@ list() {
         else {
             this.globals.delivery = false;
         }
+        console.log("globals ->", this.globals);
 
      
     }, error => {
