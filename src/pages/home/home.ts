@@ -8,7 +8,6 @@ import { NativeAudio } from '@ionic-native/native-audio';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { Diagnostic } from '@ionic-native/diagnostic';
 import { Geolocation } from '@ionic-native/geolocation';
-import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 
 declare var Circles;
 
@@ -72,7 +71,7 @@ export class HomePage {
     today_message:any;
     punch_menu:any;
     encodedData:any;
-    constructor(private barcodeScanner: BarcodeScanner,private geolocation: Geolocation,private diagnostic: Diagnostic,public app: App, public server: ServerProvider, public globals: GlobalVariable, private nativeAudio: NativeAudio, private iab: InAppBrowser, private nativeStorage: NativeStorage, public loadingCtrl: LoadingController, public modalCtrl: ModalController, public _nav: NavController, public _navParams: NavParams, public alertCtrl: AlertController, public platform: Platform) {
+    constructor(private geolocation: Geolocation,private diagnostic: Diagnostic,public app: App, public server: ServerProvider, public globals: GlobalVariable, private nativeAudio: NativeAudio, private iab: InAppBrowser, private nativeStorage: NativeStorage, public loadingCtrl: LoadingController, public modalCtrl: ModalController, public _nav: NavController, public _navParams: NavParams, public alertCtrl: AlertController, public platform: Platform) {
         if(!this.globals.guess_login){
              this.reward_notification();
         }
