@@ -610,8 +610,7 @@ list() {
         else {
             this.globals.delivery = false;
         }
-        console.log("globals ->", this.globals);
-
+      
      
     }, error => {
         this.globals.presentToast("Something went wrong check your internet connection.")
