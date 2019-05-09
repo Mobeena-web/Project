@@ -305,6 +305,10 @@ n(n){
                 this.day = 0;
                }
                this.time = data.time;
+
+               this.globals.schedule_day_id = data.day_id;
+              this.globals.schedule_converted_time = data.time;
+
                if(this.globals.specific_delivery_day == 'true'){
                 localStorage.setItem("scheduled_time",  this.myDate.format('DD-MM-YYYY') );
                }
@@ -380,6 +384,10 @@ n(n){
             this.day = 0;
            }
            this.time = data.time;
+
+           this.globals.schedule_day_id = data.day_id;
+           this.globals.schedule_converted_time = data.time;
+
            if(this.globals.specific_delivery_day == 'true'){
             localStorage.setItem("scheduled_time",  this.myDate.format('DD-MM-YYYY') );
            }
@@ -456,6 +464,10 @@ n(n){
             if(data.success == true){
                this.day = data.day_id + 1;
                this.time = data.time;
+
+               this.globals.schedule_day_id = data.day_id;
+              this.globals.schedule_converted_time = data.time;
+
               localStorage.setItem("scheduled_time",  this.myDate );
               console.log("setting scheduled time 3", this.myDate);
               let current_day = this.globals.delivery_timing[this.day];
@@ -519,6 +531,10 @@ n(n){
            if(data.success == true){
               this.day = data.day_id + 1;
               this.time = data.time;
+
+              this.globals.schedule_day_id = data.day_id;
+              this.globals.schedule_converted_time = data.time;
+
              localStorage.setItem("scheduled_time",  this.myDate );
              console.log("setting scheduled time 4", this.myDate);
              let current_day = this.globals.pickup_timing[this.day];

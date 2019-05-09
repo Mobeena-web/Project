@@ -1,7 +1,14 @@
 page-instruction-modal {
-    .content{
-        background: transparent;
-      }
+    .p_text{
+      color: #777;
+      padding: 20px;
+      padding-left: 40px;
+      padding-right: 40px;
+    }
+    ion-textarea{
+      background: #fff;
+      height: 116px;
+    }
       .overlay {
         position: fixed;
         top: 0;
