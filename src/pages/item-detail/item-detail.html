@@ -23,7 +23,7 @@
 
 
 <ion-content class="Open-Sans-regular" >
-  <ion-scroll style="height: calc(95% - 6rem); bottom: 10px;" scrollY="true">
+  <ion-scroll style="height: calc(95% - 3rem); bottom: 10px;" scrollY="true">
 
 
   <ion-card class="m-t">
@@ -186,8 +186,16 @@
 
 </ion-scroll>
 
-  <button ion-button block style=" width: 95%;  margin-left: 2.5%;color:#fff;" (click)="Cart()" *ngIf="type">
-    Add to cart <ion-icon name="cart" style="padding-left: 7px;color: #fff" ></ion-icon></button>
-    <footer *ngIf="data?.item.item_instructions" style=" margin-bottom: 0; padding-bottom: 0;text-align: center"><button  ion-button clear style="margin-top: -5px;padding-top:0px; position: static;padding-bottom: 0;margin-bottom: 0" (click)="presentModal()" >Add Instructions</button></footer>
-    
+<!--   
+    <footer  style=" margin-bottom: 0; padding-bottom: 0;text-align: center"></footer>
+     -->
+    <ion-row>
+      <ion-col *ngIf="data?.item.item_instructions" style="padding-right:0px">
+        <button  ion-button outline round (click)="presentModal()" >Add Instructions</button>
+      </ion-col>
+      <ion-col style="padding-left:0px">
+        <button ion-button block round (click)="Cart()" *ngIf="type">
+          Add to cart <ion-icon name="cart" style="padding-left: 7px;color: #fff" ></ion-icon></button>
+      </ion-col> 
+    </ion-row>
 </ion-content>

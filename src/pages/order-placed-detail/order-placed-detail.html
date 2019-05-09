@@ -61,8 +61,7 @@
     <div *ngFor="let order of orders">
       <ion-row style="background: white; border-bottom: solid thin #eee;margin-bottom: 8px;">
         <ion-col col-4 style="margin:auto">
-          <img style="border-radius: 4px;   height: 70px;" *ngIf="order.image" src="{{order.image}}">
-          <img style="border-radius: 4px;   height: 70px;" *ngIf="!order.image" src="assets/imgs/icon.png">
+          <img style="border-radius: 4px;   height: 70px;" *ngIf="order.image"  src="{{order.image}}">
         </ion-col>
         <ion-col col-5 style="margin:auto">
           <p style="font-size:2rem;color:black">

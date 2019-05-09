@@ -1539,21 +1539,17 @@ export class CartPage {
           alert.present();
       }
 
-   async checkTiming(timing) {
+    checkTiming(timing) {
         if(localStorage.getItem("scheduled_time")){
             if(this.globals.specific_delivery_day == 'true'){
                 return true;
             }
-            var scheduled_time_ = localStorage.getItem("scheduled_time");
-
-            let response = await this.server.date_convert(scheduled_time_);
-            response.subscribe(data => {
-            if(data.success == true){
-                var day = data.day_id + 1;
+          
+                var day = this.globals.schedule_day_id + 1;
                 if(day == 7){
                     day = 0;
                 }
-                var time = data.time;
+                var time = this.globals.schedule_converted_time;
                 var current_day = timing[day];
                 var n = current_day[0].indexOf('.');
                 if(n != -1){
@@ -1580,22 +1576,13 @@ export class CartPage {
 
                     return false;
                 }
-            }
-            else{
-                this.globals.presentToast('Sorry, we are not serving at this time!')
-
-            }
-
-            }, error => {
-                this.globals.presentToast("Something went wrong check your internet connection.")
-        
-            });
+            
             
         }
         else{
          
             var date = new Date();
-            var day = date.getDay();
+            var day:any = date.getDay();
             var time:any = date.getHours()+ "." + date.getMinutes();
              time = Number(time);
         
