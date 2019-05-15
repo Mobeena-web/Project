@@ -130,6 +130,7 @@ export class GlobalVariable {
     giftcard_amount_limit:any = 0;
     schedule_day_id:any;
     schedule_converted_time:any;
+    business_type:any;
     constructor(public alertCtrl: AlertController,public toastCtrl: ToastController) {
         this.BaseUrl = 'https://staging.onlineordering.mikronexus.com/index.php/';
     //  this.BaseUrl = 'https://onlineordering.mikronexus.com/online-ordering-new/index.php/';

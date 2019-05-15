@@ -84,7 +84,7 @@ export class HomePage {
         this.barocde_image = _navParams.get('imageData');
         localStorage.removeItem("GetAddress");
         localStorage.removeItem("scheduled_time");
-       
+       this.list();
     }
    
 
@@ -343,6 +343,10 @@ export class HomePage {
         return str.length < max ? this.pad("0" + str, max) : str;
     }
 
+    services(){
+        this._nav.push('BookingPage')
+    }
+
 
 
 
@@ -449,6 +453,26 @@ export class HomePage {
         }
         , error => {
         });
+    }
+
+    list() {
+        let response = this.server.getRestaurantslist('100000', 'main', "0,0", '0', 'order');
+        response.subscribe(data => {
+            this.places = data.results;
+            var new_id = this.globals.new_id;
+            this.globals.business_list = this.places;
+            this.places = this.places.filter(function(item) {       
+             return item.business_id === new_id;
+           });    
+          this.globals.business_discount_count = parseInt(this.places[0].business_discount_count);
+          this.globals.availed_discount_count = parseInt(this.places[0].customer_discount_availed_count);
+        
+        }, error => {
+            this.globals.presentToast("Something went wrong check your internet connection.")
+    
+    
+        });
+     
     }
 
   

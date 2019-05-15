@@ -44,7 +44,7 @@ export class MyApp {
         this.data = {};
         this.data.response = '';
         this.LoadSound();
-        // this.list();
+         this.list();
         
       setTimeout(() => this.splashscreen.hide(), 400);
       this.statusbar.hide();
@@ -87,13 +87,11 @@ export class MyApp {
 
           env.nav.setRoot(HomePage);
           this.globals.showFabFlag = true;
-          this.list();
           this.splashscreen.hide();
         }, error => {
           //we don't have the user data so we will ask him to log in
           env.nav.setRoot('BeforeLoginPage');
           this.globals.showFabFlag = false;
-          this.list();
           this.splashscreen.hide();
         }).catch(err => { console.log(err) });
       }
@@ -531,6 +529,10 @@ business_list(){
     this.nav.push('BusinessListPage')
 }
 
+bookingPage() {
+    this.nav.push('BookingPage');
+}
+
 list() {
     let response = this.server.getRestaurantslist('100000', 'main', "0,0", '0', 'order');
     response.subscribe(data => {
@@ -579,6 +581,8 @@ list() {
        this.globals.catering_enabled = this.places[0].catering_enabled;
        this.globals.catering_cart_enabled = this.places[0].catering_cart_enabled;
        this.globals.giftcard_amount_limit = this.places[0].giftcard_limit;
+       this.globals.business_type = this.places[0].business_type;
+       
          if (this.globals.pickup == '1') {
              this.globals.pickup = true;
          }

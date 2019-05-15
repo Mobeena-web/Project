@@ -1,12 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams,LoadingController,ToastController } from 'ionic-angular';
 
-/**
- * Generated class for the BookingPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { GlobalVariable } from '../../app/global';
+import { ServerProvider } from '../../providers/server/server';
 
 @IonicPage()
 @Component({
@@ -14,12 +10,48 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'booking.html',
 })
 export class BookingPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  bookings:any;
+  errorMenu:any = false;
+  constructor(private toastCtrl:ToastController,public loadingCtrl: LoadingController, public server: ServerProvider, public global: GlobalVariable,public navCtrl: NavController, public navParams: NavParams) {
+    this.booking_history();
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad BookingPage');
   }
 
+  add_bookings(){
+    this.navCtrl.push('AddBookingPage')
+  }
+
+  doRefresh(refresher) {
+    this.booking_history();
+    refresher.complete();
+}
+
+  booking_history() {
+    let loading = this.loadingCtrl.create({
+        content: "Loading...",
+    });
+    loading.present();
+
+    let response = this.server.booking_history();
+    response.subscribe(data => {
+        if(data.status == true){
+          this.bookings = data.data;
+          if(this.bookings.length == 0){
+            this.errorMenu = true;
+          }
+        }
+        else{
+          this.errorMenu = true;
+        }
+        loading.dismiss();
+    
+    }, error => {
+         loading.dismiss();
+        this.global.alertMessage("Failure","Something went wrong check your internet connection.")
+
+    });
+}
 }

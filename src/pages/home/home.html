@@ -85,10 +85,16 @@
         <div>Special Offers</div>
       </div>
     </ion-col>
-    <ion-col col>
+    <ion-col col *ngIf="globals.business_type == 'ordering'">
       <div text-center (click)="orderNow()" class="sof1">
         <ion-icon name="restaurant"></ion-icon>
         <div>Order Now</div>
+      </div>
+    </ion-col>
+    <ion-col col *ngIf="globals.business_type == 'salon'">
+      <div text-center (click)="services()" class="sof1" >
+        <ion-icon name="alarm"></ion-icon>
+        <div>Services</div>
       </div>
     </ion-col>
   </ion-row>
