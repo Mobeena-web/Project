@@ -107,6 +107,7 @@ export class CartPage {
         this.CheckUserPoints();
         this.CheckMobileDiscount();
         this.my_gift_cards();
+      console.log( this.globals.business_discount_count,this.globals.availed_discount_count,'po')
     }
     // ionViewWillEnter(){
     //     this.total();

@@ -1134,13 +1134,8 @@ export class PaymentPage {
                         this.globals.GainDiscount = 0;
                         this.setDiscount();
                     }
-                    var status;
-                    if (this.globals.admin_stripe == 'true') {
-                        status = 'Gain';
-                    }
-                    else {
-                        status = 'Stripe';
-                    }
+                    var status = 'cash';
+                    
                     console.log(" pass instrunctions in strip function", this.instructions);
                     if(this.globals.OrderType == "pickup"){
                         this.Address = '';

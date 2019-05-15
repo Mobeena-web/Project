@@ -116,6 +116,56 @@ getdeals(){
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
 
+  get_services() {
+
+    var link = this.global.BaseUrl + 'salon/get_services';
+    console.log(this.global.bussinessId)
+    var data = JSON.stringify({ business_id: this.global.new_id });
+    return this.http.post(link, data)
+      .map((res: any) => res.json())
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+  }
+
+  get_stylist(service_id) {
+
+    var link = this.global.BaseUrl + 'salon/get_stylist';
+    console.log(this.global.bussinessId)
+    var data = JSON.stringify({ business_id: this.global.new_id,service_id : service_id});
+    return this.http.post(link, data)
+      .map((res: any) => res.json())
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+  }
+
+  get_slots(service_id,stylist_id,scedule_time) {
+
+    var link = this.global.BaseUrl + 'salon/get_stylist_timing';
+    console.log(this.global.bussinessId)
+    var data = JSON.stringify({ business_id: this.global.new_id,service_id : service_id,stylist_id:stylist_id,schedule_time:scedule_time});
+    return this.http.post(link, data)
+      .map((res: any) => res.json())
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+  }
+
+  booking_salon(service_id,stylist_id,time_slot) {
+
+    var link = this.global.BaseUrl + 'salon/booking';
+    console.log(this.global.bussinessId)
+    var data = JSON.stringify({ udid:this.global.udid,business_id: this.global.new_id,service_id : service_id,stylist_id:stylist_id,time_slot:time_slot});
+    return this.http.post(link, data)
+      .map((res: any) => res.json())
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+  }
+
+  booking_history() {
+
+    var link = this.global.BaseUrl + 'salon/booking_history';
+    console.log(this.global.bussinessId)
+    var data = JSON.stringify({ udid:this.global.udid,business_id: this.global.new_id});
+    return this.http.post(link, data)
+      .map((res: any) => res.json())
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+  }
+
   get_offers() {
     var link = this.global.BaseUrl + 'events/get_offers';
 

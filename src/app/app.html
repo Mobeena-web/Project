@@ -13,12 +13,14 @@
         </button>
 
 
-        <button menuClose ion-item (click)="openOrder()">
+        <button menuClose ion-item (click)="openOrder()" *ngIf="globals.business_type == 'ordering'">
             <ion-icon name="restaurant" class="myicon"></ion-icon> Order Now
           </button>
+          <button menuClose ion-item (click)="bookingPage()" *ngIf="globals.business_type == 'salon'">
+              <ion-icon name="alarm" class="myicon"></ion-icon> Services
+            </button>
 
-
-          <button  menuClose ion-item (click)="openHistory()">
+          <button  menuClose ion-item (click)="openHistory()" *ngIf="globals.business_type == 'ordering'">
               <ion-icon name="list" class="myicon"></ion-icon> Order History
             </button>
 
