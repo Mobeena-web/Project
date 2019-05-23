@@ -132,8 +132,8 @@ export class GlobalVariable {
     schedule_converted_time:any;
     business_type:any;
     constructor(public alertCtrl: AlertController,public toastCtrl: ToastController) {
-        this.BaseUrl = 'https://staging.onlineordering.mikronexus.com/index.php/';
-    //  this.BaseUrl = 'https://onlineordering.mikronexus.com/online-ordering-new/index.php/';
+        // this.BaseUrl = 'https://staging.onlineordering.mikronexus.com/index.php/';
+     this.BaseUrl = 'https://onlineordering.mikronexus.com/online-ordering-new/index.php/';
     }
     
 
