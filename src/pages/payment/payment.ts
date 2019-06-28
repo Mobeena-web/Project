@@ -1315,6 +1315,8 @@ export class PaymentPage {
     thankyou(){
         // let modal = this.modalCtrl.create('ThankyouPage');
         // modal.present();
+        this.globals.bussinessId = this.globals.new_id;
+         this.globals.username = this.globals.business_username
         this.navCtrl.push('ThankyouPage')
     }
 
