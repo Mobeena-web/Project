@@ -32,7 +32,7 @@
   <ion-refresher (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-  <p class="marquee message" *ngIf="today_message"><span>{{today_message}}</span></p>
+  <p class="marquee message" [ngStyle]="{'background-color': banner_color}"  *ngIf="today_message"><span>{{today_message}}</span></p>
 
   <ion-slides pager *ngIf="banner" style="height:184px" autoplay="{{time}}" speed="3000" loop="true"
     autoplayDisableOnInteraction="false">
@@ -80,13 +80,13 @@
   </ion-row>
   <ion-row>
     <ion-col col *ngIf="globals.special_offer == '1' && !globals.guess_login">
-      <div text-center (click)="offers()" class="sof">
+      <div text-center (click)="offers()" [ngStyle]="{'background-color': special_offer_color || red}" class="sof">
         <ion-icon name="heart"></ion-icon>
         <div>Special Offers</div>
       </div>
     </ion-col>
     <ion-col col *ngIf="globals.business_type == 'ordering'">
-      <div text-center (click)="orderNow()" class="sof1">
+      <div text-center (click)="orderNow()" [ngStyle]="{'background-color': order_now_color}"  class="sof1">
         <ion-icon name="restaurant"></ion-icon>
         <div>Order Now</div>
       </div>
@@ -101,13 +101,13 @@
 
   <ion-row>
     <ion-col col *ngIf="globals.giftcard_enabled == 1">
-      <div text-center (click)="gifts()" class="sof2">
-        <ion-icon name="medal"></ion-icon>
+      <div text-center (click)="gifts()" [ngStyle]="{'background-color': gift_cards_color}" class="sof2">
+        <ion-icon name="medal" [ngStyle]="{'color': gift_cards_color}" ></ion-icon>
         <div>Gift Cards</div>
       </div>
     </ion-col>
     <ion-col col>
-      <div text-center (click)="rewards()" class="sof3">
+      <div text-center (click)="rewards()" [ngStyle]="{'background-color': my_rewards_color}" class="sof3">
         <ion-icon name="star"></ion-icon>
         <div>My Rewards</div>
       </div>
