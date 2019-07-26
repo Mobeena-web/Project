@@ -108,15 +108,15 @@
                     <ion-icon name="list-box"> </ion-icon>
                   </button> -->
                   <button *ngIf="deals_flag == 1" ion-button block margin-top style="height: 37px;font-size: 13px;"   color='primary' 
-                  (click)="OrderCategory(place.pickup_time,place.delivery_time,place.business_id,place.paypal_id,place.discount,place.stripe_id,place.hours_operation,place.minimum_order,place.delivery_time,place.delivery_fee,place.tax,place.delivery,place.pickup,place.admin_stripe_enabled,place.username,place.customer_discount_availed_count,place.business_discount_count,place.cash_enabled)"
+                  (click)="OrderCategory(place)"
                   block>VIEW SPECIAL OFFERS
                 </button>
                 <button *ngIf="deals_flag != 1 && birthday_flag != 2" ion-button block margin-top style="height: 37px;font-size: 13px;"   color='primary' 
-                  (click)="OrderCategory(place.pickup_time,place.delivery_time,place.business_id,place.paypal_id,place.discount,place.stripe_id,place.hours_operation,place.minimum_order,place.delivery_time,place.delivery_fee,place.tax,place.delivery,place.pickup,place.admin_stripe_enabled,place.username,place.customer_discount_availed_count,place.business_discount_count,place.cash_enabled)"
+                  (click)="OrderCategory(place)"
                   block>VIEW MENU
                 </button>
                 <button *ngIf="birthday_flag == 2" ion-button block margin-top style="height: 37px;font-size: 13px;"   color='primary' 
-                  (click)="OrderCategory(place.pickup_time,place.delivery_time,place.business_id,place.paypal_id,place.discount,place.stripe_id,place.hours_operation,place.minimum_order,place.delivery_time,place.delivery_fee,place.tax,place.delivery,place.pickup,place.admin_stripe_enabled,place.username,place.customer_discount_availed_count,place.business_discount_count,place.cash_enabled)"
+                  (click)="OrderCategory(place)"
                   block>VIEW BIRTHDAY GIFT
                 </button>
                 

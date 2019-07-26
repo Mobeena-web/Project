@@ -326,64 +326,85 @@ export class ResturantListPage {
 
   }
 
-  OrderCategory( pickup_time, delivery_time,businessId, paypalId, discountvalue, stripeId, hours, min, time, deliveryFee, tax, delivery, pickup, admin_stripe, username, availed_discount_count, b_discount_count,cash_enabled) {
+  OrderCategory( place) {
+    console.log(place,"ppo")
+       this.globals.pickup = place.pickup;
+       this.globals.latitude = place.latitude;
+       this.globals.longitude = place.longitude;
+       this.globals.hours_operation = place.hours_operation;
+       this.globals.b_logo = place.logo;
+       this.globals.StripId = place.stripe_id;
+       this.globals.order_instructions = place.instructions_enabled;
+       this.globals.pickup_timing = place.pickup_timing;
+       this.globals.delivery_timing = place.delivery_timing;
+       //this.globals.business_username = place.username;
+       this.globals.estimated_time = place.delivery_time;
+       this.globals.business_discount_count = parseInt(place.business_discount_count);
+       this.globals.username = place.username;
+       this.globals.bussinessId = place.business_id;
+       this.globals.admin_stripe = place.admin_stripe_enabled;
+       this.globals.pickupsetting = place.delivery_time;
+       this.globals.tax = place.tax;
+       this.globals.deliveryCharges = place.delivery_fee;
+       this.globals.pickup_Time = place.pickup_time;
+       this.globals.minimun_order = parseInt(place.minimum_order);
+       this.globals.availed_discount_count = parseInt(place.customer_discount_availed_count);
+       this.globals.paypalId = place.paypal_id;
+       this.globals.Timing = place.hours_operation;
+       this.globals.delivery_day = place.delivery_day;
+       this.globals.authorize_enabled = place.authorize_enabled;
+       this.globals.card_enabled = place.card_enabled;
+       this.globals.admin_stripe_enabled = place.admin_stripe_enabled;
+       this.globals.catering_enabled = place.catering_enabled;
+       this.globals.catering_cart_enabled = place.catering_cart_enabled;
+       this.globals.giftcard_amount_limit = place.giftcard_limit;
+       this.globals.business_type = place.business_type;
 
-      this.globals.availed_discount_count = Number(availed_discount_count);
-      this.globals.business_discount_count = Number(b_discount_count);
+       
+         if (this.globals.pickup == '1') {
+             this.globals.pickup = true;
+         }
+         else {
+             this.globals.pickup = false;
+         }
+         if (place.delivery == '1') {
+             this.globals.delivery = true;
+         }
+         else {
+             this.globals.delivery = false;
+         }
+         if(place.cash_enabled == '1'){
+             this.globals.cash_enabled = true;
+         }
+         else{
+             this.globals.cash_enabled = false;
 
-      this.globals.bussinessId = businessId;
-      this.globals.username = username;
-      this.globals.paypalId = paypalId;
-      this.globals.pickup_Time = pickup_time;
-      this.globals.estimated_time = time;
-      this.globals.pickupsetting = delivery_time;
-      this.globals.StripId = stripeId;
-      this.globals.Timing = hours;
-      this.globals.tax = tax;
-      this.globals.deliveryCharges = deliveryFee;
-      this.globals.admin_stripe = admin_stripe;
-      this.globals.type = 'order';
-      this.globals.pickup = pickup;
-      // console.log(this.globals.admin_stripe);
-      //console.log("delivery local ", delivery);
-   
-      if (delivery == '0') {
-          this.globals.delivery = false;
-      }
-      else {
-          this.globals.delivery = true;
-      }
-      if (pickup == '0') {
-          this.globals.pickup = false;
-      }
-      else {
-          this.globals.pickup = true;
-      }
-      if (min == '') {
-          this.globals.minimun_order = 0;
-      }
-      else {
-          this.globals.minimun_order = Number(min);
-      }
-
-    if(cash_enabled == '1'){
-        this.globals.cash_enabled = true;
-    }
-    else{
-        this.globals.cash_enabled = false;
-    }
+         }
+        if (this.globals.pickup == '1') {
+            this.globals.pickup = true;
+        }
+        else {
+            this.globals.pickup = false;
+        }
+        if (place.delivery == '1') {
+            this.globals.delivery = true;
+        }
+        else {
+            this.globals.delivery = false;
+        }
+      
      
     if(this.deals_flag ==1){
-        this.navCtrl.push('OffersPage', { pageflag: this.pageFlag, BusinessId: businessId, paypal: paypalId, discount: discountvalue });
+        this.navCtrl.push('OffersPage', { pageflag: this.pageFlag, BusinessId: place.businessId, paypal: place.paypalId, discount: place.discountvalue });
 
     }
     else if(this.birthday_flag == 2){
        
-        this.navCtrl.push('BirthdayGiftsPage', { pageflag: this.pageFlag, BusinessId: businessId, paypal: paypalId, discount: discountvalue });
+        this.navCtrl.push('BirthdayGiftsPage', { pageflag: this.pageFlag, BusinessId: place.businessId, paypal:place.paypalId, discount: place.discountvalue });
 
     }
     else{
-        this.navCtrl.push('CategoryPage', { pageflag: this.pageFlag, BusinessId: businessId, paypal: paypalId, discount: discountvalue });
+        this.navCtrl.push('CategoryPage', { pageflag: this.pageFlag, BusinessId: place.businessId, paypal: place.paypalId, discount: place.discountvalue });
 
     }
      
