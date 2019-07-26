@@ -34,6 +34,7 @@ export class ItemDetailPage {
   objectPrice: any = 0;
 
   myList: any;
+  id: any;
   //options: any;
 
   checkstatus: boolean;
@@ -85,18 +86,26 @@ export class ItemDetailPage {
 
     // this.globals.BusinessID = this.Business_id;
     this.itemDetails();
+
+
   }
 
   presentModal1() {
        
     let modal = this.modalCtrl.create('ModalPage');
     modal.present();
+
+    
 }
 
   
   presentModal() {
     let modal = this.modalCtrl.create('InstructionModalPage');
     modal.present();
+
+    // this.globals.menu_item_id = this.id;
+    // console.log('global id',this.globals.menu_item_id);
+
   }
 
   image_show(image){
@@ -430,7 +439,11 @@ export class ItemDetailPage {
 
     response.subscribe(data => {
       this.data = data;
-      // console.log(this.data.categories);
+      
+      this.id = this.data.item.id;
+       console.log('api response',this.data.item.id);
+       console.log('api response',this.data.item);
+
       loading.dismiss();
      
       this.bannerimage = this.data.item.image;

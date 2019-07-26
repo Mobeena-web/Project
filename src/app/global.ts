@@ -121,6 +121,8 @@ export class GlobalVariable {
     specific_delivery_day:any;
     delivery_day:any;
     review_enabled:any;
+    menu_item_id: any;
+    menu_item_arr :any =[];
     
     admin_stripe_enabled:boolean = false;
     authorize_enabled:boolean = false;

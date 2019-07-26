@@ -71,6 +71,12 @@ export class HomePage {
     today_message:any;
     punch_menu:any;
     encodedData:any;
+
+    banner_color: any;
+    gift_cards_color: any;
+    my_rewards_color:any;
+    order_now_color: any;
+    special_offer_color: any;
     constructor(private geolocation: Geolocation,private diagnostic: Diagnostic,public app: App, public server: ServerProvider, public globals: GlobalVariable, private nativeAudio: NativeAudio, private iab: InAppBrowser, private nativeStorage: NativeStorage, public loadingCtrl: LoadingController, public modalCtrl: ModalController, public _nav: NavController, public _navParams: NavParams, public alertCtrl: AlertController, public platform: Platform) {
         if(!this.globals.guess_login){
              this.reward_notification();
@@ -366,8 +372,13 @@ export class HomePage {
             this.ring_image = this.banner.ring_image;
             this.globals.is_anniversary = this.banner.is_anniversary;
             this.globals.is_birthday = this.banner.is_birthday;
-           
-            this.content.resize();
+            this.banner_color = this.banner.banner_color;
+            this.special_offer_color = this.banner.special_offer_color;
+            this.my_rewards_color = this.banner.my_rewards_color;
+            this.gift_cards_color = this.banner.gift_cards_color;
+            this.order_now_color = this.banner.order_now_color;
+            //console.log('colors',this.my_rewards_color,this.gift_cards_color, this.special_offer_color,this.order_now_color);
+
 
             if(!this.banner.is_latest_build){
                     let mobile_update = this.modalCtrl.create('MobileUpdatePage');
@@ -380,6 +391,7 @@ export class HomePage {
     }
 
     ngAfterViewInit(){
+        console.log('ngAfter View In it')
         setTimeout( ()=>{
             var date = new Date();
             var day = date.getDay();
@@ -388,6 +400,7 @@ export class HomePage {
                 
                 var current_day = this.globals.hours_operation[day];
                 this.today_message = current_day[2];
+                console.log('msg..',this.today_message);
         }
         }, 3000)
       }

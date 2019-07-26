@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, Navbar, ModalController, AlertController, ViewController, App, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Navbar, ModalController, AlertController, ViewController, App, LoadingController, ToastController } from 'ionic-angular';
 import { ServerProvider } from '../../providers/server/server';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { GlobalVariable } from '../../app/global';
@@ -64,7 +64,7 @@ export class CartPage {
     gift_card_amount = 0;
     mygifts = [];
     gift_array=[];
-    constructor(public loadingCtrl: LoadingController, public server: ServerProvider, public modalCtrl: ModalController, public alertCtrl: AlertController, private nativeStorage: NativeStorage, public appCtrl: App, public globals: GlobalVariable, public viewCtrl: ViewController, public navCtrl: NavController, public navParams: NavParams) {
+    constructor(public toastCtrl:ToastController ,public loadingCtrl: LoadingController, public server: ServerProvider, public modalCtrl: ModalController, public alertCtrl: AlertController, private nativeStorage: NativeStorage, public appCtrl: App, public globals: GlobalVariable, public viewCtrl: ViewController, public navCtrl: NavController, public navParams: NavParams) {
         console.log(globals.BusinessDiscount,globals.availed_discount_count,globals.business_discount_count, "@@@type");
         //  console.log("here is my items of global" ,this.globals.itemInstruction);
 
@@ -1039,44 +1039,59 @@ export class CartPage {
     }
 
     address_(){
-        if(this.Address && this.Address != undefined){
+        console.log('address',this.Address);
+        console.log(this.Address == 'undefined', this.Address == '', this.Address == 'null');
+        if(this.Address == 'undefined' || this.Address == '' || this.Address == 'null'){
             let alert = this.alertCtrl.create({
-                title: 'Please Confirm Your Address',
-                message: this.Address,
-                buttons: [
-                  {
-                    text: 'Update Address',
-                    handler: () => {
-                      this.changeAddress();
-                    }
-                  },
-                  {
-                    text: 'Proceed to Checkout',
-                    handler: () => {
-                        this.navCtrl.push('PaymentPage', {giftcard:this.gift_array, amount: this.Total, tip: this.Tip, notes: this.notes, RewardAvailed: this.RewardStoreCreditAvailed, BirthdayCreditavailed: this.birthdayStoreCreditavailed });                       
-                      
-                    }
-                  }
-                ]
-              });
-              alert.present();
-        }
-        else{
+                            title: 'Please Confirm Your Address',
+                            message: this.Address,
+                            buttons: [
+                              {
+                                text: 'Update Address',
+                                handler: () => {
+                                  this.changeAddress();
+                                }
+                              },
+                              {
+                                text: 'Proceed to Checkout',
+                                handler: () => {
+                                    let toast = this.toastCtrl.create({
+                                        message: 'Please enter your delivery address',
+                                        duration: 3000,
+                                        position: 'bottom'
+                                      });
+                                      toast.present();
+                                    //this.navCtrl.push('PaymentPage', {giftcard:this.gift_array, amount: this.Total, tip: this.Tip, notes: this.notes, RewardAvailed: this.RewardStoreCreditAvailed, BirthdayCreditavailed: this.birthdayStoreCreditavailed });                       
+                                  
+                                }
+                              }
+                            ]
+                          });
+                          alert.present();
+
+        }else{
             let alert = this.alertCtrl.create({
-                title: 'Please Enter your Delivery Address.',
-               
-                buttons: [
-                  {
-                    text: 'Enter Address',
-                    handler: () => {
-                      this.changeAddress();
-                    }
-                  }
-                ]
-              });
-              alert.present();
-        }
+                            title: 'Please Confirm Your Address',
+                            message: this.Address,
+                            buttons: [
+                              {
+                                text: 'Update Address',
+                                handler: () => {
+                                  this.changeAddress();
+                                }
+                              },
+                              {
+                                text: 'Proceed to Checkout',
+                                handler: () => {
+                                    this.navCtrl.push('PaymentPage', {giftcard:this.gift_array, amount: this.Total, tip: this.Tip, notes: this.notes, RewardAvailed: this.RewardStoreCreditAvailed, BirthdayCreditavailed: this.birthdayStoreCreditavailed });                       
+                                  
+                                }
+                              }
+                            ]
+                          });
+                          alert.present();
     }
+}
 
     // TipChange(){
     //     if(this.Tip > 0)

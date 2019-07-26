@@ -7,9 +7,14 @@
 <ion-header>
 
   <ion-navbar color="primary">
+      <!-- <ion-buttons start large> -->
+          <ion-icon start ios="ios-close" md="md-close" style="float:left;font-weight: bold;font-size: 30px;color:white;" clear  (click)="close()"></ion-icon>
+      <!-- </ion-buttons> -->
+
     <ion-title>Add Instructions</ion-title>
+
     <ion-buttons end>
-        <button ion-button style="float:right;color:white;" small clear  (click)="close()" >Close</button>
+        <button ion-button style="float:right;color:white;" small clear  (click)="saveInstruct()" >Save</button>
     </ion-buttons>
   </ion-navbar>
 
@@ -28,8 +33,8 @@
           </p>
         </ion-col>
       </ion-row>
-      <ion-textarea placeholder="Enter Your Instructions"  [(ngModel)]="instructions" maxlength="1000" ></ion-textarea>
-      <!-- <ion-label>{{instructions}}</ion-label> -->
+      <ion-textarea placeholder="Enter Your Instructions"  [(ngModel)]="instructions" maxlength="1000" value="{{instr}}" ></ion-textarea>
+  
 
     </div>
 
