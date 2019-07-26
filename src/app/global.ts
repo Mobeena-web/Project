@@ -121,6 +121,8 @@ export class GlobalVariable {
     specific_delivery_day:any;
     delivery_day:any;
     review_enabled:any;
+    menu_item_id: any;
+    menu_item_arr :any =[];
     
     admin_stripe_enabled:boolean = false;
     authorize_enabled:boolean = false;
@@ -132,8 +134,8 @@ export class GlobalVariable {
     schedule_converted_time:any;
     business_type:any;
     constructor(public alertCtrl: AlertController,public toastCtrl: ToastController) {
- this.BaseUrl = 'https://staging.onlineordering.mikronexus.com/index.php/';
-     //this.BaseUrl = 'https://onlineordering.mikronexus.com/online-ordering-new/index.php/';
+ //this.BaseUrl = 'https://staging.onlineordering.mikronexus.com/index.php/';
+     this.BaseUrl = 'https://onlineordering.mikronexus.com/online-ordering-new/index.php/';
     }
     
 

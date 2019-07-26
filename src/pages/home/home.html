@@ -80,7 +80,7 @@
   </ion-row>
   <ion-row>
     <ion-col col *ngIf="globals.special_offer == '1' && !globals.guess_login">
-      <div text-center (click)="offers()" [ngStyle]="{'background-color': special_offer_color || red}" class="sof">
+      <div text-center (click)="offers()" [ngStyle]="{'background-color': special_offer_color}" class="sof">
         <ion-icon name="heart"></ion-icon>
         <div>Special Offers</div>
       </div>
