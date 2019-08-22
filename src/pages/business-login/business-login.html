@@ -1,15 +1,15 @@
 
 <ion-content padding>
-  <h3 text-center class="mt1">Kiosk Business Login</h3>
+  <h3 text-center class="mt1">Business Login</h3>
     <ion-item class="mt">
         <ion-label color="primary" stacked>Username</ion-label>
         <ion-input type="email" [(ngModel)]="username"></ion-input>
       </ion-item>
   <ion-item>
-    <ion-label color="primary" stacked>Password</ion-label>
-    <ion-input type="password" [(ngModel)]="password"></ion-input>
+    <ion-label color="primary" stacked>Business ID</ion-label>
+    <ion-input type="text" [(ngModel)]="businessId"></ion-input>
   </ion-item>
 
-  <button ion-button block margin-top round   color='primary' (click)="login_business()" block>Sign In</button>
+  <button ion-button block margin-top round   color='primary' (click)="login_business()" block>Save</button>
 
 </ion-content>

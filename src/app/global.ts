@@ -72,9 +72,9 @@ export class GlobalVariable {
     PhoneNo: any ;
     phone_verified :boolean;
     email_verified :boolean;
-    business_username = CONFIG.business_username;;
+    business_username : any;
     jackemial:any;
-    new_id=CONFIG.business_id;
+    new_id :any;ß
     model_flag :boolean = true;
     signupData:any;
     percent:any;
@@ -121,7 +121,7 @@ export class GlobalVariable {
     specific_delivery_day:any;
     delivery_day:any;
     review_enabled:any;
-    menu_item_id: any;
+    menu_id: any;
     menu_item_arr :any =[];
     
     admin_stripe_enabled:boolean = false;
@@ -134,10 +134,11 @@ export class GlobalVariable {
     schedule_converted_time:any;
     business_type:any;
     orders_enabled:any;
+    
     constructor(public alertCtrl: AlertController,public toastCtrl: ToastController) {
-        //this.BaseUrl = 'https://staging.onlineordering.mikronexus.com/index.php/';
-    //  this.BaseUrl = 'https://onlineordering.mikronexus.com/online-ordering-new/index.php/';
-        this.BaseUrl = 'http://192.168.100.3/online-ordering-rewamp/index.php/'
+      //  this.BaseUrl = 'https://staging.onlineordering.mikronexus.com/index.php/';
+      this.BaseUrl = 'https://onlineordering.mikronexus.com/online-ordering-new/index.php/';
+       // this.BaseUrl = 'http://192.168.100.3/online-ordering-rewamp/index.php/'
 }
     
 

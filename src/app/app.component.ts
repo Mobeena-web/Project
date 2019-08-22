@@ -44,7 +44,7 @@ export class MyApp {
         this.data = {};
         this.data.response = '';
         this.LoadSound();
-         this.list();
+        // this.list();
         
       setTimeout(() => this.splashscreen.hide(), 400);
       this.statusbar.hide();
@@ -55,8 +55,7 @@ export class MyApp {
 
         this.nativeStorage.getItem('business')
         .then(data => {
-          // user is previously logged and we have his data
-          // we will let him access the app
+         
 
           this.globals.new_id = data.business_id;
           this.globals.business_username= data.business_username;
@@ -65,7 +64,6 @@ export class MyApp {
         
           this.splashscreen.hide();
         }, error => {
-          //we don't have the user data so we will ask him to log in
           
              env.nav.setRoot('BusinessLoginPage');
 
@@ -74,26 +72,65 @@ export class MyApp {
 
       }
       else{
-        this.nativeStorage.getItem('user')
+
+        this.nativeStorage.getItem('business')
         .then(data => {
-          // user is previously logged and we have his data
-          // we will let him access the app
+         
 
-          this.globals.udid = data.udid;
-          this.globals.firstName = data.firstName;
-          this.globals.lastName = data.lastName;
-          this.globals.Email = data.email;
-          this.initializePushToken();
+          this.globals.new_id = data.business_id;
+          this.globals.business_username= data.business_username;
+        this.list();
+          this.nativeStorage.getItem('user')
+          .then(data => {
+            // user is previously logged and we have his data
+            // we will let him access the app
+  
+            this.globals.udid = data.udid;
+            this.globals.firstName = data.firstName;
+            this.globals.lastName = data.lastName;
+            this.globals.Email = data.email;
+            this.initializePushToken();
+  
+            env.nav.setRoot(HomePage);
+            this.globals.showFabFlag = true;
+            this.splashscreen.hide();
+          }, error => {
+            //we don't have the user data so we will ask him to log in
+            env.nav.setRoot('BeforeLoginPage');
+            this.globals.showFabFlag = false;
+            this.splashscreen.hide();
+          }).catch(err => { console.log(err) });
 
-          env.nav.setRoot(HomePage);
-          this.globals.showFabFlag = true;
+        
           this.splashscreen.hide();
         }, error => {
-          //we don't have the user data so we will ask him to log in
-          env.nav.setRoot('BeforeLoginPage');
-          this.globals.showFabFlag = false;
+          
+          env.nav.setRoot('BusinessLoginPage');
+
           this.splashscreen.hide();
         }).catch(err => { console.log(err) });
+
+
+        // this.nativeStorage.getItem('user')
+        // .then(data => {
+        //   // user is previously logged and we have his data
+        //   // we will let him access the app
+
+        //   this.globals.udid = data.udid;
+        //   this.globals.firstName = data.firstName;
+        //   this.globals.lastName = data.lastName;
+        //   this.globals.Email = data.email;
+        //   this.initializePushToken();
+
+        //   env.nav.setRoot(HomePage);
+        //   this.globals.showFabFlag = true;
+        //   this.splashscreen.hide();
+        // }, error => {
+        //   //we don't have the user data so we will ask him to log in
+        //   env.nav.setRoot('BeforeLoginPage');
+        //   this.globals.showFabFlag = false;
+        //   this.splashscreen.hide();
+        // }).catch(err => { console.log(err) });
       }
 
       
@@ -272,8 +309,7 @@ export class MyApp {
     }
   }
   logout() {
-  this.nativeStorage.clear()
-      .then(data => {
+  
           this.nativeStorage.remove('user')
               .then(data => {
                   this.globals.Product.length = 0;
@@ -283,8 +319,6 @@ export class MyApp {
               }).catch(err => console.log());
 
           
-
-      }).catch(err => console.log());
 
 }
 
