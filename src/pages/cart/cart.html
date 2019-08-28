@@ -333,7 +333,7 @@
                  <ion-label *ngIf="globals.deliveryCharges != '' && globals.OrderType == 'delivery'" style="padding:0px;font-size:1.3rem;margin:0px;color:#444;">
                    <!-- <ion-icon style="    padding-right: 5px;  position: relative; top: 3px;" name="bicycle"> </ion-icon>  -->
                    Convenient Fee
-                   <p style="float:right;font-size:1.3rem;margin:0px;color:#444;">${{globals.deliveryCharges}}.00</p>
+                   <p style="float:right;font-size:1.3rem;margin:0px;color:#444;">${{delivery_display}}</p>
                  </ion-label>
                  <ion-label *ngIf="globals.deliveryCharges == '' && globals.OrderType == 'delivery'" style="padding:0px;font-size:1.3rem;margin:0px;color:#444;">
                    <!-- <ion-icon style="    padding-right: 5px;  position: relative; top: 3px;" name="bicycle"> </ion-icon> -->

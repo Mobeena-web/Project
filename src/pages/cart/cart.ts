@@ -64,6 +64,8 @@ export class CartPage {
     gift_card_amount = 0;
     mygifts = [];
     gift_array=[];
+    delivery_display: any;
+
     constructor(public toastCtrl: ToastController ,public loadingCtrl: LoadingController, public server: ServerProvider, public modalCtrl: ModalController, public alertCtrl: AlertController, private nativeStorage: NativeStorage, public appCtrl: App, public globals: GlobalVariable, public viewCtrl: ViewController, public navCtrl: NavController, public navParams: NavParams) {
         console.log(globals.BusinessDiscount,globals.availed_discount_count,globals.business_discount_count, "@@@type");
         //  console.log("here is my items of global" ,this.globals.itemInstruction);
@@ -72,8 +74,7 @@ export class CartPage {
         this.type = this.globals.OrderType;
         console.log("checking order type " , this.type);
         console.log(this.globals.MobileDiscount);
-        this.globals.deliveryCharges = Number(this.globals.deliveryCharges);
-        console.log(this.globals.deliveryCharges);
+        this.delivery_display = this.financial(this.globals.deliveryCharges)
         this.globals.TipAdded = false;
       //  console.log(this.globals.minimun_order, "minorder");
       //  console.log("delivery,pickup global", this.globals.delivery, this.globals.pickup);
@@ -146,6 +147,14 @@ export class CartPage {
             }
         }
     }
+    financial(x) {
+        if(x != 0){
+        return Number.parseFloat(x).toFixed(2);
+        }
+        else{
+        return '0.00';
+        }
+        }
     PointBox() {
         // if(this.check_points == true)
         // {

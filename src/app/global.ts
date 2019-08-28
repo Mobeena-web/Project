@@ -72,9 +72,9 @@ export class GlobalVariable {
     PhoneNo: any ;
     phone_verified :boolean;
     email_verified :boolean;
-    business_username : any;
+    business_username : any = CONFIG.business_username;
     jackemial:any;
-    new_id :any;ß
+    new_id :any =CONFIG.business_id;
     model_flag :boolean = true;
     signupData:any;
     percent:any;
@@ -136,8 +136,8 @@ export class GlobalVariable {
     orders_enabled:any;
     
     constructor(public alertCtrl: AlertController,public toastCtrl: ToastController) {
-      //  this.BaseUrl = 'https://staging.onlineordering.mikronexus.com/index.php/';
-      this.BaseUrl = 'https://onlineordering.mikronexus.com/online-ordering-new/index.php/';
+        this.BaseUrl = 'https://staging.onlineordering.mikronexus.com/index.php/';
+     // this.BaseUrl = 'https://onlineordering.mikronexus.com/online-ordering-new/index.php/';
        // this.BaseUrl = 'http://192.168.100.3/online-ordering-rewamp/index.php/'
 }
     

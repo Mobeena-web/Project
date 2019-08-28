@@ -912,6 +912,7 @@ export class PaymentPage {
                     this.Address = '';
                 }
                 let response = this.server.PaymentThroughStripe(this.Address, this.instructions, this.amount, this.order_date, '', status,this.cardinfo)
+                console.log( this.Address, this.instructions, this.amount, this.order_date, '', status,this.cardinfo);
                 console.log("response without json", response);
                 response.subscribe(data => {
                     console.log("data without json", data);
