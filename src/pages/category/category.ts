@@ -544,6 +544,11 @@ export class CategoryPage {
               });
         }
     }
+    click(d, event){
+        
+        this.globals.menu_id = d.category_id;
+        console.log('category ID',this.globals.menu_id);
+    }
 
     searchnew() {
         let val = this.keyword;
