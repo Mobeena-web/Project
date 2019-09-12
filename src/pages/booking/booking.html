@@ -1,4 +1,3 @@
-
 <ion-header>
 
   <ion-navbar color='primary'>
@@ -7,49 +6,196 @@
 
 </ion-header>
 
-
 <ion-content padding>
-    <ion-refresher (ionRefresh)="doRefresh($event)">
-        <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull down to refresh" refreshingSpinner="circles"
-          refreshingText="Refreshing...">
-        </ion-refresher-content>
-      </ion-refresher>
-    <div *ngIf="errorMenu == true">
-        <p style="padding-top: calc(50% - 11px); padding-right:20px; padding-left:20px; text-align: center; font-size: 22px; color:#a8a3a3;"><ion-icon name="eye-off"></ion-icon></p>
-        <p no-margin style="padding-right:20px; padding-left:20px; text-align: center; font-size: 14px;">No Bookings</p>
+  <ion-segment color='primary' [(ngModel)]="type" (ionChange)="onSegmentChanged()">
+    <ion-segment-button value="Pending">
+      Pending
+    </ion-segment-button>
+    <ion-segment-button value="Cancelled">
+      Cancelled
+    </ion-segment-button>
+    <ion-segment-button value="Completed">
+      Completed
+    </ion-segment-button>
+    <ion-segment-button value="Rejected">
+      Rejected
+    </ion-segment-button>
+    <ion-segment-button value="Accepted">
+      Accepted
+    </ion-segment-button>
+  </ion-segment>
+
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull down to refresh" refreshingSpinner="circles"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <div *ngIf="errorMenu == true">
+    <p
+      style="padding-top: calc(50% - 11px); padding-right:20px; padding-left:20px; text-align: center; font-size: 22px; color:#a8a3a3;">
+      <ion-icon name="eye-off"></ion-icon>
+    </p>
+    <p no-margin style="padding-right:20px; padding-left:20px; text-align: center; font-size: 14px;">No Bookings</p>
+  </div>
+
+  <div [ngSwitch]="type">
+
+    <div *ngSwitchCase="'Pending'">
+      <div *ngFor="let booking of bookings">
+        <ion-card *ngIf="booking.status == 'pending'">
+          <ion-row>
+            <ion-col col-6>
+              <p>{{booking.service_name}}</p>
+              <p>{{booking.time_slot}}</p>
+            </ion-col>
+
+            <ion-col col-6>
+              <p>{{booking.stylist_name}}</p>
+              <p>{{booking.date}}</p>
+            </ion-col>
+          </ion-row>
+
+          <ion-row style="border-top:1px dashed #ccc;padding-top: 7px">
+            <ion-col col-6>
+              <h2>Booking id: {{booking.id}}</h2>
+            </ion-col>
+
+            <ion-col col-6>
+              <h2>{{booking.status}}</h2>
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <button ion-button block round margin-top color="danger" (click)="cancelBooking(booking)">Cancel
+              Booking</button>
+          </ion-row>
+        </ion-card>
+      </div>
     </div>
-  <ion-card *ngFor="let booking of bookings">
-    <ion-row>
-      <ion-col col-6>
 
-        <p>{{booking.service_name}}</p>
-        <p>{{booking.time_slot}}</p>
+    <div *ngSwitchCase="'Cancelled'">
+      <div *ngFor="let booking of bookings">
+        <ion-card *ngIf="booking.status == 'cancelled'">
+          <ion-row>
+            <ion-col col-6>
+              <p>{{booking.service_name}}</p>
+              <p>{{booking.time_slot}}</p>
+            </ion-col>
 
-      </ion-col>
-      <ion-col col-6>
+            <ion-col col-6>
+              <p>{{booking.stylist_name}}</p>
+              <p>{{booking.date}}</p>
+            </ion-col>
+          </ion-row>
 
-        <p>{{booking.stylist_name}}</p>
-        <p>{{booking.date}}</p>
+          <ion-row style="border-top:1px dashed #ccc;padding-top: 7px">
+            <ion-col col-6>
+              <h2>Booking id: {{booking.id}}</h2>
+            </ion-col>
 
+            <ion-col col-6>
+              <h2>{{booking.status}}</h2>
+            </ion-col>
+          </ion-row>
+        </ion-card>
+      </div>
+    </div>
 
-      </ion-col>
-    </ion-row>
-      <ion-row style="border-top:1px dashed #ccc;padding-top: 7px">
-          <ion-col col-6>
-  
-            <h2>Booking id: {{booking.id}}</h2>
-    
-          </ion-col>
-          <ion-col col-6>
-    
-            <h2>{{booking.status}}</h2>
-    
-    
-          </ion-col>
-    </ion-row>
+    <div *ngSwitchCase="'Completed'">
+      <div *ngFor="let booking of bookings">
+        <ion-card *ngIf="booking.status == 'completed'">
+          <ion-row>
+            <ion-col col-6>
+              <p>{{booking.service_name}}</p>
+              <p>{{booking.time_slot}}</p>
+            </ion-col>
 
-  </ion-card>
-    <ion-fab>
-      <button ion-fab color="primary" (click)="add_bookings()"><ion-icon name="add"></ion-icon></button>
-    </ion-fab>
+            <ion-col col-6>
+              <p>{{booking.stylist_name}}</p>
+              <p>{{booking.date}}</p>
+            </ion-col>
+          </ion-row>
+
+          <ion-row style="border-top:1px dashed #ccc;padding-top: 7px">
+            <ion-col col-6>
+              <h2>Booking id: {{booking.id}}</h2>
+            </ion-col>
+
+            <ion-col col-6>
+              <h2>{{booking.status}}</h2>
+            </ion-col>
+          </ion-row>
+        </ion-card>
+      </div>
+    </div>
+
+    <div *ngSwitchCase="'Rejected'">
+      <div *ngFor="let booking of bookings">
+        <ion-card *ngIf="booking.status == 'rejected'">
+          <ion-row>
+            <ion-col col-6>
+              <p>{{booking.service_name}}</p>
+              <p>{{booking.time_slot}}</p>
+            </ion-col>
+
+            <ion-col col-6>
+              <p>{{booking.stylist_name}}</p>
+              <p>{{booking.date}}</p>
+            </ion-col>
+          </ion-row>
+
+          <ion-row style="border-top:1px dashed #ccc;padding-top: 7px">
+            <ion-col col-6>
+              <h2>Booking id: {{booking.id}}</h2>
+            </ion-col>
+
+            <ion-col col-6>
+              <h2>{{booking.status}}</h2>
+            </ion-col>
+          </ion-row>
+        </ion-card>
+      </div>
+    </div>
+
+    <div *ngSwitchCase="'Accepted'">
+      <div *ngFor="let booking of bookings">
+        <ion-card *ngIf="booking.status == 'accepted'">
+          <ion-row>
+            <ion-col col-6>
+              <p>{{booking.service_name}}</p>
+              <p>{{booking.time_slot}}</p>
+            </ion-col>
+
+            <ion-col col-6>
+              <p>{{booking.stylist_name}}</p>
+              <p>{{booking.date}}</p>
+            </ion-col>
+          </ion-row>
+
+          <ion-row style="border-top:1px dashed #ccc;padding-top: 7px">
+            <ion-col col-6>
+              <h2>Booking id: {{booking.id}}</h2>
+            </ion-col>
+
+            <ion-col col-6>
+              <h2>{{booking.status}}</h2>
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <button ion-button block round margin-top color="danger" (click)="cancelBooking(booking)">Cancel
+              Booking</button>
+          </ion-row>
+        </ion-card>
+      </div>
+    </div>
+
+  </div>
+
+  <ion-fab>
+    <button ion-fab color="primary" (click)="add_bookings()">
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-fab>
 </ion-content>
