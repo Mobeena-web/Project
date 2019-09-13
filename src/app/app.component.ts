@@ -44,9 +44,7 @@ export class MyApp {
         this.data = {};
         this.data.response = '';
         this.LoadSound();
-        if(!globals.marketPlace){
-            this.list();
-        }
+        
 
         
       setTimeout(() => this.splashscreen.hide(), 400);
@@ -87,7 +85,10 @@ export class MyApp {
           this.globals.lastName = data.lastName;
           this.globals.Email = data.email;
           this.initializePushToken();
-
+          if(!globals.marketPlace){
+            this.list();
+          }
+          
           if(!globals.marketPlace){
             env.nav.setRoot(HomePage);
 
