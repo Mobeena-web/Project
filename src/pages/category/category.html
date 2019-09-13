@@ -45,14 +45,14 @@
                             <div style="position: relative;" *ngIf="d.is_anniversary == 'false' && d.is_birthday == 'false' && d.items.length > 0 && d.catering_enabled == false"  text-wrap [ngClass]="{active: isGroupShown(i)}">
                                 <img  class="cat-img1" *ngIf="d.dealFlag == 'true'" src="assets/imgs/promotion.png">
                                <!-- <img *ngIf="!d.image" class="cat-img" src="assets/imgs/Category-Placeholder.png"-->
-                                <div *ngIf="d.image" (click)="toggleGroup(i)" [ngStyle]="{'background-image': 'url('+d.image+')'}" class="b_image" >
+                                <div *ngIf="d.image"  (click)="click(d, $event)" (click)="toggleGroup(i)" [ngStyle]="{'background-image': 'url('+d.image+')'}" class="b_image" >
                                    <div class="overlay accrodian" [ngClass]="{active_accrodian: !isGroupShown(i)}">
                                     {{d.name}}
                                     <ion-icon  item-right [name]="isGroupShown(i) ? 'ios-arrow-down' : 'ios-arrow-forward'"></ion-icon>
                     
                                    </div>
                                 </div>
-                                <p *ngIf="!d.image" (click)="toggleGroup(i)" [ngStyle]="{'background-color': d.color}" class="accrodian" [ngClass]="{active_accrodian: !isGroupShown(i)}">
+                                <p *ngIf="!d.image" (click)="click(d, $event)" (click)="toggleGroup(i)" [ngStyle]="{'background-color': d.color}" class="accrodian" [ngClass]="{active_accrodian: !isGroupShown(i)}">
                                     {{d.name}}
                                     <ion-icon  item-right [name]="isGroupShown(i) ? 'ios-arrow-down' : 'ios-arrow-forward'"></ion-icon>
                                 </p>

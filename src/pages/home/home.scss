@@ -417,7 +417,7 @@ font-weight: bold;
         }
       }
       .sof{
-        background: #ec008c;
+       // background: #ec008c;
         padding: 32px;
         color: #fff;
         border-radius: 6px;
@@ -434,7 +434,7 @@ font-weight: bold;
       }
       .sof1{
         @extend .sof;
-        background: #20bf6b;
+       // background: #20bf6b;
        
         ion-icon{
            color: #20bf6b;
@@ -444,15 +444,15 @@ font-weight: bold;
 
       .sof2{
         @extend .sof;
-        background: #3498db;
-        ion-icon{
-            color: #3498db;
+      //  background: #3498db;
+        ion-icon{ 
+          color: #3498db;
         }
       }
 
       .sof3{
         @extend .sof;
-        background: #f39c12;
+      //  background: #f39c12;
        
         ion-icon{
             color: #f39c12;
@@ -486,7 +486,7 @@ font-weight: bold;
         word-wrap: break-word;
       }
       .message{
-        background: #EA2027;;
+      // background: #EA2027;;
         color: #fff;
        
       }

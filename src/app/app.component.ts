@@ -45,72 +45,71 @@ export class MyApp {
         this.data.response = '';
         this.LoadSound();
         
-
+        if(this.platform.is('core') || this.platform.is('mobileweb')) {
+            this.list();
+          } 
         
       setTimeout(() => this.splashscreen.hide(), 400);
       this.statusbar.hide();
 
       let env = this;
 
-      if(this.globals.caos_flag){
+    if(this.globals.caos_flag){
 
-        this.nativeStorage.getItem('business')
-        .then(data => {
-          // user is previously logged and we have his data
-          // we will let him access the app
+      this.nativeStorage.getItem('business')
+      .then(data => {
+        // user is previously logged and we have his data
+        // we will let him access the app
 
-          this.globals.new_id = data.business_id;
-          this.globals.business_username= data.business_username;
-        
-          env.nav.setRoot('BeforeLoginPage');
-        
-          this.splashscreen.hide();
-        }, error => {
-          //we don't have the user data so we will ask him to log in
-          
-             env.nav.setRoot('BusinessLoginPage');
-
-          this.splashscreen.hide();
-        }).catch(err => { console.log(err) });
-
-      }
-      else{
-        this.nativeStorage.getItem('user')
-        .then(data => {
-          // user is previously logged and we have his data
-          // we will let him access the app
-
-          this.globals.udid = data.udid;
-          this.globals.firstName = data.firstName;
-          this.globals.lastName = data.lastName;
-          this.globals.Email = data.email;
-          this.initializePushToken();
-          if(!globals.marketPlace){
-            this.list();
-          }
-          
-          if(!globals.marketPlace){
-            env.nav.setRoot(HomePage);
-
-          }
-          else{
-            env.nav.setRoot('ResturantListPage');
-
-          }
-          this.globals.showFabFlag = true;
-          this.splashscreen.hide();
-        }, error => {
-          //we don't have the user data so we will ask him to log in
-          env.nav.setRoot('BeforeLoginPage');
-          this.globals.showFabFlag = false;
-          this.splashscreen.hide();
-        }).catch(err => { console.log(err) });
-      }
-
+        this.globals.new_id = data.business_id;
+        this.globals.business_username= data.business_username;
       
+        env.nav.setRoot('BeforeLoginPage');
+      
+        this.splashscreen.hide();
+      }, error => {
+        //we don't have the user data so we will ask him to log in
+        
+           env.nav.setRoot('BusinessLoginPage');
 
-      this.splashscreen.hide();
-     
+        this.splashscreen.hide();
+      }).catch(err => { console.log(err) });
+
+    }
+    else{
+      this.nativeStorage.getItem('user')
+      .then(data => {
+        // user is previously logged and we have his data
+        // we will let him access the app
+
+        this.globals.udid = data.udid;
+        this.globals.firstName = data.firstName;
+        this.globals.lastName = data.lastName;
+        this.globals.Email = data.email;
+        this.initializePushToken();
+        if(!globals.marketPlace){
+            this.list();
+            env.nav.setRoot(HomePage);
+        }
+        else{
+        env.nav.setRoot('ResturantListPage');
+
+        }
+
+        env.nav.setRoot(HomePage);
+        this.globals.showFabFlag = true;
+        this.splashscreen.hide();
+      }, error => {
+        //we don't have the user data so we will ask him to log in
+        env.nav.setRoot('BeforeLoginPage');
+        this.globals.showFabFlag = false;
+        this.splashscreen.hide();
+      }).catch(err => { console.log(err) });
+    }
+
+    
+
+    this.splashscreen.hide();
     });
   }
 
@@ -283,8 +282,7 @@ export class MyApp {
     }
   }
   logout() {
-  this.nativeStorage.clear()
-      .then(data => {
+  
           this.nativeStorage.remove('user')
               .then(data => {
                   this.globals.Product.length = 0;
@@ -294,8 +292,6 @@ export class MyApp {
               }).catch(err => console.log());
 
           
-
-      }).catch(err => console.log());
 
 }
 
