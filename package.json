@@ -58,9 +58,9 @@
     "angular-ticker": "^1.0.0",
     "animate.css": "^3.7.0",
     "call-number": "^1.0.1",
-    "code-push": "^2.0.6",
+    "code-push": "^3.0.1",
     "com-sarriaroman-photoviewer": "^1.1.18",
-    "cordova-android": "^7.1.4",
+    "cordova-android": "^8.0.0",
     "cordova-browser": "5.0.4",
     "cordova-ios": "5.0.1",
     "cordova-plugin-actionsheet": "^2.3.3",
@@ -107,8 +107,8 @@
   },
   "devDependencies": {
     "@ionic/app-scripts": "3.1.7",
-    "@types/jquery": "^3.3.23",
-    "electron": "^4.0.0",
+    "@types/jquery": "^3.3.31",
+    "electron": "^4.2.10",
     "electron-installer-dmg": "^2.0.0",
     "electron-packager": "^11.2.1",
     "typescript": "2.4.2"
