@@ -252,8 +252,15 @@ getdeals(){
 
   getRestaurantslist(radius, businesType, coordinates, offset, type) {
     var link = this.global.BaseUrl + 'Customer_controller/getplaces';
-    console.log("customer udid -> ", this.global.udid);
-    var data = JSON.stringify({ business_id: this.global.new_id ,coordinates: coordinates, radius: radius, business_type: businesType, offset, type: type, udid: this.global.udid });
+    var data;
+    if(!this.global.marketPlace){
+       data = JSON.stringify({ business_id: this.global.new_id ,coordinates: coordinates, radius: radius, business_type: businesType, offset, type: type, udid: this.global.udid });
+
+    }
+    else{
+      data = JSON.stringify({coordinates: coordinates,business_type: 'marketPlace', radius: radius, offset });
+
+    }
     return this.http.post(link, data)
       .map((res: any) => res.json());
   }

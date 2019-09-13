@@ -7,7 +7,9 @@
 <ion-header class="Open-Sans-bold">
 
   <ion-navbar color="primary">
-    <ion-title *ngIf="deals_flag != 1 && birthday_flag != 2">Branches</ion-title>
+    <ion-title *ngIf="deals_flag != 1 && birthday_flag != 2 && !globals.marketPlace">Branches</ion-title>
+    <ion-title *ngIf="deals_flag != 1 && birthday_flag != 2 && globals.marketPlace">Restaurants List</ion-title>
+
     <ion-title *ngIf="deals_flag == 1">Special Offers</ion-title>
     <ion-title *ngIf="birthday_flag == 2">Birthday Gifts</ion-title>
 

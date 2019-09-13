@@ -44,7 +44,10 @@ export class MyApp {
         this.data = {};
         this.data.response = '';
         this.LoadSound();
-         this.list();
+        if(!globals.marketPlace){
+            this.list();
+        }
+
         
       setTimeout(() => this.splashscreen.hide(), 400);
       this.statusbar.hide();
@@ -85,7 +88,14 @@ export class MyApp {
           this.globals.Email = data.email;
           this.initializePushToken();
 
-          env.nav.setRoot(HomePage);
+          if(!globals.marketPlace){
+            env.nav.setRoot(HomePage);
+
+          }
+          else{
+            env.nav.setRoot('ResturantListPage');
+
+          }
           this.globals.showFabFlag = true;
           this.splashscreen.hide();
         }, error => {
@@ -616,6 +626,7 @@ list() {
         else {
             this.globals.delivery = false;
         }
+
       
      
     }, error => {
