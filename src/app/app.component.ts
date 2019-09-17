@@ -86,7 +86,11 @@ export class MyApp {
         this.globals.firstName = data.firstName;
         this.globals.lastName = data.lastName;
         this.globals.Email = data.email;
-        this.initializePushToken();
+        
+        if(this.globals.new_id != '76'){
+          this.initializePushToken();
+        }
+
         if(!globals.marketPlace){
             this.list();
             env.nav.setRoot(HomePage);
@@ -96,10 +100,13 @@ export class MyApp {
 
         }
 
-        env.nav.setRoot(HomePage);
         this.globals.showFabFlag = true;
         this.splashscreen.hide();
       }, error => {
+
+        if(!globals.marketPlace){
+          this.list();
+        }
         //we don't have the user data so we will ask him to log in
         env.nav.setRoot('BeforeLoginPage');
         this.globals.showFabFlag = false;
