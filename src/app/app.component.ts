@@ -87,9 +87,8 @@ export class MyApp {
         this.globals.lastName = data.lastName;
         this.globals.Email = data.email;
         
-        if(this.globals.new_id != '76'){
-          this.initializePushToken();
-        }
+        this.initializePushToken();
+        
 
         if(!globals.marketPlace){
             this.list();

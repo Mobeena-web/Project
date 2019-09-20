@@ -398,7 +398,13 @@ getdeals(){
   //////  Order API'S ///////
 
   GetUserOrderPlaced() {
-    var link = (this.global.BaseUrl + 'menu/order_history');
+    if(this.global.business_type == 'retail'){
+      var link = (this.global.BaseUrl + 'retail/order_history');
+
+    }
+    else{
+      var link = (this.global.BaseUrl + 'menu/order_history');      
+    }
     var orderdata = JSON.stringify({ udid: this.global.udid });
     return this.http.post(link, orderdata)
       .map((res: any) => res.json())
@@ -406,7 +412,13 @@ getdeals(){
   }
 
   ProductItemDetail(ItemId) {
-    var link = (this.global.BaseUrl + 'menu/item_details');
+    if(this.global.business_type == 'retail'){
+      var link = (this.global.BaseUrl + 'retail/item_details');
+    }
+    else{
+      var link = (this.global.BaseUrl + 'menu/item_details');
+    }
+    
     var data = JSON.stringify({ item_id: ItemId });
     return this.http.post(link, data)
       .map((res: any) => res.json())
@@ -470,7 +482,12 @@ getdeals(){
   }
 
   GetBusinessMenuCategories(BusinessId) {
-    var link = (this.global.BaseUrl + 'menu/categories');
+    if(this.global.business_type == 'retail'){
+      var link = (this.global.BaseUrl + 'retail/categories');
+    }
+    else{
+      var link = (this.global.BaseUrl + 'menu/categories');
+    }
     var data = JSON.stringify({ business_id: BusinessId });
     return this.http.post(link, data)
       .map((res: any) => res.json())
@@ -526,7 +543,15 @@ getdeals(){
 
   PaymentThroughStripe(Address, instruction, amount, order_date, Token, status,cardinfo?) {
 
-    var link = (this.global.BaseUrl + 'menu/place_order');
+    if(this.global.business_type == 'retail'){
+      var link = (this.global.BaseUrl + 'retail/place_order');
+
+    }
+    else{
+      var link = (this.global.BaseUrl + 'menu/place_order');
+
+    }
+
     var orderdata = JSON.stringify({ udid: this.global.udid, payment_info: { address: Address, token: Token,cardInfo:cardinfo,admin_stripe_enabled:this.global.admin_stripe_enabled,authorize_enabled:this.global.authorize_enabled }, order_info: this.global.Product, instruction: instruction, total: amount, scheduled_time: order_date, payment_type: status })
     console.log("stripe", orderdata, order_date);
 
@@ -537,7 +562,14 @@ getdeals(){
 
   PaymentOnDelivery(Address, instruction, amount, order_date, Token, status) {
 
-    var link = (this.global.BaseUrl + 'menu/place_order_cash');
+    if(this.global.business_type == 'retail'){
+      var link = (this.global.BaseUrl + 'retail/place_order_cash');
+
+    }
+    else{
+      var link = (this.global.BaseUrl + 'menu/place_order_cash');
+
+    }
     var orderdata = JSON.stringify({ udid: this.global.udid, payment_info: { address: Address, token: Token }, order_info: this.global.Product, instructions: instruction, total: amount, scheduled_time: order_date, payment_type: status })
     console.log("stripe", orderdata, order_date);
 

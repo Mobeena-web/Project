@@ -20,7 +20,7 @@
               <ion-icon name="alarm" class="myicon"></ion-icon> Services
             </button>
 
-          <button  menuClose ion-item (click)="openHistory()" *ngIf="globals.business_type == 'ordering'">
+          <button  menuClose ion-item (click)="openHistory()" *ngIf="globals.business_type == 'ordering' || globals.business_type == 'retail'">
               <ion-icon name="list" class="myicon"></ion-icon> Order History
             </button>
 
