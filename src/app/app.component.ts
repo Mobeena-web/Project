@@ -567,6 +567,8 @@ list() {
        this.globals.branch_enabled = this.places[0].branch_enabled;
        this.globals.giftcard_enabled = this.places[0].giftcard_enabled;
        this.globals.b_logo = this.places[0].logo;
+       this.globals.home_logo = this.places[0].logo;
+
        this.globals.StripId = this.places[0].stripe_id;
        this.globals.order_instructions = this.places[0].instructions_enabled;
        this.globals.pickup_timing = this.places[0].pickup_timing;
