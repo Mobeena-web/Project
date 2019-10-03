@@ -54,47 +54,47 @@ export class CartPage {
     check_points: boolean = false;
     user_availed_points: boolean = false;
     check_birthday: boolean = false;
-    type : any; 
-    instructionsItem :any ;
-    instruct:Boolean=true;
-    Address : any ; 
-    point_show:any = 0;
-    per_tip :any = 0;
-    tip_cus:any = 0;
+    type: any;
+    instructionsItem: any;
+    instruct: Boolean = true;
+    Address: any;
+    point_show: any = 0;
+    per_tip: any = 0;
+    tip_cus: any = 0;
     gift_card_amount = 0;
     mygifts = [];
-    gift_array=[];
+    gift_array = [];
     delivery_display: any;
 
-    constructor(public toastCtrl: ToastController ,public loadingCtrl: LoadingController, public server: ServerProvider, public modalCtrl: ModalController, public alertCtrl: AlertController, private nativeStorage: NativeStorage, public appCtrl: App, public globals: GlobalVariable, public viewCtrl: ViewController, public navCtrl: NavController, public navParams: NavParams) {
-        console.log(globals.BusinessDiscount,globals.availed_discount_count,globals.business_discount_count, "@@@type");
+    constructor(public toastCtrl: ToastController, public loadingCtrl: LoadingController, public server: ServerProvider, public modalCtrl: ModalController, public alertCtrl: AlertController, private nativeStorage: NativeStorage, public appCtrl: App, public globals: GlobalVariable, public viewCtrl: ViewController, public navCtrl: NavController, public navParams: NavParams) {
+        console.log(globals.BusinessDiscount, globals.availed_discount_count, globals.business_discount_count, "@@@type");
         //  console.log("here is my items of global" ,this.globals.itemInstruction);
 
-        this.Address =localStorage.getItem("GetAddress");
+        this.Address = localStorage.getItem("GetAddress");
         this.type = this.globals.OrderType;
-        console.log("checking order type " , this.type);
+        console.log("checking order type ", this.type);
         console.log(this.globals.MobileDiscount);
         this.delivery_display = this.financial(this.globals.deliveryCharges)
         this.globals.TipAdded = false;
-      //  console.log(this.globals.minimun_order, "minorder");
-      //  console.log("delivery,pickup global", this.globals.delivery, this.globals.pickup);
+        //  console.log(this.globals.minimun_order, "minorder");
+        //  console.log("delivery,pickup global", this.globals.delivery, this.globals.pickup);
 
-        if (this.type == "delivery" ) {
+        if (this.type == "delivery") {
             console.log("checking pickup and delivery");
             this.Deliver = true;
             this.pickup = false;
-         
+
         }
         else {
             this.Deliver = false;
             this.pickup = true;
-          
+
             // this.Deliver = this.globals.delivery;
             // this.pickup = this.globals.pickup;
         }
         //this.PickupBox();
-        console.log("which type ",this.globals.pickup, this.globals.delivery);
-        console.log("pickup value checking ",this.pickup);
+        console.log("which type ", this.globals.pickup, this.globals.delivery);
+        console.log("pickup value checking ", this.pickup);
 
 
 
@@ -108,17 +108,17 @@ export class CartPage {
         this.CheckUserPoints();
         this.CheckMobileDiscount();
         this.my_gift_cards();
-      console.log( this.globals.business_discount_count,this.globals.availed_discount_count,'po')
+        console.log(this.globals.business_discount_count, this.globals.availed_discount_count, 'po')
     }
     // ionViewWillEnter(){
     //     this.total();
     // }
 
-    
+
 
     ionViewDidLoad() {
         console.log('ionViewDidLoad CartPage');
-      //  console.log("instruction key", this.globals.instruction);
+        //  console.log("instruction key", this.globals.instruction);
         this.globals.cartflag = false;
         // this.setArray();
 
@@ -148,13 +148,13 @@ export class CartPage {
         }
     }
     financial(x) {
-        if(x != 0){
-        return Number.parseFloat(x).toFixed(2);
+        if (x != 0) {
+            return Number.parseFloat(x).toFixed(2);
         }
-        else{
-        return '0.00';
+        else {
+            return '0.00';
         }
-        }
+    }
     PointBox() {
         // if(this.check_points == true)
         // {
@@ -465,14 +465,14 @@ export class CartPage {
     total() {
         this.Total = 0;
         // console.log(this.globals.deliveryCharges, "delivery cahrges");
-        this.globals.deliveryCharges=   Math.round(this.globals.deliveryCharges * 100) / 100;
+        this.globals.deliveryCharges = Math.round(this.globals.deliveryCharges * 100) / 100;
         console.log(this.globals.deliveryCharges, "delivery cahrges");
         for (let sub of this.globals.Product) {
             this.Total = Number(this.Total);
             console.log(sub.totalPrice);
             sub.totalPrice = Number(sub.totalPrice);
             console.log(sub.totalPrice);
-            console.log("checking product data ",this.globals.Product);
+            console.log("checking product data ", this.globals.Product);
             this.Total += Number(sub.totalPrice);
             this.ProductsTotal = this.Total;
         }
@@ -480,7 +480,7 @@ export class CartPage {
         if (this.globals.BusinessDiscount > 0 && this.globals.availed_discount_count < this.globals.business_discount_count) {
             console.log("business discount", this.globals.BusinessDiscount, this.globals.BusinessDiscountFlag);
             this.discountTotal = Number(this.ProductsTotal) * this.globals.BusinessDiscount / 100;
-            this.discountTotal=   Math.round(this.discountTotal * 100) / 100;
+            this.discountTotal = Math.round(this.discountTotal * 100) / 100;
             // this.discountTotal.toFixed(2);
             console.log(this.ProductsTotal, this.discountTotal);
             this.Total = this.ProductsTotal - this.discountTotal;
@@ -496,13 +496,13 @@ export class CartPage {
             this.Total = Number(this.Total);
             console.log("global", this.globals.deliveryCharges, this.Total);
             this.Total = this.Total + Number(this.globals.deliveryCharges);
-            
+
             //    this.deliverycharges = Number(this.globals.deliveryCharges);
             console.log("delivery charges", this.globals.deliveryCharges, this.Total);
         }
 
-        if ((Number(this.Total) < this.globals.minimun_order || Number(this.Total) < 0 ) && this.Deliver == true ) {
-            if(Number(this.ProductsTotal) == 0){
+        if ((Number(this.Total) < this.globals.minimun_order || Number(this.Total) < 0) && this.Deliver == true) {
+            if (Number(this.ProductsTotal) == 0) {
                 this.TaxCalculate();
                 if (this.RewardStoreCreditAvailed > 0) {
                     this.Total = Number(this.Total) - this.RewardStoreCreditAvailed;
@@ -511,11 +511,11 @@ export class CartPage {
                     this.Total = Number(this.Total) - this.birthdayStoreCreditavailed;
                 }
             }
-            else{
+            else {
                 this.globals.presentToast('Please add more items in the cart.')
 
             }
-           
+
 
         }
         else {
@@ -528,29 +528,58 @@ export class CartPage {
             }
         }
 
-        
 
-         if(this.gift_array.length > 0){
+
+        if (this.gift_array.length > 0) {
             this.gift_array.forEach(e => {
-                console.log(e.amount,'f')
-                this.Total = Number(this.Total) -  Number(e.amount)
-                 
-             });
-         }
+                console.log(e.amount, 'f')
+                this.Total = Number(this.Total) - Number(e.amount)
+
+            });
+        }
 
     }
 
 
 
     TaxCalculate() {
-        console.log(this.Total, this.globals.tax, this.Tip);
 
-        var taxcalc = (Number(this.globals.tax) / 100) * Number(this.Total);
-        console.log("tax cal", taxcalc);
-        this.tax_calc = taxcalc.toFixed(2);
-        this.Total = this.Total + taxcalc;
+        if (this.globals.business_type == 'retail') {
+            var taxcalc = 0;
+            this.globals.retail_items_discount = 0;
+            var ItemDiscount = 0;
+            var ItemDiscountedValue = 0;
+            for (let sub of this.globals.Product) {
+                ItemDiscount = 0;
+                let CalculatedTax = 0;
+                sub.discount_type == 'cash' ? ItemDiscount += Number(sub.discount_value) * Number(sub.quantity) : sub.discount_type == 'perc' ? ItemDiscount += Number(sub.discount_value) / 100 * Number(sub.basePrice) * Number(sub.quantity) : console.log('discount neither cash nor percent');
+                console.log(ItemDiscount,"pfop")
+               
+                ItemDiscountedValue = (Number(sub.basePrice) * Number(sub.quantity) )- Number(ItemDiscount) ;
+                console.log(ItemDiscountedValue,"pop")
+                CalculatedTax = Number(sub.tax) / 100 * Number(ItemDiscountedValue);
+                taxcalc += CalculatedTax;
+                this.globals.retail_items_discount += ItemDiscount;
+                sub.CalculatedDiscount = this.financial(ItemDiscount);
+                sub.CalculatedTax = this.financial(CalculatedTax);
+            }
+            this.tax_calc = taxcalc.toFixed(2);
 
-        this.Total = this.Total.toFixed(2);
+            this.Total = (this.Total + taxcalc) - this.globals.retail_items_discount;
+            this.Total = this.Total.toFixed(2);
+
+        }
+        else {
+            var taxcalc = (Number(this.globals.tax) / 100) * Number(this.Total);
+            console.log("tax cal", taxcalc);
+            this.tax_calc = taxcalc.toFixed(2);
+            this.Total = this.Total + taxcalc;
+
+            this.Total = this.Total.toFixed(2);
+        }
+
+
+
         //console.log(this.Total);
 
     }
@@ -643,19 +672,19 @@ export class CartPage {
 
     detail(id) {
         console.log(id, "id");
-        this.navCtrl.push('ItemDetailPage', { type:true,item_id: id, BusinesId: this.globals.BusinessID })
+        this.navCtrl.push('ItemDetailPage', { type: true, item_id: id, BusinesId: this.globals.BusinessID })
     }
 
     changeAddress() {
         // this.navCtrl.push("ModalPage");
         //  this.total();
-         
+
         let modal = this.modalCtrl.create('ModalPage');
         modal.onDidDismiss(data => {
             this.total();
         });
         modal.present();
-      }
+    }
 
     AddmoreItem() {
         this.globals.cartflag = true;
@@ -676,6 +705,7 @@ export class CartPage {
             var index = this.globals.Product.indexOf(product);
             this.globals.Product.splice(index, 1);
             // this.setArray();
+            this.globals.retail_items_discount = 0;
             this.navCtrl.popTo('CategoryPage');
         }
         else {
@@ -702,7 +732,7 @@ export class CartPage {
             if (user_reward.status != 'error') {
                 console.log(user_reward.rewards);
                 user_reward.rewards.forEach(element => {
-                    console.log(this.globals.BusinessID,"ll")
+                    console.log(this.globals.BusinessID, "ll")
                     if (element.businessid == this.globals.new_id) {
                         console.log("businessexist exist");
 
@@ -814,28 +844,28 @@ export class CartPage {
     }
     presentConfirm() {
         let alert = this.alertCtrl.create({
-          title: 'Login',
-          message: 'You need to be logged in to use this feature.',
-          buttons: [
-            {
-              text: 'Cancel',
-              role: 'cancel',
-              handler: () => {
-                console.log('Cancel clicked');
-              }
-            },
-            {
-              text: 'Login',
-              handler: () => {
-                this.navCtrl.setRoot('LoginPage')
-              }
-            }
-          ]
+            title: 'Login',
+            message: 'You need to be logged in to use this feature.',
+            buttons: [
+                {
+                    text: 'Cancel',
+                    role: 'cancel',
+                    handler: () => {
+                        console.log('Cancel clicked');
+                    }
+                },
+                {
+                    text: 'Login',
+                    handler: () => {
+                        this.navCtrl.setRoot('LoginPage')
+                    }
+                }
+            ]
         });
         alert.present();
-      }
+    }
 
-      coas_type(){
+    coas_type() {
         let alert = this.alertCtrl.create({
             title: 'Login',
             message: 'You Want to Login or Proceed to Checkout',
@@ -843,31 +873,31 @@ export class CartPage {
                 {
                     text: 'Login',
                     handler: () => {
-                       let modal = this.modalCtrl.create('LoginPage');
+                        let modal = this.modalCtrl.create('LoginPage');
                         modal.present();
                     }
-                  },
-              {
-                text: 'Proceed to Checkout',
-                handler: () => {
-                    
-                    this.navCtrl.push('PaymentPage', { amount: this.Total, tip: this.Tip, notes: this.notes, RewardAvailed: this.RewardStoreCreditAvailed, BirthdayCreditavailed: this.birthdayStoreCreditavailed });
-                  
+                },
+                {
+                    text: 'Proceed to Checkout',
+                    handler: () => {
+
+                        this.navCtrl.push('PaymentPage', { amount: this.Total, tip: this.Tip, notes: this.notes, RewardAvailed: this.RewardStoreCreditAvailed, BirthdayCreditavailed: this.birthdayStoreCreditavailed });
+
+                    }
                 }
-              }
-              
+
             ]
-          });
-          alert.present();
-      }
+        });
+        alert.present();
+    }
 
 
     paymentPage() {
-        console.log("gurst",this.globals.guess_login)
-        if(this.globals.guess_login){
+        console.log("gurst", this.globals.guess_login)
+        if (this.globals.guess_login) {
             this.presentConfirm();
         }
-        else{
+        else {
             let proceedFlag = true;
             let alert12 = this.alertCtrl.create({
                 title: 'Alert',
@@ -876,18 +906,18 @@ export class CartPage {
             });
 
             if (this.ProductsTotal < this.globals.minimun_order && this.Deliver == true && this.globals.OrderType == 'delivery') {
-                if(Number(this.ProductsTotal == 0)){
+                if (Number(this.ProductsTotal == 0)) {
                     if (this.globals.MobileDiscount > 0 && this.globals.MobileDiscountFlag == true) {
                         let mob = this.globals.MobileDiscount;
                         let subtract_value = Number(this.ProductsTotal) - mob;
                         if (subtract_value >= this.globals.minimun_order) {
                             console.log(this.globals.MobileDiscount, "mobile discount");
-        
+
                             console.log("mobile discount, product total", this.ProductsTotal, this.globals.MobileDiscount);
-        
+
                             this.ProductsTotal = Number(this.ProductsTotal) - Number(this.globals.MobileDiscount);
                             console.log("product total after subtraction", this.ProductsTotal);
-        
+
                             this.ProductsTotal = this.ProductsTotal.toFixed(2);
                             console.log("product total after toFixed", this.ProductsTotal);
                             this.Total = this.ProductsTotal;
@@ -897,82 +927,82 @@ export class CartPage {
                             alert12.present();
                             proceedFlag = false;
                         }
-        
+
                         if (this.Deliver == true) {
-                          
+
                             this.Total = Number(this.ProductsTotal) + Number(this.globals.deliveryCharges);
-                           
+
                         }
                         else {
                             this.Total = Number(this.ProductsTotal);
                         }
                         this.Total = this.Total.toFixed(2);
-        
+
                         if ((Number(this.ProductsTotal) < this.globals.minimun_order || Number(this.ProductsTotal) < 0) && this.Deliver == true) {
                             alert12.present();
                             this.total();
                             proceedFlag = false;
                         }
-                     
-        
+
+
                     }
-                  
-                    
+
+
                     if (proceedFlag) {
-                         this.Address =localStorage.getItem("GetAddress");
-                        console.log(this.Address,"lo")
-                        if(this.globals.OrderType == 'delivery' && this.globals.caos_flag == false){
-                            if(this.globals.inradius){
-                                   if(this.checkTiming(this.globals.delivery_timing)){
-                                        this.address_();
-                                      }
-                           
+                        this.Address = localStorage.getItem("GetAddress");
+                        console.log(this.Address, "lo")
+                        if (this.globals.OrderType == 'delivery' && this.globals.caos_flag == false) {
+                            if (this.globals.inradius) {
+                                if (this.checkTiming(this.globals.delivery_timing)) {
+                                    this.address_();
+                                }
+
                             }
-                            else{
+                            else {
                                 this.globals.presentToast("Sorry, We dn't deliver in your Area.")
-    
+
                             }
-                            
-                          
+
+
                         }
-                        else{
+                        else {
                             console.log(this.globals.Email, "emaill")
-                            if(!this.globals.udid && !this.globals.guess_login){
+                            if (!this.globals.udid && !this.globals.guess_login) {
                                 this.coas_type();
                             }
-                            else{
-                                if(this.checkTiming(this.globals.pickup_timing)){
-                                  this.navCtrl.push('PaymentPage', { giftcard:this.gift_array,amount: this.Total, tip: this.Tip, notes: this.notes, RewardAvailed: this.RewardStoreCreditAvailed, BirthdayCreditavailed: this.birthdayStoreCreditavailed });
-                                
-                                  }
-    
+                            else {
+                                if (this.checkTiming(this.globals.pickup_timing)) {
+                                    this.navCtrl.push('PaymentPage', { giftcard: this.gift_array, amount: this.Total, tip: this.Tip, notes: this.notes, RewardAvailed: this.RewardStoreCreditAvailed, BirthdayCreditavailed: this.birthdayStoreCreditavailed,tax:this.tax_calc });
+
+                                }
+
                             }
-                            
+
                         }
-                        
-                          
+
+
                     }
                 }
-                else{
+                else {
                     alert12.present();
                     proceedFlag = false;
                 }
-                
+
             }
-    
+
             else {
-    
+
                 if (this.globals.MobileDiscount > 0 && this.globals.MobileDiscountFlag == true) {
                     let mob = this.globals.MobileDiscount;
                     let subtract_value = Number(this.ProductsTotal) - mob;
                     if (subtract_value >= this.globals.minimun_order) {
                         console.log(this.globals.MobileDiscount, "mobile discount");
-    
+
                         console.log("mobile discount, product total", this.ProductsTotal, this.globals.MobileDiscount);
-    
+
                         this.ProductsTotal = Number(this.ProductsTotal) - Number(this.globals.MobileDiscount);
                         console.log("product total after subtraction", this.ProductsTotal);
-    
+
                         this.ProductsTotal = this.ProductsTotal.toFixed(2);
                         console.log("product total after toFixed", this.ProductsTotal);
                         this.Total = this.ProductsTotal;
@@ -982,125 +1012,125 @@ export class CartPage {
                         alert12.present();
                         proceedFlag = false;
                     }
-    
+
                     if (this.Deliver == true) {
-                      
+
                         this.Total = Number(this.ProductsTotal) + Number(this.globals.deliveryCharges);
-                       
+
                     }
                     else {
                         this.Total = Number(this.ProductsTotal);
                     }
                     this.Total = this.Total.toFixed(2);
-    
+
                     if ((Number(this.ProductsTotal) < this.globals.minimun_order || Number(this.ProductsTotal) < 0) && this.Deliver == true) {
                         alert12.present();
                         this.total();
                         proceedFlag = false;
                     }
-                 
-    
+
+
                 }
-              
-    
-    
-    
+
+
+
+
                 if (proceedFlag) {
-                     this.Address =localStorage.getItem("GetAddress");
-                     console.log(this.globals.Email, "emaill")
-                    
-                    if(this.globals.OrderType == 'delivery' && this.globals.caos_flag == false){
-                        if(this.globals.inradius){
-                               if(this.checkTiming(this.globals.delivery_timing)){
-                                    this.address_();
-                                }
-                       
+                    this.Address = localStorage.getItem("GetAddress");
+                    console.log(this.globals.Email, "emaill")
+
+                    if (this.globals.OrderType == 'delivery' && this.globals.caos_flag == false) {
+                        if (this.globals.inradius) {
+                            if (this.checkTiming(this.globals.delivery_timing)) {
+                                this.address_();
+                            }
+
                         }
-                        else{
+                        else {
                             this.globals.presentToast("Sorry, We dn't deliver in your Area.")
 
                         }
-                        
-                      
+
+
                     }
-                    else{
+                    else {
                         console.log(this.globals.Email, "emaill")
-                        if(!this.globals.udid && !this.globals.guess_login){
+                        if (!this.globals.udid && !this.globals.guess_login) {
                             this.coas_type();
                         }
-                        else{
-                            if(this.checkTiming(this.globals.pickup_timing)){
-                              this.navCtrl.push('PaymentPage', { giftcard:this.gift_array,amount: this.Total, tip: this.Tip, notes: this.notes, RewardAvailed: this.RewardStoreCreditAvailed, BirthdayCreditavailed: this.birthdayStoreCreditavailed });
-                            
-                              }
+                        else {
+                            if (this.checkTiming(this.globals.pickup_timing)) {
+                                this.navCtrl.push('PaymentPage', { giftcard: this.gift_array, amount: this.Total, tip: this.Tip, notes: this.notes, RewardAvailed: this.RewardStoreCreditAvailed, BirthdayCreditavailed: this.birthdayStoreCreditavailed,tax:this.tax_calc });
+
+                            }
 
                         }
-                        
+
                     }
-                    
-                      
+
+
                 }
             }
 
         }
-       
+
 
     }
 
-    address_(){
-        console.log('address',this.Address);
+    address_() {
+        console.log('address', this.Address);
         console.log(this.Address == 'undefined', this.Address == '', this.Address == 'null');
-        if(this.Address == 'undefined' || this.Address == '' || this.Address == 'null'){
+        if (this.Address == 'undefined' || this.Address == '' || this.Address == 'null') {
             let alert = this.alertCtrl.create({
-                            title: 'Please Confirm Your Address',
-                            message: this.Address,
-                            buttons: [
-                              {
-                                text: 'Update Address',
-                                handler: () => {
-                                  this.changeAddress();
-                                }
-                              },
-                              {
-                                text: 'Proceed to Checkout',
-                                handler: () => {
-                                    let toast = this.toastCtrl.create({
-                                        message: 'Please enter your delivery address',
-                                        duration: 3000,
-                                        position: 'bottom'
-                                      });
-                                      toast.present();
-                                    //this.navCtrl.push('PaymentPage', {giftcard:this.gift_array, amount: this.Total, tip: this.Tip, notes: this.notes, RewardAvailed: this.RewardStoreCreditAvailed, BirthdayCreditavailed: this.birthdayStoreCreditavailed });                       
-                                  
-                                }
-                              }
-                            ]
-                          });
-                          alert.present();
+                title: 'Please Confirm Your Address',
+                message: this.Address,
+                buttons: [
+                    {
+                        text: 'Update Address',
+                        handler: () => {
+                            this.changeAddress();
+                        }
+                    },
+                    {
+                        text: 'Proceed to Checkout',
+                        handler: () => {
+                            let toast = this.toastCtrl.create({
+                                message: 'Please enter your delivery address',
+                                duration: 3000,
+                                position: 'bottom'
+                            });
+                            toast.present();
+                            //this.navCtrl.push('PaymentPage', {giftcard:this.gift_array, amount: this.Total, tip: this.Tip, notes: this.notes, RewardAvailed: this.RewardStoreCreditAvailed, BirthdayCreditavailed: this.birthdayStoreCreditavailed });                       
 
-        }else{
+                        }
+                    }
+                ]
+            });
+            alert.present();
+
+        } else {
             let alert = this.alertCtrl.create({
-                            title: 'Please Confirm Your Address',
-                            message: this.Address,
-                            buttons: [
-                              {
-                                text: 'Update Address',
-                                handler: () => {
-                                  this.changeAddress();
-                                }
-                              },
-                              {
-                                text: 'Proceed to Checkout',
-                                handler: () => {
-                                    this.navCtrl.push('PaymentPage', {giftcard:this.gift_array, amount: this.Total, tip: this.Tip, notes: this.notes, RewardAvailed: this.RewardStoreCreditAvailed, BirthdayCreditavailed: this.birthdayStoreCreditavailed });                       
-                                  
-                                }
-                              }
-                            ]
-                          });
-                          alert.present();
+                title: 'Please Confirm Your Address',
+                message: this.Address,
+                buttons: [
+                    {
+                        text: 'Update Address',
+                        handler: () => {
+                            this.changeAddress();
+                        }
+                    },
+                    {
+                        text: 'Proceed to Checkout',
+                        handler: () => {
+                            this.navCtrl.push('PaymentPage', { giftcard: this.gift_array, amount: this.Total, tip: this.Tip, notes: this.notes, RewardAvailed: this.RewardStoreCreditAvailed, BirthdayCreditavailed: this.birthdayStoreCreditavailed ,tax:this.tax_calc});
+
+                        }
+                    }
+                ]
+            });
+            alert.present();
+        }
     }
-}
 
     // TipChange(){
     //     if(this.Tip > 0)
@@ -1109,11 +1139,11 @@ export class CartPage {
     // }
 
     AvailRewards() {
-       if (this.check_points) {
+        if (this.check_points) {
 
             this.user_availed_points = false;
             if (this.pointsInput.points != undefined || this.pointsInput.points != null) {
-                
+
                 if (this.pointsInput.points > this.points) {
 
                     this.AddMoreItemAlert('You do not have sufficient points to redeem this point reward.')
@@ -1122,7 +1152,7 @@ export class CartPage {
                 }
 
                 else if (!this.pointsInput.availed) {
-                   
+
                     let tot = Number(this.Total);
                     let sub = tot - Number(this.pointsInput.description);
                     console.log(sub, "sub");
@@ -1135,10 +1165,10 @@ export class CartPage {
                     else {
                         this.pointsInput.availed = true;
                         this.points = this.points - this.pointsInput.points;
-                        console.log("pointshow77",this.pointsInput.description)
+                        console.log("pointshow77", this.pointsInput.description)
 
                         this.point_show = this.point_show + Number(this.pointsInput.description);
-                        console.log("pointshow",this.point_show)
+                        console.log("pointshow", this.point_show)
                         this.Total = sub;
                         this.globals.points_availed = this.pointsInput.points;
                         this.availed_points = Number(this.pointsInput.description);
@@ -1150,7 +1180,7 @@ export class CartPage {
                 }
             }
         }
-        
+
         if (this.check_rewards) {
             let tot = Number(this.Total);
             let sub = tot - this.StoreCreditInput;
@@ -1181,7 +1211,7 @@ export class CartPage {
 
             }
             else {
-            this.birthday_amount -= this.birthdayStoreCreditavailed;
+                this.birthday_amount -= this.birthdayStoreCreditavailed;
                 this.Total = sub;
                 this.birthdayStoreCreditavailed = Number(this.birthdayStoreCreditavailed) + Number(this.birthdayStoreCreditInput);
                 console.log(this.birthdayStoreCreditavailed);
@@ -1264,376 +1294,376 @@ export class CartPage {
         activeElement && activeElement.blur && activeElement.blur();
     }
 
-    percent_tip(tip){
+    percent_tip(tip) {
         this.Total = Number(this.Total) - Number(this.Tip);
 
-        this.per_tip = ((Number(this.ProductsTotal) /100) * tip).toFixed(2);
+        this.per_tip = ((Number(this.ProductsTotal) / 100) * tip).toFixed(2);
         this.Tip = this.per_tip;
         this.Total = (Number(this.Total) + Number(this.per_tip)).toFixed(2);
 
     }
 
-    add_gratuity(){
+    add_gratuity() {
         let alert = this.alertCtrl.create({
             title: 'Add Gratuity',
             inputs: [
-              {
-                name: 'tip',
-                placeholder: 'Tip',
-                type:'number',
-                value:this.Tip
-              }
+                {
+                    name: 'tip',
+                    placeholder: 'Tip',
+                    type: 'number',
+                    value: this.Tip
+                }
             ],
             buttons: [
-              {
-                text: 'Cancel',
-                role: 'cancel',
-                handler: data => {
-                  console.log('Cancel clicked');
-                }
-              },
-              {
-                text: 'OK',
-                handler: data => {
-                    if(data.tip == ''){
-                        this.Tip = 0;
+                {
+                    text: 'Cancel',
+                    role: 'cancel',
+                    handler: data => {
+                        console.log('Cancel clicked');
                     }
-                    else{
-                        this.Total = this.Total - Number(this.Tip);
-                        this.Tip = data.tip;
-                        this.tip_cus = data.tip;
-                        this.Total = (Number(this.Total) + Number(this.Tip)).toFixed(2);
+                },
+                {
+                    text: 'OK',
+                    handler: data => {
+                        if (data.tip == '') {
+                            this.Tip = 0;
+                        }
+                        else {
+                            this.Total = this.Total - Number(this.Tip);
+                            this.Tip = data.tip;
+                            this.tip_cus = data.tip;
+                            this.Total = (Number(this.Total) + Number(this.Tip)).toFixed(2);
+                        }
                     }
                 }
-              }
             ]
-          });
-          alert.present();
+        });
+        alert.present();
     }
 
-    add_notes(){
+    add_notes() {
         let alert = this.alertCtrl.create({
             title: 'Add Notes',
             inputs: [
-              {
-                name: 'notes',
-                placeholder: 'Notes',
-                value:this.notes
-              }
+                {
+                    name: 'notes',
+                    placeholder: 'Notes',
+                    value: this.notes
+                }
             ],
             buttons: [
-              {
-                text: 'Cancel',
-                role: 'cancel',
-                handler: data => {
-                  console.log('Cancel clicked');
+                {
+                    text: 'Cancel',
+                    role: 'cancel',
+                    handler: data => {
+                        console.log('Cancel clicked');
+                    }
+                },
+                {
+                    text: 'OK',
+                    handler: data => {
+                        this.notes = data.notes;
+                    }
                 }
-              },
-              {
-                text: 'OK',
-                handler: data => {
-                 this.notes = data.notes;
-                }
-              }
             ]
-          });
-          alert.present();
+        });
+        alert.present();
     }
 
     add_points() {
         let alert = this.alertCtrl.create();
         alert.setTitle(this.points + ' Points');
-        
+
         this.point_rewards.forEach(e => {
             alert.addInput({
                 type: 'radio',
-                label: '$' + e.description +' ('+ e.points +' Points)',
+                label: '$' + e.description + ' (' + e.points + ' Points)',
                 value: e,
-                disabled:e.availed
-              });
-            
+                disabled: e.availed
+            });
+
         });
-    
+
         alert.addButton('Cancel');
         alert.addButton({
-          text: 'OK',
-          handler: data => {
-            var p = this.point_rewards.filter(function(item) {
-                return item.availed === false;
-              });
-            
-              if(p.length > 0){
-                this.pointsInput = data;
-                this.check_points = true;
-                this.AvailRewards();
-              }
- 
-          }
+            text: 'OK',
+            handler: data => {
+                var p = this.point_rewards.filter(function (item) {
+                    return item.availed === false;
+                });
+
+                if (p.length > 0) {
+                    this.pointsInput = data;
+                    this.check_points = true;
+                    this.AvailRewards();
+                }
+
+            }
         });
         alert.present();
-      }
+    }
 
-      my_gift_cards() {
-       
+    my_gift_cards() {
+
         let response = this.server.my_gift_cards();
         response.subscribe(data => {
             this.mygifts = data;
-           
-        
+
+
         }, error => {
             this.globals.presentToast("Something went wrong check your internet connection.")
-      
-        });
-      }
 
-      gift_alert(){
+        });
+    }
+
+    gift_alert() {
         let alert = this.alertCtrl.create();
         alert.setTitle('Select Giftcard');
-        
+
         this.mygifts.forEach(e => {
             alert.addInput({
                 type: 'radio',
                 label: '$' + e.amount,
                 value: e,
-              });
-            
+            });
+
         });
-    
+
         alert.addButton('Cancel');
         alert.addButton({
-          text: 'OK',
-          handler: data => {
-              if(data){
-                if(Number(data.amount) > Number(this.Total)){
-                    this.full_reddem_or_partial(data);
+            text: 'OK',
+            handler: data => {
+                if (data) {
+                    if (Number(data.amount) > Number(this.Total)) {
+                        this.full_reddem_or_partial(data);
+                    }
+                    else {
+                        this.partial_redeem(data)
+                    }
                 }
-                else{
-                    this.partial_redeem(data)
-                }
-              }
-            
- 
-          }
-        });
-        alert.present();
-      }
 
-      full_reddem_or_partial(data) {
-        let alert = this.alertCtrl.create({
-          title: 'Giftcard',
-          message: 'Would you like to use your gift card for entire order?',
-          buttons: [
-            {
-              text: 'No',
-              
-              handler: () => {
-               this.partial_redeem(data)
-              }
-            },
-            {
-              text: 'Yes',
-              handler: () => {
-                this.full_redeem(data)
-              }
+
             }
-          ]
         });
         alert.present();
-      }
+    }
 
-      full_redeem(data){
+    full_reddem_or_partial(data) {
         let alert = this.alertCtrl.create({
-            
+            title: 'Giftcard',
+            message: 'Would you like to use your gift card for entire order?',
+            buttons: [
+                {
+                    text: 'No',
+
+                    handler: () => {
+                        this.partial_redeem(data)
+                    }
+                },
+                {
+                    text: 'Yes',
+                    handler: () => {
+                        this.full_redeem(data)
+                    }
+                }
+            ]
+        });
+        alert.present();
+    }
+
+    full_redeem(data) {
+        let alert = this.alertCtrl.create({
+
             message: 'Are you sure you want to place order and pay all with giftcard?',
             buttons: [
-              {
-                text: 'No',
-                role: 'cancel',
-                handler: () => {
-                  console.log('Cancel clicked');
-                }
-              },
-              {
-                text: 'Yes',
-                handler: () => {
-                    if(this.globals.OrderType == 'delivery'){
-                        if(this.ProductsTotal < this.globals.minimun_order){
-                            this.globals.presentToast("Please add more items in cart.")
-                        }
-                        else{
-                            if(this.globals.inradius){
-                                var giftdata = {giftcard_id:data.giftcard_id,amount:this.Total}
-                                this.gift_array.push(giftdata)
-                              this.navCtrl.push('PaymentPage',{amount: 0,giftcard:this.gift_array,gift_flag:true})
-                            }
-                            else{
-                                this.globals.presentToast("Sorry, We dn't deliver in Your Area")
-                            }
-                        }
-                        
+                {
+                    text: 'No',
+                    role: 'cancel',
+                    handler: () => {
+                        console.log('Cancel clicked');
                     }
-                    else{
-                            var giftdata = {giftcard_id:data.giftcard_id,amount:this.Total}
-                            this.gift_array.push(giftdata)
-                            this.navCtrl.push('PaymentPage',{amount: 0,giftcard:this.gift_array,gift_flag:true})
-                    }
-                    
-                   
-                }
-              }
-            ]
-          });
-          alert.present();
-      }
+                },
+                {
+                    text: 'Yes',
+                    handler: () => {
+                        if (this.globals.OrderType == 'delivery') {
+                            if (this.ProductsTotal < this.globals.minimun_order) {
+                                this.globals.presentToast("Please add more items in cart.")
+                            }
+                            else {
+                                if (this.globals.inradius) {
+                                    var giftdata = { giftcard_id: data.giftcard_id, amount: this.Total }
+                                    this.gift_array.push(giftdata)
+                                    this.navCtrl.push('PaymentPage', { amount: 0, giftcard: this.gift_array, gift_flag: true,tax:this.tax_calc })
+                                }
+                                else {
+                                    this.globals.presentToast("Sorry, We dn't deliver in Your Area")
+                                }
+                            }
 
-      partial_redeem(data_gift){
+                        }
+                        else {
+                            var giftdata = { giftcard_id: data.giftcard_id, amount: this.Total }
+                            this.gift_array.push(giftdata)
+                            this.navCtrl.push('PaymentPage', { amount: 0, giftcard: this.gift_array, gift_flag: true ,tax:this.tax_calc})
+                        }
+
+
+                    }
+                }
+            ]
+        });
+        alert.present();
+    }
+
+    partial_redeem(data_gift) {
         let alert = this.alertCtrl.create({
             title: 'Enter amount you want to pay from giftcard.',
             inputs: [
-              {
-                name: 'amount',
-                placeholder: 'Amount'
-              }
+                {
+                    name: 'amount',
+                    placeholder: 'Amount'
+                }
             ],
             buttons: [
-              {
-                text: 'Cancel',
-                role: 'cancel',
-                handler: data => {
-                  console.log('Cancel clicked');
-                }
-              },
-              {
-                text: 'Pay',
-                handler: data => {
-                  if(Number(data_gift.amount) < Number(data.amount) ){
-                    this.globals.presentToast("You enter amount greater than your giftcard")
-                  }
-                  else{
-                      if(Number(data.amount) > Number(this.Total) ) {
-                        this.globals.presentToast("Please Enter More items in cart")
-                      }
-                      else{
-                        this.Total = (Number(this.Total) - Number(data.amount)).toFixed(2);
-                        this.mygifts.map(
-                            (checkitem, i, array) => {
-                              if (checkitem.giftcard_id == data_gift.giftcard_id) {
-                                checkitem.amount = Number(checkitem.amount) - Number(data.amount)
-                              }
-                            }
-                          );
-                          var not_in_array = true;
-                          this.gift_array.forEach(e => {
-                            if(e.giftcard_id == data_gift.giftcard_id){
-                                e.amount = Number(e.amount) + Number(data.amount);
-                                not_in_array = false;
-                            console.log("gifts_array",this.gift_array,this.mygifts)
-
-                            }
-                            
-                        });
-
-                        if(not_in_array){
-                            var giftdata = {giftcard_id:data_gift.giftcard_id,amount:data.amount}
-                            this.gift_array.push(giftdata);
-                            console.log("gifts_array",this.gift_array,this.mygifts)
-
+                {
+                    text: 'Cancel',
+                    role: 'cancel',
+                    handler: data => {
+                        console.log('Cancel clicked');
+                    }
+                },
+                {
+                    text: 'Pay',
+                    handler: data => {
+                        if (Number(data_gift.amount) < Number(data.amount)) {
+                            this.globals.presentToast("You enter amount greater than your giftcard")
                         }
-                        this.gift_card_amount = 0;
-                        this.gift_array.forEach(e => {
-                           this.gift_card_amount =this.gift_card_amount +  Number(e.amount)
-                            
-                        });
+                        else {
+                            if (Number(data.amount) > Number(this.Total)) {
+                                this.globals.presentToast("Please Enter More items in cart")
+                            }
+                            else {
+                                this.Total = (Number(this.Total) - Number(data.amount)).toFixed(2);
+                                this.mygifts.map(
+                                    (checkitem, i, array) => {
+                                        if (checkitem.giftcard_id == data_gift.giftcard_id) {
+                                            checkitem.amount = Number(checkitem.amount) - Number(data.amount)
+                                        }
+                                    }
+                                );
+                                var not_in_array = true;
+                                this.gift_array.forEach(e => {
+                                    if (e.giftcard_id == data_gift.giftcard_id) {
+                                        e.amount = Number(e.amount) + Number(data.amount);
+                                        not_in_array = false;
+                                        console.log("gifts_array", this.gift_array, this.mygifts)
+
+                                    }
+
+                                });
+
+                                if (not_in_array) {
+                                    var giftdata = { giftcard_id: data_gift.giftcard_id, amount: data.amount }
+                                    this.gift_array.push(giftdata);
+                                    console.log("gifts_array", this.gift_array, this.mygifts)
+
+                                }
+                                this.gift_card_amount = 0;
+                                this.gift_array.forEach(e => {
+                                    this.gift_card_amount = this.gift_card_amount + Number(e.amount)
+
+                                });
 
 
-                      }
-                  }
+                            }
+                        }
+                    }
                 }
-              }
             ]
-          });
-          alert.present();
-      }
+        });
+        alert.present();
+    }
 
     checkTiming(timing) {
-        if(localStorage.getItem("scheduled_time")){
-            if(this.globals.specific_delivery_day == 'true'){
+        if (localStorage.getItem("scheduled_time")) {
+            if (this.globals.specific_delivery_day == 'true') {
                 return true;
             }
-          
-                var day = this.globals.schedule_day_id + 1;
-                if(day == 7){
-                    day = 0;
-                }
-                var time = this.globals.schedule_converted_time;
-                var current_day = timing[day];
-                var n = current_day[0].indexOf('.');
-                if(n != -1){
-                    var res = current_day[0].split(".");
-                    current_day[0] = res[0] + '.' + '3'
-                }
-                var n1 = current_day[1].indexOf('.');
-                if(n1 != -1){
-                    var res = current_day[1].split(".");
-                    current_day[1] = res[0] + '.' + '3'
-                }
-                if((Number(current_day[0]) <= time && Number(current_day[1]) > time) || (Number(current_day[0]) <= time && Number(current_day[1]) < Number(current_day[0]))){
-                    
-                    return true;
-                    
-                }
-                else if(current_day[0] == 'opened' && current_day[1] == 'opened' ){
 
-                    return true;
-
-                }
-                else {
-                    this.globals.presentToast('Sorry, we are not serving at this time!')
-
-                    return false;
-                }
-            
-            
-        }
-        else{
-         
-            var date = new Date();
-            var day:any = date.getDay();
-            var time:any = date.getHours()+ "." + date.getMinutes();
-             time = Number(time);
-        
+            var day = this.globals.schedule_day_id + 1;
+            if (day == 7) {
+                day = 0;
+            }
+            var time = this.globals.schedule_converted_time;
             var current_day = timing[day];
             var n = current_day[0].indexOf('.');
-            if(n != -1){
+            if (n != -1) {
                 var res = current_day[0].split(".");
                 current_day[0] = res[0] + '.' + '3'
             }
             var n1 = current_day[1].indexOf('.');
-            if(n1 != -1){
+            if (n1 != -1) {
+                var res = current_day[1].split(".");
+                current_day[1] = res[0] + '.' + '3'
+            }
+            if ((Number(current_day[0]) <= time && Number(current_day[1]) > time) || (Number(current_day[0]) <= time && Number(current_day[1]) < Number(current_day[0]))) {
+
+                return true;
+
+            }
+            else if (current_day[0] == 'opened' && current_day[1] == 'opened') {
+
+                return true;
+
+            }
+            else {
+                this.globals.presentToast('Sorry, we are not serving at this time!')
+
+                return false;
+            }
+
+
+        }
+        else {
+
+            var date = new Date();
+            var day: any = date.getDay();
+            var time: any = date.getHours() + "." + date.getMinutes();
+            time = Number(time);
+
+            var current_day = timing[day];
+            var n = current_day[0].indexOf('.');
+            if (n != -1) {
+                var res = current_day[0].split(".");
+                current_day[0] = res[0] + '.' + '3'
+            }
+            var n1 = current_day[1].indexOf('.');
+            if (n1 != -1) {
                 var res = current_day[1].split(".");
                 current_day[1] = res[0] + '.' + '3'
             }
             //console.log(Number(current_day[0]) ,Number(current_day[1]), time,"time_")
 
-            if((Number(current_day[0]) <= time && Number(current_day[1]) > time) || (Number(current_day[0]) <= time && Number(current_day[1]) < Number(current_day[0]))){
-              return true;
+            if ((Number(current_day[0]) <= time && Number(current_day[1]) > time) || (Number(current_day[0]) <= time && Number(current_day[1]) < Number(current_day[0]))) {
+                return true;
             }
-            else if(current_day[0] == 'opened' && current_day[1] == 'opened' ){
+            else if (current_day[0] == 'opened' && current_day[1] == 'opened') {
                 return true;
             }
             else {
-              this.globals.presentToast('Sorry, we are not serving at this time!')
-        
-              return false;
+                this.globals.presentToast('Sorry, we are not serving at this time!')
+
+                return false;
             }
         }
-        
-      }
 
-      add_reward(){
-        this.navCtrl.push('MyRewardsPage',{reward_type_home:'reward'})
-      }
-      
+    }
+
+    add_reward() {
+        this.navCtrl.push('MyRewardsPage', { reward_type_home: 'reward' })
+    }
+
 
 
 }

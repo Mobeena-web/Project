@@ -62,7 +62,7 @@
     "com-sarriaroman-photoviewer": "^1.1.18",
     "cordova-android": "^8.1.0",
     "cordova-browser": "5.0.4",
-    "cordova-ios": "5.0.1",
+    "cordova-ios": "^5.0.1",
     "cordova-plugin-actionsheet": "^2.3.3",
     "cordova-plugin-add-swift-support": "^1.7.1",
     "cordova-plugin-calendar": "^5.1.3",
@@ -88,6 +88,7 @@
     "cordova-plugin-x-socialsharing": "^5.4.3",
     "cordova-plugin-x-toast": "^2.7.2",
     "cordova-plugin-zip": "^3.1.0",
+    "cordova-res": "^0.6.0",
     "cordova.plugins.diagnostic": "^3.9.2",
     "es6-promise-plugin": "^4.2.2",
     "ion2-calendar": "^2.2.0",
@@ -108,7 +109,7 @@
   "devDependencies": {
     "@ionic/app-scripts": "3.1.7",
     "@types/jquery": "^3.3.31",
-    "electron": "^4.2.10",
+    "electron": "^4.2.11",
     "electron-installer-dmg": "^2.0.0",
     "electron-packager": "^11.2.1",
     "typescript": "2.4.2"
@@ -155,7 +156,8 @@
     },
     "platforms": [
       "browser",
-      "android"
+      "android",
+      "ios"
     ]
   }
 }

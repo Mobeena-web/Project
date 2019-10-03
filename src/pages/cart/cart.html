@@ -329,6 +329,11 @@
              
              <!-- <discount end here> -->
              
+              <ion-label *ngIf="globals.retail_items_discount > 0"  style="padding:0px;font-size:1.3rem;margin:0px;color:#444;">
+                <!-- <ion-icon style="padding-right: 5px;  position: relative; top: 3px;" ios="ios-cut" md="md-cut"> </ion-icon> -->
+                 Discount <ion-icon class="animated infinite tada delay-4s fs" name="heart" color="danger"></ion-icon>
+                <p style="float:right;font-size:1.3rem;margin:0px;color:#444;"> -${{globals.retail_items_discount}}</p>
+              </ion-label>
              
                  <ion-label *ngIf="globals.deliveryCharges != '' && globals.OrderType == 'delivery'" style="padding:0px;font-size:1.3rem;margin:0px;color:#444;">
                    <!-- <ion-icon style="    padding-right: 5px;  position: relative; top: 3px;" name="bicycle"> </ion-icon>  -->

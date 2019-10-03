@@ -34,6 +34,7 @@ export class OrderPlacedDetailPage {
         this.orders = navParams.get('data');
         this.time = navParams.get('time');
         this.instructions = navParams.get('instructions');
+        console.log(this.instructions)
         this.schedule_time = navParams.get('schedule_time');
         this.res_name = navParams.get('res');
         this.tot = navParams.get('tot');
