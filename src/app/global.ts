@@ -63,33 +63,34 @@ export class GlobalVariable {
     availed_discount_count: any = 0;
     business_discount_count: any = 0;
     TotalbadgeValue: any = 0;
-    MinValue : any ;
-    DeliveryTime : any ;
-    estimated_time : any;
-    itemInstruction : any ;
-    RewardsPos : any ; 
-    Email : any;
-    PhoneNo: any ;
-    phone_verified :boolean;
-    email_verified :boolean;
-    business_username : any = CONFIG.business_username;
-    jackemial:any;
-    new_id :any =CONFIG.business_id;
-    model_flag :boolean = true;
-    signupData:any;
-    percent:any;
-    mycoordinates:any;
-    save_check:boolean = false;
-    points_:any;
-    cash_enabled:boolean;
-    special_offer:any;
-    events_enabled:any;
-    firstName:any;
-    lastName:any;
-    gallery_enabled:any;
-    android_url:any;
-    ios_url:any;
-    update_message:any;
+    MinValue: any;
+    DeliveryTime: any;
+    estimated_time: any;
+    itemInstruction: any;
+    RewardsPos: any;
+    Email: any;
+    PhoneNo: any;
+    phone_verified: boolean;
+    email_verified: boolean;
+    business_username: any = CONFIG.business_username;
+    jackemial: any;
+    new_id = CONFIG.business_id;
+    marketPlace = CONFIG.marketPlace;
+    model_flag: boolean = true;
+    signupData: any;
+    percent: any;
+    mycoordinates: any;
+    save_check: boolean = false;
+    points_: any;
+    cash_enabled: boolean;
+    special_offer: any;
+    events_enabled: any;
+    firstName: any;
+    lastName: any;
+    gallery_enabled: any;
+    android_url: any;
+    ios_url: any;
+    update_message: any;
     app_version = "2.1";
     notifications: any;
     guess_login: boolean = false;
@@ -121,7 +122,7 @@ export class GlobalVariable {
     specific_delivery_day: any;
     delivery_day: any;
     review_enabled: any;
-    menu_item_id: any;
+    menu_id: any;
     menu_item_arr: any = [];
 
     admin_stripe_enabled: boolean = false;
@@ -134,8 +135,10 @@ export class GlobalVariable {
     schedule_converted_time: any;
     business_type: any;
     orders_enabled: any;
+    retail_items_discount = 0;
+    home_logo: any;
     constructor(public alertCtrl: AlertController, public toastCtrl: ToastController) {
-        // this.BaseUrl = 'https://staging.onlineordering.mikronexus.com/index.php/';
+        //this.BaseUrl = 'https://staging.onlineordering.mikronexus.com/index.php/';
         this.BaseUrl = 'https://onlineordering.mikronexus.com/online-ordering-new/index.php/';
         // this.BaseUrl = 'http://192.168.100.3/online-ordering-rewamp/index.php/'
     }
@@ -149,7 +152,6 @@ export class GlobalVariable {
         });
         alert.present();
     }
-
     presentToast(msg) {
         let toast = this.toastCtrl.create({
             message: msg,

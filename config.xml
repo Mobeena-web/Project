@@ -1,5 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget description="A reward and loyalty punch card app." id="com.mikronexus.onlineordering.cusmos" name="Mikronexus" version="0.0.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.mikronexus.orderonline.customerdemo" version="0.0.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Mikronexus</name>
+    <description>A reward and loyalty punch card app.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Mikronexus</author>
     <content src="index.html" />
     <access origin="*" />

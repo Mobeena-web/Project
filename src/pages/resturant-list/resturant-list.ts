@@ -10,6 +10,7 @@ import { TimerObservable } from 'rxjs/observable/TimerObservable';
 import { Subscription } from "rxjs/Rx";
 import { Observable } from "rxjs/Observable";
 import { Diagnostic } from '@ionic-native/diagnostic';
+import { HomePage } from '../home/home';
 
 
 @IonicPage()
@@ -89,24 +90,13 @@ export class ResturantListPage {
       this.hours = this.date.getHours();
       this.forToday = this.hours + ":" + this.min;
       this.globals.MinValue = this.forToday;
-      //this. getLocationAddress();
-     // localStorage.setItem("type","delivery" );
-     // console.log("localstorage data ", localStorage.getItem("orderdetail"));
-      
-      // this.nativeStorage.setItem('orderdetail',{
-      //     type :"delivery"
-      // });
+     
       this.pageFlag = navParams.get('Flag');
       this.textdisocunt = navParams.get('discount_text');
       this.searchControl = new FormControl();
 
-    
-
-      // events.subscribe('Radius1', (radius) => {
-      //     this.radius = radius;s
-      // this.list();
-      // });
-      this.getLocation();
+      //this.getLocation();
+      this.list();
 
       this.CheckMobileFlag();
 
@@ -253,9 +243,6 @@ export class ResturantListPage {
 
   list() {
 
-       this.diagnostic.isLocationEnabled()
-        .then((state) => {
-         if (state){
       this.status = false;
   
       let loading = this.loadingCtrl.create({
@@ -265,7 +252,6 @@ export class ResturantListPage {
     loading.present();
        this.arrayStatus = false;
           this.flag = true;
-      this.geolocation.getCurrentPosition().then((position)=>{
 
       //     this.coordinates = position.coords.latitude+","+position.coords.longitude
 
@@ -274,10 +260,7 @@ export class ResturantListPage {
       response.subscribe(data => {
             loading.dismiss();
           this.places = data.results;
-          // if (this.mobileFlagcheck == 'false') {
-          //     this.MobileVerificationPrompt();
-          // }
-
+        
           if (typeof data.success != 'undefined' || data.success == 'No data') {
              this.arrayStatus = true;
               this.flag = false;
@@ -293,34 +276,11 @@ export class ResturantListPage {
       }, error => {
         loading.dismiss()
           this.flag = false;
-          let alert = this.alertCtrl.create({
-              title: 'Error',
-              subTitle: 'Server times out, please try again',
-              buttons: ['OK']
-          });
-          alert.present();
+          this.globals.presentToast("Something went wrong check your internet connection.")
 
       });
 
 
-      },(err)=>{
-          console.log(err);
-
-      });
-
-
-
-      } else {
-              this.status = true;
-        let alert = this.alertCtrl.create({
-          title: 'Location is disabled',
-          subTitle: 'In order to proceed, Please enable your location',
-          buttons: ['OK']
-       });
-
-          alert.present();
-        }
-       }).catch(e => console.error(e));
 
 
 
@@ -404,7 +364,13 @@ export class ResturantListPage {
 
     }
     else{
-        this.navCtrl.push('CategoryPage', { pageflag: this.pageFlag, BusinessId: place.businessId, paypal: place.paypalId, discount: place.discountvalue });
+        if(this.globals.marketPlace || this.globals.branch_enabled == 1){
+            this.navCtrl.push('CategoryPage', { pageflag: this.pageFlag, BusinessId: place.businessId, paypal: place.paypalId, discount: place.discountvalue });
+
+        }
+        else{
+            this.navCtrl.push(HomePage)
+        }
 
     }
      
@@ -547,7 +513,8 @@ export class ResturantListPage {
 
   doRefresh(refresher) {
       this.offset = 0;
-      this.getLocation();
+      //this.getLocation();
+      this.list();
       this.content.resize();
       refresher.complete();
   }

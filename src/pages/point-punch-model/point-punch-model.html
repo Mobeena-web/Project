@@ -21,14 +21,14 @@
 
 <ion-content padding>
   <div *ngIf="title == 'Punch Detail'">
-    <img src={{image}}>
+    <img *ngIf="image" src={{image}}>
     <h5 text-center>{{name}}</h5>
     <h5 text-center>{{punch_count}}/{{punch_limit}} Punches</h5>
     <p text-center><b>{{tagline}}</b></p>
   </div>
 
   <div *ngIf="title == 'Point Detail'">
-    <img src={{image}}>
+    <img *ngIf="image" src={{image}}>
     <h5 text-center>{{name}}</h5>
     <p text-center><b>{{tagline}}</b></p>
   </div>

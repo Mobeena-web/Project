@@ -46,6 +46,8 @@
           <p *ngIf="instructions.Points > 0">Points Used: {{instructions.Points}}</p>
           <p *ngIf="instructions.StoreCredit > 0"> Store Credit: ${{instructions.StoreCredit}}</p>
           <p *ngIf="instructions.Tip > 0">Tip: ${{instructions.Tip}}</p>
+          <p *ngIf="instructions.tax">Tax: ${{instructions.tax}}</p>
+
         </div>
       </ion-col>
     </ion-row>

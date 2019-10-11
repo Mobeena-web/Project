@@ -4,7 +4,7 @@
   <ion-navbar class="home-nav" color="light" align-title="center">
 
     <ion-title>
-      <img src={{globals.b_logo}} class="header_logo">
+      <img src={{globals.home_logo}} class="header_logo">
     </ion-title>
     <!-- <ion-title style="color: #27ae60 !important" *ngIf="globals.title != 'Dusstuk'"  >{{globals.title}}</ion-title> -->
     <ion-buttons class="left-btn" start>
@@ -85,7 +85,7 @@
         <div>Special Offers</div>
       </div>
     </ion-col>
-    <ion-col col *ngIf="globals.business_type == 'ordering'">
+    <ion-col col *ngIf="globals.business_type == 'ordering' || globals.business_type == 'retail'">
       <div text-center (click)="orderNow()" [ngStyle]="{'background-color': order_now_color}"  class="sof1">
         <ion-icon name="restaurant"></ion-icon>
         <div>Order Now</div>

@@ -40,16 +40,20 @@ export class MyApp {
   constructor(private codePush: CodePush,private nativeAudio: NativeAudio,public loadingCtrl: LoadingController,private iab: InAppBrowser,private barcodeScanner:BarcodeScanner,public alertCtrl: AlertController,public app: App,public server: ServerProvider, private _notification: OneSignal, public alertctrl: AlertController, public modalCtrl: ModalController, public globals: GlobalVariable, private statusbar: StatusBar, private splashscreen: SplashScreen, private nativeStorage: NativeStorage, public platform: Platform,private geolocation: Geolocation) {
 
     platform.ready().then(() => {
-      this.checkCodePush();
-      this.data = {};
-      this.data.response = '';
-      this.LoadSound(); 
-       this.list();
-      
-    setTimeout(() => this.splashscreen.hide(), 400);
-    this.statusbar.hide();
+        this.checkCodePush();
+        this.data = {};
+        this.data.response = '';
+        this.LoadSound();
+        
+        if(this.platform.is('core') || this.platform.is('mobileweb')) {
+            this.list();
+          } 
+        
+      setTimeout(() => this.splashscreen.hide(), 400);
+      this.statusbar.hide();
 
-    let env = this;
+      let env = this;
+
     if(this.globals.caos_flag){
 
       this.nativeStorage.getItem('business')
@@ -82,12 +86,26 @@ export class MyApp {
         this.globals.firstName = data.firstName;
         this.globals.lastName = data.lastName;
         this.globals.Email = data.email;
+        
         this.initializePushToken();
+        
 
-        env.nav.setRoot(HomePage);
+        if(!globals.marketPlace){
+            this.list();
+            env.nav.setRoot(HomePage);
+        }
+        else{
+        env.nav.setRoot('ResturantListPage');
+
+        }
+
         this.globals.showFabFlag = true;
         this.splashscreen.hide();
       }, error => {
+
+        if(!globals.marketPlace){
+          this.list();
+        }
         //we don't have the user data so we will ask him to log in
         env.nav.setRoot('BeforeLoginPage');
         this.globals.showFabFlag = false;
@@ -549,6 +567,8 @@ list() {
        this.globals.branch_enabled = this.places[0].branch_enabled;
        this.globals.giftcard_enabled = this.places[0].giftcard_enabled;
        this.globals.b_logo = this.places[0].logo;
+       this.globals.home_logo = this.places[0].logo;
+
        this.globals.StripId = this.places[0].stripe_id;
        this.globals.order_instructions = this.places[0].instructions_enabled;
        this.globals.pickup_timing = this.places[0].pickup_timing;
@@ -611,6 +631,7 @@ list() {
         else {
             this.globals.delivery = false;
         }
+
       
      
     }, error => {

@@ -69,7 +69,7 @@ export class PaymentPage {
     cash_on_delivery:any;
     gift_falg:boolean = false;
     gift_data:any;
-    instructions: any = { "Type": '', "BusinessDiscount": 0, "GainDiscount": 0, "StoreCredit": 0, "Tip": 0, "Points": 0, "Notes": '',"giftcard":'' };
+    instructions: any = { "Type": '', "BusinessDiscount": 0, "GainDiscount": 0, "StoreCredit": 0, "Tip": 0, "Points": 0, "Notes": '',"giftcard":'',"tax":0 };
 
     month_array: any[] = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
@@ -82,7 +82,9 @@ export class PaymentPage {
     }
     submitAttempt: boolean = false;
     PaymentForm: FormGroup;
+    calculated_tax = 0;
     constructor(public server: ServerProvider, public modalCtrl: ModalController, private nativeStorage: NativeStorage, public alertCtrl: AlertController, public loadingCtrl: LoadingController, public globals: GlobalVariable, public viewCtrl: ViewController, private app: App, public formBuilder: FormBuilder, public stripe: Stripe, public http: Http, public navCtrl: NavController, public navParams: NavParams) {
+        this.calculated_tax = this.navParams.get('tax');
        
         this.cashpay = this.navParams.get('amount');
         this.storevalue = this.navParams.get('StoreCredit');
@@ -645,6 +647,7 @@ export class PaymentPage {
     Instruction() {
         console.log("bussines disscount flag", this.globals.BusinessDiscountFlag)
             console.log("instruction type checking")
+            this.instructions.tax = this.calculated_tax; 
         if (this.orderType == 'delivery') {
 
             this.instructions.Type = 'Delivery';
