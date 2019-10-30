@@ -104,6 +104,8 @@ export class ResturantListPage {
           title: 'Distance'
       };
 
+      this.getLocation();
+
   }
   business_info(){
       this.navCtrl.push('BranchesAboutusPage');
@@ -242,7 +244,7 @@ export class ResturantListPage {
 
 
   list() {
-
+    console.log("Branches List called", this.coordinates)
       this.status = false;
   
       let loading = this.loadingCtrl.create({
@@ -355,17 +357,17 @@ export class ResturantListPage {
       
      
     if(this.deals_flag ==1){
-        this.navCtrl.push('OffersPage', { pageflag: this.pageFlag, BusinessId: place.businessId, paypal: place.paypalId, discount: place.discountvalue });
+        this.navCtrl.push('OffersPage', { pageflag: this.pageFlag, BusinessId: place.business_id, paypal: place.paypalId, discount: place.discountvalue });
 
     }
     else if(this.birthday_flag == 2){
        
-        this.navCtrl.push('BirthdayGiftsPage', { pageflag: this.pageFlag, BusinessId: place.businessId, paypal:place.paypalId, discount: place.discountvalue });
+        this.navCtrl.push('BirthdayGiftsPage', { pageflag: this.pageFlag, BusinessId: place.business_id, paypal:place.paypalId, discount: place.discountvalue });
 
     }
     else{
         if(this.globals.marketPlace || this.globals.branch_enabled == 1){
-            this.navCtrl.push('CategoryPage', { pageflag: this.pageFlag, BusinessId: place.businessId, paypal: place.paypalId, discount: place.discountvalue });
+            this.navCtrl.push('CategoryPage', { pageflag: this.pageFlag, BusinessId: place.business_id, paypal: place.paypalId, discount: place.discountvalue });
 
         }
         else{
@@ -439,6 +441,7 @@ export class ResturantListPage {
                   this.flag = true;
                   this.geolocation.getCurrentPosition().then((position) => {
                       this.coordinates = position.coords.latitude + "," + position.coords.longitude;
+                      console.log("get Location branches ", this.coordinates)
                       this.list();
 
                   }, (err) => {

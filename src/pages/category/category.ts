@@ -55,10 +55,16 @@ export class CategoryPage {
     forsearch:any;
     s_day:any;
     s_time:any;
-    categories_section: any = 'category'
+    categories_section: any = 'category';
+    branchId: any;
     constructor(private geolocation: Geolocation,private diagnostic: Diagnostic,public server: ServerProvider, public alertCtrl: AlertController, public loadingCtrl: LoadingController, private nativeStorage: NativeStorage, private toastCtrl: ToastController, public globals: GlobalVariable, public http: Http, public navCtrl: NavController, public navParams: NavParams,public modalCtrl: ModalController) {
         
         if(!this.globals.caos_flag){
+            console.log("Modal call from category");
+            if(this.globals.branch_enabled == 1){
+                this.branchId = this.globals.bussinessId;
+            }
+            
              this.presentModal();
 
         }
@@ -272,7 +278,7 @@ export class CategoryPage {
         if(this.globals.model_flag){
             this.globals.model_flag = false;
             this.navCtrl.pop({animate:false}); // added by jahanzaib 21-01-19
-            this.navCtrl.push("ModalPage",{category_page:1},{animate: false});
+            this.navCtrl.push("ModalPage",{category_page:1, branchId: this.branchId},{animate: false});
             // let modal = this.modalCtrl.create('ModalPage');
             // modal.present();
 

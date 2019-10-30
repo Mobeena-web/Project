@@ -74,12 +74,14 @@ export class ModalPage {
   order_pickup = this.globals.pickup;
   order_delivery = this.globals.delivery;
   category_page:any;
+  branchId: any;
   constructor(public server: ServerProvider,public geolocation: Geolocation, public alertCtrl: AlertController,public navCtrl: NavController,public formBuilder: FormBuilder, public navParams: NavParams, public viewCtrl: ViewController, public globals: GlobalVariable, public modalCtrl: ModalController, public nativeStorage: NativeStorage,public plt: Platform) {
   
    this.segmentValue = localStorage.getItem("segmentvalue");
    this.deliveryTime =  this.globals.pickupsetting;
    this.pickup_time = this.globals.pickup_Time;
    this.category_page = this.navParams.get('category_page')
+   this.branchId = this.navParams.get('branchId');
   //  this.type = this.globals.OrderType;
   console.log("Pick Up -> ", this.globals.pickupsetting)
   console.log("Segment value -> ", this.segmentValue)
@@ -339,7 +341,7 @@ export class ModalPage {
   reverseGeoCoding(lat, lng) {
    
     var mycoordinates = lat + "," + lng;
-    let response = this.server.getAddress(mycoordinates);
+    let response = this.server.getAddress(this.branchId ,mycoordinates);
     var myadress="";
     response.subscribe(data => {
       this.loadMap(lat, lng);
