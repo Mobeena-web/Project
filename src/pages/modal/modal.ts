@@ -341,7 +341,7 @@ export class ModalPage {
   reverseGeoCoding(lat, lng) {
    
     var mycoordinates = lat + "," + lng;
-    let response = this.server.getAddress(this.branchId ,mycoordinates);
+    let response = this.server.getAddress(mycoordinates, this.branchId);
     var myadress="";
     response.subscribe(data => {
       this.loadMap(lat, lng);
