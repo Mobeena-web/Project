@@ -239,7 +239,7 @@ export class OrderListingPage {
       reverseGeoCoding(lat, lng) {
        
         var mycoordinates = lat + "," + lng;
-        let response = this.server.getAddress(mycoordinates);
+        let response = this.server.getAddress(mycoordinates); 
         var myadress="";
         response.subscribe(data => {
             
