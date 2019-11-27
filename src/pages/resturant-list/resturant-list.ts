@@ -289,7 +289,9 @@ export class ResturantListPage {
   }
 
   OrderCategory( place) {
-    console.log(place,"ppo")
+    console.log(place,"ppo");
+    console.log(this.places);
+
        this.globals.pickup = place.pickup;
        this.globals.latitude = place.latitude;
        this.globals.longitude = place.longitude;
@@ -330,6 +332,7 @@ export class ResturantListPage {
              this.globals.pickup = false;
          }
          if (place.delivery == '1') {
+             console.log('place delivery' , place.delivery == '1');
              this.globals.delivery = true;
          }
          else {
@@ -349,6 +352,7 @@ export class ResturantListPage {
             this.globals.pickup = false;
         }
         if (place.delivery == '1') {
+            console.log('place delivery1' , place.delivery == '1');
             this.globals.delivery = true;
         }
         else {
@@ -367,11 +371,13 @@ export class ResturantListPage {
     }
     else{
         if(this.globals.marketPlace || this.globals.branch_enabled == 1){
+            console.log('Checking....',this.globals.marketPlace, this.globals.branch_enabled == 1)
+            console.log(this.globals.marketPlace && this.globals.branch_enabled == 1);
             this.navCtrl.push('CategoryPage', { pageflag: this.pageFlag, BusinessId: place.business_id, paypal: place.paypalId, discount: place.discountvalue });
 
         }
         else{
-            this.navCtrl.push(HomePage)
+            this.navCtrl.setRoot(HomePage)
         }
 
     }

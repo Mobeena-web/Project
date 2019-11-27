@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.mikronexus.orderonline.cafedolcejericho" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>Cafe Dolce Jericho</name>
+<widget id="com.mikronexus.onlineorder.pitabowlcd " version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Pita Bowl</name>
     <description>A reward and loyalty punch card app.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Mikronexus</author>
     <content src="index.html" />
@@ -18,7 +18,7 @@
     <preference name="webviewbounce" value="false" />
     <preference name="UIWebViewBounce" value="false" />
     <preference name="DisallowOverscroll" value="true" />
-    <preference name="android-minSdkVersion" value="16" />
+    <preference name="android-minSdkVersion" value="19" />
     <preference name="android-targetSdkVersion" value="28" />
     <preference name="BackupWebStorage" value="none" />
     <preference name="SplashMaintainAspectRatio" value="true" />
@@ -51,7 +51,7 @@
         <splash density="port-xxxhdpi" src="resources/android/splash/drawable-port-xxxhdpi-screen.png" />
     </platform>
     <platform name="ios">
-        <preference name="CodePushDeploymentKey" value="lP--fFZF96_WWjA7iXQe5tzN6WJf80bcd73a-3c9b-49fe-815d-346d1570fa2e" />
+        <preference name="CodePushDeploymentKey" value="2Oau4U-Wdvm9B3vxS6X_4lKeNeqw825c21f6-a7db-48ef-9c52-6d07f9cb9685" />
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
         <icon height="57" src="resources/ios/icon/icon.png" width="57" />
@@ -133,6 +133,5 @@
     </plugin>
     <plugin name="cordova-plugin-file-transfer" spec="^1.7.1" />
     <engine name="browser" spec="5.0.4" />
-    <engine name="android" spec="^7.1.4" />
     <engine name="ios" spec="^5.0.1" />
 </widget>
