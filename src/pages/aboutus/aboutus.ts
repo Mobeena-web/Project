@@ -32,7 +32,9 @@ export class AboutusPage {
     this.hours_operation = this.navParams.get('hours_operation')
     
     this.username = this.navParams.get('username')
-    this.hours_operation = this.update_time_(this.hours_operation);
+    if(this.hours_operation){
+      this.hours_operation = this.update_time_(this.hours_operation);
+    }
     this.reviewdata();
     this.get_aboutus();
   
@@ -41,9 +43,9 @@ export class AboutusPage {
   get_aboutus() {
     let response = this.server.get_about_us(this.business_id);
     response.subscribe(data => {
-     console.log("ddn",data.data.about[0])
-  
-     this.aboutus = data.data.about[0];
+      if(data.data){
+        this.aboutus = data.data.about[0];
+      }
   
     }, error => {
         console.log(error);
@@ -144,7 +146,6 @@ export class AboutusPage {
        
         this.reviewData = data.reviews;
         this.length = this.reviewData.length;
-        console.log(this.reviewData)
 
     }, error => {
      

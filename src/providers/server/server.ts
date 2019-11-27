@@ -257,10 +257,10 @@ getdeals(){
        data = JSON.stringify({coordinates: coordinates,business_type: 'marketPlace', radius: radius, offset });
 
     }
-    else if(this.global.new_id == '76'){
-      data = JSON.stringify({coordinates: coordinates, radius: radius, business_type: businesType, offset, type: type, udid: this.global.udid });
+    // else if(this.global.new_id == '76'){
+    //   data = JSON.stringify({coordinates: coordinates, radius: radius, business_type: businesType, offset, type: type, udid: this.global.udid });
       
-    }
+    // }
     else{
       data = JSON.stringify({ business_id: this.global.new_id ,coordinates: coordinates, radius: radius, business_type: businesType, offset, type: type, udid: this.global.udid });
 
@@ -615,7 +615,7 @@ getdeals(){
 
   CheckUserPoints() {
     var link = this.global.BaseUrl + 'Customer_controller/check_points';
-    var data = JSON.stringify({ udid: this.global.udid, b_id: this.global.bussinessId })
+    var data = JSON.stringify({ udid: this.global.udid, b_id: this.global.new_id })
     console.log("points sending data", data);
 
     return this.http.post(link, data)

@@ -210,7 +210,7 @@
               <p style="color:#444;font-size:1.5rem">{{a.name}} </p>
               <p style="font-size:1.3rem;    padding-bottom: 10px;">{{a.tagline}} </p>
 
-              <button *ngIf="globals.business_type == 'ordering'" ion-button round block [disabled]="a.stock_quantity == 0" class="redem_btn" (click)="Detail(a.id,a.image,a.freeExtras,a.reward_id)">Add
+              <button *ngIf="reward_type_home == 'reward' || globals.branch_enabled == 0" ion-button round block [disabled]="a.stock_quantity == 0" class="redem_btn" (click)="Detail(a.id,a.image,a.freeExtras,a.reward_id)">Add
                 to Cart</button>
             </ion-col>
 

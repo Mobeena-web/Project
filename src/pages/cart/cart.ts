@@ -893,7 +893,6 @@ export class CartPage {
 
 
     paymentPage() {
-        console.log("gurst", this.globals.guess_login)
         if (this.globals.guess_login) {
             this.presentConfirm();
         }
@@ -1595,6 +1594,7 @@ export class CartPage {
             if (day == 7) {
                 day = 0;
             }
+
             var time = this.globals.schedule_converted_time;
             var current_day = timing[day];
             var n = current_day[0].indexOf('.');
@@ -1631,8 +1631,11 @@ export class CartPage {
             var day: any = date.getDay();
             var time: any = date.getHours() + "." + date.getMinutes();
             time = Number(time);
+            console.log(day,timing,"pop")
 
             var current_day = timing[day];
+            console.log(current_day,"pop")
+
             var n = current_day[0].indexOf('.');
             if (n != -1) {
                 var res = current_day[0].split(".");
@@ -1661,6 +1664,7 @@ export class CartPage {
     }
 
     add_reward() {
+        this.globals.BusinessID = '-1';
         this.navCtrl.push('MyRewardsPage', { reward_type_home: 'reward' })
     }
 
