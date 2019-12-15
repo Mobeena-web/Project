@@ -74,14 +74,17 @@ export class ModalPage {
   order_pickup = this.globals.pickup;
   order_delivery = this.globals.delivery;
   category_page:any;
+  branchId: any;
   constructor(public server: ServerProvider,public geolocation: Geolocation, public alertCtrl: AlertController,public navCtrl: NavController,public formBuilder: FormBuilder, public navParams: NavParams, public viewCtrl: ViewController, public globals: GlobalVariable, public modalCtrl: ModalController, public nativeStorage: NativeStorage,public plt: Platform) {
   
    this.segmentValue = localStorage.getItem("segmentvalue");
    this.deliveryTime =  this.globals.pickupsetting;
    this.pickup_time = this.globals.pickup_Time;
    this.category_page = this.navParams.get('category_page')
+   this.branchId = this.navParams.get('branchId');
   //  this.type = this.globals.OrderType;
-  
+  console.log("Pick Up -> ", this.globals.pickupsetting)
+  console.log("Segment value -> ", this.segmentValue)
   
     //this.type = localStorage.getItem("type");
     // this.checktype();
@@ -274,7 +277,9 @@ export class ModalPage {
   
   
   process(ProcessData: any){
-    
+    console.log("Pick Up -> ", this.globals.pickupsetting)
+  console.log("Segment value -> ", this.segmentValue)
+  console.log("Pick Up -> ", this.datenow)
    localStorage.setItem("GetAddress",this.Address);
   //  localStorage.setItem("zipcode",this.zipcode);
   //  localStorage.setItem("city",this.city);
@@ -296,6 +301,9 @@ export class ModalPage {
     }
     // this.viewCtrl.dismiss();
     this.globals.save_check = true;
+    console.log("Pick Up -> ", this.globals.pickupsetting)
+  console.log("Segment value -> ", this.segmentValue)
+  console.log("Pick Up -> ", this.datenow)
   }
   
    secondModal(){
@@ -304,7 +312,13 @@ export class ModalPage {
     //this.viewCtrl.dismiss();
       let modal = this.modalCtrl.create('Modal2Page' ,{ category_page: this.category_page });
       modal.onDidDismiss(data => {
-       
+        console.log("Dismiss called ")
+        this.segmentValue = localStorage.getItem("segmentvalue");
+        this.deliveryTime =  this.globals.pickupsetting;
+        this.pickup_time = this.globals.pickup_Time;
+        this.getdata();
+        console.log("Pick Up -> ", this.globals.pickupsetting)
+        console.log("Segment value -> ", this.segmentValue)
         if(data == 'CategoryPage'){
           this.category_page = 1;
         console.log(data,"dta",this.category_page)
@@ -327,7 +341,7 @@ export class ModalPage {
   reverseGeoCoding(lat, lng) {
    
     var mycoordinates = lat + "," + lng;
-    let response = this.server.getAddress(mycoordinates);
+    let response = this.server.getAddress(mycoordinates, this.branchId);
     var myadress="";
     response.subscribe(data => {
       this.loadMap(lat, lng);
@@ -357,6 +371,13 @@ export class ModalPage {
 
       let modal = this.modalCtrl.create('Modal2Page');
       modal.onDidDismiss(data => {
+        console.log("Dismiss called schedule time")
+        this.segmentValue = localStorage.getItem("segmentvalue");
+        this.deliveryTime =  this.globals.pickupsetting;
+        this.pickup_time = this.globals.pickup_Time;
+        this.getdata();
+        console.log("Pick Up -> ", this.globals.pickupsetting)
+        console.log("Segment value -> ", this.segmentValue)
         if(data == 'CategoryPage'){
           this.category_page = 1;
         console.log(data,"dta",this.category_page)

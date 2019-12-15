@@ -87,9 +87,9 @@ getdeals(){
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
 
-  getAddress(coordinates) {
+  getAddress(coordinates, branchId = false) {
     var link = this.global.BaseUrl + 'Customer_controller/get_address_with_coordinates';
-    var data = JSON.stringify({ business_id:this.global.new_id,coordinates : coordinates });
+    var data = JSON.stringify({ business_id: this.global.bussinessId,coordinates : coordinates });
     return this.http.post(link, data)
       .map((res: any) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
@@ -137,9 +137,8 @@ getdeals(){
   }
 
   get_slots(service_id,stylist_id,scedule_time) {
-
     var link = this.global.BaseUrl + 'salon/get_stylist_timing';
-    console.log(this.global.bussinessId)
+    console.log("Time: ",scedule_time)
     var data = JSON.stringify({ business_id: this.global.new_id,service_id : service_id,stylist_id:stylist_id,schedule_time:scedule_time});
     return this.http.post(link, data)
       .map((res: any) => res.json())
@@ -157,10 +156,18 @@ getdeals(){
   }
 
   booking_history() {
-
     var link = this.global.BaseUrl + 'salon/booking_history';
     console.log(this.global.bussinessId)
     var data = JSON.stringify({ udid:this.global.udid,business_id: this.global.new_id});
+    return this.http.post(link, data)
+      .map((res: any) => res.json())
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+  }
+
+  booking_cancel(bookingId) {
+    var link = this.global.BaseUrl + 'salon/cancel_booking';
+    console.log(this.global.bussinessId)
+    var data = JSON.stringify({ id: bookingId, business_id: this.global.new_id});
     return this.http.post(link, data)
       .map((res: any) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));

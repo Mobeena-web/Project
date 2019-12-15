@@ -476,9 +476,9 @@ export class CartPage {
             this.Total += Number(sub.totalPrice);
             this.ProductsTotal = this.Total;
         }
+        console.log("business discount", this.globals.BusinessDiscount, this.globals.BusinessDiscountFlag);
 
         if (this.globals.BusinessDiscount > 0 && this.globals.availed_discount_count < this.globals.business_discount_count) {
-            console.log("business discount", this.globals.BusinessDiscount, this.globals.BusinessDiscountFlag);
             this.discountTotal = Number(this.ProductsTotal) * this.globals.BusinessDiscount / 100;
             this.discountTotal = Math.round(this.discountTotal * 100) / 100;
             // this.discountTotal.toFixed(2);

@@ -28,7 +28,7 @@ export class ItemDetailPage {
   date: Date;
   time: any;
   day: any;
-  CurrentBusinessDiscount: any;
+  //CurrentBusinessDiscount: any;
   totalCost: any = 0;
   extratotal: any = 0;
   objectPrice: any = 0;
@@ -241,7 +241,7 @@ export class ItemDetailPage {
     // prompt.present();
     this.globals.Product.length = 0;
     this.globals.BusinessID = this.Business_id;
-    this.globals.BusinessDiscount = this.CurrentBusinessDiscount;
+    //this.globals.BusinessDiscount = this.CurrentBusinessDiscount;
     this.AddtoCart();
   }
 

@@ -25,7 +25,6 @@ export class BirthdayGiftsPage {
   day: number;
   date: Date;
   type :string;
-  currentBusinessDiscount: any;
 
   DataFlag: boolean;
   paypal: any;
@@ -57,8 +56,6 @@ export class BirthdayGiftsPage {
     this.cartflag = this.navParams.get('CartFlag');
     this.PageFlag = this.navParams.get('pageflag');
     this.business_id = this.globals.bussinessId;
-    this.currentBusinessDiscount = "10";
-    this.globals.BusinessDiscount = this.currentBusinessDiscount;
     
 
     this.getLocation();
@@ -265,7 +262,7 @@ showPrompt(object, flag, id, image, freeextras) {
                     console.log('Saved clicked');
                     this.globals.Product.length = 0;
                     this.globals.BusinessID = this.business_id;
-                    this.globals.BusinessDiscount = this.currentBusinessDiscount;
+                    //this.globals.BusinessDiscount = this.currentBusinessDiscount;
                     this.AddtoCart(object, flag, id, image, freeextras);
 
                 }

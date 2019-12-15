@@ -27,7 +27,7 @@ export class CategoryPage {
     day: number;
     date: Date;
     type :string;
-    currentBusinessDiscount: any;
+    //currentBusinessDiscount: any;
 
     DataFlag: boolean;
     paypal: any;
@@ -55,10 +55,16 @@ export class CategoryPage {
     forsearch:any;
     s_day:any;
     s_time:any;
-    categories_section: any = 'category'
+    categories_section: any = 'category';
+    branchId: any;
     constructor(private geolocation: Geolocation,private diagnostic: Diagnostic,public server: ServerProvider, public alertCtrl: AlertController, public loadingCtrl: LoadingController, private nativeStorage: NativeStorage, private toastCtrl: ToastController, public globals: GlobalVariable, public http: Http, public navCtrl: NavController, public navParams: NavParams,public modalCtrl: ModalController) {
         
         if(!this.globals.caos_flag){
+            console.log("Modal call from category");
+            if(this.globals.branch_enabled == 1){
+                this.branchId = this.globals.bussinessId;
+            }
+            
              this.presentModal();
 
         }
@@ -70,8 +76,8 @@ export class CategoryPage {
         this.cartflag = this.navParams.get('CartFlag');
         this.PageFlag = this.navParams.get('pageflag');
         this.business_id = this.globals.bussinessId;
-        this.currentBusinessDiscount = "10";
-        this.globals.BusinessDiscount = this.currentBusinessDiscount;
+        // this.currentBusinessDiscount = "10";
+        // this.globals.BusinessDiscount = this.currentBusinessDiscount;
         
         if(!this.globals.caos_flag){
             this.getLocation();    
@@ -272,7 +278,7 @@ export class CategoryPage {
         if(this.globals.model_flag){
             this.globals.model_flag = false;
             this.navCtrl.pop({animate:false}); // added by jahanzaib 21-01-19
-            this.navCtrl.push("ModalPage",{category_page:1},{animate: false});
+            this.navCtrl.push("ModalPage",{category_page:1, branchId: this.branchId},{animate: false});
             // let modal = this.modalCtrl.create('ModalPage');
             // modal.present();
 
@@ -332,7 +338,7 @@ export class CategoryPage {
                         console.log('Saved clicked');
                         this.globals.Product.length = 0;
                         this.globals.BusinessID = this.business_id;
-                        this.globals.BusinessDiscount = this.currentBusinessDiscount;
+                       // this.globals.BusinessDiscount = this.currentBusinessDiscount;
                         this.AddtoCart(object, flag, id, image, freeextras);
 
                     }

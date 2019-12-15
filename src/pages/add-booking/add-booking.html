@@ -1,4 +1,3 @@
-
 <ion-header>
 
   <ion-navbar color='primary'>
@@ -7,13 +6,13 @@
 
 </ion-header>
 
-
 <ion-content padding>
   <ion-list radio-group [(ngModel)]="book_time">
     <ion-item>
       <ion-label>Book Now</ion-label>
       <ion-radio value="now" checked></ion-radio>
     </ion-item>
+
     <ion-item>
       <ion-label>Schedule Booking</ion-label>
       <ion-radio value="schedule"></ion-radio>
@@ -21,30 +20,31 @@
   </ion-list>
 
   <ion-item *ngIf="book_time == 'schedule'">
-  <ion-label>Booking Time</ion-label>
-  <ion-datetime  min="{{value}}"  displayFormat="YYYY-MM-DD" pickerFormat="YYYY-MM-DD"    [(ngModel)]="schedule_time">
-  </ion-datetime>
+    <ion-label>Booking Time</ion-label>
+    <ion-datetime min="{{value}}" displayFormat="YYYY-MM-DD" pickerFormat="YYYY-MM-DD" [(ngModel)]="schedule_time">
+    </ion-datetime>
   </ion-item>
-    <ion-item>
-      <ion-label>Services</ion-label>
-      <ion-select [(ngModel)]="service" (ionChange)="setService()">
-        <ion-option *ngFor="let s of services"  value={{s.id}}>{{s.name}}</ion-option>
-      </ion-select>
-    </ion-item>
 
-    <ion-item>
-      <ion-label>Stylist</ion-label>
-      <ion-select [(ngModel)]="stylist" (ionChange)="setStylist()">
-          <ion-option *ngFor="let s of stylist_list" value={{s.stylist_id}}>{{s.name}}</ion-option>
-      </ion-select>
-    </ion-item>
+  <ion-item>
+    <ion-label>Services</ion-label>
+    <ion-select [(ngModel)]="service" (ionChange)="setService()">
+      <ion-option *ngFor="let s of services" value={{s.id}}>{{s.name}}</ion-option>
+    </ion-select>
+  </ion-item>
 
-    <ion-item>
-        <ion-label>Timings</ion-label >
-        <ion-select [(ngModel)]="timing">
-            <ion-option *ngFor="let s of timings"  value={{s.time_slot}}>{{s.time}}</ion-option>
-        </ion-select>
-      </ion-item>
+  <ion-item>
+    <ion-label>Stylist</ion-label>
+    <ion-select [(ngModel)]="stylist" (ionChange)="setStylist()">
+      <ion-option *ngFor="let s of stylist_list" value={{s.stylist_id}}>{{s.name}}</ion-option>
+    </ion-select>
+  </ion-item>
 
-   <button ion-button block round margin-top (click)="book()"> Book Now</button>
+  <ion-item>
+    <ion-label>Timings</ion-label>
+    <ion-select [(ngModel)]="timing">
+      <ion-option *ngFor="let s of timings" value={{s.time_slot}}>{{s.time}}</ion-option>
+    </ion-select>
+  </ion-item>
+
+  <button ion-button block round margin-top (click)="book()"> Book Now</button>
 </ion-content>

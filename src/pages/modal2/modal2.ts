@@ -213,8 +213,7 @@ n(n){
     this.viewCtrl.dismiss();
 
     }
-
-    this.appCtrl.getRootNav().push("ModalPage");
+    // this.appCtrl.getRootNav().push("ModalPage");
 
 
   }
