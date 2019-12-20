@@ -89,7 +89,7 @@ getdeals(){
 
   getAddress(coordinates, branchId = false) {
     var link = this.global.BaseUrl + 'Customer_controller/get_address_with_coordinates';
-    var data = JSON.stringify({ business_id: branchId,coordinates : coordinates });
+    var data = JSON.stringify({ business_id:this.global.bussinessId,coordinates : coordinates });
     return this.http.post(link, data)
       .map((res: any) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
