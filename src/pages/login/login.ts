@@ -80,7 +80,7 @@ export class LoginPage {
                     }
                     else {
                         // this.navCtrl.setRoot(HomePage, { imageData: this.data.response.url, Flag: false });
-
+                        this.list();
                         this.nativeStorage.setItem('user',
                             {
                                 email: LoginData.email,
@@ -97,7 +97,7 @@ export class LoginPage {
                                 aniversary: this.data.response.anniversary
 
                             }).then(() => {
-                                this.list();
+                                
                                 this.SaveMobileNumberFlag(this.data.response.mobile_verification_amount, this.data.response.phone_verified);
                                 this.server.initializePushToken();
                                 if (this.globals.caos_flag) {
@@ -222,8 +222,9 @@ export class LoginPage {
             this.globals.giftcard_amount_limit = this.places[0].giftcard_limit;
             this.globals.business_type = this.places[0].business_type;
             this.globals.orders_enabled = this.places[0].orders_enabled;
+            this.globals.BusinessDiscount = this.places[0].discount;
 
-
+console.log("pop",this.globals.BusinessDiscount)
             if (this.globals.pickup == '1') {
                 this.globals.pickup = true;
             }
