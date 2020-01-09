@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget android-versionCode="34" id="com.mikronexus.francesco.customer" version="34" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>Francesco Pizza Pasta</name>
+<widget android-versionCode="7" id="com.mikronexus.francesco.customer" version="7" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Mikronexus</name>
     <description>A reward and loyalty punch card app.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Mikronexus</author>
     <content src="index.html" />
