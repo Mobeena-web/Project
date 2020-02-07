@@ -15,34 +15,38 @@ import { GlobalVariable } from '../../app/global';
   templateUrl: 'instruction-modal.html',
 })
 export class InstructionModalPage {
-  instructions:any;
-  instr : any;
+  instructions:any = '';
+  instr : any = '';
 
   constructor(public navCtrl: NavController, public navParams: NavParams,public viewCtrl: ViewController, public globals: GlobalVariable) {
 
-    console.log('IDs...',this.globals.menu_item_arr);
-    console.log(this.globals.menu_item_arr.length);
-    console.log(this.globals.menu_id);
+    this.instructions = this.navParams.get('instructions');
+    console.log("item instructions from constructor", this.instructions)
+    // console.log('IDs...',this.globals.menu_item_arr);
+  //   console.log(this.globals.menu_item_arr.length);
+  //   console.log(this.globals.menu_id);
    
    
-   for(var i=0; i < this.globals.menu_item_arr.length ; i++){
+  //  for(var i=0; i < this.globals.menu_item_arr.length ; i++){
    
-    console.log('loopppp')
-    console.log(this.globals.menu_item_arr[i].ID);
-    console.log(this.globals.menu_id);
-    // console.log(this.globals.menu_item_id == this.globals.menu_item_arr[i].ID)
-     if(this.globals.menu_id == this.globals.menu_item_arr[i].ID){
-       console.log('trueeeeee')
-       this.instr = this.globals.menu_item_arr[i].INST;
-       console.log('i',this.instr);
-    }
-     else{
-      console.log('falseeeeeeeee');
-     }
-   }
+  //   console.log('loopppp')
+  //   console.log('loopppp--->1', this.globals.menu_item_arr[i].ID);
+  //   console.log('loopppp--->2', this.globals.menu_id);
+  //    if(this.globals.menu_id == this.globals.menu_item_arr[i].ID){
+  //      console.log('trueeeeee')
+  //      this.instr = this.globals.menu_item_arr[i].INST;
+  //      console.log('loopppp--->3', this.instr);
+  //   }
+  //    else{
+  //     console.log('falseeeeeeeee');
+  //    }
+  //  }
   }
   close(){
-    this.viewCtrl.dismiss();
+    console.log("data before sending to parent", this.instructions);
+    this.viewCtrl.dismiss(this.instructions);
+    this.instructions = '';
+    this.instr = '';
 }
 
   ionViewDidLoad() {
@@ -61,12 +65,12 @@ export class InstructionModalPage {
 
   
 
-    this.viewCtrl.dismiss();
+    this.close();
     
   }
 
   cancelInstructions(){
-    this.viewCtrl.dismiss();
+    this.close();
   }
 
 }

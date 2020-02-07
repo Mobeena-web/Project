@@ -100,9 +100,12 @@ export class ItemDetailPage {
 
   
   presentModal() {
-    let modal = this.modalCtrl.create('InstructionModalPage');
+    let modal = this.modalCtrl.create('InstructionModalPage', {instructions: this.instructions});
     modal.present();
-
+    modal.onDidDismiss((data)=>{
+      this.instructions = data;
+      console.log("instructions from modal", this.instructions);
+    })
     // this.globals.menu_item_id = this.id;
     // console.log('global id',this.globals.menu_item_id);
 
@@ -390,7 +393,7 @@ export class ItemDetailPage {
         this.objectPrice = Number(this.item_price);
 
         this.objectPrice.toFixed(2);
-        this.instructions = localStorage.getItem("instructions");
+        // this.instructions = localStorage.getItem("instructions");
         this.globals.itemInstruction = this.instructions;
         if(this.reward_item_flag == true){
           var reward_duplicate = false;
