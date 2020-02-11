@@ -88,7 +88,6 @@
     "cordova-plugin-x-toast": "^2.7.2",
     "cordova-plugin-zip": "^3.1.0",
     "cordova-res": "^0.6.0",
-    "cordova.plugins.diagnostic": "^3.9.2",
     "es6-promise-plugin": "^4.2.2",
     "ion2-calendar": "^2.2.0",
     "ionic-angular": "3.9.2",
@@ -132,7 +131,6 @@
         "CAMERA_USAGE_DESCRIPTION": "this camera requires camera access to scan qr-code"
       },
       "cordova-plugin-crop": {},
-      "cordova.plugins.diagnostic": {},
       "cordova-plugin-x-socialsharing": {
         "ANDROID_SUPPORT_V4_VERSION": "24.1.1+",
         "PHOTO_LIBRARY_ADD_USAGE_DESCRIPTION": "This app requires photo library access to function properly.",
@@ -154,7 +152,7 @@
       "cordova-plugin-code-push": {},
       "cordova-plugin-file-transfer": {},
       "cordova-plugin-zip": {},
-      "cordova-plugin-file": {}
+      "onesignal-cordova-plugin": {}
     },
     "platforms": [
       "browser",
