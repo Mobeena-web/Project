@@ -122,7 +122,6 @@
         <variable name="CAMERA_USAGE_DESCRIPTION" value="this camera requires camera access to scan qr-code" />
     </plugin>
     <plugin name="cordova-plugin-crop" spec="^0.4.0" />
-    <plugin name="cordova.plugins.diagnostic" spec="^3.9.2" />
     <plugin name="cordova-plugin-x-socialsharing" spec="^5.4.3">
         <variable name="ANDROID_SUPPORT_V4_VERSION" value="24.1.1+" />
     </plugin>
