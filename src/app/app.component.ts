@@ -119,28 +119,7 @@ export class MyApp {
     });
   }
 
-  ngOnInit(){
-    this.welcome_data();
 
-  }
-
-  welcome_data() {
-    let loading = this.loadingCtrl.create({
-        content: "Loading...",
-    });
-    loading.present();
-
-    let response = this.server.welcome_screen();
-    response.subscribe(data => {
-        loading.dismiss();
-        this.globals.welcome = data;
-    }, error => {
-      loading.dismiss();
-
-        this.globals.presentToast("Something went wrong check your internet connection.")
-
-    });
-}
 
   checkCodePush() {
     

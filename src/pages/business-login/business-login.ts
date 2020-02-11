@@ -38,7 +38,14 @@ export class BusinessLoginPage {
                 this.navCtrl.setRoot('BeforeLoginPage')
              
             })
-            .catch((err) => { console.log(err) });
+            .catch((err) => {
+              console.log(err)
+              this.globals.business_username = this.username;
+              this.globals.new_id = this.businessId
+              this.list();
+
+                this.navCtrl.setRoot('BeforeLoginPage')
+            });
         
     }
     else{

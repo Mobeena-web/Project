@@ -683,7 +683,7 @@ export class PaymentPage {
             this.instructions.Points = Number(this.globals.points_availed);
         }
         console.log(this.gift_data,"ko")
-        if(this.gift_data.length > 0){
+        if(this.gift_data && this.gift_data.length > 0){
             this.instructions.giftcard = this.gift_data;
         }
 

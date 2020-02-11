@@ -19,7 +19,28 @@ export class BeforeLoginPage {
   constructor(private nativeStorage: NativeStorage,public alertCtrl:AlertController, public loadingCtrl: LoadingController, public server: ServerProvider,public global: GlobalVariable,public navCtrl: NavController, public navParams: NavParams) {
     
   }
+  ngOnInit(){
+    this.welcome_data();
 
+  }
+
+  welcome_data() {
+    let loading = this.loadingCtrl.create({
+        content: "Loading...",
+    });
+    loading.present();
+
+    let response = this.server.welcome_screen();
+    response.subscribe(data => {
+        loading.dismiss();
+        this.global.welcome = data;
+    }, error => {
+      loading.dismiss();
+
+        this.global.presentToast("Something went wrong check your internet connection.")
+
+    });
+}
   login(){
     this.navCtrl.push('LoginPage')
   }
