@@ -62,7 +62,7 @@
     "com-sarriaroman-photoviewer": "^1.1.18",
     "cordova-android": "^8.1.0",
     "cordova-browser": "5.0.4",
-    "cordova-ios": "^5.1.1",
+    "cordova-ios": "5.1.1",
     "cordova-plugin-actionsheet": "^2.3.3",
     "cordova-plugin-add-swift-support": "^1.7.2",
     "cordova-plugin-calendar": "^5.1.5",
@@ -156,7 +156,8 @@
     },
     "platforms": [
       "browser",
-      "ios"
+      "ios",
+      "android"
     ]
   }
 }

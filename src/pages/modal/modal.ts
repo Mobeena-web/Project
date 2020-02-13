@@ -355,7 +355,15 @@ export class ModalPage {
         if(data.in_radius == false) {
           this.globals.alertMessage("Sorry","We don't deliver in your Area.");
           console.log('dont deliver in your area')
-          this.navCtrl.pop();
+         
+          if(this.globals.pickup == true){
+            this.type = "pickup";
+            this.globals.OrderType = this.type;
+            console.log("pickup set in order")
+            }
+            else{
+            this.navCtrl.pop();
+            }
 
         }
         localStorage.setItem("GetAddress",myadress);

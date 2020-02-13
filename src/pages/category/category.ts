@@ -186,8 +186,8 @@ export class CategoryPage {
 
     getLocation() {
        
-        this.diagnostic.isLocationEnabled()
-            .then((state) => {
+        // this.diagnostic.isLocationEnabled()
+        //     .then((state) => {
                
                     this.geolocation.getCurrentPosition().then((position) => {
                         this.coordinates = position.coords.latitude + "," + position.coords.longitude;
@@ -204,9 +204,9 @@ export class CategoryPage {
 
                     });
               
-            }).catch(e => {
+            // }).catch(e => {
               
-            });
+            // });
 
     }
 

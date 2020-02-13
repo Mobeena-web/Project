@@ -258,9 +258,9 @@ export class OrderListingPage {
 
     list() {
 
-         this.diagnostic.isLocationEnabled()
-          .then((state) => {
-           if (state){
+        //  this.diagnostic.isLocationEnabled()
+        //   .then((state) => {
+        //    if (state){
         this.status = false;
 
 
@@ -306,22 +306,23 @@ export class OrderListingPage {
 
         },(err)=>{
             console.log(err);
+            this.status = true;
+            let alert = this.alertCtrl.create({
+              title: 'Location is disabled',
+              subTitle: 'In order to proceed, Please enable your location',
+              buttons: ['OK']
+           });
+  
+              alert.present();
 
         });
 
 
 
-        } else {
-                this.status = true;
-          let alert = this.alertCtrl.create({
-            title: 'Location is disabled',
-            subTitle: 'In order to proceed, Please enable your location',
-            buttons: ['OK']
-         });
-
-            alert.present();
-          }
-         }).catch(e => console.error(e));
+        // } else {
+            
+        //   }
+        //  }).catch(e => console.error(e));
 
 
 
@@ -425,9 +426,9 @@ export class OrderListingPage {
     }
 
     getLocation() {
-        this.diagnostic.isLocationEnabled()
-            .then((state) => {
-                if (state) {
+        // this.diagnostic.isLocationEnabled()
+        //     .then((state) => {
+                // if (state) {
                     this.status = false;
                     this.arrayStatus = false;
                     this.flag = true;
@@ -437,19 +438,19 @@ export class OrderListingPage {
 
                     }, (err) => {
                         console.log(err);
-
+                        this.status = true;
+                        let alert = this.alertCtrl.create({
+                            title: 'Location is disabled',
+                            subTitle: 'In order to proceed, Please enable your location',
+                            buttons: ['OK']
+                        });
+    
+                        alert.present();
                     });
-                } else {
-                    this.status = true;
-                    let alert = this.alertCtrl.create({
-                        title: 'Location is disabled',
-                        subTitle: 'In order to proceed, Please enable your location',
-                        buttons: ['OK']
-                    });
-
-                    alert.present();
-                }
-            }).catch(e => console.error(e));
+                // } else {
+                  
+                // }
+            // }).catch(e => console.error(e));
 
     }
 //     getLocationAddress() {
