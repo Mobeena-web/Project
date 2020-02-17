@@ -3,6 +3,8 @@ import { IonicPage, NavController, NavParams ,LoadingController} from 'ionic-ang
 import { GlobalVariable } from '../../app/global';
 import { ServerProvider } from '../../providers/server/server';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
+import {Platform} from 'ionic-angular';
+
 
 @IonicPage()
 @Component({
@@ -12,7 +14,7 @@ import { PhotoViewer } from '@ionic-native/photo-viewer';
 export class GalleryPage {
   images:any;
   errorMenu:boolean = false;
-  constructor(public loadingCtrl: LoadingController,public server: ServerProvider, public global: GlobalVariable,public navCtrl: NavController, public navParams: NavParams,private photoViewer: PhotoViewer) {
+  constructor(public loadingCtrl: LoadingController,public server: ServerProvider, public global: GlobalVariable,public navCtrl: NavController, public navParams: NavParams,private photoViewer: PhotoViewer, public platform: Platform) {
     this.get_gallery()
   }
 
@@ -47,6 +49,13 @@ export class GalleryPage {
 }
 
   image_show(image){
+
+    if (this.platform.is("ios")) {
+      image = decodeURIComponent(image);
+    }
+
+    // this.photoViewer.show(url, title, options);
+  
     this.photoViewer.show(image, '', {share: true});
   }
 
