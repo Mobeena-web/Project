@@ -120,8 +120,8 @@ checkTiming(Timing) {
 
 getLocation() {
    
-    this.diagnostic.isLocationEnabled()
-        .then((state) => {
+    // this.diagnostic.isLocationEnabled()
+    //     .then((state) => {
            
                 this.geolocation.getCurrentPosition().then((position) => {
                     this.coordinates = position.coords.latitude + "," + position.coords.longitude;
@@ -138,9 +138,9 @@ getLocation() {
 
                 });
           
-        }).catch(e => {
+        // }).catch(e => {
           
-        });
+        // });
 
 }
 

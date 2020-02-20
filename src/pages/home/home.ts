@@ -165,30 +165,16 @@ export class HomePage {
 
 
     getLocation() {
-        this.diagnostic.isLocationEnabled()
-            .then((state) => {
-                if (state) {
-                 
-                    this.flag = true;
+        // this.diagnostic.isLocationEnabled()
+        //     .then((state) => {
+
+               this.flag = true;
                     this.geolocation.getCurrentPosition().then((position) => {
                         this.coordinates = position.coords.latitude + "," + position.coords.longitude;
                         this.globals.RewardsPos = this.coordinates;
                         this.globals.mycoordinates = this.coordinates;
-                        
-                    }, (err) => {
-                        console.log(err);
-
-                    });
-                } else {
-                    let alert = this.alertCtrl.create({
-                        title: 'Location is disabled',
-                        subTitle: 'In order to proceed, Please enable your location',
-                        buttons: ['OK']
-                    });
-
-                    alert.present();
-                }
-            }).catch(e => {
+               
+            }, (err) => {
                 let alert = this.alertCtrl.create({
                     title: 'Location is disabled',
                     subTitle: 'In order to proceed, Please enable your location',
@@ -196,7 +182,39 @@ export class HomePage {
                 });
 
                 alert.present();
+                console.log(err);
+
             });
+                // if (state) {
+                 
+                //     this.flag = true;
+                //     this.geolocation.getCurrentPosition().then((position) => {
+                //         this.coordinates = position.coords.latitude + "," + position.coords.longitude;
+                //         this.globals.RewardsPos = this.coordinates;
+                //         this.globals.mycoordinates = this.coordinates;
+                        
+                //     }, (err) => {
+                //         console.log(err);
+
+                //     });
+                // } else {
+                //     let alert = this.alertCtrl.create({
+                //         title: 'Location is disabled',
+                //         subTitle: 'In order to proceed, Please enable your location',
+                //         buttons: ['OK']
+                //     });
+
+                //     alert.present();
+                // }
+            // }).catch(e => {
+            //     let alert = this.alertCtrl.create({
+            //         title: 'Location is disabled',
+            //         subTitle: 'In order to proceed, Please enable your location',
+            //         buttons: ['OK']
+            //     });
+
+            //     alert.present();
+            // });
 
     }
 
