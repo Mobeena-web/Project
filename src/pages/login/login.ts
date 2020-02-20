@@ -99,7 +99,7 @@ export class LoginPage {
                             }).then(() => {
                                 
                                 this.SaveMobileNumberFlag(this.data.response.mobile_verification_amount, this.data.response.phone_verified);
-                                this.server.initializePushToken();
+                                // this.server.initializePushToken();
                                 if (this.globals.caos_flag) {
 
                                     this.navCtrl.push('CartPage')
@@ -123,7 +123,7 @@ export class LoginPage {
                                     this.navCtrl.setRoot(HomePage, { imageData: this.data.response.url, Flag: false });
 
                                 }
-                                this.server.initializePushToken();
+                                // this.server.initializePushToken();
                             });
 
 

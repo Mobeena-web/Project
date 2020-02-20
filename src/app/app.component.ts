@@ -8,7 +8,7 @@ import { ListPage } from '../pages/list/list';
 import { MainTabsPage } from '../pages/main-tabs/main-tabs';
 import { GlobalVariable } from './global';
 import { NativeStorage } from '@ionic-native/native-storage';
-import { OneSignal } from '@ionic-native/onesignal';
+// import { OneSignal } from '@ionic-native/onesignal';
 import { ServerProvider } from '../providers/server/server';
 import { Geolocation } from '@ionic-native/geolocation';
 import { HttpModule } from '@angular/http';
@@ -37,7 +37,9 @@ export class MyApp {
   pages: Array<{ title: string, component: any }>;
   data: any;
   places:any;
-  constructor(private codePush: CodePush,private nativeAudio: NativeAudio,public loadingCtrl: LoadingController,private iab: InAppBrowser,private barcodeScanner:BarcodeScanner,public alertCtrl: AlertController,public app: App,public server: ServerProvider, private _notification: OneSignal, public alertctrl: AlertController, public modalCtrl: ModalController, public globals: GlobalVariable, private statusbar: StatusBar, private splashscreen: SplashScreen, private nativeStorage: NativeStorage, public platform: Platform,private geolocation: Geolocation) {
+  constructor(private codePush: CodePush,private nativeAudio: NativeAudio,public loadingCtrl: LoadingController,private iab: InAppBrowser,private barcodeScanner:BarcodeScanner,public alertCtrl: AlertController,public app: App,public server: ServerProvider,
+    // private _notification: OneSignal,
+    public alertctrl: AlertController, public modalCtrl: ModalController, public globals: GlobalVariable, private statusbar: StatusBar, private splashscreen: SplashScreen, private nativeStorage: NativeStorage, public platform: Platform,private geolocation: Geolocation) {
 
     platform.ready().then(() => {
         this.checkCodePush();
@@ -87,7 +89,7 @@ export class MyApp {
         this.globals.lastName = data.lastName;
         this.globals.Email = data.email;
         
-        this.initializePushToken();
+        // this.initializePushToken();
         
 
         if(!globals.marketPlace){
@@ -166,33 +168,33 @@ export class MyApp {
   }
 
 
-  initializePushToken() {
+  // initializePushToken() {
    
-    if (this.platform.is('ios')) {
-      var iosSettings = {};
-      iosSettings["kOSSettingsKeyAutoPrompt"] = true;
-      iosSettings["kOSSettingsKeyInAppLaunchURL"] = false;
-      this._notification.startInit(this.appId).iOSSettings(iosSettings);
-    } else if (this.platform.is('android')) {
-      this._notification.startInit(this.appId, this.googleProjectId);
-    }
+  //   if (this.platform.is('ios')) {
+  //     var iosSettings = {};
+  //     iosSettings["kOSSettingsKeyAutoPrompt"] = true;
+  //     iosSettings["kOSSettingsKeyInAppLaunchURL"] = false;
+  //     this._notification.startInit(this.appId).iOSSettings(iosSettings);
+  //   } else if (this.platform.is('android')) {
+  //     this._notification.startInit(this.appId, this.googleProjectId);
+  //   }
 
-    this._notification.inFocusDisplaying(this._notification.OSInFocusDisplayOption.None);
-    this._notification.getIds()
-      .then((ids) => {
-        this.server.updateToken(ids.userId).toPromise()
-          .then((data) => { console.log("server response on token update", data) })
+  //   this._notification.inFocusDisplaying(this._notification.OSInFocusDisplayOption.None);
+  //   this._notification.getIds()
+  //     .then((ids) => {
+  //       this.server.updateToken(ids.userId).toPromise()
+  //         .then((data) => { console.log("server response on token update", data) })
 
-      }).then(
-        () => {
-          this._notification.setSubscription(true);
-          //this.listenForNotification();
-        })
-      .catch(error => console.error("onesginal error", error));
+  //     }).then(
+  //       () => {
+  //         this._notification.setSubscription(true);
+  //         //this.listenForNotification();
+  //       })
+  //     .catch(error => console.error("onesginal error", error));
 
-    this._notification.setSubscription(true);
-    this._notification.endInit();
-  }
+  //   this._notification.setSubscription(true);
+  //   this._notification.endInit();
+  // }
 
   // listenForNotification() {
   //   this._notification.handleNotificationReceived()

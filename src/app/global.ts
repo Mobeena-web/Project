@@ -108,8 +108,19 @@ export class GlobalVariable {
     is_birthday: any;
     is_anniversary: any;
     order_instructions: any;
+
+
+    //kiosk flag
     caos_flag: boolean = true;
     caos_udid = 'e2c40e9f0a';
+
+
+
+
+
+
+
+
     welcome: any;
     inradius: boolean = true;
     pickup_timing: any;
