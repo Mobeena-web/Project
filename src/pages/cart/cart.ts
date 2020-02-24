@@ -538,6 +538,11 @@ export class CartPage {
             });
         }
 
+        if(this.Total != 0){
+            console.log("total........",Number(this.Total).toFixed(2));
+            this.Total = Number(this.Total).toFixed(2);
+            }
+
     }
 
 
@@ -900,7 +905,7 @@ export class CartPage {
             let proceedFlag = true;
             let alert12 = this.alertCtrl.create({
                 title: 'Alert',
-                subTitle: 'Please add more items in the cart.Minimum delivery order amount is $' + this.globals.minimun_order,
+                subTitle: 'Cart value must be equal or greater than $' + this.globals.minimun_order + '. Try adding more items in the cart',
                 buttons: ['Okay']
             });
 
@@ -1156,11 +1161,16 @@ export class CartPage {
                     let sub = tot - Number(this.pointsInput.description);
                     console.log(sub, "sub");
 
-                    if (sub < this.globals.minimun_order || sub <= 0) {
+                   
+                    if (sub <= 0) {
 
-                        this.AddMoreItemAlert(' Points reward cannot be availed.Please add more item in the cart.');
-                        this.user_availed_points = false;
-                    }
+                        // if (sub < this.globals.minimun_order || sub <= 0) {
+    
+                            // this.AddMoreItemAlert(' Points reward cannot be availed.Please add more item in the cart.');
+                            this.AddMoreItemAlert('Point cannot be redeemed on rewards');
+    
+                            this.user_availed_points = false;
+                        }
                     else {
                         this.pointsInput.availed = true;
                         this.points = this.points - this.pointsInput.points;
