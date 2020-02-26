@@ -43,7 +43,6 @@
     "@ionic-native/launch-navigator": "^4.20.0",
     "@ionic-native/native-audio": "^4.20.0",
     "@ionic-native/native-storage": "^4.20.0",
-    "@ionic-native/onesignal": "^4.20.0",
     "@ionic-native/paypal": "^4.20.0",
     "@ionic-native/photo-viewer": "^4.20.0",
     "@ionic-native/pin-dialog": "^4.20.0",

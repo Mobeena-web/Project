@@ -37,7 +37,7 @@ import { IntroPage5Page } from '../pages/intro-page5/intro-page5';
 import { IntroPage6PageModule } from '../pages/intro-page6/intro-page6.module';
 import { IntroPage7PageModule } from '../pages/intro-page7/intro-page7.module';
 import { IntroPage8PageModule } from '../pages/intro-page8/intro-page8.module';
-import { OneSignal } from '@ionic-native/onesignal';
+// import { OneSignal } from '@ionic-native/onesignal';
 import { Calendar } from '@ionic-native/calendar';
 import { GetlocationProvider } from '../providers/getlocation/getlocation';
 import {MobileVerificationPromptPage} from '../pages/mobile-verification-prompt/mobile-verification-prompt';
@@ -108,7 +108,9 @@ import { CalendarModule } from "ion2-calendar";
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     
     ServerProvider ,GlobalVariable,NativeStorage,BarcodeScanner,InAppBrowser,PinDialog,NativeAudio,Geolocation
-    ,CallNumber,EmailComposer,Camera,Crop,Diagnostic,SocialSharing,Stripe,OneSignal,Calendar,
+    ,CallNumber,EmailComposer,Camera,Crop,Diagnostic,SocialSharing,Stripe,
+    // OneSignal,
+    Calendar,
     GetlocationProvider,PhotoViewer,CodePush
     
   ]
