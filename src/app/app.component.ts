@@ -63,6 +63,7 @@ export class MyApp {
 
         this.globals.new_id = data.business_id;
         this.globals.business_username= data.business_username;
+        this.globals.business_password = data.business_password;
       
         env.nav.setRoot('BeforeLoginPage');
       

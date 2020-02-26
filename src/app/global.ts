@@ -108,7 +108,7 @@ export class GlobalVariable {
     is_birthday: any;
     is_anniversary: any;
     order_instructions: any;
-    caos_flag: boolean = false;
+    caos_flag: boolean = true;
     caos_udid = 'e2c40e9f0a';
     welcome: any;
     inradius: boolean = true;
@@ -137,6 +137,7 @@ export class GlobalVariable {
     orders_enabled: any;
     retail_items_discount = 0;
     home_logo: any;
+    business_password : any;
     constructor(public alertCtrl: AlertController, public toastCtrl: ToastController) {
         // this.BaseUrl = 'https://staging.onlineordering.mikronexus.com/index.php/';
         this.BaseUrl = 'https://onlineordering.mikronexus.com/online-ordering-new/index.php/';
@@ -168,7 +169,7 @@ export class GlobalVariable {
             maxValue: 100,
             width: width,
             text: function (value) { return ''; },
-            colors: [color, '#273C75'],
+            colors: [color, '#333'],
             duration: 400,
             wrpClass: 'circles-wrp',
             textClass: 'circles-text',

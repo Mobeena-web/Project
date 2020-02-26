@@ -12,8 +12,9 @@ import { NativeStorage } from '@ionic-native/native-storage';
 })
 export class BusinessLoginPage {
   username:any;
-  businessId:any;
+  password:any;
   places: any;
+  data :any;
   constructor( private nativeStorage: NativeStorage,public loadingCtrl: LoadingController,public server: ServerProvider,public globals: GlobalVariable,public navCtrl: NavController, public navParams: NavParams) {
   }
 
@@ -21,36 +22,97 @@ export class BusinessLoginPage {
     console.log('ionViewDidLoad BusinessLoginPage');
   }
 
+
+
   login_business(){
-    if(this.username && this.businessId){
+    console.log(this.username)
+    console.log(this.password)
+
+    if(this.username && this.password){
+
+    let loading = this.loadingCtrl.create({
+      content: "Please wait..."
+  });
+  loading.present();
+  let response = this.server.business_login(this.username,this.password);
+  response.subscribe(data => {
+      loading.dismiss();
+      console.log(data)
+      this.data = data;
+      console.log(this.data.id)
+
+      if (this.data.status == 'true') {
+         
+              this.list();
+              this.nativeStorage.setItem('business',
+                  {
+                    business_username: this.username,
+                    business_id:this.data.id,
+                    business_password : this.password
+
+                  }).then(() => {
+     
+                    this.globals.business_username = this.username;
+                    this.globals.new_id = this.data.id;
+                    this.globals.business_password = this.password;
+                    this.list();
       
-          this.nativeStorage.setItem('business',
-            {
-              business_username: this.username,
-              business_id:this.businessId
+                      this.navCtrl.setRoot('BeforeLoginPage')    
+
+                  })
+                  .catch((err) => {
+                    console.log("nativesstorage",err)
+              this.globals.business_username = this.username;
+              this.globals.new_id = this.data.id
+              this.globals.business_password = this.password;
+                this.list();
+
+                this.navCtrl.setRoot('BeforeLoginPage')
+                     
+                  });
+      }
+      else {
+          this.globals.presentToast("Invalid Email or Password")
+      }
+  }, error => {
+      this.globals.presentToast("Something went wrong check your internet connection.")
+  });
+}
+
+else{
+  this.globals.presentToast('Something Missing.Please Fill All Required Fields')
+}
+
+
+    // if(this.username && this.password){
+      
+    //       this.nativeStorage.setItem('business',
+    //         {
+    //           business_username: this.username,
+    //           business_id:this.password
               
-            }).then(() => {
+    //         }).then(() => {
 
-              this.globals.business_username = this.username;
-              this.globals.new_id = this.businessId
-              this.list();
+    //           this.globals.business_username = this.username;
+    //           this.globals.new_id = this.password
+    //           this.list();
 
-                this.navCtrl.setRoot('BeforeLoginPage')
+    //             this.navCtrl.setRoot('BeforeLoginPage')
              
-            })
-            .catch((err) => {
-              console.log(err)
-              this.globals.business_username = this.username;
-              this.globals.new_id = this.businessId
-              this.list();
+    //         })
+    //         .catch((err) => {
+    //           console.log(err)
+    //           this.globals.business_username = this.username;
+    //           this.globals.new_id = this.password
+    //           this.list();
 
-                this.navCtrl.setRoot('BeforeLoginPage')
-            });
+    //             this.navCtrl.setRoot('BeforeLoginPage')
+    //         });
         
-    }
-    else{
-      this.globals.presentToast('Something Missing.Please Fill All Required Fields')
-    }
+    // }
+    // else{
+    //   this.globals.presentToast('Something Missing.Please Fill All Required Fields')
+    // }
   }
 
   list() {

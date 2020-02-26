@@ -729,6 +729,15 @@ getdeals(){
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
 
+  business_login(username,password){
+    var data = JSON.stringify({ username: username, password: password });
+    var link = this.global.BaseUrl + 'business_controller/app_login';
+
+    return this.http.post(link, data)
+      .map((res: any) => res.json())
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+  }
+
   initializePushToken() {
     console.log("intializing push token");
 
