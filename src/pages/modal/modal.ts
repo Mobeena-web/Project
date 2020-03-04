@@ -332,12 +332,16 @@ export class ModalPage {
 
   getCurrentLocation(): Promise<any> {
     return new Promise(resolve => {
+      if(this.globals.delivery == true){
+        
       this.geolocation.getCurrentPosition().then((resp) => {
         resolve(resp);
       }).catch((error) => {
       })
+    }
     })
   }
+  
 
   reverseGeoCoding(lat, lng) {
    

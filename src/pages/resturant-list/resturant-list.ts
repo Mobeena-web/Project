@@ -211,11 +211,14 @@ export class ResturantListPage {
   }
 
   getCurrentLocation(): Promise<any> {
+   
       return new Promise(resolve => {
+        if(this.globals.delivery == true){
         this.geolocation.getCurrentPosition().then((resp) => {
           resolve(resp);
         }).catch((error) => {
         })
+    }
       })
     }
 
@@ -445,6 +448,7 @@ export class ResturantListPage {
                   this.status = false;
                   this.arrayStatus = false;
                   this.flag = true;
+                  if(this.globals.delivery == true){
                   this.geolocation.getCurrentPosition().then((position) => {
                       this.coordinates = position.coords.latitude + "," + position.coords.longitude;
                       console.log("get Location branches ", this.coordinates)
@@ -461,6 +465,7 @@ export class ResturantListPage {
     
                       alert.present();
                   });
+                }
             //   } else {
                 
             //   }

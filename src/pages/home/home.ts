@@ -168,7 +168,9 @@ export class HomePage {
         // this.diagnostic.isLocationEnabled()
         //     .then((state) => {
 
-               this.flag = true;
+            this.flag = true;
+               if(this.globals.delivery == true){
+                
                     this.geolocation.getCurrentPosition().then((position) => {
                         this.coordinates = position.coords.latitude + "," + position.coords.longitude;
                         this.globals.RewardsPos = this.coordinates;
@@ -185,6 +187,7 @@ export class HomePage {
                 console.log(err);
 
             });
+        }
                 // if (state) {
                  
                 //     this.flag = true;

@@ -156,6 +156,9 @@ export class MyRewardsPage {
                     // console.log("if ", state)
                     this.arrayStatus = false;
                     this.flag = true;
+
+                    if(this.globals.delivery == true){
+
                     this.geolocation.getCurrentPosition().then((position) => {
                         this.coordinates = position.coords.latitude + "," + position.coords.longitude;
                         this.globals.RewardsPos = this.coordinates;
@@ -171,6 +174,7 @@ export class MyRewardsPage {
                     alert.present();
 
                     });
+                }
                 // } else {
                     
                 // }
