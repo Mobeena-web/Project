@@ -90,6 +90,7 @@ export class ReservationPage {
     getLocation() {
         this.arrayStatus = false;
         this.flag = true;
+        if(this.globals.delivery == true){
         this.geolocation.getCurrentPosition().then((position) => {
             this.coordinates = position.coords.latitude + "," + position.coords.longitude;
             this.list();
@@ -98,6 +99,7 @@ export class ReservationPage {
             console.log(err);
 
         });
+    }
 
     }
 

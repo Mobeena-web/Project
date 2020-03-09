@@ -101,7 +101,7 @@ export class IntroPage5Page {
                         console.log("b discount value", this.data.response.discount_value);
                         this.navCtrl.setRoot(HomePage, { imageData: this.image, discountText: this.data.response.discount_text, Flag: true, discount: this.data.response.discount_value });
                         this.globals.udid = this.data.response.udid;
-                        this.server.initializePushToken();
+                        // this.server.initializePushToken();
                     })
                     .catch((err) => { console.log(err) });
 

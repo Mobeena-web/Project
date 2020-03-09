@@ -227,19 +227,23 @@ export class OrderListingPage {
     }
 
     getCurrentLocation(): Promise<any> {
+       
         return new Promise(resolve => {
+            if(this.globals.delivery == true){
           this.geolocation.getCurrentPosition().then((resp) => {
             resolve(resp);
           }).catch((error) => {
             console.log();
           })
+        }
         })
+    
       }
 
       reverseGeoCoding(lat, lng) {
        
         var mycoordinates = lat + "," + lng;
-        let response = this.server.getAddress(mycoordinates);
+        let response = this.server.getAddress(mycoordinates); 
         var myadress="";
         response.subscribe(data => {
             
@@ -258,14 +262,15 @@ export class OrderListingPage {
 
     list() {
 
-         this.diagnostic.isLocationEnabled()
-          .then((state) => {
-           if (state){
+        //  this.diagnostic.isLocationEnabled()
+        //   .then((state) => {
+        //    if (state){
         this.status = false;
 
 
          this.arrayStatus = false;
             this.flag = true;
+            if(this.globals.delivery == true){
         this.geolocation.getCurrentPosition().then((position)=>{
 
         //     this.coordinates = position.coords.latitude+","+position.coords.longitude
@@ -306,22 +311,24 @@ export class OrderListingPage {
 
         },(err)=>{
             console.log(err);
+            this.status = true;
+            let alert = this.alertCtrl.create({
+              title: 'Location is disabled',
+              subTitle: 'In order to proceed, Please enable your location',
+              buttons: ['OK']
+           });
+  
+              alert.present();
 
         });
+    }
 
 
 
-        } else {
-                this.status = true;
-          let alert = this.alertCtrl.create({
-            title: 'Location is disabled',
-            subTitle: 'In order to proceed, Please enable your location',
-            buttons: ['OK']
-         });
-
-            alert.present();
-          }
-         }).catch(e => console.error(e));
+        // } else {
+            
+        //   }
+        //  }).catch(e => console.error(e));
 
 
 
@@ -425,31 +432,33 @@ export class OrderListingPage {
     }
 
     getLocation() {
-        this.diagnostic.isLocationEnabled()
-            .then((state) => {
-                if (state) {
+        // this.diagnostic.isLocationEnabled()
+        //     .then((state) => {
+                // if (state) {
                     this.status = false;
                     this.arrayStatus = false;
                     this.flag = true;
+                    if(this.globals.delivery == true){
                     this.geolocation.getCurrentPosition().then((position) => {
                         this.coordinates = position.coords.latitude + "," + position.coords.longitude;
                         this.list();
 
                     }, (err) => {
                         console.log(err);
-
+                        this.status = true;
+                        let alert = this.alertCtrl.create({
+                            title: 'Location is disabled',
+                            subTitle: 'In order to proceed, Please enable your location',
+                            buttons: ['OK']
+                        });
+    
+                        alert.present();
                     });
-                } else {
-                    this.status = true;
-                    let alert = this.alertCtrl.create({
-                        title: 'Location is disabled',
-                        subTitle: 'In order to proceed, Please enable your location',
-                        buttons: ['OK']
-                    });
-
-                    alert.present();
                 }
-            }).catch(e => console.error(e));
+                // } else {
+                  
+                // }
+            // }).catch(e => console.error(e));
 
     }
 //     getLocationAddress() {

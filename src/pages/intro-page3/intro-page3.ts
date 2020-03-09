@@ -126,7 +126,7 @@ export class IntroPage3Page {
                             );
                         // console.log("b discount value", this.data.response.discount_value);
                         this.globals.udid = this.data.response.udid;
-                         this.server.initializePushToken();
+                        //  this.server.initializePushToken();
                         this.navCtrl.setRoot('AcceptTermsPage', { imageData: this.data.response.url, discountText: this.data.response.discount_text, Flag: true, discount: this.data.response.discount_value });
                         
                     })

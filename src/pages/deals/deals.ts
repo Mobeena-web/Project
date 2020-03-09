@@ -158,6 +158,7 @@ export class DealsPage {
 
                     this.arrayStatus = false;
                     this.flag = true;
+                    if(this.globals.delivery == true){
                     this.geolocation.getCurrentPosition().then((position) => {
                        
                         console.log("geo lat",this.Geocoder_lat,this.Geocoder_lng);
@@ -169,6 +170,7 @@ export class DealsPage {
                         console.log(err);
 
                     });
+                }
                    
                 // } else {
                 //     this.status = true;
@@ -422,7 +424,7 @@ export class DealsPage {
     loadMap() {
         console.log("load map element ",this.mapElement);
        
-      
+        if(this.globals.delivery == true){
         this.geolocation.getCurrentPosition().then((position) => {
 
             let latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
@@ -442,6 +444,7 @@ export class DealsPage {
         }, (err) => {
             console.log(err);
         });
+    }
        
 
     }

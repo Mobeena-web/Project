@@ -60,17 +60,17 @@
           <ion-col col-4 style=" margin: auto;  padding: 0;  height: inherit;  ;text-align: center;">
             
             <button [disabled]="reward_item_flag"   small style="background-color:#fff;text-align: center; color: #fff;font-size: 1.3em; margin: 0;padding: 0;margin-top: 0.5em; height: 40px;width: 40px;border-radius: 50%; ">
-              <ion-icon style="font-size:40px;color: #273C75 ; "  name="ios-remove-circle-outline" (click)="removeQuantity()"> </ion-icon>
+              <ion-icon style="font-size:40px;color: #333 ; "  name="ios-remove-circle-outline" (click)="removeQuantity()"> </ion-icon>
             </button>
           </ion-col>
 
           <ion-col style="text-align:center; margin:auto" col-4>
-            <p style="font-size:3.0rem;color: #273C75 "> {{quantity}} </p>
+            <p style="font-size:3.0rem;color: #333 "> {{quantity}} </p>
           </ion-col>
 
           <ion-col col-4 style="margin: auto;  padding: 0;  height: inherit;  text-align: center;">
             <button [disabled]="reward_item_flag"  small style="color: #fff; background-color: #fff;text-align: center; font-size: 1.3em;  padding: 0; margin: 0;margin-top: 0.5em;height: 40px;width: 40px;border-radius: 50%;">
-              <ion-icon style="font-size: 40px;color: #273C75 ;" name="ios-add-circle-outline" (click)="addQuantity()"> </ion-icon>
+              <ion-icon style="font-size: 40px;color: #333 ;" name="ios-add-circle-outline" (click)="addQuantity()"> </ion-icon>
             </button>
           </ion-col>
         </ion-row>
@@ -135,12 +135,12 @@
 
               <!-- <ion-row style="      
          width: 40%;
-        background: #273C75 ;
-        margin: 5px; background: #273C75 " *ngIf="option.IsSelected">
+        background: #333 ;
+        margin: 5px; background: #333 " *ngIf="option.IsSelected">
 
-                <ion-col col-4 style="    margin: auto;  padding: 0;  background: #273C75 ;text-align: center;" (tap)="removeOptionQuantity(toppings.heading,option)">
+                <ion-col col-4 style="    margin: auto;  padding: 0;  background: #333 ;text-align: center;" (tap)="removeOptionQuantity(toppings.heading,option)">
                  
-                  <button ion-button small style="background-color: #273C75 ;text-align: center;  padding: 0; margin: 0">
+                  <button ion-button small style="background-color: #333 ;text-align: center;  padding: 0; margin: 0">
                     <ion-icon style="font-weight:bold" name="remove"> </ion-icon>
                   </button>
 
@@ -150,8 +150,8 @@
                   <p style=" color:white;font-weight:bold"> {{option.quantity}} </p>
                 </ion-col>
 
-                <ion-col col-4 style="    margin: auto;  padding: 0;   background: #273C75 ;text-align: center;" (tap)="addOptionQuantity(toppings.heading,option)">
-                  <button ion-button  small style="    background-color: #273C75 ;text-align: center;   padding: 0; margin: 0;">
+                <ion-col col-4 style="    margin: auto;  padding: 0;   background: #333 ;text-align: center;" (tap)="addOptionQuantity(toppings.heading,option)">
+                  <button ion-button  small style="    background-color: #333 ;text-align: center;   padding: 0; margin: 0;">
                     <ion-icon style="font-weight:bold" name="add"> </ion-icon>
                   </button>
 
@@ -164,7 +164,7 @@
    
     <!-- <div *ngIf="!extras"> 
 
-<p style="font-size:2rem;font-weight:bold;text-align:center;padding:10px;color:#273C75 ;margin-top:20%"> No extras available on this meal</p>
+<p style="font-size:2rem;font-weight:bold;text-align:center;padding:10px;color:#333 ;margin-top:20%"> No extras available on this meal</p>
 
 </div> -->
 

@@ -5,6 +5,7 @@ import { CategoryPage } from "../category/category";
 import { ServerProvider } from "../../providers/server/server";
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 
+
 /**
  * Generated class for the ItemDetailPage page.
  *
@@ -69,7 +70,9 @@ export class ItemDetailPage {
       this.reward_item_flag = false;
     }
     if(this.reward_item_flag){
-      this.presentModal1();
+      if(!this.globals.OrderType){
+        this.presentModal1();
+        }
     }
     this.reward_id = navParams.get('reward_id')
     this.thumbimage = navParams.get('image');
@@ -100,9 +103,12 @@ export class ItemDetailPage {
 
   
   presentModal() {
-    let modal = this.modalCtrl.create('InstructionModalPage');
+    let modal = this.modalCtrl.create('InstructionModalPage', {instructions: this.instructions});
     modal.present();
-
+    modal.onDidDismiss((data)=>{
+      this.instructions = data;
+      console.log("instructions from modal", this.instructions);
+    })
     // this.globals.menu_item_id = this.id;
     // console.log('global id',this.globals.menu_item_id);
 
@@ -390,7 +396,7 @@ export class ItemDetailPage {
         this.objectPrice = Number(this.item_price);
 
         this.objectPrice.toFixed(2);
-        this.instructions = localStorage.getItem("instructions");
+        // this.instructions = localStorage.getItem("instructions");
         this.globals.itemInstruction = this.instructions;
         if(this.reward_item_flag == true){
           var reward_duplicate = false;
@@ -403,9 +409,11 @@ export class ItemDetailPage {
           if(!reward_duplicate){
            this.globals.Product.push({ menuId: "1", restId: this.globals.bussinessId, uniqueId: this.ItemId, menuItem: this.name, image: this.thumbimage, quantity: this.quantity, itemInstructions: this.instructions, basePrice: this.price, totalPrice: this.objectPrice, menuExtrasSelected: this.myChoices,reward:this.reward_item_flag,reward_id:this.reward_id,tax:this.data.item.tax,tax_enabled:this.data.item.tax_enabled,discount_value:this.data.item.discount_value,discount_type:this.data.item.discount_type });
             this.globals.presentToast("Reward added in your cart")
+            this.navCtrl.pop();
           }
           else{
             this.globals.presentToast("You have already add this reward in cart.")
+            this.navCtrl.pop();
           }
         }
         else{

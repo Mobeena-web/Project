@@ -148,23 +148,23 @@ export class MyRewardsPage {
         this.globals.presentToast("You can avail this discount by adding items in cart.")
     }
     getLocation() {
-        this.diagnostic.isLocationEnabled()
-            .then((state) => {
-                console.log(state);
-                if (state) {
+        // this.diagnostic.isLocationEnabled()
+        //     .then((state) => {
+        //         console.log(state);
+                // if (state) {
                     this.status = false;
-                    console.log("if ", state)
+                    // console.log("if ", state)
                     this.arrayStatus = false;
                     this.flag = true;
+
+                    if(this.globals.delivery == true){
+
                     this.geolocation.getCurrentPosition().then((position) => {
                         this.coordinates = position.coords.latitude + "," + position.coords.longitude;
                         this.globals.RewardsPos = this.coordinates;
                     }, (err) => {
                         console.log(err);
-
-                    });
-                } else {
-                    this.status = true;
+                        this.status = true;
                     let alert = this.alertCtrl.create({
                         title: 'Location is disabled',
                         subTitle: 'In order to proceed, Please enable your location',
@@ -172,8 +172,13 @@ export class MyRewardsPage {
                     });
 
                     alert.present();
+
+                    });
                 }
-            }).catch(e => console.error(e));
+                // } else {
+                    
+                // }
+            // }).catch(e => console.error(e));
 
     }
 

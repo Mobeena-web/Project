@@ -56,7 +56,7 @@ export class CategoryPage {
     s_day:any;
     s_time:any;
     categories_section: any = 'category';
-    branchId: any;
+    branchId: any; 
     constructor(private geolocation: Geolocation,private diagnostic: Diagnostic,public server: ServerProvider, public alertCtrl: AlertController, public loadingCtrl: LoadingController, private nativeStorage: NativeStorage, private toastCtrl: ToastController, public globals: GlobalVariable, public http: Http, public navCtrl: NavController, public navParams: NavParams,public modalCtrl: ModalController) {
         
         if(!this.globals.caos_flag){
@@ -186,8 +186,9 @@ export class CategoryPage {
 
     getLocation() {
        
-        this.diagnostic.isLocationEnabled()
-            .then((state) => {
+        // this.diagnostic.isLocationEnabled()
+        //     .then((state) => {
+            if(this.globals.delivery == true){
                
                     this.geolocation.getCurrentPosition().then((position) => {
                         this.coordinates = position.coords.latitude + "," + position.coords.longitude;
@@ -203,10 +204,10 @@ export class CategoryPage {
                         console.log(err);
 
                     });
+                }
+            // }).catch(e => {
               
-            }).catch(e => {
-              
-            });
+            // });
 
     }
 

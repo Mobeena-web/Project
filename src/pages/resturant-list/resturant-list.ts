@@ -211,11 +211,14 @@ export class ResturantListPage {
   }
 
   getCurrentLocation(): Promise<any> {
+   
       return new Promise(resolve => {
+        if(this.globals.delivery == true){
         this.geolocation.getCurrentPosition().then((resp) => {
           resolve(resp);
         }).catch((error) => {
         })
+    }
       })
     }
 
@@ -289,7 +292,9 @@ export class ResturantListPage {
   }
 
   OrderCategory( place) {
-    console.log(place,"ppo")
+    console.log(place,"ppo");
+    console.log(this.places);
+
        this.globals.pickup = place.pickup;
        this.globals.latitude = place.latitude;
        this.globals.longitude = place.longitude;
@@ -330,6 +335,7 @@ export class ResturantListPage {
              this.globals.pickup = false;
          }
          if (place.delivery == '1') {
+             console.log('place delivery' , place.delivery == '1');
              this.globals.delivery = true;
          }
          else {
@@ -349,6 +355,7 @@ export class ResturantListPage {
             this.globals.pickup = false;
         }
         if (place.delivery == '1') {
+            console.log('place delivery1' , place.delivery == '1');
             this.globals.delivery = true;
         }
         else {
@@ -367,11 +374,13 @@ export class ResturantListPage {
     }
     else{
         if(this.globals.marketPlace || this.globals.branch_enabled == 1){
+            console.log('Checking....',this.globals.marketPlace, this.globals.branch_enabled == 1)
+            console.log(this.globals.marketPlace && this.globals.branch_enabled == 1);
             this.navCtrl.push('CategoryPage', { pageflag: this.pageFlag, BusinessId: place.business_id, paypal: place.paypalId, discount: place.discountvalue });
 
         }
         else{
-            this.navCtrl.push(HomePage)
+            this.navCtrl.setRoot(HomePage)
         }
 
     }
@@ -433,12 +442,13 @@ export class ResturantListPage {
   }
 
   getLocation() {
-      this.diagnostic.isLocationEnabled()
-          .then((state) => {
-              if (state) {
+    //   this.diagnostic.isLocationEnabled()
+    //       .then((state) => {
+            //   if (state) {
                   this.status = false;
                   this.arrayStatus = false;
                   this.flag = true;
+                  if(this.globals.delivery == true){
                   this.geolocation.getCurrentPosition().then((position) => {
                       this.coordinates = position.coords.latitude + "," + position.coords.longitude;
                       console.log("get Location branches ", this.coordinates)
@@ -446,19 +456,20 @@ export class ResturantListPage {
 
                   }, (err) => {
                       console.log(err);
-
+                      this.status = true;
+                      let alert = this.alertCtrl.create({
+                          title: 'Location is disabled',
+                          subTitle: 'In order to proceed, Please enable your location',
+                          buttons: ['OK']
+                      });
+    
+                      alert.present();
                   });
-              } else {
-                  this.status = true;
-                  let alert = this.alertCtrl.create({
-                      title: 'Location is disabled',
-                      subTitle: 'In order to proceed, Please enable your location',
-                      buttons: ['OK']
-                  });
-
-                  alert.present();
-              }
-          }).catch(e => console.error(e));
+                }
+            //   } else {
+                
+            //   }
+        //   }).catch(e => console.error(e));
 
   }
 //     getLocationAddress() {
