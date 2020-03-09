@@ -5,8 +5,8 @@
   Ionic pages and navigation.
 -->
 
-<ion-content class="main-view" >
-    <ion-icon name="close" (click)="closetohome()" class="gn"></ion-icon>
+<ion-content class="main-view">
+  <ion-icon name="close" (click)="closetohome()" class="gn"></ion-icon>
   <div class="overlay">
     <!-- <ion-buttons end> 
     <button ion-button (click)="dismiss()">
@@ -16,11 +16,11 @@
   </ion-buttons> -->
 
   </div>
-  <div class="modal_content"  >
-      
+  <div class="modal_content">
+
     <h2 style="text-align: center;margin-top: 23px;
     margin-bottom: 23px;"> Your Order Settings</h2>
-    <div style="padding-top: 0px;"padding>
+    <!-- <div style="padding-top: 0px;"padding>
       <ion-segment [(ngModel)]="type"   (ionChange)="onsegmentChanged()" *ngIf="globals.delivery && globals.pickup">
         <ion-segment-button value="delivery"  >
           Delivery
@@ -41,43 +41,81 @@
         </ion-segment-button>
         
       </ion-segment>
+    </div> -->
+    <ion-item>
+      <ion-label>Order Type</ion-label>
+      <ion-select [(ngModel)]="globals.OrderType">
+        <ion-option *ngIf="globals.delivery" value="delivery">Delivery</ion-option>
+        <ion-option *ngIf="globals.pickup" value="pickup">PickUp</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label style="text-transform: capitalize">{{globals.OrderType}} time </ion-label>
+      <ion-select [(ngModel)]="globals.order_time">
+        <ion-option *ngIf="globals.OrderType == 'delivery'" value="now">Now ({{globals.pickupsetting}})</ion-option>
+        <ion-option *ngIf="globals.OrderType == 'pickup'" value="now">Now ({{globals.pickup_Time}})</ion-option>
+
+        <ion-option value="schedule">Schedule</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item class="time_d" *ngIf="globals.order_time == 'schedule'">
+        <ion-label>Schedule Time</ion-label>
+        <ion-datetime min="{{value}}"  displayFormat=" MMM DD h:mm a" pickerFormat=" DD h:mm a"    [(ngModel)]="globals.myDate"  (ionChange)="dateChanged()">
+          </ion-datetime>
+    </ion-item>
+
+    <div *ngIf="globals.OrderType == 'delivery'">
+      <h5 style="text-align: center; margin-top: 20px ; padding-top:0 ; font-size: 18px"><b>Delivery Address</b></h5>
+  
+      <ion-row>
+      
+        <ion-item style="border:7px solid #ccc; height: 20px;padding: 0">
+          <ion-searchbar class="searchbar-input" #searchbar placeholder="Enter Your Address" [(ngModel)]="globals.address"></ion-searchbar>
+        </ion-item>
+
+
+      </ion-row>
+      <ion-row>
+        <div #map id="map"></div>
+      </ion-row>
     </div>
-    <div [ngSwitch]="type">
-     
+
+    <!-- <div [ngSwitch]="type">
+
       <ion-list *ngSwitchCase="'delivery'" no-lines>
         <div style=" margin-top: 0 ; padding-top: 0%">
-        <ion-item style="margin-top:0px; margin-right: 8px; margin-bottom: 0px; margin-left: 0px">
-          <h5 style="text-align: center ; font-size: 18px;"><b>When would you like your order ?</b></h5>
+          <ion-item style="margin-top:0px; margin-right: 8px; margin-bottom: 0px; margin-left: 0px">
+            <h5 style="text-align: center ; font-size: 18px;"><b>When would you like your order ?</b></h5>
 
-        </ion-item>
-        <ion-item style=" margin-top:-16px; align-content: center;">
-            <!-- <ion-datetime  displayFormat="MM DD YYYY h:mm a" placeholder="MM DD YYYY HH:mm" min="{{value}}" [(ngModel)]="myDate">
-          </ion-datetime> -->
-          <div  class="col-4 center-block block" *ngIf="!segmentValue" (click)="Getscheduletime()">
-            <button ion-button clear class="time_heading" >Now </button>
-            <br><span class="mytime" *ngIf="globals.pickupsetting">({{globals.pickupsetting}})</span>
-          </div>
-          <!-- <div  class="col-4 center-block "  style="margin-top:0; margin-bottom:0 ; align-content: center ; text-align: center ">
+          </ion-item>
+          <ion-item style=" margin-top:-16px; align-content: center;">
+             <ion-datetime  displayFormat="MM DD YYYY h:mm a" placeholder="MM DD YYYY HH:mm" min="{{value}}" [(ngModel)]="myDate">
+          </ion-datetime> 
+            <div class="col-4 center-block block" *ngIf="!segmentValue" (click)="Getscheduletime()">
+              <button ion-button clear class="time_heading">Now </button>
+              <br><span class="mytime" *ngIf="globals.pickupsetting">({{globals.pickupsetting}})</span>
+            </div>
+             <div  class="col-4 center-block "  style="margin-top:0; margin-bottom:0 ; align-content: center ; text-align: center ">
           <button ion-button clear *ngIf="!segmentValue"  style="font-size: 15px;"  (click)="Getscheduletime()" >Now <span *ngIf="globals.pickupsetting">({{globals.pickupsetting}})</span></button>
-          </div> -->
-          <div class="col-4 center-block block" *ngIf="segmentValue == 'Asap'" (click)="secondModal()">
-            <button  ion-button clear class="time_heading" >Now</button>
-            <br><span class="mytime" *ngIf="globals.pickupsetting">({{globals.pickupsetting}})</span>
-          </div>
-          <div class="col-4 center-block block" *ngIf="segmentValue == 'today'" (click)="secondModal()">
-          <button  ion-button clear class="time_heading" >Today</button>
-          <br><span class="mytime" *ngIf="convertDate">({{convertDate}})</span>
-        </div>
-        <div class="col-4 center-block block" *ngIf="segmentValue == 'later'" (click)="secondModal()">
-          <button  ion-button clear  class="time_heading"  >Schedule</button>
-          <br><span class="mytime" *ngIf="datenow">({{datenow}})</span>
-        </div>
-        </ion-item>
-        <ion-item >
-         
-          <h5 style="text-align: center; margin-top: 0 ; padding-top:0 ; font-size: 18px"><b>Delivery Address</b></h5>
-        </ion-item>
-        <!-- <ion-row radio-group responsive-sm  [(ngModel)]="orderSettings">
+          </div> 
+            <div class="col-4 center-block block" *ngIf="segmentValue == 'Asap'" (click)="secondModal()">
+              <button ion-button clear class="time_heading">Now</button>
+              <br><span class="mytime" *ngIf="globals.pickupsetting">({{globals.pickupsetting}})</span>
+            </div>
+            <div class="col-4 center-block block" *ngIf="segmentValue == 'today'" (click)="secondModal()">
+              <button ion-button clear class="time_heading">Today</button>
+              <br><span class="mytime" *ngIf="convertDate">({{convertDate}})</span>
+            </div>
+            <div class="col-4 center-block block" *ngIf="segmentValue == 'later'" (click)="secondModal()">
+              <button ion-button clear class="time_heading">Schedule</button>
+              <br><span class="mytime" *ngIf="datenow">({{datenow}})</span>
+            </div>
+          </ion-item>
+          <ion-item>
+
+          </ion-item>
+          <ion-row radio-group responsive-sm  [(ngModel)]="orderSettings">
           <ion-col col-1 >
             <ion-checkbox [(ngModel)]="CurrentAdress"   (ionChange)="CurrentAdressBox()"   disable="true" ></ion-checkbox>
           </ion-col >
@@ -95,38 +133,41 @@
 
           </ion-col>
 
-        </ion-row> -->
-        <button *ngIf="NEW == false"  ion-button  (click)="NewAddressBox()" class="mp" item-end>Change Address </button>
-        <button *ngIf="NEW == true" ion-button  (click)="CurrentAdressBox()" class="mp" item-end>Current Address </button>
-      
-       <ion-row >
+        </ion-row> 
+          <button *ngIf="NEW == false" ion-button (click)="NewAddressBox()" class="mp" item-end>Change Address </button>
+          <button *ngIf="NEW == true" ion-button (click)="CurrentAdressBox()" class="mp" item-end>Current Address
+          </button>
+
+          <ion-row>
             <form [formGroup]="ProcessForm" ng-submit="process(this.ProcessForm.value)" style="width: 100%">
-        <ion-item no-lines *ngIf="NEW == false">
-            <!-- <div *ngIf="NEW != true" > -->
-            <!-- </div> -->
-            
-            <!-- <div *ngIf="NEW == true" >
+              <ion-item no-lines *ngIf="NEW == false">
+               <div *ngIf="NEW != true" > -->
+    <!-- </div> -->
+
+    <!-- <div *ngIf="NEW == true" >
                 <button style="height: 66%;" ion-button (click)="CurrentAdressBox()" item-end>Current Address </button>
             </div> -->
-          <!-- <ion-icon style="margin-top: 30px; color: #333;" name="pin" item-end></ion-icon> -->
-            <ion-textarea style="margin-left: 0px !important;"  maxlength="100"   type="text" autocomplete="on"  placeholder="Enter Your Address" formControlName="Address"  [(ngModel)]="Address" ></ion-textarea>
-        </ion-item>
+    <!-- <ion-icon style="margin-top: 30px; color: #333;" name="pin" item-end></ion-icon> -->
+    <!-- <ion-textarea style="margin-left: 0px !important;" maxlength="100" type="text" autocomplete="on"
+                  placeholder="Enter Your Address" formControlName="Address" [(ngModel)]="Address"></ion-textarea>
+              </ion-item>
 
-        <ion-item no-lines *ngIf="NEW == true">
-            <!-- <div *ngIf="NEW != true" > -->
-              <!-- <button style="height: 66%;" ion-button (click)="NewAddressBox()" item-end>New Address </button> -->
-            <!-- </div> -->
-            
-            <!-- <div *ngIf="NEW == true" > -->
-            <!-- </div> -->
-          <!-- <ion-icon style="margin-top: 30px; color: #333;" name="pin" item-end></ion-icon> -->
-            <ion-textarea style="margin-left: 0px !important;"  maxlength="100"   type="text" autocomplete="on"  placeholder="Enter Your Address" formControlName="Address"  [(ngModel)]="Address" ></ion-textarea>
-        </ion-item>
-        
-            
-              
-          <!-- </ion-item> -->
-        <!-- <ion-item>
+              <ion-item no-lines *ngIf="NEW == true"> -->
+    <!-- <div *ngIf="NEW != true" > -->
+    <!-- <button style="height: 66%;" ion-button (click)="NewAddressBox()" item-end>New Address </button> -->
+    <!-- </div> -->
+
+    <!-- <div *ngIf="NEW == true" > -->
+    <!-- </div> -->
+    <!-- <ion-icon style="margin-top: 30px; color: #333;" name="pin" item-end></ion-icon> -->
+    <!-- <ion-textarea style="margin-left: 0px !important;" maxlength="100" type="text" autocomplete="on"
+                  placeholder="Enter Your Address" formControlName="Address" [(ngModel)]="Address"></ion-textarea>
+              </ion-item> -->
+
+
+
+    <!-- </ion-item> -->
+    <!-- <ion-item>
             <ion-input type="text" placeholder="Enter Your City"  formControlName="city"  [(ngModel)]="city" ></ion-input>
           </ion-item>
           <ion-item>
@@ -135,65 +176,69 @@
             <ion-item>
                 <ion-input type="text" placeholder="Enter Your Zip code" formControlName="zipcode"   [(ngModel)]="zipcode" ></ion-input>
               </ion-item> -->
-              </form>
-            </ion-row>
-            <ion-row>
-                <div #map id="map"></div>
-            </ion-row>
-            
+    <!-- </form>
+          </ion-row>
+          <ion-row>
+            <div #map id="map"></div>
+          </ion-row>
+
         </div>
-        
-       
+
+
       </ion-list>
 
       <ion-list *ngSwitchCase="'pickup'" no-lines>
-          <div style=" margin-top: 0 ; padding-top: 0%">
-        <ion-item no-lines>
+        <div style=" margin-top: 0 ; padding-top: 0%">
+          <ion-item no-lines>
             <h5 style="text-align: center ; font-size: 18px;"><b>When would you like your order ?</b></h5>
-            <div *ngIf="!segmentValue"  class="col-4 center-block block" (click)="Getscheduletime()">
-            <button ion-button clear class="time_heading" >Now </button>
-            <br><span class="mytime" *ngIf="globals.pickup_Time">({{globals.pickup_Time}})</span>
+            <div *ngIf="!segmentValue" class="col-4 center-block block" (click)="Getscheduletime()">
+              <button ion-button clear class="time_heading">Now </button>
+              <br><span class="mytime" *ngIf="globals.pickup_Time">({{globals.pickup_Time}})</span>
             </div>
-            <div *ngIf="segmentValue == 'Asap'"  class="col-4 center-block block" (click)="Getscheduletime()" >
-            <button ion-button clear  class="time_heading" >Now </button>
-            <br><span class="mytime"  *ngIf="globals.pickup_Time">({{globals.pickup_Time}})</span>
+            <div *ngIf="segmentValue == 'Asap'" class="col-4 center-block block" (click)="Getscheduletime()">
+              <button ion-button clear class="time_heading">Now </button>
+              <br><span class="mytime" *ngIf="globals.pickup_Time">({{globals.pickup_Time}})</span>
             </div>
 
-            
-          <div class="col-4 center-block block"  *ngIf="segmentValue == 'today'" (click)="Getscheduletime()" >
-            <button ion-button clear  class="time_heading"  >Today</button>
-            <br><span class="mytime"  *ngIf="convertDate">({{convertDate}})</span>
-          </div>
-          <div class="col-4 center-block block"  *ngIf="segmentValue == 'later'" (click)="Getscheduletime()" >
-            <button ion-button clear  class="time_heading" >Schedule</button>
-            <br><span class="mytime"  *ngIf="datenow">({{datenow}})</span>
-          </div>
-        </ion-item>
+
+            <div class="col-4 center-block block" *ngIf="segmentValue == 'today'" (click)="Getscheduletime()">
+              <button ion-button clear class="time_heading">Today</button>
+              <br><span class="mytime" *ngIf="convertDate">({{convertDate}})</span>
+            </div>
+            <div class="col-4 center-block block" *ngIf="segmentValue == 'later'" (click)="Getscheduletime()">
+              <button ion-button clear class="time_heading">Schedule</button>
+              <br><span class="mytime" *ngIf="datenow">({{datenow}})</span>
+            </div>
+          </ion-item>
         </div>
       </ion-list>
-     
-    </div>
-    <ion-footer style="position: static;" *ngIf="type == 'delivery'" >
-      <ion-row>
-        <ion-col col-6 no-padding>
-            <ion-buttons>
-                <button ion-button block round  (click)="process(this.ProcessForm.value)" style="color: #fff;">Save</button>
-            </ion-buttons>
-        </ion-col>
-        <ion-col col-6 no-padding>
-            <ion-buttons>
-                <button ion-button block round outline  (click)="CurrentAdressBox()" >Refresh</button>
-            </ion-buttons>
-          </ion-col>
-      </ion-row>
-      
-    </ion-footer>
-    <ion-footer *ngIf="type == 'pickup'" >
-      <ion-buttons>
-        <button ion-button block round (click)="Updateyourorder()" style="margin-top: 100px; margin-right: 10px;color: #fff;">Save</button>
-      </ion-buttons>
-    </ion-footer>
-    
-    </div>
+
+    </div> -->
+
+
+  </div>
 
 </ion-content>
+
+<ion-footer *ngIf="globals.OrderType == 'delivery'">
+  <ion-row>
+    <ion-col col-6 no-padding>
+      <ion-buttons>
+          <button ion-button color="danger" block round outline (click)="process(this.ProcessForm.value)">Cancel</button>
+
+      </ion-buttons>
+    </ion-col>
+    <ion-col col-6 no-padding>
+      <ion-buttons>
+          <button ion-button block round (click)="process(this.ProcessForm.value)" style="color: #fff;">Save</button>
+      </ion-buttons>
+    </ion-col>
+  </ion-row>
+
+</ion-footer>
+<ion-footer *ngIf="globals.OrderType == 'pickup'">
+  <ion-buttons>
+    <button ion-button block round (click)="Updateyourorder()"
+      style="margin-top: 100px; margin-right: 10px;color: #fff;">Save</button>
+  </ion-buttons>
+</ion-footer>

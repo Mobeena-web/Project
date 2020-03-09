@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams,ViewController } from 'ionic-angular';
+import { Component,ViewChild ,ElementRef} from '@angular/core';
+import { IonicPage, NavController, NavParams,ViewController,LoadingController } from 'ionic-angular';
 import { GlobalVariable } from '../../app/global';
 //import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResult } from '@ionic-native/native-geocoder';
 import { Http } from '@angular/http';
@@ -10,6 +10,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Geolocation, Geoposition } from '@ionic-native/geolocation';
 import { ServerProvider } from '../../providers/server/server';
 import { HomePage } from '../home/home';
+import { Observable } from 'rxjs/Observable';
+
+
 declare var google;
 
 // import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResult } from '@ionic-native/native-geocoder';
@@ -76,7 +79,12 @@ export class ModalPage {
   category_page:any;
   branchId: any;
   radius_value: number;
-  constructor(public server: ServerProvider,public geolocation: Geolocation, public alertCtrl: AlertController,public navCtrl: NavController,public formBuilder: FormBuilder, public navParams: NavParams, public viewCtrl: ViewController, public globals: GlobalVariable, public modalCtrl: ModalController, public nativeStorage: NativeStorage,public plt: Platform) {
+  value:any;
+  @ViewChild('searchbar', { read: ElementRef }) searchbar: ElementRef;
+  addressElement: HTMLInputElement = null;
+  map:any;
+
+  constructor(public loadingCtrl:LoadingController,public server: ServerProvider,public geolocation: Geolocation, public alertCtrl: AlertController,public navCtrl: NavController,public formBuilder: FormBuilder, public navParams: NavParams, public viewCtrl: ViewController, public globals: GlobalVariable, public modalCtrl: ModalController, public nativeStorage: NativeStorage,public plt: Platform) {
   
    this.segmentValue = localStorage.getItem("segmentvalue");
    this.deliveryTime =  this.globals.pickupsetting;
@@ -90,7 +98,13 @@ export class ModalPage {
     //this.type = localStorage.getItem("type");
     // this.checktype();
     //console.log("localstorage data for testing ", localStorage.getItem("type"));
-    this.CurrentAdressBox();
+    if(!this.globals.address){
+      this.CurrentAdressBox();
+    }
+    else{
+      this.reverseGeoCoding(this.globals.lat,this.globals.long)
+    }
+  
     this.ProcessForm = formBuilder.group({
         Address: ['', Validators.compose([Validators.required])],
       // zipcode: ['', Validators.compose([Validators.required])],
@@ -102,12 +116,88 @@ export class ModalPage {
     // this.unregisterBackButtonAction && this.unregisterBackButtonAction(); 
    plt.registerBackButtonAction(() => {
   },1);
-
+  this.min_date_value();
   }
+
   closetohome(){
     // this.viewCtrl.dismiss();
     this.navCtrl.popToRoot();
   }
+
+  ionViewDidLoad() {
+    var that = this;
+    setTimeout(function () {
+      that.loadMaps();
+    }, 1000);
+  }
+
+  min_date_value(){
+    var date = new Date();
+
+    var datenow = date.getDate().toString();
+    var month = date.getMonth().toString() ;
+    var year = date.getFullYear().toString();
+
+    if (month.length < 2) month = '0' + month;
+    if (datenow.length < 2) datenow = '0' + datenow;
+    this.value = year + "-" + month + "-" + datenow;
+    this.value.toString();
+
+    console.log("value",this.value)
+
+    var date1 = new Date((date.getTime()) - date.getTimezoneOffset() * 60000).toISOString();
+
+    if(!this.globals.myDate){
+      this.globals.myDate = date1;
+    }
+  }
+
+
+  loadMaps() {
+    if (!!google) {
+      this.initAutocomplete();
+    } else {
+      this.globals.presentToast('Something went wrong with the Internet Connection. Please check your Internet.')
+    }
+  }
+
+  initAutocomplete(): void {
+    this.addressElement = this.searchbar.nativeElement.querySelector('.searchbar-input');
+    this.createAutocomplete(this.addressElement).subscribe((location) => {
+    });
+  }
+
+  createAutocomplete(addressEl: HTMLInputElement): Observable<any> {
+    const autocomplete = new google.maps.places.Autocomplete(addressEl);
+     //autocomplete.bindTo('bounds', this.map);
+    return new Observable((sub: any) => {
+      google.maps.event.addListener(autocomplete, 'place_changed', () => {
+        const place = autocomplete.getPlace();
+
+        var address = [
+          (place.address_components[0] && place.address_components[0].long_name || ''),
+          (place.address_components[1] && place.address_components[1].long_name || ''),
+          (place.address_components[2] && place.address_components[2].long_name || ''),
+
+        ].join(' ');
+        this.globals.address = address;
+        if (!place.geometry) {
+          sub.error({
+            message: 'Autocomplete returned place with no geometry'
+          });
+        } else {
+          this.lat = place.geometry.location.lat();
+          this.long = place.geometry.location.lng();
+        this.reverseGeoCoding(this.lat, this.long);
+
+          sub.next(place.geometry.location);
+          //sub.complete();
+        }
+      });
+    });
+  }
+
+
 
    tConvert (time) {
     // Check correct time format and split into components
@@ -123,7 +213,7 @@ export class ModalPage {
   
   getdata(){
     this.time =  localStorage.getItem("scheduled_time");
-    
+    console.log("time",this.time)
     
     if(this.time){
       if(this.globals.specific_delivery_day == 'false'){
@@ -247,7 +337,7 @@ export class ModalPage {
       //   this.reverseGeoCoding(resp.coords.latitude, resp.coords.longitude);
       // });
 
-      this.getdata();
+      //this.getdata();
       if(!this.globals.OrderType){
 
         if(this.order_pickup && !this.order_delivery){
@@ -269,6 +359,10 @@ export class ModalPage {
  
     
   }
+
+  dateChanged(){
+    console.log("time",this.globals.myDate)
+  }
   
   
   dismiss() {
@@ -278,20 +372,13 @@ export class ModalPage {
   
   
   process(ProcessData: any){
-    console.log("Pick Up -> ", this.globals.pickupsetting)
-  console.log("Segment value -> ", this.segmentValue)
-  console.log("Pick Up -> ", this.datenow)
-   localStorage.setItem("GetAddress",this.Address);
-  //  localStorage.setItem("zipcode",this.zipcode);
-  //  localStorage.setItem("city",this.city);
-  //  localStorage.setItem("zipcode",this.state);
-    this.nativeStorage.setItem('address',
-    {
-      address: ProcessData.Address,
-     
-  }).then(() => console.log('Stored item!'),
-      error => console.error('Error storing item', error)
-  );
+    if(this.globals.order_time == 'schedule'){
+    this.checkTimingLater() 
+    }
+
+   localStorage.setItem("GetAddress",this.globals.address);
+   localStorage.setItem("scheduled_time",  this.globals.myDate );
+ 
     //this.checkTiming();  
     console.log(this.category_page,"p")         
     this.globals.OrderType = 'delivery';
@@ -302,9 +389,7 @@ export class ModalPage {
     }
     // this.viewCtrl.dismiss();
     this.globals.save_check = true;
-    console.log("Pick Up -> ", this.globals.pickupsetting)
-  console.log("Segment value -> ", this.segmentValue)
-  console.log("Pick Up -> ", this.datenow)
+
   }
   
    secondModal(){
@@ -344,7 +429,8 @@ export class ModalPage {
   
 
   reverseGeoCoding(lat, lng) {
-   
+   this.globals.lat = lat;
+   this.globals.long = lng;
     var mycoordinates = lat + "," + lng;
     let response = this.server.getAddress(mycoordinates, this.branchId);
     console.log('cordinates..',mycoordinates);
@@ -353,7 +439,8 @@ export class ModalPage {
       this.loadMap(lat, lng);
         console.log('data',data);
         myadress = data.address;
-        this.Address = myadress;
+          this.globals.address = myadress;
+        
         this.globals.inradius = data.in_radius;
         console.log('data radius....',data.in_radius);
         if(data.in_radius == false) {
@@ -407,14 +494,14 @@ export class ModalPage {
     // var latlng = this.coordinates.split(",")
     var myLatLng = new google.maps.LatLng(lati, longi);
 
-    var map = new google.maps.Map(document.getElementById('map'), {
+     this.map = new google.maps.Map(document.getElementById('map'), {
       zoom: 15,
       center: myLatLng
     });
 
     var marker = new google.maps.Marker({
       position: myLatLng,
-      map: map,
+      map: this.map,
       title: ''
     });
 
@@ -443,6 +530,7 @@ export class ModalPage {
 
   }
   }
+
   NewAddressBox(){
     this.NEW = true;
     this.NewAddress = true;
@@ -584,12 +672,12 @@ export class ModalPage {
 //     }
 //     else {
 //         console.log("bigelse");
-//         console.log("userDate", this.myDate);
-//         var future_date = new Date(this.myDate);
+//         console.log("userDate", this.globals.myDate);
+//         var future_date = new Date(this.globals.myDate);
 //         console.log(future_date);
 //         var future_day = future_date.getDay();
-//         this.myDate = this.myDate.toString();
-//         console.log(this.myDate);
+//         this.globals.myDate = this.globals.myDate.toString();
+//         console.log(this.globals.myDate);
 //         this.future_hours = future_date.getHours();
 //         this.future_min = future_date.getMinutes();
 
@@ -641,4 +729,168 @@ export class ModalPage {
 //         console.log('Prevent Back Button Page Change');
 //     }, 101); // Priority 101 will override back button handling (we set in app.component.ts) as it is bigger then priority 100 configured in app.component.ts file */
 // }   
+
+checkTimingLater(){
+  this.type = this.globals.OrderType;
+  console.log(this.globals.OrderType,"ordertype")
+   if (this.type == "delivery") {
+    
+      if (this.globals.delivery_timing) {
+        var response:any;
+
+        if(this.globals.specific_delivery_day == 'true'){
+           response = this.server.date_convert(this.globals.myDate.format('DD-MM-YYYY'));
+          
+         }
+         else{
+           response = this.server.date_convert(this.globals.myDate);            
+         }
+        let loading = this.loadingCtrl.create({
+          content: "Loading...",
+        });
+        loading.present();
+        response.subscribe(data => {
+          loading.dismiss();
+          if(data.success == true){
+             this.day = data.day_id + 1;
+             if(this.day == 7){
+              this.day = 0;
+             }
+             this.time = data.time;
+
+             this.globals.schedule_day_id = data.day_id;
+            this.globals.schedule_converted_time = data.time;
+
+             if(this.globals.specific_delivery_day == 'true'){
+              localStorage.setItem("scheduled_time",  this.globals.myDate.format('DD-MM-YYYY') );
+             }
+             else{
+              localStorage.setItem("scheduled_time",  this.globals.myDate );
+             }
+            console.log("setting scheduled time 90", this.globals.myDate);
+            let current_day = this.globals.delivery_timing[this.day];
+            var n = current_day[0].indexOf('.');
+              if(n != -1){
+                  var res = current_day[0].split(".");
+                  current_day[0] = res[0] + '.' + '3'
+              }
+              var n1 = current_day[1].indexOf('.');
+              if(n1 != -1){
+                  var res = current_day[1].split(".");
+                  current_day[1] = res[0] + '.' + '3'
+              }
+            // this.time = this.time.toString();
+            console.log(this.day,this.time,current_day)
+            if (current_day[0] != 'opened') {
+              if((Number(current_day[0]) <= Number(this.time) && Number(current_day[1]) > Number(this.time)) || (Number(current_day[0]) <= Number(this.time) && Number(current_day[1]) < Number(current_day[0]))){
+                   
+                      return true;
+                }
+                else if(current_day[0] == 'opened' && current_day[1] == 'opened' ){
+                  return true;
+                }
+                else {
+                  this.globals.presentToast('Sorry, we are not serving at this time!')
+               
+                  return false;
+                }
+            }
+            else {
+                return true;   
+            }
+          }
+    
+        }, error => {
+            this.globals.presentToast("Something went wrong check your internet connection.")
+    
+        });
+      
+    }
+    else {
+        return true;
+    }
+}
+else {
+  
+  if (this.globals.pickup_timing) {
+    var response:any;
+    if(this.globals.specific_delivery_day == 'true'){
+      response = this.server.date_convert(this.globals.myDate.format('DD-MM-YYYY'));
+     
+    }
+    else{
+      response = this.server.date_convert(this.globals.myDate);            
+    }
+    let loading = this.loadingCtrl.create({
+      content: "Loading...",
+    });
+    loading.present();
+    response.subscribe(data => {
+      loading.dismiss();
+      if(data.success == true){
+         this.day = data.day_id + 1;
+         if(this.day == 7){
+          this.day = 0;
+         }
+         this.time = data.time;
+
+         this.globals.schedule_day_id = data.day_id;
+         this.globals.schedule_converted_time = data.time;
+
+         if(this.globals.specific_delivery_day == 'true'){
+          localStorage.setItem("scheduled_time",  this.globals.myDate.format('DD-MM-YYYY') );
+         }
+         else{
+          localStorage.setItem("scheduled_time",  this.globals.myDate );
+         }
+        console.log("setting scheduled time 2", this.globals.myDate);
+        let current_day = this.globals.pickup_timing[this.day];
+        var n = current_day[0].indexOf('.');
+        if(n != -1){
+            var res = current_day[0].split(".");
+            current_day[0] = res[0] + '.' + '3'
+        }
+        var n1 = current_day[1].indexOf('.');
+        if(n1 != -1){
+            var res = current_day[1].split(".");
+            current_day[1] = res[0] + '.' + '3'
+        }
+        // this.time = this.time.toString();
+        console.log(this.day,this.time,current_day)
+        //if (current_day[0] != 'opened') {
+          if((Number(current_day[0]) <= Number(this.time) && Number(current_day[1]) > Number(this.time)) || (Number(current_day[0]) <= Number(this.time) && Number(current_day[1]) < Number(current_day[0]))){
+               
+                  return true;
+            }
+            else if(current_day[0] == 'opened' && current_day[1] == 'opened' ){
+              return true;
+            }
+            
+            else {
+              this.globals.presentToast('Sorry, we are not serving at this time!')
+           
+              return false;
+            }
+        // }
+        // else {
+        //   this.viewCtrl.dismiss('CategoryPage');
+        //   this.presentModal();
+        //     return true;   
+        // }
+      }
+
+    }, error => {
+        this.globals.presentToast("Something went wrong check your internet connection.")
+
+    });
+  
+}
+else {
+    return true;
+}
+
+    // return true;
+}
+
+}
 }

@@ -109,8 +109,6 @@
     <config-file parent="NSCameraUsageDescription" target="*-Info.plist">
         <string>This app requires access to your photos/gallery for uploading images to app gallery.</string>
     </config-file>
-
-   
     <plugin name="cordova-plugin-nativeaudio" spec="^3.0.9" />
     <plugin name="cordova-plugin-pin-dialog" spec="^0.1.3" />
     <plugin name="cordova-plugin-inappbrowser" spec="^1.7.2" />

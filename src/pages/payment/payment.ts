@@ -1302,6 +1302,8 @@ export class PaymentPage {
     }
     setArray() {
         this.globals.Product.length = 0;
+        this.globals.order_time = 'now';
+        this.globals.myDate = undefined;
         this.nativeStorage.setItem('Product', { array: this.globals.Product })
             .then(
                 () => console.log('Stored item!'),
