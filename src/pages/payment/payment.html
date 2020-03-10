@@ -185,8 +185,8 @@
     
        <ion-row style="margin-bottom: 22% !important;">
           <ion-col col-6>
-               <button  ion-button type="submit" color='jack' round *ngIf="!cash_on_delivery && amount > 0"  (click)="payment_type(this.PaymentForm.value)" block>Make Payment</button>
-               <button  ion-button type="submit" color='jack' round *ngIf="cash_on_delivery || amount == 0"  (click)="payment_on_delivery()" block>Submit</button>
+               <button  ion-button type="submit" color='jack' round *ngIf="!cash_on_delivery && amount > 0"  (click)="cash_discount_confirmation('credit',this.PaymentForm.value)" block>Make Payment</button>
+               <button  ion-button type="submit" color='jack' round *ngIf="cash_on_delivery || amount == 0"  (click)="cash_discount_confirmation('cash')" block>Submit</button>
 
           </ion-col>
           <ion-col col-6>

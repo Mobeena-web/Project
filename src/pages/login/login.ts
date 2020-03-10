@@ -23,6 +23,10 @@ export class LoginPage {
     // ID: any;
     // date: any;
     places = [];
+    login_type  = 'email';
+    pos_customer:boolean = false;
+    phone:any;
+    code = '+1';
     constructor(public viewCtrl: ViewController, public server: ServerProvider, public globals: GlobalVariable, private nativeStorage: NativeStorage, public modalCtrl: ModalController, public navCtrl: NavController,
         public navParams: NavParams,
         public loadingCtrl: LoadingController,
@@ -32,7 +36,10 @@ export class LoginPage {
 
 
         this.loginForm = formBilder.group({
-            email: ['', Validators.compose([Validators.required, EmailValidator.isValid])],
+            email: [''],
+            phone: [''],
+            code: ['+1'],
+
             password: ['', Validators.compose([Validators.minLength(6), Validators.required])]
         })
         this.data = {};
@@ -48,7 +55,7 @@ export class LoginPage {
     }
 
     register() {
-        this.navCtrl.push(IntroPage3Page)
+        this.navCtrl.push(IntroPage3Page,{phone:this.phone})
     }
 
 
@@ -133,7 +140,7 @@ export class LoginPage {
                 }
                 else {
 
-                    this.globals.presentToast("Invalid Email or Password")
+                    this.globals.presentToast("Invalid Credentials")
 
                 }
             }, error => {
@@ -264,6 +271,45 @@ console.log("pop",this.globals.BusinessDiscount)
 
         });
 
+    }
+
+    check_phone_number(){
+        this.pos_customer = true;
+    }
+
+    cancel_pos(){
+        this.pos_customer = false;
+
+    }
+
+    complete_profile(){
+        let loading = this.loadingCtrl.create({
+            content: "Please wait..."
+        });
+        loading.present();
+        let response = this.server.check_user_by_phone(this.code + this.phone);
+        response.subscribe(data => {
+            loading.dismiss();
+            this.globals.presentToast(data.message);
+
+            if(!data.success){
+                this.pos_customer = false;
+            }
+            else{
+                if(data.data.profile_complete){
+                    this.pos_customer = false;
+                }
+                else{
+                    this.register();
+                }
+            }
+        }, error => {
+
+            this.globals.presentToast("Something went wrong check your internet connection.")
+
+
+        });
+        
     }
 
 

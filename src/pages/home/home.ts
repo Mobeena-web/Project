@@ -398,6 +398,7 @@ export class HomePage {
             this.my_rewards_color = this.banner.my_rewards_color;
             this.gift_cards_color = this.banner.gift_cards_color;
             this.order_now_color = this.banner.order_now_color;
+            this.globals.cash_discount = this.banner.cash_discount;
             //console.log('colors',this.my_rewards_color,this.gift_cards_color, this.special_offer_color,this.order_now_color);
 
 

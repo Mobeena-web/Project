@@ -1,59 +1,135 @@
-
-
 <ion-content style="background-color: #fff;" class="Open-Sans-regular">
 
   <div style="font-family: Open Sans;" class="title1">
     <img src={{globals.b_logo}} style="    position: relative; left: 26%;  width: 50%;  height: auto;  ">
   </div>
-  <h2 text-center class="signin_label">Sign In</h2>
+  <div *ngIf="!pos_customer">
+    <ion-segment [(ngModel)]="login_type" color="primary" padding margin-top>
+      <ion-segment-button value="email">
+        Login With Email
+      </ion-segment-button>
+      <ion-segment-button value="phone">
+        Login With Phone
+      </ion-segment-button>
+    </ion-segment>
 
-  <p class="Open-Sans-regular" style="font-family: Open Sans;" *ngIf="submitAttempt" style="color: #ea6153; text-align:center;">Please fill out all details accurately.</p>
+    <p class="Open-Sans-regular" style="font-family: Open Sans;" *ngIf="submitAttempt"
+      style="color: #ea6153; text-align:center;">Please fill out all details accurately.</p>
 
-  <div class="login-box">
-    <ion-list>
-      <form class="Open-Sans-regular" [formGroup]="loginForm" ng-submit="login(this.loginForm.value)">
+    <div class="login-box">
+      <ion-list>
+        <form class="Open-Sans-regular" [formGroup]="loginForm" ng-submit="login(this.loginForm.value)">
+          <div [ngSwitch]="login_type" style="height: 100%;width: 100%;">
 
-        <ion-row>
-          <ion-col>
-            <ion-item class="no-padding">
-              <ion-label floating>Email</ion-label>
-              <ion-input type="submit" formControlName="email" type="email" value="usman@gmail.com"></ion-input>
-            </ion-item>
-            <div class="no-border" *ngIf="!loginForm.controls.email.valid  &&
-            (loginForm.controls.email.dirty || submitAttempt)">
-              <p style="color: #ea6153; text-align:center; ">Please enter a valid email.</p>
-            </div>
-          </ion-col>
+            <ion-row>
+              <div *ngSwitchCase="'email'" style="width: 100%">
+                <ion-col>
+                  <ion-item class="no-padding">
+                    <ion-label floating>Email</ion-label>
+                    <ion-input type="submit" formControlName="email" type="email"></ion-input>
+                  </ion-item>
+                  <div class="no-border" *ngIf="!loginForm.controls.email.valid  &&
+                  (loginForm.controls.email.dirty || submitAttempt)">
+                    <p style="color: #ea6153; text-align:center; ">Please enter a valid email.</p>
+                  </div>
+                </ion-col>
+              </div>
+              <div *ngSwitchCase="'phone'" style="width: 100%">
+                <ion-col>
+                  <ion-row>
+                    <ion-col col-3 no-padding>
+                      <ion-select formControlName="code" class="code">
+                        <ion-option value="+1" Selected>USA (+1)</ion-option>
 
-        </ion-row>
-        <ion-row>
-          <ion-col>
-            <ion-item class="no-padding">
-              <ion-label floating>Password</ion-label>
-              <ion-input type="submit" formControlName="password" type="password" value="12345678"></ion-input>
-            </ion-item>
-          </ion-col>
+                      </ion-select>
+                    </ion-col>
+                    <ion-col col-9 no-padding>
+                      <ion-item class="no-padding">
+                        <ion-label floating>Phone</ion-label>
+                        <ion-input type="submit" formControlName="phone" type="number"></ion-input>
+                      </ion-item>
+                    </ion-col>
+                  </ion-row>
 
-        </ion-row>
-        <div class="no-border" *ngIf="!loginForm.controls.password.valid  &&
-          (loginForm.controls.password.dirty || submitAttempt)">
-          <p style="color: #ea6153; text-align:center;">Your password needs more than 6 characters.</p>
-        </div>
-        <div>
-          <p style="float: right;color: #aaa" (tap)="verify()">Forgot Password?</p>
-          <!-- <p style="float: right; padding-right:10px" (click)="OpenTermsAndPolicy()">Terms and policy</p> -->
-        </div>
-        <div class="signup-col">
-          <div class="signup_message">Don't have an Account? <span (tap)="register()">Sign Up</span></div>
-          <button ion-button block margin-top   color='primary' type="submit" class="login" (tap)="login(this.loginForm.value)" block>Sign In</button>
-          <!-- <button ion-button class="signUp" block (click)="createAccount()">Sign up</button> -->
-        </div>
-      </form>
-    </ion-list>
+
+
+                </ion-col>
+              </div>
+
+
+
+            </ion-row>
+          </div>
+          <ion-row>
+            <ion-col>
+              <ion-item class="no-padding">
+                <ion-label floating>Password</ion-label>
+                <ion-input type="submit" formControlName="password" type="password" ></ion-input>
+              </ion-item>
+            </ion-col>
+
+          </ion-row>
+          <div class="no-border" *ngIf="!loginForm.controls.password.valid  &&
+                (loginForm.controls.password.dirty || submitAttempt)">
+            <p style="color: #ea6153; text-align:center;">Your password needs more than 6 characters.</p>
+          </div>
+          <div>
+            <ion-row>
+              <ion-col col-6>
+                <p style="float: right;color: #aaa" (tap)="check_phone_number()">Already a POS customer?</p>
+
+              </ion-col>
+              <ion-col col-6>
+                <p style="float: right;color: #aaa" (tap)="verify()">Forgot Password?</p>
+              </ion-col>
+            </ion-row>
+            <!-- <p style="float: right; padding-right:10px" (click)="OpenTermsAndPolicy()">Terms and policy</p> -->
+          </div>
+          <div class="signup-col">
+            <div class="signup_message">Don't have an Account? <span (tap)="register()">Sign Up</span></div>
+            <button ion-button block margin-top color='primary' type="submit" class="login"
+              (tap)="login(this.loginForm.value)" block>Sign In</button>
+            <!-- <button ion-button class="signUp" block (click)="createAccount()">Sign up</button> -->
+          </div>
+        </form>
+      </ion-list>
+
+    </div>
+
+  </div>
+
+  <div *ngIf="pos_customer">
+    <ion-row>
+      <ion-col col-3 no-padding>
+        <ion-select [(ngModel)]="code" class="code">
+          <ion-option value="+1" Selected>USA (+1)</ion-option>
+
+        </ion-select>
+      </ion-col>
+      <ion-col col-9 no-padding>
+        <ion-item class="no-padding">
+          <ion-label floating>Phone</ion-label>
+          <ion-input type="submit" [(ngModel)]="phone" type="number"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row padding>
+      <ion-col col-6>
+        <button ion-button block margin-top color='danger' type="submit" class="login"
+          (tap)="cancel_pos()" block>Cancel</button>
+      </ion-col>
+      <ion-col col-6>
+        <button ion-button block margin-top color='primary' type="submit" class="login"
+          (click)="complete_profile()" block>Procced</button>
+      </ion-col>
+    </ion-row>
+
+
 
   </div>
 
 
-  
+
 
 </ion-content>

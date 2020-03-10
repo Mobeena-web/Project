@@ -20,10 +20,10 @@ export class IntroPage3Page {
     signupForm: FormGroup;
     masks: any;
     data: any;
-
+    phone:any;
     constructor(public loadingCtrl: LoadingController,private nativeStorage: NativeStorage,public globals: GlobalVariable, public modalCtrl: ModalController, public alertCtrl: AlertController,public server: ServerProvider,public formBuilder: FormBuilder, public navCtrl: NavController, public navParams: NavParams) {
         this.data = {};
-
+        this.phone = this.navParams.get('phone')
         this.data.response = '';
         this.signupForm = formBuilder.group({
              
@@ -31,7 +31,7 @@ export class IntroPage3Page {
             firstName: ['', Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
             lastName: ['', Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
             email: ['', Validators.compose([Validators.required, EmailValidator.isValid])],
-            phone: ['', Validators.compose([Validators.maxLength(10), Validators.required])],
+            phone: [this.phone, Validators.compose([Validators.maxLength(10), Validators.required])],
             // nextdigits: ['', Validators.compose([Validators.maxLength(4), Validators.required])],
             password: ['', Validators.compose([Validators.minLength(6), Validators.required])],
             phonecode: ['1', Validators.compose([Validators.required])],

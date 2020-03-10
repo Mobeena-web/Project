@@ -723,6 +723,47 @@ export class PaymentPage {
         }
     }
 
+    cash_discount_confirmation(type,payment_data){
+        if(this.globals.cash_discount > 0){
+            let alert = this.alertCtrl.create({
+                title: 'Please Note',
+                message: ' Your total amount will be $' + (this.amount +  ((this.globals.cash_discount / 100) * this.amount)).toFixed(2) + ' as of convenience charge.',
+                buttons: [
+                  {
+                    text: 'Cancel',
+                    role: 'cancel',
+                    handler: () => {
+                      console.log('Cancel clicked');
+                    }
+                  },
+                  {
+                    text: 'OK',
+                    handler: () => {
+                        var cash_discount = (this.globals.cash_discount / 100) * this.amount;
+                        this.amount += cash_discount;
+                        this.amount = this.amount.toFixed(2)
+                        if(type == 'cash'){
+                            this.payment_on_delivery();
+                        }
+                        else{
+                            this.payment_type(payment_data)
+                        }
+                    }
+                  }
+                ]
+              });
+              alert.present();
+        }
+        else{
+            if(type == 'cash'){
+                this.payment_on_delivery();
+            }
+            else{
+                this.payment_type(payment_data)
+            }
+        }
+        
+    }
     pay_reservation(PaymentData: any) {
 
         var a = btoa(PaymentData.creditcardno)
@@ -1304,6 +1345,8 @@ export class PaymentPage {
         this.globals.Product.length = 0;
         this.globals.order_time = 'now';
         this.globals.myDate = undefined;
+        localStorage.setItem("scheduled_time",  undefined );
+        
         this.nativeStorage.setItem('Product', { array: this.globals.Product })
             .then(
                 () => console.log('Stored item!'),

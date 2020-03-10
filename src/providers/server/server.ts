@@ -30,7 +30,7 @@ getdeals(){
 }
   LoginData(LoginData) {
     var link = this.global.BaseUrl + 'Customer_controller/login';
-    var data = JSON.stringify({business_id:this.global.new_id, email: LoginData.email, password: LoginData.password });
+    var data = JSON.stringify({business_id:this.global.new_id, email: LoginData.email, phone: LoginData.code + LoginData.phone, password: LoginData.password });
 
     return this.http.post(link, data)
       .map((res: any) => res.json())
@@ -62,6 +62,13 @@ getdeals(){
     return this.http.post(link, data)
       .map((res: any) => res.json());
    
+  }
+
+  check_user_by_phone(phone){
+    var link = this.global.BaseUrl + 'Customer_controller/search_customer_with_phone';
+    var data = JSON.stringify({ business_id: this.global.new_id,phone:phone });
+    return this.http.post(link, data)
+      .map((res: any) => res.json());
   }
 
   welcome_screen() {
@@ -776,6 +783,8 @@ getdeals(){
     console.log("server response", res);
      console.log("server response - parsed", res.json());
   }
+
+  
   
 
 }      

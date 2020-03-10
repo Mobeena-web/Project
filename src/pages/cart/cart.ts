@@ -1607,6 +1607,7 @@ export class CartPage {
 
             var time = this.globals.schedule_converted_time;
             var current_day = timing[day];
+            
             var n = current_day[0].indexOf('.');
             if (n != -1) {
                 var res = current_day[0].split(".");
