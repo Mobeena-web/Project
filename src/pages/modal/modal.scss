@@ -2,7 +2,10 @@ page-modal {
 
   .searchbar-input{
     padding: 0;
-    width: 100%;;
+    width: 100%;
+    input{
+      padding: 10px !important
+    }
   }
 
  .content{

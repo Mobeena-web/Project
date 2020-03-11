@@ -135,7 +135,6 @@
         "PHOTO_LIBRARY_USAGE_DESCRIPTION": "This app requires photo library access to function properly."
       },
       "ionic-plugin-keyboard": {},
-      "cordova-plugin-whitelist": {},
       "cordova-plugin-device": {},
       "cordova-plugin-splashscreen": {},
       "cordova-plugin-ionic-webview": {},
@@ -146,7 +145,8 @@
       "cordova-plugin-file-transfer": {},
       "cordova-plugin-zip": {},
       "onesignal-cordova-plugin": {},
-      "com-sarriaroman-photoviewer": {}
+      "com-sarriaroman-photoviewer": {},
+      "cordova-plugin-whitelist": {}
     },
     "platforms": [
       "browser",
