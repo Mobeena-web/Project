@@ -310,9 +310,16 @@ getdeals(){
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
 
-  ForgotPassword(email) {
+  ForgotPassword(c_data) {
     var link = this.global.BaseUrl + 'Customer_controller/forgot_password';
-    var data = JSON.stringify({ business_id:this.global.new_id,email: email });
+    if(c_data.phone){
+      var data = JSON.stringify({ business_id:this.global.new_id,phone:c_data.code + c_data.phone });
+
+    }
+    else{
+      var data = JSON.stringify({ business_id:this.global.new_id,email: c_data.email});
+
+    }
     return this.http.post(link, data)
       .map((res: any) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
