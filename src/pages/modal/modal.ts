@@ -386,13 +386,8 @@ export class ModalPage {
     localStorage.setItem("GetAddress", this.globals.address);
 
     //this.checkTiming();  
-    console.log(this.category_page, "p")
     this.globals.OrderType = 'delivery';
-    this.navCtrl.pop({ animate: false });
-    if (this.category_page == 1) {
-      this.navCtrl.push("CategoryPage", {}, { animate: false });
-
-    }
+    this.dismiss();
     // this.viewCtrl.dismiss();
     this.globals.save_check = true;
 

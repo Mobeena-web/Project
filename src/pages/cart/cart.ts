@@ -1595,7 +1595,7 @@ export class CartPage {
     }
 
     checkTiming(timing) {
-        if (localStorage.getItem("scheduled_time")) {
+        if (this.globals.order_time == 'schedule') {
             if (this.globals.specific_delivery_day == 'true') {
                 return true;
             }
