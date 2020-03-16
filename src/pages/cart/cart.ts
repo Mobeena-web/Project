@@ -1084,7 +1084,7 @@ export class CartPage {
     address_() {
         console.log('address', this.Address);
         console.log(this.Address == 'undefined', this.Address == '', this.Address == 'null');
-        if (this.Address == 'undefined' || this.Address == '' || this.Address == 'null') {
+        if (!this.Address ||this.Address == 'undefined' || this.Address == '' || this.Address == 'null') {
             let alert = this.alertCtrl.create({
                 title: 'Please Confirm Your Address',
                 message: this.Address,

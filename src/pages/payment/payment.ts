@@ -83,6 +83,7 @@ export class PaymentPage {
     submitAttempt: boolean = false;
     PaymentForm: FormGroup;
     calculated_tax = 0;
+    cash_discount = 0;
     constructor(public server: ServerProvider, public modalCtrl: ModalController, private nativeStorage: NativeStorage, public alertCtrl: AlertController, public loadingCtrl: LoadingController, public globals: GlobalVariable, public viewCtrl: ViewController, private app: App, public formBuilder: FormBuilder, public stripe: Stripe, public http: Http, public navCtrl: NavController, public navParams: NavParams) {
         this.calculated_tax = this.navParams.get('tax');
        
@@ -724,10 +725,11 @@ export class PaymentPage {
     }
 
     cash_discount_confirmation(type,payment_data){
-        if(this.globals.cash_discount > 0){
+        var discount_ = (Number(this.amount) +  ((this.globals.cash_discount / 100) * Number(this.amount))).toFixed(2);
+        if(this.globals.cash_discount > 0 && type != 'cash' && !this.cash_discount){
             let alert = this.alertCtrl.create({
                 title: 'Please Note',
-                message: ' Your total amount will be $' + (this.amount +  ((this.globals.cash_discount / 100) * this.amount)).toFixed(2) + ' as of convenience charge.',
+                message: ' Your total amount will be $' + discount_ + ' as of convenience charge.',
                 buttons: [
                   {
                     text: 'Cancel',
@@ -739,8 +741,8 @@ export class PaymentPage {
                   {
                     text: 'OK',
                     handler: () => {
-                        var cash_discount = (this.globals.cash_discount / 100) * this.amount;
-                        this.amount += cash_discount;
+                        this.cash_discount = (this.globals.cash_discount / 100) * Number(this.amount);
+                        this.amount = Number(this.amount)  + this.cash_discount;
                         this.amount = this.amount.toFixed(2)
                         if(type == 'cash'){
                             this.payment_on_delivery();
@@ -967,7 +969,7 @@ export class PaymentPage {
                     console.log("data", this.data);
 
                     if (this.data.success) {
-                        localStorage.removeItem("GetAddress");
+                        //localStorage.removeItem("GetAddress");
                         localStorage.removeItem("scheduled_time");
 
                         
@@ -1047,7 +1049,7 @@ export class PaymentPage {
                             console.log("data", this.data);
     
                             if (this.data.success) {
-                                localStorage.removeItem("GetAddress");
+                                //localStorage.removeItem("GetAddress");
                                 localStorage.removeItem("scheduled_time");
     
                                 
@@ -1193,7 +1195,7 @@ export class PaymentPage {
          
                        
                         if (this.data.success) {
-                            localStorage.removeItem("GetAddress");
+                            //localStorage.removeItem("GetAddress");
                             localStorage.removeItem("scheduled_time");
 
                             // let alert = this.alertCtrl.create({
