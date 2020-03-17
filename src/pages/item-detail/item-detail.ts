@@ -685,7 +685,7 @@ export class ItemDetailPage {
 
         var time = this.globals.schedule_converted_time;
         var current_day = timing[day];
-        
+        console.log("-->",current_day,day,timing,time)
         var n = current_day[0].indexOf('.');
         if (n != -1) {
             var res = current_day[0].split(".");
@@ -707,7 +707,7 @@ export class ItemDetailPage {
 
         }
         else {
-            this.globals.presentToast('Sorry, we are not serving at time you schedule!')
+            this.globals.presentToast('Sorry, we are not serving ' +  this.globals.OrderType + ' at time you schedule!')
 
             return false;
         }
@@ -720,10 +720,8 @@ export class ItemDetailPage {
         var day: any = date.getDay();
         var time: any = date.getHours() + "." + date.getMinutes();
         time = Number(time);
-        console.log(day,timing,"pop")
 
         var current_day = timing[day];
-        console.log(current_day,"pop")
 
         var n = current_day[0].indexOf('.');
         if (n != -1) {
@@ -735,7 +733,6 @@ export class ItemDetailPage {
             var res = current_day[1].split(".");
             current_day[1] = res[0] + '.' + '3'
         }
-        //console.log(Number(current_day[0]) ,Number(current_day[1]), time,"time_")
 
         if ((Number(current_day[0]) <= time && Number(current_day[1]) > time) || (Number(current_day[0]) <= time && Number(current_day[1]) < Number(current_day[0]))) {
             return true;
@@ -744,7 +741,7 @@ export class ItemDetailPage {
             return true;
         }
         else {
-            this.globals.presentToast('Sorry, we are not serving at this time!')
+            this.globals.presentToast('Sorry, we are not serving ' +  this.globals.OrderType + ' at this time!')
 
             return false;
         }

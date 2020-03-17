@@ -362,7 +362,9 @@ export class HomePage {
     }
 
     launch(url) {
-        this.iab.create(url, "_self");
+        if(url){
+            this.iab.create(url, "_self");
+        }
 
     }
     pad(str, max) {

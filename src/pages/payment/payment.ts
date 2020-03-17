@@ -913,7 +913,7 @@ export class PaymentPage {
         console.log(PaymentData.creditcardno);
         if (!this.PaymentForm.valid) {
             this.submitAttempt = true;
-            console.log(' Some values were not given or were incorrect, please fill them');
+            this.globals.presentToast(' Some values were not given or were incorrect, please fill them');
         } else {
 
             console.log("paymentcard", PaymentData.cardinfo);
