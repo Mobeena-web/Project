@@ -27,6 +27,7 @@ export class LoginPage {
     pos_customer:boolean = false;
     phone:any;
     code = '+1';
+    profile_complete:any;
     constructor(public viewCtrl: ViewController, public server: ServerProvider, public globals: GlobalVariable, private nativeStorage: NativeStorage, public modalCtrl: ModalController, public navCtrl: NavController,
         public navParams: NavParams,
         public loadingCtrl: LoadingController,
@@ -51,11 +52,11 @@ export class LoginPage {
 
 
     createAccount() {
-        this.navCtrl.push(IntroPage3Page);
+        this.navCtrl.push(IntroPage3Page,{profile_complete:true});
     }
 
-    register() {
-        this.navCtrl.push(IntroPage3Page,{phone:this.phone})
+    register(phone) {
+        this.navCtrl.push(IntroPage3Page,{phone:phone,profile_complete:false})
     }
 
 
@@ -81,57 +82,64 @@ export class LoginPage {
                     this.globals.firstName = this.data.response.firstname;
                     this.globals.lastName = this.data.response.lastname;
                     this.globals.Email = LoginData.email;
+                    this.profile_complete = this.data.response.profile_complete;
                     if (this.globals.caos_flag) {
 
                         this.viewCtrl.dismiss();
                     }
                     else {
-                        // this.navCtrl.setRoot(HomePage, { imageData: this.data.response.url, Flag: false });
-                        this.list();
-                        this.nativeStorage.setItem('user',
-                            {
-                                email: LoginData.email,
-                                udid: this.data.response.udid,
-                                firstName: this.data.response.firstname,
-                                lastName: this.data.response.lastname,
-                                phone: this.data.response.phone,
-                                password: LoginData.password,
-                                image: this.data.response.url,
-                                ID: this.data.response.id,
-                                date: this.data.response.date_joined,
-                                phone_verify: this.data.response.phone_verified,
-                                birthday: this.data.response.birthday,
-                                aniversary: this.data.response.anniversary
-
-                            }).then(() => {
-                                
-                                this.SaveMobileNumberFlag(this.data.response.mobile_verification_amount, this.data.response.phone_verified);
-                                // this.server.initializePushToken();
-                                if (this.globals.caos_flag) {
-
-                                    this.navCtrl.push('CartPage')
-                                }
-                                else {
-                                    this.navCtrl.setRoot(HomePage, { imageData: this.data.response.url, Flag: false });
-
-                                }
-
-                            })
-                            .catch((err) => {
-                                console.log("nativesstorage", err)
-
-                                this.SaveMobileNumberFlag(this.data.response.mobile_verification_amount, this.data.response.phone_verified);
-
-                                if (this.globals.caos_flag) {
-
-                                    this.navCtrl.push('CartPage')
-                                }
-                                else {
-                                    this.navCtrl.setRoot(HomePage, { imageData: this.data.response.url, Flag: false });
-
-                                }
-                                // this.server.initializePushToken();
-                            });
+                        console.log("p",this.profile_complete)
+                        if(!this.profile_complete){
+                            this.register(LoginData.phone);
+                        }
+                        else{
+                            this.list();
+                            this.nativeStorage.setItem('user',
+                                {
+                                    email: LoginData.email,
+                                    udid: this.data.response.udid,
+                                    firstName: this.data.response.firstname,
+                                    lastName: this.data.response.lastname,
+                                    phone: this.data.response.phone,
+                                    password: LoginData.password,
+                                    image: this.data.response.url,
+                                    ID: this.data.response.id,
+                                    date: this.data.response.date_joined,
+                                    phone_verify: this.data.response.phone_verified,
+                                    birthday: this.data.response.birthday,
+                                    aniversary: this.data.response.anniversary
+    
+                                }).then(() => {
+                                    
+                                    this.SaveMobileNumberFlag(this.data.response.mobile_verification_amount, this.data.response.phone_verified);
+                                    // this.server.initializePushToken();
+                                    if (this.globals.caos_flag) {
+    
+                                        this.navCtrl.push('CartPage')
+                                    }
+                                    else {
+                                        this.navCtrl.setRoot(HomePage, { imageData: this.data.response.url, Flag: false });
+    
+                                    }
+    
+                                })
+                                .catch((err) => {
+                                    console.log("nativesstorage", err)
+    
+                                    this.SaveMobileNumberFlag(this.data.response.mobile_verification_amount, this.data.response.phone_verified);
+    
+                                    if (this.globals.caos_flag) {
+    
+                                        this.navCtrl.push('CartPage')
+                                    }
+                                    else {
+                                        this.navCtrl.setRoot(HomePage, { imageData: this.data.response.url, Flag: false });
+    
+                                    }
+                                    // this.server.initializePushToken();
+                                });
+                        }
+                        
 
 
                     }
@@ -300,7 +308,7 @@ console.log("pop",this.globals.BusinessDiscount)
                     this.pos_customer = false;
                 }
                 else{
-                    this.register();
+                    //this.register();
                 }
             }
         }, error => {

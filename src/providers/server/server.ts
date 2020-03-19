@@ -48,9 +48,9 @@ getdeals(){
 
   }
 
-  SignupData(firstname, lastname, email, password, phone, Birthday, Anniversary) {
+  SignupData(firstname, lastname, email, password, phone, Birthday, Anniversary,profile_complete) {
     var link = this.global.BaseUrl + 'Customer_controller/signup';
-    var data = JSON.stringify({ business_id:this.global.new_id,firstname: firstname, lastname: lastname, email: email, password: password, phone: phone, birthday: Birthday, anniversary: Anniversary });
+    var data = JSON.stringify({profile_complete:profile_complete,business_id:this.global.new_id,firstname: firstname, lastname: lastname, email: email, password: password, phone: phone, birthday: Birthday, anniversary: Anniversary });
     return this.http.post(link, data)
       .map((res: any) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));

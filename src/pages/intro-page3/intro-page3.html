@@ -280,10 +280,13 @@
           <p style=" text-align: center;">Please enter a valid phone number.</p>
         </div>
 
-        <ion-item>
+        <ion-item *ngIf="profile_complete">
 
           <ion-input type="submit" class="text-input" formControlName="password" placeholder="Password" type="password"></ion-input>
         </ion-item>
+        <ion-item *ngIf="!profile_complete">
+            <ion-input type="submit" class="text-input" formControlName="password" placeholder="Password (Optional)" type="password"></ion-input>
+          </ion-item>
         <div class="no-border" *ngIf="!signupForm.controls.password.valid  && (signupForm.controls.password.dirty || submitAttempt)">
           <p style=" text-align: center;">Please enter a valid password.</p>
         </div>
@@ -303,7 +306,8 @@
         and get rewarded.
         </p>
 
-      <button ion-button block  (click)="next(this.signupForm.value)">Register</button>
+      <button *ngIf="profile_complete" ion-button block  (click)="next(this.signupForm.value)">Register</button>
+      <button *ngIf="!profile_complete" ion-button block  (click)="next(this.signupForm.value)">Update Profile</button>
 
     </form>
 
