@@ -371,11 +371,11 @@ export class ModalPage {
 
 
 
-  async process(ProcessData: any) {
+   process(ProcessData: any) {
     if (this.globals.order_time == 'schedule') {
       localStorage.setItem("scheduled_time", this.globals.myDate);
 
-      await this.checkTimingLater();
+       this.checkTimingLater();
 
     }
     else{
@@ -733,7 +733,6 @@ export class ModalPage {
 
   checkTimingLater() {
     this.type = this.globals.OrderType;
-    console.log(this.globals.OrderType, "ordertype")
     if (this.type == "delivery") {
 
       if (this.globals.delivery_timing) {
