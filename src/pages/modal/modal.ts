@@ -372,6 +372,7 @@ export class ModalPage {
 
 
    process(ProcessData: any) {
+     
     if (this.globals.order_time == 'schedule') {
       localStorage.setItem("scheduled_time", this.globals.myDate);
 
@@ -603,25 +604,20 @@ export class ModalPage {
     this.state = "";
   }
   Updateyourorder() {
-    //this.checkTiming();
-    //localStorage.setItem("scheduled_time",this.time);
-    // this.nativeStorage.setItem('orderdetail', {
-    //   scheduled_time: this.time 
+    if (this.globals.order_time == 'schedule') {
+      localStorage.setItem("scheduled_time", this.globals.myDate);
 
-    // })
-    //   .then(
-    //     () => console.log('Stored item!'),
-    //     error => console.error('Error storing item', error)
-    //   );
+       this.checkTimingLater();
 
-    // this.navCtrl.setRoot("MainTabsPage",{page:1})
-    console.log(this.category_page, "pp")
-    this.globals.OrderType = "pickup"
-    // this.viewCtrl.dismiss();
-    this.navCtrl.pop({ animate: false });
-    if (this.category_page == 1) {
-      this.navCtrl.push("CategoryPage", {}, { animate: false });
     }
+    else{
+      localStorage.setItem("scheduled_time", undefined);
+
+    }
+
+    this.globals.OrderType = "pickup"
+     this.viewCtrl.dismiss();
+    
     this.globals.save_check = true;
 
   }
