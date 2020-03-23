@@ -401,6 +401,10 @@ export class HomePage {
             this.gift_cards_color = this.banner.gift_cards_color;
             this.order_now_color = this.banner.order_now_color;
             this.globals.cash_discount = this.banner.cash_discount;
+            
+            this.globals.cash_discount_enabled = this.banner.cash_discount_enabled;
+            this.globals.cash_discount_percentage = this.banner.cash_discount_percentage;
+            this.globals.cash_discount_value  = this.banner.cash_discount_value;
             //console.log('colors',this.my_rewards_color,this.gift_cards_color, this.special_offer_color,this.order_now_color);
 
 

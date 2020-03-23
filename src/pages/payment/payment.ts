@@ -725,11 +725,15 @@ export class PaymentPage {
     }
 
     cash_discount_confirmation(type,payment_data){
-        var discount_ = (Number(this.amount) +  ((this.globals.cash_discount / 100) * Number(this.amount))).toFixed(2);
-        if(this.globals.cash_discount > 0 && type != 'cash' && !this.cash_discount){
+        if(this.globals.cash_discount_enabled && type != 'cash' && !this.cash_discount){
+        var discount_:any = ((Number(this.globals.cash_discount_percentage) / 100) * Number(this.amount)).toFixed(2);
+
+        discount_ = (Number(discount_) + Number(this.globals.cash_discount_value));
+        this.amount = (Number(this.amount) + Number(discount_)).toFixed(2);
+
             let alert = this.alertCtrl.create({
                 title: 'Please Note',
-                message: ' Your total amount will be $' + discount_ + ' as of convenience charge.',
+                message: ' Your total amount will be $' + this.amount + ' as of convenience charge.',
                 buttons: [
                   {
                     text: 'Cancel',
@@ -741,9 +745,9 @@ export class PaymentPage {
                   {
                     text: 'OK',
                     handler: () => {
-                        this.cash_discount = (this.globals.cash_discount / 100) * Number(this.amount);
-                        this.amount = Number(this.amount)  + this.cash_discount;
-                        this.amount = this.amount.toFixed(2)
+                        console.log(discount_)
+                        this.cash_discount = discount_;
+                        
                         if(type == 'cash'){
                             this.payment_on_delivery();
                         }
@@ -957,11 +961,9 @@ export class PaymentPage {
                 if(this.globals.OrderType == "pickup"){
                     this.Address = '';
                 }
-                let response = this.server.PaymentThroughStripe(this.Address, this.instructions, this.amount, this.order_date, '', status,this.cardinfo)
-                console.log( this.Address, this.instructions, this.amount, this.order_date, '', status,this.cardinfo);
-                console.log("response without json", response);
+                let response = this.server.PaymentThroughStripe(this.Address, this.instructions, this.amount, this.order_date, '', status,this.cash_discount,this.cardinfo)
+               
                 response.subscribe(data => {
-                    console.log("data without json", data);
                     this.data = data;
                     loading.dismiss();
                     // console.log(this.data.categories);
@@ -1038,7 +1040,7 @@ export class PaymentPage {
                         if(this.globals.OrderType == "pickup"){
                             this.Address = '';
                         }
-                        let response = this.server.PaymentThroughStripe(this.Address, this.instructions, this.amount, this.order_date, Token, status)
+                        let response = this.server.PaymentThroughStripe(this.Address, this.instructions, this.amount, this.order_date, Token, status,this.cash_discount)
                         console.log("response without json", response);
                         response.subscribe(data => {
                             console.log("data without json", data);
