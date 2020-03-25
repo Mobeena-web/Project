@@ -740,12 +740,13 @@ export class PaymentPage {
                     role: 'cancel',
                     handler: () => {
                       console.log('Cancel clicked');
+                      this.cash_discount = discount_;
+
                     }
                   },
                   {
                     text: 'OK',
                     handler: () => {
-                        console.log(discount_)
                         this.cash_discount = discount_;
                         
                         if(type == 'cash'){
