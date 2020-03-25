@@ -65,7 +65,8 @@ export class CartPage {
     mygifts = [];
     gift_array = [];
     delivery_display: any;
-
+    tip_type:any='percent';
+    percent_tip_vlaue:any;
     constructor(public toastCtrl: ToastController, public loadingCtrl: LoadingController, public server: ServerProvider, public modalCtrl: ModalController, public alertCtrl: AlertController, private nativeStorage: NativeStorage, public appCtrl: App, public globals: GlobalVariable, public viewCtrl: ViewController, public navCtrl: NavController, public navParams: NavParams) {
         console.log(globals.BusinessDiscount, globals.availed_discount_count, globals.business_discount_count, "@@@type");
         //  console.log("here is my items of global" ,this.globals.itemInstruction);
@@ -469,37 +470,21 @@ export class CartPage {
         console.log(this.globals.deliveryCharges, "delivery cahrges");
         for (let sub of this.globals.Product) {
             this.Total = Number(this.Total);
-            console.log(sub.totalPrice);
             sub.totalPrice = Number(sub.totalPrice);
-            console.log(sub.totalPrice);
-            console.log("checking product data ", this.globals.Product);
             this.Total += Number(sub.totalPrice);
             this.ProductsTotal = this.Total;
         }
-        console.log("business discount", this.globals.BusinessDiscount, this.globals.BusinessDiscountFlag);
 
         if (this.globals.BusinessDiscount > 0 && this.globals.availed_discount_count < this.globals.business_discount_count) {
             this.discountTotal = Number(this.ProductsTotal) * this.globals.BusinessDiscount / 100;
             this.discountTotal = Math.round(this.discountTotal * 100) / 100;
             // this.discountTotal.toFixed(2);
-            console.log(this.ProductsTotal, this.discountTotal);
             this.Total = this.ProductsTotal - this.discountTotal;
             // this.Total = this.Total.toFixed(2);
-            console.log(this.Total);
             this.globals.BusinessDiscountFlag = true;
         }
-        console.log("Order Type: ", this.globals.OrderType);
 
-        if (this.globals.OrderType == "delivery" && this.globals.deliveryCharges != 0 && this.Deliver == true) {
-            console.log("delivery charges exist");
-
-            this.Total = Number(this.Total);
-            console.log("global", this.globals.deliveryCharges, this.Total);
-            this.Total = this.Total + Number(this.globals.deliveryCharges);
-
-            //    this.deliverycharges = Number(this.globals.deliveryCharges);
-            console.log("delivery charges", this.globals.deliveryCharges, this.Total);
-        }
+       
 
         if ((Number(this.Total) < this.globals.minimun_order || Number(this.Total) < 0) && this.Deliver == true) {
             if (Number(this.ProductsTotal) == 0) {
@@ -528,6 +513,21 @@ export class CartPage {
             }
         }
 
+        if (this.globals.OrderType == "delivery" && this.globals.deliveryCharges != 0 && this.Deliver == true) {
+
+            this.Total = Number(this.Total);
+            this.Total = this.Total + Number(this.globals.deliveryCharges);
+
+            //    this.deliverycharges = Number(this.globals.deliveryCharges);
+        }
+
+        if(Number(this.Tip > 0) && this.tip_type == 'manual'){
+            this.Total = Number(this.Total) + Number(this.Tip);
+        }
+        else if(this.tip_type == 'percent'){
+            this.percent_tip_(this.percent_tip_vlaue);
+        }
+
 
 
         if (this.gift_array.length > 0) {
@@ -538,10 +538,9 @@ export class CartPage {
             });
         }
 
-        if(this.Total != 0){
-            console.log("total........",Number(this.Total).toFixed(2));
+        if (this.Total != 0) {
             this.Total = Number(this.Total).toFixed(2);
-            }
+        }
 
     }
 
@@ -558,10 +557,10 @@ export class CartPage {
                 ItemDiscount = 0;
                 let CalculatedTax = 0;
                 sub.discount_type == 'cash' ? ItemDiscount += Number(sub.discount_value) * Number(sub.quantity) : sub.discount_type == 'perc' ? ItemDiscount += Number(sub.discount_value) / 100 * Number(sub.basePrice) * Number(sub.quantity) : console.log('discount neither cash nor percent');
-                console.log(ItemDiscount,"pfop")
-               
-                ItemDiscountedValue = (Number(sub.basePrice) * Number(sub.quantity) )- Number(ItemDiscount) ;
-                console.log(ItemDiscountedValue,"pop")
+                console.log(ItemDiscount, "pfop")
+
+                ItemDiscountedValue = (Number(sub.basePrice) * Number(sub.quantity)) - Number(ItemDiscount);
+                console.log(ItemDiscountedValue, "pop")
                 CalculatedTax = Number(sub.tax) / 100 * Number(ItemDiscountedValue);
                 taxcalc += CalculatedTax;
                 this.globals.retail_items_discount += ItemDiscount;
@@ -976,7 +975,7 @@ export class CartPage {
                             }
                             else {
                                 if (this.checkTiming(this.globals.pickup_timing)) {
-                                    this.navCtrl.push('PaymentPage', { giftcard: this.gift_array, amount: this.Total, tip: this.Tip, notes: this.notes, RewardAvailed: this.RewardStoreCreditAvailed, BirthdayCreditavailed: this.birthdayStoreCreditavailed,tax:this.tax_calc });
+                                    this.navCtrl.push('PaymentPage', { giftcard: this.gift_array, amount: this.Total, tip: this.Tip, notes: this.notes, RewardAvailed: this.RewardStoreCreditAvailed, BirthdayCreditavailed: this.birthdayStoreCreditavailed, tax: this.tax_calc });
 
                                 }
 
@@ -1064,7 +1063,7 @@ export class CartPage {
                         }
                         else {
                             if (this.checkTiming(this.globals.pickup_timing)) {
-                                this.navCtrl.push('PaymentPage', { giftcard: this.gift_array, amount: this.Total, tip: this.Tip, notes: this.notes, RewardAvailed: this.RewardStoreCreditAvailed, BirthdayCreditavailed: this.birthdayStoreCreditavailed,tax:this.tax_calc });
+                                this.navCtrl.push('PaymentPage', { giftcard: this.gift_array, amount: this.Total, tip: this.Tip, notes: this.notes, RewardAvailed: this.RewardStoreCreditAvailed, BirthdayCreditavailed: this.birthdayStoreCreditavailed, tax: this.tax_calc });
 
                             }
 
@@ -1084,7 +1083,7 @@ export class CartPage {
     address_() {
         console.log('address', this.Address);
         console.log(this.Address == 'undefined', this.Address == '', this.Address == 'null');
-        if (!this.Address ||this.Address == 'undefined' || this.Address == '' || this.Address == 'null') {
+        if (!this.Address || this.Address == 'undefined' || this.Address == '' || this.Address == 'null') {
             let alert = this.alertCtrl.create({
                 title: 'Please Confirm Your Address',
                 message: this.Address,
@@ -1126,7 +1125,7 @@ export class CartPage {
                     {
                         text: 'Proceed to Checkout',
                         handler: () => {
-                            this.navCtrl.push('PaymentPage', { giftcard: this.gift_array, amount: this.Total, tip: this.Tip, notes: this.notes, RewardAvailed: this.RewardStoreCreditAvailed, BirthdayCreditavailed: this.birthdayStoreCreditavailed ,tax:this.tax_calc});
+                            this.navCtrl.push('PaymentPage', { giftcard: this.gift_array, amount: this.Total, tip: this.Tip, notes: this.notes, RewardAvailed: this.RewardStoreCreditAvailed, BirthdayCreditavailed: this.birthdayStoreCreditavailed, tax: this.tax_calc });
 
                         }
                     }
@@ -1161,16 +1160,16 @@ export class CartPage {
                     let sub = tot - Number(this.pointsInput.description);
                     console.log(sub, "sub");
 
-                   
+
                     if (sub <= 0) {
 
                         // if (sub < this.globals.minimun_order || sub <= 0) {
-    
-                            // this.AddMoreItemAlert(' Points reward cannot be availed.Please add more item in the cart.');
-                            this.AddMoreItemAlert('Point cannot be redeemed on rewards');
-    
-                            this.user_availed_points = false;
-                        }
+
+                        // this.AddMoreItemAlert(' Points reward cannot be availed.Please add more item in the cart.');
+                        this.AddMoreItemAlert('Point cannot be redeemed on rewards');
+
+                        this.user_availed_points = false;
+                    }
                     else {
                         this.pointsInput.availed = true;
                         this.points = this.points - this.pointsInput.points;
@@ -1304,15 +1303,34 @@ export class CartPage {
     }
 
     percent_tip(tip) {
-        this.Total = Number(this.Total) - Number(this.Tip);
+        this.tip_type = 'percent';
+        this.percent_tip_vlaue = tip;
+        if(tip){
+            this.Total = Number(this.Total) - Number(this.Tip);
 
-        this.per_tip = ((Number(this.ProductsTotal) / 100) * tip).toFixed(2);
-        this.Tip = this.per_tip;
-        this.Total = (Number(this.Total) + Number(this.per_tip)).toFixed(2);
+            this.per_tip = ((Number(this.ProductsTotal) / 100) * tip).toFixed(2);
+            this.Tip = this.per_tip;
+            this.Total = (Number(this.Total) + Number(this.per_tip)).toFixed(2);
+        }
+        
+
+    }
+
+    percent_tip_(tip) {
+        this.tip_type = 'percent';
+        this.percent_tip_vlaue = tip;
+        if(tip){
+            this.per_tip = ((Number(this.ProductsTotal) / 100) * tip).toFixed(2);
+            this.Tip = this.per_tip;
+            this.Total = (Number(this.Total) + Number(this.per_tip)).toFixed(2);
+        }
+        
 
     }
 
     add_gratuity() {
+        this.tip_type = 'manual';
+
         let alert = this.alertCtrl.create({
             title: 'Add Gratuity',
             inputs: [
@@ -1503,7 +1521,7 @@ export class CartPage {
                                 if (this.globals.inradius) {
                                     var giftdata = { giftcard_id: data.giftcard_id, amount: this.Total }
                                     this.gift_array.push(giftdata)
-                                    this.navCtrl.push('PaymentPage', { amount: 0, giftcard: this.gift_array, gift_flag: true,tax:this.tax_calc })
+                                    this.navCtrl.push('PaymentPage', { amount: 0, giftcard: this.gift_array, gift_flag: true, tax: this.tax_calc })
                                 }
                                 else {
                                     this.globals.presentToast("Sorry, We dn't deliver in Your Area")
@@ -1514,7 +1532,7 @@ export class CartPage {
                         else {
                             var giftdata = { giftcard_id: data.giftcard_id, amount: this.Total }
                             this.gift_array.push(giftdata)
-                            this.navCtrl.push('PaymentPage', { amount: 0, giftcard: this.gift_array, gift_flag: true ,tax:this.tax_calc})
+                            this.navCtrl.push('PaymentPage', { amount: 0, giftcard: this.gift_array, gift_flag: true, tax: this.tax_calc })
                         }
 
 
@@ -1607,7 +1625,7 @@ export class CartPage {
 
             var time = this.globals.schedule_converted_time;
             var current_day = timing[day];
-            
+
             var n = current_day[0].indexOf('.');
             if (n != -1) {
                 var res = current_day[0].split(".");
@@ -1642,10 +1660,10 @@ export class CartPage {
             var day: any = date.getDay();
             var time: any = date.getHours() + "." + date.getMinutes();
             time = Number(time);
-            console.log(day,timing,"pop")
+            console.log(day, timing, "pop")
 
             var current_day = timing[day];
-            console.log(current_day,"pop")
+            console.log(current_day, "pop")
 
             var n = current_day[0].indexOf('.');
             if (n != -1) {
