@@ -110,8 +110,8 @@ export class GlobalVariable {
     order_instructions: any;
 
 
-    //kiosk flag
-    caos_flag: boolean = false;
+    //kiosk flag true if building for kiosk
+    caos_flag: boolean = true;
     caos_udid = 'e2c40e9f0a';
 
 
