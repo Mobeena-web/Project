@@ -30,7 +30,7 @@ getdeals(){
 }
   LoginData(LoginData) {
     var link = this.global.BaseUrl + 'Customer_controller/login';
-    var data = JSON.stringify({business_id:this.global.new_id, email: LoginData.email, password: LoginData.password });
+    var data = JSON.stringify({business_id:this.global.new_id, email: LoginData.email, phone: LoginData.code + LoginData.phone, password: LoginData.password });
 
     return this.http.post(link, data)
       .map((res: any) => res.json())
@@ -48,9 +48,9 @@ getdeals(){
 
   }
 
-  SignupData(firstname, lastname, email, password, phone, Birthday, Anniversary) {
+  SignupData(firstname, lastname, email, password, phone, Birthday, Anniversary,profile_complete) {
     var link = this.global.BaseUrl + 'Customer_controller/signup';
-    var data = JSON.stringify({ business_id:this.global.new_id,firstname: firstname, lastname: lastname, email: email, password: password, phone: phone, birthday: Birthday, anniversary: Anniversary });
+    var data = JSON.stringify({profile_complete:profile_complete,business_id:this.global.new_id,firstname: firstname, lastname: lastname, email: email, password: password, phone: phone, birthday: Birthday, anniversary: Anniversary });
     return this.http.post(link, data)
       .map((res: any) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
@@ -62,6 +62,13 @@ getdeals(){
     return this.http.post(link, data)
       .map((res: any) => res.json());
    
+  }
+
+  check_user_by_phone(phone){
+    var link = this.global.BaseUrl + 'Customer_controller/search_customer_with_phone';
+    var data = JSON.stringify({ business_id: this.global.new_id,phone:phone });
+    return this.http.post(link, data)
+      .map((res: any) => res.json());
   }
 
   welcome_screen() {
@@ -303,9 +310,16 @@ getdeals(){
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
 
-  ForgotPassword(email) {
+  ForgotPassword(c_data) {
     var link = this.global.BaseUrl + 'Customer_controller/forgot_password';
-    var data = JSON.stringify({ business_id:this.global.new_id,email: email });
+    if(c_data.phone){
+      var data = JSON.stringify({ business_id:this.global.new_id,phone:c_data.code + c_data.phone });
+
+    }
+    else{
+      var data = JSON.stringify({ business_id:this.global.new_id,email: c_data.email});
+
+    }
     return this.http.post(link, data)
       .map((res: any) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
@@ -550,7 +564,7 @@ getdeals(){
   }
 
 
-  PaymentThroughStripe(Address, instruction, amount, order_date, Token, status,cardinfo?) {
+  PaymentThroughStripe(Address, instruction, amount, order_date, Token, status,cash_discount,cardinfo?) {
 
     if(this.global.business_type == 'retail'){
       var link = (this.global.BaseUrl + 'retail/place_order');
@@ -561,7 +575,7 @@ getdeals(){
 
     }
 
-    var orderdata = JSON.stringify({ udid: this.global.udid, payment_info: { address: Address, token: Token,cardInfo:cardinfo,admin_stripe_enabled:this.global.admin_stripe_enabled,authorize_enabled:this.global.authorize_enabled }, order_info: this.global.Product, instruction: instruction, total: amount, scheduled_time: order_date, payment_type: status })
+    var orderdata = JSON.stringify({ udid: this.global.udid, payment_info: { cash_discount:cash_discount,address: Address, token: Token,cardInfo:cardinfo,admin_stripe_enabled:this.global.admin_stripe_enabled,authorize_enabled:this.global.authorize_enabled }, order_info: this.global.Product, instruction: instruction, total: amount, scheduled_time: order_date, payment_type: status })
     console.log("stripe", orderdata, order_date);
 
     return this.http.post(link, orderdata)
@@ -776,6 +790,8 @@ getdeals(){
     console.log("server response", res);
      console.log("server response - parsed", res.json());
   }
+
+  
   
 
 }      

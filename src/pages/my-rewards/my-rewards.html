@@ -160,7 +160,7 @@
           <ion-row>
             <ion-col col-3 style="margin: auto;">
 
-              <img class="itm-img" *ngIf="a.image" src="{{a.image}}">
+              <img class="itm-img" *ngIf="a.image" [src]="a.image ? a.image : globals.b_logo">
               <img class="itm-img" *ngIf="a.image == '' || !a.image" src={{globals.b_logo}}>
             </ion-col>
             <ion-col col-9 style="margin:auto">
@@ -202,7 +202,7 @@
           <ion-row>
             <ion-col col-3 style="margin: auto;">
 
-              <img class="itm-img" *ngIf="a.image" src="{{a.image}}">
+              <img class="itm-img"  *ngIf="a.image" src="{{a.image}}" >
               <img class="itm-img" *ngIf="a.image == '' || !a.image" src={{globals.b_logo}}>
             </ion-col>
             <ion-col col-9 style="margin:auto">

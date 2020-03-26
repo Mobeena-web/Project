@@ -67,6 +67,7 @@ export class MyRewardsPage {
     reward_type_home:any;
     cart_reward_view:boolean = false;
     store_points:any;
+    image_broken:any;
     // ngAfterViewInit()
     // {
     //     this.indicator = document.getElementById("indicator");
@@ -77,7 +78,7 @@ export class MyRewardsPage {
     // }
 
     constructor( public modalCtrl:ModalController,private geolocation: Geolocation,private diagnostic: Diagnostic,public modalctrl: ModalController, public server: ServerProvider, public globals: GlobalVariable, private nativeStorage: NativeStorage, public alertCtrl: AlertController, public loadingCtrl: LoadingController, public navCtrl: NavController, public navParams: NavParams) {
-
+        this.image_broken = this.globals.b_logo;
         this.data = {};
 
         this.data.response = '';
@@ -625,5 +626,6 @@ export class MyRewardsPage {
         alert.present();
       }
 
+      changeSource(event, name) { event.target.src = this.globals.b_logo; }
 
 }

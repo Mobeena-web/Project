@@ -20,32 +20,44 @@ export class IntroPage3Page {
     signupForm: FormGroup;
     masks: any;
     data: any;
-
+    phone:any;
+    profile_complete:any;
     constructor(public loadingCtrl: LoadingController,private nativeStorage: NativeStorage,public globals: GlobalVariable, public modalCtrl: ModalController, public alertCtrl: AlertController,public server: ServerProvider,public formBuilder: FormBuilder, public navCtrl: NavController, public navParams: NavParams) {
         this.data = {};
-
+        this.phone = this.navParams.get('phone');
+        this.profile_complete = this.navParams.get('profile_complete');
         this.data.response = '';
-        this.signupForm = formBuilder.group({
-             
-
-            firstName: ['', Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
-            lastName: ['', Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
-            email: ['', Validators.compose([Validators.required, EmailValidator.isValid])],
-            phone: ['', Validators.compose([Validators.maxLength(10), Validators.required])],
-            // nextdigits: ['', Validators.compose([Validators.maxLength(4), Validators.required])],
-            password: ['', Validators.compose([Validators.minLength(6), Validators.required])],
-            phonecode: ['1', Validators.compose([Validators.required])],
-            birthday:[],
-            anniversary:[],
-            
-        });
+        if(!this.profile_complete){
+            this.signupForm = formBuilder.group({
+                firstName: ['', Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
+                lastName: ['', Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
+                email: ['', Validators.compose([Validators.required, EmailValidator.isValid])],
+                phone: [this.phone, Validators.compose([Validators.maxLength(10), Validators.required])],
+                // nextdigits: ['', Validators.compose([Validators.maxLength(4), Validators.required])],
+                password: [''],
+                phonecode: ['1', Validators.compose([Validators.required])],
+                
+            });
+        }
+        else{
+            this.signupForm = formBuilder.group({
+                firstName: ['', Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
+                lastName: ['', Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
+                email: ['', Validators.compose([Validators.required, EmailValidator.isValid])],
+                phone: [this.phone, Validators.compose([Validators.maxLength(10), Validators.required])],
+                // nextdigits: ['', Validators.compose([Validators.maxLength(4), Validators.required])],
+                password: ['', Validators.compose([Validators.minLength(6), Validators.required])],
+                phonecode: ['1', Validators.compose([Validators.required])],
+                
+            });
+        }
+          
+   
+       
         
-        console.log(this.signupForm.value.phonecode)
-        // this.email = this.navParams.get('useremail');
        
          
         
-        console.log("email " ,this.globals.Email , "password ", this.globals.PhoneNo );
     }
     // moveFocus(nextElement) {
     //     nextElement.setFocus();
@@ -90,7 +102,7 @@ export class IntroPage3Page {
         });
         loading.present();
       
-        let response = this.server.SignupData(signupData.firstName, signupData.lastName, signupData.email, signupData.password, this.globals.PhoneNo, signupData.birthday, signupData.aniversary);
+        let response = this.server.SignupData(signupData.firstName, signupData.lastName, signupData.email, signupData.password, this.globals.PhoneNo, signupData.birthday, signupData.aniversary,this.profile_complete);
 
         response.subscribe(data => {
             console.log(data);

@@ -83,6 +83,7 @@ export class PaymentPage {
     submitAttempt: boolean = false;
     PaymentForm: FormGroup;
     calculated_tax = 0;
+    cash_discount = 0;
     constructor(public server: ServerProvider, public modalCtrl: ModalController, private nativeStorage: NativeStorage, public alertCtrl: AlertController, public loadingCtrl: LoadingController, public globals: GlobalVariable, public viewCtrl: ViewController, private app: App, public formBuilder: FormBuilder, public stripe: Stripe, public http: Http, public navCtrl: NavController, public navParams: NavParams) {
         this.calculated_tax = this.navParams.get('tax');
        
@@ -723,6 +724,53 @@ export class PaymentPage {
         }
     }
 
+    cash_discount_confirmation(type,payment_data){
+        if(this.globals.cash_discount_enabled && type != 'cash' && !this.cash_discount){
+        var discount_:any = ((Number(this.globals.cash_discount_percentage) / 100) * Number(this.amount)).toFixed(2);
+
+        discount_ = (Number(discount_) + Number(this.globals.cash_discount_value));
+        this.amount = (Number(this.amount) + Number(discount_)).toFixed(2);
+
+            let alert = this.alertCtrl.create({
+                title: 'Please Note',
+                message: ' Your total amount will be $' + this.amount + ' as of convenience charge.',
+                buttons: [
+                  {
+                    text: 'Cancel',
+                    role: 'cancel',
+                    handler: () => {
+                      console.log('Cancel clicked');
+                      this.cash_discount = discount_;
+
+                    }
+                  },
+                  {
+                    text: 'OK',
+                    handler: () => {
+                        this.cash_discount = discount_;
+                        
+                        if(type == 'cash'){
+                            this.payment_on_delivery();
+                        }
+                        else{
+                            this.payment_type(payment_data)
+                        }
+                    }
+                  }
+                ]
+              });
+              alert.present();
+        }
+        else{
+            if(type == 'cash'){
+                this.payment_on_delivery();
+            }
+            else{
+                this.payment_type(payment_data)
+            }
+        }
+        
+    }
     pay_reservation(PaymentData: any) {
 
         var a = btoa(PaymentData.creditcardno)
@@ -870,7 +918,7 @@ export class PaymentPage {
         console.log(PaymentData.creditcardno);
         if (!this.PaymentForm.valid) {
             this.submitAttempt = true;
-            console.log(' Some values were not given or were incorrect, please fill them');
+            this.globals.presentToast(' Some values were not given or were incorrect, please fill them');
         } else {
 
             console.log("paymentcard", PaymentData.cardinfo);
@@ -914,11 +962,9 @@ export class PaymentPage {
                 if(this.globals.OrderType == "pickup"){
                     this.Address = '';
                 }
-                let response = this.server.PaymentThroughStripe(this.Address, this.instructions, this.amount, this.order_date, '', status,this.cardinfo)
-                console.log( this.Address, this.instructions, this.amount, this.order_date, '', status,this.cardinfo);
-                console.log("response without json", response);
+                let response = this.server.PaymentThroughStripe(this.Address, this.instructions, this.amount, this.order_date, '', status,this.cash_discount,this.cardinfo)
+               
                 response.subscribe(data => {
-                    console.log("data without json", data);
                     this.data = data;
                     loading.dismiss();
                     // console.log(this.data.categories);
@@ -926,7 +972,7 @@ export class PaymentPage {
                     console.log("data", this.data);
 
                     if (this.data.success) {
-                        localStorage.removeItem("GetAddress");
+                        //localStorage.removeItem("GetAddress");
                         localStorage.removeItem("scheduled_time");
 
                         
@@ -995,7 +1041,7 @@ export class PaymentPage {
                         if(this.globals.OrderType == "pickup"){
                             this.Address = '';
                         }
-                        let response = this.server.PaymentThroughStripe(this.Address, this.instructions, this.amount, this.order_date, Token, status)
+                        let response = this.server.PaymentThroughStripe(this.Address, this.instructions, this.amount, this.order_date, Token, status,this.cash_discount)
                         console.log("response without json", response);
                         response.subscribe(data => {
                             console.log("data without json", data);
@@ -1006,7 +1052,7 @@ export class PaymentPage {
                             console.log("data", this.data);
     
                             if (this.data.success) {
-                                localStorage.removeItem("GetAddress");
+                                //localStorage.removeItem("GetAddress");
                                 localStorage.removeItem("scheduled_time");
     
                                 
@@ -1152,7 +1198,7 @@ export class PaymentPage {
          
                        
                         if (this.data.success) {
-                            localStorage.removeItem("GetAddress");
+                            //localStorage.removeItem("GetAddress");
                             localStorage.removeItem("scheduled_time");
 
                             // let alert = this.alertCtrl.create({
@@ -1302,6 +1348,10 @@ export class PaymentPage {
     }
     setArray() {
         this.globals.Product.length = 0;
+        this.globals.order_time = 'now';
+        this.globals.myDate = undefined;
+        localStorage.setItem("scheduled_time",  undefined );
+        
         this.nativeStorage.setItem('Product', { array: this.globals.Product })
             .then(
                 () => console.log('Stored item!'),

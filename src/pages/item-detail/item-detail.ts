@@ -672,6 +672,100 @@ export class ItemDetailPage {
     }
   }
 
+  checkTiming(timing) {
+    if (this.globals.order_time == 'schedule') {
+        if (this.globals.specific_delivery_day == 'true') {
+            return true;
+        }
+
+        var day = this.globals.schedule_day_id + 1;
+        if (day == 7) {
+            day = 0;
+        }
+
+        var time = this.globals.schedule_converted_time;
+        var current_day = timing[day];
+        console.log("-->",current_day,day,timing,time)
+        var n = current_day[0].indexOf('.');
+        if (n != -1) {
+            var res = current_day[0].split(".");
+            current_day[0] = res[0] + '.' + '3'
+        }
+        var n1 = current_day[1].indexOf('.');
+        if (n1 != -1) {
+            var res = current_day[1].split(".");
+            current_day[1] = res[0] + '.' + '3'
+        }
+        if ((Number(current_day[0]) <= time && Number(current_day[1]) > time) || (Number(current_day[0]) <= time && Number(current_day[1]) < Number(current_day[0]))) {
+
+            return true;
+
+        }
+        else if (current_day[0] == 'opened' && current_day[1] == 'opened') {
+
+            return true;
+
+        }
+        else {
+            this.globals.presentToast('Sorry, we are not serving ' +  this.globals.OrderType + ' at time you schedule!')
+
+            return false;
+        }
+
+
+    }
+    else {
+    
+        var date = new Date();
+        var day: any = date.getDay();
+        var time: any = date.getHours() + "." + date.getMinutes();
+        time = Number(time);
+
+        var current_day = timing[day];
+
+        var n = current_day[0].indexOf('.');
+        if (n != -1) {
+            var res = current_day[0].split(".");
+            current_day[0] = res[0] + '.' + '3'
+        }
+        var n1 = current_day[1].indexOf('.');
+        if (n1 != -1) {
+            var res = current_day[1].split(".");
+            current_day[1] = res[0] + '.' + '3'
+        }
+
+        if ((Number(current_day[0]) <= time && Number(current_day[1]) > time) || (Number(current_day[0]) <= time && Number(current_day[1]) < Number(current_day[0]))) {
+            return true;
+        }
+        else if (current_day[0] == 'opened' && current_day[1] == 'opened') {
+            return true;
+        }
+        else {
+            this.globals.presentToast('Sorry, we are not serving ' +  this.globals.OrderType + ' at this time!')
+
+            return false;
+        }
+    }
+
+}
+
+add_to_cart_timing_check(){
+    if(this.globals.OrderType == 'delivery'){
+      if (this.checkTiming(this.globals.delivery_timing)) {
+        this.Cart();
+      }
+
+    }
+    else{
+      if (this.checkTiming(this.globals.pickup_timing)) {
+        this.Cart();
+      }
+
+    }
+
+    
+}
+
 }
 
 

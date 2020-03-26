@@ -1,4 +1,3 @@
-
 <ion-header>
 
   <ion-navbar color="primary">
@@ -13,49 +12,52 @@
 </ion-header>
 
 
-<ion-content  class="Open-Sans-regular" overflow-scroll=true >
+<ion-content class="Open-Sans-regular" overflow-scroll=true>
   <div>
 
     <ion-list style="padding-top:3px; padding-right:10px; padding-left:10px;  margin-bottom: 0;">
-        <!-- <ion-list-header style="padding-top:3px;color:#333;font-weight:bold">
+      <!-- <ion-list-header style="padding-top:3px;color:#333;font-weight:bold">
           Payment Method
         </ion-list-header> -->
-        <div *ngIf="globals.paypalId">
-          <ion-item style="background: transparent;color: #aaa">
-            <ion-label>Paypal</ion-label>
-            <ion-checkbox [(ngModel)]="paypal" (click)="paypalbox()"></ion-checkbox>
-          </ion-item>
-        </div>
-        <ion-item style="background: transparent;color: #aaa" *ngIf="globals.card_enabled && amount > 0">
-          <ion-label>Credit card</ion-label>
-          <ion-checkbox [(ngModel)]="creditcard" (click)="creditBox()"></ion-checkbox>
+      <div *ngIf="globals.paypalId">
+        <ion-item style="background: transparent;color: #aaa">
+          <ion-label>Paypal</ion-label>
+          <ion-checkbox [(ngModel)]="paypal" (click)="paypalbox()"></ion-checkbox>
         </ion-item>
+      </div>
+      <ion-item style="background: transparent;color: #aaa" *ngIf="globals.card_enabled && amount > 0">
+        <ion-label>Credit card</ion-label>
+        <ion-checkbox [(ngModel)]="creditcard" (click)="creditBox()"></ion-checkbox>
+      </ion-item>
 
-        <ion-item style="background: transparent;color: #aaa" *ngIf="globals.cash_enabled && globals.OrderType == 'delivery'">
-          <ion-label>Cash on delivery</ion-label>
-          <ion-checkbox [(ngModel)]="cash_on_delivery" (click)="deliveryBox()"></ion-checkbox>
-        </ion-item>
-        <ion-item style="background: transparent;color: #aaa" *ngIf="globals.cash_enabled && globals.OrderType == 'pickup'">
-            <ion-label>Pay at store</ion-label>
-            <ion-checkbox [(ngModel)]="cash_on_delivery" (click)="deliveryBox()"></ion-checkbox>
-          </ion-item>
-          <p class="kkkj" *ngIf="globals.cash_enabled && globals.OrderType == 'pickup' && amount > 0" >You can pay by cash, debit card or credit card at the store</p>
-    
-       
-      </ion-list>
-    
-      <!-- <p class="Open-Sans-regular" style="font-family: Open Sans;" *ngIf="submitAttempt" style="color: #ea6153; text-align:center;">Please fill out all details accurately.</p> -->
-    
-    
-      <!-- <ion-list no-lines style="padding: 10px;  margin-bottom: 0 ; padding-left:0;padding-right:0">
+      <ion-item style="background: transparent;color: #aaa"
+        *ngIf="globals.cash_enabled && globals.OrderType == 'delivery'">
+        <ion-label>Cash on delivery</ion-label>
+        <ion-checkbox [(ngModel)]="cash_on_delivery" (click)="deliveryBox()"></ion-checkbox>
+      </ion-item>
+      <ion-item style="background: transparent;color: #aaa"
+        *ngIf="globals.cash_enabled && globals.OrderType == 'pickup'">
+        <ion-label>Pay at store</ion-label>
+        <ion-checkbox [(ngModel)]="cash_on_delivery" (click)="deliveryBox()"></ion-checkbox>
+      </ion-item>
+      <p class="kkkj" *ngIf="globals.cash_enabled && globals.OrderType == 'pickup' && amount > 0">You can pay by cash,
+        debit card or credit card at the store</p>
+
+
+    </ion-list>
+
+    <!-- <p class="Open-Sans-regular" style="font-family: Open Sans;" *ngIf="submitAttempt" style="color: #ea6153; text-align:center;">Please fill out all details accurately.</p> -->
+
+
+    <!-- <ion-list no-lines style="padding: 10px;  margin-bottom: 0 ; padding-left:0;padding-right:0">
         <div style="text-align:center">
           <div style="display: inline-block; width: 40%;"> -->
-            <!-- <ion-item  *ngIf="Deliver == false" style="border-radius: 20px;">
+    <!-- <ion-item  *ngIf="Deliver == false" style="border-radius: 20px;">
         <ion-label>Now</ion-label>
        <ion-checkbox  disabled = "true" [(ngModel)]="deliver_now" (ionChange) = "delivernowbox()"   ></ion-checkbox>
        </ion-item> -->
-            <!-- <div *ngIf="globals.type != 'reservation'"> -->
-            <!-- <ion-item style="border-radius: 20px;">
+    <!-- <div *ngIf="globals.type != 'reservation'"> -->
+    <!-- <ion-item style="border-radius: 20px;">
               <ion-label>Now</ion-label>
               <ion-checkbox [(ngModel)]="deliver_now" (ionChange)="delivernowbox()"></ion-checkbox>
             </ion-item>
@@ -69,85 +71,90 @@
               <ion-checkbox [(ngModel)]="Schedule_deliver" (ionChange)="scheduleDeliverbox()"></ion-checkbox>
     
             </ion-item> -->
-            <!-- </div> -->
-    
-            <!-- <ion-item  *ngIf="Deliver == false"  style="border-radius: 20px;">
+    <!-- </div> -->
+
+    <!-- <ion-item  *ngIf="Deliver == false"  style="border-radius: 20px;">
         <ion-label>Schedule</ion-label>
       <ion-checkbox    disabled = "true"  [(ngModel)]="Schedule_deliver" (ionChange) = "scheduleDeliverbox()" ></ion-checkbox>
         </ion-item>
        -->
-          <!-- </div>
+    <!-- </div>
     
         </div>
       </ion-list> -->
 
-  <form [formGroup]="PaymentForm" ng-submit="pay(this.PaymentForm.value)">
-    <div *ngIf="!cash_on_delivery && globals.card_enabled && amount > 0">
-    <ion-list style="padding: 10px; padding-bottom:0px;margin-bottom: 3px;">
-  <!-- <p class="Open-Sans-regular" style="font-family: Open Sans;" *ngIf="submitAttempt" style="color: #ea6153; margin-top:0px;margin-bottom:3px;text-align:center;">Please fill out all details accurately.</p> -->
-      <ion-card class="payment_card background_image1" style="padding-top: 26px;">
-          <ion-item  class="cardno">
-            <!-- <ion-label floating></ion-label> -->
-            <ion-input style="color: #fff" placeholder="Card No." class="kll"  formControlName="creditcardno" type="password" maxlength= "16"></ion-input>
-          </ion-item>
+    <form [formGroup]="PaymentForm" ng-submit="pay(this.PaymentForm.value)">
+      <div *ngIf="!cash_on_delivery && globals.card_enabled && amount > 0">
+        <ion-list style="padding: 10px; padding-bottom:0px;margin-bottom: 3px;">
+          <!-- <p class="Open-Sans-regular" style="font-family: Open Sans;" *ngIf="submitAttempt" style="color: #ea6153; margin-top:0px;margin-bottom:3px;text-align:center;">Please fill out all details accurately.</p> -->
+          <ion-card class="payment_card background_image1" style="padding-top: 26px;">
+            <ion-item class="cardno">
+              <!-- <ion-label floating></ion-label> -->
+              <ion-input style="color: #fff" placeholder="Card No." class="kll" formControlName="creditcardno"
+                type="password" maxlength="16"></ion-input>
+            </ion-item>
 
-          <ion-row style="margin-top: 18px">
-            <ion-col col-6 no-padding>
-              <h3 class="name_heading">Name</h3>
-          <h2 style="margin-left: 22px;color: #fff;padding-top: 17px;" >{{globals.firstName}} {{globals.lastName}}</h2>
+            <ion-row style="margin-top: 18px">
+              <ion-col col-6 no-padding>
+                <h3 class="name_heading">Name</h3>
+                <h2 style="margin-left: 22px;color: #fff;padding-top: 17px;">{{globals.firstName}} {{globals.lastName}}
+                </h2>
 
-            </ion-col>
-            <ion-col col-3 no-padding>
-              <h3 class="exp-date">Exp. Date</h3>
+              </ion-col>
+              <ion-col col-3 no-padding>
+                <h3 class="exp-date">Exp. Date</h3>
                 <!-- <ion-item style="background: transparent">
                     <ion-label floating>Name </ion-label>
                     <ion-input placeholder="Name"  type="text"></ion-input>
                   </ion-item> -->
-                  <ion-item style="background: transparent;border:0px" no-padding>
-                      <ion-input style="color: #fff;" placeholder="mm" class="kll" formControlName="expiryMonth" type="number"></ion-input>
-                  </ion-item>
-            </ion-col>
-            <ion-col col-3 no-padding>
-                <ion-item style="background: transparent;border:0px;margin-top: 19px;" no-padding>
-                    <ion-input style="color: #fff;" placeholder="yyyy" class="kll"  formControlName="expiryYear" type="number"></ion-input>
+                <ion-item style="background: transparent;border:0px" no-padding>
+                  <ion-input style="color: #fff;" placeholder="mm" class="kll" formControlName="expiryMonth"
+                    type="number"></ion-input>
                 </ion-item>
-              
-                  
-            </ion-col>
-          </ion-row>
+              </ion-col>
+              <ion-col col-3 no-padding>
+                <ion-item style="background: transparent;border:0px;margin-top: 19px;" no-padding>
+                  <ion-input style="color: #fff;" placeholder="yyyy" class="kll" formControlName="expiryYear"
+                    type="number"></ion-input>
+                </ion-item>
 
-      </ion-card>
-      <ion-card class="payment_card background_image2" >
-       <ion-item style="background: transparent;border:0px;margin-top: 40px">
 
-              <ion-label  style="color: #333">CVV</ion-label>
-      
-              <ion-input  class="klll"  formControlName="CVC" type="number"></ion-input>
+              </ion-col>
+            </ion-row>
+
+          </ion-card>
+          <ion-card class="payment_card background_image2">
+            <ion-item style="background: transparent;border:0px;margin-top: 40px">
+
+              <ion-label style="color: #333">CVV</ion-label>
+
+              <ion-input class="klll" formControlName="CVC" type="number"></ion-input>
             </ion-item>
             <img src="assets/imgs/visaa.png" style="width: 80%;">
             <!-- <div style=" float: right;margin-top: -14%;">
               <img src="assets/imgs/cvv.jpg" style="width: 90px;">
             </div> -->
 
-      </ion-card>
-      
-      <div class="no-border"  *ngIf="!PaymentForm.controls.creditcardno.valid">
-        <!-- <p style="color: #ea6153;text-align:center; margin-top:0px;margin-bottom:3px;">Please enter a valid card number.</p> -->
-      </div>
+          </ion-card>
 
-     
-      <!-- <ion-item style="background: transparent">
+          <div class="no-border" *ngIf="!PaymentForm.controls.creditcardno.valid">
+            <!-- <p style="color: #ea6153;text-align:center; margin-top:0px;margin-bottom:3px;">Please enter a valid card number.</p> -->
+          </div>
+
+
+          <!-- <ion-item style="background: transparent">
         <ion-label floating>Expiration Year(xxxx)</ion-label>
       </ion-item> -->
-      
-    </ion-list>
 
-    <ion-list *ngIf="!globals.coas_flag" no-lines style="padding:5px ; margin-top:0px; padding-top: 0px;padding-bottom:0px;margin-bottom:0px;">
-      <ion-item style="background: transparent">
-        <ion-label>Save Credit Card Information</ion-label>
-        <ion-checkbox formControlName="cardinfo" (ionChange)="Savecreditcard()"></ion-checkbox>
-      </ion-item>
-      <!-- <ion-row style="margin-top: 0px; padding-top: 0px; margin-bottom: 0px;
+        </ion-list>
+
+        <ion-list *ngIf="!globals.coas_flag" no-lines
+          style="padding:5px ; margin-top:0px; padding-top: 0px;padding-bottom:0px;margin-bottom:0px;">
+          <ion-item style="background: transparent">
+            <ion-label>Save Credit Card Information</ion-label>
+            <ion-checkbox formControlName="cardinfo" (ionChange)="Savecreditcard()"></ion-checkbox>
+          </ion-item>
+          <!-- <ion-row style="margin-top: 0px; padding-top: 0px; margin-bottom: 0px;
       padding-bottom:0px;">
     
         <ion-col style="margin:auto">
@@ -167,45 +174,51 @@
         </ion-col>
     
       </ion-row> -->
-<!--      
+          <!--      
       <button ion-button type="submit" clear (click)="changeaddress()" style="margin-top:2%;width:95%; margin-left:2.5%;"
       block>Change Address </button> -->
 
-    </ion-list>
+        </ion-list>
 
 
-   
-    </div>
+
+      </div>
 
 
-      <ion-label style="font-size:2.5rem; color:rgb(102, 102, 102);; padding:10px; margin-left: 8px; margin-right: 4px;margin-bottom: 3px;margin-top: 3px;"  [ngStyle]="{ 'margin-top' : (cash_on_delivery == true) ? '30%' : '0%' }">
+      <ion-label
+        style="font-size:2.5rem; color:rgb(102, 102, 102);; padding:10px; margin-left: 8px; margin-right: 4px;margin-bottom: 3px;margin-top: 3px;"
+        [ngStyle]="{ 'margin-top' : (cash_on_delivery == true) ? '30%' : '0%' }">
         Total
         <p style="float:right;font-size:2.5rem;color:rgb(102, 102, 102);margin-top: 0px;"> ${{amount}}</p>
       </ion-label>
-    
-       <ion-row style="margin-bottom: 22% !important;">
-          <ion-col col-6>
-               <button  ion-button type="submit" color='jack' round *ngIf="!cash_on_delivery && amount > 0"  (click)="payment_type(this.PaymentForm.value)" block>Make Payment</button>
-               <button  ion-button type="submit" color='jack' round *ngIf="cash_on_delivery || amount == 0"  (click)="payment_on_delivery()" block>Submit</button>
 
-          </ion-col>
-          <ion-col col-6>
-        <button  ion-button outline (click)="cancel()" round style="color:#c0392b !important;" color='danger' block   block>Cancel</button>
+      <ion-row style="margin-bottom: 22% !important;">
+        <ion-col col-6>
+          <button ion-button outline (click)="cancel()" round style="color:#c0392b !important;" color='danger' block
+            block>Cancel</button>
 
-            </ion-col>
-        </ion-row>
-    
-    <!-- <ion-label style="font-size:2.5rem;font-weight: bold; color:white;m.value)" style="margin-top: 5%;width:95%; margin-left:2.5%;"
+        </ion-col>
+        <ion-col col-6>
+          <button ion-button type="submit" color='jack' round *ngIf="!cash_on_delivery && amount > 0"
+            (click)="cash_discount_confirmation('credit',this.PaymentForm.value)" block>Make Payment</button>
+          <button ion-button type="submit" color='jack' round *ngIf="cash_on_delivery || amount == 0"
+            (click)="cash_discount_confirmation('cash')" block>Submit</button>
+
+        </ion-col>
+
+      </ion-row>
+
+      <!-- <ion-label style="font-size:2.5rem;font-weight: bold; color:white;m.value)" style="margin-top: 5%;width:95%; margin-left:2.5%;"
       block>Make Payment </button> -->
-  </form>
-  
-</div>
+    </form>
+
+  </div>
 
 
 </ion-content>
 
 
-  <!--<ion-content>
+<!--<ion-content>
  <ion-label floating>Card Number</ion-label>
 <ion-input [(ngModel)]="cardinfo.number" placeholder="card number"></ion-input>
  <ion-label floating>Expiry Month</ion-label> padding:10px; background:#333; margin-left: 8px;">

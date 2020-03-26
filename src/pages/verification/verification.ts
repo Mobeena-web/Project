@@ -21,11 +21,14 @@ export class VerificationPage {
     data: any;
     submitAttempt: boolean = false;
     VerficationForm: FormGroup;
+    type = 'email';
     constructor(public server: ServerProvider, public globals: GlobalVariable, public alertCtrl: AlertController, public loadingCtrl: LoadingController, public viewCtrl: ViewController, public formBilder: FormBuilder, public navCtrl: NavController, public navParams: NavParams) {
 
         this.VerficationForm = formBilder.group({
-            email: ['', Validators.compose([Validators.required, EmailValidator.isValid])],
-            password: ['', Validators.compose([Validators.minLength(6), Validators.required])]
+            email: [''],
+            // password: ['', Validators.compose([Validators.minLength(6), Validators.required])]
+            phone:[],
+            code:['+1']
         })
     }
 
@@ -34,7 +37,7 @@ export class VerificationPage {
     }
     Verify(VerifyData: any) {
 
-        let response = this.server.ForgotPassword(VerifyData.email);
+        let response = this.server.ForgotPassword(VerifyData);
         let loading = this.loadingCtrl.create({
             content: "Please wait...",
             dismissOnPageChange: true,
@@ -47,7 +50,7 @@ export class VerificationPage {
             if (this.response.status == "true") {
 
                 let alert = this.alertCtrl.create({
-                    title: 'Congratulation',
+                    title:'',
                     subTitle: this.response.description,
 
                     buttons: ['done']
