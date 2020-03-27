@@ -6,7 +6,7 @@
 -->
 
 <ion-content class="main-view">
-  <ion-icon name="close" (click)="closetohome()" class="gn"></ion-icon>
+  <!-- <ion-icon name="close" (click)="closetohome()" class="gn"></ion-icon> -->
   <div class="overlay">
     <!-- <ion-buttons end> 
     <button ion-button (click)="dismiss()">
@@ -50,13 +50,18 @@
       </ion-select>
     </ion-item>
     <ion-item>
-      <ion-label style="text-transform: capitalize">{{globals.OrderType}} time </ion-label>
+      <ion-label style="text-transform: capitalize">{{globals.OrderType}} Type </ion-label>
       <ion-select [(ngModel)]="globals.order_time">
-        <ion-option *ngIf="globals.OrderType == 'delivery'" value="now">Now ({{globals.pickupsetting}})</ion-option>
-        <ion-option *ngIf="globals.OrderType == 'pickup'" value="now">Now ({{globals.pickup_Time}})</ion-option>
-
+        <ion-option  value="now">ASAP </ion-option>
         <ion-option value="schedule">Schedule</ion-option>
       </ion-select>
+    </ion-item>
+
+    <ion-item *ngIf="globals.order_time == 'now'">
+      <ion-label style="text-transform: capitalize">{{globals.OrderType}} time </ion-label>
+      <ion-label style="text-align: right" *ngIf="globals.OrderType == 'delivery'" >Now({{globals.pickupsetting}})</ion-label>
+      <ion-label style="text-align: right" *ngIf="globals.OrderType == 'pickup'" >Now({{globals.pickup_Time}})</ion-label>
+      
     </ion-item>
 
     <ion-item class="time_d" *ngIf="globals.order_time == 'schedule'">
