@@ -111,7 +111,7 @@ export class GlobalVariable {
 
 
     //kiosk flag true if building for kiosk
-    caos_flag: boolean = true;
+    caos_flag: boolean = false;
     caos_udid = 'e2c40e9f0a';
 
 
