@@ -435,24 +435,26 @@ export class ModalPage {
     this.globals.long = lng;
     var mycoordinates = lat + "," + lng;
     let response = this.server.getAddress(mycoordinates, this.branchId);
-    console.log('cordinates..', mycoordinates);
     var myadress = "";
     response.subscribe(data => {
       this.loadMap(lat, lng);
-      console.log('data', data);
       myadress = data.address;
       this.globals.address = myadress;
 
       this.globals.inradius = data.in_radius;
-      console.log('data radius....', data.in_radius);
+
+      if(data.delivery_meta && data.delivery_meta.id){
+        this.globals.pickupsetting = data.delivery_meta.delivery_time;
+        this.globals.minimun_order = data.delivery_meta.delivery_minimum_order;
+        this.globals.deliveryCharges = data.delivery_meta.delivery_fee;
+      
+      }
       if (data.in_radius == false) {
         this.globals.alertMessage("Sorry", "We don't deliver in your Area.");
-        console.log('dont deliver in your area')
 
         if (this.globals.pickup == true) {
           this.type = "pickup";
           this.globals.OrderType = this.type;
-          console.log("pickup set in order")
         }
         else {
           this.navCtrl.pop();
