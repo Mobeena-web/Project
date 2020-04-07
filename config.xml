@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget android-versionCode="330001" id="com.mikronexus.glensdinette" ios-CFBundleVersion="4.0" version="4.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>Glen's Dinette</name>
+<widget android-versionCode="1" id="com.mikronexus.onlineordering.goldenorange" ios-CFBundleVersion="1.0" version="1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Golden Orange Deli</name>
     <description>A reward and loyalty punch card app.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Mikronexus</author>
     <content src="index.html" />
@@ -34,7 +34,7 @@
     <preference name="AndroidPersistentFileLocation" value="Compatibility" />
     <platform name="android">
         <preference name="AndroidPersistentFileLocation" value="Compatibility" />
-        <preference name="CodePushDeploymentKey" value="7ySNN48t8ERGZgyn4rl-nrl0vMLd825c21f6-a7db-48ef-9c52-6d07f9cb9685" />
+        <preference name="CodePushDeploymentKey" value="u1a0MJWynfTWV375Yx8wKzNO51RfnUdiOFEkH" />
         <allow-intent href="market:*" />
         <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png" />
         <icon density="mdpi" src="resources/android/icon/drawable-mdpi-icon.png" />
@@ -56,7 +56,7 @@
         <splash density="port-xxxhdpi" src="resources/android/splash/drawable-port-xxxhdpi-screen.png" />
     </platform>
     <platform name="ios">
-        <preference name="CodePushDeploymentKey" value="_TEgMaoBBaE8jvsVneHmlC-nDeYS825c21f6-a7db-48ef-9c52-6d07f9cb9685" />
+        <preference name="CodePushDeploymentKey" value="OVJjPXladKx1KUBwpCWV1df3ivuMhTF9fOhNJ" />
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
         <icon height="57" src="resources/ios/icon/icon.png" width="57" />
@@ -145,6 +145,7 @@
     <plugin name="cordova-plugin-code-push" spec="~1.12.0" />
     <plugin name="cordova-plugin-file-transfer" spec="^1.7.1" />
     <plugin name="cordova-plugin-zip" spec="^3.1.0" />
+    <plugin name="onesignal-cordova-plugin" spec="~2.4.6" />
     <plugin name="com-sarriaroman-photoviewer" spec="^1.1.18" />
     <plugin name="cordova-plugin-whitelist" spec="^1.3.4" />
     <plugin name="cordova-plugin-file" spec="~6.0.2" />
