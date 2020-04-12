@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget android-versionCode="1" id="com.mikronexus.onlineordering.goldenorange" ios-CFBundleVersion="1.0" version="1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>Golden Orange Deli</name>
+<widget android-versionCode="330001" id="com.mikronexus.onlineorder.alitalia" ios-CFBundleVersion="4.0" version="4.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Alitalia Pizzeria</name>
     <description>A reward and loyalty punch card app.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Mikronexus</author>
     <content src="index.html" />
@@ -34,7 +34,7 @@
     <preference name="AndroidPersistentFileLocation" value="Compatibility" />
     <platform name="android">
         <preference name="AndroidPersistentFileLocation" value="Compatibility" />
-        <preference name="CodePushDeploymentKey" value="u1a0MJWynfTWV375Yx8wKzNO51RfnUdiOFEkH" />
+        <preference name="CodePushDeploymentKey" value="CQi-Po7C_sf-v8JD1q1xJUHkDY1r825c21f6-a7db-48ef-9c52-6d07f9cb9685" />
         <allow-intent href="market:*" />
         <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png" />
         <icon density="mdpi" src="resources/android/icon/drawable-mdpi-icon.png" />
@@ -56,7 +56,7 @@
         <splash density="port-xxxhdpi" src="resources/android/splash/drawable-port-xxxhdpi-screen.png" />
     </platform>
     <platform name="ios">
-        <preference name="CodePushDeploymentKey" value="OVJjPXladKx1KUBwpCWV1df3ivuMhTF9fOhNJ" />
+        <preference name="CodePushDeploymentKey" value="5XrCrh_U9lA9xkKloh90-felUpJ-825c21f6-a7db-48ef-9c52-6d07f9cb9685" />
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
         <icon height="57" src="resources/ios/icon/icon.png" width="57" />
