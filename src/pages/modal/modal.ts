@@ -372,26 +372,51 @@ export class ModalPage {
 
 
    process(ProcessData: any) {
-     
+
     if (this.globals.order_time == 'schedule') {
       localStorage.setItem("scheduled_time", this.globals.myDate);
-
-       this.checkTimingLater();
-
     }
     else{
       localStorage.setItem("scheduled_time", undefined);
-
     }
 
     localStorage.setItem("GetAddress", this.globals.address);
 
-    //this.checkTiming();  
-    this.globals.OrderType = 'delivery';
-    this.dismiss();
-    // this.viewCtrl.dismiss();
+
+    if(this.globals.OrderType == 'delivery'){
+      
+      this.checkTimingLater(this.globals.delivery_timing).then((resp) => {
+        this.dismiss()
+       }).catch((error) => {
+        })
+     }
+     else{
+      this.checkTimingLater(this.globals.pickup_timing).then((resp) => {
+        this.dismiss()
+
+      }).catch((error) => {
+       })
+     
+     }
+     
+    
+
     this.globals.save_check = true;
 
+  }
+
+  process_cancel(){
+    if (this.globals.order_time == 'schedule') {
+      localStorage.setItem("scheduled_time", this.globals.myDate);
+    }
+    else{
+      localStorage.setItem("scheduled_time", undefined);
+    }
+
+    localStorage.setItem("GetAddress", this.globals.address);
+
+
+   this.dismiss();
   }
 
   secondModal() {
@@ -605,16 +630,21 @@ export class ModalPage {
     this.zipcode = "";
     this.state = "";
   }
+
   Updateyourorder() {
+
+    if(this.globals.OrderType == 'delivery'){
+      this.checkTimingLater(this.globals.delivery_timing);
+     }
+     else{
+      this.checkTimingLater(this.globals.pickup_timing);
+     }
+
     if (this.globals.order_time == 'schedule') {
       localStorage.setItem("scheduled_time", this.globals.myDate);
-
-       this.checkTimingLater();
-
     }
     else{
       localStorage.setItem("scheduled_time", undefined);
-
     }
 
     this.globals.OrderType = "pickup"
@@ -729,11 +759,9 @@ export class ModalPage {
   //     }, 101); // Priority 101 will override back button handling (we set in app.component.ts) as it is bigger then priority 100 configured in app.component.ts file */
   // }   
 
-  checkTimingLater() {
-    this.type = this.globals.OrderType;
-    if (this.type == "delivery") {
-
-      if (this.globals.delivery_timing) {
+  checkTimingLater(timing) {
+    return new Promise( (resolve, reject) => {
+      if (this.globals.order_time == 'schedule') {
         var response: any;
 
         if (this.globals.specific_delivery_day == 'true') {
@@ -765,7 +793,7 @@ export class ModalPage {
             else {
               localStorage.setItem("scheduled_time", this.globals.myDate);
             }
-            let current_day = this.globals.delivery_timing[this.day];
+            let current_day = timing[this.day];
             var n = current_day[0].indexOf('.');
             if (n != -1) {
               var res = current_day[0].split(".");
@@ -780,20 +808,19 @@ export class ModalPage {
             console.log(this.day, this.time, current_day)
             if (current_day[0] != 'opened') {
               if ((Number(current_day[0]) <= Number(this.time) && Number(current_day[1]) > Number(this.time)) || (Number(current_day[0]) <= Number(this.time) && Number(current_day[1]) < Number(current_day[0]))) {
-
-                return true;
+                resolve(true);
               }
               else if (current_day[0] == 'opened' && current_day[1] == 'opened') {
-                return true;
+                resolve(true);
+
               }
               else {
-                this.globals.presentToast('Sorry, we are not serving at this time!')
-
-                return false;
+                this.globals.presentToast('Sorry, we are not serving '+ this.globals.OrderType +' at this time.Please reschedule it.')
+                reject(true)
               }
             }
             else {
-              return true;
+              resolve(true);
             }
           }
 
@@ -804,90 +831,37 @@ export class ModalPage {
 
       }
       else {
-        return true;
-      }
-    }
-    else {
+        var date = new Date();
+        var day: any = date.getDay();
+        var time: any = date.getHours() + "." + date.getMinutes();
+        time = Number(time);
 
-      if (this.globals.pickup_timing) {
-        var response: any;
-        if (this.globals.specific_delivery_day == 'true') {
-          response = this.server.date_convert(this.globals.myDate.format('DD-MM-YYYY'));
+        var current_day = timing[day];
 
+        var n = current_day[0].indexOf('.');
+        if (n != -1) {
+            var res = current_day[0].split(".");
+            current_day[0] = res[0] + '.' + '3'
+        }
+        var n1 = current_day[1].indexOf('.');
+        if (n1 != -1) {
+            var res = current_day[1].split(".");
+            current_day[1] = res[0] + '.' + '3'
+        }
+
+        if ((Number(current_day[0]) <= time && Number(current_day[1]) > time) || (Number(current_day[0]) <= time && Number(current_day[1]) < Number(current_day[0]))) {
+          resolve(true)
+        }
+        else if (current_day[0] == 'opened' && current_day[1] == 'opened') {
+            resolve(true)
         }
         else {
-          response = this.server.date_convert(this.globals.myDate);
+          this.globals.presentToast('Sorry, we are not serving '+ this.globals.OrderType +' at this time.Please reschedule it.')
+            reject(true)
         }
-        let loading = this.loadingCtrl.create({
-          content: "Loading...",
-        });
-        loading.present();
-        response.subscribe(data => {
-          loading.dismiss();
-          if (data.success == true) {
-            this.day = data.day_id + 1;
-            if (this.day == 7) {
-              this.day = 0;
-            }
-            this.time = data.time;
-
-            this.globals.schedule_day_id = data.day_id;
-            this.globals.schedule_converted_time = data.time;
-
-            if (this.globals.specific_delivery_day == 'true') {
-              localStorage.setItem("scheduled_time", this.globals.myDate.format('DD-MM-YYYY'));
-            }
-            else {
-              localStorage.setItem("scheduled_time", this.globals.myDate);
-            }
-            console.log("setting scheduled time 2", this.globals.myDate);
-            let current_day = this.globals.pickup_timing[this.day];
-            var n = current_day[0].indexOf('.');
-            if (n != -1) {
-              var res = current_day[0].split(".");
-              current_day[0] = res[0] + '.' + '3'
-            }
-            var n1 = current_day[1].indexOf('.');
-            if (n1 != -1) {
-              var res = current_day[1].split(".");
-              current_day[1] = res[0] + '.' + '3'
-            }
-            // this.time = this.time.toString();
-            console.log(this.day, this.time, current_day)
-            //if (current_day[0] != 'opened') {
-            if ((Number(current_day[0]) <= Number(this.time) && Number(current_day[1]) > Number(this.time)) || (Number(current_day[0]) <= Number(this.time) && Number(current_day[1]) < Number(current_day[0]))) {
-
-              return true;
-            }
-            else if (current_day[0] == 'opened' && current_day[1] == 'opened') {
-              return true;
-            }
-
-            else {
-              this.globals.presentToast('Sorry, we are not serving at this time!')
-
-              return false;
-            }
-            // }
-            // else {
-            //   this.viewCtrl.dismiss('CategoryPage');
-            //   this.presentModal();
-            //     return true;   
-            // }
-          }
-
-        }, error => {
-          this.globals.presentToast("Something went wrong check your internet connection.")
-
-        });
-
       }
-      else {
-        return true;
-      }
-
-      // return true;
+    });
+     
     }
-
-  }
+    
 }

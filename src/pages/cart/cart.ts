@@ -1660,10 +1660,8 @@ export class CartPage {
             var day: any = date.getDay();
             var time: any = date.getHours() + "." + date.getMinutes();
             time = Number(time);
-            console.log(day, timing, "pop")
 
             var current_day = timing[day];
-            console.log(current_day, "pop")
 
             var n = current_day[0].indexOf('.');
             if (n != -1) {
@@ -1675,7 +1673,6 @@ export class CartPage {
                 var res = current_day[1].split(".");
                 current_day[1] = res[0] + '.' + '3'
             }
-            //console.log(Number(current_day[0]) ,Number(current_day[1]), time,"time_")
 
             if ((Number(current_day[0]) <= time && Number(current_day[1]) > time) || (Number(current_day[0]) <= time && Number(current_day[1]) < Number(current_day[0]))) {
                 return true;
