@@ -10,6 +10,8 @@ import { MainTabsPage } from '../main-tabs/main-tabs';
 import { IntroPage3Page } from '../intro-page3/intro-page3';
 
 declare var FB: any;
+declare var cordova: any;
+
 
 @IonicPage()
 @Component({
@@ -23,11 +25,11 @@ export class LoginPage {
     // ID: any;
     // date: any;
     places = [];
-    login_type  = 'email';
-    pos_customer:boolean = false;
-    phone:any;
+    login_type = 'email';
+    pos_customer: boolean = false;
+    phone: any;
     code = '+1';
-    profile_complete:any;
+    profile_complete: any;
     constructor(public viewCtrl: ViewController, public server: ServerProvider, public globals: GlobalVariable, private nativeStorage: NativeStorage, public modalCtrl: ModalController, public navCtrl: NavController,
         public navParams: NavParams,
         public loadingCtrl: LoadingController,
@@ -52,11 +54,11 @@ export class LoginPage {
 
 
     createAccount() {
-        this.navCtrl.push(IntroPage3Page,{profile_complete:true});
+        this.navCtrl.push(IntroPage3Page, { profile_complete: true });
     }
 
     register(phone) {
-        this.navCtrl.push(IntroPage3Page,{phone:phone,profile_complete:false})
+        this.navCtrl.push(IntroPage3Page, { phone: phone, profile_complete: false })
     }
 
 
@@ -88,11 +90,11 @@ export class LoginPage {
                         this.viewCtrl.dismiss();
                     }
                     else {
-                        console.log("p",this.profile_complete)
-                        if(!this.profile_complete){
+                        console.log("p", this.profile_complete)
+                        if (!this.profile_complete) {
                             this.register(LoginData.phone);
                         }
-                        else{
+                        else {
                             this.list();
                             this.nativeStorage.setItem('user',
                                 {
@@ -108,38 +110,38 @@ export class LoginPage {
                                     phone_verify: this.data.response.phone_verified,
                                     birthday: this.data.response.birthday,
                                     aniversary: this.data.response.anniversary
-    
+
                                 }).then(() => {
-                                    
+
                                     this.SaveMobileNumberFlag(this.data.response.mobile_verification_amount, this.data.response.phone_verified);
                                     // this.server.initializePushToken();
                                     if (this.globals.caos_flag) {
-    
+
                                         this.navCtrl.push('CartPage')
                                     }
                                     else {
                                         this.navCtrl.setRoot(HomePage, { imageData: this.data.response.url, Flag: false });
-    
+
                                     }
-    
+
                                 })
                                 .catch((err) => {
                                     console.log("nativesstorage", err)
-    
+
                                     this.SaveMobileNumberFlag(this.data.response.mobile_verification_amount, this.data.response.phone_verified);
-    
+
                                     if (this.globals.caos_flag) {
-    
+
                                         this.navCtrl.push('CartPage')
                                     }
                                     else {
                                         this.navCtrl.setRoot(HomePage, { imageData: this.data.response.url, Flag: false });
-    
+
                                     }
                                     // this.server.initializePushToken();
                                 });
                         }
-                        
+
 
 
                     }
@@ -239,7 +241,7 @@ export class LoginPage {
             this.globals.orders_enabled = this.places[0].orders_enabled;
             this.globals.BusinessDiscount = this.places[0].discount;
 
-console.log("pop",this.globals.BusinessDiscount)
+            console.log("pop", this.globals.BusinessDiscount)
             if (this.globals.pickup == '1') {
                 this.globals.pickup = true;
             }
@@ -281,16 +283,16 @@ console.log("pop",this.globals.BusinessDiscount)
 
     }
 
-    check_phone_number(){
+    check_phone_number() {
         this.pos_customer = true;
     }
 
-    cancel_pos(){
+    cancel_pos() {
         this.pos_customer = false;
 
     }
 
-    complete_profile(){
+    complete_profile() {
         let loading = this.loadingCtrl.create({
             content: "Please wait..."
         });
@@ -300,14 +302,14 @@ console.log("pop",this.globals.BusinessDiscount)
             loading.dismiss();
             this.globals.presentToast(data.message);
 
-            if(!data.success){
+            if (!data.success) {
                 this.pos_customer = false;
             }
-            else{
-                if(data.data.profile_complete){
+            else {
+                if (data.data.profile_complete) {
                     this.pos_customer = false;
                 }
-                else{
+                else {
                     //this.register();
                 }
             }
@@ -317,7 +319,21 @@ console.log("pop",this.globals.BusinessDiscount)
 
 
         });
-        
+
+    }
+
+    doAppleLogin() {
+        cordova.plugins.SignInWithApple.signin(
+            { requestedScopes: [0, 1] },
+            function (succ) {
+                console.log(succ)
+                alert(JSON.stringify(succ))
+            },
+            function (err) {
+                console.error(err)
+                console.log(JSON.stringify(err))
+            }
+        )
     }
 
 

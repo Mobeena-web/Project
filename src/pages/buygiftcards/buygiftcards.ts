@@ -96,7 +96,7 @@ action:any='';
            console.log("response without json", response);
             response.subscribe(data => {
                 this.globals.presentToast(data.message)
-                this.navCtrl.pop();
+                this.navCtrl.pop().then(() => this.navCtrl.pop());
                 loading.dismiss();
             }
                 , error => {
@@ -126,7 +126,8 @@ action:any='';
                     console.log("response without json", response);
                     response.subscribe(data => {
                         this.globals.presentToast(data.message)
-                        this.navCtrl.pop();
+                        this.navCtrl.pop().then(() => this.navCtrl.pop());
+
                         loading.dismiss();
                       
     

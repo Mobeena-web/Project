@@ -84,6 +84,8 @@
             <div class="signup_message">Don't have an Account? <span (tap)="createAccount()">Sign Up</span></div>
             <button ion-button block margin-top color='primary' type="submit" class="login"
               (tap)="login(this.loginForm.value)" block>Sign In</button>
+              <button ion-button block margin-top color='primary' type="submit" class="login"
+              (tap)="doAppleLogin()" block>Sign In with Apple</button>
             <!-- <button ion-button class="signUp" block (click)="createAccount()">Sign up</button> -->
           </div>
         </form>
