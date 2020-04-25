@@ -29,6 +29,8 @@ design_card:any;
 message:any;
 amount:any;
 action:any='';
+cash_discount = 0;
+
   constructor(public server: ServerProvider, private nativeStorage: NativeStorage, public alertCtrl: AlertController, public loadingCtrl: LoadingController, public globals: GlobalVariable,public viewCtrl: ViewController, public formBuilder: FormBuilder, public stripe: Stripe, public http: Http, public navCtrl: NavController, public navParams: NavParams) {
     this.PaymentForm = formBuilder.group({
       creditcardno: ['', Validators.compose([Validators.minLength(10), Validators.maxLength(16), Validators.pattern('[0-9]*'), Validators.required])],
@@ -154,6 +156,43 @@ action:any='';
 
 cancel(){
     this.navCtrl.pop();
+}
+
+cash_discount_confirmation(payment_data) {
+    if (this.globals.cash_discount_enabled  && !this.cash_discount) {
+        var discount_: any = ((Number(this.globals.cash_discount_percentage) / 100) * Number(this.amount)).toFixed(2);
+
+        discount_ = (Number(discount_) + Number(this.globals.cash_discount_value));
+
+        let alert = this.alertCtrl.create({
+            title: 'Please Note',
+            message: ' Your total amount will be $' + (Number(this.amount) + Number(discount_)).toFixed(2) + ' as of convenience charge.',
+            buttons: [
+                {
+                    text: 'Cancel',
+                    role: 'cancel',
+                    handler: () => {
+                        console.log('Cancel clicked');
+
+                    }
+                },
+                {
+                    text: 'OK',
+                    handler: () => {
+                        this.cash_discount = discount_;
+                        this.amount = (Number(this.amount) + Number(discount_)).toFixed(2);
+
+                        this.pay(payment_data)
+                    }
+                }
+            ]
+        });
+        alert.present();
+    }
+    else {
+        this.pay(payment_data)
+    }
+
 }
 
 
