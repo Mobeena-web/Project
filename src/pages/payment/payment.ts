@@ -427,7 +427,8 @@ export class PaymentPage {
                     // {
                     //     this.myDate = "current";
                     // }
-                    this.OrderStatus(this.Address);
+                    console.log("order status was being called here. but commented becasue it was no longer used");
+                    // this.OrderStatus(this.Address);
 
 
                 }

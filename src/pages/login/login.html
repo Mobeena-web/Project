@@ -1,10 +1,10 @@
 <ion-content style="background-color: #fff;" class="Open-Sans-regular">
 
   <div style="font-family: Open Sans;" class="title1">
-    <img src={{globals.b_logo}} style="    position: relative; left: 26%;  width: 50%;  height: auto;  ">
+    <img src={{globals.b_logo}}  class="logo_img">
   </div>
   <div>
-    <ion-segment [(ngModel)]="login_type" color="primary" padding margin-top>
+    <ion-segment [(ngModel)]="login_type" color="primary" padding>
       <ion-segment-button value="email">
         Login With Email
       </ion-segment-button>
@@ -84,6 +84,13 @@
             <div class="signup_message">Don't have an Account? <span (tap)="createAccount()">Sign Up</span></div>
             <button ion-button block margin-top color='primary' type="submit" class="login"
               (tap)="login(this.loginForm.value)" block>Sign In</button>
+
+              <!-- <button showWhen="ios" ion-button block margin-top color='primary' type="submit" class="login_"
+              (tap)="doAppleLogin()" block>
+              <ion-icon name="logo-apple"></ion-icon>
+
+              Sign In with Apple
+            </button> -->
             <!-- <button ion-button class="signUp" block (click)="createAccount()">Sign up</button> -->
           </div>
         </form>

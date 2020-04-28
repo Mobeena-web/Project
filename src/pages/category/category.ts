@@ -123,6 +123,10 @@ export class CategoryPage {
 
             }
 
+            if (day == 7) {
+                day = 0;
+            }
+
             var current_day = Timing[day];
             var n = current_day[0].indexOf('.');
             if (n != -1) {
@@ -136,6 +140,7 @@ export class CategoryPage {
             }
 
             time = Number(time);
+
             if (current_day) {
                 if ((Number(current_day[0]) <= time && Number(current_day[1]) > time) || (Number(current_day[0]) <= time && Number(current_day[1]) < Number(current_day[0]))) {
                     return true;
@@ -161,11 +166,9 @@ export class CategoryPage {
 
     time_change() {
         var scheduled_time_ = localStorage.getItem("scheduled_time");
-        console.log("scheduled date is: ", scheduled_time_);
 
         let response = this.server.date_convert(scheduled_time_);
         response.subscribe(data => {
-            console.log("converted scheduled date", data);
             if (data.success == true) {
                 this.s_day = data.day_id + 1;
                 this.s_time = data.time;

@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget android-versionCode="2" id="com.mikronexus.onlineordering.papacinos" ios-CFBundleVersion="2.0" version="2.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>Papa Cinos</name>
+<widget android-versionCode="2" id="com.mikronexus.onlineordering.shaheencafe" ios-CFBundleVersion="2.0" version="2.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Shaheen Cafe</name>
     <description>A reward and loyalty punch card app.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Mikronexus</author>
     <content src="index.html" />
@@ -34,7 +34,7 @@
     <preference name="AndroidPersistentFileLocation" value="Compatibility" />
     <platform name="android">
         <preference name="AndroidPersistentFileLocation" value="Compatibility" />
-        <preference name="CodePushDeploymentKey" value="uU8U5MltRhqudMmnuwD9qzHzrPYknBD2X6deRZ" />
+        <preference name="CodePushDeploymentKey" value="gW-FWopI9GasKli2TXSjRWhgoiX8ljR57R1qo" />
         <allow-intent href="market:*" />
         <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png" />
         <icon density="mdpi" src="resources/android/icon/drawable-mdpi-icon.png" />
@@ -56,7 +56,7 @@
         <splash density="port-xxxhdpi" src="resources/android/splash/drawable-port-xxxhdpi-screen.png" />
     </platform>
     <platform name="ios">
-        <preference name="CodePushDeploymentKey" value="4JaQU5_XLaAEw42URGlDojncuR2trZCN2oEvfo" />
+        <preference name="CodePushDeploymentKey" value="CXV25iA82PMy6Jx_w3-eRBdjnxeXVpGsfa1r6" />
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
         <icon height="57" src="resources/ios/icon/icon.png" width="57" />

@@ -65,8 +65,8 @@ export class CartPage {
     mygifts = [];
     gift_array = [];
     delivery_display: any;
-    tip_type:any='percent';
-    percent_tip_vlaue:any;
+    tip_type: any = 'percent';
+    percent_tip_vlaue: any;
     constructor(public toastCtrl: ToastController, public loadingCtrl: LoadingController, public server: ServerProvider, public modalCtrl: ModalController, public alertCtrl: AlertController, private nativeStorage: NativeStorage, public appCtrl: App, public globals: GlobalVariable, public viewCtrl: ViewController, public navCtrl: NavController, public navParams: NavParams) {
         console.log(globals.BusinessDiscount, globals.availed_discount_count, globals.business_discount_count, "@@@type");
         //  console.log("here is my items of global" ,this.globals.itemInstruction);
@@ -484,10 +484,11 @@ export class CartPage {
             this.globals.BusinessDiscountFlag = true;
         }
 
-       
-
         if ((Number(this.Total) < this.globals.minimun_order || Number(this.Total) < 0) && this.Deliver == true) {
+
+            this.TaxCalculate();
             if (Number(this.ProductsTotal) == 0) {
+
                 this.TaxCalculate();
                 if (this.RewardStoreCreditAvailed > 0) {
                     this.Total = Number(this.Total) - this.RewardStoreCreditAvailed;
@@ -521,10 +522,10 @@ export class CartPage {
             //    this.deliverycharges = Number(this.globals.deliveryCharges);
         }
 
-        if(Number(this.Tip > 0) && this.tip_type == 'manual'){
+        if (Number(this.Tip > 0) && this.tip_type == 'manual') {
             this.Total = Number(this.Total) + Number(this.Tip);
         }
-        else if(this.tip_type == 'percent'){
+        else if (this.tip_type == 'percent') {
             this.percent_tip_(this.percent_tip_vlaue);
         }
 
@@ -903,7 +904,7 @@ export class CartPage {
         else {
             let proceedFlag = true;
             let alert12 = this.alertCtrl.create({
-                title: 'Alert',
+                title: 'Please note',
                 subTitle: 'Cart value must be equal or greater than $' + this.globals.minimun_order + '. Try adding more items in the cart',
                 buttons: ['Okay']
             });
@@ -1305,28 +1306,29 @@ export class CartPage {
     percent_tip(tip) {
         this.tip_type = 'percent';
         this.percent_tip_vlaue = tip;
-        if(tip){
+        if (tip) {
             this.Total = Number(this.Total) - Number(this.Tip);
 
             this.per_tip = ((Number(this.ProductsTotal) / 100) * tip).toFixed(2);
             this.Tip = this.per_tip;
             this.Total = (Number(this.Total) + Number(this.per_tip)).toFixed(2);
         }
-        
+
 
     }
 
     percent_tip_(tip) {
         this.tip_type = 'percent';
         this.percent_tip_vlaue = tip;
-        if(tip){
+        if (tip) {
             this.per_tip = ((Number(this.ProductsTotal) / 100) * tip).toFixed(2);
             this.Tip = this.per_tip;
             this.Total = (Number(this.Total) + Number(this.per_tip)).toFixed(2);
         }
-        
+
 
     }
+
 
     add_gratuity() {
         this.tip_type = 'manual';
@@ -1352,8 +1354,10 @@ export class CartPage {
                 {
                     text: 'OK',
                     handler: data => {
+                        console.log("Tip here >>> ", data);
                         if (data.tip == '') {
                             this.Tip = 0;
+                            this.total();
                         }
                         else {
                             this.Total = this.Total - Number(this.Tip);
@@ -1660,10 +1664,8 @@ export class CartPage {
             var day: any = date.getDay();
             var time: any = date.getHours() + "." + date.getMinutes();
             time = Number(time);
-            console.log(day, timing, "pop")
 
             var current_day = timing[day];
-            console.log(current_day, "pop")
 
             var n = current_day[0].indexOf('.');
             if (n != -1) {
@@ -1675,7 +1677,6 @@ export class CartPage {
                 var res = current_day[1].split(".");
                 current_day[1] = res[0] + '.' + '3'
             }
-            //console.log(Number(current_day[0]) ,Number(current_day[1]), time,"time_")
 
             if ((Number(current_day[0]) <= time && Number(current_day[1]) > time) || (Number(current_day[0]) <= time && Number(current_day[1]) < Number(current_day[0]))) {
                 return true;

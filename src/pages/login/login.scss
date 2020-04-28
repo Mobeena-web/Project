@@ -53,8 +53,17 @@ page-login {
         font-weight: normal;
      }
 
+     .login_{
+        padding: 15px;
+        font-size: 18px;
+        font-weight: normal;
+        ion-icon{
+            margin-right: 10px;
+        }
+     }
+
      .signup-col{
-        margin-top: 70px;
+        margin-top: 7px;
      }
      .signup_message{
          color: #777;
@@ -67,6 +76,14 @@ page-login {
      }
      .signin_label{
          color: #444;
+     }
+
+     .logo_img{
+        height: 130px;
+        width: auto;
+        display: block;
+        margin-left: auto;
+        margin-right: auto
      }
   
 }
