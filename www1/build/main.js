@@ -714,7 +714,7 @@ var GlobalVariable = (function () {
             maxValue: 100,
             width: width,
             text: function (value) { return ''; },
-            colors: [color, '#333'],
+            colors: [color, '#000000'],
             duration: 400,
             wrpClass: 'circles-wrp',
             textClass: 'circles-text',
