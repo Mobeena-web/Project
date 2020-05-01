@@ -122,6 +122,7 @@ cash_discount = 0;
                 
     
                 this.stripe.setPublishableKey(this.globals.StripId);
+                console.log("card info", this.cardinfo, this.amount);
                 this.stripe.createCardToken(this.cardinfo).then((Token) => {
                    
                     let response = this.server.buy_gift_cards( Token.id, this.gift_id,this.udid_r,this.design_card,this.amount,this.message,this.action)
@@ -145,7 +146,7 @@ cash_discount = 0;
     
                 }).catch((data) => {
                     loading.dismiss();
-                    this.globals.presentToast("Invalid Credentials,please try again")
+                    this.globals.presentToast("Invalid Credentials, please try again")
     
                 });
             }
