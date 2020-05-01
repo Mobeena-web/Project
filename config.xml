@@ -1,9 +1,10 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget android-versionCode="2" id="com.mikronexus.onlineordering.shaheencafe" ios-CFBundleVersion="2.0" version="2.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>Shaheen Cafe</name>
+<widget android-versionCode="2" id="com.mikronexus.onlineordering.hersheyicecream" ios-CFBundleVersion="2.0" version="2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Hersheys Ice Cream</name>
     <description>A reward and loyalty punch card app.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Mikronexus</author>
     <content src="index.html" />
+    <access origin="*" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -11,9 +12,8 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
-    <access origin="*" />
-    <allow-navigation href="*" />
     <allow-intent href="*" />
+    <allow-navigation href="*" />
     <preference name="AllowInlineMediaPlayback" value="true" />
     <preference name="loadUrlTimeoutValue" value="700000" />
     <preference name="orientation" value="portrait" />
