@@ -63,12 +63,12 @@
 
 </ion-list>-->
     <div *ngIf="product.menuExtrasSelected">
-      <ion-label color="primary" style="font-size:2.5rem;padding:10px;padding-left:20px;  margin-top:0;  background: #000000; color: white;text-align: center; margin-right: 0;">
+      <ion-label color="primary" style="font-size:2.5rem;padding:10px;padding-left:20px;  margin-top:0;  background: #7d4148; color: white;text-align: center; margin-right: 0;">
         Extras</ion-label>
 
       <ion-list no-lines style="padding:10px;" *ngFor="let toppings of product.menuExtrasSelected;let a=index ">
 
-        <p style="text-align: center;color:#444; border-bottom: solid thin #000000;">
+        <p style="text-align: center;color:#444; border-bottom: solid thin #7d4148;">
           {{toppings.heading}}
         </p>
 
@@ -79,7 +79,7 @@
           <ion-col col-3>
             <ion-label *ngIf="option.isFree == false" style="text-align:center">${{option.quantity*option.price}} </ion-label>
             <ion-label *ngIf="option.isFree == true" style="text-align:right;text-align: center;
-          background: #000000;
+          background: #7d4148;
           color: white;   
           padding: 5px;
           margin-right:0;   
@@ -88,11 +88,11 @@
           <ion-col>
 
             <!-- <ion-row *ngIf="option.isFree == false" style="      
-         background: #000000;
-         margin: 5px; background: #000000">
+         background: #7d4148;
+         margin: 5px; background: #7d4148">
 
-              <ion-col col-4 style="    margin: auto;  padding: 0;  background: #000000;text-align: center;" (tap)="removeOptionQuantity(product,option)">
-                <button ion-button small style="    background-color: #000000;text-align: center;  padding: 0; margin: 0;">
+              <ion-col col-4 style="    margin: auto;  padding: 0;  background: #7d4148;text-align: center;" (tap)="removeOptionQuantity(product,option)">
+                <button ion-button small style="    background-color: #7d4148;text-align: center;  padding: 0; margin: 0;">
                   <ion-icon style="font-weight:bold" name="remove"> </ion-icon>
                 </button>
 
@@ -102,8 +102,8 @@
                 <p style=" color:white;font-weight:bold"> {{option.quantity}} </p>
               </ion-col>
 
-              <ion-col col-4 style="    margin: auto;  padding: 0;   background: #000000;text-align: center;" (tap)="addOptionQuantity(product,option)">
-                <button ion-button small style="    background-color: #000000;text-align: center;   padding: 0; margin: 0;">
+              <ion-col col-4 style="    margin: auto;  padding: 0;   background: #7d4148;text-align: center;" (tap)="addOptionQuantity(product,option)">
+                <button ion-button small style="    background-color: #7d4148;text-align: center;   padding: 0; margin: 0;">
                   <ion-icon style="font-weight:bold" name="add"> </ion-icon>
                 </button>
 

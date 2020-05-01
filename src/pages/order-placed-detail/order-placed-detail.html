@@ -54,7 +54,7 @@
 
     <ion-label style="text-align: center;
   font-size: 1.7rem;
-  background: #000000;
+  background: #7d4148;
   margin-bottom: 0;
   margin-right: 0;
   color: white;
@@ -78,7 +78,7 @@
         </ion-col>
 
         <div style="margin-bottom: 5px;background:white;width: 100%;" *ngIf="order.menuExtrasSelected.length > 0">
-          <ion-label style="font-size:2rem;  margin-top:0;  font-size: 2rem; background: #000000;  padding: 5px; margin-left:0; margin-right:0;text-align: center;  color: white;">Extras </ion-label>
+          <ion-label style="font-size:2rem;  margin-top:0;  font-size: 2rem; background: #7d4148;  padding: 5px; margin-left:0; margin-right:0;text-align: center;  color: white;">Extras </ion-label>
           <div style="    padding-left: 10px;" *ngFor="let extra of order.menuExtrasSelected ">
             <!-- <ion-label>{{extra.heading}} </ion-label>  -->
             <ion-row *ngFor="let option of extra.optionNameSelected ">
@@ -88,7 +88,7 @@
               <ion-col style="text-align:center">
                 <p *ngIf="option.isFree == false">${{option.price}} </p>
                 <ion-label *ngIf="option.isFree == true" style="text-align:right;text-align: center;
-                background: #000000;
+                background: #7d4148;
                 color: white;   
                 padding: 5px;
                 margin-right:0;   
@@ -100,7 +100,7 @@
 
 
       </ion-row>
-      <!-- <ion-label style="text-align: center;font-size: 1.7rem;background: #000000;margin-bottom: 0;margin-right: 0;color: white;margin-top:0;padding: 15px;">Customer Detail</ion-label>
+      <!-- <ion-label style="text-align: center;font-size: 1.7rem;background: #7d4148;margin-bottom: 0;margin-right: 0;color: white;margin-top:0;padding: 15px;">Customer Detail</ion-label>
       <p> Name: {{globals.firstName}}{{globals.lastName}} </p>
       <p>Phone:{{globals.o_phone}}</p>
       <p>Email:{{globals.o_email}}</p> -->
