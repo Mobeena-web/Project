@@ -5,21 +5,20 @@
     <author email="hi@ionicframework" href="http://ionicframework.com/">Mikronexus</author>
     <content src="index.html" />
     <access origin="*" />
+    <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
     <allow-intent href="tel:*" />
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
-    <access origin="*" />
-    <allow-navigation href="*" />
     <allow-intent href="*" />
+    <allow-navigation href="*" />
     <preference name="AllowInlineMediaPlayback" value="true" />
     <preference name="loadUrlTimeoutValue" value="700000" />
     <preference name="orientation" value="portrait" />
     <preference name="fullscreen" value="false" />
     <preference name="webviewbounce" value="false" />
-    <preference name="UIWebViewBounce" value="false" />
     <preference name="DisallowOverscroll" value="true" />
     <preference name="android-minSdkVersion" value="19" />
     <preference name="android-targetSdkVersion" value="28" />
@@ -57,6 +56,7 @@
     </platform>
     <platform name="ios">
         <preference name="CodePushDeploymentKey" value="8-r-y7PEhTU6FWX7Eqe5c78mWAB7Zx7UPChbvs" />
+        <preference name="WKWebViewOnly" value="true" />
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
         <icon height="57" src="resources/ios/icon/icon.png" width="57" />

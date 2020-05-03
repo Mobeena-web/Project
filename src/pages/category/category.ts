@@ -112,7 +112,7 @@ export class CategoryPage {
             var date: any;
             var time: any;
             var day: any;
-            if (scheduled_time_) {
+            if (scheduled_time_ && scheduled_time_ != "undefined") {
                 day = this.s_day;
                 time = this.s_time;
             }
@@ -166,25 +166,35 @@ export class CategoryPage {
 
     time_change() {
         var scheduled_time_ = localStorage.getItem("scheduled_time");
+        if (scheduled_time_ && scheduled_time_ != "undefined") {
+            let response = this.server.date_convert(scheduled_time_);
+            response.subscribe(data => {
+                if (data.success == true) {
+                    this.s_day = data.day_id + 1;
+                    this.s_time = data.time;
+                }
 
-        let response = this.server.date_convert(scheduled_time_);
-        response.subscribe(data => {
-            if (data.success == true) {
-                this.s_day = data.day_id + 1;
-                this.s_time = data.time;
-            }
+                var that = this;
+                for (var i = 0; i < this.category.length; i++) {
+                    this.category[i].items = this.category[i].items.filter(function (item) {
+                        return that.checkTiming(item.item_timings) == true;
+                    });
+                }
 
+            }, error => {
+                this.globals.presentToast("Something went wrong check your internet connection.")
+
+            });
+        }
+        else {
             var that = this;
             for (var i = 0; i < this.category.length; i++) {
                 this.category[i].items = this.category[i].items.filter(function (item) {
                     return that.checkTiming(item.item_timings) == true;
                 });
             }
+        }
 
-        }, error => {
-            this.globals.presentToast("Something went wrong check your internet connection.")
-
-        });
     }
 
     getLocation() {
@@ -290,7 +300,7 @@ export class CategoryPage {
             });
             modal.present();
         }
-        else{
+        else {
             if (this.globals.model_flag) {
                 this.globals.model_flag = false;
                 let modal = this.modalCtrl.create('ModalPage');
@@ -300,7 +310,7 @@ export class CategoryPage {
                 modal.present();
             }
         }
-        
+
 
 
     }
