@@ -43,6 +43,7 @@
     "@ionic-native/launch-navigator": "^4.20.0",
     "@ionic-native/native-audio": "^4.20.0",
     "@ionic-native/native-storage": "^4.20.0",
+    "@ionic-native/onesignal": "^4.20.0",
     "@ionic-native/paypal": "^4.20.0",
     "@ionic-native/photo-viewer": "^4.20.0",
     "@ionic-native/pin-dialog": "^4.20.0",
@@ -62,7 +63,7 @@
     "com-sarriaroman-photoviewer": "^1.1.18",
     "cordova-android": "^8.1.0",
     "cordova-browser": "5.0.4",
-    "cordova-ios": "^5.1.0",
+    "cordova-ios": "5.1.1",
     "cordova-plugin-actionsheet": "^2.3.3",
     "cordova-plugin-add-swift-support": "^1.7.2",
     "cordova-plugin-camera": "^3.0.0",
@@ -74,7 +75,8 @@
     "cordova-plugin-file": "^6.0.2",
     "cordova-plugin-file-transfer": "^1.7.1",
     "cordova-plugin-geolocation": "^3.0.0",
-    "cordova-plugin-inappbrowser": "^1.7.2",
+    "cordova-plugin-inappbrowser": "git+https://github.com/kleeb/cordova-plugin-inappbrowser.git",
+    "cordova-plugin-ionic-keyboard": "^2.2.0",
     "cordova-plugin-ionic-webview": "^1.2.1",
     "cordova-plugin-nativeaudio": "^3.0.9",
     "cordova-plugin-nativestorage": "^2.3.2",
@@ -92,7 +94,6 @@
     "es6-promise-plugin": "^4.2.2",
     "ion2-calendar": "^2.2.0",
     "ionic-angular": "3.9.2",
-    "ionic-plugin-keyboard": "^2.2.1",
     "ionic2-rating": "^1.2.2",
     "ionicons": "3.0.0",
     "jquery": "^3.4.1",
@@ -118,7 +119,6 @@
     "plugins": {
       "cordova-plugin-nativeaudio": {},
       "cordova-plugin-pin-dialog": {},
-      "cordova-plugin-inappbrowser": {},
       "phonegap-plugin-barcodescanner": {
         "ANDROID_SUPPORT_V4_VERSION": "27.+"
       },
@@ -137,7 +137,6 @@
         "PHOTO_LIBRARY_ADD_USAGE_DESCRIPTION": "This app requires photo library access to function properly.",
         "PHOTO_LIBRARY_USAGE_DESCRIPTION": "This app requires photo library access to function properly."
       },
-      "ionic-plugin-keyboard": {},
       "cordova-plugin-device": {},
       "cordova-plugin-splashscreen": {},
       "cordova-plugin-ionic-webview": {},
@@ -152,7 +151,9 @@
       "cordova-plugin-file": {},
       "cordova-plugin-statusbar": {},
       "onesignal-cordova-plugin": {},
-      "cordova-plugin-sign-in-with-apple": {}
+      "cordova-plugin-sign-in-with-apple": {},
+      "cordova-plugin-inappbrowser": {},
+      "cordova-plugin-ionic-keyboard": {}
     },
     "platforms": [
       "browser",
