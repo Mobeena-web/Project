@@ -1,9 +1,10 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.mikronexus.raimo" version="0.0.3" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>Raimos</name>
+<widget id="com.mikronexus.onlineordering.hersheyicecream" version="0.0.3" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Hersheys Ice Cream</name>
     <description>A reward and loyalty punch card app.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Mikronexus</author>
     <content src="index.html" />
+    <access origin="*" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -11,9 +12,8 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
-    <access origin="*" />
-    <allow-navigation href="*" />
     <allow-intent href="*" />
+    <allow-navigation href="*" />
     <preference name="AllowInlineMediaPlayback" value="true" />
     <preference name="loadUrlTimeoutValue" value="700000" />
     <preference name="orientation" value="portrait" />
@@ -34,7 +34,7 @@
     <preference name="AndroidPersistentFileLocation" value="Compatibility" />
     <platform name="android">
         <preference name="AndroidPersistentFileLocation" value="Compatibility" />
-        <preference name="CodePushDeploymentKey" value="EWU7ziSfMm54mf4sBKdrT0pKcuOQ825c21f6-a7db-48ef-9c52-6d07f9cb9685" />
+        <preference name="CodePushDeploymentKey" value="Z-2TrTasOFo6X7k37sLpJHYe4zbfRuFL8OwzYK" />
         <allow-intent href="market:*" />
         <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png" />
         <icon density="mdpi" src="resources/android/icon/drawable-mdpi-icon.png" />
@@ -56,7 +56,7 @@
         <splash density="port-xxxhdpi" src="resources/android/splash/drawable-port-xxxhdpi-screen.png" />
     </platform>
     <platform name="ios">
-        <preference name="CodePushDeploymentKey" value="OejNy30H9qCJgWjj4_SBFA8vVPIY825c21f6-a7db-48ef-9c52-6d07f9cb9685" />
+        <preference name="CodePushDeploymentKey" value="4JNwG6j1b-OYqv9gfe_F7KybrjN1aD6wEB8ces" />
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
         <icon height="57" src="resources/ios/icon/icon.png" width="57" />

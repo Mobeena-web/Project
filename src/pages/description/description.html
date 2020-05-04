@@ -31,7 +31,7 @@
     <div *ngIf="slideflag">
       <ion-slides style="background: rgba(0, 0, 0, 0.2);" loop slidesPerView="2">
         <div *ngFor="let hour of opening_hours;let i=index">
-          <ion-slide *ngIf="i== day" style="background:#7d4148;     padding-top: 10px; height: 55px;">
+          <ion-slide *ngIf="i== day" style="background:#00529b;     padding-top: 10px; height: 55px;">
 
 
             <p style="font-weight:bolder;color:white;padding: 1px;"> {{Week[i]}}</p>
@@ -43,10 +43,10 @@
           </ion-slide>
           <ion-slide *ngIf="i!= day" style="  height: 55px;  padding-top: 10px;">
 
-            <p style="font-size:1.2rem;font-weight:bolder;color:#7d4148"> {{Week[i]}}</p>
-            <p *ngIf="hour[0] != 'Opened' && hour[0] != 'Closed' " style="color:#7d4148"> {{hour[0]}} - {{hour[1]}}</p>
-            <p *ngIf="hour[0] == 'Closed' " style="color:#7d4148">Closed</p>
-            <p *ngIf="hour[0] == 'Opened' " style="font-size:1.3rem;color:#7d4148">Open 24 hrs</p>
+            <p style="font-size:1.2rem;font-weight:bolder;color:#00529b"> {{Week[i]}}</p>
+            <p *ngIf="hour[0] != 'Opened' && hour[0] != 'Closed' " style="color:#00529b"> {{hour[0]}} - {{hour[1]}}</p>
+            <p *ngIf="hour[0] == 'Closed' " style="color:#00529b">Closed</p>
+            <p *ngIf="hour[0] == 'Opened' " style="font-size:1.3rem;color:#00529b">Open 24 hrs</p>
 
           </ion-slide>
         </div>
@@ -124,7 +124,7 @@
      margin-top: 5%;">
         Reviews
       </ion-list-header>
-      <p *ngIf="length == 0" class="Open-Sans-bold" style=" color:#7d4148;     text-align:center; font-size: 2.0rem !important; ;padding: 10px;
+      <p *ngIf="length == 0" class="Open-Sans-bold" style=" color:#00529b;     text-align:center; font-size: 2.0rem !important; ;padding: 10px;
      margin-top: 5%;">
         No reviews given yet
       </p>

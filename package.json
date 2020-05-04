@@ -155,9 +155,7 @@
       "cordova-plugin-sign-in-with-apple": {}
     },
     "platforms": [
-      "browser",
-      "android",
-      "ios"
+      "browser"
     ]
   }
 }
