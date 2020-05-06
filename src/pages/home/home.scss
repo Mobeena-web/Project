@@ -350,9 +350,10 @@ font-weight: bold;
         margin-top: 33px;
       }
       .point-star{
-        font-size: 30px;
+        font-size: 20px;
         color: #f1c40f;
-        position: absolute
+        position: absolute;
+        top: 50px;
       }
       .punch_count{
         text-align: center;
@@ -369,7 +370,7 @@ font-weight: bold;
         color: #fff;
       }
       .point_s{
-          padding-top: 11px;
+          padding-top: 30px;
           text-align: center;
           color: #666;
       }
@@ -388,7 +389,7 @@ font-weight: bold;
         margin-top: 9px;
       }
       .pts{
-        margin-top: -16px;
+        // margin-top: -16px;
       }
       .punch_rating{
         font-size: 26px;
@@ -494,9 +495,11 @@ font-weight: bold;
         margin-left: -15px;
         margin-right: -15px;
         margin-top: -15px;
-        margin-bottom: 6px;
+        margin-bottom: 0px;
         white-space: nowrap;
         overflow: hidden;
+        padding: 5px 0px;
+        font-weight: bold;
     }
     
     .marquee span {

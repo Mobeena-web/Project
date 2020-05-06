@@ -47,11 +47,16 @@ page-before-login {
     .bb{
         border-right: 1px solid #ccc;
     }
+    .actionButtons{
+        padding: 15px;
+        font-weight: bold;
+    }
     .welcome{
         margin-top: 30px !important;
     }
-    .icon_img{
-        width: 50%;
-        margin-left: 25%;
-    }
+    // .icon_img{
+    //     width: 50%;
+    //     margin-left: 25%;
+    // }
+    
 }
