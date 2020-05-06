@@ -67,7 +67,7 @@ export class CartPage {
     delivery_display: any;
     tip_type: any = 'percent';
     percent_tip_vlaue: any;
-    ccFee = 0;
+    ccFee:any = 0;
     constructor(public toastCtrl: ToastController, public loadingCtrl: LoadingController, public server: ServerProvider, public modalCtrl: ModalController, public alertCtrl: AlertController, private nativeStorage: NativeStorage, public appCtrl: App, public globals: GlobalVariable, public viewCtrl: ViewController, public navCtrl: NavController, public navParams: NavParams) {
         console.log(globals.BusinessDiscount, globals.availed_discount_count, globals.business_discount_count, "@@@type");
         //  console.log("here is my items of global" ,this.globals.itemInstruction);
@@ -476,6 +476,12 @@ export class CartPage {
             this.ProductsTotal = this.Total;
         }
 
+        if(this.globals.cash_discount_enabled && this.globals.card_enabled){
+            this.ccFee =  ((Number(this.globals.cash_discount_percentage) / 100) * Number(this.ProductsTotal)).toFixed(2);
+            this.ccFee = (Number(this.ccFee) + Number(this.globals.cash_discount_value));
+            this.Total += this.ccFee; 
+        }
+
         if (this.globals.BusinessDiscount > 0 && this.globals.availed_discount_count < this.globals.business_discount_count) {
             this.discountTotal = Number(this.ProductsTotal) * this.globals.BusinessDiscount / 100;
             this.discountTotal = Math.round(this.discountTotal * 100) / 100;
@@ -805,7 +811,7 @@ export class CartPage {
 
                 console.log(this.StoreCreditInput, this.reward_amount);
                 if (flag == false) {
-                    this.navCtrl.push('PaymentPage', { amount: this.Total, StoreCredit: this.StoreCreditInput, notes: this.notes });
+                    this.navCtrl.push('PaymentPage', {ccFee:this.ccFee, amount: this.Total, StoreCredit: this.StoreCreditInput, notes: this.notes });
                     flag = true;
                 }
             }
@@ -834,7 +840,7 @@ export class CartPage {
                 this.globals.BirthdayCreditExist = false;
                 this.globals.BirthdayCreditUtlized = true;
                 if (flag == false) {
-                    this.navCtrl.push('PaymentPage', { amount: this.Total, notes: this.notes });
+                    this.navCtrl.push('PaymentPage', {ccFee:this.ccFee, amount: this.Total, notes: this.notes });
                     flag = true;
                 }
 
@@ -843,7 +849,7 @@ export class CartPage {
 
         else {
             if (flag == false) {
-                this.navCtrl.push('PaymentPage', { amount: this.Total, notes: this.notes });
+                this.navCtrl.push('PaymentPage', {ccFee:this.ccFee, amount: this.Total, notes: this.notes });
 
             }
         }
@@ -887,7 +893,7 @@ export class CartPage {
                     text: 'Proceed to Checkout',
                     handler: () => {
 
-                        this.navCtrl.push('PaymentPage', { amount: this.Total, tip: this.Tip, notes: this.notes, RewardAvailed: this.RewardStoreCreditAvailed, BirthdayCreditavailed: this.birthdayStoreCreditavailed });
+                        this.navCtrl.push('PaymentPage', {ccFee:this.ccFee, amount: this.Total, tip: this.Tip, notes: this.notes, RewardAvailed: this.RewardStoreCreditAvailed, BirthdayCreditavailed: this.birthdayStoreCreditavailed });
 
                     }
                 }
@@ -977,7 +983,7 @@ export class CartPage {
                             }
                             else {
                                 if (this.checkTiming(this.globals.pickup_timing)) {
-                                    this.navCtrl.push('PaymentPage', { giftcard: this.gift_array, amount: this.Total, tip: this.Tip, notes: this.notes, RewardAvailed: this.RewardStoreCreditAvailed, BirthdayCreditavailed: this.birthdayStoreCreditavailed, tax: this.tax_calc });
+                                    this.navCtrl.push('PaymentPage', { ccFee:this.ccFee,giftcard: this.gift_array, amount: this.Total, tip: this.Tip, notes: this.notes, RewardAvailed: this.RewardStoreCreditAvailed, BirthdayCreditavailed: this.birthdayStoreCreditavailed, tax: this.tax_calc });
 
                                 }
 
@@ -1065,7 +1071,7 @@ export class CartPage {
                         }
                         else {
                             if (this.checkTiming(this.globals.pickup_timing)) {
-                                this.navCtrl.push('PaymentPage', { giftcard: this.gift_array, amount: this.Total, tip: this.Tip, notes: this.notes, RewardAvailed: this.RewardStoreCreditAvailed, BirthdayCreditavailed: this.birthdayStoreCreditavailed, tax: this.tax_calc });
+                                this.navCtrl.push('PaymentPage', {ccFee:this.ccFee, giftcard: this.gift_array, amount: this.Total, tip: this.Tip, notes: this.notes, RewardAvailed: this.RewardStoreCreditAvailed, BirthdayCreditavailed: this.birthdayStoreCreditavailed, tax: this.tax_calc });
 
                             }
 
@@ -1127,7 +1133,7 @@ export class CartPage {
                     {
                         text: 'Proceed to Checkout',
                         handler: () => {
-                            this.navCtrl.push('PaymentPage', { giftcard: this.gift_array, amount: this.Total, tip: this.Tip, notes: this.notes, RewardAvailed: this.RewardStoreCreditAvailed, BirthdayCreditavailed: this.birthdayStoreCreditavailed, tax: this.tax_calc });
+                            this.navCtrl.push('PaymentPage', {ccFee:this.ccFee, giftcard: this.gift_array, amount: this.Total, tip: this.Tip, notes: this.notes, RewardAvailed: this.RewardStoreCreditAvailed, BirthdayCreditavailed: this.birthdayStoreCreditavailed, tax: this.tax_calc });
 
                         }
                     }
@@ -1373,6 +1379,10 @@ export class CartPage {
         alert.present();
     }
 
+    showCCFeeMessage(){
+        this.globals.presentToast(this.globals.ccFeeDisclaimer)
+    }
+
     add_notes() {
         let alert = this.alertCtrl.create({
             title: 'Add Notes',
@@ -1526,7 +1536,7 @@ export class CartPage {
                                 if (this.globals.inradius) {
                                     var giftdata = { giftcard_id: data.giftcard_id, amount: this.Total }
                                     this.gift_array.push(giftdata)
-                                    this.navCtrl.push('PaymentPage', { amount: 0, giftcard: this.gift_array, gift_flag: true, tax: this.tax_calc })
+                                    this.navCtrl.push('PaymentPage', {ccFee:this.ccFee, amount: 0, giftcard: this.gift_array, gift_flag: true, tax: this.tax_calc })
                                 }
                                 else {
                                     this.globals.presentToast("Sorry, We dn't deliver in Your Area")
@@ -1537,7 +1547,7 @@ export class CartPage {
                         else {
                             var giftdata = { giftcard_id: data.giftcard_id, amount: this.Total }
                             this.gift_array.push(giftdata)
-                            this.navCtrl.push('PaymentPage', { amount: 0, giftcard: this.gift_array, gift_flag: true, tax: this.tax_calc })
+                            this.navCtrl.push('PaymentPage', {ccFee:this.ccFee, amount: 0, giftcard: this.gift_array, gift_flag: true, tax: this.tax_calc })
                         }
 
 

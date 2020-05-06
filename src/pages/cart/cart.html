@@ -102,13 +102,13 @@
     <ion-label *ngIf="globals.deliveryCharges != '' && globals.OrderType == 'delivery'"
       style="padding:0px;font-size:1.3rem;margin:0px;color:#444;">
       <!-- <ion-icon style="    padding-right: 5px;  position: relative; top: 3px;" name="bicycle"> </ion-icon>  -->
-      Convenient Fee
+      Delivery Fee
       <p style="float:right;font-size:1.3rem;margin:0px;color:#444;">${{delivery_display}}</p>
     </ion-label>
     <ion-label *ngIf="globals.deliveryCharges == '' && globals.OrderType == 'delivery'"
       style="padding:0px;font-size:1.3rem;margin:0px;color:#444;">
       <!-- <ion-icon style="    padding-right: 5px;  position: relative; top: 3px;" name="bicycle"> </ion-icon> -->
-      Convenient Fee
+      Delivery Fee
       <p style="float:right;font-size:1.3rem;margin:0px;color:#444;">$0</p>
     </ion-label>
 
@@ -159,6 +159,13 @@
       <p style="float:right;font-size:1.3rem;margin:0px;color:#444;"> - ${{globals.GainDiscount}}</p>
     </ion-label>
 
+    <ion-label (click)="showCCFeeMessage()"   *ngIf="ccFee > 0" style="padding:0px;font-size:1.3rem;margin:0px; color:#444;">
+      <!-- <ion-icon style="    padding-right: 5px;  position: relative; top: 3px;" ios="ios-cut" md="md-cut"> </ion-icon> -->
+      Convenient Fee
+      <ion-icon  style="margin-left: 6px" name="information-circle"></ion-icon>
+      <p style="float:right;font-size:1.3rem;margin:0px;color:#444;"> ${{ccFee}}</p>
+    </ion-label>
+
     <ion-label style="padding:0px;padding:0px;font-size:1.3rem;margin:0px;color:#444; ">
       <!-- <ion-icon style="padding-right: 5px;  position: relative; top: 3px;" name="copy"> </ion-icon>  -->
       Gratuity
@@ -175,13 +182,7 @@
                   overflow: hidden;
                   max-width: 100%;"> {{notes}}</p>
     </ion-label>
-    <ion-label style="padding:0px;padding:0px;font-size:1.3rem;margin:0px;color:#444;" *ngIf="ccFee != 0">
-      <!-- <ion-icon style="padding-right: 5px;  position: relative; top: 3px;" name="copy"> </ion-icon>  -->
-      CC Fee
-      <!-- <p style="margin: -28px; margin-left: 26px"></p> -->
-      <p style="float:right;font-size:1.3rem;margin:0px;color:#444;"> ${{ccFee}}</p>
-    </ion-label>
-
+ 
 
   </div>
 
@@ -190,7 +191,7 @@
 
 </ion-content>
 <ion-footer>
-  <h3 style="margin-left: 4%;">Tip</h3>
+  <h3 style="margin-left: 4%;">Gratuity</h3>
   <ion-row>
     <ion-col col-4>
       <button ion-button block (click)="percent_tip(8)"> 8% </button>

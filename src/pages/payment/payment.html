@@ -19,7 +19,9 @@
       <!-- <ion-list-header style="padding-top:3px;color:#333;font-weight:bold">
           Payment Method
         </ion-list-header> -->
-     
+      <div class="text_ccfee" *ngIf="globals.cash_discount_enabled">
+        {{globals.ccFeeDisclaimer}}
+      </div>
       <ion-item style="background: transparent;color: #aaa" *ngIf="globals.card_enabled && amount > 0">
         <ion-label>Credit card</ion-label>
         <ion-checkbox [(ngModel)]="creditcard" (click)="creditBox()"></ion-checkbox>
@@ -77,6 +79,13 @@
     
         </div>
       </ion-list> -->
+    <ion-label
+      style="font-size:2.5rem; color:rgb(102, 102, 102);; padding:10px; margin-left: 8px; margin-right: 4px;margin-bottom: 3px;margin-top: 3px;"
+      >
+      Total
+      <p style="float:right;font-size:2.5rem;color:rgb(102, 102, 102);margin-top: 0px;margin-bottom: 0px"> ${{amount}}</p>
+    </ion-label>
+
 
     <form [formGroup]="PaymentForm" ng-submit="pay(this.PaymentForm.value)">
       <div *ngIf="!cash_on_delivery && globals.card_enabled && amount > 0">
@@ -179,13 +188,6 @@
 
       </div>
 
-
-      <ion-label
-        style="font-size:2.5rem; color:rgb(102, 102, 102);; padding:10px; margin-left: 8px; margin-right: 4px;margin-bottom: 3px;margin-top: 3px;"
-        [ngStyle]="{ 'margin-top' : (cash_on_delivery == true) ? '30%' : '0%' }">
-        Total
-        <p style="float:right;font-size:2.5rem;color:rgb(102, 102, 102);margin-top: 0px;"> ${{amount}}</p>
-      </ion-label>
 
       <ion-row style="margin-bottom: 22% !important;">
         <ion-col col-6>

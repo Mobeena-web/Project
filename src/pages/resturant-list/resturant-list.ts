@@ -326,6 +326,7 @@ export class ResturantListPage {
        this.globals.catering_cart_enabled = place.catering_cart_enabled;
        this.globals.giftcard_amount_limit = place.giftcard_limit;
        this.globals.business_type = place.business_type;
+       this.globals.ccFeeDisclaimer = place.ccFeeDisclaimer;
 
        
          if (this.globals.pickup == '1') {

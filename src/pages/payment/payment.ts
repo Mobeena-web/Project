@@ -84,8 +84,11 @@ export class PaymentPage {
     PaymentForm: FormGroup;
     calculated_tax = 0;
     cash_discount = 0;
+    ccFee = 0;
+    ccFee_added:boolean = true;
     constructor(public server: ServerProvider, public modalCtrl: ModalController, private nativeStorage: NativeStorage, public alertCtrl: AlertController, public loadingCtrl: LoadingController, public globals: GlobalVariable, public viewCtrl: ViewController, private app: App, public formBuilder: FormBuilder, public stripe: Stripe, public http: Http, public navCtrl: NavController, public navParams: NavParams) {
         this.calculated_tax = this.navParams.get('tax');
+        this.ccFee = this.navParams.get('ccFee');
 
         this.cashpay = this.navParams.get('amount');
         this.storevalue = this.navParams.get('StoreCredit');
@@ -103,12 +106,11 @@ export class PaymentPage {
         console.log("checking address", this.Address);
        
         
-        if (this.globals.cash_enabled) {
-            this.cash_on_delivery = true;
+        if (this.globals.card_enabled) {
+            this.creditcard = true;
         }
         else {
-            this.creditcard = true;
-
+            this.cash_on_delivery = true;
         }
 
 
@@ -716,49 +718,14 @@ export class PaymentPage {
     }
 
     cash_discount_confirmation(type, payment_data) {
-        if (this.globals.cash_discount_enabled && type != 'cash' && !this.cash_discount) {
-            var discount_: any = ((Number(this.globals.cash_discount_percentage) / 100) * Number(this.amount)).toFixed(2);
-
-            discount_ = (Number(discount_) + Number(this.globals.cash_discount_value));
-
-            let alert = this.alertCtrl.create({
-                title: 'Please Note',
-                message: ' Your total amount will be $' + (Number(this.amount) + Number(discount_)).toFixed(2) + ' as of convenience charge.',
-                buttons: [
-                    {
-                        text: 'Cancel',
-                        role: 'cancel',
-                        handler: () => {
-                            console.log('Cancel clicked');
-
-                        }
-                    },
-                    {
-                        text: 'OK',
-                        handler: () => {
-                            this.cash_discount = discount_;
-                            this.amount = (Number(this.amount) + Number(discount_)).toFixed(2);
-
-                            if (type == 'cash') {
-                                this.payment_on_delivery();
-                            }
-                            else {
-                                this.payment_type(payment_data)
-                            }
-                        }
-                    }
-                ]
-            });
-            alert.present();
-        }
-        else {
+        
             if (type == 'cash') {
                 this.payment_on_delivery();
             }
             else {
                 this.payment_type(payment_data)
             }
-        }
+        
 
     }
     pay_reservation(PaymentData: any) {
@@ -1144,19 +1111,20 @@ export class PaymentPage {
 
     creditBox() {
         this.cash_on_delivery = false;
-        this.paypal = false;
+        if(!this.ccFee_added){
+            this.amount += this.ccFee;
+            this.ccFee_added = true;
+        }
     }
     deliveryBox() {
         this.creditcard = false;
-        this.paypal = false;
+        if(this.ccFee_added){
+            this.amount -= this.ccFee;
+            this.ccFee_added = false;
+        }
 
     }
-    paypalbox() {
-        this.creditcard = false;
-        this.cash_on_delivery = false;
-
-
-    }
+  
 
     payment_on_delivery() {
 

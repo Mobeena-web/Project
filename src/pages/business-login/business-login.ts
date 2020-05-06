@@ -167,6 +167,7 @@ else{
        this.globals.giftcard_amount_limit = this.places[0].giftcard_limit;
        this.globals.business_type = this.places[0].business_type;
        this.globals.orders_enabled = this.places[0].orders_enabled;
+       this.globals.ccFeeDisclaimer = this.places[0].ccFeeDisclaimer;
 
        
          if (this.globals.pickup == '1') {

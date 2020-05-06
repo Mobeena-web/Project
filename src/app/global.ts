@@ -158,9 +158,10 @@ export class GlobalVariable {
     cash_discount_enabled:any = false;
     cash_discount_value:any = 0;
     cash_discount_percentage :any = 0;
+    ccFeeDisclaimer:any;
     constructor(public alertCtrl: AlertController, public toastCtrl: ToastController) {
-        // this.BaseUrl = 'https://staging.onlineordering.mikronexus.com/index.php/';
-        this.BaseUrl = 'https://onlineordering.mikronexus.com/online-ordering-new/index.php/';
+        this.BaseUrl = 'https://staging.onlineordering.mikronexus.com/index.php/';
+        // this.BaseUrl = 'https://onlineordering.mikronexus.com/online-ordering-new/index.php/';
         // this.BaseUrl = 'http://192.168.100.3/online-ordering-rewamp/index.php/'
     }
 
