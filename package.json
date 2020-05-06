@@ -46,6 +46,7 @@
     "@ionic-native/launch-navigator": "^4.20.0",
     "@ionic-native/native-audio": "^4.20.0",
     "@ionic-native/native-storage": "^4.20.0",
+    "@ionic-native/onesignal": "^4.20.0",
     "@ionic-native/paypal": "^4.20.0",
     "@ionic-native/photo-viewer": "^4.20.0",
     "@ionic-native/pin-dialog": "^4.20.0",
@@ -96,7 +97,6 @@
     "es6-promise-plugin": "^4.2.2",
     "ion2-calendar": "^2.2.0",
     "ionic-angular": "3.9.2",
-    "ionic-plugin-keyboard": "^2.2.1",
     "ionic2-rating": "^1.2.2",
     "ionicons": "3.0.0",
     "jquery": "^3.4.1",
@@ -144,7 +144,6 @@
         "PHOTO_LIBRARY_ADD_USAGE_DESCRIPTION": "This app requires photo library access to function properly.",
         "PHOTO_LIBRARY_USAGE_DESCRIPTION": "This app requires photo library access to function properly."
       },
-      "ionic-plugin-keyboard": {},
       "cordova-plugin-device": {},
       "cordova-plugin-splashscreen": {},
       "cordova-plugin-stripe": {},
