@@ -133,9 +133,9 @@
 
         <div *ngFor="let order of data.orders; let i =index">
           <ion-card *ngIf="order.status">
-            <ion-row (click)="detail(order.order_data,order.date_time,order.instructions,order.scheduled_time,order.restaurant_name,order.total,order.o_id,order.payment_type)" [ngStyle]="{ 'border-left' : (order.status == 'PENDING') ? '8px solid #00529b' : '8px solid #2ecc71' }">
+            <ion-row (click)="detail(order.order_data,order.date_time,order.instructions,order.scheduled_time,order.restaurant_name,order.total,order.o_id,order.payment_type)" [ngStyle]="{ 'border-left' : (order.status == 'PENDING') ? '8px solid #000000' : '8px solid #2ecc71' }">
               <!-- <ion-col (click)="detail(order.order_data,order.date_time,order.instructions,order.scheduled_time,order.restaurant_name,order.total,order.o_id)"
-                *ngIf="order.status == 'PENDING'" col-1 style="    background: #00529b; color: #fff;  margin: 0;padding-top: 15px;">
+                *ngIf="order.status == 'PENDING'" col-1 style="    background: #000000; color: #fff;  margin: 0;padding-top: 15px;">
                 <p class="index">{{i+1}} </p>
               </ion-col>
               <ion-col *ngIf="order.status == 'ACCEPTED'" (click)="detail(order.order_data,order.date_time,order.instructions,order.scheduled_time,order.restaurant_name,order.total,order.o_id)"
