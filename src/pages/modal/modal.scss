@@ -67,7 +67,7 @@ page-modal {
       //   height: 100%;
       //   z-index: 1;
       //   opacity: .5;
-      //   background-color: #333;
+      //   background-color: $primary;;
       // }
       // .modal_content {
       //   position: absolute;
@@ -80,7 +80,7 @@ page-modal {
       //   z-index: 100;
       //   margin: 0 auto;
       //   padding: 10px;
-      //   color: #333;
+      //   color: $primary;;
       //   background:white;
       //   background: -moz-linear-gradient(top, #fff 0%, white 100%);
       //   background: -webkit-linear-gradient(top, #fff 0%, white 100%);
@@ -115,7 +115,7 @@ page-modal {
 page-modal ion-slides {
   // height: 150px;
   .swiper-pagination-bullet {
-    background: #333 !important;
+    background: $primary !important;
   }
 }
 

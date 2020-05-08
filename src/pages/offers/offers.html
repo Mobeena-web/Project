@@ -15,7 +15,7 @@
 
 <ion-content padding style="background: #eee">
         <div *ngIf="errorMenu == true">
-            <p style="padding-top: calc(50% - 11px); padding-right:20px; padding-left:20px; text-align: center; font-size: 22px; color:#333;"><ion-icon name="eye-off"></ion-icon></p>
+            <p class="no_offer"><ion-icon name="eye-off"></ion-icon></p>
             <p no-margin style="padding-right:20px; padding-left:20px; text-align: center; font-size: 14px;">No Special Offers</p>
         </div>
   <div *ngFor="let d of category; let i=index">
@@ -34,7 +34,7 @@
                     <p  style="font-size:1.3rem;">{{a.tagline}} </p>
                  
                       <p>${{a.quantity * a.price | number : '1.2-2'}}</p>
-                  <button ion-button color='primary' class="or-" (click)="Detail(a.id,a.image,a.freeExtras)">Order Now</button>
+                  <button ion-button class="background_global" class="or-" (click)="Detail(a.id,a.image,a.freeExtras)">Order Now</button>
                 </ion-col>
                
             </ion-row>

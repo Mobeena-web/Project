@@ -35,7 +35,7 @@ export class CartPage {
     StoreCreditInput: number;
     reward_amount: number = 0;
     storecreditExist: boolean = false;
-    discountTotal: number;
+    discountTotal: number = 0;
     updatedTotal: number;
     @ViewChild(Navbar) navBar: Navbar;
     extratotal: any = 0;
@@ -466,6 +466,7 @@ export class CartPage {
 
     total() {
         this.Total = 0;
+        var amount_without_tax = 0; 
         // console.log(this.globals.deliveryCharges, "delivery cahrges");
         this.globals.deliveryCharges = Math.round(this.globals.deliveryCharges * 100) / 100;
         console.log(this.globals.deliveryCharges, "delivery cahrges");
@@ -473,13 +474,17 @@ export class CartPage {
             this.Total = Number(this.Total);
             sub.totalPrice = Number(sub.totalPrice);
             this.Total += Number(sub.totalPrice);
+            if(sub.tax_enabled == 'false' || sub.tax_enabled == false){
+                amount_without_tax += Number(sub.totalPrice);
+            }
             this.ProductsTotal = this.Total;
         }
 
         if(this.globals.cash_discount_enabled && this.globals.card_enabled){
             this.ccFee =  ((Number(this.globals.cash_discount_percentage) / 100) * Number(this.ProductsTotal)).toFixed(2);
             this.ccFee = (Number(this.ccFee) + Number(this.globals.cash_discount_value));
-            this.Total += this.ccFee; 
+            this.ccFee = this.ccFee.toFixed(2)
+            this.Total = this.Total +  Number(this.ccFee); 
         }
 
         if (this.globals.BusinessDiscount > 0 && this.globals.availed_discount_count < this.globals.business_discount_count) {
@@ -493,10 +498,10 @@ export class CartPage {
 
         if ((Number(this.Total) < this.globals.minimun_order || Number(this.Total) < 0) && this.Deliver == true) {
 
-            this.TaxCalculate();
+            this.TaxCalculate(amount_without_tax);
             if (Number(this.ProductsTotal) == 0) {
 
-                this.TaxCalculate();
+                this.TaxCalculate(amount_without_tax);
                 if (this.RewardStoreCreditAvailed > 0) {
                     this.Total = Number(this.Total) - this.RewardStoreCreditAvailed;
                 }
@@ -512,7 +517,7 @@ export class CartPage {
 
         }
         else {
-            this.TaxCalculate();
+            this.TaxCalculate(amount_without_tax);
             if (this.RewardStoreCreditAvailed > 0) {
                 this.Total = Number(this.Total) - this.RewardStoreCreditAvailed;
             }
@@ -540,7 +545,6 @@ export class CartPage {
 
         if (this.gift_array.length > 0) {
             this.gift_array.forEach(e => {
-                console.log(e.amount, 'f')
                 this.Total = Number(this.Total) - Number(e.amount)
 
             });
@@ -554,7 +558,7 @@ export class CartPage {
 
 
 
-    TaxCalculate() {
+    TaxCalculate(amount_without_tax) {
 
         if (this.globals.business_type == 'retail') {
             var taxcalc = 0;
@@ -565,10 +569,8 @@ export class CartPage {
                 ItemDiscount = 0;
                 let CalculatedTax = 0;
                 sub.discount_type == 'cash' ? ItemDiscount += Number(sub.discount_value) * Number(sub.quantity) : sub.discount_type == 'perc' ? ItemDiscount += Number(sub.discount_value) / 100 * Number(sub.basePrice) * Number(sub.quantity) : console.log('discount neither cash nor percent');
-                console.log(ItemDiscount, "pfop")
 
                 ItemDiscountedValue = (Number(sub.basePrice) * Number(sub.quantity)) - Number(ItemDiscount);
-                console.log(ItemDiscountedValue, "pop")
                 CalculatedTax = Number(sub.tax) / 100 * Number(ItemDiscountedValue);
                 taxcalc += CalculatedTax;
                 this.globals.retail_items_discount += ItemDiscount;
@@ -582,8 +584,10 @@ export class CartPage {
 
         }
         else {
-            var taxcalc = (Number(this.globals.tax) / 100) * Number(this.Total);
-            console.log("tax cal", taxcalc);
+            var tax_amount = Number(this.ProductsTotal) - (Number(amount_without_tax) + Number(this.discountTotal));
+
+            var taxcalc = (Number(this.globals.tax) / 100) * tax_amount;
+            console.log("amount_without_tax",this.discountTotal,this.ProductsTotal,taxcalc,tax_amount,amount_without_tax,this.Total)
             this.tax_calc = taxcalc.toFixed(2);
             this.Total = this.Total + taxcalc;
 

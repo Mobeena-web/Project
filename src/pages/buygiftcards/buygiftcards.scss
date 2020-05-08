@@ -7,11 +7,14 @@ page-buygiftcards {
     }
     .kkkj{
       text-align: center;
-      color: #333;
+      color: $primary;;
       margin: 0;
       line-height: 1.2;
       margin-top: 12px;
   
+    }
+    .cvv-color{
+      color: $primary;
     }
     .button-md{
       color: #fff !important;
@@ -71,8 +74,8 @@ page-buygiftcards {
       
       }
       .klll{
-        color: #333;
-      border-bottom: 1px solid #333;
+        color: $primary;;
+      border-bottom: 1px solid $primary;;
       
       }
       ::placeholder {
@@ -123,12 +126,17 @@ page-buygiftcards {
   
     }
       .strip{
-        background: #333;
+        background: $primary;;
         height: 44px;
         margin-bottom: 11px;
         margin-left: -15px;
         margin-right: -15px;
         margin-top: 4px;
+    
+      }
+
+      .toolbar-background{
+        background-color: $primary !important;
     
       }
 }

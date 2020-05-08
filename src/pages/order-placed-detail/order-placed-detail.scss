@@ -12,4 +12,28 @@ page-order-placed-detail {
         font-weight: bold;
         font-size: 20px;
     }
+
+    .head{
+        text-align: center;
+        font-size: 1.7rem;
+        background: $primary;;
+        margin-bottom: 0;
+        margin-right: 0;
+        color: white;
+        margin-top:0;
+        padding: 15px;
+    }
+    .extra{
+        font-size:2rem;  margin-top:0;  font-size: 2rem; background: $primary;;  padding: 5px; margin-left:0; margin-right:0;text-align: center;  color: white;
+    }
+    .free{
+        text-align:right;text-align: center;
+                background: $primary;;
+                color: white;   
+                padding: 5px;
+                margin-right:0;   
+                
+    }
+
+
 }

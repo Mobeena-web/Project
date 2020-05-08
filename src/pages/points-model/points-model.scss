@@ -12,4 +12,14 @@ page-points-model {
    p{
         color: #666 !important;
      }
+
+     .nh{
+        border: solid thin $primary;; padding:0
+     }
+     .th{
+        background:$primary;;color:white !important
+     }
+     .pi{
+        border-bottom: solid thin $primary; 
+     }
 }

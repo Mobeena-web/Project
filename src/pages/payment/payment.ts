@@ -84,7 +84,7 @@ export class PaymentPage {
     PaymentForm: FormGroup;
     calculated_tax = 0;
     cash_discount = 0;
-    ccFee = 0;
+    ccFee:number = 0;
     ccFee_added:boolean = true;
     constructor(public server: ServerProvider, public modalCtrl: ModalController, private nativeStorage: NativeStorage, public alertCtrl: AlertController, public loadingCtrl: LoadingController, public globals: GlobalVariable, public viewCtrl: ViewController, private app: App, public formBuilder: FormBuilder, public stripe: Stripe, public http: Http, public navCtrl: NavController, public navParams: NavParams) {
         this.calculated_tax = this.navParams.get('tax');
@@ -919,7 +919,7 @@ export class PaymentPage {
                 if (this.globals.OrderType == "pickup") {
                     this.Address = '';
                 }
-                let response = this.server.PaymentThroughStripe(this.Address, this.instructions, this.amount, this.order_date, '', status, this.cash_discount, this.cardinfo)
+                let response = this.server.PaymentThroughStripe(this.Address, this.instructions, this.amount, this.order_date, '', status, this.ccFee, this.cardinfo)
 
                 response.subscribe(data => {
                     this.data = data;
@@ -998,7 +998,7 @@ export class PaymentPage {
                         if (this.globals.OrderType == "pickup") {
                             this.Address = '';
                         }
-                        let response = this.server.PaymentThroughStripe(this.Address, this.instructions, this.amount, this.order_date, Token, status, this.cash_discount)
+                        let response = this.server.PaymentThroughStripe(this.Address, this.instructions, this.amount, this.order_date, Token, status, this.ccFee)
                         console.log("response without json", response);
                         response.subscribe(data => {
                             console.log("data without json", data);
@@ -1112,15 +1112,18 @@ export class PaymentPage {
     creditBox() {
         this.cash_on_delivery = false;
         if(!this.ccFee_added){
-            this.amount += this.ccFee;
+            this.amount = Number(this.amount) + Number(this.ccFee);
             this.ccFee_added = true;
+            this.amount = this.amount.toFixed(2)
         }
     }
     deliveryBox() {
         this.creditcard = false;
         if(this.ccFee_added){
-            this.amount -= this.ccFee;
+            this.amount = Number(this.amount) -  Number(this.ccFee);
             this.ccFee_added = false;
+            this.amount = this.amount.toFixed(2)
+
         }
 
     }

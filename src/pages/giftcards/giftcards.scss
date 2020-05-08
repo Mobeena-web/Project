@@ -1,6 +1,6 @@
 page-giftcards {
     .bl{
-        border-left: 1px dashed #333;
+        border-left: 1px dashed $primary;;
     }
     .g_image{
         height: 100px;
@@ -38,4 +38,9 @@ page-giftcards {
     .time{
         margin-top: 10px;
     }
+
+    .toolbar-background{
+        background-color: $primary !important;
+    
+      }
 }

@@ -6,7 +6,7 @@ page-item-detail {
   .head{
     padding: 16px;
     color: #fff !important;
-    background: #333;
+    background: $primary;;
   }
   .desp{
     font-size: 1.6rem;
@@ -43,6 +43,15 @@ page-item-detail {
   .label-md{
 
     margin: 0;
+  }
+
+  .colr_s{
+    color: $primary;
+  }
+
+  .toolbar-background{
+    background-color: $primary !important;
+
   }
 }   
 .round_button{

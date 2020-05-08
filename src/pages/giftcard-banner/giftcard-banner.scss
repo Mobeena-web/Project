@@ -1,6 +1,6 @@
 page-giftcard-banner {
     .bl{
-        border-left: 1px dashed #333;
+        border-left: 1px dashed $primary;;
     }
     .background_{
         background: #ccc;
@@ -41,4 +41,9 @@ page-giftcard-banner {
     .p_btn{
         margin-top: 20px;
     }
+
+    .toolbar-background{
+        background-color: $primary !important;
+    
+      }
 }
