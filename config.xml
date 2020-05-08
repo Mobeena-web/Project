@@ -56,7 +56,7 @@
         <splash density="port-xxxhdpi" src="resources/android/splash/drawable-port-xxxhdpi-screen.png" />
     </platform>
     <platform name="ios">
-        <preference name="CodePushDeploymentKey" value="_TEgMaoBBaE8jvsVneHmlC-nDeYS825c21f6-a7db-48ef-9c52-6d07f9cb9685" />
+        <preference name="CodePushDeploymentKey" value="8-r-y7PEhTU6FWX7Eqe5c78mWAB7Zx7UPChbvs" />
         <preference name="WKWebViewOnly" value="true" />
         <preference name="KeyboardResize" value="false" />
         <allow-intent href="itms:*" />

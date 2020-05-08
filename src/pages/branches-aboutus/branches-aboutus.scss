@@ -2,6 +2,9 @@ page-branches-aboutus {
     ion-card{
         border-radius: 8px !important;
         // color: #777 !important;
+        margin: 0 !important;
+        width: 100% !important;
+        margin-bottom: 40px !important
     }
     .bb{
         background: #eee;
@@ -13,6 +16,8 @@ page-branches-aboutus {
     }
     .bcd{
         border-bottom: 1px solid #ccc;
+        font-weight: bold;
+        padding: 10px;
     }
     #map {
         width: 100%;
@@ -61,4 +66,12 @@ page-branches-aboutus {
         background-color: $primary !important;
     
       }
+
+      .back-button{
+        color: #fff !important;
+    }
+    .toolbar-title{
+        color: #fff !important;
+
+    }
 }

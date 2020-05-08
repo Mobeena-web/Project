@@ -19,9 +19,9 @@
       <!-- <ion-list-header style="padding-top:3px;color:$primary;;font-weight:bold">
           Payment Method
         </ion-list-header> -->
-      <div class="text_ccfee" *ngIf="globals.cash_discount_enabled">
+      <!-- <div class="text_ccfee" *ngIf="globals.cash_discount_enabled">
         {{globals.ccFeeDisclaimer}}
-      </div>
+      </div> -->
       <ion-item style="background: transparent;color: #aaa" *ngIf="globals.card_enabled && amount > 0">
         <ion-label>Credit card</ion-label>
         <ion-checkbox [(ngModel)]="creditcard" (click)="creditBox()"></ion-checkbox>
