@@ -16,10 +16,12 @@
   <div>
 
     <ion-list style="padding-top:3px; padding-right:10px; padding-left:10px;  margin-bottom: 0;">
-      <!-- <ion-list-header style="padding-top:3px;color:#000000;font-weight:bold">
+      <!-- <ion-list-header style="padding-top:3px;color:#00ff00;font-weight:bold">
           Payment Method
         </ion-list-header> -->
-     
+      <div class="text_ccfee" *ngIf="globals.cash_discount_enabled">
+        {{globals.ccFeeDisclaimer}}
+      </div>
       <ion-item style="background: transparent;color: #aaa" *ngIf="globals.card_enabled && amount > 0">
         <ion-label>Credit card</ion-label>
         <ion-checkbox [(ngModel)]="creditcard" (click)="creditBox()"></ion-checkbox>
@@ -77,6 +79,13 @@
     
         </div>
       </ion-list> -->
+    <ion-label
+      style="font-size:2.5rem; color:rgb(102, 102, 102);; padding:10px; margin-left: 8px; margin-right: 4px;margin-bottom: 3px;margin-top: 3px;"
+      >
+      Total
+      <p style="float:right;font-size:2.5rem;color:rgb(102, 102, 102);margin-top: 0px;margin-bottom: 0px"> ${{amount}}</p>
+    </ion-label>
+
 
     <form [formGroup]="PaymentForm" ng-submit="pay(this.PaymentForm.value)">
       <div *ngIf="!cash_on_delivery && globals.card_enabled && amount > 0">
@@ -121,7 +130,7 @@
           <ion-card class="payment_card background_image2">
             <ion-item style="background: transparent;border:0px;margin-top: 40px">
 
-              <ion-label style="color: #000000">CVV</ion-label>
+              <ion-label style="color: #00ff00">CVV</ion-label>
 
               <ion-input class="klll" formControlName="CVC" type="number"></ion-input>
             </ion-item>
@@ -180,13 +189,6 @@
       </div>
 
 
-      <ion-label
-        style="font-size:2.5rem; color:rgb(102, 102, 102);; padding:10px; margin-left: 8px; margin-right: 4px;margin-bottom: 3px;margin-top: 3px;"
-        [ngStyle]="{ 'margin-top' : (cash_on_delivery == true) ? '30%' : '0%' }">
-        Total
-        <p style="float:right;font-size:2.5rem;color:rgb(102, 102, 102);margin-top: 0px;"> ${{amount}}</p>
-      </ion-label>
-
       <ion-row style="margin-bottom: 22% !important;">
         <ion-col col-6>
           <button ion-button outline (click)="cancel()" round style="color:#c0392b !important;" color='danger' block
@@ -216,7 +218,7 @@
 <!--<ion-content>
  <ion-label floating>Card Number</ion-label>
 <ion-input [(ngModel)]="cardinfo.number" placeholder="card number"></ion-input>
- <ion-label floating>Expiry Month</ion-label> padding:10px; background:#000000; margin-left: 8px;">
+ <ion-label floating>Expiry Month</ion-label> padding:10px; background:#00ff00; margin-left: 8px;">
     Total
       <p style="float:right;font-size:2.5rem;color:white;margin:0"> ${{amount}}</p>
     </ion-label>

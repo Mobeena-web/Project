@@ -29,7 +29,7 @@
   <ion-card class="m-t">
       <div class="head">
           <ion-row class="strip">
-          <img *ngIf="image" (click)="image_show(image)" style="height: 100px;object-fit: cover;border-radius: 7px" src="{{image}}">
+          <img *ngIf="image" (click)="image_show(image)" style="height: auto; object-fit: cover; border-radius: 5px 5px 0px 0px; max-height: 150px;" src="{{image}}">
 
             <ion-col style="padding: 0; margin: auto;">
               <p style="font-size:2.4rem;padding-left: 5px;color: #fff;">
@@ -60,17 +60,17 @@
           <ion-col col-4 style=" margin: auto;  padding: 0;  height: inherit;  ;text-align: center;">
             
             <button [disabled]="reward_item_flag"   small style="background-color:#fff;text-align: center; color: #fff;font-size: 1.3em; margin: 0;padding: 0;margin-top: 0.5em; height: 40px;width: 40px;border-radius: 50%; ">
-              <ion-icon style="font-size:40px;color: #000000 ; "  name="ios-remove-circle-outline" (click)="removeQuantity()"> </ion-icon>
+              <ion-icon style="font-size:40px;color: #00ff00 ; "  name="ios-remove-circle-outline" (click)="removeQuantity()"> </ion-icon>
             </button>
           </ion-col>
 
           <ion-col style="text-align:center; margin:auto" col-4>
-            <p style="font-size:3.0rem;color: #000000 "> {{quantity}} </p>
+            <p style="font-size:3.0rem;color: #00ff00 "> {{quantity}} </p>
           </ion-col>
 
           <ion-col col-4 style="margin: auto;  padding: 0;  height: inherit;  text-align: center;">
             <button [disabled]="reward_item_flag"  small style="color: #fff; background-color: #fff;text-align: center; font-size: 1.3em;  padding: 0; margin: 0;margin-top: 0.5em;height: 40px;width: 40px;border-radius: 50%;">
-              <ion-icon style="font-size: 40px;color: #000000 ;" name="ios-add-circle-outline" (click)="addQuantity()"> </ion-icon>
+              <ion-icon style="font-size: 40px;color: #00ff00 ;" name="ios-add-circle-outline" (click)="addQuantity()"> </ion-icon>
             </button>
           </ion-col>
         </ion-row>
@@ -135,12 +135,12 @@
 
               <!-- <ion-row style="      
          width: 40%;
-        background: #000000 ;
-        margin: 5px; background: #000000 " *ngIf="option.IsSelected">
+        background: #00ff00 ;
+        margin: 5px; background: #00ff00 " *ngIf="option.IsSelected">
 
-                <ion-col col-4 style="    margin: auto;  padding: 0;  background: #000000 ;text-align: center;" (tap)="removeOptionQuantity(toppings.heading,option)">
+                <ion-col col-4 style="    margin: auto;  padding: 0;  background: #00ff00 ;text-align: center;" (tap)="removeOptionQuantity(toppings.heading,option)">
                  
-                  <button ion-button small style="background-color: #000000 ;text-align: center;  padding: 0; margin: 0">
+                  <button ion-button small style="background-color: #00ff00 ;text-align: center;  padding: 0; margin: 0">
                     <ion-icon style="font-weight:bold" name="remove"> </ion-icon>
                   </button>
 
@@ -150,8 +150,8 @@
                   <p style=" color:white;font-weight:bold"> {{option.quantity}} </p>
                 </ion-col>
 
-                <ion-col col-4 style="    margin: auto;  padding: 0;   background: #000000 ;text-align: center;" (tap)="addOptionQuantity(toppings.heading,option)">
-                  <button ion-button  small style="    background-color: #000000 ;text-align: center;   padding: 0; margin: 0;">
+                <ion-col col-4 style="    margin: auto;  padding: 0;   background: #00ff00 ;text-align: center;" (tap)="addOptionQuantity(toppings.heading,option)">
+                  <button ion-button  small style="    background-color: #00ff00 ;text-align: center;   padding: 0; margin: 0;">
                     <ion-icon style="font-weight:bold" name="add"> </ion-icon>
                   </button>
 
@@ -164,7 +164,7 @@
    
     <!-- <div *ngIf="!extras"> 
 
-<p style="font-size:2rem;font-weight:bold;text-align:center;padding:10px;color:#000000 ;margin-top:20%"> No extras available on this meal</p>
+<p style="font-size:2rem;font-weight:bold;text-align:center;padding:10px;color:#00ff00 ;margin-top:20%"> No extras available on this meal</p>
 
 </div> -->
 

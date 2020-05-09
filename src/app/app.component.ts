@@ -46,7 +46,6 @@ export class MyApp {
         this.data = {};
         this.data.response = '';
         this.LoadSound();
-        
         if(this.platform.is('core') || this.platform.is('mobileweb')) {
             this.list();
           } 
@@ -581,7 +580,10 @@ list() {
        this.globals.business_type = this.places[0].business_type;
        this.globals.orders_enabled = this.places[0].orders_enabled;
        this.globals.BusinessDiscount = this.places[0].discount;
-       
+       this.globals.ccFeeDisclaimer = this.places[0].ccFeeDisclaimer;
+
+       document.documentElement.style.setProperty('--primary-color', this.globals.appColor);
+
          if (this.globals.pickup == '1') {
              this.globals.pickup = true;
          }

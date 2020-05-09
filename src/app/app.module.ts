@@ -44,6 +44,9 @@ import {MobileVerificationPromptPage} from '../pages/mobile-verification-prompt/
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { CodePush } from '@ionic-native/code-push';
 import { CalendarModule } from "ion2-calendar";
+// import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+// import { TooltipsModule } from 'ionic-tooltips';
 
 //import { TextMaskModule } from 'angular2-text-mask';
 
@@ -69,6 +72,8 @@ import { CalendarModule } from "ion2-calendar";
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp,{tabsHideOnSubPages: 'false'}),
+   
+
     HttpModule,
     HttpClientModule,
     Ionic2RatingModule,
@@ -77,7 +82,7 @@ import { CalendarModule } from "ion2-calendar";
     IntroPage8PageModule,
     //MobileVerificationPromptPage,
     MainTabsPageModule,
-    
+
    // TextMaskModule
    
   

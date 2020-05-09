@@ -35,9 +35,9 @@
   <p class="marquee message" [ngStyle]="{'background-color': banner_color}"  *ngIf="today_message"><span>{{today_message}}</span></p>
 
   <ion-slides pager *ngIf="banner" style="height:184px" autoplay="{{time}}" speed="3000" loop="true"
-    autoplayDisableOnInteraction="false">
+    autoplayDisableOnInteraction="false" style="width: calc(100% + 30px); margin-left: -15px; height: 180px">
     <ion-slide *ngFor="let banners of Images" style="height:100%">
-      <img style="height: 173px; width:100% !important;border-radius: 7px;object-fit: cover" src="{{banners?.image}}"
+      <img style="height: 173px; width:100% !important;border-radius: 0px;object-fit: cover" src="{{banners?.image}}"
         (tap)="launch(banners?.url)">
     </ion-slide>
   </ion-slides>
@@ -133,7 +133,7 @@
   <div>
     <p text-center class="qr-line">Get this QR scanned at our location and win exciting rewards.</p>
     <img class="qrcode1" src="{{barocde_image}}">
-    <ion-label style="color:#000000;margin-top: 16px;font-size: 16px;font-weight: bold;text-align: center">{{udid}}</ion-label>
+    <ion-label style="color:#00ff00;margin-top: 16px;font-size: 16px;font-weight: bold;text-align: center">{{udid}}</ion-label>
     <!-- <ion-row>
       <ion-col col-6>
           <img class="qrcode1" src="{{barocde_image}}">

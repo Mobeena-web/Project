@@ -33,18 +33,18 @@ page-modal {
   }
   .block{
     margin-top:0; margin-bottom:0 ; align-content: center; text-align: center; border-radius: 9px;
-          border: 3px #000000 solid;
+          border: 3px #00ff00 solid;
           width: 78%;
           margin-left: auto;
           margin-right: auto;
   }
   .time_heading{
-    font-size: 15px; color: #000000;
+    font-size: 15px; color: #00ff00;
   }
   .mytime{
     font-size: 2.2rem;
           text-align: center;
-          font-weight: bold; color: #000000;
+          font-weight: bold; color: #00ff00;
   }
 
  .pizza{
@@ -67,7 +67,7 @@ page-modal {
       //   height: 100%;
       //   z-index: 1;
       //   opacity: .5;
-      //   background-color: #000000;
+      //   background-color: #00ff00;
       // }
       // .modal_content {
       //   position: absolute;
@@ -80,7 +80,7 @@ page-modal {
       //   z-index: 100;
       //   margin: 0 auto;
       //   padding: 10px;
-      //   color: #000000;
+      //   color: #00ff00;
       //   background:white;
       //   background: -moz-linear-gradient(top, #fff 0%, white 100%);
       //   background: -webkit-linear-gradient(top, #fff 0%, white 100%);
@@ -115,7 +115,7 @@ page-modal {
 page-modal ion-slides {
   // height: 150px;
   .swiper-pagination-bullet {
-    background: #000000 !important;
+    background: #00ff00 !important;
   }
 }
 
