@@ -140,4 +140,21 @@ page-payment {
       color: $primary;
     }
 
+    .toolbar-background{
+      background-color: $primary !important;
+      
+    }
+    .back-button{
+      color: #fff !important;
+  }
+  .toolbar-title{
+      color: #fff !important;
+
+  }
+
+  .checkbox-checked{
+    background-color: $primary !important;
+    border-color:  $primary !important;
+  }
+
 }

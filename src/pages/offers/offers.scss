@@ -165,4 +165,16 @@ page-offers {
     .no_offer{
       padding-top: calc(50% - 11px); padding-right:20px; padding-left:20px; text-align: center; font-size: 22px; color:$primary;
     }
+
+    .toolbar-background{
+      background-color: $primary !important;
+      
+    }
+    .back-button{
+      color: #fff !important;
+  }
+  .toolbar-title{
+      color: #fff !important;
+
+  }
 }
