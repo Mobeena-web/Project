@@ -110,4 +110,25 @@ page-my-rewards {
       margin-left: auto;
       margin-right: auto;
     }
+
+    .toolbar-background{
+      background-color: $primary !important;
+  
+    }
+
+    .back-button{
+      color: #fff !important;
+  }
+  .toolbar-title{
+      color: #fff !important;
+
+  }
+
+  .bar-button{
+      color: #fff !important;
+  }
+  .kop{
+    color: #fff;
+    border-color: #fff;
+  }
 }

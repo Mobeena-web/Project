@@ -61,26 +61,51 @@
         <ion-option *ngIf="globals.pickup" value="pickup">PickUp</ion-option>
       </ion-select>
     </ion-item> -->
-    <ion-item>
+
+   <!--<ion-item>
       <ion-label style="text-transform: capitalize">{{globals.OrderType}} Type </ion-label>
       <ion-select [(ngModel)]="globals.order_time">
         <ion-option  value="now">ASAP </ion-option>
         <ion-option value="schedule">Schedule</ion-option>
       </ion-select>
-    </ion-item>
+    </ion-item> -->
+<br>
+    <ion-list radio-group [(ngModel)]="globals.order_time">
+
+      <ion-item>
+        <ion-label>Now</ion-label>
+        <ion-radio value="now" checked></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label>Schedule</ion-label>
+        <ion-radio value="schedule"></ion-radio>
+      </ion-item>
+    </ion-list>
 
     <ion-item *ngIf="globals.order_time == 'now'">
       <ion-label style="text-transform: capitalize">{{globals.OrderType}} time </ion-label>
-      <ion-label style="text-align: right" *ngIf="globals.OrderType == 'delivery'" >Now({{globals.pickupsetting}})</ion-label>
-      <ion-label style="text-align: right" *ngIf="globals.OrderType == 'pickup'" >Now({{globals.pickup_Time}})</ion-label>
+      <ion-label style="text-align: right" *ngIf="globals.OrderType == 'delivery'" >{{globals.pickupsetting}}</ion-label>
+      <ion-label style="text-align: right" *ngIf="globals.OrderType == 'pickup'" >{{globals.pickup_Time}}</ion-label>
       
     </ion-item>
 
-    <ion-item class="time_d" *ngIf="globals.order_time == 'schedule'">
+  <ion-item class="time_d" *ngIf="globals.order_time == 'schedule'">
         <ion-label>Schedule Time</ion-label>
-        <ion-datetime min="{{value}}"  displayFormat=" MMM DD h:mm a" pickerFormat=" DD h:mm a"    [(ngModel)]="globals.myDate"  (ionChange)="dateChanged()">
+        <ion-datetime min="{{value}}"  displayFormat="h:mm a" pickerFormat=" h:mm a"    [(ngModel)]="globals.myDate"  (ionChange)="dateChanged()">
           </ion-datetime>
     </ion-item>
+
+    <ion-item class="time_d" *ngIf="globals.order_time == 'schedule'">
+        <ion-label>Schedule Date</ion-label>
+        <ion-datetime min="{{value}}"  displayFormat=" MMM DD" pickerFormat="MMM DD"    [(ngModel)]="globals.myDate"  (ionChange)="dateChanged()">
+          </ion-datetime>
+    </ion-item>
+    
+  <!--  <ion-item class="time_d" *ngIf="globals.order_time == 'schedule'">
+        <ion-label>Schedule Time</ion-label>
+    <ion-datetime min="{{value}}"  displayFormat=" MMM DD h:mm a" pickerFormat=" DD h:mm a"    [(ngModel)]="globals.myDate"  (ionChange)="dateChanged()">
+      </ion-datetime>
+    </ion-item>-->
 
     <div *ngIf="globals.OrderType == 'delivery'">
       <h5 style="text-align: center; margin-top: 20px ; padding-top:0 ; font-size: 18px"><b>Delivery Address</b></h5>

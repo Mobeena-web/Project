@@ -5,5 +5,17 @@ page-gallery {
         object-fit: cover;
         border: 4px solid #ccc;
     }
+    .toolbar-background{
+        background-color: $primary !important;
+    
+      }
+      
+    .back-button{
+        color: #fff !important;
+    }
+    .toolbar-title{
+        color: #fff !important;
+  
+    }
 
 }

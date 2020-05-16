@@ -511,7 +511,7 @@ getdeals(){
     else{
       var link = (this.global.BaseUrl + 'menu/categories');
     }
-    var data = JSON.stringify({ business_id: BusinessId });
+    var data = JSON.stringify({ business_id: BusinessId ,platform:'app'});
     return this.http.post(link, data)
       .map((res: any) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));

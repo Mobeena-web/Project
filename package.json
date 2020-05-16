@@ -44,6 +44,7 @@
     "@ionic-native/file-transfer": "^4.20.0",
     "@ionic-native/geolocation": "^4.20.0",
     "@ionic-native/in-app-browser": "^4.20.0",
+    "@ionic-native/keyboard": "^5.26.0",
     "@ionic-native/launch-navigator": "^4.20.0",
     "@ionic-native/native-audio": "^4.20.0",
     "@ionic-native/native-storage": "^4.20.0",
@@ -156,7 +157,8 @@
       "cordova-plugin-whitelist": {},
       "cordova-plugin-file": {},
       "cordova-plugin-statusbar": {},
-      "call-number": {}
+      "call-number": {},
+      "cordova-plugin-ionic-keyboard": {}
     },
     "platforms": [
       "browser"
