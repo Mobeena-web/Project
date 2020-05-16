@@ -27,7 +27,7 @@
         </ion-grid>
    
     <ion-row>
-         <button *ngIf="!globals.caos_flag" ion-button outline block round clear class="u-d" color="primary" (click)="presentModal(1)">Update Delivery or Pickup</button>
+         <button *ngIf="!globals.caos_flag" ion-button outline block round clear class="u-d"  (click)="presentModal(1)">Update Delivery or Pickup</button>
     </ion-row>
 
     <div padding *ngIf="globals.catering_enabled">
@@ -43,8 +43,8 @@
    
         <div [ngSwitch]="categories_section">
             <ion-list *ngSwitchCase="'category'">
-                    <ion-card *ngIf="DataFlag" style="text-align:center; padding: 20px; font-size: 2rem; font-weight: bold; color:#00ff00;margin-top:40%">
-                            Menus coming soon 
+                    <ion-card *ngIf="DataFlag" class="coming_soon">
+                            Menu coming soon 
                         </ion-card>
                         <div *ngFor="let d of category; let i=index">
                             <div style="position: relative;" *ngIf="d.is_anniversary == 'false' && d.is_birthday == 'false' && d.items.length > 0 && d.catering_enabled == false"  text-wrap [ngClass]="{active: isGroupShown(i)}">
@@ -115,8 +115,8 @@
             </ion-list>
             
             <ion-list *ngSwitchCase="'catering'">
-                    <ion-card *ngIf="DataFlag" style="text-align:center; padding: 20px; font-size: 2rem; font-weight: bold; color:#00ff00;margin-top:40%">
-                            Menus coming soon 
+                    <ion-card *ngIf="DataFlag" class="coming_soon">
+                            Menu coming soon 
                         </ion-card>
                         <div *ngFor="let d of category; let i=index">
                             <div style="position: relative;" *ngIf="d.is_anniversary == 'false' && d.is_birthday == 'false' && d.items.length > 0 && d.catering_enabled == true"  text-wrap [ngClass]="{active: isGroupShown(i)}">

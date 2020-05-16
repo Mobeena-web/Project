@@ -21,8 +21,8 @@ export class ThankyouPage {
       this.logout();
     }
     else{
-      this.navCtrl.popToRoot();
-
+      //this.navCtrl.popToRoot();
+      this.navCtrl.push('ReviewsPage')
     }
   }
 

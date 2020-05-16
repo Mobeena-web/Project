@@ -1,5 +1,5 @@
 <ion-header class="Open-Sans-bold">
-  <ion-navbar color="primary">
+  <ion-navbar >
     <ion-title>Login</ion-title>
   </ion-navbar>
 </ion-header>
@@ -29,7 +29,7 @@
       </ion-segment-button>
     </ion-segment>
 
-    <p class="Open-Sans-regular" style="font-family: Open Sans;" *ngIf="submitAttempt"
+    <p class="Open-Sans-regular" style="font-family: Open Sans , sans-serif;" *ngIf="submitAttempt"
       style="color: #ea6153; text-align:center;">Please fill out all details accurately.</p>
 
     <div class="login-box">
@@ -42,7 +42,7 @@
                 <ion-col>
                   <ion-item class="no-padding">
                     <ion-label floating>Email</ion-label>
-                    <ion-input type="submit" formControlName="email" type="email"></ion-input>
+                    <ion-input type="submit" formControlName="email" type="email" ></ion-input>
                   </ion-item>
                   <div class="no-border" *ngIf="!loginForm.controls.email.valid  &&
                   (loginForm.controls.email.dirty || submitAttempt)">
@@ -98,7 +98,7 @@
           </div>
           <div class="signup-col">
             <div class="signup_message">Don't have an Account? <span (tap)="createAccount()">Sign Up</span></div>
-            <button ion-button block margin-top color='primary' type="submit" class="login"
+            <button ion-button block margin-top  type="submit" class="login background_global"
               (tap)="login(this.loginForm.value)" block>Sign In</button>
 
               <!-- <button showWhen="ios" ion-button block margin-top color='primary' type="submit" class="login_"

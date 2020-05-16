@@ -22,7 +22,7 @@ $primary: var(--primary-color);
 }
 
 ion-content{
-    font-family: 'Raleway' !important;
+    font-family: 'Open Sans', sans-serif !important;
 }
 
 .rewards_badge{
@@ -31,7 +31,7 @@ ion-content{
 }
 
 .myicon{
-    color: #00ff00;
+    color: $primary;;
     margin-right: 13px;
     font-size: 21px;
 }
@@ -43,6 +43,10 @@ ion-content{
     background: #fff;
     border-radius: 5px;
     box-shadow: 0px 0px 20px #999;
+}
+
+.background_global{
+    background: $primary !important;
 }
 
 // *{

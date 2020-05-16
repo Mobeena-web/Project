@@ -14,7 +14,7 @@ page-congratulation {
     
         font-weight:bold;
         font-size: 30px;
-      color:#00ff00;    
+      color:$primary;;    
         text-align: center;
         margin-right: 0;
     }
@@ -265,5 +265,17 @@ page-congratulation {
         bottom: 15%;
     } 
     
+    }
+
+    .r_p{
+        color: $primary;; width: 75%; position: absolute;left: 14%;bottom: 30%;  font-size: 2.5rem;
+    }
+
+    .n_t{
+        font-size: 15px; color: $primary;; width: 75%; position: absolute;left: 14%;bottom: 30%; font-size: 2.5rem;
+    }
+
+    .t_r{
+        font-size: 15px; color: $primary;; width: 75%; position: absolute;left: 14%;bottom: 30%; font-size: 2.5rem;
     }
 }

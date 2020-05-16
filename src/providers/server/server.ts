@@ -80,7 +80,7 @@ getdeals(){
   }
 
   reward_notification() {
-    var link = this.global.BaseUrl + 'Customer_controller/get_reward_notifications';
+    var link = this.global.BaseUrl + 'Customer_controller/get_welcome_modal';
     var data = JSON.stringify({business_id: this.global.new_id,udid: this.global.udid });
    
     return this.http.post(link,data)

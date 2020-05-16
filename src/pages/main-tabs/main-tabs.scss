@@ -40,12 +40,12 @@ page-main-tabs {
         // }
         
         .tab-button[aria-selected=true] {
-            color: #00ff00 !important;
+            color: $primary !important;
         }
         
         .tab-button[aria-selected=true] .tab-button-icon{
         
-            color: #00ff00 !important;
+            color: $primary !important;
         }
 
         .fa-icons-general {

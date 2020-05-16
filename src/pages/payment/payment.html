@@ -16,12 +16,12 @@
   <div>
 
     <ion-list style="padding-top:3px; padding-right:10px; padding-left:10px;  margin-bottom: 0;">
-      <!-- <ion-list-header style="padding-top:3px;color:#00ff00;font-weight:bold">
+      <!-- <ion-list-header style="padding-top:3px;color:$primary;;font-weight:bold">
           Payment Method
         </ion-list-header> -->
-      <div class="text_ccfee" *ngIf="globals.cash_discount_enabled">
+      <!-- <div class="text_ccfee" *ngIf="globals.cash_discount_enabled">
         {{globals.ccFeeDisclaimer}}
-      </div>
+      </div> -->
       <ion-item style="background: transparent;color: #aaa" *ngIf="globals.card_enabled && amount > 0">
         <ion-label>Credit card</ion-label>
         <ion-checkbox [(ngModel)]="creditcard" (click)="creditBox()"></ion-checkbox>
@@ -130,7 +130,7 @@
           <ion-card class="payment_card background_image2">
             <ion-item style="background: transparent;border:0px;margin-top: 40px">
 
-              <ion-label style="color: #00ff00">CVV</ion-label>
+              <ion-label class="cvv">CVV</ion-label>
 
               <ion-input class="klll" formControlName="CVC" type="number"></ion-input>
             </ion-item>
@@ -218,7 +218,7 @@
 <!--<ion-content>
  <ion-label floating>Card Number</ion-label>
 <ion-input [(ngModel)]="cardinfo.number" placeholder="card number"></ion-input>
- <ion-label floating>Expiry Month</ion-label> padding:10px; background:#00ff00; margin-left: 8px;">
+ <ion-label floating>Expiry Month</ion-label> padding:10px; background:$primary;; margin-left: 8px;">
     Total
       <p style="float:right;font-size:2.5rem;color:white;margin:0"> ${{amount}}</p>
     </ion-label>

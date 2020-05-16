@@ -10,4 +10,17 @@ page-booking {
         border-radius: 10px !important;
         margin-top: 10px !important;
     }
+
+    .toolbar-background{
+        background-color: $primary !important;
+    
+      }
+
+      .back-button{
+        color: #fff !important;
+    }
+    .toolbar-title{
+        color: #fff !important;
+
+    }
 }

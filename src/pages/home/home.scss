@@ -29,7 +29,7 @@ page-home {
         top: 23%;
         left: calc(50% - 32px);
         font-size: 55px;
-        color: #00ff00;
+        color: $primary;;
         height: 64px;
     }
 
@@ -77,30 +77,30 @@ page-home {
     }   
 
 
-    .toolbar-title{
-        color: #00ff00  !important
-    }
+    // .toolbar-title{
+    //     color: $primary  !important
+    // }
     
-    .bar-buttons{
-        color: #00ff00  !important
-    }
-    .bar-button-default {
-        color: #00ff00  !important;
-    }
+    // .bar-buttons{
+    //     color: $primary  !important
+    // }
+    // .bar-button-default {
+    //     color: $primary  !important;
+    // }
     
-    .tab-button[aria-selected=true] {
-        color: #00ff00  !important;
-    }
+    // .tab-button[aria-selected=true] {
+    //     color: $primary !important;
+    // }
     
-    .tab-button[aria-selected=true] .tab-button-icon{
+    // .tab-button[aria-selected=true] .tab-button-icon{
     
-        color: #00ff00  !important;
+    //     color: $primary  !important;
         
-    }
+    // }
 
     .grid{
         text-align: center;
-        background: #00ff00 ;
+        background: $primary; ;
         width: 80%;
         margin-top: 20px;
         padding: 11px;
@@ -292,7 +292,7 @@ font-weight: bold;
 .points_{
     text-align: center;
     font-size: 24px;
-    color: #00ff00 ;
+    color: $primary; ;
    
     margin-top: 20px;
     border-radius: 50%;

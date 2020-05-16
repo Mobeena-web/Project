@@ -1,7 +1,7 @@
 
 <ion-content padding>
   
-    <div style="font-family: Open Sans;" class="title1">
+    <div style="font-family: Open Sans , sans-serif;" class="title1">
       <img src={{globals.b_logo}} style="    position: relative; left: 26%;  width: 50%;  height: auto;  ">
     </div>
 
@@ -21,7 +21,7 @@
       <ion-checkbox [(ngModel)]="terms"></ion-checkbox>
     </ion-item>
 
-    <button ion-button block padding margin-top color='primary' (click)="homePage()">Done</button>
+    <button ion-button block padding margin-top class="done" (click)="homePage()">Done</button>
 
 
 </ion-content>

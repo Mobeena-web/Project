@@ -159,10 +159,10 @@ export class GlobalVariable {
     cash_discount_value:any = 0;
     cash_discount_percentage :any = 0;
     ccFeeDisclaimer:any;
-    appColor:any= 'red';
+    appColor:any= '#dd3847';
     constructor(public alertCtrl: AlertController, public toastCtrl: ToastController) {
-        this.BaseUrl = 'https://staging.onlineordering.mikronexus.com/index.php/';
-        // this.BaseUrl = 'https://onlineordering.mikronexus.com/online-ordering-new/index.php/';
+        // this.BaseUrl = 'https://staging.onlineordering.mikronexus.com/index.php/';
+        this.BaseUrl = 'https://onlineordering.mikronexus.com/online-ordering-new/index.php/';
         // this.BaseUrl = 'http://192.168.100.3/online-ordering-rewamp/index.php/'
     }
 
@@ -191,7 +191,7 @@ export class GlobalVariable {
             maxValue: 100,
             width: width,
             text: function (value) { return ''; },
-            colors: [color, '#00ff00'],
+            colors: [color, '$primary;'],
             duration: 400,
             wrpClass: 'circles-wrp',
             textClass: 'circles-text',

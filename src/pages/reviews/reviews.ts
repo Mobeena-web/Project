@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, ViewController, AlertController, LoadingController } from 'ionic-angular';
 import { ServerProvider } from '../../providers/server/server';
 import { GlobalVariable } from '../../app/global';
-
+import { HomePage } from '../home/home';
 /**
  * Generated class for the ReviewsPage page.
  *
@@ -35,6 +35,10 @@ export class ReviewsPage {
     }
 
 
+    goToback(){
+        console.log("hello")
+        this.navCtrl.setRoot(HomePage)
+    }
 
     reviewdata() {
 
