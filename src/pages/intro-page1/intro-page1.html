@@ -24,7 +24,7 @@
 
   <div class="email">
 
-    <p class="Open-Sans-regular" style="font-family: Open Sans , sans-serif;" *ngIf="submitAttempt" style="color:white; text-align: center;">Please fill out all details accurately.</p>
+    <p class="Open-Sans-regular" style="font-family: Open Sans;" *ngIf="submitAttempt" style="color:white; text-align: center;">Please fill out all details accurately.</p>
     <form [formGroup]="loginForm" ng-submit="next(this.loginForm.value)" style=" width: 80%;  margin-left: 10%;">
 
       <ion-list no-lines>
@@ -34,7 +34,7 @@
         </ion-item>
         <div class="no-border" *ngIf="!loginForm.controls.email.valid  &&
         (loginForm.controls.email.dirty || submitAttempt)">
-          <p style="color:white; font-family: Open Sans , sans-serif; text-align: center;">Please enter a valid email.</p>
+          <p style="color:white; font-family: Open Sans; text-align: center;">Please enter a valid email.</p>
         </div>
         <p (click)="OpenTermsAndPolicy()" style="float:right; padding-right:10px; color:white;">Terms and policy</p>
       </ion-list>

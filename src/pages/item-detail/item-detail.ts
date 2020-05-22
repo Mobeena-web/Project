@@ -64,6 +64,8 @@ export class ItemDetailPage {
   reward_id:any;
   type:boolean =true;
   stock_quantity:any;
+  itemShowFlag : boolean =false ;
+  optionitemArray : any;
   constructor(private photoViewer: PhotoViewer,public server: ServerProvider, public alertCtrl: AlertController, public loadingCtrl: LoadingController, public globals: GlobalVariable, public modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams, private toastCtrl: ToastController) {
     this.reward_item_flag = navParams.get('reward_flag');
     if(!this.reward_item_flag){
@@ -99,6 +101,27 @@ export class ItemDetailPage {
     modal.present();
 
     
+}
+
+openOptionDetail(list,event){
+  console.log(list)
+  console.log(this.optionitemArray)
+  
+if(this.optionitemArray){
+  
+  this.itemShowFlag = false;
+  for (let i = 0; i < this.extras.length; i++) {
+    if(list.heading == this.extras[i].heading){
+      this.itemShowFlag = false;
+      this.optionitemArray = null;
+    break
+    }
+  }
+}else{
+  this.itemShowFlag = true;
+  this.optionitemArray =list;
+}
+
 }
 
   
