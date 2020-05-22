@@ -107,21 +107,19 @@ openOptionDetail(list,event){
   console.log(list)
   console.log(this.optionitemArray)
   
-if(this.optionitemArray){
-  
-  this.itemShowFlag = false;
-  for (let i = 0; i < this.extras.length; i++) {
-    if(list.heading == this.extras[i].heading){
-      this.itemShowFlag = false;
-      this.optionitemArray = null;
-    break
+  if(this.optionitemArray){
+      
+        if(list.heading == this.optionitemArray.heading){
+          this.itemShowFlag = false;
+          this.optionitemArray = null;
+      }else{
+        this.itemShowFlag = true;
+        this.optionitemArray =list;
+      }
+    }else{
+      this.itemShowFlag = true;
+      this.optionitemArray =list;
     }
-  }
-}else{
-  this.itemShowFlag = true;
-  this.optionitemArray =list;
-}
-
 }
 
   
