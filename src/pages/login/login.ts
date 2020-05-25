@@ -240,6 +240,7 @@ export class LoginPage {
             this.globals.business_type = this.places[0].business_type;
             this.globals.orders_enabled = this.places[0].orders_enabled;
             this.globals.BusinessDiscount = this.places[0].discount;
+            this.globals.ccFeeDisclaimer = this.places[0].ccFeeDisclaimer;
 
             console.log("pop", this.globals.BusinessDiscount)
             if (this.globals.pickup == '1') {

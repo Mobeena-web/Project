@@ -172,4 +172,21 @@ padding-left: 25px;
   -ms-transform: rotate(15deg);
   transform: rotate(15deg);
 }
+
+.coming_soon{
+  text-align:center; padding: 20px; font-size: 2rem; font-weight: bold; color:$primary;;margin-top:40%
+}
+
+.toolbar-background{
+  background-color: $primary !important;
+  
+}
+.back-button{
+  color: #fff !important;
+}
+.toolbar-title{
+  color: #fff !important;
+
+}
+
 }

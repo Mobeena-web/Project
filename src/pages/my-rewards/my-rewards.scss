@@ -27,7 +27,7 @@ page-my-rewards {
     top: 15.5%;
     left: calc(50% - 42.5px);
     font-size: 55px;
-    color: #333;
+    color: $primary;;
     height: 85px;
   }
   .point_list{
@@ -110,4 +110,25 @@ page-my-rewards {
       margin-left: auto;
       margin-right: auto;
     }
+
+    .toolbar-background{
+      background-color: $primary !important;
+  
+    }
+
+    .back-button{
+      color: #fff !important;
+  }
+  .toolbar-title{
+      color: #fff !important;
+
+  }
+
+  .bar-button{
+      color: #fff !important;
+  }
+  .kop{
+    color: #fff;
+    border-color: #fff;
+  }
 }

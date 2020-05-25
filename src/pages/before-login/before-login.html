@@ -27,9 +27,9 @@
             <p class="nn">
                 {{global.welcome?.welcome_screen_subtitle}}
             </p>
-            <button *ngIf="!global.caos_flag" ion-button block round outline class="order-now"
+            <button color="jack" *ngIf="!global.caos_flag" ion-button block round outline class="order-now"
                 (click)="guestlogin()">Order Now </button>
-            <button *ngIf="global.caos_flag" ion-button block round outline class="order-now"
+            <button color="jack" *ngIf="global.caos_flag" ion-button block round outline class="order-now"
                 (click)="coaslogin()">Order Now As Guest </button>
 
             <ion-row class="mm" *ngIf="!global.caos_flag">

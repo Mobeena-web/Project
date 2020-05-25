@@ -7,11 +7,15 @@ page-payment {
   }
   .kkkj{
     text-align: center;
-    color: #333;
+    color: $primary;;
     margin: 0;
     line-height: 1.2;
     margin-top: 12px;
 
+  }
+  .text_ccfee{
+    padding: 4px;
+    color: #27ae60;
   }
   .button-md{
     color: #fff !important;
@@ -71,8 +75,8 @@ page-payment {
     
     }
     .klll{
-      color: #333;
-    border-bottom: 1px solid #333;
+      color: $primary;;
+    border-bottom: 1px solid $primary;;
     
     }
     ::placeholder {
@@ -123,7 +127,7 @@ page-payment {
 
   }
     .strip{
-      background: #333;
+      background: $primary;;
       height: 44px;
       margin-bottom: 11px;
       margin-left: -15px;
@@ -131,5 +135,26 @@ page-payment {
       margin-top: 4px;
   
     }
+
+    .cvv{
+      color: $primary;
+    }
+
+    .toolbar-background{
+      background-color: $primary !important;
+      
+    }
+    .back-button{
+      color: #fff !important;
+  }
+  .toolbar-title{
+      color: #fff !important;
+
+  }
+
+  .checkbox-checked{
+    background-color: $primary !important;
+    border-color:  $primary !important;
+  }
 
 }

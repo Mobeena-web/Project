@@ -31,7 +31,7 @@ page-offers {
         object-fit: contain;
       }
       .u-d{
-        color: #333;
+        color: $primary;;
         font-size: 12px;
         text-decoration: underline;
       }
@@ -161,4 +161,20 @@ page-offers {
       -ms-transform: rotate(15deg);
       transform: rotate(15deg);
     }
+
+    .no_offer{
+      padding-top: calc(50% - 11px); padding-right:20px; padding-left:20px; text-align: center; font-size: 22px; color:$primary;
+    }
+
+    .toolbar-background{
+      background-color: $primary !important;
+      
+    }
+    .back-button{
+      color: #fff !important;
+  }
+  .toolbar-title{
+      color: #fff !important;
+
+  }
 }

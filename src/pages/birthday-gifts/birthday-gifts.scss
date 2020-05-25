@@ -31,7 +31,7 @@ page-birthday-gifts {
         object-fit: contain;
       }
       .u-d{
-        color: #333;
+        color: $primary;;
         font-size: 12px;
         text-decoration: underline;
       }
@@ -92,6 +92,7 @@ page-birthday-gifts {
       font-size: 15px;
       float: right;
       margin-top: 43px;
+      background: $primary;
     }
     
     .cat-img{
@@ -162,4 +163,17 @@ page-birthday-gifts {
       -ms-transform: rotate(15deg);
       transform: rotate(15deg);
     }
+
+    .toolbar-background{
+      background-color: $primary !important;
+  
+    }
+
+    .back-button{
+      color: #fff !important;
+  }
+  .toolbar-title{
+      color: #fff !important;
+
+  }
 }
