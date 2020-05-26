@@ -12,7 +12,7 @@
 </ion-header>
 
 
-<ion-content class="Open-Sans-regular" overflow-scroll=true padding>
+<ion-content class="Open-Sans-regular" scroll="true" overflow-scroll="true" padding>
 
 <div>
     <p style="font-size:1.5rem; color:rgb(102, 102, 102);font-weight: bold; margin: 0em;padding-top:3px;"
@@ -48,13 +48,29 @@
 <form [formGroup]="PaymentForm" ng-submit="pay(this.PaymentForm.value)">
     <div *ngIf="creditcard == true && globals.card_enabled && amount > 0">
  
-<p style="font-size:1.5rem; color:rgb(102, 102, 102);font-weight: bold; margin: 0em;padding-top:20px;padding-bottom: 10px"
-    > Card Number
-</p>
-<ion-item>
-<input style=" width: 100%;height: 100%;"  type="number" formControlName="creditcardno"  maxlength="16">
-</ion-item>
+      <ion-row>
+        <ion-col col-9>
+            <p style="font-size:1.5rem; color:rgb(102, 102, 102);font-weight: bold; margin: 0em;padding-top:20px;padding-bottom: 10px"
+            > Card Number</p>
+        </ion-col>
+        <ion-col col-3>
+            <p style="font-size:1.5rem; color:rgb(102, 102, 102);font-weight: bold; margin: 0em;padding-top:20px;padding-bottom: 10px"
+            > CVV</p>
+        </ion-col>
+      </ion-row>
 
+      <ion-row>
+        <ion-col col-9>
+          <ion-item>
+            <input style=" width: 100%;height: 100%;"  type="number" formControlName="creditcardno"  maxlength="16">
+            </ion-item>
+      </ion-col>
+      <ion-col col-3>
+          <ion-item>
+            <input style=" width: 100%;height: 100%;" type="number" formControlName="CVC"  placeholder="cvv" >
+          </ion-item>
+        </ion-col>
+      </ion-row>
 
       <p style="font-size:1.5rem; color:rgb(102, 102, 102);font-weight: bold; margin: 0em;padding-top:15px;padding-bottom: 10px"
       >Valid until</p>
@@ -100,7 +116,14 @@
   
 </ion-row>
 
-<ion-row>
+<br>
+
+<ion-item  *ngIf="!globals.coas_flag" >
+  <ion-label>Save Credit Card Info</ion-label>
+  <ion-toggle  (ionChange)="Savecreditcard()" formControlName="cardinfo"></ion-toggle>
+</ion-item>
+
+<!-- <ion-row>
     <ion-col col-8>
         <p style="font-size:1.5rem; color:rgb(102, 102, 102);font-weight: bold; margin: 0em;padding-top:15px;padding-bottom: 10px"
         > Card holder</p>
@@ -109,10 +132,10 @@
         <p style="font-size:1.5rem; color:rgb(102, 102, 102);font-weight: bold; margin: 0em;padding-top:15px;padding-bottom: 10px"
         > CVV</p>
     </ion-col>
-  </ion-row>
+  </ion-row> -->
 
 
-<ion-row>
+<!-- <ion-row>
   <ion-col col-8>
       <ion-item>
           <ion-label>{{globals.firstName}} {{globals.lastName}}</ion-label>
@@ -123,14 +146,11 @@
       <input style=" width: 100%;height: 100%;" type="number" formControlName="CVC"  placeholder="cvv" >
     </ion-item>
   </ion-col>
-</ion-row>
+</ion-row> -->
 
 <br><br>
 
-<ion-item *ngIf="!globals.coas_flag" >
-    <ion-label>Save Credit Card Info</ion-label>
-    <ion-toggle  (ionChange)="Savecreditcard()" formControlName="cardinfo"></ion-toggle>
-  </ion-item>
+
 
   </div>
 
