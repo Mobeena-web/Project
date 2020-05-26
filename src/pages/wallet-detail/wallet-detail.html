@@ -22,14 +22,14 @@
     <ion-row>
       <ion-col style="margin:auto; margin:5px ;" (click)="addBackPicture()">
 
-        <div *ngIf="!BackImageFlag" style=" text-align: center;  font-size: 7rem;border: solid #333;;   border-radius: 10px;">
+        <div *ngIf="!BackImageFlag" style=" text-align: center;  font-size: 7rem;border: solid #dd3847;;   border-radius: 10px;">
           <ion-icon color="primary" name="add"> </ion-icon>
         </div>
         <p *ngIf="!BackImageFlag" class="pclass"> Back*</p>
         <img *ngIf="BackImageFlag" style="height: 100px;  border-radius: 10px; border: solid white; width: 170px;" src="{{backImage}}">
       </ion-col>
       <ion-col style="margin:auto; margin:5px ;" (click)="addFrontPicture()">
-        <div *ngIf="!FrontImageFlag" style=" text-align: center;  font-size: 7rem;border: solid #333;;  border-radius: 10px;">
+        <div *ngIf="!FrontImageFlag" style=" text-align: center;  font-size: 7rem;border: solid #dd3847;;  border-radius: 10px;">
           <ion-icon color="primary" name="add"> </ion-icon>
         </div>
         <p *ngIf="!FrontImageFlag" class="pclass"> Front* </p>

@@ -44,7 +44,7 @@
         <div [ngSwitch]="categories_section">
             <ion-list *ngSwitchCase="'category'">
                     <ion-card *ngIf="DataFlag" class="coming_soon">
-                            Menus coming soon 
+                            Menu coming soon 
                         </ion-card>
                         <div *ngFor="let d of category; let i=index">
                             <div style="position: relative;" *ngIf="d.is_anniversary == 'false' && d.is_birthday == 'false' && d.items.length > 0 && d.catering_enabled == false"  text-wrap [ngClass]="{active: isGroupShown(i)}">
@@ -116,7 +116,7 @@
             
             <ion-list *ngSwitchCase="'catering'">
                     <ion-card *ngIf="DataFlag" class="coming_soon">
-                            Menus coming soon 
+                            Menu coming soon 
                         </ion-card>
                         <div *ngFor="let d of category; let i=index">
                             <div style="position: relative;" *ngIf="d.is_anniversary == 'false' && d.is_birthday == 'false' && d.items.length > 0 && d.catering_enabled == true"  text-wrap [ngClass]="{active: isGroupShown(i)}">

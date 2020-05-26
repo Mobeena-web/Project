@@ -1110,6 +1110,7 @@ export class PaymentPage {
     }
 
     creditBox() {
+        this.creditcard = true;
         this.cash_on_delivery = false;
         if(!this.ccFee_added){
             this.amount = Number(this.amount) + Number(this.ccFee);
@@ -1119,6 +1120,7 @@ export class PaymentPage {
     }
     deliveryBox() {
         this.creditcard = false;
+        this.cash_on_delivery = true;
         if(this.ccFee_added){
             this.amount = Number(this.amount) -  Number(this.ccFee);
             this.ccFee_added = false;
