@@ -69,6 +69,8 @@ export class PaymentPage {
     cash_on_delivery: any;
     gift_falg: boolean = false;
     gift_data: any;
+    color : any ='appButtons';
+    color2 : any ='appButtons';
     instructions: any = { "Type": '', "BusinessDiscount": 0, "GainDiscount": 0, "StoreCredit": 0, "Tip": 0, "Points": 0, "Notes": '', "giftcard": '', "tax": 0 };
 
     month_array: any[] = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -106,12 +108,12 @@ export class PaymentPage {
         console.log("checking address", this.Address);
        
         
-        if (this.globals.card_enabled) {
-            this.creditcard = true;
-        }
-        else {
-            this.cash_on_delivery = true;
-        }
+        // if (this.globals.card_enabled) {
+        //     this.creditcard = true;
+        // }
+        // else {
+        //     this.cash_on_delivery = true;
+        // }
 
 
         this.Tip = navParams.get('tip');
@@ -1110,6 +1112,8 @@ export class PaymentPage {
     }
 
     creditBox() {
+        this.color = 'primary';
+        this.color2 = 'appButtons';
         this.creditcard = true;
         this.cash_on_delivery = false;
         if(!this.ccFee_added){
@@ -1119,6 +1123,8 @@ export class PaymentPage {
         }
     }
     deliveryBox() {
+        this.color2 = 'primary';
+        this.color = 'appButtons';
         this.creditcard = false;
         this.cash_on_delivery = true;
         if(this.ccFee_added){

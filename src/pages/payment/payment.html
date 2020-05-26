@@ -28,20 +28,20 @@
     >
    Payment Method
 </p>
-
 <ion-row>
   <ion-col col-6>
-      <button ion-button block style="border-radius: 12px;height: 45px;" *ngIf="globals.card_enabled && amount > 0" (click)="creditBox()" >Credit <ion-icon name="ios-checkmark-circle-outline" style="zoom:2.0;padding-left: 3px"></ion-icon></button>
+      <button ion-button block style="border-radius: 12px;height: 45px;" color="{{color}}" *ngIf="globals.card_enabled && amount > 0" (click)="creditBox()" 
+         >Credit <ion-icon name="ios-checkmark-circle-outline" style="zoom:2.0;padding-left: 3px"></ion-icon></button>
   </ion-col>
   <ion-col col-6>
-      <button ion-button block style="border-radius: 12px;height: 45px;"  *ngIf="globals.cash_enabled && globals.OrderType == 'pickup'"  (click)="deliveryBox()">Pay at store <ion-icon name="ios-checkmark-circle-outline" style="zoom:2.0;padding-left: 3px"></ion-icon></button>
+      <button ion-button block style="border-radius: 12px;height: 45px;"  *ngIf="globals.cash_enabled && globals.OrderType == 'pickup'" color="{{color2}}" (click)="deliveryBox()">Pay at store <ion-icon name="ios-checkmark-circle-outline" style="zoom:2.0;padding-left: 3px"></ion-icon></button>
+  </ion-col>
+  
+  <ion-col col-6>
+      <button ion-button block style="border-radius: 12px;height: 45px;" color="{{color2}}"*ngIf="globals.cash_enabled && globals.OrderType == 'delivery'" (click)="deliveryBox()">Cash on delivery<ion-icon name="ios-checkmark-circle-outline" style="zoom:2.0;padding-left: 3px"></ion-icon></button>
   </ion-col>
   <p class="kkkj" *ngIf="globals.cash_enabled && globals.OrderType == 'pickup' && amount > 0">You can pay by cash,
-    debit card or credit card at the store</p>
-  <ion-col col-6>
-      <button ion-button block style="border-radius: 12px;height: 45px;" *ngIf="globals.cash_enabled && globals.OrderType == 'delivery'"  (click)="deliveryBox()">Cash on delivery<ion-icon name="ios-checkmark-circle-outline" style="zoom:2.0;padding-left: 3px"></ion-icon></button>
-  </ion-col>
- 
+      debit card or credit card at the store</p>
 </ion-row>
 
 
@@ -51,38 +51,80 @@
 <p style="font-size:1.5rem; color:rgb(102, 102, 102);font-weight: bold; margin: 0em;padding-top:20px;padding-bottom: 10px"
     > Card Number
 </p>
-<input style=" width: 100%;height: 40px;" type="password" formControlName="creditcardno"  placeholder="**** **** **** ****" maxlength="16">
-
-<ion-row>
-  <ion-col col-6>
-      <p style="font-size:1.5rem; color:rgb(102, 102, 102);font-weight: bold; margin: 0em;padding-top:10px;padding-bottom: 10px"
-      >Valid until</p>
-  </ion-col>
-  <ion-col col-6>
-      <p style="font-size:1.5rem; color:rgb(102, 102, 102);font-weight: bold; margin: 0em;padding-top:10px;padding-bottom: 10px"
-      > CVV</p>
-  </ion-col>
-</ion-row>
-
-<ion-row>
-  <ion-col col-4>
-      <input style=" width: 100%;height: 40px;" type="number" formControlName="expiryMonth"  placeholder="mm" >
-  </ion-col>
-  <ion-col col-4>
-      <input style=" width: 100%;height: 40px;" type="number" formControlName="expiryYear" placeholder="yyyy" >
-  </ion-col>
-  <ion-col col-4>
-      <input style=" width: 100%;height: 40px;" type="number" formControlName="CVC"  placeholder="cvv" >
-  </ion-col>
-</ion-row>
-
-<p style="font-size:1.5rem; color:rgb(102, 102, 102);font-weight: bold; margin: 0em;padding-top:15px;padding-bottom: 10px"
-    > Card holder
-</p>
-
 <ion-item>
-    <ion-label>{{globals.firstName}} {{globals.lastName}}</ion-label>
-  </ion-item>
+<input style=" width: 100%;height: 100%;"  type="number" formControlName="creditcardno"  maxlength="16">
+</ion-item>
+
+
+      <p style="font-size:1.5rem; color:rgb(102, 102, 102);font-weight: bold; margin: 0em;padding-top:15px;padding-bottom: 10px"
+      >Valid until</p>
+  
+
+<ion-row>
+  <ion-col col-6>
+      <ion-item style="padding: 0%;">
+          <ion-select style="padding: 0%;padding-left:10px" placeholder="mm" formControlName="expiryMonth" interface="popover" >
+            <ion-option value="01">01</ion-option>
+            <ion-option value="02">02</ion-option>
+            <ion-option value="03">03</ion-option>
+            <ion-option value="04">04</ion-option>
+            <ion-option value="05">05</ion-option>
+            <ion-option value="06">06</ion-option>
+            <ion-option value="07">07</ion-option>
+            <ion-option value="08">08</ion-option>
+            <ion-option value="09">09</ion-option>
+            <ion-option value="10">10</ion-option>
+            <ion-option value="11">11</ion-option>
+            <ion-option value="12">12</ion-option>
+          </ion-select>
+        </ion-item>
+    
+  </ion-col>
+  <ion-col col-6>
+      <ion-item>
+          <ion-select style="padding: 0%;margin: 0rem" placeholder="yyyy" formControlName="expiryYear" interface="popover">
+            <ion-option value="2020">2020</ion-option>
+            <ion-option value="2021">2021</ion-option>
+            <ion-option value="2022">2022</ion-option>
+            <ion-option value="2023">2023</ion-option>
+            <ion-option value="2024">2024</ion-option>
+            <ion-option value="2025">2025</ion-option>
+            <ion-option value="2026">2026</ion-option>
+            <ion-option value="2027">2027</ion-option>
+            <ion-option value="2028">2028</ion-option>
+            <ion-option value="2029">2029</ion-option>
+            <ion-option value="2030">2030</ion-option>
+          </ion-select>
+        </ion-item>
+  </ion-col>
+  
+</ion-row>
+
+<ion-row>
+    <ion-col col-8>
+        <p style="font-size:1.5rem; color:rgb(102, 102, 102);font-weight: bold; margin: 0em;padding-top:15px;padding-bottom: 10px"
+        > Card holder</p>
+    </ion-col>
+    <ion-col col-4>
+        <p style="font-size:1.5rem; color:rgb(102, 102, 102);font-weight: bold; margin: 0em;padding-top:15px;padding-bottom: 10px"
+        > CVV</p>
+    </ion-col>
+  </ion-row>
+
+
+<ion-row>
+  <ion-col col-8>
+      <ion-item>
+          <ion-label>{{globals.firstName}} {{globals.lastName}}</ion-label>
+        </ion-item>
+</ion-col>
+<ion-col col-4>
+    <ion-item>
+      <input style=" width: 100%;height: 100%;" type="number" formControlName="CVC"  placeholder="cvv" >
+    </ion-item>
+  </ion-col>
+</ion-row>
+
 <br><br>
 
 <ion-item *ngIf="!globals.coas_flag" >
@@ -111,7 +153,6 @@
 
 </ion-row>
  
-
   </form>
 
 

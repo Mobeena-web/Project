@@ -76,7 +76,7 @@
             </button>
           </ion-col>
         </ion-row>
-
+ 
       </ion-col>
 
     </ion-row>
@@ -134,9 +134,16 @@
               </ion-row>  
             </div>
 
-            <ion-card padding *ngIf="toppings.heading != '' && toppings.min == ''" class="m-t" (click)="openOptionDetail(toppings,$event)">
+            <ion-card padding *ngIf="toppings.heading != '' && toppings.min == ''" class="m-t" >
               <ion-item>{{toppings.heading}}</ion-item>
-              <small>{{toppings.sub_heading}}</small>
+             <ion-row>
+               <ion-col col-10>
+                  <small>{{toppings.sub_heading}}</small>
+               </ion-col>
+               <ion-col col-2>
+                  <ion-icon (click)="openOptionDetail(toppings,$event,a)" name="md-arrow-round-forward" style="zoom:1.5"></ion-icon>
+               </ion-col>
+              </ion-row> 
 
               <div *ngFor="let selected of myChoices ">
                 <div *ngFor="let item of selected.optionNameSelected ">

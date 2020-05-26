@@ -103,7 +103,7 @@ export class ItemDetailPage {
     
 }
 
-openOptionDetail(list,event){
+openOptionDetail(list,event,i){
   console.log(list)
   console.log(this.optionitemArray)
   
