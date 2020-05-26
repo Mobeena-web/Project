@@ -108,12 +108,13 @@ export class PaymentPage {
         console.log("checking address", this.Address);
        
         
-        // if (this.globals.card_enabled) {
-        //     this.creditcard = true;
-        // }
-        // else {
-        //     this.cash_on_delivery = true;
-        // }
+        if (this.globals.card_enabled) {
+            this.color = 'primary';
+            this.creditcard = true;
+        }
+        else {
+            this.cash_on_delivery = true;
+        }
 
 
         this.Tip = navParams.get('tip');
