@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.mikronexus.onlineorder.demo" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>Mikronexus</name>
+<widget id="com.mikronexus.onlineordering.portofino" version="0.0.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>PortoFino Italian</name>
     <description>A reward and loyalty punch card app.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Mikronexus</author>
     <content src="index.html" />
@@ -34,7 +34,7 @@
     <preference name="WKWebViewOnly" value="true" />
     <platform name="android">
         <preference name="AndroidPersistentFileLocation" value="Compatibility" />
-        <preference name="CodePushDeploymentKey" value="PXdIw2EKOZ5NobW4PJE7GdIkiRKF825c21f6-a7db-48ef-9c52-6d07f9cb9685" />
+        <preference name="CodePushDeploymentKey" value="J4XC-Hyc9Mvv0W_W57x5iEqbj_O1_Q0NQOhiu8" />
         <allow-intent href="market:*" />
         <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png" />
         <icon density="mdpi" src="resources/android/icon/drawable-mdpi-icon.png" />
