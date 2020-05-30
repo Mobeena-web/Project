@@ -754,6 +754,13 @@ getdeals(){
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
 
+  special_offer_banners() {
+    var link = this.global.BaseUrl + 'business_controller/get_special_offer_banners';
+    var data = JSON.stringify({ business_id: this.global.new_id});
+    return this.http.post(link, data)
+      .map((res: any) => res.json())
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+  }
   // initializePushToken() {
   //   console.log("intializing push token");
 
