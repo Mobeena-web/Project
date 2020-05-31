@@ -8,6 +8,18 @@ page-category {
     border-radius: 4px;
 
   }
+  .badge_text {
+    font-size: 12px; 
+    height: 75px;
+    font-weight: bold;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    z-index: 99;
+    text-align: center;
+    top: 50%;
+    left: 50%;
+    color: #fff;
+  }
 
   ion-card{
     border-radius: 7px !important;
@@ -30,7 +42,7 @@ page-category {
     margin-right: 10px;
     margin-left: 10px;
     transition: 0.9s;
-    text-shadow: 0px 0px 20px #dd3847;
+    text-shadow: 0px 0px 20px #d2a11a;
     ion-icon{
       float:right;padding-right:5px;padding-top:6px
     }
@@ -48,7 +60,7 @@ page-category {
     background-color: #efefef;
 }
   .u-d{
-    color: #dd3847;
+    color: #d2a11a;
     font-size: 12px;
     text-decoration: underline;
   }

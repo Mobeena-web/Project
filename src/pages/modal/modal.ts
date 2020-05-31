@@ -83,7 +83,6 @@ export class ModalPage {
   @ViewChild('searchbar', { read: ElementRef }) searchbar: ElementRef;
   addressElement: HTMLInputElement = null;
   map: any;
-
   constructor(public loadingCtrl: LoadingController, public server: ServerProvider, public geolocation: Geolocation, public alertCtrl: AlertController, public navCtrl: NavController, public formBuilder: FormBuilder, public navParams: NavParams, public viewCtrl: ViewController, public globals: GlobalVariable, public modalCtrl: ModalController, public nativeStorage: NativeStorage, public plt: Platform) {
 
     this.segmentValue = localStorage.getItem("segmentvalue");
@@ -94,6 +93,8 @@ export class ModalPage {
     //  this.type = this.globals.OrderType;
     console.log("Pick Up -> ", this.globals.pickupsetting)
     console.log("Segment value -> ", this.segmentValue)
+    console.log("gloabl value -> ", this.globals)
+
 
     //this.type = localStorage.getItem("type");
     // this.checktype();
@@ -102,6 +103,7 @@ export class ModalPage {
       this.CurrentAdressBox();
     }
     else {
+      console.log("p-1.1")
       this.reverseGeoCoding(this.globals.lat, this.globals.long)
     }
 
@@ -128,14 +130,14 @@ export class ModalPage {
     var that = this;
     setTimeout(function () {
       that.loadMaps();
-    }, 1000);
+    }, 3000);
   }
 
   min_date_value() {
     var date = new Date();
 
     var datenow = date.getDate().toString();
-    var month = date.getMonth().toString();
+    var month = (date.getMonth() + 1).toString();
     var year = date.getFullYear().toString();
 
     if (month.length < 2) month = '0' + month;
@@ -154,7 +156,7 @@ export class ModalPage {
 
 
   loadMaps() {
-    if (!!google) {
+    if (google) {
       this.initAutocomplete();
     } else {
       this.globals.presentToast('Something went wrong with the Internet Connection. Please check your Internet.')
@@ -182,10 +184,12 @@ export class ModalPage {
         ].join(' ');
         this.globals.address = address;
         if (!place.geometry) {
+          this.globals.locationSelected = false;
           sub.error({
             message: 'Autocomplete returned place with no geometry'
           });
         } else {
+          this.globals.locationSelected = true;
           this.lat = place.geometry.location.lat();
           this.long = place.geometry.location.lng();
           this.reverseGeoCoding(this.lat, this.long);
@@ -213,7 +217,7 @@ export class ModalPage {
 
   getdata() {
     this.time = localStorage.getItem("scheduled_time");
-    console.log("time", this.time)
+    console.log("time - get data", this.time)
 
     if (this.time) {
       if (this.globals.specific_delivery_day == 'false') {
@@ -371,52 +375,61 @@ export class ModalPage {
 
 
 
-   process(ProcessData: any) {
+  process(ProcessData: any) {
 
     if (this.globals.order_time == 'schedule') {
       localStorage.setItem("scheduled_time", this.globals.myDate);
     }
-    else{
-      localStorage.setItem("scheduled_time", undefined);
+    else {
+      localStorage.setItem("scheduled_time", this.globals.order_time);
     }
 
     localStorage.setItem("GetAddress", this.globals.address);
 
-
-    if(this.globals.OrderType == 'delivery'){
+    console.log("gloabl", this.globals);
+    if (this.globals.OrderType == 'delivery') {
       
+
       this.checkTimingLater(this.globals.delivery_timing).then((resp) => {
-        this.dismiss()
-       }).catch((error) => {
-        })
-     }
-     else{
+        if(this.globals.address != '' && this.globals.address != undefined && this.globals.inradius == true && this.globals.locationSelected){
+          this.dismiss()
+        }
+        else{
+          this.outsideDeliveryRadius();
+        }
+        
+      }).catch((error) => {
+      })
+    }
+    else {
       this.checkTimingLater(this.globals.pickup_timing).then((resp) => {
         this.dismiss()
 
       }).catch((error) => {
-       })
-     
-     }
-     
-    
+      })
+
+    }
+
+
 
     this.globals.save_check = true;
 
   }
 
-  process_cancel(){
+  process_cancel() {
     if (this.globals.order_time == 'schedule') {
-      localStorage.setItem("scheduled_time", this.globals.myDate);
+      // localStorage.setItem("scheduled_time", this.globals.myDate);
+      console.log("order not scheduled")
+      localStorage.setItem("scheduled_time", undefined);
     }
-    else{
+    else {
       localStorage.setItem("scheduled_time", undefined);
     }
 
     localStorage.setItem("GetAddress", this.globals.address);
 
 
-   this.dismiss();
+    this.dismiss();
   }
 
   secondModal() {
@@ -444,9 +457,11 @@ export class ModalPage {
 
   getCurrentLocation(): Promise<any> {
     return new Promise(resolve => {
+      console.log("p-3.1 - get current location")
       if (this.globals.delivery == true) {
 
         this.geolocation.getCurrentPosition().then((resp) => {
+          console.log("p-3.2 - current location", resp)
           resolve(resp);
         }).catch((error) => {
         })
@@ -456,33 +471,34 @@ export class ModalPage {
 
 
   reverseGeoCoding(lat, lng) {
+    console.log("p-1.2")
     this.globals.lat = lat;
     this.globals.long = lng;
     var mycoordinates = lat + "," + lng;
     let response = this.server.getAddress(mycoordinates, this.branchId);
     var myadress = "";
     response.subscribe(data => {
+      console.log("p-4.1")
       this.loadMap(lat, lng);
       myadress = data.address;
       this.globals.address = myadress;
 
       this.globals.inradius = data.in_radius;
 
-      if(data.delivery_meta && data.delivery_meta.id){
+      if (data.delivery_meta && data.delivery_meta.id) {
         this.globals.pickupsetting = data.delivery_meta.delivery_time;
         this.globals.minimun_order = data.delivery_meta.delivery_minimum_order;
         this.globals.deliveryCharges = data.delivery_meta.delivery_fee;
-      
+
       }
       if (data.in_radius == false) {
-        this.globals.alertMessage("Sorry", "We don't deliver in your Area.");
 
         if (this.globals.pickup == true) {
           this.type = "pickup";
           this.globals.OrderType = this.type;
         }
         else {
-          this.navCtrl.pop();
+          this.outsideDeliveryRadius();
         }
 
       }
@@ -495,6 +511,10 @@ export class ModalPage {
 
     });
 
+  }
+  outsideDeliveryRadius(){
+    this.globals.alertMessage("Sorry", "Your location is out of our delivery radius.");
+    
   }
 
   Getscheduletime() {
@@ -520,6 +540,7 @@ export class ModalPage {
     modal.present();
   }
   loadMap(lati, longi) {
+    console.log("p-5.1")
     // var latlng = this.coordinates.split(",")
     var myLatLng = new google.maps.LatLng(lati, longi);
 
@@ -527,6 +548,7 @@ export class ModalPage {
       zoom: 15,
       center: myLatLng
     });
+    console.log("p-5.2 -- ", this.map);
 
     var marker = new google.maps.Marker({
       position: myLatLng,
@@ -537,9 +559,11 @@ export class ModalPage {
   }
   CurrentAdressBox() {
     // this.NEW = true;
+    console.log("p-2.1")
     if (this.CurrentAdress == true) {
 
       this.getCurrentLocation().then((resp) => {
+        console.log("p-2.2")
         this.reverseGeoCoding(resp.coords.latitude, resp.coords.longitude);
         this.NEW = false;
         this.lat = resp.coords.latitude;
@@ -633,23 +657,23 @@ export class ModalPage {
 
   Updateyourorder() {
 
-    if(this.globals.OrderType == 'delivery'){
+    if (this.globals.OrderType == 'delivery') {
       this.checkTimingLater(this.globals.delivery_timing);
-     }
-     else{
+    }
+    else {
       this.checkTimingLater(this.globals.pickup_timing);
-     }
+    }
 
     if (this.globals.order_time == 'schedule') {
       localStorage.setItem("scheduled_time", this.globals.myDate);
     }
-    else{
+    else {
       localStorage.setItem("scheduled_time", undefined);
     }
 
     this.globals.OrderType = "pickup"
-     this.viewCtrl.dismiss();
-    
+    this.viewCtrl.dismiss();
+
     this.globals.save_check = true;
 
   }
@@ -760,7 +784,7 @@ export class ModalPage {
   // }   
 
   checkTimingLater(timing) {
-    return new Promise( (resolve, reject) => {
+    return new Promise((resolve, reject) => {
       if (this.globals.order_time == 'schedule') {
         var response: any;
 
@@ -815,7 +839,7 @@ export class ModalPage {
 
               }
               else {
-                this.globals.presentToast('Sorry, we are not serving '+ this.globals.OrderType +' at this time.Please reschedule it.')
+                this.globals.presentToast('Sorry, we are not serving at this time. Please reschedule it.')
                 reject(true)
               }
             }
@@ -840,28 +864,28 @@ export class ModalPage {
 
         var n = current_day[0].indexOf('.');
         if (n != -1) {
-            var res = current_day[0].split(".");
-            current_day[0] = res[0] + '.' + '3'
+          var res = current_day[0].split(".");
+          current_day[0] = res[0] + '.' + '3'
         }
         var n1 = current_day[1].indexOf('.');
         if (n1 != -1) {
-            var res = current_day[1].split(".");
-            current_day[1] = res[0] + '.' + '3'
+          var res = current_day[1].split(".");
+          current_day[1] = res[0] + '.' + '3'
         }
 
         if ((Number(current_day[0]) <= time && Number(current_day[1]) > time) || (Number(current_day[0]) <= time && Number(current_day[1]) < Number(current_day[0]))) {
           resolve(true)
         }
         else if (current_day[0] == 'opened' && current_day[1] == 'opened') {
-            resolve(true)
+          resolve(true)
         }
         else {
-          this.globals.presentToast('Sorry, we are not serving '+ this.globals.OrderType +' at this time.Please reschedule it.')
-            reject(true)
+          this.globals.presentToast('Sorry, we are not serving at this time. Please reschedule it.')
+          reject(true)
         }
       }
     });
-     
-    }
-    
+
+  }
+
 }

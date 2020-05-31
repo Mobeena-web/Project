@@ -305,7 +305,14 @@ export class CategoryPage {
                 this.globals.model_flag = false;
                 let modal = this.modalCtrl.create('ModalPage');
                 modal.onDidDismiss(data => {
-                    this.Categories();
+                    var orderSchedule = localStorage.getItem("scheduled_time");
+                    console.log("Order Schedule", orderSchedule);
+                    if(orderSchedule == undefined || orderSchedule == 'undefined' || this.globals.inradius == false || this.globals.address == ''){
+                        console.log("poping to root");
+                        this.globals.model_flag = true;
+                        this.navCtrl.popToRoot();
+                    }
+                    // this.Categories();
                 });
                 modal.present();
             }

@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.mikronexus.onlineordering.portofino" version="0.0.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>PortoFino Italian</name>
+<widget id="com.mikronexus.onlineordering.portofino" version="0.0.3" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Portofino Huntington</name>
     <description>A reward and loyalty punch card app.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Mikronexus</author>
     <content src="index.html" />
@@ -56,7 +56,7 @@
         <splash density="port-xxxhdpi" src="resources/android/splash/drawable-port-xxxhdpi-screen.png" />
     </platform>
     <platform name="ios">
-        <preference name="CodePushDeploymentKey" value="_PPMDqXLoTiJ_Wp18s2sVbTRe84z80bcd73a-3c9b-49fe-815d-346d1570fa2e" />
+        <preference name="CodePushDeploymentKey" value="4NDkHuO9OAe8kLWs7-0fxFoJlNmeiYXPUPtsSx" />
         <preference name="WKWebViewOnly" value="true" />
         <preference name="KeyboardResize" value="false" />
         <allow-intent href="itms:*" />
@@ -106,6 +106,11 @@
         <splash height="2732" src="resources/ios/splash/Default@2x~universal~anyany.png" width="2732" />
         <splash height="2436" src="resources/ios/splash/Default-2436h.png" width="1125" />
         <splash height="1125" src="resources/ios/splash/Default-Landscape-2436h.png" width="2436" />
+        <icon height="216" src="resources/ios/icon/icon-108@2x.png" width="216" />
+        <splash height="2688" src="resources/ios/splash/Default-2688h~iphone.png" width="1242" />
+        <splash height="1242" src="resources/ios/splash/Default-Landscape-2688h~iphone.png" width="2688" />
+        <splash height="1792" src="resources/ios/splash/Default-1792h~iphone.png" width="828" />
+        <splash height="828" src="resources/ios/splash/Default-Landscape-1792h~iphone.png" width="1792" />
     </platform>
     <config-file parent="NSLocationWhenInUseUsageDescription" target="*-Info.plist">
         <string>This app requires access to your location for food delivery purposes.</string>
