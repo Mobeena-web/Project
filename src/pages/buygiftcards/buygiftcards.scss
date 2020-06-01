@@ -79,8 +79,8 @@ page-buygiftcards {
       
       }
       ::placeholder {
-        color: #fff !important;
-        font-size: 11px !important;
+        // color: #fff !important;
+        font-size: 15px !important;
       }
       .signUp{
   
@@ -146,5 +146,13 @@ page-buygiftcards {
     .toolbar-title{
         color: #fff !important;
 
+    }
+    ion-item{
+      background: transparent !important;
+    }
+    .item-inner{
+      border: 1px solid #aaa !important;
+      border-radius: 5px;
+      padding-left: 10px;
     }
 }

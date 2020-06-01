@@ -51,25 +51,25 @@
       <div *ngIf="creditcard == true && globals.card_enabled && amount > 0">
 
         <ion-row>
-          <ion-col col-9 no-padding>
+          <ion-col col-8 no-padding>
             <p
               style="font-size:1.5rem; color:rgb(102, 102, 102);font-weight: bold; margin: 0em;padding-top:20px;padding-bottom: 10px">
               Card Number</p>
           </ion-col>
-          <ion-col col-3 no-padding>
+          <ion-col col-4 no-padding>
             <p
-              style="font-size:1.5rem; color:rgb(102, 102, 102);font-weight: bold; margin: 0em;padding-top:20px;padding-bottom: 10px">
+              style="font-size:1.5rem; color:rgb(102, 102, 102);font-weight: bold; margin: 0em;padding-top:20px;padding-bottom: 10px;padding-left: 16px">
               CVV</p>
           </ion-col>
         </ion-row>
 
         <ion-row>
-          <ion-col col-9 no-padding>
+          <ion-col col-8 no-padding>
             <ion-item style="margin: 0%;padding:0%">
               <ion-input formControlName="creditcardno" placeholder="xxxx xxxx xxxx xxxx" type="tel" maxlength="16" minlength="15"></ion-input>
             </ion-item>
           </ion-col>
-          <ion-col col-3 no-padding>
+          <ion-col col-4 no-padding>
             <ion-item style="margin: 0%;">
               <ion-input type="tel" formControlName="CVC" placeholder="cvv" type="tel" maxlength="4" minlength="3"></ion-input>
             </ion-item>
