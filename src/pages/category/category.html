@@ -48,10 +48,12 @@
                         </ion-card>
                         <div *ngFor="let d of category; let i=index">
                             <div style="position: relative;" *ngIf="d.is_anniversary == 'false' && d.is_birthday == 'false' && d.items.length > 0 && d.catering_enabled == false"  text-wrap [ngClass]="{active: isGroupShown(i)}">
-                                <!-- <div style="left: 60%" class="cat-img1" *ngIf="d.badge_icon">
-                                    <img style="height: 40px;width:120px" src="{{d.badge_icon}}">
+
+                                <div style="right: 0px;" class="cat-img1" *ngIf="d.badge_icon" >
+                                    <img text-right style="height: 40px;width:160px" src="{{d.badge_icon}}">
                                     <p class="badge_text">{{d.badge_text}}</p>
-                                </div>                               -->
+                                </div> 
+
                                 <img  class="cat-img1" *ngIf="d.dealFlag == 'true'" src="assets/imgs/promotion.png">
                                <!-- <img *ngIf="!d.image" class="cat-img" src="assets/imgs/Category-Placeholder.png"-->
                                 <div *ngIf="d.image"  (click)="click(d, $event)" (click)="toggleGroup(i)" [ngStyle]="{'background-image': 'url('+d.image+')'}" class="b_image" >
@@ -70,6 +72,12 @@
                                 <div *ngIf="isGroupShown(i)" >
                                     <ion-list>
                                         <ion-card *ngFor="let a of d.items">
+
+                                                <div *ngIf="a.badge_icon" style="right: 0px; position:absolute; z-index: 999; height: 65px; object-fit: contain;" >
+                                                        <img text-right style="height: 40px;width:160px" src="{{a.badge_icon}}">
+                                                        <p class="badge_text">{{a.badge_text}}</p>
+                                                    </div> 
+
                                        <ion-row *ngIf="a.stock_quantity > 0" (click)="Detail(a.id,a.image,a.freeExtras,true)">
                                             <ion-col col-3 style="margin: auto;" >
                                                 
@@ -124,6 +132,12 @@
                         </ion-card>
                         <div *ngFor="let d of category; let i=index">
                             <div style="position: relative;" *ngIf="d.is_anniversary == 'false' && d.is_birthday == 'false' && d.items.length > 0 && d.catering_enabled == true"  text-wrap [ngClass]="{active: isGroupShown(i)}">
+
+                                <div style="right: 0px;" class="cat-img1" *ngIf="d.badge_icon" >
+                                    <img text-right style="height: 40px;width:160px" src="{{d.badge_icon}}">
+                                    <p class="badge_text">{{d.badge_text}}</p>
+                                </div> 
+
                                 <img  class="cat-img1" *ngIf="d.dealFlag == 'true'" src="assets/imgs/promotion.png">
                                <!-- <img *ngIf="!d.image" class="cat-img" src="assets/imgs/Category-Placeholder.png"-->
                                 <div *ngIf="d.image" (click)="toggleGroup(i)" [ngStyle]="{'background-image': 'url('+d.image+')'}" class="b_image" >
@@ -142,6 +156,12 @@
                                 <div *ngIf="isGroupShown(i)" >
                                     <ion-list>
                                         <ion-card *ngFor="let a of d.items">
+                                            
+                                                <div *ngIf="a.badge_icon" style="right: 0px; position:absolute; z-index: 999; height: 65px; object-fit: contain;" >
+                                                        <img text-right style="height: 40px;width:160px" src="{{a.badge_icon}}">
+                                                        <p class="badge_text">{{a.badge_text}}</p>
+                                                    </div> 
+
                                        <ion-row *ngIf="a.stock_quantity > 0" (click)="Detail(a.id,a.image,a.freeExtras,globals.catering_cart_enabled)">
                                             <ion-col col-3 style="margin: auto;" >
                                                 
