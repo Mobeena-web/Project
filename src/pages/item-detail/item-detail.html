@@ -112,7 +112,7 @@
       <div *ngIf="extras && !noExtras">
 
 
-        <ion-list no-lines style="padding:10px;" *ngFor="let toppings of extras;let a=index ">
+        <ion-list no-lines no-padding no-margin *ngFor="let toppings of extras;let a=index ">
 
 
           <!-- <ion-row style="border-bottom: solid thin #ccc;">
@@ -143,9 +143,10 @@
 
           <!-- <ion-card padding *ngIf="toppings.heading != '' && toppings.min == ''" class="m-t"> -->
             <ion-card padding class="m-t">
-            <ion-item>{{toppings.heading}}</ion-item>
+            
             <ion-row (click)="openOptionDetail(toppings,$event,a)">
               <ion-col col-9>
+                <ion-item no-padding>{{toppings.heading}}</ion-item>
                 <small>{{toppings.sub_heading}}</small>
               </ion-col>
               <ion-col col-3 *ngIf="toppings.min" style="margin:auto">
@@ -157,14 +158,14 @@
               </ion-col> -->
             </ion-row>
 
-            <div *ngFor="let selected of myChoices ">
+            <div *ngFor="let selected of myChoices">
               <div *ngFor="let item of selected.optionNameSelected ">
                 <ul *ngIf="toppings.heading == selected.heading">
                   <li>{{item.name}}</li>
                 </ul>
               </div>
             </div>
-
+            
             <div *ngFor="let option of toppings.options;let i = index; ">
               <ion-row
                 *ngIf="option.name != '' && this.itemShowFlag == true && toppings.heading == optionitemArray.heading">
