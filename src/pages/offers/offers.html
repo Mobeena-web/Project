@@ -1,58 +1,66 @@
-
 <ion-header>
-  <ion-navbar color="primary">
-    <ion-title>Special Offers</ion-title>
-    <ion-buttons end>
-        <button ion-button    (click)="cartpage()">
-            <ion-badge color="danger" *ngIf="globals.Product.length > 0">{{globals.Product.length}}</ion-badge>
-            <ion-icon name="cart" style="font-size: 2.5rem;"> </ion-icon>
-        </button>
+    <ion-navbar color="primary">
+        <ion-title>Special Offers</ion-title>
+        <ion-buttons end>
+            <button ion-button (click)="cartpage()">
+                <ion-badge color="danger" *ngIf="globals.Product.length > 0">{{globals.Product.length}}</ion-badge>
+                <ion-icon name="cart" style="font-size: 2.5rem;"> </ion-icon>
+            </button>
 
-    </ion-buttons>
-</ion-navbar>
+        </ion-buttons>
+    </ion-navbar>
 </ion-header>
 
 
 <ion-content style="background: #eee">
 
-    <ion-slides  pager *ngIf="banner" style="height:184px;" autoplay="{{time}}" speed="3000" loop="true"
-    autoplayDisableOnInteraction="false" style="width: calc(100% + 30px); margin-left: -15px; height: 180px">
-    <ion-slide *ngFor="let banners of Images" style="height:100%">
-      <img (click)="open_category($event)" style="height: 173px; width:100% !important;border-radius: 0px;object-fit: cover"  src="{{banners?.image}}"
->
-    </ion-slide>
-  </ion-slides>
+    <!-- <ion-slides pager *ngIf="banner" style="height:184px;" autoplay="{{time}}" speed="3000" loop="true"
+        autoplayDisableOnInteraction="false" style="width: calc(100% + 30px); margin-left: -15px; height: 180px">
+        <ion-slide *ngFor="let banners of Images" style="height:100%">
+            <img (click)="open_category($event)"
+                style="height: 173px; width:100% !important;border-radius: 0px;object-fit: cover"
+                src="{{banners?.image}}">
+        </ion-slide>
+    </ion-slides> -->
 
-  <div padding>
+    <div padding>
 
         <div *ngIf="errorMenu == true">
-            <p class="no_offer"><ion-icon name="eye-off"></ion-icon></p>
+            <p class="no_offer">
+                <ion-icon name="eye-off"></ion-icon>
+            </p>
             <p no-margin style="padding-right:20px; padding-left:20px; text-align: center; font-size: 14px;">No Special Offers</p>
         </div>
-  <div *ngFor="let d of category; let i=index">
-  
-    <div *ngIf="d.dealFlag == 'true'" >
-         <ion-card *ngFor="let a of d.items" >
-            <ion-row>
-                <ion-col col-5>
-                    
-                    <img class="itm-img" *ngIf="a.image" src="{{a.image}}">
-                    <img class="itm-img" *ngIf="a.image == '' || !a.image" src={{globals.b_logo}}>
-                </ion-col>
-                <ion-col col-7 padding-left>
-                     
-                    <p  style="color:#444;font-size:1.8rem;line-height: .9">{{a.name}} </p>
-                    <p  style="font-size:1.3rem;">{{a.tagline}} </p>
-                 
-                      <p>${{a.quantity * a.price | number : '1.2-2'}}</p>
-                  <button  ion-button  class="or- background_global" (click)="Detail(a.id,a.image,a.freeExtras)">Order Now</button>
-                </ion-col>
-               
-            </ion-row>
-        </ion-card>
-    </div>
-</div>
 
-</div>
+        <div *ngFor="let banners of Images" style="height:300px">
+            <img (click)="open_category($event)" style="height: 173px; width:100% !important;border-radius: 0px;object-fit: cover; border: 5px dashed #ccc; border-radius: 15px; margin-bottom: 10px;"  src="{{banners?.image}}">
+        </div>
+
+        <!-- <div *ngFor="let d of category; let i=index">
+
+            <div *ngIf="d.dealFlag == 'true'">
+                <ion-card *ngFor="let a of d.items">
+                    <ion-row>
+                        <ion-col col-5>
+
+                            <img class="itm-img" *ngIf="a.image" src="{{a.image}}">
+                            <img class="itm-img" *ngIf="a.image == '' || !a.image" src={{globals.b_logo}}>
+                        </ion-col>
+                        <ion-col col-7 padding-left>
+
+                            <p style="color:#444;font-size:1.8rem;line-height: .9">{{a.name}} </p>
+                            <p style="font-size:1.3rem;">{{a.tagline}} </p>
+
+                            <p>${{a.quantity * a.price | number : '1.2-2'}}</p>
+                            <button ion-button class="or- background_global"
+                                (click)="Detail(a.id,a.image,a.freeExtras)">Order Now</button>
+                        </ion-col>
+
+                    </ion-row>
+                </ion-card>
+            </div>
+        </div> -->
+
+    </div>
 
 </ion-content>

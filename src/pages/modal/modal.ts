@@ -392,6 +392,7 @@ export class ModalPage {
 
       this.checkTimingLater(this.globals.delivery_timing).then((resp) => {
         if(this.globals.address != '' && this.globals.address != undefined && this.globals.inradius == true && this.globals.locationSelected){
+          console.log("delivery inside", this.globals);
           this.dismiss()
         }
         else{
@@ -497,7 +498,7 @@ export class ModalPage {
           this.type = "pickup";
           this.globals.OrderType = this.type;
         }
-        else {
+        else {123
           this.outsideDeliveryRadius();
         }
 

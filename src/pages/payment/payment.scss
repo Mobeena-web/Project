@@ -156,6 +156,13 @@ page-payment {
     background-color: $primary !important;
     border-color:  $primary !important;
   }
- 
+  ion-item{
+    background: transparent !important;
+  }
+  .item-inner{
+    border: 1px solid #aaa !important;
+    border-radius: 5px;
+    padding-left: 10px;
+  }
 
 }

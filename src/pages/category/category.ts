@@ -307,7 +307,7 @@ export class CategoryPage {
                 modal.onDidDismiss(data => {
                     var orderSchedule = localStorage.getItem("scheduled_time");
                     console.log("Order Schedule", orderSchedule);
-                    if(orderSchedule == undefined || orderSchedule == 'undefined' || this.globals.inradius == false || this.globals.address == ''){
+                    if(orderSchedule == undefined || orderSchedule == 'undefined' || ((this.globals.OrderType == 'delivery' ) && (this.globals.inradius == false || this.globals.address == ''))){
                         console.log("poping to root");
                         this.globals.model_flag = true;
                         this.navCtrl.popToRoot();

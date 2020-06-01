@@ -54,7 +54,7 @@ export class OffersPage {
   Images : any;
   constructor(private geolocation: Geolocation,private diagnostic: Diagnostic,public server: ServerProvider, public alertCtrl: AlertController, public loadingCtrl: LoadingController, private nativeStorage: NativeStorage, private toastCtrl: ToastController, public globals: GlobalVariable, public http: Http, public navCtrl: NavController, public navParams: NavParams,public modalCtrl: ModalController) {
         
-    this.presentModal();
+    // this.presentModal();
     
     this.cartflag = this.navParams.get('CartFlag');
     this.PageFlag = this.navParams.get('pageflag');
