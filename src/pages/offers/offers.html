@@ -23,7 +23,7 @@
         </ion-slide>
     </ion-slides> -->
 
-    <div padding>
+    <div>
 
         <div *ngIf="errorMenu == true">
             <p class="no_offer">
@@ -32,8 +32,8 @@
             <p no-margin style="padding-right:20px; padding-left:20px; text-align: center; font-size: 14px;">No Special Offers</p>
         </div>
 
-        <div *ngFor="let banners of Images" style="height:300px">
-            <img (click)="open_category($event)" style="height: 173px; width:100% !important;border-radius: 0px;object-fit: cover; border: 5px dashed #ccc; border-radius: 15px; margin-bottom: 10px;"  src="{{banners?.image}}">
+        <div *ngFor="let banners of Images">
+            <img (click)="open_category($event)" style="height: 200px; width:100% !important;border-radius: 0px;object-fit: cover; margin-bottom: 10px;"  src="{{banners?.image}}">
         </div>
 
         <!-- <div *ngFor="let d of category; let i=index">
