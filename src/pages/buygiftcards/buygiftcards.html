@@ -10,8 +10,36 @@
 
 <ion-content padding > 
 
-  <form [formGroup]="PaymentForm" ng-submit="pay(this.PaymentForm.value)">
   <div>
+      <p style="font-size:1.5rem; color:rgb(102, 102, 102);font-weight: bold; margin: 0em;padding-top:3px;">
+          Total Price
+        </p>
+        <p style="font-size:3.5rem; color:rgb(102, 102, 102);font-weight: bold;  margin: 0em;">
+          ${{amount}}
+        </p>
+    
+        <p style="font-size:1.5rem; color:rgb(102, 102, 102);font-weight: bold; margin: 0em;padding-top:15px;">
+          Payment Method
+        </p>
+        <ion-row>
+          <ion-col col-6>
+            <button ion-button block style="border-radius: 12px;height: 45px;" color="{{color}}"
+              *ngIf="globals.card_enabled && amount > 0" (click)="creditBox()">Credit <ion-icon
+                name="ios-checkmark-circle-outline" style="zoom:2.0;padding-left: 3px"></ion-icon></button>
+          </ion-col>
+          <ion-col col-6>
+            <button ion-button block style="border-radius: 12px;height: 45px;"
+              *ngIf="globals.cash_enabled" color="{{color2}}" (click)="deliveryBox()">Pay
+              at store <ion-icon name="ios-checkmark-circle-outline" style="zoom:2.0;padding-left: 3px"></ion-icon></button>
+          </ion-col>
+    
+          <p class="kkkj" *ngIf="globals.cash_enabled && amount > 0">You can pay by cash,
+            debit card or credit card at the store</p>
+        </ion-row>
+
+
+        <form [formGroup]="PaymentForm" ng-submit="pay(this.PaymentForm.value)">
+          <div *ngIf="creditcard == true && globals.card_enabled && amount > 0">
   <ion-row>
     <ion-col col-8 no-padding>
       <p
@@ -85,8 +113,33 @@
   </ion-col>
 
 </ion-row>
-  </div>
 
+<br>
+
+<ion-item *ngIf="!globals.coas_flag" style="padding: 0;">
+  <ion-label>Save Credit Card Info</ion-label>
+  <ion-toggle (ionChange)="Savecreditcard()" formControlName="cardinfo"></ion-toggle>
+</ion-item>
+
+</div>
+
+<br><br><br>
+  
+<ion-row style="margin-top: 12% !important;">
+    <ion-col col-6>
+         <button  ion-button type="submit" color='jack' round  (click)="cash_discount_confirmation(this.PaymentForm.value)" block>Buy Card</button>    
+    </ion-col>
+    <ion-col col-6>
+  <button  ion-button outline (click)="cancel()" round style="color:#c0392b !important;" color='danger' block   block>Cancel</button>
+
+      </ion-col>
+  </ion-row>
+
+<!-- <ion-label style="font-size:2.5rem;font-weight: bold; color:white;m.value)" style="margin-top: 5%;width:95%; margin-left:2.5%;"
+block>Make Payment </button> -->
+</form>
+</div>
+</ion-content>
 
 <!-- 
     <form [formGroup]="PaymentForm" ng-submit="pay(this.PaymentForm.value)">
@@ -135,17 +188,4 @@
     
         </div> -->
     
-           <ion-row style="margin-top: 12% !important;">
-              <ion-col col-6>
-                   <button  ion-button type="submit" color='jack' round  (click)="cash_discount_confirmation(this.PaymentForm.value)" block>Buy Card</button>    
-              </ion-col>
-              <ion-col col-6>
-            <button  ion-button outline (click)="cancel()" round style="color:#c0392b !important;" color='danger' block   block>Cancel</button>
-    
-                </ion-col>
-            </ion-row>
-        
-        <!-- <ion-label style="font-size:2.5rem;font-weight: bold; color:white;m.value)" style="margin-top: 5%;width:95%; margin-left:2.5%;"
-          block>Make Payment </button> -->
-      </form>
-</ion-content>
+          
