@@ -30,8 +30,7 @@ message:any;
 amount:any;
 action:any='';
 cash_discount = 0;
-color : any ='appButtons';
-color2 : any ='appButtons';
+color : any ='primary';
 creditcard: boolean = false;
 cash_on_delivery: any;
 ccFee_added:boolean = true;
@@ -39,15 +38,6 @@ ccFee_added:boolean = true;
 
   constructor(public server: ServerProvider, private nativeStorage: NativeStorage, public alertCtrl: AlertController, public loadingCtrl: LoadingController, public globals: GlobalVariable,public viewCtrl: ViewController, public formBuilder: FormBuilder, public stripe: Stripe, public http: Http, public navCtrl: NavController, public navParams: NavParams) {
 
-    
-
-    // if (this.globals.card_enabled) {
-    //     this.color = 'primary';
-    //     this.creditcard = true;
-    // }
-    // else {
-    //     this.cash_on_delivery = true;
-    // }
 
     this.PaymentForm = formBuilder.group({
       creditcardno: ['', Validators.compose([Validators.minLength(10), Validators.maxLength(16), Validators.pattern('[0-9]*'), Validators.required])],
@@ -63,7 +53,7 @@ ccFee_added:boolean = true;
   this.amount = this.navParams.get('amount');
   this.action = this.navParams.get('action');
 
-
+  
   }
 
   ionViewDidLoad() {
@@ -71,30 +61,7 @@ ccFee_added:boolean = true;
   }
 
   creditBox() {
-    this.color = 'primary';
-    this.color2 = 'appButtons';
     this.creditcard = true;
-    this.cash_on_delivery = false;
-    if(this.ccFee_added){
-    this.ccFee_added = false;
-    var discount : any = ((Number(this.globals.cash_discount_percentage) / 100) * Number(this.amount)).toFixed(2);
-
-    discount = (Number(discount) + Number(this.globals.cash_discount_value));
-
-    this.cash_discount = discount;
-    this.amount = (Number(this.amount) + Number(discount)).toFixed(2);
-  
-    }
-}
-deliveryBox() {
-    this.color2 = 'primary';
-    this.color = 'appButtons';
-    this.creditcard = false;
-    this.cash_on_delivery = true;
-    if(!this.ccFee_added){
-    this.ccFee_added = true;
-    this.amount = this.navParams.get('amount');
-    }
 }
 
   pay(PaymentData: any) {
@@ -205,45 +172,40 @@ cancel(){
 }
 
 cash_discount_confirmation(payment_data) {
+    
     if (this.globals.cash_discount_enabled  && !this.cash_discount) {
-        this.pay(payment_data)
+         var discount : any = ((Number(this.globals.cash_discount_percentage) / 100) * Number(this.amount)).toFixed(2);
+
+       discount = (Number(discount) + Number(this.globals.cash_discount_value));
+
+        let alert = this.alertCtrl.create({
+            title: 'Please Note',
+            message: ' Your total amount will be $' + (Number(this.amount) + Number(discount)).toFixed(2) + ' as of convenience charge.',
+            buttons: [
+                {
+                    text: 'Cancel',
+                    role: 'cancel',
+                    handler: () => {
+                        console.log('Cancel clicked');
+
+                    }
+                },
+                {
+                    text: 'OK',
+                    handler: () => {
+                        this.cash_discount = discount;
+                        this.amount = (Number(this.amount) + Number(discount)).toFixed(2);
+
+                        this.pay(payment_data)
+                    }
+                }
+            ]
+        });
+        alert.present();
     }
     else {
         this.pay(payment_data)
     }
-    // if (this.globals.cash_discount_enabled  && !this.cash_discount) {
-    //      this.discount = ((Number(this.globals.cash_discount_percentage) / 100) * Number(this.amount)).toFixed(2);
-
-    //     this.discount = (Number(this.discount) + Number(this.globals.cash_discount_value));
-
-    //     let alert = this.alertCtrl.create({
-    //         title: 'Please Note',
-    //         message: ' Your total amount will be $' + (Number(this.amount) + Number(this.discount)).toFixed(2) + ' as of convenience charge.',
-    //         buttons: [
-    //             {
-    //                 text: 'Cancel',
-    //                 role: 'cancel',
-    //                 handler: () => {
-    //                     console.log('Cancel clicked');
-
-    //                 }
-    //             },
-    //             {
-    //                 text: 'OK',
-    //                 handler: () => {
-    //                     this.cash_discount = this.discount;
-    //                     this.amount = (Number(this.amount) + Number(this.discount)).toFixed(2);
-
-    //                     this.pay(payment_data)
-    //                 }
-    //             }
-    //         ]
-    //     });
-    //     alert.present();
-    // }
-    // else {
-    //     this.pay(payment_data)
-    // }
 
 }
 

@@ -24,22 +24,15 @@
         <ion-row>
           <ion-col col-6>
             <button ion-button block style="border-radius: 12px;height: 45px;" color="{{color}}"
-              *ngIf="globals.card_enabled && amount > 0" (click)="creditBox()">Credit <ion-icon
+              (click)="creditBox()">Credit <ion-icon
                 name="ios-checkmark-circle-outline" style="zoom:2.0;padding-left: 3px"></ion-icon></button>
           </ion-col>
-          <ion-col col-6>
-            <button ion-button block style="border-radius: 12px;height: 45px;"
-              *ngIf="globals.cash_enabled" color="{{color2}}" (click)="deliveryBox()">Pay
-              at store <ion-icon name="ios-checkmark-circle-outline" style="zoom:2.0;padding-left: 3px"></ion-icon></button>
-          </ion-col>
-    
-          <p class="kkkj" *ngIf="globals.cash_enabled && amount > 0">You can pay by cash,
-            debit card or credit card at the store</p>
+          <ion-col col-6></ion-col>
         </ion-row>
 
 
         <form [formGroup]="PaymentForm" ng-submit="pay(this.PaymentForm.value)">
-          <div *ngIf="creditcard == true && globals.card_enabled && amount > 0">
+          <div >
   <ion-row>
     <ion-col col-8 no-padding>
       <p

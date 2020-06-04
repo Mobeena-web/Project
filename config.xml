@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.mikronexus.onlineordering.portofino" version="0.0.4" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.mikronexus.onlineordering.portofino" version="0.0.5" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Portofino Huntington</name>
     <description>A reward and loyalty punch card app.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Mikronexus</author>
@@ -34,7 +34,7 @@
     <preference name="WKWebViewOnly" value="true" />
     <platform name="android">
         <preference name="AndroidPersistentFileLocation" value="Compatibility" />
-        <preference name="CodePushDeploymentKey" value="J4XC-Hyc9Mvv0W_W57x5iEqbj_O1_Q0NQOhiu8" />
+        <preference name="CodePushDeploymentKey" value="PXdIw2EKOZ5NobW4PJE7GdIkiRKF825c21f6-a7db-48ef-9c52-6d07f9cb9685" />
         <allow-intent href="market:*" />
         <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png" />
         <icon density="mdpi" src="resources/android/icon/drawable-mdpi-icon.png" />
@@ -56,7 +56,7 @@
         <splash density="port-xxxhdpi" src="resources/android/splash/drawable-port-xxxhdpi-screen.png" />
     </platform>
     <platform name="ios">
-        <preference name="CodePushDeploymentKey" value="4NDkHuO9OAe8kLWs7-0fxFoJlNmeiYXPUPtsSx" />
+        <preference name="CodePushDeploymentKey" value="_PPMDqXLoTiJ_Wp18s2sVbTRe84z80bcd73a-3c9b-49fe-815d-346d1570fa2e" />
         <preference name="WKWebViewOnly" value="true" />
         <preference name="KeyboardResize" value="false" />
         <allow-intent href="itms:*" />
