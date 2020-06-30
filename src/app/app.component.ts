@@ -132,6 +132,7 @@ export class MyApp {
         this.globals.orderNow_color = data.order_now_color;
         this.globals.specialOffer_color = data.special_offer_color;
         this.globals.themeColor = data.theme_color;
+        this.globals.appColor = data.theme_color;
     }, error => {
         console.log("Error get_banner ", error)
     });
