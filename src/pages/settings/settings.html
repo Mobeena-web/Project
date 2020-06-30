@@ -22,7 +22,7 @@
 
 
 <ion-content style="background-color:#fff" class="Open-Sans-regular">
-    <div style="font-family: Open Sans;" class="title1">
+    <div style="font-family: Open Sans" class="title1">
         <img src={{globals.b_logo}} style="    position: relative; left: 26%;  width: 50%;  height: auto;  ">
       </div>
 
@@ -63,7 +63,7 @@
       <ion-input type="password" name="password" [(ngModel)]="password"> </ion-input>
     </ion-item>
 
-    <ion-item>
+    <!-- <ion-item>
       <ion-label floating>Birthday</ion-label>
       <ion-datetime disabled="{{birthday_exist}}" pickerFormat="MMM/DD/YYYY" displayFormat="MMM/DD/YYYY" [(ngModel)]="user_birthday"></ion-datetime>
 
@@ -74,7 +74,7 @@
       <ion-label floating>Anniversary Date</ion-label>
       <ion-datetime disabled="{{aniversayexist}}" pickerFormat="MMM/DD/YYYY" displayFormat="MMM/DD/YYYY" [(ngModel)]="user_aniversary"></ion-datetime>
 
-    </ion-item>
+    </ion-item> -->
   </ion-list>
 
   <!-- <ion-list no-lines style="margin-bottom: 5px;">
@@ -99,7 +99,7 @@
   <div style=" width:100%; ">
 
     <div class="inner" style="width: 96%;margin-left: 2%;">
-      <button ion-button round  block type="submit" (click)="submit()" block>Update</button>
+      <button ion-button round class="background_global"  block type="submit" (click)="submit()" block>Update</button>
       <!-- <button ion-button *ngIf="Unedit" block type="submit" (click)="Edit()" block>Edit</button> -->
     
     </div>

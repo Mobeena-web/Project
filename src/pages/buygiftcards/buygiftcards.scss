@@ -7,11 +7,14 @@ page-buygiftcards {
     }
     .kkkj{
       text-align: center;
-      color: #273C75;
+      color: $primary;;
       margin: 0;
       line-height: 1.2;
       margin-top: 12px;
   
+    }
+    .cvv-color{
+      color: $primary;
     }
     .button-md{
       color: #fff !important;
@@ -71,13 +74,13 @@ page-buygiftcards {
       
       }
       .klll{
-        color: #273C75;
-      border-bottom: 1px solid #273C75;
+        color: $primary;;
+      border-bottom: 1px solid $primary;;
       
       }
       ::placeholder {
-        color: #fff !important;
-        font-size: 11px !important;
+        // color: #fff !important;
+        font-size: 15px !important;
       }
       .signUp{
   
@@ -123,7 +126,7 @@ page-buygiftcards {
   
     }
       .strip{
-        background: #273C75;
+        background: $primary;;
         height: 44px;
         margin-bottom: 11px;
         margin-left: -15px;
@@ -131,4 +134,25 @@ page-buygiftcards {
         margin-top: 4px;
     
       }
+
+      .toolbar-background{
+        background-color: $primary !important;
+    
+      }
+
+      .back-button{
+        color: #fff !important;
+    }
+    .toolbar-title{
+        color: #fff !important;
+
+    }
+    ion-item{
+      background: transparent !important;
+    }
+    .item-inner{
+      border: 1px solid #aaa !important;
+      border-radius: 5px;
+      padding-left: 10px;
+    }
 }

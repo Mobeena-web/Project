@@ -15,12 +15,14 @@
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
 
+$primary: var(--primary-color);
+
 .content{
     background-color: #eee;
 }
 
 ion-content{
-    font-family: 'jjch' !important;
+    font-family: 'Open Sans', sans-serif !important;
 }
 
 .rewards_badge{
@@ -29,12 +31,25 @@ ion-content{
 }
 
 .myicon{
-    color: #273C75;
+    color: $primary;;
     margin-right: 13px;
     font-size: 21px;
 }
 .back_menu{
     background: #fff;
 }
-  
+.businessLogo{
+    padding: 15px;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0px 0px 20px #999;
+}
+
+.background_global{
+    background: $primary !important;
+}
+
+// *{
+//     font-family: 'Montserrat', sans-serif;
+// }
 

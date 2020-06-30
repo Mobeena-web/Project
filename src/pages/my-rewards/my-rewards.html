@@ -6,7 +6,7 @@
 -->
 <ion-header>
 
-  <ion-navbar color="primary">
+  <ion-navbar >
     <ion-title>My Rewards</ion-title>
     <ion-buttons end>
         <button ion-button    (click)="cartpage()">
@@ -25,7 +25,7 @@
 
 <ion-content>
 
-  <ion-segment color="primary" [(ngModel)]="option" (ionChange)="SegmentChange()" *ngIf="!cart_reward_view">
+  <ion-segment  [(ngModel)]="option" (ionChange)="SegmentChange()" *ngIf="!cart_reward_view">
     <!-- <ion-segment-button style="font-size:1.1rem" value="gain">
       <ion-badge color="danger" item-left *ngIf="globals.RewardCount > 0">{{globals.RewardCount}}</ion-badge>
       GAIN
@@ -107,14 +107,14 @@
       <div *ngIf="this.globals.punch_check == 'true'">
         <ion-row>
           <ion-col col-6 *ngFor="let rewards of punch_menu ;let i=index" >
-            <ion-card>
+            <ion-card >
                 <img class="cup_img" src="{{rewards.image}}" />
-                <div class="circle" id="circles{{i}}"> </div>
+                <div style="min-height: 119px" class="circle" id="circles{{i}}"> </div>
                   <h5 text-center>{{rewards.name}}</h5>
                   <h5 text-center>{{rewards.punch_count}}/{{rewards.punch_limit}} Punches</h5>
     
             <!-- <button ion-button round block [disabled]="rewards.punch_count != rewards.punch_limit" class="pll" (click)="redeem_point_menu_item(rewards.id,'punches')">Redeem</button> -->
-            <button ion-button round block outline  class="pll" (click)="punch_model(rewards)">View Detail</button>
+            <button ion-button round block outline  class="pll background_global kop" (click)="punch_model(rewards)">View Detail</button>
 
           </ion-card>
 
@@ -160,7 +160,7 @@
           <ion-row>
             <ion-col col-3 style="margin: auto;">
 
-              <img class="itm-img" *ngIf="a.image" src="{{a.image}}">
+              <img class="itm-img" *ngIf="a.image" [src]="a.image ? a.image : globals.b_logo">
               <img class="itm-img" *ngIf="a.image == '' || !a.image" src={{globals.b_logo}}>
             </ion-col>
             <ion-col col-9 style="margin:auto">
@@ -170,11 +170,11 @@
 
               <ion-row>
                 <ion-col col-7>
-                  <button [disabled]="a.point_price > globals.points_" ion-button round block class="redem_btn" (click)="points_buy_Confirm(a.id,'point_store')">BUY
+                  <button color="jack" [disabled]="a.point_price > globals.points_" ion-button round block class="redem_btn" (click)="points_buy_Confirm(a.id,'point_store')">BUY
                     ({{a.point_price}} points)</button>
                 </ion-col>
                 <ion-col col-5> 
-                  <button  ion-button round block class="redem_btn" (click)="point_model(a)"> View Detail</button>
+                  <button  ion-button round block class="redem_btn background_global" (click)="point_model(a)"> View Detail</button>
                 </ion-col>
               </ion-row>
               
@@ -202,7 +202,7 @@
           <ion-row>
             <ion-col col-3 style="margin: auto;">
 
-              <img class="itm-img" *ngIf="a.image" src="{{a.image}}">
+              <img class="itm-img"  *ngIf="a.image" src="{{a.image}}" >
               <img class="itm-img" *ngIf="a.image == '' || !a.image" src={{globals.b_logo}}>
             </ion-col>
             <ion-col col-9 style="margin:auto">
@@ -210,7 +210,7 @@
               <p style="color:#444;font-size:1.5rem">{{a.name}} </p>
               <p style="font-size:1.3rem;    padding-bottom: 10px;">{{a.tagline}} </p>
 
-              <button *ngIf="reward_type_home == 'reward' || globals.branch_enabled == 0" ion-button round block [disabled]="a.stock_quantity == 0" class="redem_btn" (click)="Detail(a.id,a.image,a.freeExtras,a.reward_id)">Add
+              <button *ngIf="reward_type_home == 'reward' || globals.branch_enabled == 0" ion-button round block [disabled]="a.stock_quantity == 0" class="redem_btn background_global" (click)="Detail(a.id,a.image,a.freeExtras,a.reward_id)">Add
                 to Cart</button>
             </ion-col>
 

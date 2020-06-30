@@ -6,14 +6,15 @@
 -->
 <ion-header class="Open-Sans-bold">
 
-  <ion-navbar color="primary">
+  <ion-navbar >
     <ion-title>Detail</ion-title>
 
     <!-- <ion-buttons start>
      <button ion-button style = "color:white;" (click)="close()" clear small >Close</button>
     </ion-buttons> -->
     <ion-buttons end>
-      <button ion-button style="color:white;" (click)="ReorderVerificationPrompt(orders)" clear small>Reorder</button>
+      <!-- <button ion-button style="color:white;" (click)="ReorderVerificationPrompt(orders)" clear small>Reorder</button> -->
+      <button ion-button style="color:white;" (click)="showDetails()" clear small>Invoice</button>
     </ion-buttons>
   </ion-navbar>
 
@@ -52,14 +53,7 @@
       </ion-col>
     </ion-row>
 
-    <ion-label style="text-align: center;
-  font-size: 1.7rem;
-  background: #273C75;
-  margin-bottom: 0;
-  margin-right: 0;
-  color: white;
-  margin-top:0;
-  padding: 15px;">Order Detail</ion-label>
+    <ion-label class="head">Order Detail</ion-label>
     <div *ngFor="let order of orders">
       <ion-row style="background: white; border-bottom: solid thin #eee;margin-bottom: 8px;">
         <ion-col col-4 style="margin:auto">
@@ -78,7 +72,7 @@
         </ion-col>
 
         <div style="margin-bottom: 5px;background:white;width: 100%;" *ngIf="order.menuExtrasSelected.length > 0">
-          <ion-label style="font-size:2rem;  margin-top:0;  font-size: 2rem; background: #273C75;  padding: 5px; margin-left:0; margin-right:0;text-align: center;  color: white;">Extras </ion-label>
+          <ion-label class="extra">Extras </ion-label>
           <div style="    padding-left: 10px;" *ngFor="let extra of order.menuExtrasSelected ">
             <!-- <ion-label>{{extra.heading}} </ion-label>  -->
             <ion-row *ngFor="let option of extra.optionNameSelected ">
@@ -87,12 +81,7 @@
               </ion-col>
               <ion-col style="text-align:center">
                 <p *ngIf="option.isFree == false">${{option.price}} </p>
-                <ion-label *ngIf="option.isFree == true" style="text-align:right;text-align: center;
-                background: #273C75;
-                color: white;   
-                padding: 5px;
-                margin-right:0;   
-                ">Free </ion-label>
+                <ion-label *ngIf="option.isFree == true" class="free">Free </ion-label>
               </ion-col>
             </ion-row>
           </div>
@@ -100,7 +89,7 @@
 
 
       </ion-row>
-      <!-- <ion-label style="text-align: center;font-size: 1.7rem;background: #273C75;margin-bottom: 0;margin-right: 0;color: white;margin-top:0;padding: 15px;">Customer Detail</ion-label>
+      <!-- <ion-label style="text-align: center;font-size: 1.7rem;background: $primary;;margin-bottom: 0;margin-right: 0;color: white;margin-top:0;padding: 15px;">Customer Detail</ion-label>
       <p> Name: {{globals.firstName}}{{globals.lastName}} </p>
       <p>Phone:{{globals.o_phone}}</p>
       <p>Email:{{globals.o_email}}</p> -->

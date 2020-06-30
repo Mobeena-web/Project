@@ -5,6 +5,7 @@ import { CategoryPage } from "../category/category";
 import { ServerProvider } from "../../providers/server/server";
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 
+
 /**
  * Generated class for the ItemDetailPage page.
  *
@@ -63,13 +64,17 @@ export class ItemDetailPage {
   reward_id:any;
   type:boolean =true;
   stock_quantity:any;
+  itemShowFlag : boolean =false ;
+  optionitemArray : any;
   constructor(private photoViewer: PhotoViewer,public server: ServerProvider, public alertCtrl: AlertController, public loadingCtrl: LoadingController, public globals: GlobalVariable, public modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams, private toastCtrl: ToastController) {
     this.reward_item_flag = navParams.get('reward_flag');
     if(!this.reward_item_flag){
       this.reward_item_flag = false;
     }
     if(this.reward_item_flag){
-      this.presentModal1();
+      if(!this.globals.OrderType){
+        this.presentModal1();
+        }
     }
     this.reward_id = navParams.get('reward_id')
     this.thumbimage = navParams.get('image');
@@ -96,6 +101,25 @@ export class ItemDetailPage {
     modal.present();
 
     
+}
+
+openOptionDetail(list,event,i){
+  console.log(list)
+  console.log(this.optionitemArray)
+  
+  if(this.optionitemArray){
+      
+        if(list.heading == this.optionitemArray.heading){
+          this.itemShowFlag = false;
+          this.optionitemArray = null;
+      }else{
+        this.itemShowFlag = true;
+        this.optionitemArray =list;
+      }
+    }else{
+      this.itemShowFlag = true;
+      this.optionitemArray =list;
+    }
 }
 
   
@@ -406,9 +430,11 @@ export class ItemDetailPage {
           if(!reward_duplicate){
            this.globals.Product.push({ menuId: "1", restId: this.globals.bussinessId, uniqueId: this.ItemId, menuItem: this.name, image: this.thumbimage, quantity: this.quantity, itemInstructions: this.instructions, basePrice: this.price, totalPrice: this.objectPrice, menuExtrasSelected: this.myChoices,reward:this.reward_item_flag,reward_id:this.reward_id,tax:this.data.item.tax,tax_enabled:this.data.item.tax_enabled,discount_value:this.data.item.discount_value,discount_type:this.data.item.discount_type });
             this.globals.presentToast("Reward added in your cart")
+            this.navCtrl.pop();
           }
           else{
             this.globals.presentToast("You have already add this reward in cart.")
+            this.navCtrl.pop();
           }
         }
         else{
@@ -463,7 +489,6 @@ export class ItemDetailPage {
 
       }
       this.No_of_Free_Extras = Number(this.data.item.freeExtras);
-
       if (this.data.item.extras.length > 0) {
         var noExtras = false;
         this.extras = this.data.item.extras;
@@ -581,14 +606,33 @@ export class ItemDetailPage {
       if (!same) {
         console.log("not same");
 
-        
-        var data = { heading: heading, optionNameSelected: [{ name: op.name, price: Number(op.price), quantity: op.quantity, total: Number(op.price) * op.quantity, isFree: false, selected: op.IsSelected }] }
-        console.log("myprice",this.item_price,op.price,this.quantity)
-        
-        this.item_price = (Number(this.item_price) + (Number(op.price) * this.quantity)).toFixed(2);
-        
-        this.myChoices.push(data);
-        this.flag = false;
+        if(this.No_of_Free_Extras == 0){
+          var data = { heading: heading, optionNameSelected: [{ name: op.name, price: Number(op.price), quantity: op.quantity, total: Number(op.price) * op.quantity, isFree: false, selected: op.IsSelected }] }
+          console.log("myprice",this.item_price,op.price,this.quantity)
+          
+          this.item_price = (Number(this.item_price) + (Number(op.price) * this.quantity)).toFixed(2);
+          
+          this.myChoices.push(data);
+          this.flag = false;
+        }else{
+          if(this.myChoices.length < this.No_of_Free_Extras){
+            var data = { heading: heading, optionNameSelected: [{ name: op.name, price: 0, quantity: op.quantity, total: 0, isFree: true, selected: op.IsSelected }] }
+            console.log("myprice",this.item_price,op.price,this.quantity)
+            
+            // this.item_price = (Number(this.item_price) + (Number(op.price) * this.quantity)).toFixed(2);
+            
+            this.myChoices.push(data);
+            this.flag = false;
+          } else {
+            var data = { heading: heading, optionNameSelected: [{ name: op.name, price: Number(op.price), quantity: op.quantity, total: Number(op.price) * op.quantity, isFree: false, selected: op.IsSelected }] }
+            console.log("myprice",this.item_price,op.price,this.quantity)
+            
+            this.item_price = (Number(this.item_price) + (Number(op.price) * this.quantity)).toFixed(2);
+            
+            this.myChoices.push(data);
+            this.flag = false;
+          }
+        }
       }
       console.log(data);
       console.log("mychoice_array", this.myChoices);
@@ -633,6 +677,19 @@ export class ItemDetailPage {
         }
         else {
           console.log("ELSE", value);
+          if(this.myChoices.length > 0){
+            for(let i = 0; i < this.myChoices.length; i++){
+              if(this.myChoices[i].optionNameSelected[0].name == op.name){
+                if(this.myChoices[i].optionNameSelected[0].isFree){
+                  
+                }else {
+                  this.item_price = (Number(this.item_price) - (Number(op.price) * this.quantity)).toFixed(2);
+                }
+              }
+            }
+          } else {
+            // this.item_price = (Number(this.item_price) + (this.quantity)).toFixed(2);
+          }
           //  this.myChoices =  this.myChoices.splice(value,1);
           this.myChoices.map(
             (checkitem, i, array) => {
@@ -645,7 +702,7 @@ export class ItemDetailPage {
           );
         }
       }
-      console.log(this.myChoices);
+      console.log("Remaining Extras -> ", this.myChoices);
       console.log("Item $ ", this.item_price);
       console.log("op $ ", op.price);
       console.log("Quantity $ ", this.quantity);
@@ -653,7 +710,9 @@ export class ItemDetailPage {
       if(this.flag == true){
         console.log("No calculate ");
       }else{
-        this.item_price = (Number(this.item_price) - (Number(op.price) * this.quantity)).toFixed(2);
+        
+        // this.item_price = (Number(this.item_price) - (Number(op.price) * this.quantity)).toFixed(2);
+        // this.item_price = (Number(this.item_price) + (Number(op.price) * this.quantity)).toFixed(2);
       }
 
       // }
@@ -666,6 +725,100 @@ export class ItemDetailPage {
       //}
     }
   }
+
+  checkTiming(timing) {
+    if (this.globals.order_time == 'schedule') {
+        if (this.globals.specific_delivery_day == 'true') {
+            return true;
+        }
+
+        var day = this.globals.schedule_day_id + 1;
+        if (day == 7) {
+            day = 0;
+        }
+
+        var time = this.globals.schedule_converted_time;
+        var current_day = timing[day];
+        console.log("-->",current_day,day,timing,time)
+        var n = current_day[0].indexOf('.');
+        if (n != -1) {
+            var res = current_day[0].split(".");
+            current_day[0] = res[0] + '.' + '3'
+        }
+        var n1 = current_day[1].indexOf('.');
+        if (n1 != -1) {
+            var res = current_day[1].split(".");
+            current_day[1] = res[0] + '.' + '3'
+        }
+        if ((Number(current_day[0]) <= time && Number(current_day[1]) > time) || (Number(current_day[0]) <= time && Number(current_day[1]) < Number(current_day[0]))) {
+
+            return true;
+
+        }
+        else if (current_day[0] == 'opened' && current_day[1] == 'opened') {
+
+            return true;
+
+        }
+        else {
+            this.globals.presentToast('Sorry, we are not serving ' +  this.globals.OrderType + ' at time you schedule!')
+
+            return false;
+        }
+
+
+    }
+    else {
+    
+        var date = new Date();
+        var day: any = date.getDay();
+        var time: any = date.getHours() + "." + date.getMinutes();
+        time = Number(time);
+
+        var current_day = timing[day];
+
+        var n = current_day[0].indexOf('.');
+        if (n != -1) {
+            var res = current_day[0].split(".");
+            current_day[0] = res[0] + '.' + '3'
+        }
+        var n1 = current_day[1].indexOf('.');
+        if (n1 != -1) {
+            var res = current_day[1].split(".");
+            current_day[1] = res[0] + '.' + '3'
+        }
+
+        if ((Number(current_day[0]) <= time && Number(current_day[1]) > time) || (Number(current_day[0]) <= time && Number(current_day[1]) < Number(current_day[0]))) {
+            return true;
+        }
+        else if (current_day[0] == 'opened' && current_day[1] == 'opened') {
+            return true;
+        }
+        else {
+            this.globals.presentToast('Sorry, we are not serving ' +  this.globals.OrderType + ' at this time!')
+
+            return false;
+        }
+    }
+
+}
+
+add_to_cart_timing_check(){
+    if(this.globals.OrderType == 'delivery'){
+      if (this.checkTiming(this.globals.delivery_timing)) {
+        this.Cart();
+      }
+
+    }
+    else{
+      if (this.checkTiming(this.globals.pickup_timing)) {
+        this.Cart();
+      }
+
+    }
+
+    
+}
 
 }
 

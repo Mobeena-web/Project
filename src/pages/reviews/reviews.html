@@ -6,8 +6,14 @@
 -->
 <ion-header class="Open-Sans-bold">
 
-  <ion-navbar color="primary">
+  <ion-toolbar color="primary">
     <ion-title>Reviews</ion-title>
+    <ion-buttons (click)="goToback()" start style="margin-left:0%; padding-left: 0%">
+      <button ion-button  class="button_back">
+        <ion-icon name="close"></ion-icon>
+      </button>
+
+    </ion-buttons>
     <!-- <ion-buttons end>
 
       <button ion-button style="color:white; float:right"  clear small>Review</button>
@@ -16,7 +22,7 @@
     <!-- <ion-buttons start>
      <button ion-button style = "color:white; float:right" (click)="dismiss()" clear small >Close</button>
     </ion-buttons> -->
-  </ion-navbar>
+  </ion-toolbar>
 
 </ion-header>
 
@@ -43,6 +49,6 @@
 
   </ion-card>
   <ion-fab (click)="addReview()" class="add_review">
-    <button ion-fab ><ion-icon name="add"></ion-icon></button>
+    <button class="background_global" ion-fab ><ion-icon name="add"></ion-icon></button>
   </ion-fab>
 </ion-content>

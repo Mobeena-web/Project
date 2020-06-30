@@ -1,15 +1,18 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController, AlertController, ModalController, ViewController } from 'ionic-angular';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { NativeStorage } from '@ionic-native/native-storage';
+import { GooglePlus } from '@ionic-native/google-plus';
+import { EmailValidator } from '../../validators/email';
+
 import { HomePage } from '../home/home';
 import { ServerProvider } from '../../providers/server/server';
 import { GlobalVariable } from '../../app/global';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { NativeStorage } from '@ionic-native/native-storage';
-import { EmailValidator } from '../../validators/email';
 import { MainTabsPage } from '../main-tabs/main-tabs';
 import { IntroPage3Page } from '../intro-page3/intro-page3';
 
 declare var FB: any;
+declare var cordova: any;
 
 @IonicPage()
 @Component({
@@ -23,8 +26,13 @@ export class LoginPage {
     // ID: any;
     // date: any;
     places = [];
+    login_type = 'email';
+    pos_customer: boolean = false;
+    phone: any;
+    code = '+1';
+    profile_complete: any;
     constructor(public viewCtrl: ViewController, public server: ServerProvider, public globals: GlobalVariable, private nativeStorage: NativeStorage, public modalCtrl: ModalController, public navCtrl: NavController,
-        public navParams: NavParams,
+        public navParams: NavParams, private googlePlus: GooglePlus,
         public loadingCtrl: LoadingController,
         public alertCtrl: AlertController,
         public formBilder: FormBuilder
@@ -32,7 +40,10 @@ export class LoginPage {
 
 
         this.loginForm = formBilder.group({
-            email: ['', Validators.compose([Validators.required, EmailValidator.isValid])],
+            email: [''],
+            phone: [''],
+            code: ['+1'],
+
             password: ['', Validators.compose([Validators.minLength(6), Validators.required])]
         })
         this.data = {};
@@ -44,11 +55,11 @@ export class LoginPage {
 
 
     createAccount() {
-        this.navCtrl.push(IntroPage3Page);
+        this.navCtrl.push(IntroPage3Page, { profile_complete: true });
     }
 
-    register() {
-        this.navCtrl.push(IntroPage3Page)
+    register(phone) {
+        this.navCtrl.push(IntroPage3Page, { phone: phone, profile_complete: false })
     }
 
 
@@ -74,57 +85,64 @@ export class LoginPage {
                     this.globals.firstName = this.data.response.firstname;
                     this.globals.lastName = this.data.response.lastname;
                     this.globals.Email = LoginData.email;
+                    this.profile_complete = this.data.response.profile_complete;
                     if (this.globals.caos_flag) {
 
                         this.viewCtrl.dismiss();
                     }
                     else {
-                        // this.navCtrl.setRoot(HomePage, { imageData: this.data.response.url, Flag: false });
-                        this.list();
-                        this.nativeStorage.setItem('user',
-                            {
-                                email: LoginData.email,
-                                udid: this.data.response.udid,
-                                firstName: this.data.response.firstname,
-                                lastName: this.data.response.lastname,
-                                phone: this.data.response.phone,
-                                password: LoginData.password,
-                                image: this.data.response.url,
-                                ID: this.data.response.id,
-                                date: this.data.response.date_joined,
-                                phone_verify: this.data.response.phone_verified,
-                                birthday: this.data.response.birthday,
-                                aniversary: this.data.response.anniversary
+                        console.log("p", this.profile_complete)
+                        if (!this.profile_complete) {
+                            this.register(LoginData.phone);
+                        }
+                        else {
+                            this.list();
+                            this.nativeStorage.setItem('user',
+                                {
+                                    email: LoginData.email,
+                                    udid: this.data.response.udid,
+                                    firstName: this.data.response.firstname,
+                                    lastName: this.data.response.lastname,
+                                    phone: this.data.response.phone,
+                                    password: LoginData.password,
+                                    image: this.data.response.url,
+                                    ID: this.data.response.id,
+                                    date: this.data.response.date_joined,
+                                    phone_verify: this.data.response.phone_verified,
+                                    birthday: this.data.response.birthday,
+                                    aniversary: this.data.response.anniversary
 
-                            }).then(() => {
-                                
-                                this.SaveMobileNumberFlag(this.data.response.mobile_verification_amount, this.data.response.phone_verified);
-                                // this.server.initializePushToken();
-                                if (this.globals.caos_flag) {
+                                }).then(() => {
 
-                                    this.navCtrl.push('CartPage')
-                                }
-                                else {
-                                    this.navCtrl.setRoot(HomePage, { imageData: this.data.response.url, Flag: false });
+                                    this.SaveMobileNumberFlag(this.data.response.mobile_verification_amount, this.data.response.phone_verified);
+                                    // this.server.initializePushToken();
+                                    if (this.globals.caos_flag) {
 
-                                }
+                                        this.navCtrl.push('CartPage')
+                                    }
+                                    else {
+                                        this.navCtrl.setRoot(HomePage, { imageData: this.data.response.url, Flag: false });
 
-                            })
-                            .catch((err) => {
-                                console.log("nativesstorage", err)
+                                    }
 
-                                this.SaveMobileNumberFlag(this.data.response.mobile_verification_amount, this.data.response.phone_verified);
+                                })
+                                .catch((err) => {
+                                    console.log("nativesstorage", err)
 
-                                if (this.globals.caos_flag) {
+                                    this.SaveMobileNumberFlag(this.data.response.mobile_verification_amount, this.data.response.phone_verified);
 
-                                    this.navCtrl.push('CartPage')
-                                }
-                                else {
-                                    this.navCtrl.setRoot(HomePage, { imageData: this.data.response.url, Flag: false });
+                                    if (this.globals.caos_flag) {
 
-                                }
-                                // this.server.initializePushToken();
-                            });
+                                        this.navCtrl.push('CartPage')
+                                    }
+                                    else {
+                                        this.navCtrl.setRoot(HomePage, { imageData: this.data.response.url, Flag: false });
+
+                                    }
+                                    // this.server.initializePushToken();
+                                });
+                        }
+
 
 
                     }
@@ -133,7 +151,7 @@ export class LoginPage {
                 }
                 else {
 
-                    this.globals.presentToast("Invalid Email or Password")
+                    this.globals.presentToast("Invalid Credentials")
 
                 }
             }, error => {
@@ -223,8 +241,9 @@ export class LoginPage {
             this.globals.business_type = this.places[0].business_type;
             this.globals.orders_enabled = this.places[0].orders_enabled;
             this.globals.BusinessDiscount = this.places[0].discount;
+            this.globals.ccFeeDisclaimer = this.places[0].ccFeeDisclaimer;
 
-console.log("pop",this.globals.BusinessDiscount)
+            console.log("pop", this.globals.BusinessDiscount)
             if (this.globals.pickup == '1') {
                 this.globals.pickup = true;
             }
@@ -266,6 +285,71 @@ console.log("pop",this.globals.BusinessDiscount)
 
     }
 
+    check_phone_number() {
+        this.pos_customer = true;
+    }
+
+    cancel_pos() {
+        this.pos_customer = false;
+
+    }
+
+    complete_profile() {
+        let loading = this.loadingCtrl.create({
+            content: "Please wait..."
+        });
+        loading.present();
+        let response = this.server.check_user_by_phone(this.code + this.phone);
+        response.subscribe(data => {
+            loading.dismiss();
+            this.globals.presentToast(data.message);
+
+            if (!data.success) {
+                this.pos_customer = false;
+            }
+            else {
+                if (data.data.profile_complete) {
+                    this.pos_customer = false;
+                }
+                else {
+                    //this.register();
+                }
+            }
+        }, error => {
+
+            this.globals.presentToast("Something went wrong check your internet connection.")
 
 
+        });
+
+    }
+
+    doAppleLogin() {
+        cordova.plugins.SignInWithApple.signin(
+            { requestedScopes: [0, 1] },
+            function (succ) {
+                console.log(succ)
+                alert(JSON.stringify(succ))
+            },
+            function (err) {
+                console.error(err)
+                console.log(JSON.stringify(err))
+            }
+        )
+    }
+
+    doGoogleLogin() {
+        let options = {
+            'scopes': '', // optional, space-separated list of scopes, If not included or empty, defaults to `profile` and `email`.
+            'webClientId': '859537130755-aoipu1fgmh0mu2ro99ihkjntfbt2ege4.apps.googleusercontent.com', // optional clientId of your Web application from Credentials settings of your project - On Android, this MUST be included to get an idToken. On iOS, it is not required.
+            'offline': true // optional, but requires the webClientId - if set to true the plugin will also return a serverAuthCode, which can be used to grant offline access to a non-Google server
+        };
+
+        this.googlePlus.login(options).then(res => {
+            console.log("G+ login Success-> ", res)
+        })
+        .catch(err => {
+            console.error("G+ login Error-> ",  err)
+        });
+    }
 }

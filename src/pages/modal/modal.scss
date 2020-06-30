@@ -1,4 +1,15 @@
 page-modal {
+  .hidden{
+    display: none;
+  }
+
+  .searchbar-input{
+    padding: 0;
+    width: 100%;
+    input{
+      padding: 10px !important
+    }
+  }
 
  .content{
    background: #fff !important;
@@ -9,14 +20,14 @@ page-modal {
   float: right;
   margin-right: 15px;
   margin-top: 10px;
-  font-size: 20px;
+  font-size: 35px;
   color: #c0392b;
  }
 
  #map {
     width: 100%;
-    height: 200px;
-    // margin-top: 20px;
+    height: 400px;
+    margin-top: 3px;
   }
   .mp{
     display: block;
@@ -25,18 +36,18 @@ page-modal {
   }
   .block{
     margin-top:0; margin-bottom:0 ; align-content: center; text-align: center; border-radius: 9px;
-          border: 3px #000 solid;
+          border: 3px #000000 solid;
           width: 78%;
           margin-left: auto;
           margin-right: auto;
   }
   .time_heading{
-    font-size: 15px; color: #000;
+    font-size: 15px; color: #000000;
   }
   .mytime{
     font-size: 2.2rem;
           text-align: center;
-          font-weight: bold; color: #000;
+          font-weight: bold; color: #000000;
   }
 
  .pizza{
@@ -59,7 +70,7 @@ page-modal {
       //   height: 100%;
       //   z-index: 1;
       //   opacity: .5;
-      //   background-color: #273C75;
+      //   background-color: $primary;;
       // }
       // .modal_content {
       //   position: absolute;
@@ -72,7 +83,7 @@ page-modal {
       //   z-index: 100;
       //   margin: 0 auto;
       //   padding: 10px;
-      //   color: #273C75;
+      //   color: $primary;;
       //   background:white;
       //   background: -moz-linear-gradient(top, #fff 0%, white 100%);
       //   background: -webkit-linear-gradient(top, #fff 0%, white 100%);
@@ -107,7 +118,7 @@ page-modal {
 page-modal ion-slides {
   // height: 150px;
   .swiper-pagination-bullet {
-    background: #273C75 !important;
+    background: $primary !important;
   }
 }
 

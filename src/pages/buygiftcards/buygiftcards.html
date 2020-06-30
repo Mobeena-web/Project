@@ -1,14 +1,140 @@
 
 <ion-header>
 
-  <ion-navbar color='primary'>
+  <ion-navbar>
     <ion-title>Buy Gift Card</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding style="background:#ccc">
+<ion-content padding > 
+
+  <div>
+      <p style="font-size:1.5rem; color:rgb(102, 102, 102);font-weight: bold; margin: 0em;padding-top:3px;">
+          Total Price
+        </p>
+        <p style="font-size:3.5rem; color:rgb(102, 102, 102);font-weight: bold;  margin: 0em;">
+          ${{amount}}
+        </p>
+    
+        <p style="font-size:1.5rem; color:rgb(102, 102, 102);font-weight: bold; margin: 0em;padding-top:15px;">
+          Payment Method
+        </p>
+        <ion-row>
+          <ion-col col-6>
+            <button ion-button block style="border-radius: 12px;height: 45px;" color="{{color}}"
+              (click)="creditBox()">Credit <ion-icon
+                name="ios-checkmark-circle-outline" style="zoom:2.0;padding-left: 3px"></ion-icon></button>
+          </ion-col>
+          <ion-col col-6></ion-col>
+        </ion-row>
+
+
+        <form [formGroup]="PaymentForm" ng-submit="pay(this.PaymentForm.value)">
+          <div >
+  <ion-row>
+    <ion-col col-8 no-padding>
+      <p
+        style="font-size:1.5rem; color:rgb(102, 102, 102);font-weight: bold; margin: 0em;padding-top:20px;padding-bottom: 10px">
+        Card Number</p>
+    </ion-col>
+    <ion-col col-4 no-padding>
+      <p
+        style="font-size:1.5rem; color:rgb(102, 102, 102);font-weight: bold; margin: 0em;padding-top:20px;padding-bottom: 10px;padding-left: 16px">
+        CVV</p>
+    </ion-col>
+  </ion-row>
+
+  
+  <ion-row>
+    <ion-col col-8 no-padding>
+      <ion-item style="margin: 0%;padding:0%">
+        <ion-input formControlName="creditcardno"   placeholder="xxxx xxxx xxxx xxxx" type="tel" maxlength="16" minlength="15"></ion-input>
+      </ion-item>
+    </ion-col>
+    <ion-col col-4 no-padding>
+      <ion-item style="margin: 0%;">
+        <ion-input type="tel" formControlName="CVC"  placeholder="cvv" type="tel" maxlength="4" minlength="3"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <p
+  style="font-size:1.5rem; color:rgb(102, 102, 102);font-weight: bold; margin: 0em;padding-top:15px;padding-bottom: 10px">
+  Valid until</p>
+
+
+<ion-row>
+  <ion-col col-6 no-padding>
+    <ion-item style="padding: 0%;">
+      <ion-select formControlName="expiryMonth" style="padding: 0%;" placeholder="mm" 
+        interface="popover">
+        <ion-option value="01">01</ion-option>
+        <ion-option value="02">02</ion-option>
+        <ion-option value="03">03</ion-option>
+        <ion-option value="04">04</ion-option>
+        <ion-option value="05">05</ion-option>
+        <ion-option value="06">06</ion-option>
+        <ion-option value="07">07</ion-option>
+        <ion-option value="08">08</ion-option>
+        <ion-option value="09">09</ion-option>
+        <ion-option value="10">10</ion-option>
+        <ion-option value="11">11</ion-option>
+        <ion-option value="12">12</ion-option>
+      </ion-select>
+    </ion-item>
+
+  </ion-col>
+  <ion-col col-6 no-padding>
+    <ion-item>
+      <ion-select formControlName="expiryYear" style="padding: 0%;margin: 0rem" placeholder="yyyy" 
+        interface="popover">
+        <ion-option value="2020">2020</ion-option>
+        <ion-option value="2021">2021</ion-option>
+        <ion-option value="2022">2022</ion-option>
+        <ion-option value="2023">2023</ion-option>
+        <ion-option value="2024">2024</ion-option>
+        <ion-option value="2025">2025</ion-option>
+        <ion-option value="2026">2026</ion-option>
+        <ion-option value="2027">2027</ion-option>
+        <ion-option value="2028">2028</ion-option>
+        <ion-option value="2029">2029</ion-option>
+        <ion-option value="2030">2030</ion-option>
+      </ion-select>
+    </ion-item>
+  </ion-col>
+
+</ion-row>
+
+<br>
+
+<ion-item *ngIf="!globals.coas_flag" style="padding: 0;">
+  <ion-label>Save Credit Card Info</ion-label>
+  <ion-toggle (ionChange)="Savecreditcard()" formControlName="cardinfo"></ion-toggle>
+</ion-item>
+
+</div>
+
+<br><br><br>
+  
+<ion-row style="margin-top: 12% !important;">
+    <ion-col col-6>
+         <button  ion-button type="submit" color='jack' round  (click)="cash_discount_confirmation(this.PaymentForm.value)" block>Buy Card</button>    
+    </ion-col>
+    <ion-col col-6>
+  <button  ion-button outline (click)="cancel()" round style="color:#c0392b !important;" color='danger' block   block>Cancel</button>
+
+      </ion-col>
+  </ion-row>
+
+<!-- <ion-label style="font-size:2.5rem;font-weight: bold; color:white;m.value)" style="margin-top: 5%;width:95%; margin-left:2.5%;"
+block>Make Payment </button> -->
+</form>
+</div>
+</ion-content>
+
+<!-- 
     <form [formGroup]="PaymentForm" ng-submit="pay(this.PaymentForm.value)">
         <div >
         <ion-list style="padding: 10px; padding-bottom:0px;margin-bottom: 3px;">
@@ -43,7 +169,7 @@
           <ion-card class="payment_card background_image2" >
            <ion-item style="background: transparent;border:0px;margin-top: 40px">
     
-                  <ion-label  style="color: #273C75">CVV</ion-label>
+                  <ion-label  class="cvv-color">CVV</ion-label>
           
                   <ion-input  class="klll"  formControlName="CVC" type="number"></ion-input>
                 </ion-item>
@@ -53,19 +179,6 @@
          
         </ion-list>
     
-        </div>
+        </div> -->
     
-           <ion-row style="margin-top: 12% !important;">
-              <ion-col col-6>
-                   <button  ion-button type="submit" color='jack' round  (click)="pay(this.PaymentForm.value)" block>Buy Card</button>    
-              </ion-col>
-              <ion-col col-6>
-            <button  ion-button outline (click)="cancel()" round style="color:#c0392b !important;" color='danger' block   block>Cancel</button>
-    
-                </ion-col>
-            </ion-row>
-        
-        <!-- <ion-label style="font-size:2.5rem;font-weight: bold; color:white;m.value)" style="margin-top: 5%;width:95%; margin-left:2.5%;"
-          block>Make Payment </button> -->
-      </form>
-</ion-content>
+          

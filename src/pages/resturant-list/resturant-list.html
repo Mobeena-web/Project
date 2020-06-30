@@ -6,7 +6,7 @@
 -->
 <ion-header class="Open-Sans-bold">
 
-  <ion-navbar color="primary">
+  <ion-navbar>
     <ion-title *ngIf="deals_flag != 1 && birthday_flag != 2 && !globals.marketPlace">Branches</ion-title>
     <ion-title *ngIf="deals_flag != 1 && birthday_flag != 2 && globals.marketPlace">Restaurants List</ion-title>
 
@@ -65,14 +65,14 @@
             <ion-grid>
               <ion-row>
                 <ion-col col-3>
-                    <ion-badge (click)=" business_info()">Business Info</ion-badge>
+                    <ion-badge class="background_global" (click)=" business_info()">Business Info</ion-badge>
 
                 </ion-col>
                 <ion-col col-6>
                     <img class="image" src="{{place.logo}}">
                 </ion-col>
                 <ion-col col-3>
-                    <ion-badge (click)="reviews(place.name,place.business_id,place.hours_operation,place.latitude,place.longitude,place.username)">Reviews</ion-badge>
+                    <ion-badge class="background_global" (click)="reviews(place.name,place.business_id,place.hours_operation,place.latitude,place.longitude,place.username)">Reviews</ion-badge>
                 </ion-col>
               </ion-row>
               <ion-row>
@@ -109,15 +109,15 @@
                   <!-- <button ion-button small block class="review-btn" (tap)="Reviews(place.username)">
                     <ion-icon name="list-box"> </ion-icon>
                   </button> -->
-                  <button *ngIf="deals_flag == 1" ion-button block margin-top style="height: 37px;font-size: 13px;"   color='primary' 
+                  <button *ngIf="deals_flag == 1" ion-button block margin-top style="height: 37px;font-size: 13px;"   class='background_global' 
                   (click)="OrderCategory(place)"
                   block>VIEW SPECIAL OFFERS
                 </button>
-                <button *ngIf="deals_flag != 1 && birthday_flag != 2" ion-button block margin-top style="height: 37px;font-size: 13px;"   color='primary' 
+                <button *ngIf="deals_flag != 1 && birthday_flag != 2" ion-button block margin-top style="height: 37px;font-size: 13px;"   class='background_global' 
                   (click)="OrderCategory(place)"
                   block>VIEW MENU
                 </button>
-                <button *ngIf="birthday_flag == 2" ion-button block margin-top style="height: 37px;font-size: 13px;"   color='primary' 
+                <button *ngIf="birthday_flag == 2" ion-button block margin-top style="height: 37px;font-size: 13px;"   class='background_global' 
                   (click)="OrderCategory(place)"
                   block>VIEW BIRTHDAY GIFT
                 </button>

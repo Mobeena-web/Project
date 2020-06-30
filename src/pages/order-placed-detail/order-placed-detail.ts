@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController, LoadingController, AlertController } from 'ionic-angular';
 import { ServerProvider } from '../../providers/server/server';
 import { GlobalVariable } from '../../app/global';
-
+import { InAppBrowser } from '@ionic-native/in-app-browser';
 /**
  * Generated class for the OrderPlacedDetailPage page.
  *
@@ -30,7 +30,7 @@ export class OrderPlacedDetailPage {
     category: any;
     object: any;
     payment_type:any;
-    constructor(public globals: GlobalVariable, public alertCtrl: AlertController, public loadingCtrl: LoadingController, public server: ServerProvider, public viewCtrl: ViewController, public navCtrl: NavController, public navParams: NavParams) {
+    constructor(public globals: GlobalVariable, public alertCtrl: AlertController, public loadingCtrl: LoadingController, public server: ServerProvider, public viewCtrl: ViewController, public navCtrl: NavController, public navParams: NavParams, private iab: InAppBrowser) {
         this.orders = navParams.get('data');
         this.time = navParams.get('time');
         this.instructions = navParams.get('instructions');
@@ -50,6 +50,9 @@ export class OrderPlacedDetailPage {
     close() {
         this.viewCtrl.dismiss();
 
+    }
+    showDetails(){
+        const browser = this.iab.create(this.globals.BaseUrl + 'business_controller/order_pdf/' + this.o_id, '_blank');
     }
     ReorderVerificationPrompt(orderdata) {
 

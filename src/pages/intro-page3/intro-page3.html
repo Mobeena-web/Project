@@ -1,8 +1,14 @@
+<ion-header class="Open-Sans-bold">
+  <ion-navbar color="primary">
+    <ion-title>Register</ion-title>
+  </ion-navbar>
+</ion-header>
+
 
 <ion-content scroll="true" overflow-scroll="true" padding>
 
-  <ion-icon name="arrow-round-back" class="back_icon_" (click)="back()"></ion-icon>
-  <h3 text-center class="p_text pp">SIGN UP</h3>
+  <!-- <ion-icon name="arrow-round-back" class="back_icon_" (click)="back()"></ion-icon> -->
+  <!-- <h3 text-center class="p_text pp">SIGN UP</h3> -->
   <p text-center class="p_text hh">
     Skip the line and Order-Online.
   </p>
@@ -280,22 +286,25 @@
           <p style=" text-align: center;">Please enter a valid phone number.</p>
         </div>
 
-        <ion-item>
+        <ion-item *ngIf="profile_complete">
 
           <ion-input type="submit" class="text-input" formControlName="password" placeholder="Password" type="password"></ion-input>
         </ion-item>
+        <ion-item *ngIf="!profile_complete">
+            <ion-input type="submit" class="text-input" formControlName="password" placeholder="Password (Optional)" type="password"></ion-input>
+          </ion-item>
         <div class="no-border" *ngIf="!signupForm.controls.password.valid  && (signupForm.controls.password.dirty || submitAttempt)">
           <p style=" text-align: center;">Please enter a valid password.</p>
         </div>
 
-        <ion-item>
+        <!-- <ion-item>
             <ion-datetime class="date_" placeholder="Birthday (Optional)" displayFormat="MMM/DD/YYYY" formControlName="birthday" ></ion-datetime>
           </ion-item>
       
       
           <ion-item>
             <ion-datetime class="date_" placeholder="Anniversary (Optional)" displayFormat="MMM/DD/YYYY" formControlName="anniversary" ></ion-datetime>
-          </ion-item>
+          </ion-item> -->
 
       </ion-list>
       <p text-center class="p_text gg" padding>
@@ -303,7 +312,8 @@
         and get rewarded.
         </p>
 
-      <button ion-button block  (click)="next(this.signupForm.value)">Register</button>
+      <button *ngIf="profile_complete" ion-button block  (click)="next(this.signupForm.value)">Register</button>
+      <button *ngIf="!profile_complete" ion-button block  (click)="next(this.signupForm.value)">Update Profile</button>
 
     </form>
 

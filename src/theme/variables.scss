@@ -34,18 +34,19 @@ $app-direction: ltr;
 // The "primary" color is the only required color in the map.
 
 $colors: (
-  primary:    #273C75,
-  secondary:  #273C75,
+  primary:    #000000,
+  secondary:  #000000,
   danger:     #c0392b,
   light:      #f4f4f4,
   dark:       #222,
   star:       #F2B827,
   jack:       #2ecc71,
   white:      #fff,
+  appButtons: #acacac
 );
 
 @font-face {
-  font-family: "jjch";
+  font-family: 'Open Sans', sans-serif;
   font-style: normal;
   font-weight: 400;
   src:  url("#{$font-path}/jjch.otf") format("truetype");

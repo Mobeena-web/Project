@@ -9,7 +9,7 @@ page-modal2 {
         height: 100%;
         z-index: 1;
         opacity: .5;
-        background-color: #273C75;
+        background-color: $primary;;
       }
       .padding_1{
         padding: 16px;
@@ -24,7 +24,7 @@ page-modal2 {
         z-index: 100;
         margin: 0 auto;
         padding: 10px;
-        color: #273C75;
+        color: $primary;;
         background: white;
         background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(white));
         background: linear-gradient(to bottom, #fff 0%, white 100%);
@@ -38,7 +38,7 @@ page-modal2 {
       }
       .button_back{
         background: transparent;
-        color: #000;
+        color: #000000;
         font-weight: bold;
         font-size: 20px;
       }

@@ -1,7 +1,6 @@
 import { Component ,ViewChild} from '@angular/core';
 import { IonicPage, NavController, NavParams,LoadingController,AlertController} from 'ionic-angular';
 import { IntroPage3Page } from '../intro-page3/intro-page3';
-import { HomePage } from '../home/home';
 import { GlobalVariable } from '../../app/global';
 import { ServerProvider } from '../../providers/server/server';
 import { NativeStorage } from '@ionic-native/native-storage';

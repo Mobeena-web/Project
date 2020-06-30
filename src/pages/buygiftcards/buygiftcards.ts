@@ -29,7 +29,16 @@ design_card:any;
 message:any;
 amount:any;
 action:any='';
+cash_discount = 0;
+color : any ='primary';
+creditcard: boolean = false;
+cash_on_delivery: any;
+ccFee_added:boolean = true;
+
+
   constructor(public server: ServerProvider, private nativeStorage: NativeStorage, public alertCtrl: AlertController, public loadingCtrl: LoadingController, public globals: GlobalVariable,public viewCtrl: ViewController, public formBuilder: FormBuilder, public stripe: Stripe, public http: Http, public navCtrl: NavController, public navParams: NavParams) {
+
+
     this.PaymentForm = formBuilder.group({
       creditcardno: ['', Validators.compose([Validators.minLength(10), Validators.maxLength(16), Validators.pattern('[0-9]*'), Validators.required])],
       expiryMonth: ['', Validators.compose([Validators.required])],
@@ -44,12 +53,17 @@ action:any='';
   this.amount = this.navParams.get('amount');
   this.action = this.navParams.get('action');
 
-
+  
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad BuygiftcardsPage');
   }
+
+  creditBox() {
+    this.creditcard = true;
+}
+
   pay(PaymentData: any) {
 
     var a = btoa(PaymentData.creditcardno)
@@ -96,7 +110,7 @@ action:any='';
            console.log("response without json", response);
             response.subscribe(data => {
                 this.globals.presentToast(data.message)
-                this.navCtrl.pop();
+                this.navCtrl.pop().then(() => this.navCtrl.pop());
                 loading.dismiss();
             }
                 , error => {
@@ -120,13 +134,15 @@ action:any='';
                 
     
                 this.stripe.setPublishableKey(this.globals.StripId);
+                console.log("card info", this.cardinfo, this.amount);
                 this.stripe.createCardToken(this.cardinfo).then((Token) => {
                    
                     let response = this.server.buy_gift_cards( Token.id, this.gift_id,this.udid_r,this.design_card,this.amount,this.message,this.action)
                     console.log("response without json", response);
                     response.subscribe(data => {
                         this.globals.presentToast(data.message)
-                        this.navCtrl.pop();
+                        this.navCtrl.pop().then(() => this.navCtrl.pop());
+
                         loading.dismiss();
                       
     
@@ -142,7 +158,7 @@ action:any='';
     
                 }).catch((data) => {
                     loading.dismiss();
-                    this.globals.presentToast("Invalid Credentials,please try again")
+                    this.globals.presentToast("Invalid Credentials, please try again")
     
                 });
             }
@@ -153,6 +169,44 @@ action:any='';
 
 cancel(){
     this.navCtrl.pop();
+}
+
+cash_discount_confirmation(payment_data) {
+    
+    if (this.globals.cash_discount_enabled  && !this.cash_discount) {
+         var discount : any = ((Number(this.globals.cash_discount_percentage) / 100) * Number(this.amount)).toFixed(2);
+
+       discount = (Number(discount) + Number(this.globals.cash_discount_value));
+
+        let alert = this.alertCtrl.create({
+            title: 'Please Note',
+            message: ' Your total amount will be $' + (Number(this.amount) + Number(discount)).toFixed(2) + ' as of convenience charge.',
+            buttons: [
+                {
+                    text: 'Cancel',
+                    role: 'cancel',
+                    handler: () => {
+                        console.log('Cancel clicked');
+
+                    }
+                },
+                {
+                    text: 'OK',
+                    handler: () => {
+                        this.cash_discount = discount;
+                        this.amount = (Number(this.amount) + Number(discount)).toFixed(2);
+
+                        this.pay(payment_data)
+                    }
+                }
+            ]
+        });
+        alert.present();
+    }
+    else {
+        this.pay(payment_data)
+    }
+
 }
 
 

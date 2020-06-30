@@ -3,13 +3,13 @@
   <ion-icon name="close" class="close_icon" (click)="dismiss()"></ion-icon>
   <ion-slides pager *ngIf="global.notifications" style="height:430px"  speed="3000" loop="true" autoplayDisableOnInteraction="false">
     <ion-slide style="height:100%" *ngFor="let banners of global.notifications" >
-      <img src={{banners?.image}} class="bi">
-      <img src={{banners.logo}} class="icon_img">
+      <img *ngIf="banners?.image" src={{banners?.image}} class="bi">
+      <img *ngIf="banners.logo" src={{banners.logo}} class="icon_img">
       <div class="main_head">
           {{banners.title}}
       </div>
       <div class="head">
-        {{banners.sub_title}}
+        {{banners.description}}
       </div>
     </ion-slide>
 </ion-slides>

@@ -110,8 +110,8 @@ export class GlobalVariable {
     order_instructions: any;
 
 
-    //kiosk flag
-    caos_flag: boolean = true;
+    //kiosk flag true if building for kiosk
+    caos_flag: boolean = false;
     caos_udid = 'e2c40e9f0a';
 
 
@@ -125,6 +125,7 @@ export class GlobalVariable {
     inradius: boolean = true;
     pickup_timing: any;
     delivery_timing: any;
+    locationSelected = false;
     // punch - point variable
     punch_check: any;
     point_check: any;
@@ -148,9 +149,29 @@ export class GlobalVariable {
     orders_enabled: any;
     retail_items_discount = 0;
     home_logo: any;
+    business_password : any;
+    order_time:any = 'now';
+    address:any;
+    lat:any;
+    long:any;
+    myDate:any;
+    cash_discount:any;
+    cash_discount_enabled:any = false;
+    cash_discount_value:any = 0;
+    cash_discount_percentage :any = 0;
+    ccFeeDisclaimer:any;
+    appColor:any= '#000000';
+
+    banner_color: any;
+    giftCard_color: any;
+    myRewards_color: any;
+    orderNow_color: any;
+    specialOffer_color: any;
+    themeColor: any;
+    
     constructor(public alertCtrl: AlertController, public toastCtrl: ToastController) {
-        // this.BaseUrl = 'https://staging.onlineordering.mikronexus.com/index.php/';
-        this.BaseUrl = 'https://onlineordering.mikronexus.com/online-ordering-new/index.php/';
+        this.BaseUrl = 'https://staging.onlineordering.mikronexus.com/index.php/';
+        // this.BaseUrl = 'https://onlineordering.mikronexus.com/online-ordering-new/index.php/';
         // this.BaseUrl = 'http://192.168.100.3/online-ordering-rewamp/index.php/'
     }
 
@@ -179,7 +200,7 @@ export class GlobalVariable {
             maxValue: 100,
             width: width,
             text: function (value) { return ''; },
-            colors: [color, '#273C75'],
+            colors: [color, '$primary;'],
             duration: 400,
             wrpClass: 'circles-wrp',
             textClass: 'circles-text',

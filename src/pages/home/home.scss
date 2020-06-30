@@ -29,7 +29,7 @@ page-home {
         top: 23%;
         left: calc(50% - 32px);
         font-size: 55px;
-        color: #273C75;
+        color: $primary;;
         height: 64px;
     }
 
@@ -77,30 +77,30 @@ page-home {
     }   
 
 
-    .toolbar-title{
-        color: #273C75  !important
-    }
+    // .toolbar-title{
+    //     color: $primary  !important
+    // }
     
-    .bar-buttons{
-        color: #273C75  !important
-    }
-    .bar-button-default {
-        color: #273C75  !important;
-    }
+    // .bar-buttons{
+    //     color: $primary  !important
+    // }
+    // .bar-button-default {
+    //     color: $primary  !important;
+    // }
     
-    .tab-button[aria-selected=true] {
-        color: #273C75  !important;
-    }
+    // .tab-button[aria-selected=true] {
+    //     color: $primary !important;
+    // }
     
-    .tab-button[aria-selected=true] .tab-button-icon{
+    // .tab-button[aria-selected=true] .tab-button-icon{
     
-        color: #273C75  !important;
+    //     color: $primary  !important;
         
-    }
+    // }
 
     .grid{
         text-align: center;
-        background: #273C75 ;
+        background: $primary; ;
         width: 80%;
         margin-top: 20px;
         padding: 11px;
@@ -292,7 +292,7 @@ font-weight: bold;
 .points_{
     text-align: center;
     font-size: 24px;
-    color: #273C75 ;
+    color: $primary; ;
    
     margin-top: 20px;
     border-radius: 50%;
@@ -350,9 +350,10 @@ font-weight: bold;
         margin-top: 33px;
       }
       .point-star{
-        font-size: 30px;
+        font-size: 20px;
         color: #f1c40f;
-        position: absolute
+        position: absolute;
+        top: 50px;
       }
       .punch_count{
         text-align: center;
@@ -369,7 +370,7 @@ font-weight: bold;
         color: #fff;
       }
       .point_s{
-          padding-top: 11px;
+          padding-top: 30px;
           text-align: center;
           color: #666;
       }
@@ -388,7 +389,7 @@ font-weight: bold;
         margin-top: 9px;
       }
       .pts{
-        margin-top: -16px;
+        // margin-top: -16px;
       }
       .punch_rating{
         font-size: 26px;
@@ -494,9 +495,11 @@ font-weight: bold;
         margin-left: -15px;
         margin-right: -15px;
         margin-top: -15px;
-        margin-bottom: 6px;
+        margin-bottom: 0px;
         white-space: nowrap;
         overflow: hidden;
+        padding: 5px 0px;
+        font-weight: bold;
     }
     
     .marquee span {

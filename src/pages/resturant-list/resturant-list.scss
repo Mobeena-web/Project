@@ -96,7 +96,7 @@ page-resturant-list {
           }
               .heading{
                     font-weight: bold;
-                    color: #000;
+                    color: #000000;
                     font-size: 1.8rem;
               }
               
@@ -201,4 +201,20 @@ page-resturant-list {
      
      
      }
+
+     .toolbar-background{
+      background-color: $primary !important;
+  
+    }
+
+    .back-button{
+      color: #fff !important;
+  }
+  .toolbar-title{
+      color: #fff !important;
+
+  }
+  .bar-button{
+      color: #fff !important;
+  }
 }

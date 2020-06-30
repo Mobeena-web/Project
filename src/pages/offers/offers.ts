@@ -50,9 +50,11 @@ export class OffersPage {
   coordinates:any;
   places:any;
   errorMenu:boolean = false;
+  banner: any;
+  Images : any;
   constructor(private geolocation: Geolocation,private diagnostic: Diagnostic,public server: ServerProvider, public alertCtrl: AlertController, public loadingCtrl: LoadingController, private nativeStorage: NativeStorage, private toastCtrl: ToastController, public globals: GlobalVariable, public http: Http, public navCtrl: NavController, public navParams: NavParams,public modalCtrl: ModalController) {
         
-    this.presentModal();
+    // this.presentModal();
     
     this.cartflag = this.navParams.get('CartFlag');
     this.PageFlag = this.navParams.get('pageflag');
@@ -62,6 +64,7 @@ export class OffersPage {
     
 
     this.getLocation();
+    this.special_offer_banners();
 
     this.myChoice.push('abcd');
     this.myChoice.pop();
@@ -122,6 +125,7 @@ getLocation() {
    
     // this.diagnostic.isLocationEnabled()
     //     .then((state) => {
+        if(this.globals.delivery == true){
            
                 this.geolocation.getCurrentPosition().then((position) => {
                     this.coordinates = position.coords.latitude + "," + position.coords.longitude;
@@ -137,12 +141,42 @@ getLocation() {
                     console.log(err);
 
                 });
+            }
           
         // }).catch(e => {
           
         // });
 
 }
+
+open_category(event){
+    this.navCtrl.push('CategoryPage')
+}
+
+
+special_offer_banners(){
+    let response = this.server.special_offer_banners();
+    response.subscribe(data => {
+       
+      console.log(data)
+      this.banner = data;
+      this.Images = this.banner.data;
+      console.log(this.Images)
+
+    }, error => {
+        console.log(error);
+ 
+        let alert = this.alertCtrl.create({
+            title: 'Error',
+            subTitle: 'Server times out, please try again',
+            buttons: ['OK']
+        });
+        alert.present();
+ 
+    });
+}
+
+
 
 list() {
    let response = this.server.getRestaurantslist('100000', 'main', this.coordinates, '0', 'order');

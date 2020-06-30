@@ -46,7 +46,6 @@ export class MyApp {
         this.data = {};
         this.data.response = '';
         this.LoadSound();
-        
         if(this.platform.is('core') || this.platform.is('mobileweb')) {
             this.list();
           } 
@@ -65,6 +64,7 @@ export class MyApp {
 
         this.globals.new_id = data.business_id;
         this.globals.business_username= data.business_username;
+        this.globals.business_password = data.business_password;
       
         env.nav.setRoot('BeforeLoginPage');
       
@@ -119,8 +119,23 @@ export class MyApp {
 
     this.splashscreen.hide();
     });
+    this.loadBanner();
   }
 
+  loadBanner(){
+    let response = this.server.LoadBannersOnHomePage()
+    response.subscribe(data => {
+        console.log("Get banner API: ", data)
+        this.globals.banner_color = data.banner_color;
+        this.globals.giftCard_color = data.gift_cards_color;
+        this.globals.myRewards_color = data.my_rewards_color;
+        this.globals.orderNow_color = data.order_now_color;
+        this.globals.specialOffer_color = data.special_offer_color;
+        this.globals.themeColor = data.theme_color;
+    }, error => {
+        console.log("Error get_banner ", error)
+    });
+  }
 
 
   checkCodePush() {
@@ -580,7 +595,13 @@ list() {
        this.globals.business_type = this.places[0].business_type;
        this.globals.orders_enabled = this.places[0].orders_enabled;
        this.globals.BusinessDiscount = this.places[0].discount;
-       
+       this.globals.ccFeeDisclaimer = this.places[0].ccFeeDisclaimer;
+       if(this.places[0].appColor){
+        this.globals.appColor = this.places[0].appColor;
+       }
+
+       document.documentElement.style.setProperty('--primary-color', this.globals.appColor);
+
          if (this.globals.pickup == '1') {
              this.globals.pickup = true;
          }

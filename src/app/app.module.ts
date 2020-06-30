@@ -27,6 +27,7 @@ import { Camera } from '@ionic-native/camera';
 import { Crop } from '@ionic-native/crop';
 import { Diagnostic } from '@ionic-native/diagnostic';
 import { SocialSharing } from '@ionic-native/social-sharing';
+import { GooglePlus } from '@ionic-native/google-plus';
 
 import { Stripe } from '@ionic-native/stripe';
 import { IntroPage1Page } from '../pages/intro-page1/intro-page1';
@@ -40,10 +41,13 @@ import { IntroPage8PageModule } from '../pages/intro-page8/intro-page8.module';
 // import { OneSignal } from '@ionic-native/onesignal';
 import { Calendar } from '@ionic-native/calendar';
 import { GetlocationProvider } from '../providers/getlocation/getlocation';
-import {MobileVerificationPromptPage} from '../pages/mobile-verification-prompt/mobile-verification-prompt';
+import { MobileVerificationPromptPage } from '../pages/mobile-verification-prompt/mobile-verification-prompt';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { CodePush } from '@ionic-native/code-push';
 import { CalendarModule } from "ion2-calendar";
+// import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+// import { TooltipsModule } from 'ionic-tooltips';
 
 //import { TextMaskModule } from 'angular2-text-mask';
 
@@ -69,6 +73,8 @@ import { CalendarModule } from "ion2-calendar";
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp,{tabsHideOnSubPages: 'false'}),
+   
+
     HttpModule,
     HttpClientModule,
     Ionic2RatingModule,
@@ -77,7 +83,7 @@ import { CalendarModule } from "ion2-calendar";
     IntroPage8PageModule,
     //MobileVerificationPromptPage,
     MainTabsPageModule,
-    
+
    // TextMaskModule
    
   
@@ -102,7 +108,6 @@ import { CalendarModule } from "ion2-calendar";
    
   ],
   providers: [
-
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
@@ -111,8 +116,8 @@ import { CalendarModule } from "ion2-calendar";
     ,CallNumber,EmailComposer,Camera,Crop,Diagnostic,SocialSharing,Stripe,
     // OneSignal,
     Calendar,
-    GetlocationProvider,PhotoViewer,CodePush
-    
+    GetlocationProvider,PhotoViewer,CodePush,
+    GooglePlus
   ]
 })
 export class AppModule {}

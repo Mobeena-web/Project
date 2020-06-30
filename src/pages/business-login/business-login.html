@@ -6,10 +6,10 @@
         <ion-input type="email" [(ngModel)]="username"></ion-input>
       </ion-item>
   <ion-item>
-    <ion-label color="primary" stacked>Business ID</ion-label>
-    <ion-input type="text" [(ngModel)]="businessId"></ion-input>
+    <ion-label color="primary" stacked>Password</ion-label>
+    <ion-input type="text" [(ngModel)]="password"></ion-input>
   </ion-item>
 
-  <button ion-button block margin-top round   color='primary' (click)="login_business()" block>Save</button>
+  <button ion-button block margin-top round  class="save" (click)="login_business()" block>Save</button>
 
 </ion-content>

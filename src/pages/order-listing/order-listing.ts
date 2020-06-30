@@ -227,13 +227,17 @@ export class OrderListingPage {
     }
 
     getCurrentLocation(): Promise<any> {
+       
         return new Promise(resolve => {
+            if(this.globals.delivery == true){
           this.geolocation.getCurrentPosition().then((resp) => {
             resolve(resp);
           }).catch((error) => {
             console.log();
           })
+        }
         })
+    
       }
 
       reverseGeoCoding(lat, lng) {
@@ -266,6 +270,7 @@ export class OrderListingPage {
 
          this.arrayStatus = false;
             this.flag = true;
+            if(this.globals.delivery == true){
         this.geolocation.getCurrentPosition().then((position)=>{
 
         //     this.coordinates = position.coords.latitude+","+position.coords.longitude
@@ -316,6 +321,7 @@ export class OrderListingPage {
               alert.present();
 
         });
+    }
 
 
 
@@ -432,6 +438,7 @@ export class OrderListingPage {
                     this.status = false;
                     this.arrayStatus = false;
                     this.flag = true;
+                    if(this.globals.delivery == true){
                     this.geolocation.getCurrentPosition().then((position) => {
                         this.coordinates = position.coords.latitude + "," + position.coords.longitude;
                         this.list();
@@ -447,6 +454,7 @@ export class OrderListingPage {
     
                         alert.present();
                     });
+                }
                 // } else {
                   
                 // }

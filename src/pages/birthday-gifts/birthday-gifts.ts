@@ -108,6 +108,7 @@ getLocation() {
    
     // this.diagnostic.isLocationEnabled()
     //     .then((state) => {
+        if(this.globals.delivery == true){
            
                 this.geolocation.getCurrentPosition().then((position) => {
                     this.coordinates = position.coords.latitude + "," + position.coords.longitude;
@@ -123,6 +124,7 @@ getLocation() {
                     console.log(err);
 
                 });
+            }
           
         // }).catch(e => {
           

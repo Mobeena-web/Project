@@ -24,12 +24,14 @@ export class BranchesAboutusPage {
     this.resturant_list();
     this.get_social();
     this.get_aboutus();
-    this.hours_operation = this.update_time_(this.globals.hours_operation);
+    if(this.globals.hours_operation){
+      this.hours_operation = this.update_time_(this.globals.hours_operation);
+    }
 
 
   }
   ionViewWillEnter() {
-    this.loadMap();
+   // this.loadMap();
   }
 
   loadMap() {

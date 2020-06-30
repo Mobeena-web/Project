@@ -35,7 +35,7 @@ export class CartPage {
     StoreCreditInput: number;
     reward_amount: number = 0;
     storecreditExist: boolean = false;
-    discountTotal: number;
+    discountTotal: number = 0;
     updatedTotal: number;
     @ViewChild(Navbar) navBar: Navbar;
     extratotal: any = 0;
@@ -65,7 +65,9 @@ export class CartPage {
     mygifts = [];
     gift_array = [];
     delivery_display: any;
-
+    tip_type: any = 'percent';
+    percent_tip_vlaue: any;
+    ccFee:any = 0;
     constructor(public toastCtrl: ToastController, public loadingCtrl: LoadingController, public server: ServerProvider, public modalCtrl: ModalController, public alertCtrl: AlertController, private nativeStorage: NativeStorage, public appCtrl: App, public globals: GlobalVariable, public viewCtrl: ViewController, public navCtrl: NavController, public navParams: NavParams) {
         console.log(globals.BusinessDiscount, globals.availed_discount_count, globals.business_discount_count, "@@@type");
         //  console.log("here is my items of global" ,this.globals.itemInstruction);
@@ -464,46 +466,42 @@ export class CartPage {
 
     total() {
         this.Total = 0;
+        var amount_without_tax = 0; 
         // console.log(this.globals.deliveryCharges, "delivery cahrges");
         this.globals.deliveryCharges = Math.round(this.globals.deliveryCharges * 100) / 100;
         console.log(this.globals.deliveryCharges, "delivery cahrges");
         for (let sub of this.globals.Product) {
             this.Total = Number(this.Total);
-            console.log(sub.totalPrice);
             sub.totalPrice = Number(sub.totalPrice);
-            console.log(sub.totalPrice);
-            console.log("checking product data ", this.globals.Product);
             this.Total += Number(sub.totalPrice);
+            if(sub.tax_enabled == 'false' || sub.tax_enabled == false){
+                amount_without_tax += Number(sub.totalPrice);
+            }
             this.ProductsTotal = this.Total;
         }
-        console.log("business discount", this.globals.BusinessDiscount, this.globals.BusinessDiscountFlag);
+
+        if(this.globals.cash_discount_enabled && this.globals.card_enabled){
+            this.ccFee =  ((Number(this.globals.cash_discount_percentage) / 100) * Number(this.ProductsTotal)).toFixed(2);
+            this.ccFee = (Number(this.ccFee) + Number(this.globals.cash_discount_value));
+            this.ccFee = this.ccFee.toFixed(2)
+            this.Total = this.Total +  Number(this.ccFee); 
+        }
 
         if (this.globals.BusinessDiscount > 0 && this.globals.availed_discount_count < this.globals.business_discount_count) {
             this.discountTotal = Number(this.ProductsTotal) * this.globals.BusinessDiscount / 100;
             this.discountTotal = Math.round(this.discountTotal * 100) / 100;
             // this.discountTotal.toFixed(2);
-            console.log(this.ProductsTotal, this.discountTotal);
             this.Total = this.ProductsTotal - this.discountTotal;
             // this.Total = this.Total.toFixed(2);
-            console.log(this.Total);
             this.globals.BusinessDiscountFlag = true;
-        }
-        console.log("Order Type: ", this.globals.OrderType);
-
-        if (this.globals.OrderType == "delivery" && this.globals.deliveryCharges != 0 && this.Deliver == true) {
-            console.log("delivery charges exist");
-
-            this.Total = Number(this.Total);
-            console.log("global", this.globals.deliveryCharges, this.Total);
-            this.Total = this.Total + Number(this.globals.deliveryCharges);
-
-            //    this.deliverycharges = Number(this.globals.deliveryCharges);
-            console.log("delivery charges", this.globals.deliveryCharges, this.Total);
         }
 
         if ((Number(this.Total) < this.globals.minimun_order || Number(this.Total) < 0) && this.Deliver == true) {
+
+            this.TaxCalculate(amount_without_tax);
             if (Number(this.ProductsTotal) == 0) {
-                this.TaxCalculate();
+
+                this.TaxCalculate(amount_without_tax);
                 if (this.RewardStoreCreditAvailed > 0) {
                     this.Total = Number(this.Total) - this.RewardStoreCreditAvailed;
                 }
@@ -519,7 +517,7 @@ export class CartPage {
 
         }
         else {
-            this.TaxCalculate();
+            this.TaxCalculate(amount_without_tax);
             if (this.RewardStoreCreditAvailed > 0) {
                 this.Total = Number(this.Total) - this.RewardStoreCreditAvailed;
             }
@@ -528,21 +526,39 @@ export class CartPage {
             }
         }
 
+        if (this.globals.OrderType == "delivery" && this.globals.deliveryCharges != 0 && this.Deliver == true) {
+
+            this.Total = Number(this.Total);
+            this.Total = this.Total + Number(this.globals.deliveryCharges);
+
+            //    this.deliverycharges = Number(this.globals.deliveryCharges);
+        }
+
+        if (Number(this.Tip > 0) && this.tip_type == 'manual') {
+            this.Total = Number(this.Total) + Number(this.Tip);
+        }
+        else if (this.tip_type == 'percent') {
+            this.percent_tip_(this.percent_tip_vlaue);
+        }
+
 
 
         if (this.gift_array.length > 0) {
             this.gift_array.forEach(e => {
-                console.log(e.amount, 'f')
                 this.Total = Number(this.Total) - Number(e.amount)
 
             });
+        }
+
+        if (this.Total != 0) {
+            this.Total = Number(this.Total).toFixed(2);
         }
 
     }
 
 
 
-    TaxCalculate() {
+    TaxCalculate(amount_without_tax) {
 
         if (this.globals.business_type == 'retail') {
             var taxcalc = 0;
@@ -553,10 +569,8 @@ export class CartPage {
                 ItemDiscount = 0;
                 let CalculatedTax = 0;
                 sub.discount_type == 'cash' ? ItemDiscount += Number(sub.discount_value) * Number(sub.quantity) : sub.discount_type == 'perc' ? ItemDiscount += Number(sub.discount_value) / 100 * Number(sub.basePrice) * Number(sub.quantity) : console.log('discount neither cash nor percent');
-                console.log(ItemDiscount,"pfop")
-               
-                ItemDiscountedValue = (Number(sub.basePrice) * Number(sub.quantity) )- Number(ItemDiscount) ;
-                console.log(ItemDiscountedValue,"pop")
+
+                ItemDiscountedValue = (Number(sub.basePrice) * Number(sub.quantity)) - Number(ItemDiscount);
                 CalculatedTax = Number(sub.tax) / 100 * Number(ItemDiscountedValue);
                 taxcalc += CalculatedTax;
                 this.globals.retail_items_discount += ItemDiscount;
@@ -570,8 +584,10 @@ export class CartPage {
 
         }
         else {
-            var taxcalc = (Number(this.globals.tax) / 100) * Number(this.Total);
-            console.log("tax cal", taxcalc);
+            var tax_amount = Number(this.ProductsTotal) - (Number(amount_without_tax) + Number(this.discountTotal));
+
+            var taxcalc = (Number(this.globals.tax) / 100) * tax_amount;
+            console.log("amount_without_tax",this.discountTotal,this.ProductsTotal,taxcalc,tax_amount,amount_without_tax,this.Total)
             this.tax_calc = taxcalc.toFixed(2);
             this.Total = this.Total + taxcalc;
 
@@ -799,7 +815,7 @@ export class CartPage {
 
                 console.log(this.StoreCreditInput, this.reward_amount);
                 if (flag == false) {
-                    this.navCtrl.push('PaymentPage', { amount: this.Total, StoreCredit: this.StoreCreditInput, notes: this.notes });
+                    this.navCtrl.push('PaymentPage', {ccFee:this.ccFee, amount: this.Total, StoreCredit: this.StoreCreditInput, notes: this.notes });
                     flag = true;
                 }
             }
@@ -828,7 +844,7 @@ export class CartPage {
                 this.globals.BirthdayCreditExist = false;
                 this.globals.BirthdayCreditUtlized = true;
                 if (flag == false) {
-                    this.navCtrl.push('PaymentPage', { amount: this.Total, notes: this.notes });
+                    this.navCtrl.push('PaymentPage', {ccFee:this.ccFee, amount: this.Total, notes: this.notes });
                     flag = true;
                 }
 
@@ -837,7 +853,7 @@ export class CartPage {
 
         else {
             if (flag == false) {
-                this.navCtrl.push('PaymentPage', { amount: this.Total, notes: this.notes });
+                this.navCtrl.push('PaymentPage', {ccFee:this.ccFee, amount: this.Total, notes: this.notes });
 
             }
         }
@@ -881,7 +897,7 @@ export class CartPage {
                     text: 'Proceed to Checkout',
                     handler: () => {
 
-                        this.navCtrl.push('PaymentPage', { amount: this.Total, tip: this.Tip, notes: this.notes, RewardAvailed: this.RewardStoreCreditAvailed, BirthdayCreditavailed: this.birthdayStoreCreditavailed });
+                        this.navCtrl.push('PaymentPage', {ccFee:this.ccFee, amount: this.Total, tip: this.Tip, notes: this.notes, RewardAvailed: this.RewardStoreCreditAvailed, BirthdayCreditavailed: this.birthdayStoreCreditavailed });
 
                     }
                 }
@@ -899,8 +915,8 @@ export class CartPage {
         else {
             let proceedFlag = true;
             let alert12 = this.alertCtrl.create({
-                title: 'Alert',
-                subTitle: 'Please add more items in the cart.Minimum delivery order amount is $' + this.globals.minimun_order,
+                title: 'Please note',
+                subTitle: 'Cart value must be equal or greater than $' + this.globals.minimun_order + '. Try adding more items in the cart',
                 buttons: ['Okay']
             });
 
@@ -971,7 +987,7 @@ export class CartPage {
                             }
                             else {
                                 if (this.checkTiming(this.globals.pickup_timing)) {
-                                    this.navCtrl.push('PaymentPage', { giftcard: this.gift_array, amount: this.Total, tip: this.Tip, notes: this.notes, RewardAvailed: this.RewardStoreCreditAvailed, BirthdayCreditavailed: this.birthdayStoreCreditavailed,tax:this.tax_calc });
+                                    this.navCtrl.push('PaymentPage', { ccFee:this.ccFee,giftcard: this.gift_array, amount: this.Total, tip: this.Tip, notes: this.notes, RewardAvailed: this.RewardStoreCreditAvailed, BirthdayCreditavailed: this.birthdayStoreCreditavailed, tax: this.tax_calc });
 
                                 }
 
@@ -1059,7 +1075,7 @@ export class CartPage {
                         }
                         else {
                             if (this.checkTiming(this.globals.pickup_timing)) {
-                                this.navCtrl.push('PaymentPage', { giftcard: this.gift_array, amount: this.Total, tip: this.Tip, notes: this.notes, RewardAvailed: this.RewardStoreCreditAvailed, BirthdayCreditavailed: this.birthdayStoreCreditavailed,tax:this.tax_calc });
+                                this.navCtrl.push('PaymentPage', {ccFee:this.ccFee, giftcard: this.gift_array, amount: this.Total, tip: this.Tip, notes: this.notes, RewardAvailed: this.RewardStoreCreditAvailed, BirthdayCreditavailed: this.birthdayStoreCreditavailed, tax: this.tax_calc });
 
                             }
 
@@ -1079,7 +1095,7 @@ export class CartPage {
     address_() {
         console.log('address', this.Address);
         console.log(this.Address == 'undefined', this.Address == '', this.Address == 'null');
-        if (this.Address == 'undefined' || this.Address == '' || this.Address == 'null') {
+        if (!this.Address || this.Address == 'undefined' || this.Address == '' || this.Address == 'null') {
             let alert = this.alertCtrl.create({
                 title: 'Please Confirm Your Address',
                 message: this.Address,
@@ -1121,7 +1137,7 @@ export class CartPage {
                     {
                         text: 'Proceed to Checkout',
                         handler: () => {
-                            this.navCtrl.push('PaymentPage', { giftcard: this.gift_array, amount: this.Total, tip: this.Tip, notes: this.notes, RewardAvailed: this.RewardStoreCreditAvailed, BirthdayCreditavailed: this.birthdayStoreCreditavailed ,tax:this.tax_calc});
+                            this.navCtrl.push('PaymentPage', {ccFee:this.ccFee, giftcard: this.gift_array, amount: this.Total, tip: this.Tip, notes: this.notes, RewardAvailed: this.RewardStoreCreditAvailed, BirthdayCreditavailed: this.birthdayStoreCreditavailed, tax: this.tax_calc });
 
                         }
                     }
@@ -1156,9 +1172,14 @@ export class CartPage {
                     let sub = tot - Number(this.pointsInput.description);
                     console.log(sub, "sub");
 
-                    if (sub < this.globals.minimun_order || sub <= 0) {
 
-                        this.AddMoreItemAlert(' Points reward cannot be availed.Please add more item in the cart.');
+                    if (sub <= 0) {
+
+                        // if (sub < this.globals.minimun_order || sub <= 0) {
+
+                        // this.AddMoreItemAlert(' Points reward cannot be availed.Please add more item in the cart.');
+                        this.AddMoreItemAlert('Point cannot be redeemed on rewards');
+
                         this.user_availed_points = false;
                     }
                     else {
@@ -1294,15 +1315,35 @@ export class CartPage {
     }
 
     percent_tip(tip) {
-        this.Total = Number(this.Total) - Number(this.Tip);
+        this.tip_type = 'percent';
+        this.percent_tip_vlaue = tip;
+        if (tip) {
+            this.Total = Number(this.Total) - Number(this.Tip);
 
-        this.per_tip = ((Number(this.ProductsTotal) / 100) * tip).toFixed(2);
-        this.Tip = this.per_tip;
-        this.Total = (Number(this.Total) + Number(this.per_tip)).toFixed(2);
+            this.per_tip = ((Number(this.ProductsTotal) / 100) * tip).toFixed(2);
+            this.Tip = this.per_tip;
+            this.Total = (Number(this.Total) + Number(this.per_tip)).toFixed(2);
+        }
+
 
     }
 
+    percent_tip_(tip) {
+        this.tip_type = 'percent';
+        this.percent_tip_vlaue = tip;
+        if (tip) {
+            this.per_tip = ((Number(this.ProductsTotal) / 100) * tip).toFixed(2);
+            this.Tip = this.per_tip;
+            this.Total = (Number(this.Total) + Number(this.per_tip)).toFixed(2);
+        }
+
+
+    }
+
+
     add_gratuity() {
+        this.tip_type = 'manual';
+
         let alert = this.alertCtrl.create({
             title: 'Add Gratuity',
             inputs: [
@@ -1324,8 +1365,10 @@ export class CartPage {
                 {
                     text: 'OK',
                     handler: data => {
+                        console.log("Tip here >>> ", data);
                         if (data.tip == '') {
                             this.Tip = 0;
+                            this.total();
                         }
                         else {
                             this.Total = this.Total - Number(this.Tip);
@@ -1338,6 +1381,10 @@ export class CartPage {
             ]
         });
         alert.present();
+    }
+
+    showCCFeeMessage(){
+        this.globals.presentToast(this.globals.ccFeeDisclaimer)
     }
 
     add_notes() {
@@ -1493,7 +1540,7 @@ export class CartPage {
                                 if (this.globals.inradius) {
                                     var giftdata = { giftcard_id: data.giftcard_id, amount: this.Total }
                                     this.gift_array.push(giftdata)
-                                    this.navCtrl.push('PaymentPage', { amount: 0, giftcard: this.gift_array, gift_flag: true,tax:this.tax_calc })
+                                    this.navCtrl.push('PaymentPage', {ccFee:this.ccFee, amount: 0, giftcard: this.gift_array, gift_flag: true, tax: this.tax_calc })
                                 }
                                 else {
                                     this.globals.presentToast("Sorry, We dn't deliver in Your Area")
@@ -1504,7 +1551,7 @@ export class CartPage {
                         else {
                             var giftdata = { giftcard_id: data.giftcard_id, amount: this.Total }
                             this.gift_array.push(giftdata)
-                            this.navCtrl.push('PaymentPage', { amount: 0, giftcard: this.gift_array, gift_flag: true ,tax:this.tax_calc})
+                            this.navCtrl.push('PaymentPage', {ccFee:this.ccFee, amount: 0, giftcard: this.gift_array, gift_flag: true, tax: this.tax_calc })
                         }
 
 
@@ -1585,7 +1632,7 @@ export class CartPage {
     }
 
     checkTiming(timing) {
-        if (localStorage.getItem("scheduled_time")) {
+        if (this.globals.order_time == 'schedule') {
             if (this.globals.specific_delivery_day == 'true') {
                 return true;
             }
@@ -1597,6 +1644,7 @@ export class CartPage {
 
             var time = this.globals.schedule_converted_time;
             var current_day = timing[day];
+
             var n = current_day[0].indexOf('.');
             if (n != -1) {
                 var res = current_day[0].split(".");
@@ -1631,10 +1679,8 @@ export class CartPage {
             var day: any = date.getDay();
             var time: any = date.getHours() + "." + date.getMinutes();
             time = Number(time);
-            console.log(day,timing,"pop")
 
             var current_day = timing[day];
-            console.log(current_day,"pop")
 
             var n = current_day[0].indexOf('.');
             if (n != -1) {
@@ -1646,7 +1692,6 @@ export class CartPage {
                 var res = current_day[1].split(".");
                 current_day[1] = res[0] + '.' + '3'
             }
-            //console.log(Number(current_day[0]) ,Number(current_day[1]), time,"time_")
 
             if ((Number(current_day[0]) <= time && Number(current_day[1]) > time) || (Number(current_day[0]) <= time && Number(current_day[1]) < Number(current_day[0]))) {
                 return true;

@@ -211,11 +211,14 @@ export class ResturantListPage {
   }
 
   getCurrentLocation(): Promise<any> {
+   
       return new Promise(resolve => {
+        if(this.globals.delivery == true){
         this.geolocation.getCurrentPosition().then((resp) => {
           resolve(resp);
         }).catch((error) => {
         })
+    }
       })
     }
 
@@ -323,6 +326,7 @@ export class ResturantListPage {
        this.globals.catering_cart_enabled = place.catering_cart_enabled;
        this.globals.giftcard_amount_limit = place.giftcard_limit;
        this.globals.business_type = place.business_type;
+       this.globals.ccFeeDisclaimer = place.ccFeeDisclaimer;
 
        
          if (this.globals.pickup == '1') {
@@ -445,6 +449,7 @@ export class ResturantListPage {
                   this.status = false;
                   this.arrayStatus = false;
                   this.flag = true;
+                  if(this.globals.delivery == true){
                   this.geolocation.getCurrentPosition().then((position) => {
                       this.coordinates = position.coords.latitude + "," + position.coords.longitude;
                       console.log("get Location branches ", this.coordinates)
@@ -461,6 +466,7 @@ export class ResturantListPage {
     
                       alert.present();
                   });
+                }
             //   } else {
                 
             //   }

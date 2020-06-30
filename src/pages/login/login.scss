@@ -1,17 +1,17 @@
 page-login {
     .login-box {
   
-        padding: 20px 20px 0px 20px;
+        padding: 0px 20px 0px 20px;
        // margin-top: 70%;
        // background: transparent !important;
       }
-   .title{
-        color: white;
-        width: 100%;
-        text-align: center;
-        margin-top:20%; 
-        margin-bottom: -20%;
-    }
+//    .title{
+//         color: white;
+//         width: 100%;
+//         text-align: center;
+//         margin-top:20%; 
+//         margin-bottom: -20%;
+//     }
   
    
    .list-md .item-input:last-child{
@@ -19,6 +19,13 @@ page-login {
    }
     .no-border {
         border: none !important; 
+    }
+
+    .code{
+        width: 100%;
+        max-width: 100%;
+        margin-top: 56px;
+        padding: 7px;
     }
   
   
@@ -33,12 +40,12 @@ page-login {
     height: 50px;
     right:1.5%;
   }
-  .scroll-content{ 
+//   .scroll-content{ 
     
-    overflow: scroll!important;
-    padding: 0 !important;
+//     overflow: scroll!important;
+//     padding: 0 !important;
     
-     }
+//      }
 
      .login{
         padding: 30px;
@@ -46,14 +53,41 @@ page-login {
         font-weight: normal;
      }
 
+     .login_{
+        padding: 15px;
+        font-size: 18px;
+        font-weight: normal;
+        ion-icon{
+            margin-right: 10px;
+        }
+     }
+
+     .login_apple{
+        padding: 20px;
+        font-size: 1rem;
+        font-weight: normal;
+        ion-icon{
+            margin-right: 10px;
+        }
+     }
+
+     .login_google{
+        padding: 20px;
+        font-size: 1rem;
+        font-weight: normal;
+        ion-icon{
+            margin-right: 10px;
+        }
+     }
+
      .signup-col{
-        margin-top: 70px;
+        margin-top: 7px;
      }
      .signup_message{
          color: #777;
          text-align: center;
          span{
-             color: #273C75;
+             color: #000000;;
              font-weight: bold;
          }
 
@@ -61,5 +95,25 @@ page-login {
      .signin_label{
          color: #444;
      }
+
+     .logo_img{
+        height: 130px;
+        width: auto;
+        display: block;
+        margin-left: auto;
+        margin-right: auto
+     }
+
+     .toolbar-background{
+        background-color: $primary !important;
+        
+      }
+      .back-button{
+        color: #fff !important;
+    }
+    .toolbar-title{
+        color: #fff !important;
+
+    }
   
 }
