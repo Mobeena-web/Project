@@ -66,6 +66,8 @@ export class ItemDetailPage {
   stock_quantity:any;
   itemShowFlag : boolean =false ;
   optionitemArray : any;
+
+  upSellItem_array = [];
   constructor(private photoViewer: PhotoViewer,public server: ServerProvider, public alertCtrl: AlertController, public loadingCtrl: LoadingController, public globals: GlobalVariable, public modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams, private toastCtrl: ToastController) {
     this.reward_item_flag = navParams.get('reward_flag');
     if(!this.reward_item_flag){
@@ -428,7 +430,7 @@ openOptionDetail(list,event,i){
            
           });
           if(!reward_duplicate){
-           this.globals.Product.push({ menuId: "1", restId: this.globals.bussinessId, uniqueId: this.ItemId, menuItem: this.name, image: this.thumbimage, quantity: this.quantity, itemInstructions: this.instructions, basePrice: this.price, totalPrice: this.objectPrice, menuExtrasSelected: this.myChoices,reward:this.reward_item_flag,reward_id:this.reward_id,tax:this.data.item.tax,tax_enabled:this.data.item.tax_enabled,discount_value:this.data.item.discount_value,discount_type:this.data.item.discount_type });
+           this.globals.Product.push({ menuId: "1", restId: this.globals.bussinessId, uniqueId: this.ItemId, menuItem: this.name, image: this.thumbimage, quantity: this.quantity, itemInstructions: this.instructions, basePrice: this.price, totalPrice: this.objectPrice, menuExtrasSelected: this.myChoices, menuUpsellItemsSelected: [], reward:this.reward_item_flag,reward_id:this.reward_id,tax:this.data.item.tax,tax_enabled:this.data.item.tax_enabled,discount_value:this.data.item.discount_value,discount_type:this.data.item.discount_type });
             this.globals.presentToast("Reward added in your cart")
             this.navCtrl.pop();
           }
@@ -438,12 +440,18 @@ openOptionDetail(list,event,i){
           }
         }
         else{
-          this.globals.Product.push({ menuId: "1", restId: this.globals.bussinessId, uniqueId: this.ItemId, menuItem: this.name, image: this.thumbimage, quantity: this.quantity, itemInstructions: this.instructions, basePrice: this.price, totalPrice: this.objectPrice, menuExtrasSelected: this.myChoices,reward:this.reward_item_flag,reward_id:this.reward_id,tax:this.data.item.tax,tax_enabled:this.data.item.tax_enabled,discount_value:this.data.item.discount_value,discount_type:this.data.item.discount_type });
+          this.globals.Product.push({ menuId: "1", restId: this.globals.bussinessId, uniqueId: this.ItemId, menuItem: this.name, image: this.thumbimage, quantity: this.quantity, itemInstructions: this.instructions, basePrice: this.price, totalPrice: this.objectPrice, menuExtrasSelected: this.myChoices, menuUpsellItemsSelected: [],reward:this.reward_item_flag,reward_id:this.reward_id,tax:this.data.item.tax,tax_enabled:this.data.item.tax_enabled,discount_value:this.data.item.discount_value,discount_type:this.data.item.discount_type });
 
         }
 
         this.navCtrl.pop();
         localStorage.removeItem("instructions");
+        if(this.upSellItem_array.length > 0){
+          let modal = this.modalCtrl.create('UpSellItemModalPage', { place: this.globals.business_username, itemId: this.ItemId, upSellItems: this.upSellItem_array});
+          modal.present();
+        } else {
+
+        }
         console.log("checking remove local storage ", localStorage.getItem("instructions"));
       }
     }
@@ -470,7 +478,6 @@ openOptionDetail(list,event,i){
       this.data = data;
       
       this.id = this.data.item.id;
-       console.log('api response',this.data.item.id);
        console.log('api response',this.data.item);
 
       loading.dismiss();
@@ -484,9 +491,9 @@ openOptionDetail(list,event,i){
       this.price = this.data.item.price;
       this.item_price = this.price;
       this.stock_quantity = this.data.item.stock_quantity;
+      this.upSellItem_array = this.data.item.upsellItems;
       if(this.reward_item_flag == true){
         this.item_price = 0;
-
       }
       this.No_of_Free_Extras = Number(this.data.item.freeExtras);
       if (this.data.item.extras.length > 0) {
@@ -804,20 +811,15 @@ openOptionDetail(list,event,i){
 }
 
 add_to_cart_timing_check(){
-    if(this.globals.OrderType == 'delivery'){
-      if (this.checkTiming(this.globals.delivery_timing)) {
-        this.Cart();
-      }
-
+  if(this.globals.OrderType == 'delivery'){
+    if (this.checkTiming(this.globals.delivery_timing)) {
+      this.Cart();
     }
-    else{
-      if (this.checkTiming(this.globals.pickup_timing)) {
-        this.Cart();
-      }
-
+  } else {
+    if (this.checkTiming(this.globals.pickup_timing)) {
+      this.Cart();
     }
-
-    
+  } 
 }
 
 }
