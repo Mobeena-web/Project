@@ -160,6 +160,8 @@ export class GlobalVariable {
     cash_discount_value:any = 0;
     cash_discount_percentage :any = 0;
     ccFeeDisclaimer:any;
+    tip_enabled: any = true;
+    utensils_enabled: any = true;
     appColor:any= '#000000';
 
     banner_color: any;

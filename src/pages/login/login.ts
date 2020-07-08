@@ -243,6 +243,9 @@ export class LoginPage {
             this.globals.BusinessDiscount = this.places[0].discount;
             this.globals.ccFeeDisclaimer = this.places[0].ccFeeDisclaimer;
 
+            this.globals.tip_enabled = this.places[0].tip_enabled;
+            this.globals.utensils_enabled = this.places[0].utensils_enabled;
+
             console.log("pop", this.globals.BusinessDiscount)
             if (this.globals.pickup == '1') {
                 this.globals.pickup = true;

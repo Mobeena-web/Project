@@ -68,6 +68,16 @@ export class CartPage {
     tip_type: any = 'percent';
     percent_tip_vlaue: any;
     ccFee:any = 0;
+
+    utensils_array = [{
+        type: 'Yes',
+        selected: false 
+    },{
+        type: 'No',
+        selected: true 
+    }];
+    utensils_note: any = ''; 
+
     constructor(public toastCtrl: ToastController, public loadingCtrl: LoadingController, public server: ServerProvider, public modalCtrl: ModalController, public alertCtrl: AlertController, private nativeStorage: NativeStorage, public appCtrl: App, public globals: GlobalVariable, public viewCtrl: ViewController, public navCtrl: NavController, public navParams: NavParams) {
         console.log(globals.BusinessDiscount, globals.availed_discount_count, globals.business_discount_count, "@@@type");
         //  console.log("here is my items of global" ,this.globals.itemInstruction);
@@ -815,7 +825,7 @@ export class CartPage {
 
                 console.log(this.StoreCreditInput, this.reward_amount);
                 if (flag == false) {
-                    this.navCtrl.push('PaymentPage', {ccFee:this.ccFee, amount: this.Total, StoreCredit: this.StoreCreditInput, notes: this.notes });
+                    this.navCtrl.push('PaymentPage', {ccFee:this.ccFee, amount: this.Total, StoreCredit: this.StoreCreditInput, notes: this.notes + ' ' + this.utensils_note });
                     flag = true;
                 }
             }
@@ -844,7 +854,7 @@ export class CartPage {
                 this.globals.BirthdayCreditExist = false;
                 this.globals.BirthdayCreditUtlized = true;
                 if (flag == false) {
-                    this.navCtrl.push('PaymentPage', {ccFee:this.ccFee, amount: this.Total, notes: this.notes });
+                    this.navCtrl.push('PaymentPage', {ccFee:this.ccFee, amount: this.Total, notes: this.notes + ' ' + this.utensils_note });
                     flag = true;
                 }
 
@@ -853,7 +863,7 @@ export class CartPage {
 
         else {
             if (flag == false) {
-                this.navCtrl.push('PaymentPage', {ccFee:this.ccFee, amount: this.Total, notes: this.notes });
+                this.navCtrl.push('PaymentPage', {ccFee:this.ccFee, amount: this.Total, notes: this.notes + ' ' + this.utensils_note });
 
             }
         }
@@ -897,7 +907,7 @@ export class CartPage {
                     text: 'Proceed to Checkout',
                     handler: () => {
 
-                        this.navCtrl.push('PaymentPage', {ccFee:this.ccFee, amount: this.Total, tip: this.Tip, notes: this.notes, RewardAvailed: this.RewardStoreCreditAvailed, BirthdayCreditavailed: this.birthdayStoreCreditavailed });
+                        this.navCtrl.push('PaymentPage', {ccFee:this.ccFee, amount: this.Total, tip: this.Tip, notes: this.notes + ' ' + this.utensils_note, RewardAvailed: this.RewardStoreCreditAvailed, BirthdayCreditavailed: this.birthdayStoreCreditavailed });
 
                     }
                 }
@@ -987,7 +997,7 @@ export class CartPage {
                             }
                             else {
                                 if (this.checkTiming(this.globals.pickup_timing)) {
-                                    this.navCtrl.push('PaymentPage', { ccFee:this.ccFee,giftcard: this.gift_array, amount: this.Total, tip: this.Tip, notes: this.notes, RewardAvailed: this.RewardStoreCreditAvailed, BirthdayCreditavailed: this.birthdayStoreCreditavailed, tax: this.tax_calc });
+                                    this.navCtrl.push('PaymentPage', { ccFee:this.ccFee,giftcard: this.gift_array, amount: this.Total, tip: this.Tip, notes: this.notes + ' ' + this.utensils_note, RewardAvailed: this.RewardStoreCreditAvailed, BirthdayCreditavailed: this.birthdayStoreCreditavailed, tax: this.tax_calc });
 
                                 }
 
@@ -1075,7 +1085,7 @@ export class CartPage {
                         }
                         else {
                             if (this.checkTiming(this.globals.pickup_timing)) {
-                                this.navCtrl.push('PaymentPage', {ccFee:this.ccFee, giftcard: this.gift_array, amount: this.Total, tip: this.Tip, notes: this.notes, RewardAvailed: this.RewardStoreCreditAvailed, BirthdayCreditavailed: this.birthdayStoreCreditavailed, tax: this.tax_calc });
+                                this.navCtrl.push('PaymentPage', {ccFee:this.ccFee, giftcard: this.gift_array, amount: this.Total, tip: this.Tip, notes: this.notes + ' ' + this.utensils_note, RewardAvailed: this.RewardStoreCreditAvailed, BirthdayCreditavailed: this.birthdayStoreCreditavailed, tax: this.tax_calc });
 
                             }
 
@@ -1137,7 +1147,7 @@ export class CartPage {
                     {
                         text: 'Proceed to Checkout',
                         handler: () => {
-                            this.navCtrl.push('PaymentPage', {ccFee:this.ccFee, giftcard: this.gift_array, amount: this.Total, tip: this.Tip, notes: this.notes, RewardAvailed: this.RewardStoreCreditAvailed, BirthdayCreditavailed: this.birthdayStoreCreditavailed, tax: this.tax_calc });
+                            this.navCtrl.push('PaymentPage', {ccFee:this.ccFee, giftcard: this.gift_array, amount: this.Total, tip: this.Tip, notes: this.notes + ' ' + this.utensils_note, RewardAvailed: this.RewardStoreCreditAvailed, BirthdayCreditavailed: this.birthdayStoreCreditavailed, tax: this.tax_calc });
 
                         }
                     }
@@ -1416,6 +1426,49 @@ export class CartPage {
         alert.present();
     }
 
+    utensils_alert(){
+        let alert = this.alertCtrl.create();
+        alert.setTitle('Add utensils?');
+        this.utensils_array.forEach(e => {
+            alert.addInput({
+                type: 'radio',
+                label: e.type,
+                value: e.type,
+                checked: e.selected
+            });
+        });
+        alert.addButton('Cancel');
+        alert.addButton({
+            text: 'OK',
+            handler: data => {
+                if(data == 'Yes'){
+                    this.utensils_array.forEach(e => {
+                        if(e.type == 'Yes'){
+                            e.selected = true;
+                            this.utensils_note = "Add Utensils: Yes"; 
+                        } 
+
+                        if(e.type == 'No'){
+                            e.selected = false;
+                        }
+                    });
+                } else {
+                    this.utensils_array.forEach(e => {
+                        if(e.type == 'Yes'){
+                            e.selected = false;
+                            this.utensils_note = '';
+                        } 
+
+                        if(e.type == 'No'){
+                            e.selected = true;
+                        }
+                    });
+                }
+            }
+        });
+        alert.present();
+    }
+
     add_points() {
         let alert = this.alertCtrl.create();
         alert.setTitle(this.points + ' Points');
@@ -1427,7 +1480,6 @@ export class CartPage {
                 value: e,
                 disabled: e.availed
             });
-
         });
 
         alert.addButton('Cancel');
