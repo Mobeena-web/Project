@@ -25,9 +25,20 @@ export class ServerProvider {
     console.log('Hello ServerProvider Provider');
     // this.global.udid ='5bda5bbc';
   }
-getdeals(){
-  return this.http.get("http://51.254.56.71/online-ordering/index.php/customer_controller/get_deals").map(res=>res.json());
-}
+
+  getdeals(){
+    return this.http.get("http://51.254.56.71/online-ordering/index.php/customer_controller/get_deals").map(res=>res.json());
+  }
+
+  verifyApp_version(){
+    var link = this.global.BaseUrl + 'customer_controller/verify_app_version';
+    var data = JSON.stringify({ business_id: this.global.new_id, app_type: "customer_app", version: this.global.app_version });
+
+    return this.http.post(link, data)
+      .map((res: any) => res.json())
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+  }
+
   LoginData(LoginData) {
     var link = this.global.BaseUrl + 'Customer_controller/login';
     var data = JSON.stringify({business_id:this.global.new_id, email: LoginData.email, phone: LoginData.code + LoginData.phone, password: LoginData.password });
