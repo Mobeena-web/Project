@@ -160,10 +160,20 @@ export class GlobalVariable {
     cash_discount_value:any = 0;
     cash_discount_percentage :any = 0;
     ccFeeDisclaimer:any;
-    appColor:any= '#c43622  ';
+    tip_enabled: any = true;
+    utensils_enabled: any = true;
+    appColor:any= '#c43622';
+
+    banner_color: any;
+    giftCard_color: any;
+    myRewards_color: any;
+    orderNow_color: any;
+    specialOffer_color: any;
+    themeColor: any;
+    
     constructor(public alertCtrl: AlertController, public toastCtrl: ToastController) {
-        // this.BaseUrl = 'https://staging.onlineordering.mikronexus.com/index.php/';
-        this.BaseUrl = 'https://onlineordering.mikronexus.com/online-ordering-new/index.php/';
+        this.BaseUrl = 'https://staging.onlineordering.mikronexus.com/index.php/';
+        // this.BaseUrl = 'https://onlineordering.mikronexus.com/online-ordering-new/index.php/';
         // this.BaseUrl = 'http://192.168.100.3/online-ordering-rewamp/index.php/'
     }
 

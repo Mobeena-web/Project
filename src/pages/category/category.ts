@@ -42,6 +42,7 @@ export class CategoryPage {
     @ViewChild(Navbar) navBar: Navbar;
     cartflag: boolean;
     category: any;
+    super_category: any;
 
     contacts: any;
     isShowSubMenu: boolean;
@@ -55,7 +56,7 @@ export class CategoryPage {
     forsearch: any;
     s_day: any;
     s_time: any;
-    categories_section: any = 'category';
+    categories_section: any = "Regular";
     branchId: any;
     constructor(private geolocation: Geolocation, private diagnostic: Diagnostic, public server: ServerProvider, public alertCtrl: AlertController, public loadingCtrl: LoadingController, private nativeStorage: NativeStorage, private toastCtrl: ToastController, public globals: GlobalVariable, public http: Http, public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController) {
 
@@ -391,7 +392,6 @@ export class CategoryPage {
     Categories() {
         let loading = this.loadingCtrl.create({
             content: "Loading...",
-
         });
         loading.present();
         let response = this.server.GetBusinessMenuCategories(this.globals.bussinessId);
@@ -400,9 +400,16 @@ export class CategoryPage {
             this.data = data;
             loading.dismiss();
             this.category = this.data.categories;
+            this.super_category = this.data.super_categories;
             this.name = this.data.restaurant.name;
             this.globals.title = this.name;
             this.globals.category_name = this.name;
+
+            this.super_category.forEach(element => {
+                if(element.priority == 1){
+                    this.categories_section = element.name;
+                }
+            });
 
             this.data.categories.forEach(element => {
 
@@ -429,6 +436,43 @@ export class CategoryPage {
 
 
             });
+    }
+
+    segmentChanged($event){
+        console.log("Segment change", $event.value);
+    }
+
+    categoryClicked(item){
+        console.log("Super category change", item)
+        this.categories_section = item.name;
+
+        let loading = this.loadingCtrl.create({
+            content: "Loading...",
+        });
+        loading.present();
+        let response = this.server.GetSuperCategories(this.globals.bussinessId, item.id);
+        response.subscribe(data => {
+            console.log("get super categories", data);
+            loading.dismiss();
+            if (data.categories.length == 0) {
+                this.DataFlag = true;
+                this.category = data.categories;
+            } else {
+                this.category = data.categories;
+                data.categories.forEach(element => {
+                    element.items.forEach(subelement => {
+                        subelement.quantity = 1;
+                    });
+                });
+                this.time_change();
+                this.forsearch = this.category;
+            }
+            
+            
+        }, error => {
+            loading.dismiss();
+            this.globals.presentToast("Something went wrong check your internet connection.")
+        });
     }
 
     Detail(id, image, freeextras, type) {

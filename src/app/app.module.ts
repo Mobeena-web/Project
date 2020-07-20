@@ -40,7 +40,7 @@ import { IntroPage8PageModule } from '../pages/intro-page8/intro-page8.module';
 // import { OneSignal } from '@ionic-native/onesignal';
 import { Calendar } from '@ionic-native/calendar';
 import { GetlocationProvider } from '../providers/getlocation/getlocation';
-import {MobileVerificationPromptPage} from '../pages/mobile-verification-prompt/mobile-verification-prompt';
+import { MobileVerificationPromptPage } from '../pages/mobile-verification-prompt/mobile-verification-prompt';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { CodePush } from '@ionic-native/code-push';
 import { CalendarModule } from "ion2-calendar";
@@ -107,7 +107,6 @@ import { CalendarModule } from "ion2-calendar";
    
   ],
   providers: [
-
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
@@ -116,8 +115,7 @@ import { CalendarModule } from "ion2-calendar";
     ,CallNumber,EmailComposer,Camera,Crop,Diagnostic,SocialSharing,Stripe,
     // OneSignal,
     Calendar,
-    GetlocationProvider,PhotoViewer,CodePush
-    
+    GetlocationProvider,PhotoViewer,CodePush,
   ]
 })
 export class AppModule {}

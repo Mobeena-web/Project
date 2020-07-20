@@ -1,17 +1,17 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController, AlertController, ModalController, ViewController } from 'ionic-angular';
-import { HomePage } from '../home/home';
-import { ServerProvider } from '../../providers/server/server';
-import { GlobalVariable } from '../../app/global';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { EmailValidator } from '../../validators/email';
+
+import { HomePage } from '../home/home';
+import { ServerProvider } from '../../providers/server/server';
+import { GlobalVariable } from '../../app/global';
 import { MainTabsPage } from '../main-tabs/main-tabs';
 import { IntroPage3Page } from '../intro-page3/intro-page3';
 
 declare var FB: any;
 declare var cordova: any;
-
 
 @IonicPage()
 @Component({
@@ -242,6 +242,9 @@ export class LoginPage {
             this.globals.BusinessDiscount = this.places[0].discount;
             this.globals.ccFeeDisclaimer = this.places[0].ccFeeDisclaimer;
 
+            this.globals.tip_enabled = this.places[0].tip_enabled;
+            this.globals.utensils_enabled = this.places[0].utensils_enabled;
+
             console.log("pop", this.globals.BusinessDiscount)
             if (this.globals.pickup == '1') {
                 this.globals.pickup = true;
@@ -337,6 +340,18 @@ export class LoginPage {
         )
     }
 
+    // doGoogleLogin() {
+    //     let options = {
+    //         'scopes': '', // optional, space-separated list of scopes, If not included or empty, defaults to `profile` and `email`.
+    //         'webClientId': '859537130755-aoipu1fgmh0mu2ro99ihkjntfbt2ege4.apps.googleusercontent.com', // optional clientId of your Web application from Credentials settings of your project - On Android, this MUST be included to get an idToken. On iOS, it is not required.
+    //         'offline': true // optional, but requires the webClientId - if set to true the plugin will also return a serverAuthCode, which can be used to grant offline access to a non-Google server
+    //     };
 
-
+    //     this.googlePlus.login(options).then(res => {
+    //         console.log("G+ login Success-> ", res)
+    //     })
+    //     .catch(err => {
+    //         console.error("G+ login Error-> ",  err)
+    //     });
+    // }
 }

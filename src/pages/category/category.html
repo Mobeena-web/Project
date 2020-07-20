@@ -31,18 +31,16 @@
     </ion-row>
 
     <div padding *ngIf="globals.catering_enabled">
-        <ion-segment [(ngModel)]="categories_section" >
-                <ion-segment-button value="category">
-                    Regular Items
+        <ion-segment [(ngModel)]="categories_section" (ionChange)="segmentChanged($event)">
+                <ion-segment-button *ngFor="let category of super_category" value={{category.name}} (click)="categoryClicked(category)">
+                    {{category.name}}
                 </ion-segment-button>
-                <ion-segment-button value="catering">
-                    Catering Items 
-                </ion-segment-button>
+                
             </ion-segment>
     </div>
    
         <div [ngSwitch]="categories_section">
-            <ion-list *ngSwitchCase="'category'">
+            <ion-list *ngSwitchCase="categories_section">
                     <ion-card *ngIf="DataFlag" class="coming_soon">
                             Menu coming soon 
                         </ion-card>
