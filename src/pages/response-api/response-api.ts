@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 /**
@@ -19,7 +19,7 @@ export class ResponseApiPage {
   playStore: any;
   htmlBody: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private iab: InAppBrowser) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private iab: InAppBrowser, public platform: Platform) {
     this.appStore = navParams.get('appstore_link');
     this.playStore = navParams.get('playstore_link');
     this.htmlBody = navParams.get('htmlBody');
@@ -29,13 +29,17 @@ export class ResponseApiPage {
     console.log('ionViewDidLoad ResponseApiPage');
   }
 
-  openlink(){
-    if(this.appStore != ""){
-      this.iab.create(this.appStore, "_self");  
-    } 
+  openlink() {
+    if (this.platform.is('ios')) {
+      if (this.appStore != "") {
+        this.iab.create(this.appStore, "_self");
+      }
+    }
 
-    if(this.playStore != ""){
-      this.iab.create(this.playStore, "_self");
+    if (this.platform.is('android')) {
+      if (this.playStore != "") {
+        this.iab.create(this.playStore, "_self");
+      }
     }
   }
 }
