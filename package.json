@@ -67,7 +67,6 @@
     "code-push": "^3.0.1",
     "code-push-cli": "^2.1.9",
     "com-sarriaroman-photoviewer": "^1.2.5",
-    "cordova-android": "^7.1.4",
     "cordova-browser": "5.0.4",
     "cordova-plugin-actionsheet": "^2.3.3",
     "cordova-plugin-add-swift-support": "^1.7.2",
@@ -80,7 +79,6 @@
     "cordova-plugin-file": "^6.0.2",
     "cordova-plugin-file-transfer": "^1.7.1",
     "cordova-plugin-geolocation": "^4.0.2",
-    "cordova-plugin-googleplus": "^8.5.0",
     "cordova-plugin-inappbrowser": "^3.2.0",
     "cordova-plugin-ionic-webview": "^4.2.1",
     "cordova-plugin-nativeaudio": "^3.0.9",
@@ -161,16 +159,10 @@
       "cordova-plugin-nativestorage": {},
       "cordova-plugin-geolocation": {
         "GEOLOCATION_USAGE_DESCRIPTION": "To locate you"
-      },
-      "cordova-plugin-googleplus": {
-        "REVERSED_CLIENT_ID": "4TQTc-B0qYdJRMpioYNRcQnn",
-        "PLAY_SERVICES_VERSION": "15.0.1",
-        "WEB_APPLICATION_CLIENT_ID": "859537130755-aoipu1fgmh0mu2ro99ihkjntfbt2ege4.apps.googleusercontent.com"
       }
     },
     "platforms": [
-      "browser",
-      "android"
+      "browser"
     ]
   }
 }

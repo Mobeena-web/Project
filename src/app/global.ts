@@ -162,7 +162,7 @@ export class GlobalVariable {
     ccFeeDisclaimer:any;
     tip_enabled: any = true;
     utensils_enabled: any = true;
-    appColor:any= '#c43622';
+    appColor:any= '#000000';
 
     banner_color: any;
     giftCard_color: any;
