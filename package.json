@@ -68,8 +68,8 @@
     "code-push": "^3.0.1",
     "code-push-cli": "^2.1.9",
     "com-sarriaroman-photoviewer": "^1.2.5",
-    "cordova-android": "^7.1.4",
     "cordova-browser": "5.0.4",
+    "cordova-ios": "^5.1.0",
     "cordova-plugin-actionsheet": "^2.3.3",
     "cordova-plugin-add-swift-support": "^1.7.2",
     "cordova-plugin-camera": "^3.0.0",
@@ -82,7 +82,6 @@
     "cordova-plugin-file": "^6.0.2",
     "cordova-plugin-file-transfer": "^1.7.1",
     "cordova-plugin-geolocation": "^4.0.2",
-    "cordova-plugin-googleplus": "^8.5.0",
     "cordova-plugin-inappbrowser": "^3.2.0",
     "cordova-plugin-ionic-keyboard": "~2.2.0",
     "cordova-plugin-ionic-webview": "^4.2.1",
@@ -140,9 +139,7 @@
       "cordova-plugin-crop": {},
       "cordova-plugin-x-toast": {},
       "cordova-plugin-sign-in-with-apple": {},
-      "cordova-plugin-ionic-webview": {
-        "ANDROID_SUPPORT_ANNOTATIONS_VERSION": "27.+"
-      },
+      "cordova-plugin-ionic-webview": {},
       "cordova-plugin-x-socialsharing": {
         "PHOTO_LIBRARY_ADD_USAGE_DESCRIPTION": "This app requires photo library access to function properly.",
         "PHOTO_LIBRARY_USAGE_DESCRIPTION": "This app requires photo library access to function properly.",
@@ -178,8 +175,7 @@
       }
     },
     "platforms": [
-      "browser",
-      "android"
+      "browser"
     ]
   }
 }

@@ -34,7 +34,7 @@
     <preference name="WKWebViewOnly" value="true" />
     <platform name="android">
         <preference name="AndroidPersistentFileLocation" value="Compatibility" />
-        <preference name="CodePushDeploymentKey" value="CmR0ntZ5LgS05Dl1a5jAgacIiW7RTmN5TtCFNS" />
+        <preference name="CodePushDeploymentKey" value="qXbO5A2eOePXzOTENR54qH_wbutsOOUzL88n4u" />
         <allow-intent href="market:*" />
         <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png" />
         <icon density="mdpi" src="resources/android/icon/drawable-mdpi-icon.png" />
@@ -56,7 +56,7 @@
         <splash density="port-xxxhdpi" src="resources/android/splash/drawable-port-xxxhdpi-screen.png" />
     </platform>
     <platform name="ios">
-        <preference name="CodePushDeploymentKey" value="xxbU7XQPXha64qa91GY4hCsfvR362VLrsiAPAf" />
+        <preference name="CodePushDeploymentKey" value="0L9bI32sE9LeH3pYr5aIlYxl0260nF4_rD8dhY" />
         <preference name="WKWebViewOnly" value="true" />
         <preference name="KeyboardResize" value="false" />
         <allow-intent href="itms:*" />
@@ -154,11 +154,6 @@
     <plugin name="cordova-plugin-sign-in-with-apple" spec="^0.1.1" />
     <plugin name="cordova-plugin-inappbrowser" spec="~3.1.1-dev" />
     <plugin name="cordova-plugin-ionic-keyboard" spec="~2.2.0" />
-    <plugin name="cordova-plugin-googleplus" spec="^8.5.0">
-        <variable name="REVERSED_CLIENT_ID" value="4TQTc-B0qYdJRMpioYNRcQnn" />
-        <variable name="WEB_APPLICATION_CLIENT_ID" value="859537130755-aoipu1fgmh0mu2ro99ihkjntfbt2ege4.apps.googleusercontent.com" />
-        <variable name="PLAY_SERVICES_VERSION" value="15.0.1" />
-    </plugin>
     <plugin name="cordova-plugin-file" spec="^6.0.2" />
     <plugin name="cordova-plugin-file-transfer" spec="^1.7.1" />
     <plugin name="cordova-plugin-facebook4" spec="^6.4.0">
@@ -168,5 +163,4 @@
         <variable name="FACEBOOK_ANDROID_SDK_VERSION" value="5.13.0" />
     </plugin>
     <engine name="browser" spec="5.0.4" />
-    <engine name="android" spec="^7.1.4" />
 </widget>

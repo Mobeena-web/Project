@@ -343,20 +343,20 @@ export class LoginPage {
         )
     }
 
-    doGoogleLogin() {
-        let options = {
-            'scopes': '', // optional, space-separated list of scopes, If not included or empty, defaults to `profile` and `email`.
-            'webClientId': '859537130755-aoipu1fgmh0mu2ro99ihkjntfbt2ege4.apps.googleusercontent.com', // optional clientId of your Web application from Credentials settings of your project - On Android, this MUST be included to get an idToken. On iOS, it is not required.
-            'offline': true // optional, but requires the webClientId - if set to true the plugin will also return a serverAuthCode, which can be used to grant offline access to a non-Google server
-        };
+    // doGoogleLogin() {
+    //     let options = {
+    //         'scopes': '', // optional, space-separated list of scopes, If not included or empty, defaults to `profile` and `email`.
+    //         'webClientId': '859537130755-aoipu1fgmh0mu2ro99ihkjntfbt2ege4.apps.googleusercontent.com', // optional clientId of your Web application from Credentials settings of your project - On Android, this MUST be included to get an idToken. On iOS, it is not required.
+    //         'offline': true // optional, but requires the webClientId - if set to true the plugin will also return a serverAuthCode, which can be used to grant offline access to a non-Google server
+    //     };
 
-        this.googlePlus.login(options).then(res => {
-            console.log("G+ login Success-> ", res)
-        })
-        .catch(err => {
-            console.error("G+ login Error-> ",  err)
-        });
-    }
+    //     this.googlePlus.login(options).then(res => {
+    //         console.log("G+ login Success-> ", res)
+    //     })
+    //     .catch(err => {
+    //         console.error("G+ login Error-> ",  err)
+    //     });
+    // }
 
     doFacebookLogin(){
         this.fb.login(['public_profile', 'user_friends', 'email'])
@@ -366,4 +366,5 @@ export class LoginPage {
 
         this.fb.logEvent(this.fb.EVENTS.EVENT_NAME_ADDED_TO_CART);
     }
+    
 }
