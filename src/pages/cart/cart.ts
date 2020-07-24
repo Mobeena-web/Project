@@ -930,19 +930,107 @@ export class CartPage {
                 buttons: ['Okay']
             });
 
-            if (this.ProductsTotal < this.globals.minimun_order && this.Deliver == true && this.globals.OrderType == 'delivery') {
-                if (Number(this.ProductsTotal == 0)) {
+            if(this.globals.tip_enabled == 'force' && this.Tip == 0){
+                this.add_gratuity();
+            } else {
+                if (this.ProductsTotal < this.globals.minimun_order && this.Deliver == true && this.globals.OrderType == 'delivery') {
+                    if (Number(this.ProductsTotal == 0)) {
+                        if (this.globals.MobileDiscount > 0 && this.globals.MobileDiscountFlag == true) {
+                            let mob = this.globals.MobileDiscount;
+                            let subtract_value = Number(this.ProductsTotal) - mob;
+                            if (subtract_value >= this.globals.minimun_order) {
+                                console.log(this.globals.MobileDiscount, "mobile discount");
+    
+                                console.log("mobile discount, product total", this.ProductsTotal, this.globals.MobileDiscount);
+    
+                                this.ProductsTotal = Number(this.ProductsTotal) - Number(this.globals.MobileDiscount);
+                                console.log("product total after subtraction", this.ProductsTotal);
+    
+                                this.ProductsTotal = this.ProductsTotal.toFixed(2);
+                                console.log("product total after toFixed", this.ProductsTotal);
+                                this.Total = this.ProductsTotal;
+                                console.log(this.Total, "total = producttotal");
+                            }
+                            else {
+                                alert12.present();
+                                proceedFlag = false;
+                            }
+    
+                            if (this.Deliver == true) {
+    
+                                this.Total = Number(this.ProductsTotal) + Number(this.globals.deliveryCharges);
+    
+                            }
+                            else {
+                                this.Total = Number(this.ProductsTotal);
+                            }
+                            this.Total = this.Total.toFixed(2);
+    
+                            if ((Number(this.ProductsTotal) < this.globals.minimun_order || Number(this.ProductsTotal) < 0) && this.Deliver == true) {
+                                alert12.present();
+                                this.total();
+                                proceedFlag = false;
+                            }
+    
+    
+                        }
+    
+    
+                        if (proceedFlag) {
+                            this.Address = localStorage.getItem("GetAddress");
+                            console.log(this.Address, "lo")
+                            if (this.globals.OrderType == 'delivery' && this.globals.caos_flag == false) {
+                                if (this.globals.inradius) {
+                                    if (this.checkTiming(this.globals.delivery_timing)) {
+                                        this.address_();
+                                    }
+    
+                                }
+                                else {
+                                    this.globals.presentToast("Sorry, We dn't deliver in your Area.")
+    
+                                }
+    
+    
+                            }
+                            else {
+                                console.log(this.globals.Email, "emaill")
+                                if (!this.globals.udid && !this.globals.guess_login) {
+                                    this.coas_type();
+                                }
+                                else {
+                                    if (this.checkTiming(this.globals.pickup_timing)) {
+                                        this.navCtrl.push('PaymentPage', { ccFee:this.ccFee,giftcard: this.gift_array, amount: this.Total, tip: this.Tip, notes: this.notes + ' ' + this.utensils_note, RewardAvailed: this.RewardStoreCreditAvailed, BirthdayCreditavailed: this.birthdayStoreCreditavailed, tax: this.tax_calc });
+    
+                                    }
+    
+                                }
+    
+                            }
+    
+    
+                        }
+                    }
+                    else {
+                        alert12.present();
+                        proceedFlag = false;
+                    }
+    
+                }
+    
+                else {
+    
                     if (this.globals.MobileDiscount > 0 && this.globals.MobileDiscountFlag == true) {
                         let mob = this.globals.MobileDiscount;
                         let subtract_value = Number(this.ProductsTotal) - mob;
                         if (subtract_value >= this.globals.minimun_order) {
                             console.log(this.globals.MobileDiscount, "mobile discount");
-
+    
                             console.log("mobile discount, product total", this.ProductsTotal, this.globals.MobileDiscount);
-
+    
                             this.ProductsTotal = Number(this.ProductsTotal) - Number(this.globals.MobileDiscount);
                             console.log("product total after subtraction", this.ProductsTotal);
-
+    
                             this.ProductsTotal = this.ProductsTotal.toFixed(2);
                             console.log("product total after toFixed", this.ProductsTotal);
                             this.Total = this.ProductsTotal;
@@ -952,43 +1040,46 @@ export class CartPage {
                             alert12.present();
                             proceedFlag = false;
                         }
-
+    
                         if (this.Deliver == true) {
-
+    
                             this.Total = Number(this.ProductsTotal) + Number(this.globals.deliveryCharges);
-
+    
                         }
                         else {
                             this.Total = Number(this.ProductsTotal);
                         }
                         this.Total = this.Total.toFixed(2);
-
+    
                         if ((Number(this.ProductsTotal) < this.globals.minimun_order || Number(this.ProductsTotal) < 0) && this.Deliver == true) {
                             alert12.present();
                             this.total();
                             proceedFlag = false;
                         }
-
-
+    
+    
                     }
-
-
+    
+    
+    
+    
                     if (proceedFlag) {
                         this.Address = localStorage.getItem("GetAddress");
-                        console.log(this.Address, "lo")
+                        console.log(this.globals.Email, "emaill")
+    
                         if (this.globals.OrderType == 'delivery' && this.globals.caos_flag == false) {
                             if (this.globals.inradius) {
                                 if (this.checkTiming(this.globals.delivery_timing)) {
                                     this.address_();
                                 }
-
+    
                             }
                             else {
                                 this.globals.presentToast("Sorry, We dn't deliver in your Area.")
-
+    
                             }
-
-
+    
+    
                         }
                         else {
                             console.log(this.globals.Email, "emaill")
@@ -997,106 +1088,18 @@ export class CartPage {
                             }
                             else {
                                 if (this.checkTiming(this.globals.pickup_timing)) {
-                                    this.navCtrl.push('PaymentPage', { ccFee:this.ccFee,giftcard: this.gift_array, amount: this.Total, tip: this.Tip, notes: this.notes + ' ' + this.utensils_note, RewardAvailed: this.RewardStoreCreditAvailed, BirthdayCreditavailed: this.birthdayStoreCreditavailed, tax: this.tax_calc });
-
+                                    this.navCtrl.push('PaymentPage', {ccFee:this.ccFee, giftcard: this.gift_array, amount: this.Total, tip: this.Tip, notes: this.notes + ' ' + this.utensils_note, RewardAvailed: this.RewardStoreCreditAvailed, BirthdayCreditavailed: this.birthdayStoreCreditavailed, tax: this.tax_calc });
+    
                                 }
-
+    
                             }
-
+    
                         }
-
-
+    
+    
                     }
-                }
-                else {
-                    alert12.present();
-                    proceedFlag = false;
-                }
-
-            }
-
-            else {
-
-                if (this.globals.MobileDiscount > 0 && this.globals.MobileDiscountFlag == true) {
-                    let mob = this.globals.MobileDiscount;
-                    let subtract_value = Number(this.ProductsTotal) - mob;
-                    if (subtract_value >= this.globals.minimun_order) {
-                        console.log(this.globals.MobileDiscount, "mobile discount");
-
-                        console.log("mobile discount, product total", this.ProductsTotal, this.globals.MobileDiscount);
-
-                        this.ProductsTotal = Number(this.ProductsTotal) - Number(this.globals.MobileDiscount);
-                        console.log("product total after subtraction", this.ProductsTotal);
-
-                        this.ProductsTotal = this.ProductsTotal.toFixed(2);
-                        console.log("product total after toFixed", this.ProductsTotal);
-                        this.Total = this.ProductsTotal;
-                        console.log(this.Total, "total = producttotal");
-                    }
-                    else {
-                        alert12.present();
-                        proceedFlag = false;
-                    }
-
-                    if (this.Deliver == true) {
-
-                        this.Total = Number(this.ProductsTotal) + Number(this.globals.deliveryCharges);
-
-                    }
-                    else {
-                        this.Total = Number(this.ProductsTotal);
-                    }
-                    this.Total = this.Total.toFixed(2);
-
-                    if ((Number(this.ProductsTotal) < this.globals.minimun_order || Number(this.ProductsTotal) < 0) && this.Deliver == true) {
-                        alert12.present();
-                        this.total();
-                        proceedFlag = false;
-                    }
-
-
-                }
-
-
-
-
-                if (proceedFlag) {
-                    this.Address = localStorage.getItem("GetAddress");
-                    console.log(this.globals.Email, "emaill")
-
-                    if (this.globals.OrderType == 'delivery' && this.globals.caos_flag == false) {
-                        if (this.globals.inradius) {
-                            if (this.checkTiming(this.globals.delivery_timing)) {
-                                this.address_();
-                            }
-
-                        }
-                        else {
-                            this.globals.presentToast("Sorry, We dn't deliver in your Area.")
-
-                        }
-
-
-                    }
-                    else {
-                        console.log(this.globals.Email, "emaill")
-                        if (!this.globals.udid && !this.globals.guess_login) {
-                            this.coas_type();
-                        }
-                        else {
-                            if (this.checkTiming(this.globals.pickup_timing)) {
-                                this.navCtrl.push('PaymentPage', {ccFee:this.ccFee, giftcard: this.gift_array, amount: this.Total, tip: this.Tip, notes: this.notes + ' ' + this.utensils_note, RewardAvailed: this.RewardStoreCreditAvailed, BirthdayCreditavailed: this.birthdayStoreCreditavailed, tax: this.tax_calc });
-
-                            }
-
-                        }
-
-                    }
-
-
                 }
             }
-
         }
 
 
@@ -1375,6 +1378,7 @@ export class CartPage {
                 {
                     text: 'OK',
                     handler: data => {
+                        data.tip = Math.abs(Number(data.tip));
                         console.log("Tip here >>> ", data);
                         if (data.tip == '') {
                             this.Tip = 0;
