@@ -33,7 +33,12 @@
           <ul style="margin: 0px;color: #555" *ngFor="let op of extras.optionNameSelected ">
             <li> {{op.name}}(${{op.price}})</li>
           </ul>
-
+        </div>
+        <hr *ngIf="prod.menuUpsellItemsSelected.length > 0 && prod.menuExtrasSelected.length > 0">
+        <div>
+          <ul style="margin: 0px;color: #555" *ngFor="let item of prod.menuUpsellItemsSelected">
+            <li> {{item.name}}(${{item.price}})</li>
+          </ul>
         </div>
       </ion-col>
 
@@ -65,15 +70,9 @@
     </ion-col>
   </ion-row>
 
-
-
-
-
-
   <button *ngIf="!globals.caos_flag" ion-button type="submit" clear (click)="changeAddress()"
     style="margin-top:-3%;width:95%; margin-left:1.9%;color:#444" block> <u>Update Delivery or Pickup</u> </button>
   
-
   <div class="bill">
 
     <ion-label style="padding:0px;font-size:1.3rem;margin:0px; color:#444;  ">
