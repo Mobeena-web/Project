@@ -921,8 +921,7 @@ export class CartPage {
     paymentPage() {
         if (this.globals.guess_login) {
             this.presentConfirm();
-        }
-        else {
+        } else {
             let proceedFlag = true;
             let alert12 = this.alertCtrl.create({
                 title: 'Please note',

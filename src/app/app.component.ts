@@ -291,7 +291,7 @@ export class MyApp {
             .then(data => {
                 this.globals.Product.length = 0;
                 this.globals.cartflag = false;
-
+                this.globals.guess_login = true;
                 this.app.getRootNav().setRoot('LoginPage');
             }).catch(err => console.log());
     }

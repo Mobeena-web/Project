@@ -40,22 +40,16 @@ export class LoginPage {
         public alertCtrl: AlertController,
         public formBilder: FormBuilder
     ) {
-
-
         this.loginForm = formBilder.group({
             email: [''],
             phone: [''],
             code: ['+1'],
-
             password: ['', Validators.compose([Validators.minLength(6), Validators.required])]
         })
         this.data = {};
 
         this.data.response = '';
-
     }
-
-
 
     createAccount() {
         this.navCtrl.push(IntroPage3Page, { profile_complete: true });
@@ -89,16 +83,14 @@ export class LoginPage {
                     this.globals.lastName = this.data.response.lastname;
                     this.globals.Email = LoginData.email;
                     this.profile_complete = this.data.response.profile_complete;
-                    if (this.globals.caos_flag) {
 
+                    if (this.globals.caos_flag) {
                         this.viewCtrl.dismiss();
-                    }
-                    else {
+                    } else {
                         console.log("p", this.profile_complete)
                         if (!this.profile_complete) {
                             this.register(LoginData.phone);
-                        }
-                        else {
+                        } else {
                             this.list();
                             this.nativeStorage.setItem('user',
                                 {
@@ -114,20 +106,14 @@ export class LoginPage {
                                     phone_verify: this.data.response.phone_verified,
                                     birthday: this.data.response.birthday,
                                     aniversary: this.data.response.anniversary
-
                                 }).then(() => {
-
                                     this.SaveMobileNumberFlag(this.data.response.mobile_verification_amount, this.data.response.phone_verified);
                                     // this.server.initializePushToken();
                                     if (this.globals.caos_flag) {
-
                                         this.navCtrl.push('CartPage')
-                                    }
-                                    else {
+                                    } else {
                                         this.navCtrl.setRoot(HomePage, { imageData: this.data.response.url, Flag: false });
-
                                     }
-
                                 })
                                 .catch((err) => {
                                     console.log("nativesstorage", err)
@@ -135,33 +121,19 @@ export class LoginPage {
                                     this.SaveMobileNumberFlag(this.data.response.mobile_verification_amount, this.data.response.phone_verified);
 
                                     if (this.globals.caos_flag) {
-
                                         this.navCtrl.push('CartPage')
-                                    }
-                                    else {
+                                    } else {
                                         this.navCtrl.setRoot(HomePage, { imageData: this.data.response.url, Flag: false });
-
                                     }
                                     // this.server.initializePushToken();
                                 });
                         }
-
-
-
                     }
-
-
-                }
-                else {
-
+                } else {
                     this.globals.presentToast("Invalid Credentials")
-
                 }
             }, error => {
-
                 this.globals.presentToast("Something went wrong check your internet connection.")
-
-
             });
         }
     }
@@ -170,6 +142,7 @@ export class LoginPage {
         let verifyModal = this.modalCtrl.create('VerificationPage');
         verifyModal.present();
     }
+
     OpenTermsAndPolicy() {
         this.navCtrl.push('TermAndPolicyPage');
     }
@@ -182,11 +155,8 @@ export class LoginPage {
         this.nativeStorage.setItem('MobileFlagSave', {
             MobileFlag: flag,
             MobileDiscount: Number(amount)
-        }).then(
-
-            () => {
+        }).then(() => {
                 console.log('Stored mobileflag')
-
             },
             error => console.error('Error storing item', error)
         );
@@ -252,43 +222,36 @@ export class LoginPage {
             console.log("pop", this.globals.BusinessDiscount)
             if (this.globals.pickup == '1') {
                 this.globals.pickup = true;
-            }
-            else {
+            } else {
                 this.globals.pickup = false;
             }
+
             if (this.places[0].delivery == '1') {
                 this.globals.delivery = true;
-            }
-            else {
+            } else {
                 this.globals.delivery = false;
             }
+
             if (this.places[0].cash_enabled == '1') {
                 this.globals.cash_enabled = true;
-            }
-            else {
+            } else {
                 this.globals.cash_enabled = false;
-
             }
+
             if (this.globals.pickup == '1') {
                 this.globals.pickup = true;
-            }
-            else {
+            } else {
                 this.globals.pickup = false;
             }
+
             if (this.places[0].delivery == '1') {
                 this.globals.delivery = true;
-            }
-            else {
+            } else {
                 this.globals.delivery = false;
             }
-
-
         }, error => {
             this.globals.presentToast("Something went wrong check your internet connection.")
-
-
         });
-
     }
 
     check_phone_number() {
@@ -297,7 +260,6 @@ export class LoginPage {
 
     cancel_pos() {
         this.pos_customer = false;
-
     }
 
     complete_profile() {
@@ -312,22 +274,16 @@ export class LoginPage {
 
             if (!data.success) {
                 this.pos_customer = false;
-            }
-            else {
+            } else {
                 if (data.data.profile_complete) {
                     this.pos_customer = false;
-                }
-                else {
+                } else {
                     //this.register();
                 }
             }
         }, error => {
-
             this.globals.presentToast("Something went wrong check your internet connection.")
-
-
         });
-
     }
 
     doAppleLogin() {
