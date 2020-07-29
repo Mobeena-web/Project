@@ -5,10 +5,9 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 
 import { ServerProvider } from '../../providers/server/server';
 import { GlobalVariable } from '../../app/global';
-import {MobileVerificationPromptPage} from '../mobile-verification-prompt/mobile-verification-prompt';
+import { MobileVerificationPromptPage } from '../mobile-verification-prompt/mobile-verification-prompt';
 import { EmailValidator } from "../../validators/email";
 import { NativeStorage } from "@ionic-native/native-storage";
-
 
 @Component({
     selector: 'page-intro-page3',
@@ -51,13 +50,6 @@ export class IntroPage3Page {
                 
             });
         }
-          
-   
-       
-        
-       
-         
-        
     }
     // moveFocus(nextElement) {
     //     nextElement.setFocus();
@@ -66,17 +58,16 @@ export class IntroPage3Page {
     ionViewDidLoad() {
         console.log('ionViewDidLoad IntroPage3Page');
     }
+
     back(){
         this.navCtrl.pop();
     }
-    next(signupData: any) {
 
+    next(signupData: any) {
         if (!this.signupForm.valid) {
             console.log(' Some values were not given or were incorrect, please fill them');
             this.submitAttempt = true;
-        } 
-        else {
-
+        } else {
            localStorage.setItem("firstname",signupData.firstName);
            localStorage.setItem("lastname",signupData.lastName);
            localStorage.setItem("password",signupData.password);
@@ -85,14 +76,12 @@ export class IntroPage3Page {
            console.log("register_data",signupData)
 
             this.register(signupData);
-          
         }
     }
-    MobileVerificationPrompt() {
 
+    MobileVerificationPrompt() {
         let model = this.modalCtrl.create(MobileVerificationPromptPage);
-         model.present();
-    
+        model.present();
     }
 
     register(signupData) {
@@ -103,12 +92,12 @@ export class IntroPage3Page {
         loading.present();
       
         let response = this.server.SignupData(signupData.firstName, signupData.lastName, signupData.email, signupData.password, this.globals.PhoneNo, signupData.birthday, signupData.aniversary,this.profile_complete);
-
         response.subscribe(data => {
-            console.log(data);
+            console.log("Register res - ",data);
 
             this.data.response = data; 
             if (this.data.response.status != "error") {
+                this.globals.guess_login = false;
                 // this.navCtrl.setRoot('AcceptTermsPage', { imageData: this.data.response.url, discountText: this.data.response.discount_text, Flag: true, discount: this.data.response.discount_value });
                 this.globals.firstName = signupData.firstName;
                 this.globals.lastName = signupData.lastName;
@@ -116,7 +105,6 @@ export class IntroPage3Page {
                 loading.dismiss();
                 this.nativeStorage.setItem('user',
                     {
-
                         email: signupData.email,
                         udid: this.data.response.udid,
                         firstName: signupData.firstName,
@@ -132,20 +120,28 @@ export class IntroPage3Page {
 
                     }).then(() => {
                         this.nativeStorage.setItem('discount', { discountValue: this.data.response.discount_value })
-                            .then(
-                                () => console.log('Stored item!'),
+                            .then(() => console.log('Stored item!'),
                                 error => console.error('Error storing item', error)
                             );
                         // console.log("b discount value", this.data.response.discount_value);
                         this.globals.udid = this.data.response.udid;
                         //  this.server.initializePushToken();
-                        this.navCtrl.setRoot('AcceptTermsPage', { imageData: this.data.response.url, discountText: this.data.response.discount_text, Flag: true, discount: this.data.response.discount_value });
-                        
+                        if (this.globals.caos_flag) {
+                            this.navCtrl.push('CartPage')
+                        } else {
+                            this.navCtrl.setRoot('AcceptTermsPage', { imageData: this.data.response.url, discountText: this.data.response.discount_text, Flag: true, discount: this.data.response.discount_value }); 
+                        }
                     })
-                    .catch((err) => { console.log(err) });
+                    .catch((err) => { 
+                        console.log(err) 
+                        if (this.globals.caos_flag) {
+                            this.navCtrl.push('CartPage')
+                        } else {
+                            this.navCtrl.setRoot('AcceptTermsPage', { imageData: this.data.response.url, discountText: this.data.response.discount_text, Flag: true, discount: this.data.response.discount_value }); 
+                        }
+                    });
 
-            }
-            else {
+            } else {
                 let alert = this.alertCtrl.create({
                     title: 'Error!',
                     subTitle: this.data.response.description,
@@ -156,14 +152,10 @@ export class IntroPage3Page {
                 alert.present();
 
                 this.navCtrl.setRoot('LoginPage');
-
             }
         }, error => {
             this.globals.presentToast("Server times out, please try again")
-
         });
-
-
     }
 
     DoMobileVerification(signupData) {
@@ -184,8 +176,7 @@ export class IntroPage3Page {
                 this.globals.signupData = signupData;
                 this.navCtrl.push('MobileEmailVarificationPage');
 
-            }
-            else {
+            } else {
                 // this.register(signupData);
 
                 let alert = this.alertCtrl.create({
