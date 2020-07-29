@@ -32,13 +32,13 @@ export class ResponseApiPage {
   openlink() {
     if (this.platform.is('ios')) {
       if (this.appStore != "") {
-        this.iab.create(this.appStore, "_self");
+        this.iab.create(this.appStore, "_blank");
       }
     }
 
     if (this.platform.is('android')) {
       if (this.playStore != "") {
-        this.iab.create(this.playStore, "_self");
+        this.iab.create(this.playStore, "_blank");
       }
     }
   }

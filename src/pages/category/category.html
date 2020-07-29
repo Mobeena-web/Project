@@ -160,7 +160,7 @@
                                                         <p class="badge_text">{{a.badge_text}}</p>
                                                     </div> 
 
-                                       <ion-row *ngIf="a.stock_quantity > 0" (click)="Detail(a.id,a.image,a.freeExtras,globals.catering_cart_enabled)">
+                                       <ion-row *ngIf="a.stock_quantity > 0 && a.in_stock == true" (click)="Detail(a.id,a.image,a.freeExtras,globals.catering_cart_enabled)">
                                             <ion-col col-3 style="margin: auto;" >
                                                 
                                                 <img class="itm-img" *ngIf="a.image" src="{{a.image}}">
@@ -182,7 +182,7 @@
                                             </ion-col>
                                         </ion-row>
                     
-                                        <ion-row *ngIf="a.stock_quantity == 0">
+                                        <ion-row *ngIf="a.stock_quantity == 0 || a.in_stock == false">
                                                 <ion-col col-3 style="margin: auto;" >
                                                     
                                                     <img class="itm-img" *ngIf="a.image" src="{{a.image}}">

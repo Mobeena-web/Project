@@ -143,8 +143,9 @@ export class MyApp {
         response.subscribe(data => {
             console.log("App verify: ", data)
             if(data.success){
-
+                
             } else {
+                this.splashscreen.hide();
                 this.nav.setRoot('ResponseApiPage', { appstore_link: data.appstore_link, playstore_link: data.playstore_link, htmlBody: data.html_body });
             }
         }, error => {
