@@ -30,7 +30,7 @@
          <button *ngIf="!globals.caos_flag" ion-button outline block round clear class="u-d"  (click)="presentModal(1)">Update Delivery or Pickup</button>
     </ion-row>
 
-    <div padding *ngIf="globals.catering_enabled">
+    <div padding>
         <ion-segment [(ngModel)]="categories_section" (ionChange)="segmentChanged($event)">
                 <ion-segment-button *ngFor="let category of super_category" value={{category.name}} (click)="categoryClicked(category)">
                     {{category.name}}
@@ -45,7 +45,7 @@
                             Menu coming soon 
                         </ion-card>
                         <div *ngFor="let d of category; let i=index">
-                            <div style="position: relative;" *ngIf="d.is_anniversary == 'false' && d.is_birthday == 'false' && d.items.length > 0 && d.catering_enabled == false"  text-wrap [ngClass]="{active: isGroupShown(i)}">
+                            <div style="position: relative;" *ngIf="d.is_anniversary == 'false' && d.is_birthday == 'false' && d.items.length > 0"  text-wrap [ngClass]="{active: isGroupShown(i)}">
 
                                 <div style="right: 0px;" class="cat-img1" *ngIf="d.badge_icon" >
                                     <img text-right style="height: 40px;width:160px" src="{{d.badge_icon}}">
@@ -129,7 +129,7 @@
                             Menu coming soon 
                         </ion-card>
                         <div *ngFor="let d of category; let i=index">
-                            <div style="position: relative;" *ngIf="d.is_anniversary == 'false' && d.is_birthday == 'false' && d.items.length > 0 && d.catering_enabled == true"  text-wrap [ngClass]="{active: isGroupShown(i)}">
+                            <div style="position: relative;" *ngIf="d.is_anniversary == 'false' && d.is_birthday == 'false' && d.items.length > 0"  text-wrap [ngClass]="{active: isGroupShown(i)}">
 
                                 <div style="right: 0px;" class="cat-img1" *ngIf="d.badge_icon" >
                                     <img text-right style="height: 40px;width:160px" src="{{d.badge_icon}}">
