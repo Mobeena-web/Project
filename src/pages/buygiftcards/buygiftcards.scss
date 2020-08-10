@@ -11,7 +11,11 @@ page-buygiftcards {
       margin: 0;
       line-height: 1.2;
       margin-top: 12px;
-  
+    }
+    .invalid-text{
+      color: #ea6153;
+      text-align: center;
+      margin: 5px 0px 0px 0px;
     }
     .cvv-color{
       color: $primary;

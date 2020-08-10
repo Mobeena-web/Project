@@ -49,7 +49,6 @@ export class ServerProvider {
   }
 
   SendLogindataToServer(username,password) {
-
     var data = JSON.stringify({ username: username, password: password });
     var link = this.global.BaseUrl + 'Business_controller/app_login';
 
@@ -67,12 +66,18 @@ export class ServerProvider {
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
 
+  global_Upsell(){
+    var link = this.global.BaseUrl + 'menu/global_upsell_items';
+    var data = JSON.stringify({ business_id: this.global.new_id });
+    return this.http.post(link, data)
+      .map((res: any) => res.json());
+  }
+
   LoadBannersOnHomePage() {
     var link = this.global.BaseUrl + 'Customer_controller/get_banners';
     var data = JSON.stringify({udid: this.global.udid, business_id: this.global.new_id,app_version: this.global.app_version });
     return this.http.post(link, data)
       .map((res: any) => res.json());
-   
   }
 
   check_user_by_phone(phone){
