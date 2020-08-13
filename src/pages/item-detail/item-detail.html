@@ -5,7 +5,6 @@
   Ionic pages and navigation.
 -->
 <ion-header class="Open-Sans-bold">
-
   <ion-navbar>
     <ion-title>Item Details</ion-title>
 
@@ -14,19 +13,13 @@
         <ion-badge color="danger" *ngIf="globals.Product.length > 0">{{globals.Product.length}}</ion-badge>
         <ion-icon name="cart"> </ion-icon>
       </button>
-
     </ion-buttons>
-
   </ion-navbar>
-
 </ion-header>
 
 
 <ion-content class="Open-Sans-regular">
   <ion-scroll style="height: calc(95% - 3rem); bottom: 10px;" scrollY="true">
-
-
-
     <ion-card class="m-t">
       <div class="head">
         <ion-row class="strip">
@@ -42,7 +35,6 @@
       </div>
 
       <ion-card-content style="padding: 0">
-
         <ion-row>
           <ion-col>
             <p class="desp">
@@ -51,17 +43,12 @@
           </ion-col>
         </ion-row>
         <ion-label style="font-size:3rem; text-align: center;" color="primary"> ${{item_price}} </ion-label>
-
       </ion-card-content>
 
-
       <ion-row style="height: 4.2em;border-bottom: solid thin #ccc; border-top: solid thin #ccc;">
-
-        <ion-col col-12 style="    padding: 0; background: transparent; height: 4.1em;">
-          <ion-row style="    height: inherit;">
-
+        <ion-col col-12 style="padding: 0; background: transparent; height: 4.1em;">
+          <ion-row style="height: inherit;">
             <ion-col col-4 style=" margin: auto;  padding: 0;  height: inherit;  ;text-align: center;">
-
               <button [disabled]="reward_item_flag" small
                 style="background-color:#fff;text-align: center; color: #fff;font-size: 1.3em; margin: 0;padding: 0;margin-top: 0.5em; height: 40px;width: 40px;border-radius: 50%; ">
                 <ion-icon class="colr_s" style="font-size:40px;" name="ios-remove-circle-outline"
@@ -173,7 +160,7 @@
                   <ion-item>
                     <ion-label>{{option.name}} <span class="option_">${{option.price}}</span>
                     </ion-label>
-                    <ion-checkbox [(ngModel)]="option.IsSelected"
+                    <ion-checkbox [(ngModel)]="option.IsSelected" [disabled]="option.disable_item"
                       (ionChange)="Selectedoption(toppings.heading,option,a,i,toppings.max,$event)"></ion-checkbox>
                   </ion-item>
 

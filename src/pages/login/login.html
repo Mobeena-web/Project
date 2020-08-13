@@ -96,10 +96,6 @@
 
         <div>
           <ion-row>
-            <!-- <ion-col col-6>
-                <p style="float: right;color: #aaa" (tap)="check_phone_number()">Already a POS customer?</p>
-
-              </ion-col> -->
             <ion-col col-12>
               <p style="float: right;color: #aaa" (tap)="verify()">Forgot Password?</p>
             </ion-col>
@@ -140,7 +136,7 @@
               </ion-col>
             </ion-row> -->
 
-          <ion-row>
+          <!-- <ion-row>
             <ion-col col-12 style="padding: 0px 2px 0px 0px;">
               <button ion-button block margin-top color='primary' type="submit" class="login_google"
                 (tap)="doFacebookLogin()" outline>
@@ -149,7 +145,7 @@
                 Sign In with Facebook
               </button>
             </ion-col>
-          </ion-row>
+          </ion-row> -->
 
           <div class="signup_message">Don't have an Account? <span (tap)="createAccount()">Sign Up</span></div>
           <!-- <button ion-button class="signUp" block (click)="createAccount()">Sign up</button> -->
@@ -158,41 +154,5 @@
       </ion-list>
 
     </div>
-
   </div>
-
-  <!-- <div *ngIf="pos_customer">
-    <ion-row>
-      <ion-col col-3 no-padding>
-        <ion-select [(ngModel)]="code" class="code">
-          <ion-option value="+1" Selected>US +1</ion-option>
-
-        </ion-select>
-      </ion-col>
-      <ion-col col-9 no-padding>
-        <ion-item class="no-padding">
-          <ion-label floating>Phone</ion-label>
-          <ion-input type="submit" [(ngModel)]="phone" type="number"></ion-input>
-        </ion-item>
-      </ion-col>
-    </ion-row>
-
-    <ion-row padding>
-      <ion-col col-6>
-        <button ion-button outline block round margin-top color='danger' type="submit" class="login"
-          (tap)="cancel_pos()" block>Cancel</button>
-      </ion-col>
-      <ion-col col-6>
-        <button ion-button round block margin-top color='primary' type="submit" class="login"
-          (click)="complete_profile()" block>Procced</button>
-      </ion-col>
-    </ion-row>
-
-
-
-  </div> -->
-
-
-
-
 </ion-content>

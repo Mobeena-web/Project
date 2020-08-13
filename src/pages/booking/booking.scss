@@ -3,6 +3,7 @@ page-booking {
         bottom: 20px;
         right: 20px;
     }
+
     ion-card{
         width: 100% !important;
         margin: 0px !important;
@@ -13,14 +14,13 @@ page-booking {
 
     .toolbar-background{
         background-color: $primary !important;
-    
-      }
+    }
 
-      .back-button{
+    .back-button{
         color: #fff !important;
     }
+
     .toolbar-title{
         color: #fff !important;
-
     }
 }

@@ -25,8 +25,6 @@ export class LoginPage {
     loginForm: FormGroup;
     phoneLoginForm: FormGroup;
     data: any;
-    // ID: any;
-    // date: any;
     places = [];
     login_type = 'email';
     pos_customer: boolean = false;
@@ -34,11 +32,12 @@ export class LoginPage {
     code = '+1';
     profile_complete: any;
 
-    constructor(public viewCtrl: ViewController, public server: ServerProvider, public globals: GlobalVariable, private nativeStorage: NativeStorage, public modalCtrl: ModalController, public navCtrl: NavController,
+    constructor(public viewCtrl: ViewController, public server: ServerProvider, 
+        public globals: GlobalVariable, private nativeStorage: NativeStorage, 
+        public modalCtrl: ModalController, public navCtrl: NavController,
         public navParams: NavParams, private googlePlus: GooglePlus,
         public loadingCtrl: LoadingController, private fb: Facebook,
-        public alertCtrl: AlertController,
-        public formBilder: FormBuilder
+        public alertCtrl: AlertController, public formBilder: FormBuilder
     ) {
         this.loginForm = formBilder.group({
             email: ['', Validators.compose([Validators.required, EmailValidator.isValid])],
@@ -68,7 +67,6 @@ export class LoginPage {
         if(this.login_type == 'email') {
             if (!this.loginForm.valid) {
                 this.submitAttempt = true;
-                console.log(' Some values were not given or were incorrect, please fill them');
             } else {
                 this.loginAPI(LoginData);
             }
@@ -77,7 +75,6 @@ export class LoginPage {
         if(this.login_type == 'phone') {
             if (!this.phoneLoginForm.valid) {
                 this.submitAttempt = true;
-                console.log(' Some values were not given or were incorrect, please fill them');
             } else {
                 this.loginAPI(LoginData);
             }
@@ -107,7 +104,6 @@ export class LoginPage {
                 if (this.globals.caos_flag) {
                     this.viewCtrl.dismiss();
                 } else {
-                    console.log("p", this.profile_complete)
                     if (!this.profile_complete) {
                         this.register(LoginData.phone);
                     } else {
@@ -128,7 +124,6 @@ export class LoginPage {
                                 aniversary: this.data.response.anniversary
                             }).then(() => {
                                 this.SaveMobileNumberFlag(this.data.response.mobile_verification_amount, this.data.response.phone_verified);
-                                // this.server.initializePushToken();
                                 if (this.globals.caos_flag) {
                                     this.navCtrl.push('CartPage')
                                 } else {
@@ -136,8 +131,6 @@ export class LoginPage {
                                 }
                             })
                             .catch((err) => {
-                                console.log("nativesstorage", err)
-
                                 this.SaveMobileNumberFlag(this.data.response.mobile_verification_amount, this.data.response.phone_verified);
 
                                 if (this.globals.caos_flag) {
@@ -145,7 +138,6 @@ export class LoginPage {
                                 } else {
                                     this.navCtrl.setRoot(HomePage, { imageData: this.data.response.url, Flag: false });
                                 }
-                                // this.server.initializePushToken();
                             });
                     }
                 }
@@ -155,7 +147,6 @@ export class LoginPage {
         }, error => {
             this.globals.presentToast("Something went wrong check your internet connection.")
         });
-
     }
 
     verify() {
@@ -170,15 +161,12 @@ export class LoginPage {
 
     SaveMobileNumberFlag(amount, flag) {
         this.globals.MobileDiscount = Number(amount);
-        console.log("MobileDisocunt", this.globals.MobileDiscount);
 
         this.nativeStorage.setItem('MobileFlagSave', {
             MobileFlag: flag,
             MobileDiscount: Number(amount)
         }).then(() => {
-            console.log('Stored mobileflag')
-        },
-            error => console.error('Error storing item', error)
+        },error => console.error('Error storing item', error)
         );
     }
 
@@ -239,7 +227,6 @@ export class LoginPage {
             this.globals.tip_enabled = this.places[0].tip_enabled;
             this.globals.utensils_enabled = this.places[0].utensils_enabled;
 
-            console.log("pop", this.globals.BusinessDiscount)
             if (this.globals.pickup == '1') {
                 this.globals.pickup = true;
             } else {
@@ -287,6 +274,7 @@ export class LoginPage {
             content: "Please wait..."
         });
         loading.present();
+        
         let response = this.server.check_user_by_phone(this.code + this.phone);
         response.subscribe(data => {
             loading.dismiss();

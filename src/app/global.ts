@@ -109,17 +109,9 @@ export class GlobalVariable {
     is_anniversary: any;
     order_instructions: any;
 
-
     //kiosk flag true if building for kiosk
     caos_flag: boolean = false;
     caos_udid = 'e2c40e9f0a';
-
-
-
-
-
-
-
 
     welcome: any;
     inradius: boolean = true;
@@ -149,34 +141,42 @@ export class GlobalVariable {
     orders_enabled: any;
     retail_items_discount = 0;
     home_logo: any;
-    business_password : any;
-    order_time:any = 'now';
-    address:any;
-    lat:any;
-    long:any;
-    myDate:any;
-    cash_discount:any;
-    cash_discount_enabled:any = false;
-    cash_discount_value:any = 0;
-    cash_discount_percentage :any = 0;
-    ccFeeDisclaimer:any;
+    business_password: any;
+    order_time: any = 'now';
+    address: any;
+    lat: any;
+    long: any;
+    menu_ready_msg: any;
+    myDate: any;
+    cash_discount: any;
+    cash_discount_enabled: any = false;
+    cash_discount_value: any = 0;
+    cash_discount_percentage: any = 0;
+    ccFeeDisclaimer: any;
     tip_enabled: any = true;
     utensils_enabled: any = true;
-    appColor:any= '#000000';
+    appColor: any = '#000000';
 
     banner_color: any;
     giftCard_color: any;
     myRewards_color: any;
     orderNow_color: any;
     specialOffer_color: any;
-    themeColor: any= '#000000';
-    
+    themeColor: any = '#000000';
+
+    logs = true;
+
     constructor(public alertCtrl: AlertController, public toastCtrl: ToastController) {
         this.BaseUrl = 'https://staging.onlineordering.mikronexus.com/index.php/';
         // this.BaseUrl = 'https://onlineordering.mikronexus.com/online-ordering-new/index.php/';
         // this.BaseUrl = 'http://192.168.100.3/online-ordering-rewamp/index.php/'
     }
 
+    log(param, data) {
+        if (this.logs) {
+            console.log(param, data)
+        }
+    }
 
     alertMessage(title, subTitle) {
         let alert = this.alertCtrl.create({
@@ -186,6 +186,7 @@ export class GlobalVariable {
         });
         alert.present();
     }
+
     presentToast(msg) {
         let toast = this.toastCtrl.create({
             message: msg,

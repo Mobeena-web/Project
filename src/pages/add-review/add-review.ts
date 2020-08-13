@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { NativeStorage } from "@ionic-native/native-storage";
 import { GlobalVariable } from "../../app/global";
 import { ServerProvider } from "../../providers/server/server";
+import { HomePage } from '../../pages/home/home';
 /**
  * Generated class for the AddReviewPage page.
  *
@@ -45,86 +46,53 @@ export class AddReviewPage {
     }
 
     ionViewDidLoad() {
-        console.log('ionViewDidLoad AddReviewPage');
     }
 
-
-
     save(ReviewData: any) {
-
-        console.log(this.index1);
         if (!this.ReviewForm.valid || this.index1 == '0') {
-
             this.submitAttempt = true;
-
-            console.log(' Some values were not given,please fill them');
         } else {
             this.submitAttempt = false;
+            this.nativeStorage.getItem('user').then(data => {
+                this.user_email = data.email;
 
-            this.nativeStorage.getItem('user')
-                .then(data => {
+                let loading = this.loadingCtrl.create({
+                    content: "Loading...",
+                });
+                loading.present();
 
-                    this.user_email = data.email;
+                let response = this.server.AddUserReview(this.user_email, ReviewData, this.index1, this.bussiness)
+                response.subscribe(data => {
+                    this.data.response = data;
 
-                    let response = this.server.AddUserReview(this.user_email, ReviewData, this.index1, this.bussiness)
-
-                    let loading = this.loadingCtrl.create({
-                        content: "Loading...",
-
+                    loading.dismiss();
+                    this.viewCtrl.dismiss();
+                    this.navCtrl.setRoot(HomePage);
+                }, error => {
+                    loading.dismiss();
+                    let alert = this.alertCtrl.create({
+                        title: 'Error',
+                        subTitle: 'Please try again',
+                        buttons: ['OK']
                     });
-                    loading.present();
-                    response
-                        .subscribe(data => {
-                            // console.log(this.data);
-                            this.data.response = data;
-                            console.log(this.data.response);
-
-                            loading.dismiss();
-                            this.viewCtrl.dismiss();
-
-
-                        }, error => {
-                            console.log("Oooops!");
-                            loading.dismiss();
-                            let alert = this.alertCtrl.create({
-                                title: 'Error',
-                                subTitle: 'Please try again',
-                                buttons: ['OK']
-                            });
-                            alert.present();
-                        });
-
-
-
-
-                    // console.log(barcodeData.text);
-                }).catch(err => console.log);
-
+                    alert.present();
+                });
+            }).catch(err => console.log);
         }
     }
 
     close() {
-
         this.viewCtrl.dismiss();
-
     }
-    changeStar(index) {
 
+    changeStar(index) {
         if (!this.visible) {
             this.index1 = index + 1;
-            console.log(this.index1);
-            //this.array2.length = index1;
             this.visible = true;
-
-        }
-        else {
+        } else {
             this.visible = false;
             this.index1 = index + 1;
-            console.log(this.index1);
-            //this.array2.length = index1;
             this.visible = true;
-
-
         }
     }
 }

@@ -69,7 +69,7 @@
     "code-push-cli": "^2.1.9",
     "com-sarriaroman-photoviewer": "^1.2.5",
     "cordova-android": "^7.1.4",
-    "cordova-browser": "5.0.4",
+    "cordova-browser": "^5.0.4",
     "cordova-ios": "^5.1.0",
     "cordova-plugin-actionsheet": "^2.3.3",
     "cordova-plugin-add-swift-support": "^1.7.2",
