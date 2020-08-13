@@ -166,7 +166,7 @@
       <p style="float:right;font-size:1.3rem;margin:0px;color:#444;"> ${{ccFee}}</p>
     </ion-label>
 
-    <ion-label style="padding:0px;padding:0px;font-size:1.3rem;margin:0px;color:#444; ">
+    <ion-label *ngIf="globals.tip_enabled" style="padding:0px;padding:0px;font-size:1.3rem;margin:0px;color:#444; ">
       <!-- <ion-icon style="padding-right: 5px;  position: relative; top: 3px;" name="copy"> </ion-icon>  -->
       Gratuity
       <!-- <p style="margin: -28px; margin-left: 26px"></p> -->
@@ -191,8 +191,8 @@
 
 </ion-content>
 <ion-footer>
-  <h3 style="margin-left: 4%;">Gratuity</h3>
-  <ion-row>
+  <h3 *ngIf="globals.tip_enabled" style="margin-left: 4%;">Gratuity</h3>
+  <ion-row *ngIf="globals.tip_enabled">
     <ion-col col-4>
       <button class="background_global" ion-button block (click)="percent_tip(8)"> 8% </button>
     </ion-col>
@@ -211,7 +211,10 @@
     <ion-segment-button style="padding: 0px" (click)="add_notes()">
       Add Notes
     </ion-segment-button>
-    <ion-segment-button style="overflow:unset !important;padding: 0px" (click)="add_gratuity()">
+    <ion-segment-button *ngIf="globals.utensils_enabled" style="padding: 0px" (click)="utensils_alert()">
+      Utensils
+    </ion-segment-button>
+    <ion-segment-button *ngIf="globals.tip_enabled" style="overflow:unset !important;padding: 0px" (click)="add_gratuity()">
       Gratuity
     </ion-segment-button>
     <ion-segment-button style="overflow:unset !important;padding: 0px" (click)="gift_alert()"

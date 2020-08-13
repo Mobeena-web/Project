@@ -1,7 +1,7 @@
 page-login {
     .login-box {
   
-        padding: 20px 20px 0px 20px;
+        padding: 0px 20px 0px 20px;
        // margin-top: 70%;
        // background: transparent !important;
       }
@@ -56,6 +56,24 @@ page-login {
      .login_{
         padding: 15px;
         font-size: 18px;
+        font-weight: normal;
+        ion-icon{
+            margin-right: 10px;
+        }
+     }
+
+     .login_apple{
+        padding: 20px;
+        font-size: 1rem;
+        font-weight: normal;
+        ion-icon{
+            margin-right: 10px;
+        }
+     }
+
+     .login_google{
+        padding: 20px;
+        font-size: 1rem;
         font-weight: normal;
         ion-icon{
             margin-right: 10px;

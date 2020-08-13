@@ -515,7 +515,19 @@ getdeals(){
     return this.http.post(link, data)
       .map((res: any) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+  }
 
+  GetSuperCategories(BusinessId, super_id) {
+    if(this.global.business_type == 'retail'){
+      var link = (this.global.BaseUrl + 'retail/categories');
+    }
+    else{
+      var link = (this.global.BaseUrl + 'menu/categories');
+    }
+    var data = JSON.stringify({ business_id: BusinessId ,platform:'app', super_category_id: super_id});
+    return this.http.post(link, data)
+      .map((res: any) => res.json())
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
 
   getpoints_menuitems() {
