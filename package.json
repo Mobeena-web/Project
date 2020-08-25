@@ -68,6 +68,7 @@
     "code-push": "^3.0.1",
     "code-push-cli": "^2.1.9",
     "com-sarriaroman-photoviewer": "^1.2.5",
+    "cordova-android": "^8.1.0",
     "cordova-browser": "5.0.4",
     "cordova-ios": "^5.1.0",
     "cordova-plugin-actionsheet": "^2.3.3",
@@ -78,10 +79,11 @@
     "cordova-plugin-device": "^2.0.3",
     "cordova-plugin-dialogs": "^2.0.2",
     "cordova-plugin-email-composer": "^0.8.15",
-    "cordova-plugin-facebook4": "^6.4.0",
+    "cordova-plugin-facebook4": "^1.7.4",
     "cordova-plugin-file": "^6.0.2",
     "cordova-plugin-file-transfer": "^1.7.1",
     "cordova-plugin-geolocation": "^4.0.2",
+    "cordova-plugin-googleplus": "^8.5.0",
     "cordova-plugin-inappbrowser": "^3.2.0",
     "cordova-plugin-ionic-keyboard": "~2.2.0",
     "cordova-plugin-ionic-webview": "^4.2.1",
@@ -115,7 +117,7 @@
     "zone.js": "0.8.18"
   },
   "devDependencies": {
-    "@ionic/app-scripts": "3.1.7",
+    "@ionic/app-scripts": "^3.2.4",
     "@types/jquery": "^3.3.31",
     "cordova-plugin-ionic-keyboard": "^2.2.0",
     "electron": "^4.2.12",
@@ -169,13 +171,12 @@
       },
       "cordova-plugin-facebook4": {
         "APP_ID": "com.mikronexus.onlineordering.fblogintest",
-        "APP_NAME": "Mikronexus",
-        "FACEBOOK_HYBRID_APP_EVENTS": "false",
-        "FACEBOOK_ANDROID_SDK_VERSION": "5.13.0"
+        "APP_NAME": "Mikronexus"
       }
     },
     "platforms": [
-      "browser"
+      "browser",
+      "android"
     ]
   }
 }
