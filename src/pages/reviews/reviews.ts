@@ -32,7 +32,7 @@ export class ReviewsPage {
         console.log('ionViewDidLoad ReviewsPage');
     }
 
-    goToback(){
+    goToback() {
         this.navCtrl.setRoot(HomePage)
     }
 
@@ -66,10 +66,11 @@ export class ReviewsPage {
     }
 
     addReview() {
-        //   this.viewCtrl.dismiss();
-          let modal = this.modalCtrl.create('AddReviewPage', { place: this.globals.business_username});
-          modal.present();
-        // this.navCtrl.push('AddReviewPage', { place: this.globals.business_username });
+        let modal = this.modalCtrl.create('AddReviewPage', { place: this.globals.business_username });
+        modal.onDidDismiss(data => {
+            this.navCtrl.pop();
+        });
+        modal.present();
 
     }
 

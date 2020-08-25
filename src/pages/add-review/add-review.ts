@@ -67,7 +67,6 @@ export class AddReviewPage {
 
                     loading.dismiss();
                     this.viewCtrl.dismiss();
-                    this.navCtrl.setRoot(HomePage);
                 }, error => {
                     loading.dismiss();
                     let alert = this.alertCtrl.create({
