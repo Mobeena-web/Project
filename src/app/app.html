@@ -7,74 +7,62 @@
 
   <ion-content class="back_menu">
     <ion-list>
-
-        <button  menuClose ion-item (click)="aboutus()">
-            <ion-icon name="information-circle" class="myicon"></ion-icon>About Us
-        </button>
-
-
-        <button menuClose ion-item (click)="openOrder()" *ngIf="globals.business_type == 'ordering'">
-            <ion-icon name="restaurant" class="myicon"></ion-icon> Order Now
-          </button>
-          <button menuClose ion-item (click)="bookingPage()" *ngIf="globals.business_type == 'salon'">
-              <ion-icon name="alarm" class="myicon"></ion-icon> Services
-            </button>
-
-          <button  menuClose ion-item (click)="openHistory()" *ngIf="globals.business_type == 'ordering' || globals.business_type == 'retail'">
-              <ion-icon name="list" class="myicon"></ion-icon> Order History
-            </button>
-
-            <button menuClose ion-item (click)="openRewards()">
-                <ion-icon name="star" class="myicon" ></ion-icon> My Rewards
-                <ion-badge color="danger" class="rewards_badge" *ngIf="globals.reward_menu_length > 0 " >{{globals.reward_menu_length}}</ion-badge>
-              </button>
-
-
-            <button  menuClose ion-item (click)="show_gallery()" *ngIf="globals.gallery_enabled == 1">
-                <ion-icon name="image" class="myicon"></ion-icon> Gallery
-            </button>
-
-            <button  menuClose ion-item (click)="openReviews()" *ngIf="globals.review_enabled == 'true'">
-                <ion-icon name="clipboard" class="myicon"></ion-icon> Reviews
-              </button>
-
-
-
-
-      <button  menuClose ion-item (click)="OpenEvents()" *ngIf="globals.events_enabled == 1">
-          <ion-icon name="calendar" class="myicon"></ion-icon>Events
+      <button menuClose ion-item (click)="aboutus()">
+        <ion-icon name="information-circle" class="myicon"></ion-icon>About Us
       </button>
-     
-      <button  menuClose ion-item (click)="openGiftCard()" *ngIf="globals.giftcard_enabled == 1">
+
+      <button menuClose ion-item (click)="openOrder()" *ngIf="globals.business_type == 'ordering'">
+        <ion-icon name="restaurant" class="myicon"></ion-icon> Order Now
+      </button>
+
+      <button menuClose ion-item (click)="bookingPage()" *ngIf="globals.business_type == 'salon'">
+        <ion-icon name="alarm" class="myicon"></ion-icon> Services
+      </button>
+
+      <button menuClose ion-item (click)="openHistory()"
+        *ngIf="globals.business_type == 'ordering' || globals.business_type == 'retail'">
+        <ion-icon name="list" class="myicon"></ion-icon> Order History
+      </button>
+
+      <button menuClose ion-item (click)="openRewards()">
+        <ion-icon name="star" class="myicon"></ion-icon> My Rewards
+        <ion-badge color="danger" class="rewards_badge" *ngIf="globals.reward_menu_length > 0 ">
+          {{globals.reward_menu_length}}</ion-badge>
+      </button>
+
+      <button menuClose ion-item (click)="show_gallery()" *ngIf="globals.gallery_enabled == 1">
+        <ion-icon name="image" class="myicon"></ion-icon> Gallery
+      </button>
+
+      <button menuClose ion-item (click)="openReviews()" *ngIf="globals.review_enabled == 'true'">
+        <ion-icon name="clipboard" class="myicon"></ion-icon> Reviews
+      </button>
+
+      <button menuClose ion-item (click)="OpenEvents()" *ngIf="globals.events_enabled == 1">
+        <ion-icon name="calendar" class="myicon"></ion-icon>Events
+      </button>
+
+      <button menuClose ion-item (click)="openGiftCard()" *ngIf="globals.giftcard_enabled == 1">
         <ion-icon name="medal" class="myicon"></ion-icon>Gift Cards
       </button>
-      <button  menuClose ion-item (click)="business_list()" *ngIf="globals.new_id == '76'">
-          <ion-icon name="list-box" class="myicon"></ion-icon>Resturants
-        </button>
-       
-          <!-- <button  menuClose ion-item (click)="openDeals()">
-            <ion-icon name="clipboard" class="myicon"></ion-icon> Deals
-          </button> -->
-          <!-- <button  menuClose ion-item (click)="scanQR()" *ngIf="!globals.guess_login">
-            <ion-icon name="camera" class="myicon"></ion-icon> Scan
-          </button> -->
-          
-         
-      <button  menuClose ion-item (click)="OpenSettingPage()">
-          <ion-icon name="settings" class="myicon"></ion-icon>Settings
+
+      <button menuClose ion-item (click)="business_list()" *ngIf="globals.new_id == '76'">
+        <ion-icon name="list-box" class="myicon"></ion-icon>Resturants
       </button>
-      
-      
-      <!-- <a menuClose ion-item href="tel://6316124834">
-        <ion-icon name="information-circle" class="myicon"></ion-icon> Help
-      </a> -->
-       <button menuClose ion-item (click)="logout()">
-          <ion-icon name="log-out" class="myicon"></ion-icon> Logout
+
+      <button menuClose ion-item (click)="OpenSettingPage()">
+        <ion-icon name="settings" class="myicon"></ion-icon>Settings
+      </button>
+
+      <button menuClose ion-item (click)="logout()">
+        <ion-icon name="log-out" class="myicon"></ion-icon> Logout
       </button>
     </ion-list>
   </ion-content>
-
+  <ion-footer>
+    <p style="text-align: center">Powered by Mikronexus</p>
+  
+  </ion-footer>
 </ion-menu>
 
-<!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
 <ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>

@@ -5,48 +5,39 @@ import { GlobalVariable } from '../../app/global';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { HomePage } from '../../pages/home/home';
 
-
 @IonicPage()
 @Component({
   selector: 'page-accept-terms',
   templateUrl: 'accept-terms.html',
 })
 export class AcceptTermsPage {
-  privacy:any;
-  terms:any;
+  privacy: any;
+  terms: any;
 
-  constructor(private iab: InAppBrowser,public globals: GlobalVariable,public navCtrl: NavController, public navParams: NavParams) {
+  constructor(private iab: InAppBrowser, public globals: GlobalVariable, public navCtrl: NavController, public navParams: NavParams) {
   }
 
-  openTerms(){
+  openTerms() {
     this.iab.create('http://mikronexus.com/legal/terms.pdf', "_self");
   }
 
-  openPolicy(){
+  openPolicy() {
     this.iab.create('http://mikronexus.com/legal/policy.pdf', "_self");
-
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad AcceptTermsPage');
+
   }
 
-  homePage(){
-    if(this.privacy && this.terms){
-      if(this.globals.caos_flag){
-        // this.globals.caos_flag = false;
-
+  homePage() {
+    if (this.privacy && this.terms) {
+      if (this.globals.caos_flag) {
         this.navCtrl.push('CategoryPage')
-      }else{
+      } else {
         this.navCtrl.setRoot(HomePage);
-
       }
-    }
-    else{
+    } else {
       this.globals.presentToast("Please accept Privacy Policy and Terms & Conditions")
     }
   }
-
-  
-
 }
