@@ -108,8 +108,6 @@ export class CartPage {
         console.log("which type ", this.globals.pickup, this.globals.delivery);
         console.log("pickup value checking ", this.pickup);
 
-
-
         this.selectOptions = {
             title: 'Points'
         };
@@ -120,6 +118,7 @@ export class CartPage {
         this.CheckUserPoints();
         this.CheckMobileDiscount();
         this.my_gift_cards();
+        this.loadGlobal_upsell();
         console.log(this.globals.business_discount_count, this.globals.availed_discount_count, 'po')
     }
     // ionViewWillEnter(){
@@ -159,6 +158,34 @@ export class CartPage {
             }
         }
     }
+
+    async loadGlobal_upsell(){
+        let response = this.server.global_Upsell();
+        response.subscribe(data => {
+            console.log("Global upsell -> ", data);
+            if(data.success){
+                if(data.data.length > 0){
+                    let modal = this.modalCtrl.create('UpsellProductModalPage', { place: this.globals.business_username, upSellItems: data.data});
+                    modal.onDidDismiss(data => {
+                        console.log("Upsell product modal ", data);
+                        if(data.modal_close){
+                            this.total();
+                            this.CheckUserReward();
+                            this.CheckUserPoints();
+                            this.CheckMobileDiscount();
+                            this.my_gift_cards();
+                        }
+                    });
+                    modal.present();
+                }
+            } else {
+
+            }
+        }, error => {
+            console.log(error);
+        });
+    }
+
     financial(x) {
         if (x != 0) {
             return Number.parseFloat(x).toFixed(2);
@@ -167,6 +194,7 @@ export class CartPage {
             return '0.00';
         }
     }
+
     PointBox() {
         // if(this.check_points == true)
         // {
@@ -181,7 +209,6 @@ export class CartPage {
             this.points = Number(this.points) + Number(this.pointsInput.points);
 
             console.log(this.pointsInput);
-
         }
     }
 
@@ -191,10 +218,9 @@ export class CartPage {
             this.Total = this.Total.toFixed(2);
             this.RewardStoreCreditAvailed = 0;
         }
-
     }
-    BirthdayBox() {
 
+    BirthdayBox() {
         if (!this.check_birthday && this.birthdayStoreCreditavailed > 0) {
             this.Total = Number(this.Total) + this.birthdayStoreCreditavailed;
             this.Total = this.Total.toFixed(2);
@@ -205,9 +231,9 @@ export class CartPage {
     CheckUserPoints() {
         let loading = this.loadingCtrl.create({
             content: "Checking please wait...",
-
         });
         loading.present();
+
         let res = this.server.CheckUserPoints()
             .subscribe(data => {
                 loading.dismiss();
@@ -219,15 +245,11 @@ export class CartPage {
                     this.pointsInput = this.points;
 
                     if (data.business_rewards.length > 0) {
-
                         this.point_rewards = data.business_rewards;
                         console.log(this.point_rewards);
-
                     }
                     console.log(this.pointsInput, this.point_rewards);
-
-                }
-                else {
+                } else {
                     // let alert = this.alertCtrl.create({
                     //     title: 'Oops',
                     //     subTitle: 'Sorry,you do not have points in this business.',
@@ -337,12 +359,8 @@ export class CartPage {
             });
             alert.present();
             this.StoreCreditInput = this.reward_amount;
-
         }
-
-
     }
-
 
     BirthdayMaxMin() {
         console.log("hello", this.birthdayStoreCreditInput);
@@ -355,8 +373,7 @@ export class CartPage {
             });
             alert.present();
             this.birthdayStoreCreditInput = this.birthday_amount;
-        }
-        else if (this.birthdayStoreCreditInput < 0) {
+        } else if (this.birthdayStoreCreditInput < 0) {
             let alert = this.alertCtrl.create({
                 title: 'Alert',
                 subTitle: 'Value cannot not be less then 0',
@@ -365,8 +382,7 @@ export class CartPage {
             alert.present();
             this.birthdayStoreCreditInput = 0;
 
-        }
-        else if (this.birthdayStoreCreditInput == null || this.birthdayStoreCreditInput == undefined) {
+        } else if (this.birthdayStoreCreditInput == null || this.birthdayStoreCreditInput == undefined) {
             let alert = this.alertCtrl.create({
                 title: 'Alert',
                 subTitle: 'Please enter a value',
@@ -374,10 +390,7 @@ export class CartPage {
             });
             alert.present();
             this.birthdayStoreCreditInput = this.birthday_amount;
-
         }
-
-
     }
 
 
@@ -453,26 +466,13 @@ export class CartPage {
                 {
                     text: 'Okay',
                     handler: data => {
-
                         console.log('OK clicked');
-
-
-
-
                     }
                 }
             ]
         });
         prompt.present();
-
     }
-
-    // placeOrderByPayOnVenue(){
-
-    // }
-
-
-
 
     total() {
         this.Total = 0;
@@ -518,15 +518,10 @@ export class CartPage {
                 if (this.birthdayStoreCreditavailed > 0) {
                     this.Total = Number(this.Total) - this.birthdayStoreCreditavailed;
                 }
-            }
-            else {
+            } else {
                 this.globals.presentToast('Please add more items in the cart.')
-
             }
-
-
-        }
-        else {
+        } else {
             this.TaxCalculate(amount_without_tax);
             if (this.RewardStoreCreditAvailed > 0) {
                 this.Total = Number(this.Total) - this.RewardStoreCreditAvailed;
@@ -537,10 +532,8 @@ export class CartPage {
         }
 
         if (this.globals.OrderType == "delivery" && this.globals.deliveryCharges != 0 && this.Deliver == true) {
-
             this.Total = Number(this.Total);
             this.Total = this.Total + Number(this.globals.deliveryCharges);
-
             //    this.deliverycharges = Number(this.globals.deliveryCharges);
         }
 
@@ -550,8 +543,6 @@ export class CartPage {
         else if (this.tip_type == 'percent') {
             this.percent_tip_(this.percent_tip_vlaue);
         }
-
-
 
         if (this.gift_array.length > 0) {
             this.gift_array.forEach(e => {
@@ -563,10 +554,7 @@ export class CartPage {
         if (this.Total != 0) {
             this.Total = Number(this.Total).toFixed(2);
         }
-
     }
-
-
 
     TaxCalculate(amount_without_tax) {
 
@@ -916,7 +904,6 @@ export class CartPage {
         });
         alert.present();
     }
-
 
     paymentPage() {
         if (this.globals.guess_login) {

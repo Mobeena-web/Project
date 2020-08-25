@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams,ViewController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 import { GlobalVariable } from '../../app/global';
 import { NativeStorage } from '@ionic-native/native-storage';
-
-
 
 @IonicPage()
 @Component({
@@ -12,26 +10,25 @@ import { NativeStorage } from '@ionic-native/native-storage';
 })
 export class ThankyouPage {
 
-  constructor(private nativeStorage: NativeStorage,public globals: GlobalVariable,public navCtrl: NavController, public navParams: NavParams,public viewCtrl: ViewController) {
+  constructor(private nativeStorage: NativeStorage, public globals: GlobalVariable, 
+    public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController) {
   }
 
-  done(){
-    if(this.globals.caos_flag){
+  done() {
+    if (this.globals.caos_flag) {
       this.globals.udid = undefined;
       this.logout();
-    }
-    else{
-      //this.navCtrl.popToRoot();
-      this.navCtrl.push('ReviewsPage')
+    } else {
+      if (this.globals.review_enabled == 'true') {
+        this.navCtrl.push('ReviewsPage');
+      }
     }
   }
 
   logout() {
     this.globals.Product.length = 0;
     this.globals.cartflag = false;
-    this.navCtrl.setRoot('BeforeLoginPage')
-
-  
+    this.navCtrl.setRoot('BeforeLoginPage');
   }
 
 }

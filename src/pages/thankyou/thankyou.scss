@@ -5,13 +5,16 @@ page-thankyou {
         color: #27ae60;
         margin-top: 14%;
     }
+    
     .thank{
         font-size: 20px;
     }
+
     .bt{
         width: 80%;
         margin-left: 10%;
     }
+
     .overlay {
         position: fixed;
         top: 0;
@@ -20,8 +23,9 @@ page-thankyou {
         z-index: 1;
         opacity: .5;
         background-color: $primary;;
-      }
-      .modal_content {
+    }
+
+    .modal_content {
         position: absolute;
         top: calc(40% - (50%/2));
         left: 0;
@@ -43,7 +47,5 @@ page-thankyou {
         -moz-box-sizing: border-box;
         -webkit-box-sizing: border-box;
         overflow: hidden;
-      }
-
-
+    }
 }

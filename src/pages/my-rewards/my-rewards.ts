@@ -434,15 +434,19 @@ export class MyRewardsPage {
             loading.dismiss();
             if(data.status == true){
                 this.point_menu = data.items;
-                console.log("Point menu", this.point_menu);
                 this.point_menu.forEach(subelement => {
-                     subelement.quantity = 1;
- 
-                 });
-                 if (this.point_menu.length == 0) {
+                    subelement.quantity = 1;
+                    var result = subelement.point_price.replace(/,/g, "");
+                    if(Number(result) > Number(this.globals.points_)){
+                        subelement.disable_btn = true;
+                    } else {
+                        subelement.disable_btn = false;
+                    }
+                });
+
+                if (this.point_menu.length == 0) {
                     this.point_menu_flag = true;
-                }
-                else{
+                } else{
                     this.point_menu_flag = false;
                 }
             }

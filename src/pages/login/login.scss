@@ -12,7 +12,12 @@ page-login {
 //         margin-top:20%; 
 //         margin-bottom: -20%;
 //     }
-  
+    
+    .invalid-text{
+        color: #ea6153;
+        text-align: center;
+        margin: 5px 0px 0px 0px;
+    }
    
    .list-md .item-input:last-child{
        border-bottom: 0px !important;

@@ -123,6 +123,7 @@
       </div>
 
     </div>
+    
     <div *ngSwitchCase="'points'">
       <!-- <ion-searchbar *ngIf="!flag" [(ngModel)]="searchTerm" (input)="setFilteredItems()" [formControl]="searchControl"></ion-searchbar> -->
       <div *ngIf="this.globals.point_check == 'true'">
@@ -170,7 +171,7 @@
 
               <ion-row>
                 <ion-col col-7>
-                  <button color="jack" [disabled]="a.point_price > globals.points_" ion-button round block class="redem_btn" (click)="points_buy_Confirm(a.id,'point_store')">BUY
+                  <button color="jack" [disabled]="a.disable_btn" ion-button round block class="redem_btn" (click)="points_buy_Confirm(a.id,'point_store')">BUY
                     ({{a.point_price}} points)</button>
                 </ion-col>
                 <ion-col col-5> 

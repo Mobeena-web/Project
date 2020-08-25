@@ -46,81 +46,53 @@ import { MobileVerificationPromptPage } from '../pages/mobile-verification-promp
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { CodePush } from '@ionic-native/code-push';
 import { CalendarModule } from "ion2-calendar";
-// import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-// import { TooltipsModule } from 'ionic-tooltips';
-
-//import { TextMaskModule } from 'angular2-text-mask';
-
-// import{Modal2Page} from '../pages/modal2/modal2';
-//import{ModalPage} from '../pages/modal/modal';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     ListPage,
-    // Modal2Page,
-    //MainTabsPage,
     IntroPage1Page,
     IntroPage2Page,
     IntroPage3Page,
     IntroPage4Page,
     IntroPage5Page,
     MobileVerificationPromptPage
-
-    
-  ], 
+  ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp,{tabsHideOnSubPages: 'false'}),
-   
-
+    IonicModule.forRoot(MyApp, { tabsHideOnSubPages: 'false' }),
     HttpModule,
     HttpClientModule,
     Ionic2RatingModule,
     IntroPage6PageModule,
     IntroPage7PageModule,
     IntroPage8PageModule,
-    //MobileVerificationPromptPage,
     MainTabsPageModule,
-
-   // TextMaskModule
-   
-  
   ],
-  bootstrap: [IonicApp],  
+  bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
     HomePage,
     ListPage,
-    // Modal2Page,
-    //MainTabsPage,
     IntroPage1Page,
     IntroPage2Page,
     IntroPage3Page,
     IntroPage4Page,
     IntroPage5Page,
     MobileVerificationPromptPage
-    //IntroPage6Page,
-    // IntroPage7Page,
-    // IntroPage8Page,
-    //ModalPage
-   
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
-    
-    ServerProvider ,GlobalVariable,NativeStorage,BarcodeScanner,InAppBrowser,PinDialog,NativeAudio,Geolocation
-    ,CallNumber,EmailComposer,Camera,Crop,Diagnostic,SocialSharing,Stripe,
-    // OneSignal,
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
+    ServerProvider, GlobalVariable, NativeStorage, BarcodeScanner, InAppBrowser, 
+    PinDialog, NativeAudio, Geolocation, CallNumber, EmailComposer, Camera, Crop, 
+    Diagnostic, SocialSharing, Stripe,
     Calendar,
-    GetlocationProvider,PhotoViewer,CodePush,
+    GetlocationProvider, PhotoViewer, CodePush,
     GooglePlus,
     Facebook
   ]
 })
-export class AppModule {}
-  
+export class AppModule { }

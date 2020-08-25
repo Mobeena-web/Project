@@ -1,27 +1,24 @@
-
 <ion-content padding>
-  
-    <div style="font-family: Open Sans;" class="title1">
-      <img src={{globals.b_logo}} style="    position: relative; left: 26%;  width: 50%;  height: auto;  ">
-    </div>
+  <div style="font-family: Open Sans;" class="title1">
+    <img src={{globals.b_logo}} style="    position: relative; left: 26%;  width: 50%;  height: auto;  ">
+  </div>
 
   <h4 text-center class="heading-top">A FEW THINGS HAVE CHANGED</h4>
 
   <p class="review-text">
-    Review and accept the new <b (click)="openTerms()"> <u>Terms and Conditions</u></b> as well as the new <b (click)="openPolicy()"><u>Privacy Policy</u></b> to continue.
+    Review and accept the new <b (click)="openTerms()"> <u>Terms and Conditions</u></b> as well as the new <b
+      (click)="openPolicy()"><u>Privacy Policy</u></b> to continue.
   </p>
 
-  <ion-item >
-      <ion-label class="label_">Yes, I accept the <b>Privacy Policy</b></ion-label>
-      <ion-checkbox [(ngModel)]="privacy"></ion-checkbox>
-    </ion-item>
-  
-    <ion-item>
-      <ion-label class="label_">Yes, I accept the <b>Terms & Conditions</b></ion-label>
-      <ion-checkbox [(ngModel)]="terms"></ion-checkbox>
-    </ion-item>
+  <ion-item>
+    <ion-label class="label_">Yes, I accept the <b>Privacy Policy</b></ion-label>
+    <ion-checkbox [(ngModel)]="privacy"></ion-checkbox>
+  </ion-item>
 
-    <button ion-button block padding margin-top class="done" (click)="homePage()">Done</button>
+  <ion-item>
+    <ion-label class="label_">Yes, I accept the <b>Terms & Conditions</b></ion-label>
+    <ion-checkbox [(ngModel)]="terms"></ion-checkbox>
+  </ion-item>
 
-
+  <button ion-button block padding margin-top class="done" (click)="homePage()">Done</button>
 </ion-content>

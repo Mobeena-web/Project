@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController, ToastController } from 'ionic-angular';
-
 import { GlobalVariable } from '../../app/global';
 import { ServerProvider } from '../../providers/server/server';
 
@@ -19,7 +18,10 @@ export class AddBookingPage {
   timing: any;
   schedule_time: any;
   timings: any;
-  constructor(private toastCtrl: ToastController, public loadingCtrl: LoadingController, public server: ServerProvider, public global: GlobalVariable, public navCtrl: NavController, public navParams: NavParams) {
+
+  constructor(private toastCtrl: ToastController, public loadingCtrl: LoadingController, 
+    public server: ServerProvider, public global: GlobalVariable, 
+    public navCtrl: NavController, public navParams: NavParams) {
 
     this.value = this.formatDate();
     this.get_services();
@@ -76,12 +78,10 @@ export class AddBookingPage {
     }, error => {
       toast.dismiss();
       this.global.alertMessage("Failure", "Something went wrong check your internet connection.")
-
     });
   }
 
   setStylist() {
-    console.log("Time in stylist ", this.schedule_time)
     let toast = this.toastCtrl.create({
       message: 'Loading...',
     });
@@ -93,8 +93,7 @@ export class AddBookingPage {
     response.subscribe(data => {
       if (data.status == true) {
         this.timings = data.slots;
-      }
-      else {
+      } else {
         this.global.presentToast(data.message)
       }
       toast.dismiss();
@@ -102,7 +101,6 @@ export class AddBookingPage {
     }, error => {
       toast.dismiss();
       this.global.alertMessage("Failure", "Something went wrong check your internet connection.")
-
     });
   }
 
@@ -123,7 +121,6 @@ export class AddBookingPage {
     }, error => {
       loading.dismiss();
       this.global.alertMessage("Failure", "Something went wrong check your internet connection.")
-
     });
   }
 }
