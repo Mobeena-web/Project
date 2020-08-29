@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController, AlertController, ModalController, ViewController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NativeStorage } from '@ionic-native/native-storage';
-// import { GooglePlus } from '@ionic-native/google-plus';
+import { GooglePlus } from '@ionic-native/google-plus';
+import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
 import { EmailValidator } from '../../validators/email';
 
 import { HomePage } from '../home/home';
@@ -22,6 +23,7 @@ declare var cordova: any;
 export class LoginPage {
     submitAttempt: boolean = false;
     loginForm: FormGroup;
+    phoneLoginForm: FormGroup;
     data: any;
     // ID: any;
     // date: any;
@@ -31,29 +33,27 @@ export class LoginPage {
     phone: any;
     code = '+1';
     profile_complete: any;
+
     constructor(public viewCtrl: ViewController, public server: ServerProvider, public globals: GlobalVariable, private nativeStorage: NativeStorage, public modalCtrl: ModalController, public navCtrl: NavController,
-        public navParams: NavParams,
-        // private googlePlus: GooglePlus,
-        public loadingCtrl: LoadingController,
+        public navParams: NavParams, private googlePlus: GooglePlus,
+        public loadingCtrl: LoadingController, private fb: Facebook,
         public alertCtrl: AlertController,
         public formBilder: FormBuilder
     ) {
-
-
         this.loginForm = formBilder.group({
-            email: [''],
-            phone: [''],
-            code: ['+1'],
-
+            email: ['', Validators.compose([Validators.required, EmailValidator.isValid])],
             password: ['', Validators.compose([Validators.minLength(6), Validators.required])]
-        })
+        });
+
+        this.phoneLoginForm = formBilder.group({
+            phone: ['', Validators.compose([Validators.minLength(10), Validators.maxLength(10), Validators.pattern('[0-9]*'), Validators.required])],
+            code: ['+1'],
+            password: ['', Validators.compose([Validators.minLength(6), Validators.required])]
+        });
         this.data = {};
 
         this.data.response = '';
-
     }
-
-
 
     createAccount() {
         this.navCtrl.push(IntroPage3Page, { profile_complete: true });
@@ -65,109 +65,104 @@ export class LoginPage {
 
 
     login(LoginData: any) {
-
-        if (!this.loginForm.valid) {
-            this.submitAttempt = true;
-            console.log(' Some values were not given or were incorrect, please fill them');
-        } else {
-            let loading = this.loadingCtrl.create({
-                content: "Please wait..."
-            });
-            loading.present();
-            let response = this.server.LoginData(LoginData);
-            response.subscribe(data => {
-                loading.dismiss();
-                this.data.response = data;
-
-                if (this.data.response != "invalid") {
-                    this.globals.guess_login = false;
-                    this.globals.udid = this.data.response.udid;
-
-                    this.globals.firstName = this.data.response.firstname;
-                    this.globals.lastName = this.data.response.lastname;
-                    this.globals.Email = LoginData.email;
-                    this.profile_complete = this.data.response.profile_complete;
-                    if (this.globals.caos_flag) {
-
-                        this.viewCtrl.dismiss();
-                    }
-                    else {
-                        console.log("p", this.profile_complete)
-                        if (!this.profile_complete) {
-                            this.register(LoginData.phone);
-                        }
-                        else {
-                            this.list();
-                            this.nativeStorage.setItem('user',
-                                {
-                                    email: LoginData.email,
-                                    udid: this.data.response.udid,
-                                    firstName: this.data.response.firstname,
-                                    lastName: this.data.response.lastname,
-                                    phone: this.data.response.phone,
-                                    password: LoginData.password,
-                                    image: this.data.response.url,
-                                    ID: this.data.response.id,
-                                    date: this.data.response.date_joined,
-                                    phone_verify: this.data.response.phone_verified,
-                                    birthday: this.data.response.birthday,
-                                    aniversary: this.data.response.anniversary
-
-                                }).then(() => {
-
-                                    this.SaveMobileNumberFlag(this.data.response.mobile_verification_amount, this.data.response.phone_verified);
-                                    // this.server.initializePushToken();
-                                    if (this.globals.caos_flag) {
-
-                                        this.navCtrl.push('CartPage')
-                                    }
-                                    else {
-                                        this.navCtrl.setRoot(HomePage, { imageData: this.data.response.url, Flag: false });
-
-                                    }
-
-                                })
-                                .catch((err) => {
-                                    console.log("nativesstorage", err)
-
-                                    this.SaveMobileNumberFlag(this.data.response.mobile_verification_amount, this.data.response.phone_verified);
-
-                                    if (this.globals.caos_flag) {
-
-                                        this.navCtrl.push('CartPage')
-                                    }
-                                    else {
-                                        this.navCtrl.setRoot(HomePage, { imageData: this.data.response.url, Flag: false });
-
-                                    }
-                                    // this.server.initializePushToken();
-                                });
-                        }
-
-
-
-                    }
-
-
-                }
-                else {
-
-                    this.globals.presentToast("Invalid Credentials")
-
-                }
-            }, error => {
-
-                this.globals.presentToast("Something went wrong check your internet connection.")
-
-
-            });
+        if(this.login_type == 'email') {
+            if (!this.loginForm.valid) {
+                this.submitAttempt = true;
+                console.log(' Some values were not given or were incorrect, please fill them');
+            } else {
+                this.loginAPI(LoginData);
+            }
         }
+
+        if(this.login_type == 'phone') {
+            if (!this.phoneLoginForm.valid) {
+                this.submitAttempt = true;
+                console.log(' Some values were not given or were incorrect, please fill them');
+            } else {
+                this.loginAPI(LoginData);
+            }
+        }
+    }
+
+    loginAPI(LoginData: any) {
+        let loading = this.loadingCtrl.create({
+            content: "Please wait..."
+        });
+        loading.present();
+
+        let response = this.server.LoginData(LoginData);
+        response.subscribe(data => {
+            loading.dismiss();
+            this.data.response = data;
+
+            if (this.data.response != "invalid") {
+                this.globals.guess_login = false;
+                this.globals.udid = this.data.response.udid;
+
+                this.globals.firstName = this.data.response.firstname;
+                this.globals.lastName = this.data.response.lastname;
+                this.globals.Email = LoginData.email;
+                this.profile_complete = this.data.response.profile_complete;
+
+                if (this.globals.caos_flag) {
+                    this.viewCtrl.dismiss();
+                } else {
+                    console.log("p", this.profile_complete)
+                    if (!this.profile_complete) {
+                        this.register(LoginData.phone);
+                    } else {
+                        this.list();
+                        this.nativeStorage.setItem('user',
+                            {
+                                email: LoginData.email,
+                                udid: this.data.response.udid,
+                                firstName: this.data.response.firstname,
+                                lastName: this.data.response.lastname,
+                                phone: this.data.response.phone,
+                                password: LoginData.password,
+                                image: this.data.response.url,
+                                ID: this.data.response.id,
+                                date: this.data.response.date_joined,
+                                phone_verify: this.data.response.phone_verified,
+                                birthday: this.data.response.birthday,
+                                aniversary: this.data.response.anniversary
+                            }).then(() => {
+                                this.SaveMobileNumberFlag(this.data.response.mobile_verification_amount, this.data.response.phone_verified);
+                                // this.server.initializePushToken();
+                                if (this.globals.caos_flag) {
+                                    this.navCtrl.push('CartPage')
+                                } else {
+                                    this.navCtrl.setRoot(HomePage, { imageData: this.data.response.url, Flag: false });
+                                }
+                            })
+                            .catch((err) => {
+                                console.log("nativesstorage", err)
+
+                                this.SaveMobileNumberFlag(this.data.response.mobile_verification_amount, this.data.response.phone_verified);
+
+                                if (this.globals.caos_flag) {
+                                    this.navCtrl.push('CartPage')
+                                } else {
+                                    this.navCtrl.setRoot(HomePage, { imageData: this.data.response.url, Flag: false });
+                                }
+                                // this.server.initializePushToken();
+                            });
+                    }
+                }
+            } else {
+                this.globals.presentToast("Invalid Credentials")
+            }
+        }, error => {
+            this.globals.presentToast("Something went wrong check your internet connection.")
+        });
+
     }
 
     verify() {
         let verifyModal = this.modalCtrl.create('VerificationPage');
         verifyModal.present();
     }
+
     OpenTermsAndPolicy() {
         this.navCtrl.push('TermAndPolicyPage');
     }
@@ -180,12 +175,9 @@ export class LoginPage {
         this.nativeStorage.setItem('MobileFlagSave', {
             MobileFlag: flag,
             MobileDiscount: Number(amount)
-        }).then(
-
-            () => {
-                console.log('Stored mobileflag')
-
-            },
+        }).then(() => {
+            console.log('Stored mobileflag')
+        },
             error => console.error('Error storing item', error)
         );
     }
@@ -250,43 +242,36 @@ export class LoginPage {
             console.log("pop", this.globals.BusinessDiscount)
             if (this.globals.pickup == '1') {
                 this.globals.pickup = true;
-            }
-            else {
+            } else {
                 this.globals.pickup = false;
             }
+
             if (this.places[0].delivery == '1') {
                 this.globals.delivery = true;
-            }
-            else {
+            } else {
                 this.globals.delivery = false;
             }
+
             if (this.places[0].cash_enabled == '1') {
                 this.globals.cash_enabled = true;
-            }
-            else {
+            } else {
                 this.globals.cash_enabled = false;
-
             }
+
             if (this.globals.pickup == '1') {
                 this.globals.pickup = true;
-            }
-            else {
+            } else {
                 this.globals.pickup = false;
             }
+
             if (this.places[0].delivery == '1') {
                 this.globals.delivery = true;
-            }
-            else {
+            } else {
                 this.globals.delivery = false;
             }
-
-
         }, error => {
             this.globals.presentToast("Something went wrong check your internet connection.")
-
-
         });
-
     }
 
     check_phone_number() {
@@ -295,7 +280,6 @@ export class LoginPage {
 
     cancel_pos() {
         this.pos_customer = false;
-
     }
 
     complete_profile() {
@@ -310,22 +294,16 @@ export class LoginPage {
 
             if (!data.success) {
                 this.pos_customer = false;
-            }
-            else {
+            } else {
                 if (data.data.profile_complete) {
                     this.pos_customer = false;
-                }
-                else {
+                } else {
                     //this.register();
                 }
             }
         }, error => {
-
             this.globals.presentToast("Something went wrong check your internet connection.")
-
-
         });
-
     }
 
     doAppleLogin() {
@@ -356,4 +334,14 @@ export class LoginPage {
     //         console.error("G+ login Error-> ",  err)
     //     });
     // }
+
+    doFacebookLogin() {
+        this.fb.login(['public_profile', 'user_friends', 'email'])
+            .then((res: FacebookLoginResponse) => console.log('Logged into Facebook!', res))
+            .catch(e => console.log('Error logging into Facebook', e));
+
+
+        this.fb.logEvent(this.fb.EVENTS.EVENT_NAME_ADDED_TO_CART);
+    }
+
 }

@@ -7,38 +7,45 @@ page-intro-page3 {
     margin-left: auto;
     margin-right: auto;
     padding: 32px;
-      font-size: 19px;
+    font-size: 19px;
   }
+
+  .invalid-text{
+    color: #ea6153;
+    text-align: center;
+    margin: 5px 0px 0px 0px;
+  }
+
   .back_icon_{
     margin-left: 7px;
     font-size: 23px;
     color: #777;
   }
+
   .hh{
     padding: 10px;
   }
+
   .gg{
     margin: 0px;
-      line-height: 1.1;
+    line-height: 1.1;
   }
+
   .pp{
-    margin-top: 4px;
-  
-    
+    margin-top: 4px;  
   }
-  .signUpBox{
-     
-      margin-top: 7%;
+
+  .signUpBox{   
+    margin-top: 7%;
   }
 
   .phonecode{
     max-width: 100% !important;
   }
   
-  
   .phone-input .input-cover{
-      width:70%;
-      margin-left: 30%;
+    width:70%;
+    margin-left: 30%;
   }
   
   .date_{
@@ -48,12 +55,9 @@ page-intro-page3 {
   ion-item{
     background: transparent !important;
   }
+
   .p_text{
     color: #777;
-  
   }
-  
-  
-  
-  }
+}
       

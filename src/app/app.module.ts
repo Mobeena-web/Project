@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
-import {HttpModule} from '@angular/http'
+import { HttpModule } from '@angular/http'
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -27,7 +27,8 @@ import { Camera } from '@ionic-native/camera';
 import { Crop } from '@ionic-native/crop';
 import { Diagnostic } from '@ionic-native/diagnostic';
 import { SocialSharing } from '@ionic-native/social-sharing';
-// import { GooglePlus } from '@ionic-native/google-plus';
+import { GooglePlus } from '@ionic-native/google-plus';
+import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
 
 import { Stripe } from '@ionic-native/stripe';
 import { IntroPage1Page } from '../pages/intro-page1/intro-page1';
@@ -117,7 +118,8 @@ import { CalendarModule } from "ion2-calendar";
     // OneSignal,
     Calendar,
     GetlocationProvider,PhotoViewer,CodePush,
-    // GooglePlus
+    GooglePlus,
+    Facebook
   ]
 })
 export class AppModule {}

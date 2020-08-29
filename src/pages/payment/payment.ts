@@ -1073,7 +1073,7 @@ export class PaymentPage {
                         loading.dismiss();
                         let alert = this.alertCtrl.create({
                             title: 'Oops',
-                            subTitle: 'Invalid Credentials,please try again',
+                            subTitle: 'Invalid Credentials, please try again',
                             buttons: ['OK']
                         });
 

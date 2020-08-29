@@ -52,7 +52,7 @@ export class MyApp {
 
             setTimeout(() => this.splashscreen.hide(), 400);
             this.statusbar.hide();
-
+            this.doApp_verify();
             let env = this;
 
             if (this.globals.caos_flag) {
@@ -131,18 +131,30 @@ export class MyApp {
             this.globals.myRewards_color = data.my_rewards_color;
             this.globals.orderNow_color = data.order_now_color;
             this.globals.specialOffer_color = data.special_offer_color;
-            if (data.theme_color) {
-                this.globals.themeColor = data.theme_color;
-                this.globals.appColor = data.theme_color;
-            }
+            this.globals.themeColor = data.theme_color;
+            this.globals.appColor = data.theme_color;
         }, error => {
             console.log("Error get_banner ", error)
         });
     }
 
+    doApp_verify(){
+        let response = this.server.verifyApp_version()
+        response.subscribe(data => {
+            console.log("App verify: ", data)
+            if(data.success){
+                
+            } else {
+                this.splashscreen.hide();
+                this.nav.setRoot('ResponseApiPage', { appstore_link: data.appstore_link, playstore_link: data.playstore_link, htmlBody: data.html_body });
+            }
+        }, error => {
+            console.log("Error app verify ", error)
+        });
+    }
+
 
     checkCodePush() {
-
         this.codePush.sync({
             updateDialog: {
                 appendReleaseDescription: true,
@@ -162,12 +174,7 @@ export class MyApp {
         );
     }
 
-
-
-
-
     cartpage() {
-
         //  let cartmodel = this.modalCtrl.create('CartPage');
         // cartmodel.present();
         if (this.globals.Product.length == 0) {
@@ -178,11 +185,9 @@ export class MyApp {
 
             });
             alert.present();
-        }
-        else {
+        } else {
             this.nav.push('CartPage');
         }
-
     }
 
 
@@ -255,9 +260,7 @@ export class MyApp {
 
             this.nav.setRoot(HomePage);
         }
-
         //prints out component name as string
-
     }
 
     Page() {
@@ -266,45 +269,36 @@ export class MyApp {
 
         if (name != 'LoginPage') {
             return true;
-        }
-        else {
+        } else {
             return false;
         }
-
     }
 
     AddWallet() {
-
         this.nav.push('WalletPage');
     }
 
     OpenSettingPage() {
         if (this.globals.guess_login) {
             this.presentConfirm();
-        }
-        else {
+        } else {
             this.nav.push('SettingsPage')
         }
     }
     logout() {
-
         this.nativeStorage.remove('user')
             .then(data => {
                 this.globals.Product.length = 0;
                 this.globals.cartflag = false;
-
+                this.globals.guess_login = true;
                 this.app.getRootNav().setRoot('LoginPage');
             }).catch(err => console.log());
-
-
-
     }
 
     OpenEvents() {
         if (this.globals.guess_login) {
             this.presentConfirm();
-        }
-        else {
+        } else {
             this.nav.push('EventsPage');
         }
     }
@@ -312,36 +306,36 @@ export class MyApp {
     openGiftCard() {
         this.nav.push('GiftcardsPage');
     }
+
     openRewards() {
         if (this.globals.guess_login) {
             this.presentConfirm();
-        }
-        else {
+        } else {
             this.nav.push('MyRewardsPage')
         }
     }
+
     openReviews() {
         if (this.globals.guess_login) {
             this.presentConfirm();
-        }
-        else {
+        } else {
             this.nav.push('ReviewsPage')
         }
 
     }
+
     openOrder() {
         if (this.globals.branch_enabled == 1) {
             this.nav.push('ResturantListPage')
-        }
-        else {
+        } else {
             this.nav.push('CategoryPage')
         }
     }
+
     openHistory() {
         if (this.globals.guess_login) {
             this.presentConfirm();
-        }
-        else {
+        } else {
             this.nav.push('OrderListingPage')
         }
     }
@@ -491,11 +485,9 @@ export class MyApp {
             // An error occurred
             console.log(err);
         });
-
     }
 
     LoadSound() {
-
         this.nativeAudio.preloadSimple('spinner', 'assets/sounds/Spinner.mp3')
             .then(function (msg) {
 
@@ -517,24 +509,20 @@ export class MyApp {
 
     ShowCustomQModel(data, flag) {
         //  let customerQrmodel = this.modalCtrl.create('CustomQrPage',{data:data,image_flag:flag})
-
         this.nav.push('CustomQrPage', { data: data, image_flag: flag })
     }
 
     launch(url) {
         this.iab.create(url, "_self");
-
     }
+
     followUs() {
         this.iab.create('https://www.facebook.com/mikronexus/', "_self");
     }
 
     modal(response, response_status, business, logo, image, string, bid) {
-
-
         let profileModal = this.modalCtrl.create('CongratulationPage', { reward: response, status: response_status, place: business, Logo: logo, lottery_image: image, RewardString: string, id: bid });
         profileModal.present();
-
     }
 
     business_list() {
@@ -607,57 +595,46 @@ export class MyApp {
 
             if (this.globals.pickup == '1') {
                 this.globals.pickup = true;
-            }
-            else {
+            } else {
                 this.globals.pickup = false;
             }
+
             if (this.places[0].delivery == '1') {
                 this.globals.delivery = true;
-            }
-            else {
+            } else {
                 this.globals.delivery = false;
             }
+
             if (this.places[0].cash_enabled == '1') {
                 this.globals.cash_enabled = true;
-            }
-            else {
+            } else {
                 this.globals.cash_enabled = false;
-
             }
+
             if (this.globals.pickup == '1') {
                 this.globals.pickup = true;
-            }
-            else {
+            } else {
                 this.globals.pickup = false;
             }
+
             if (this.places[0].delivery == '1') {
                 this.globals.delivery = true;
-            }
-            else {
+            } else {
                 this.globals.delivery = false;
             }
-
-
-
         }, error => {
             this.globals.presentToast("Something went wrong check your internet connection.")
-
-
         });
-
     }
-
-
 
     show_gallery() {
         if (this.globals.guess_login) {
             this.presentConfirm();
-        }
-        else {
+        } else {
             this.nav.push("GalleryPage")
-
         }
     }
+
     openDeals() {
         this.nav.push('DealsListPage')
     }
@@ -683,11 +660,4 @@ export class MyApp {
         });
         alert.present();
     }
-
-
-
-
-
-
-
 }

@@ -169,7 +169,7 @@ export class GlobalVariable {
     myRewards_color: any;
     orderNow_color: any;
     specialOffer_color: any;
-    themeColor:any= '#000000';
+    themeColor: any= '#000000';
     
     constructor(public alertCtrl: AlertController, public toastCtrl: ToastController) {
         // this.BaseUrl = 'https://staging.onlineordering.mikronexus.com/index.php/';
