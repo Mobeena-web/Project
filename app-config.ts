@@ -1,1 +1,1 @@
-export let CONFIG = { business_username: "madisplate", business_id: "253", appId: "", googleProjectId: "", marketPlace: false};
+export let CONFIG = { business_username: "halalgirls", business_id: "230", appId: "", googleProjectId: "", marketPlace: false};
