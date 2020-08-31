@@ -68,8 +68,8 @@
     "code-push": "^3.0.1",
     "code-push-cli": "^2.1.9",
     "com-sarriaroman-photoviewer": "^1.2.5",
-    "cordova-android": "^7.1.4",
-    "cordova-browser": "^5.0.4",
+    "cordova-android": "^8.1.0",
+    "cordova-browser": "5.0.4",
     "cordova-ios": "^5.1.0",
     "cordova-plugin-actionsheet": "^2.3.3",
     "cordova-plugin-add-swift-support": "^1.7.2",
@@ -80,10 +80,11 @@
     "cordova-plugin-device": "^2.0.3",
     "cordova-plugin-dialogs": "^2.0.2",
     "cordova-plugin-email-composer": "^0.8.15",
-    "cordova-plugin-facebook4": "^1.7.4",
+    "cordova-plugin-facebook4": "^1.10.1",
     "cordova-plugin-file": "^6.0.2",
     "cordova-plugin-file-transfer": "^1.7.1",
     "cordova-plugin-geolocation": "^4.0.2",
+    "cordova-plugin-googleplus": "^8.5.0",
     "cordova-plugin-inappbrowser": "^3.2.0",
     "cordova-plugin-ionic-keyboard": "~2.2.0",
     "cordova-plugin-ionic-webview": "^4.2.1",
@@ -118,7 +119,7 @@
     "zone.js": "0.8.18"
   },
   "devDependencies": {
-    "@ionic/app-scripts": "3.1.7",
+    "@ionic/app-scripts": "^3.2.4",
     "@types/jquery": "^3.3.31",
     "cordova-plugin-ionic-keyboard": "^2.2.0",
     "electron": "^4.2.12",
@@ -142,7 +143,9 @@
       "cordova-plugin-crop": {},
       "cordova-plugin-x-toast": {},
       "cordova-plugin-sign-in-with-apple": {},
-      "cordova-plugin-ionic-webview": {},
+      "cordova-plugin-ionic-webview": {
+        "ANDROID_SUPPORT_ANNOTATIONS_VERSION": "27.+"
+      },
       "cordova-plugin-x-socialsharing": {
         "PHOTO_LIBRARY_ADD_USAGE_DESCRIPTION": "This app requires photo library access to function properly.",
         "PHOTO_LIBRARY_USAGE_DESCRIPTION": "This app requires photo library access to function properly.",
@@ -177,8 +180,7 @@
       "cordova-plugin-calendar": {}
     },
     "platforms": [
-      "browser",
-      "android"
+      "browser"
     ]
   }
 }

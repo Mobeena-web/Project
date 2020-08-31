@@ -193,13 +193,13 @@
   <h3 *ngIf="globals.tip_enabled != 'no'" style="margin-left: 4%;">Gratuity</h3>
   <ion-row *ngIf="globals.tip_enabled != 'no'">
     <ion-col col-4>
-      <button class="background_global" ion-button block (click)="percent_tip(8)"> 8% </button>
-    </ion-col>
-    <ion-col col-4>
       <button class="background_global" ion-button block (click)="percent_tip(10)"> 10% </button>
     </ion-col>
     <ion-col col-4>
       <button class="background_global" ion-button block (click)="percent_tip(15)"> 15% </button>
+    </ion-col>
+    <ion-col col-4>
+      <button class="background_global" ion-button block (click)="percent_tip(20)"> 20% </button>
     </ion-col>
   </ion-row>
 
