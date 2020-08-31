@@ -31,7 +31,7 @@
     "@angular/platform-browser-dynamic": "5.0.3",
     "@fortawesome/fontawesome-free": "^5.11.2",
     "@ionic-native/barcode-scanner": "^4.5.2",
-    "@ionic-native/calendar": "^4.7.0",
+    "@ionic-native/calendar": "^4.20.0",
     "@ionic-native/call-number": "^4.20.0",
     "@ionic-native/camera": "^4.5.2",
     "@ionic-native/code-push": "^4.20.0",
@@ -73,6 +73,7 @@
     "cordova-ios": "^5.1.0",
     "cordova-plugin-actionsheet": "^2.3.3",
     "cordova-plugin-add-swift-support": "^1.7.2",
+    "cordova-plugin-calendar": "^5.1.5",
     "cordova-plugin-camera": "^3.0.0",
     "cordova-plugin-code-push": "^1.12.5",
     "cordova-plugin-crop": "^0.4.0",
@@ -107,7 +108,7 @@
     "ionic2-rating": "^1.2.2",
     "ionicons": "3.0.0",
     "jquery": "^3.4.1",
-    "moment": "^2.24.0",
+    "moment": "^2.27.0",
     "mx.ferreyra.callnumber": "0.0.2",
     "onesignal-cordova-plugin": "^2.9.1",
     "phonegap-plugin-barcodescanner": "^7.1.2",
@@ -172,7 +173,8 @@
       "cordova-plugin-facebook4": {
         "APP_ID": "299575934432149",
         "APP_NAME": "Mikronexus Demo"
-      }
+      },
+      "cordova-plugin-calendar": {}
     },
     "platforms": [
       "browser",
