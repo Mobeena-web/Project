@@ -45,7 +45,7 @@ import { GetlocationProvider } from '../providers/getlocation/getlocation';
 import { MobileVerificationPromptPage } from '../pages/mobile-verification-prompt/mobile-verification-prompt';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { CodePush } from '@ionic-native/code-push';
-
+import { QRCodeModule } from 'angularx-qrcode';
 
 @NgModule({
   declarations: [
@@ -69,6 +69,7 @@ import { CodePush } from '@ionic-native/code-push';
     IntroPage7PageModule,
     IntroPage8PageModule,
     MainTabsPageModule,
+    QRCodeModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
