@@ -32,7 +32,8 @@
   <ion-refresher (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-  <p class="marquee message" [ngStyle]="{'background-color': banner_color}"  *ngIf="today_message"><span>{{today_message}}</span></p>
+  <p class="marquee message" [ngStyle]="{'background-color': banner_color}" *ngIf="today_message">
+    <span>{{today_message}}</span></p>
 
   <ion-slides pager *ngIf="banner" style="height:184px" autoplay="{{time}}" speed="3000" loop="true"
     autoplayDisableOnInteraction="false" style="width: calc(100% + 30px); margin-left: -15px; height: 180px">
@@ -45,8 +46,8 @@
 
   <ion-row *ngIf="!globals.guess_login">
 
-    <ion-col  class="point_s" (click)="rewards()" *ngIf="this.globals.point_check == 'true'">
-      <div >
+    <ion-col class="point_s" (click)="rewards()" *ngIf="this.globals.point_check == 'true'">
+      <div>
         <div class="youhave">You Have</div>
         <div class="points_design" *ngIf="!points">0 <ion-icon class="point-star" name="star"></ion-icon>
         </div>
@@ -59,8 +60,8 @@
     </ion-col>
 
 
-    <ion-col  text-center (click)="rewards('punch')" *ngIf="this.globals.punch_check == 'true'">
-      <div >
+    <ion-col text-center (click)="rewards('punch')" *ngIf="this.globals.punch_check == 'true'">
+      <div>
         <img src={{ring_image}} class="cup_img">
         <div class="circle" id="homecircle1"></div>
 
@@ -80,19 +81,19 @@
   </ion-row> -->
   <ion-row>
     <ion-col col *ngIf="globals.special_offer == '1'">
-      <div text-center (click)="offers()" class="sof" [ngStyle]="{'background-color': special_offer_color}" >
+      <div text-center (click)="offers()" class="sof" [ngStyle]="{'background-color': special_offer_color}">
         <ion-icon name="heart"></ion-icon>
         <div>Special Offers</div>
       </div>
     </ion-col>
     <ion-col col *ngIf="globals.business_type == 'ordering' || globals.business_type == 'retail'">
-      <div text-center (click)="orderNow()" [ngStyle]="{'background-color': order_now_color}"  class="sof1">
+      <div text-center (click)="orderNow()" [ngStyle]="{'background-color': order_now_color}" class="sof1">
         <ion-icon name="restaurant"></ion-icon>
         <div>Order Now</div>
       </div>
     </ion-col>
     <ion-col col *ngIf="globals.business_type == 'salon'">
-      <div text-center (click)="services()" class="sof1" >
+      <div text-center (click)="services()" class="sof1">
         <ion-icon name="alarm"></ion-icon>
         <div>Services</div>
       </div>
@@ -102,7 +103,7 @@
   <ion-row>
     <ion-col col *ngIf="globals.giftcard_enabled == 1">
       <div text-center (click)="gifts()" [ngStyle]="{'background-color': gift_cards_color}" class="sof2">
-        <ion-icon name="medal" [ngStyle]="{'color': gift_cards_color}" ></ion-icon>
+        <ion-icon name="medal" [ngStyle]="{'color': gift_cards_color}"></ion-icon>
         <div>Gift Cards</div>
       </div>
     </ion-col>
@@ -132,8 +133,12 @@
   </ion-row> -->
   <div>
     <p text-center class="qr-line">Get this QR scanned at our location and win exciting rewards.</p>
-    <img class="qrcode1" src="{{barocde_image}}">
-    <ion-label style="color:#000000  ;margin-top: 16px;font-size: 16px;font-weight: bold;text-align: center">{{udid}}</ion-label>
+    <div class="qrcode1">
+      <qrcode [qrdata]="globals.udid" [size]="256" [level]="'M'" usesvg="true"></qrcode>
+    </div>
+    <!-- <img class="qrcode1" src="{{barocde_image}}"> -->
+    <ion-label style="color:#000000  ;margin-top: 16px;font-size: 16px;font-weight: bold;text-align: center">{{udid}}
+    </ion-label>
     <!-- <ion-row>
       <ion-col col-6>
           <img class="qrcode1" src="{{barocde_image}}">
