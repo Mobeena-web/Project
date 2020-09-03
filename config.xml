@@ -161,6 +161,6 @@
         <variable name="APP_NAME" value="Mikronexus Demo" />
     </plugin>
     <plugin name="cordova-plugin-calendar" spec="^5.1.5" />
-    <engine name="android" spec="^7.1.4" />
     <engine name="browser" spec="5.0.4" />
+    <engine name="android" spec="^8.1.0" />
 </widget>

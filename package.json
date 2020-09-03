@@ -181,7 +181,8 @@
       "cordova-plugin-calendar": {}
     },
     "platforms": [
-      "browser"
+      "browser",
+      "android"
     ]
   }
 }
