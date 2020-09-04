@@ -77,81 +77,74 @@ page-payment {
     left:1.5%;
     border-radius: 8px;
   }
-    .kll{
-      color: #fff;
-    border-bottom: 1px solid #fff;
-    
-    }
-    .klll{
-      color: $primary;;
-    border-bottom: 1px solid $primary;;
-    
-    }
-    ::placeholder {
-      
-      font-size: 15px !important;
-    }
-    .signUp{
 
-      // margin-top: 20px;
-     
-       position: absolute;  
-       float:right;
-       width:48%;
-      // border-left: solid ;
-      // border-left-color: black;  
-       height: 40px;
-       right:1.5%;
-        border-radius: 8px;
+  .kll{
+    color: #fff;
+    border-bottom: 1px solid #fff;  
+  }
 
-      // margin-right: 1%;
-     }
-     ion-label{
-       margin: 0px !important;
-       font-size: 14px;
-     }
+  .klll{
+    color: $primary;;
+    border-bottom: 1px solid $primary;;  
+  }
 
-     .payment_card{
-      padding: 10px;
-      border-radius: 8px;
-     }
+  ::placeholder {    
+    font-size: 15px !important;
+  }
 
-     .background_image1{
-        background-image: url("../assets/imgs/pay.png");
+  .signUp{
+    position: absolute;  
+    float:right;
+    width:48%;
+    height: 40px;
+    right:1.5%;
+    border-radius: 8px;
+  }
 
-      background-position: center;
-      background-repeat: no-repeat;
-      background-size: cover;   
-      min-height: 174px;
+  ion-label{
+    margin: 0px !important;
+    font-size: 14px;
+  }
 
-    }
-    .background_image2{
-      background-image: url("../assets/imgs/pay1.png");
+  .payment_card{
+    padding: 10px;
+    border-radius: 8px;
+  }
 
+  .background_image1{
+    background-image: url("../assets/imgs/pay.png");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;   
     min-height: 174px;
-
   }
-    .strip{
-      background: $primary;;
-      height: 44px;
-      margin-bottom: 11px;
-      margin-left: -15px;
-      margin-right: -15px;
-      margin-top: 4px;
-    }
 
-    .cvv{
-      color: $primary;
-    }
+  .background_image2{
+    background-image: url("../assets/imgs/pay1.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;   
+    min-height: 174px;
+  }
 
-    .toolbar-background{
-      background-color: $primary !important;
-    }
+  .strip{
+    background: $primary;;
+    height: 44px;
+    margin-bottom: 11px;
+    margin-left: -15px;
+    margin-right: -15px;
+    margin-top: 4px;
+  }
 
-    .back-button{
+  .cvv{
+    color: $primary;
+  }
+
+  .toolbar-background{
+    background-color: $primary !important;
+  }
+
+  .back-button{
     color: #fff !important;
   }
 

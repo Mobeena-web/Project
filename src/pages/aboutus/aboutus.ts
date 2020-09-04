@@ -5,8 +5,6 @@ import { ServerProvider } from '../../providers/server/server';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 declare var google;
 
-
-
 @IonicPage()
 @Component({
   selector: 'page-aboutus',
@@ -14,44 +12,43 @@ declare var google;
 })
 export class AboutusPage {
   daysInWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-  op_hours:any;
-  name:any;
-  business_id:any;
-  hours_operation:any;
-  latitude:any;
-  longitude:any;
-  reviewData:any;
-  length:any;
-  username:any;
-  aboutus:any;
+  op_hours: any;
+  name: any;
+  business_id: any;
+  hours_operation: any;
+  latitude: any;
+  longitude: any;
+  reviewData: any;
+  length: any;
+  username: any;
+  aboutus: any;
 
-  constructor(private iab: InAppBrowser,public server: ServerProvider,public globals: GlobalVariable,public navCtrl: NavController, public navParams: NavParams) {
+  constructor(private iab: InAppBrowser, public server: ServerProvider, 
+    public globals: GlobalVariable, public navCtrl: NavController, 
+    public navParams: NavParams) {
+
     this.name = this.navParams.get('name');
     this.business_id = this.navParams.get('business_id')
 
     this.hours_operation = this.navParams.get('hours_operation')
-    
+
     this.username = this.navParams.get('username')
-    if(this.hours_operation){
+    if (this.hours_operation) {
       this.hours_operation = this.update_time_(this.hours_operation);
     }
     this.reviewdata();
     this.get_aboutus();
-  
   }
 
   get_aboutus() {
     let response = this.server.get_about_us(this.business_id);
     response.subscribe(data => {
-      if(data.data){
+      if (data.data) {
         this.aboutus = data.data.about[0];
       }
-  
     }, error => {
-        console.log(error);
-  
+
     });
-  
   }
 
   ionViewWillEnter() {
@@ -60,72 +57,63 @@ export class AboutusPage {
     this.loadMap();
   }
 
-  update_time_(p_hours){
+  update_time_(p_hours) {
     p_hours.forEach(element => {
-      if(element[0] != 'opened' && element[0] != 'closed'){
+      if (element[0] != 'opened' && element[0] != 'closed') {
         element[0] = this.tConvert(element[0])
       }
-      if(element[1] != 'opened' && element[1] != 'closed'){
+
+      if (element[1] != 'opened' && element[1] != 'closed') {
         element[1] = this.tConvert(element[1])
       }
     });
     return p_hours;
   }
 
-  tConvert (time_) {
-    if(time_ == 0){
+  tConvert(time_) {
+    if (time_ == 0) {
       time_ = 12;
-     }
- 
- if(time_ > 12){
-     time_ = time_ + '';
+    }
 
-     var ti = time_.split('.');
-  
-     ti[0] = parseFloat(ti[0])
-     ti[0] = ti[0] - 12;
-    
-     if(ti[1] == "5"){
-       ti[1] = ':30'
-     }
-     else if(ti[1] != "5"){
-       ti[1] = ':00'
-     }
-    time_ = ti[0] + ti[1] + 'PM'
- }
- else{
-   var ti:any='';
-   time_ = time_ + '';
+    if (time_ > 12) {
+      time_ = time_ + '';
 
-   ti = time_.split('.');
-  
-  
-   if(ti[1] == "5"){
-     ti[1] = ':30'
-     time_='';
+      var ti = time_.split('.');
 
-      time_ = ti[0] + ti[1] + 'AM'
+      ti[0] = parseFloat(ti[0])
+      ti[0] = ti[0] - 12;
 
-   }
-   else if(ti[1] == undefined){
-    time_='';
+      if (ti[1] == "5") {
+        ti[1] = ':30'
+      }
+      else if (ti[1] != "5") {
+        ti[1] = ':00'
+      }
+      time_ = ti[0] + ti[1] + 'PM'
+    } else {
+      var ti: any = '';
+      time_ = time_ + '';
 
-     ti[1] = ':00'
-     time_ = ti[0] + ti[1] + 'AM'
-   }
+      ti = time_.split('.');
+      if (ti[1] == "5") {
+        ti[1] = ':30'
+        time_ = '';
+        time_ = ti[0] + ti[1] + 'AM'
+      } else if (ti[1] == undefined) {
+        time_ = '';
 
- }
- time_ = time_ + '';
+        ti[1] = ':00'
+        time_ = ti[0] + ti[1] + 'AM'
+      }
 
- var t = time_.split(':');
-   return t[0] +':'+t[1]; // return adjusted time_ or original string
- }
- 
-  
+    }
+    time_ = time_ + '';
+    var t = time_.split(':');
+    return t[0] + ':' + t[1]; // return adjusted time_ or original string
+  }
 
   loadMap() {
     var myLatLng = new google.maps.LatLng(parseFloat(this.latitude), parseFloat(this.longitude));
-    console.log(myLatLng)
     var map = new google.maps.Map(document.getElementById('mapabout'), {
       zoom: 15,
       center: myLatLng
@@ -136,24 +124,15 @@ export class AboutusPage {
       map: map,
       title: ''
     });
-
   }
 
   reviewdata() {
     let response = this.server.BusinessInformation(this.username);
-    
     response.subscribe(data => {
-       
-        this.reviewData = data.reviews;
-        this.length = this.reviewData.length;
-
+      this.reviewData = data.reviews;
+      this.length = this.reviewData.length;
     }, error => {
-     
+
     });
-}
-
-  
-  
-   
-
+  }
 }

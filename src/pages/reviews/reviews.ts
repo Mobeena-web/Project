@@ -25,23 +25,18 @@ export class ReviewsPage {
 
     constructor(public server: ServerProvider, public globals: GlobalVariable, public modalCtrl: ModalController, public viewCtrl: ViewController, public alertCtrl: AlertController, public loadingCtrl: LoadingController, public navCtrl: NavController, public navParams: NavParams) {
         this.placeName = navParams.get('place');
-        console.log(this.placeName);
         this.reviewdata()
     }
 
     ionViewDidLoad() {
         console.log('ionViewDidLoad ReviewsPage');
-
     }
 
-
-    goToback(){
-        console.log("hello")
+    goToback() {
         this.navCtrl.setRoot(HomePage)
     }
 
     reviewdata() {
-
         let response = this.server.BusinessInformation(this.globals.business_username);
         let loading = this.loadingCtrl.create({
             content: "Loading...",
@@ -55,12 +50,7 @@ export class ReviewsPage {
             this.name = this.details.info.name;
             this.reviewData = this.details.reviews;
             this.length = this.reviewData.length
-            console.log(this.length);
-
-
         }, error => {
-            console.log("Oooops!");
-
             loading.dismiss();
             let alert = this.alertCtrl.create({
                 title: 'Error',
@@ -72,16 +62,15 @@ export class ReviewsPage {
     }
 
     dismiss() {
-
         this.viewCtrl.dismiss();
     }
 
-
     addReview() {
-        //   this.viewCtrl.dismiss();
-          let modal = this.modalCtrl.create('AddReviewPage', { place: this.globals.business_username});
-          modal.present();
-        // this.navCtrl.push('AddReviewPage', { place: this.globals.business_username });
+        let modal = this.modalCtrl.create('AddReviewPage', { place: this.globals.business_username });
+        modal.onDidDismiss(data => {
+            this.navCtrl.pop();
+        });
+        modal.present();
 
     }
 

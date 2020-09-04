@@ -27,7 +27,6 @@ export class CategoryPage {
     day: number;
     date: Date;
     type: string;
-    //currentBusinessDiscount: any;
 
     DataFlag: boolean;
     paypal: any;
@@ -58,27 +57,26 @@ export class CategoryPage {
     s_time: any;
     categories_section: any = "Regular";
     branchId: any;
-    constructor(private geolocation: Geolocation, private diagnostic: Diagnostic, public server: ServerProvider, public alertCtrl: AlertController, public loadingCtrl: LoadingController, private nativeStorage: NativeStorage, private toastCtrl: ToastController, public globals: GlobalVariable, public http: Http, public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController) {
+
+    constructor(private geolocation: Geolocation, private diagnostic: Diagnostic,
+        public server: ServerProvider, public alertCtrl: AlertController,
+        public loadingCtrl: LoadingController, private nativeStorage: NativeStorage,
+        private toastCtrl: ToastController, public globals: GlobalVariable, public http: Http,
+        public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController) {
 
         if (!this.globals.caos_flag) {
             console.log("Modal call from category");
             if (this.globals.branch_enabled == 1) {
                 this.branchId = this.globals.bussinessId;
             }
-
             this.presentModal(0);
-
-        }
-        else {
+        } else {
             this.globals.OrderType = 'pickup'
-
         }
 
         this.cartflag = this.navParams.get('CartFlag');
         this.PageFlag = this.navParams.get('pageflag');
         this.business_id = this.globals.bussinessId;
-        // this.currentBusinessDiscount = "10";
-        // this.globals.BusinessDiscount = this.currentBusinessDiscount;
 
         if (!this.globals.caos_flag) {
             this.getLocation();
@@ -87,27 +85,17 @@ export class CategoryPage {
         this.myChoice.push('abcd');
         this.myChoice.pop();
 
-        // this.toggleGroup(0);
-        // if(this.globals.branch_enabled != 1){
-        //     this.list();      
-        // }
-        // else{
         this.Categories();
-        //}
-
-
     }
 
     ionViewWillEnter() {
         this.globals.title = this.globals.category_name;
-
     }
+
     ionViewDidEnter() {
-        console.log("I'm here in this once");
     }
 
     checkTiming(Timing) {
-
         if (Timing && Timing.length > 0) {
             var scheduled_time_ = localStorage.getItem("scheduled_time");
             var date: any;
@@ -116,12 +104,10 @@ export class CategoryPage {
             if (scheduled_time_ && scheduled_time_ != "undefined") {
                 day = this.s_day;
                 time = this.s_time;
-            }
-            else {
+            } else {
                 date = new Date();
                 day = date.getDay();
                 time = date.getHours() + "." + date.getMinutes();
-
             }
 
             if (day == 7) {
@@ -141,28 +127,20 @@ export class CategoryPage {
             }
 
             time = Number(time);
-
             if (current_day) {
                 if ((Number(current_day[0]) <= time && Number(current_day[1]) > time) || (Number(current_day[0]) <= time && Number(current_day[1]) < Number(current_day[0]))) {
                     return true;
-                }
-                else if (current_day[0] == 'opened' && current_day[1] == 'opened') {
+                } else if (current_day[0] == 'opened' && current_day[1] == 'opened') {
                     return true;
-                }
-                else {
+                } else {
                     return false;
                 }
-            }
-            else {
+            } else {
                 return true;
             }
-
-        }
-        else {
+        } else {
             return true;
-
         }
-
     }
 
     time_change() {
@@ -181,13 +159,10 @@ export class CategoryPage {
                         return that.checkTiming(item.item_timings) == true;
                     });
                 }
-
             }, error => {
                 this.globals.presentToast("Something went wrong check your internet connection.")
-
             });
-        }
-        else {
+        } else {
             var that = this;
             for (var i = 0; i < this.category.length; i++) {
                 this.category[i].items = this.category[i].items.filter(function (item) {
@@ -195,34 +170,21 @@ export class CategoryPage {
                 });
             }
         }
-
     }
 
     getLocation() {
-
-        // this.diagnostic.isLocationEnabled()
-        //     .then((state) => {
         if (this.globals.delivery == true) {
-
             this.geolocation.getCurrentPosition().then((position) => {
                 this.coordinates = position.coords.latitude + "," + position.coords.longitude;
-
             }, (err) => {
                 let alert = this.alertCtrl.create({
                     title: 'Location is disabled',
                     subTitle: 'In order to proceed, Please enable your location',
                     buttons: ['OK']
                 });
-
                 alert.present();
-                console.log(err);
-
             });
         }
-        // }).catch(e => {
-
-        // });
-
     }
 
     list() {
@@ -253,101 +215,67 @@ export class CategoryPage {
 
             if (this.globals.pickup == '1') {
                 this.globals.pickup = true;
-            }
-            else {
+            } else {
                 this.globals.pickup = false;
             }
+
             if (this.places[0].delivery == '1') {
                 this.globals.delivery = true;
-            }
-            else {
+            } else {
                 this.globals.delivery = false;
             }
+
             if (this.places[0].cash_enabled == '1') {
                 this.globals.cash_enabled = true;
-            }
-            else {
+            } else {
                 this.globals.cash_enabled = false;
-
             }
 
             this.Categories();
-
-
-
         }, error => {
-            console.log(error);
-
             this.globals.presentToast("Something went wrong check your internet connection.")
-
-
         });
-
     }
+
     historypage() {
         this.navCtrl.push("OrderListingPage");
     }
 
-
     presentModal(type) {
-
-        // this.navCtrl.pop({animate:false}); // added by jahanzaib 21-01-19
-        // this.navCtrl.push("ModalPage",{category_page:1},{animate: false});
-
         if (type == 1) {
             let modal = this.modalCtrl.create('ModalPage');
             modal.onDidDismiss(data => {
                 this.Categories();
             });
             modal.present();
-        }
-        else {
+        } else {
             if (this.globals.model_flag) {
                 this.globals.model_flag = false;
                 let modal = this.modalCtrl.create('ModalPage');
                 modal.onDidDismiss(data => {
                     var orderSchedule = localStorage.getItem("scheduled_time");
-                    console.log("Order Schedule", orderSchedule);
-                    if(orderSchedule == undefined || orderSchedule == 'undefined' || ((this.globals.OrderType == 'delivery' ) && (this.globals.inradius == false || this.globals.address == ''))){
-                        console.log("poping to root");
+                    if (orderSchedule == undefined || orderSchedule == 'undefined' || ((this.globals.OrderType == 'delivery') && (this.globals.inradius == false || this.globals.address == ''))) {
                         this.globals.model_flag = true;
                         this.navCtrl.popToRoot();
                     }
-                    // this.Categories();
                 });
                 modal.present();
             }
         }
-
-
-
     }
-
-
 
     ionViewDidLoad() {
         this.globals.showbackButton = true;
     }
 
-
-
-
     Cart(object, flag, id, image, freeextras) {
-
-
         if (this.globals.BusinessID == '-1' || this.globals.BusinessID == this.business_id) {
-
             this.globals.BusinessID = this.business_id;
-
             this.AddtoCart(object, flag, id, image, freeextras);
-        }
-        else {
+        } else {
             this.showPrompt(object, flag, id, image, freeextras);
-
         }
-
     }
-
 
     showPrompt(object, flag, id, image, freeextras) {
         let prompt = this.alertCtrl.create({
@@ -364,12 +292,9 @@ export class CategoryPage {
                 {
                     text: 'Okay',
                     handler: data => {
-                        console.log('Saved clicked');
                         this.globals.Product.length = 0;
                         this.globals.BusinessID = this.business_id;
-                        // this.globals.BusinessDiscount = this.currentBusinessDiscount;
                         this.AddtoCart(object, flag, id, image, freeextras);
-
                     }
                 }
             ]
@@ -377,26 +302,26 @@ export class CategoryPage {
         prompt.present();
     }
 
-
     toggleGroup(group) {
         if (this.isGroupShown(group)) {
             this.shownGroup = null;
         } else {
             this.shownGroup = group;
         }
-    };
+    }
+
     isGroupShown(group) {
         return this.shownGroup === group;
-    };
+    }
 
     Categories() {
         let loading = this.loadingCtrl.create({
             content: "Loading...",
         });
         loading.present();
+
         let response = this.server.GetBusinessMenuCategories(this.globals.bussinessId);
         response.subscribe(data => {
-            console.log("get business categories", data);
             this.data = data;
             loading.dismiss();
             this.category = this.data.categories;
@@ -406,50 +331,39 @@ export class CategoryPage {
             this.globals.category_name = this.name;
 
             this.super_category.forEach(element => {
-                if(element.priority == 1){
+                if (element.priority == 1) {
                     this.categories_section = element.name;
                 }
             });
 
             this.data.categories.forEach(element => {
-
                 element.items.forEach(subelement => {
-
                     subelement.quantity = 1;
-
                 });
             });
+
             this.time_change();
-
             this.forsearch = this.category;
-
             if (this.data.categories.length == 0) {
-
                 this.DataFlag = true;
             }
-            // console.log(this.data.restaurant.categories);
-            // console.log(this.category);
-        }
-            , error => {
-                loading.dismiss();
-                this.globals.presentToast("Something went wrong check your internet connection.")
-
-
-            });
+        }, error => {
+            loading.dismiss();
+            this.globals.presentToast("Something went wrong check your internet connection.")
+        });
     }
 
-    segmentChanged($event){
-        console.log("Segment change", $event.value);
+    segmentChanged($event) {
     }
 
-    categoryClicked(item){
-        console.log("Super category change", item)
+    categoryClicked(item) {
         this.categories_section = item.name;
 
         let loading = this.loadingCtrl.create({
             content: "Loading...",
         });
         loading.present();
+
         let response = this.server.GetSuperCategories(this.globals.bussinessId, item.id);
         response.subscribe(data => {
             console.log("get super categories", data);
@@ -467,8 +381,6 @@ export class CategoryPage {
                 this.time_change();
                 this.forsearch = this.category;
             }
-            
-            
         }, error => {
             loading.dismiss();
             this.globals.presentToast("Something went wrong check your internet connection.")
@@ -486,7 +398,6 @@ export class CategoryPage {
 
     AddtoCart(object, flag, id, image, freeextras) {
         this.cartObjectQuantity = 1;
-        //this.globals.Product.push({menuId:"1",restId:"1",uniqueId:"1",menuItem:Name, image:Image,quantity: 1, basePrice:Price,totalPrice:Price,menuExtrasSelected:this.myChoice});
         this.subtotal = object.price * object.quantity;
         if (this.globals.Product.length > 0) {
             this.globals.cartflag = true;
@@ -495,14 +406,10 @@ export class CategoryPage {
                     if (element.menuItem == object.name) {
                         this.index = this.globals.Product.indexOf(element);
                         this.isexist = true;
-                    }
-
-                    else {
-
+                    } else {
                         this.isexist = false;
                     }
                 }
-
             });
 
             if (this.isexist) {
@@ -510,11 +417,7 @@ export class CategoryPage {
                     object.quantity += 1;
                     this.globals.Product[this.index].quantity = this.cartObjectQuantity + Number(this.globals.Product[this.index].quantity);
                     this.toastPresent('Item is successfully added to cart');
-                    // this.navCtrl.push('ItemDetailPage',{  item_id:id,image:image,BusinesId:this.business_id,free_extras:freeextras})
-
-                }
-
-                else {
+                } else {
                     object.quantity = this.removeQuantity(object);
                     if (this.globals.Product[this.index].quantity != 1) {
                         this.globals.Product[this.index].quantity = Number(this.globals.Product[this.index].quantity) - this.cartObjectQuantity;
@@ -526,21 +429,14 @@ export class CategoryPage {
                 this.globals.Product[this.index].totalPrice = parseFloat(this.globals.Product[this.index].totalPrice).toFixed(2);
 
                 this.isexist = false;
-            }
-            else {
+            } else {
                 this.globals.Product.push({ menuId: "1", restId: this.globals.bussinessId, uniqueId: id, menuItem: object.name, image: object.image, quantity: object.quantity, basePrice: Number(object.price), totalPrice: Number(this.subtotal), menuExtrasSelected: this.myChoice });
                 this.toastPresent('Item is successfully added to cart');
-                // this.navCtrl.push('ItemDetailPage',{  item_id:id,image:image,BusinesId:this.business_id,free_extras:freeextras})
-
             }
-
-        }
-        else {
+        } else {
             if (flag == true) {
                 this.globals.Product.push({ menuId: "1", restId: this.globals.bussinessId, uniqueId: id, menuItem: object.name, image: object.image, quantity: object.quantity, basePrice: Number(object.price), totalPrice: this.subtotal, menuExtrasSelected: this.myChoice });
                 this.toastPresent('Item is successfully added to cart');
-                //  this.navCtrl.push('ItemDetailPage',{  item_id:id,image:image,BusinesId:this.business_id,free_extras:freeextras})
-
                 this.globals.cartflag = true;
             }
         }
@@ -552,41 +448,26 @@ export class CategoryPage {
             array: this.globals.Product,
             businessDiscount: this.globals.BusinessDiscount,
             BusinessID: this.globals.BusinessID
-        })
-            .then(
-                () => console.log('Stored item!'),
-                error => console.error('Error storing item', error)
-            );
-
+        }).then(
+            () => console.log('Stored item!'),
+            error => console.error('Error storing item', error)
+        );
     }
-
-    // RetrieveSaveCart(){
-    //     this.nativeStorage.getItem('Product').then(data=>{
-
-    //         this.globals.BusinessID = data.BusinessID;
-    //         console.log("retrieve native", data.BusinessID);
-    //     }).catch(err => console.log);
-    // }
 
     addQuantity(object) {
-
         object.quantity += 1;
-
-
     }
+
     removeQuantity(object) {
         if (object.quantity <= 1) {
             object.quantity = 1;
-        }
-        else {
+        } else {
             object.quantity -= 1;
         }
-
         return object.quantity;
     }
 
     toastPresent(Message) {
-
         let toast = this.toastCtrl.create({
             message: Message,
             duration: 2000,
@@ -595,9 +476,7 @@ export class CategoryPage {
         toast.present();
     }
 
-
     cartpage() {
-
         if (this.globals.Product.length == 0) {
             let alert = this.alertCtrl.create({
                 title: "Oops",
@@ -606,15 +485,13 @@ export class CategoryPage {
 
             });
             alert.present();
-        }
-        else {
+        } else {
             this.navCtrl.push('CartPage', {
 
             }).then(
                 response => {
                     console.log('Response ' + response);
-                },
-                error => {
+                },error => {
                     console.log('Error: ' + error);
                 }
             ).catch(exception => {
@@ -622,10 +499,9 @@ export class CategoryPage {
             });
         }
     }
-    click(d, event) {
 
+    click(d, event) {
         this.globals.menu_id = d.category_id;
-        console.log('category ID', this.globals.menu_id);
     }
 
     searchnew() {
@@ -637,18 +513,12 @@ export class CategoryPage {
                     return (item.name.toLowerCase().indexOf(val.toLowerCase()) > -1);
                 })
             }
-        }
-        else {
+        } else {
             this.category = this.forsearch;
         }
     }
 
-
     onCancel(e) {
         this.category = this.forsearch;
     }
-
-
-
-
 }
