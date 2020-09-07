@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.mikronexus.onlineordering.halalgirls" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>The Halal Girls</name>
+<widget id="com.mikronexus.onlineordering.gracedeli" version="0.0.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Grace Deli</name>
     <description>A reward and loyalty punch card app.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Mikronexus</author>
     <content src="index.html" />
@@ -34,7 +34,7 @@
     <preference name="WKWebViewOnly" value="true" />
     <platform name="android">
         <preference name="AndroidPersistentFileLocation" value="Compatibility" />
-        <preference name="CodePushDeploymentKey" value="PQFwZ2kdfi7IswiGogxwdDhnxzdVS7dGgpfgIm" />
+        <preference name="CodePushDeploymentKey" value="UE1Ue_qUuQnTcNgydhu9WQfNvJYBJifGVNeu7x" />
         <allow-intent href="market:*" />
         <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png" />
         <icon density="mdpi" src="resources/android/icon/drawable-mdpi-icon.png" />
@@ -56,7 +56,7 @@
         <splash density="port-xxxhdpi" src="resources/android/splash/drawable-port-xxxhdpi-screen.png" />
     </platform>
     <platform name="ios">
-        <preference name="CodePushDeploymentKey" value="09JfVIMRalaCE0ZOJOWgt7S2kPwqhuhTzo7ZrK" />
+        <preference name="CodePushDeploymentKey" value="fEZEa6Zmj6du4XrSUWAAZ5DgjDMg3yzGPtW7St" />
         <preference name="WKWebViewOnly" value="true" />
         <preference name="KeyboardResize" value="false" />
         <allow-intent href="itms:*" />
@@ -162,6 +162,5 @@
         <variable name="WEB_APPLICATION_CLIENT_ID" value="859537130755-aoipu1fgmh0mu2ro99ihkjntfbt2ege4.apps.googleusercontent.com" />
     </plugin>
     <plugin name="cordova-plugin-calendar" spec="^5.1.5" />
-    <engine name="android" spec="^7.1.4" />
     <engine name="browser" spec="5.0.4" />
 </widget>
