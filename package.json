@@ -179,7 +179,8 @@
       "onesignal-cordova-plugin": {}
     },
     "platforms": [
-      "browser"
+      "browser",
+      "android"
     ]
   }
 }

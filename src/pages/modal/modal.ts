@@ -465,6 +465,8 @@ export class ModalPage {
           console.log("p-3.2 - current location", resp)
           resolve(resp);
         }).catch((error) => {
+          console.log("location error ")
+          this.reverseGeoCoding(this.globals.latitude, this.globals.longitude);
         })
       }
     })
@@ -498,7 +500,7 @@ export class ModalPage {
           this.type = "pickup";
           this.globals.OrderType = this.type;
         }
-        else {123
+        else {
           this.outsideDeliveryRadius();
         }
 
@@ -570,6 +572,7 @@ export class ModalPage {
         this.lat = resp.coords.latitude;
         this.long = resp.coords.longitude;
       }).catch(e => {
+        console.log("Reverse coding")
         this.reverseGeoCoding(0, 0);
       });
 
@@ -578,10 +581,8 @@ export class ModalPage {
       // this.zipcode = "54000";
       // this.state = "punjab";
       this.NewAddress = false;
-    }
-    else {
+    } else {
       this.NewAddress = true;
-
     }
   }
 
