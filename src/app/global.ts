@@ -165,6 +165,8 @@ export class GlobalVariable {
     themeColor: any = '#000000';
 
     logs = true;
+    locationAlert_title = 'Location is turned off';
+    locationAlert_text = 'Please consider enabling the location for this app in order to maximize the user experience. You may still proceed without enabling the location.'; 
 
     constructor(public alertCtrl: AlertController, public toastCtrl: ToastController) {
         // this.BaseUrl = 'https://staging.onlineordering.mikronexus.com/index.php/';
