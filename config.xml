@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.mikronexus.onlineorder.demo" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>Mikronexus</name>
+<widget id="com.mikronexus.onlineordering.noorhalalfood" version="0.0.3" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Noor Halal Food</name>
     <description>A reward and loyalty punch card app.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Mikronexus</author>
     <content src="index.html" />
@@ -34,7 +34,7 @@
     <preference name="WKWebViewOnly" value="true" />
     <platform name="android">
         <preference name="AndroidPersistentFileLocation" value="Compatibility" />
-        <preference name="CodePushDeploymentKey" value="5AKD2coGFFflKzOxv6scnw6So5UE825c21f6-a7db-48ef-9c52-6d07f9cb9685" />
+        <preference name="CodePushDeploymentKey" value="_oKK-0TvKIVOFTly2SxYXspps4OT9J_ZOcXVrW" />
         <allow-intent href="market:*" />
         <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png" />
         <icon density="mdpi" src="resources/android/icon/drawable-mdpi-icon.png" />
@@ -56,7 +56,7 @@
         <splash density="port-xxxhdpi" src="resources/android/splash/drawable-port-xxxhdpi-screen.png" />
     </platform>
     <platform name="ios">
-        <preference name="CodePushDeploymentKey" value="4QZm3MpPpKyg8AGjqsKiGBuSBO66825c21f6-a7db-48ef-9c52-6d07f9cb9685" />
+        <preference name="CodePushDeploymentKey" value="t8B2oGpw9qBdHIdrEHeKugUXPzTLmZCuoiQIc5" />
         <preference name="WKWebViewOnly" value="true" />
         <preference name="KeyboardResize" value="false" />
         <allow-intent href="itms:*" />
