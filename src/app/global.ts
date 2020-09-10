@@ -169,8 +169,8 @@ export class GlobalVariable {
     locationAlert_text = 'Please consider enabling the location for this app in order to maximize the user experience. You may still proceed without enabling the location.'; 
 
     constructor(public alertCtrl: AlertController, public toastCtrl: ToastController) {
-        this.BaseUrl = 'https://staging.onlineordering.mikronexus.com/index.php/';
-        // this.BaseUrl = 'https://onlineordering.mikronexus.com/online-ordering-new/index.php/';
+        // this.BaseUrl = 'https://staging.onlineordering.mikronexus.com/index.php/';
+        this.BaseUrl = 'https://onlineordering.mikronexus.com/online-ordering-new/index.php/';
         // this.BaseUrl = 'http://192.168.100.3/online-ordering-rewamp/index.php/'
     }
 
