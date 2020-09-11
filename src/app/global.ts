@@ -156,6 +156,7 @@ export class GlobalVariable {
     tip_enabled: any = true;
     utensils_enabled: any = true;
     appColor: any = '#000000';
+    appointment_enabled: boolean = false;
 
     banner_color: any;
     giftCard_color: any;
