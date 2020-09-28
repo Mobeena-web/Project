@@ -503,6 +503,7 @@ export class ItemDetailPage {
 
               if (checkitem.name == op.name) {
                 array.splice(i, 1);
+                this.item_price = (Number(this.item_price) - (Number(op.price) * this.quantity)).toFixed(2);
               }
 
             }
