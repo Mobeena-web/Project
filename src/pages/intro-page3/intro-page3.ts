@@ -37,6 +37,8 @@ export class IntroPage3Page {
                 // nextdigits: ['', Validators.compose([Validators.maxLength(4), Validators.required])],
                 password: [''],
                 phonecode: ['1', Validators.compose([Validators.required])],
+                // age : ['', Validators.compose([Validators.maxLength(3),Validators.pattern('[0-9]*')])],
+                // gender: ['', Validators.compose([Validators.required])],
             });
         } else {
             this.signupForm = formBuilder.group({
@@ -47,6 +49,8 @@ export class IntroPage3Page {
                 // nextdigits: ['', Validators.compose([Validators.maxLength(4), Validators.required])],
                 password: ['', Validators.compose([Validators.minLength(6), Validators.required])],
                 phonecode: ['1', Validators.compose([Validators.required])],
+                // age : ['', Validators.compose([Validators.maxLength(3),Validators.pattern('[0-9]*')])],
+                // gender: ['', Validators.compose([Validators.required])],
             });
         }
     }

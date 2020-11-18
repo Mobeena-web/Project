@@ -39,6 +39,28 @@
           <p class="invalid-text">Please enter a valid email.</p>
         </div>
 
+        <!-- <ion-item class="no-padding">
+            <ion-input class="text-input" type="submit" maxlength="3" formControlName="age" 
+              placeholder="Age" type="phone"></ion-input>
+          </ion-item>
+          <div class="no-border"
+          *ngIf="!signupForm.controls.age.valid && submitAttempt">
+          <p class="invalid-text">Please enter a valid age.</p>
+        </div>
+
+        <ion-item class="no-padding">
+            <ion-label style="padding-left : 9px">Gender</ion-label>
+            <ion-select formControlName="gender" >
+              <ion-option value="male">Male</ion-option>
+              <ion-option value="female">Female</ion-option>
+              <ion-option value="other">Prefer not to disclose</ion-option>
+            </ion-select>
+          </ion-item>
+          <div class="no-border"
+          *ngIf="!signupForm.controls.gender.valid && submitAttempt">
+          <p class="invalid-text">Please select the gender.</p>
+        </div> -->
+
         <ion-row>
           <ion-col col-4>
             <ion-item>
@@ -308,8 +330,8 @@
         and get rewarded.
       </p>
 
-      <button *ngIf="profile_complete" ion-button block (click)="next(this.signupForm.value)">Register</button>
-      <button *ngIf="!profile_complete" ion-button block (click)="next(this.signupForm.value)">Update Profile</button>
+      <button *ngIf="!profile_complete" ion-button block (click)="next(this.signupForm.value)">Register</button>
+      <button *ngIf="profile_complete" ion-button block (click)="next(this.signupForm.value)">Update Profile</button>
     </form>
   </div>
 

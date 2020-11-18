@@ -24,11 +24,11 @@
       <div class="head">
         <ion-row class="strip">
           <img *ngIf="image" (click)="image_show(image)"
-            style="height: auto; object-fit: contain; border-radius: 5px 5px 0px 0px; max-height: 200px;" src="{{image}}">
+            style="height: auto; object-fit: contain; border-radius: 5px 5px 0px 0px; max-height: 200px;" src="{{globals.itemDetail.image}}">
 
           <ion-col style="padding: 0; margin: auto;">
             <p style="font-size:2.4rem;padding-left: 5px;color: #fff;">
-              {{name}}
+              {{globals.itemDetail.name}}
             </p>
           </ion-col>
         </ion-row>
@@ -38,11 +38,11 @@
         <ion-row>
           <ion-col>
             <p class="desp">
-              {{description}}
+              {{globals.itemDetail.description}}
             </p>
           </ion-col>
         </ion-row>
-        <ion-label style="font-size:3rem; text-align: center;" color="primary"> ${{item_price}} </ion-label>
+        <ion-label style="font-size:3rem; text-align: center;" color="primary"> ${{globals.itemDetail.price}} </ion-label>
       </ion-card-content>
 
       <ion-row style="height: 4.2em;border-bottom: solid thin #ccc; border-top: solid thin #ccc;">
