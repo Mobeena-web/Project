@@ -45,7 +45,7 @@
             </ion-card>
             <div *ngFor="let d of category; let i=index">
                 <div style="position: relative;"
-                    *ngIf="d.is_anniversary == 'false' && d.is_birthday == 'false' && d.items.length > 0" text-wrap
+                    *ngIf="d.is_anniversary == false && d.is_birthday == 'false' && d.items.length > 0" text-wrap
                     [ngClass]="{active: isGroupShown(i)}">
 
                     <div style="right: 0px;" class="cat-img1" *ngIf="d.badge_icon">
@@ -81,7 +81,7 @@
                                     <p class="badge_text">{{a.badge_text}}</p>
                                 </div>
 
-                                <ion-row *ngIf="a.stock_quantity > 0" (click)="Detail(a.id,a.image,a.freeExtras,true)">
+                                <ion-row *ngIf="a.stock_quantity > 0" (click)="Detail($event,a,a.id,a.image,a.freeExtras,true)">
                                     <ion-col col-3 style="margin: auto;">
                                         <img class="itm-img" *ngIf="a.image" src="{{a.image}}">
                                         <img class="itm-img" *ngIf="a.image == '' || !a.image" src={{globals.b_logo}}>

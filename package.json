@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "@angular/animations": "5.2.11",
+    "@angular/cli": "^6.2.9",
     "@angular/common": "5.0.3",
     "@angular/compiler": "5.0.3",
     "@angular/compiler-cli": "5.0.3",
@@ -65,7 +66,7 @@
     "@sentry/angular": "^5.27.3",
     "@sentry/tracing": "^5.27.3",
     "angular-ticker": "^1.0.0",
-    "angularx-qrcode": "^1.6.4",
+    "angularx-qrcode": "^1.0.3",
     "animate.css": "^3.7.2",
     "call-number": "^1.0.1",
     "code-push": "^3.0.1",
@@ -147,9 +148,7 @@
       "cordova-plugin-crop": {},
       "cordova-plugin-x-toast": {},
       "cordova-plugin-sign-in-with-apple": {},
-      "cordova-plugin-ionic-webview": {
-        "ANDROID_SUPPORT_ANNOTATIONS_VERSION": "27.+"
-      },
+      "cordova-plugin-ionic-webview": {},
       "cordova-plugin-x-socialsharing": {
         "PHOTO_LIBRARY_ADD_USAGE_DESCRIPTION": "This app requires photo library access to function properly.",
         "PHOTO_LIBRARY_USAGE_DESCRIPTION": "This app requires photo library access to function properly.",
@@ -169,9 +168,7 @@
       "cordova-plugin-ionic-keyboard": {},
       "cordova-plugin-inappbrowser": {},
       "cordova-plugin-nativestorage": {},
-      "cordova-plugin-geolocation": {
-        "GEOLOCATION_USAGE_DESCRIPTION": "To locate you"
-      },
+      "cordova-plugin-geolocation": {},
       "cordova-plugin-googleplus": {
         "REVERSED_CLIENT_ID": "com.mikronexus.onlineordering.fblogin",
         "PLAY_SERVICES_VERSION": "15.0.1"
@@ -180,14 +177,11 @@
         "APP_ID": "299575934432149",
         "APP_NAME": "Mikronexus Demo"
       },
-      "onesignal-cordova-plugin": {},
       "cordova-plugin-calendar": {},
-      "sentry-cordova": {}
+      "onesignal-cordova-plugin": {}
     },
     "platforms": [
-      "browser",
-      "android",
-      "ios"
+      "browser"
     ]
   },
   "config": {

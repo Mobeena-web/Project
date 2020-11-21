@@ -156,6 +156,8 @@ export class GlobalVariable {
     tip_enabled: any = true;
     utensils_enabled: any = true;
     appColor: any = '#000000';
+    appointment_enabled: boolean = false;
+    itemDetail : any;
 
     banner_color: any;
     giftCard_color: any;
@@ -165,10 +167,12 @@ export class GlobalVariable {
     themeColor: any = '#000000';
 
     logs = true;
+    locationAlert_title = 'Location is turned off';
+    locationAlert_text = 'Please consider enabling the location for this app in order to maximize the user experience. You may still proceed without enabling the location.'; 
 
     constructor(public alertCtrl: AlertController, public toastCtrl: ToastController) {
-        this.BaseUrl = 'https://staging.onlineordering.mikronexus.com/index.php/';
-        // this.BaseUrl = 'https://onlineordering.mikronexus.com/online-ordering-new/index.php/';
+        // this.BaseUrl = 'https://staging.onlineordering.mikronexus.com/index.php/';
+        this.BaseUrl = 'https://onlineordering.mikronexus.com/online-ordering-new/index.php/';
         // this.BaseUrl = 'http://192.168.100.3/online-ordering-rewamp/index.php/'
     }
 

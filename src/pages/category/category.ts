@@ -178,9 +178,21 @@ export class CategoryPage {
                 this.coordinates = position.coords.latitude + "," + position.coords.longitude;
             }, (err) => {
                 let alert = this.alertCtrl.create({
-                    title: 'Location is disabled',
-                    subTitle: 'In order to proceed, Please enable your location',
-                    buttons: ['OK']
+                    title: this.globals.locationAlert_title,
+                    subTitle: this.globals.locationAlert_text,
+                    buttons: [
+                        {
+                            text: 'Cancel',
+                            handler: data => {
+                                console.log('Cancel clicked');
+                            }
+                        }, {
+                            text: 'OK',
+                            handler: data => {
+                                console.log('Ok clicked');
+                            }
+                        }
+                    ]
                 });
                 alert.present();
             });
@@ -325,6 +337,7 @@ export class CategoryPage {
             this.data = data;
             loading.dismiss();
             this.category = this.data.categories;
+            console.log("kk" , this.data)
             this.super_category = this.data.super_categories;
             this.name = this.data.restaurant.name;
             this.globals.title = this.name;
@@ -387,7 +400,10 @@ export class CategoryPage {
         });
     }
 
-    Detail(id, image, freeextras, type) {
+    Detail($event,list,id, image, freeextras, type) {
+        this.globals.itemDetail = list;
+        console.log(list)
+
         this.navCtrl.push('ItemDetailPage', { type: type, item_id: id, image: image, BusinesId: this.business_id, free_extras: freeextras })
     }
 

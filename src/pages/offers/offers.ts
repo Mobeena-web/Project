@@ -132,9 +132,21 @@ getLocation() {
                    
                 }, (err) => {
                     let alert = this.alertCtrl.create({
-                        title: 'Location is disabled',
-                        subTitle: 'In order to proceed, Please enable your location',
-                        buttons: ['OK']
+                        title: this.globals.locationAlert_title,
+                        subTitle: this.globals.locationAlert_text,
+                        buttons: [
+                            {
+                                text: 'Cancel',
+                                handler: data => {
+                                    console.log('Cancel clicked');
+                                }
+                            }, {
+                                text: 'OK',
+                                handler: data => {
+                                    console.log('Ok clicked');
+                                }
+                            }
+                        ]
                     });
 
                     alert.present();

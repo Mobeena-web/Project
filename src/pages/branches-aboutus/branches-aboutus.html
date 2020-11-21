@@ -1,83 +1,82 @@
-
 <ion-header>
 
-  <ion-navbar >
+  <ion-navbar>
     <ion-title>About Us</ion-title>
   </ion-navbar>
 
 </ion-header>
 
-
-<ion-content >
+<ion-content>
   <img src={{aboutus?.image}} class="myimage">
   <div padding>
-    <h3  [innerHTML]="aboutus?.title">
+    <h3 [innerHTML]="aboutus?.title">
     </h3>
     <h5 [innerHTML]="aboutus?.description"></h5>
-            <ion-row  *ngIf="globals.branch_enabled != 1">
-              <ion-col col-4>
-                <div class="fb">Days</div>
-                <div *ngFor="let day of daysInWeek">{{day}}</div>
-                
-              </ion-col>
-                <ion-col col-4 text-center>
-                <div class="fb">Opening Time</div>
-          
-                  <div *ngFor="let item of hours_operation">
-                     {{item[0]}}
-                  </div>
-                 </ion-col>
-                  <ion-col col-4 text-center>
-                <div class="fb">Closing Time</div>
-                    <div *ngFor="let item of hours_operation">
-                        {{item[1]}}
-                    </div>
-                  </ion-col>
-          
-              
-            </ion-row>
-            <ion-list margin-top>
-              <ion-item *ngIf="phone" style="background:transparent">
-                <ion-icon name="call" item-start></ion-icon>
-                  {{phone}}
-              </ion-item>
-              <ion-item *ngIf="address" style="background:transparent">
-                <ion-icon name="locate" item-start></ion-icon>
-                  {{address}}
-              </ion-item>
-              <ion-item *ngIf="email" style="background:transparent">
-                <ion-icon name="mail" item-start></ion-icon>
-                  {{email}}
-              </ion-item>
-            </ion-list>
+    <ion-row *ngIf="globals.branch_enabled != 1">
+      <ion-col col-4>
+        <div class="fb">Days</div>
+        <div *ngFor="let day of daysInWeek">{{day}}</div>
+      </ion-col>
 
-            <!-- <div #map id="map" margin-top></div> -->
+      <ion-col col-4 text-center>
+        <div class="fb">Opening Time</div>
 
-            <ion-card >
-                <h2 *ngIf="globals.branch_enabled == 1"  margin-top text-center class="branches">Branches</h2>
+        <div *ngFor="let item of hours_operation">
+          {{item[0]}}
+        </div>
+      </ion-col>
 
-                <div *ngIf="globals.branch_enabled == 1">
-                  <div  *ngFor='let item of places' (click)="branch_about(item.name,item.business_id,item.hours_operation,item.latitude,item.longitude,item.username)">
-                    <ion-row text-center class="bcd">
-                      <ion-col col-6>
-                        {{item.name}}
-                      </ion-col>
-                      <ion-col col-6>
-                        {{item.phone}}
-                      </ion-col>
-                    </ion-row>
-                  </div>
-                </div>
-            </ion-card>
-           
+      <ion-col col-4 text-center>
+        <div class="fb">Closing Time</div>
+        <div *ngFor="let item of hours_operation">
+          {{item[1]}}
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-list margin-top>
+      <ion-item *ngIf="phone" style="background:transparent">
+        <ion-icon name="call" item-start></ion-icon>
+        {{phone}}
+      </ion-item>
+
+      <ion-item *ngIf="address" style="background:transparent">
+        <ion-icon name="locate" item-start></ion-icon>
+        {{address}}
+      </ion-item>
+
+      <ion-item *ngIf="email" style="background:transparent">
+        <ion-icon name="mail" item-start></ion-icon>
+        {{email}}
+      </ion-item>
+    </ion-list>
+
+    <!-- <div #map id="map" margin-top></div> -->
+
+    <ion-card>
+      <h2 *ngIf="globals.branch_enabled == 1" margin-top text-center class="branches">Branches</h2>
+
+      <div *ngIf="globals.branch_enabled == 1">
+        <div *ngFor='let item of places'
+          (click)="branch_about(item.name,item.business_id,item.hours_operation,item.latitude,item.longitude,item.username)">
+          <ion-row text-center class="bcd">
+            <ion-col col-6>
+              {{item.name}}
+            </ion-col>
+            <ion-col col-6>
+              {{item.phone}}
+            </ion-col>
+          </ion-row>
+        </div>
+      </div>
+    </ion-card>
   </div>
- 
-
 </ion-content>
+
 <ion-footer padding margin-top class="foter">
-    <ion-row>
-        <ion-col  *ngFor="let item of social_links">
-             <ion-icon *ngIf="item.url" name={{item.icon}} class="myicon1" (click)="launch(item.url)"></ion-icon> 
-         </ion-col>
-     </ion-row>
+  <ion-row>
+    <ion-col *ngFor="let item of social_links">
+      <ion-icon *ngIf="item.url" name={{item.icon}} class="myicon1" (click)="launch(item.url)"></ion-icon>
+    </ion-col>
+  </ion-row>
 </ion-footer>

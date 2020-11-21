@@ -522,7 +522,8 @@ export class ServerProvider {
 
   GetBusinessMenuCategories(BusinessId) {
     if(this.global.business_type == 'retail'){
-      var link = (this.global.BaseUrl + 'retail/categories');
+      var link = (this.global.BaseUrl + 'retail/categories_customers');
+      // var link = (this.global.BaseUrl + 'retail/categories');
     }
     else{
       var link = (this.global.BaseUrl + 'menu/categories');
