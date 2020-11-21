@@ -3,6 +3,8 @@ import { IonicPage, NavController, NavParams, LoadingController, ToastController
 import { GlobalVariable } from '../../app/global';
 import { ServerProvider } from '../../providers/server/server';
 
+import { CalendarModule, CalendarComponentOptions } from "ion2-calendar";
+
 @IonicPage()
 @Component({
   selector: 'page-add-booking',
@@ -17,13 +19,21 @@ export class AddBookingPage {
   stylist: any;
   timing: any;
   schedule_time: any;
-  timings: any;
+  timings: any = [];
 
-  constructor(private toastCtrl: ToastController, public loadingCtrl: LoadingController, 
-    public server: ServerProvider, public global: GlobalVariable, 
+  date: string;
+  type: 'string';
+  optionsCal: CalendarComponentOptions = {
+    from: new Date(),
+    color: 'primary',
+    pickMode: 'single'
+  };
+
+  constructor(private toastCtrl: ToastController, public loadingCtrl: LoadingController,
+    public server: ServerProvider, public global: GlobalVariable,
     public navCtrl: NavController, public navParams: NavParams) {
 
-    this.value = this.formatDate();
+    this.schedule_time = this.formatDate();
     this.get_services();
   }
 
@@ -37,6 +47,19 @@ export class AddBookingPage {
     if (day.length < 2) day = '0' + day;
 
     return [year, month, day].join('-');
+  }
+
+  onDateChange($event) {
+    this.schedule_time = $event.format('YYYY-MM-DD');
+  }
+
+  typeChange() {
+    console.log('OnChange', this.book_time);
+    this.service = '';
+    this.stylist = '';
+    this.schedule_time = '';
+    this.timings = [];
+    this.schedule_time = this.formatDate();
   }
 
   ionViewDidLoad() {
@@ -82,13 +105,12 @@ export class AddBookingPage {
   }
 
   setStylist() {
+    console.log("Schedule ", this.schedule_time);
     let toast = this.toastCtrl.create({
       message: 'Loading...',
     });
     toast.present();
-    if (this.book_time == 'now') {
-      this.schedule_time = 'now'
-    }
+    
     let response = this.server.get_slots(this.service, this.stylist, this.schedule_time);
     response.subscribe(data => {
       if (data.status == true) {
@@ -104,23 +126,29 @@ export class AddBookingPage {
     });
   }
 
-  book() {
-    let loading = this.loadingCtrl.create({
-      content: "Loading...",
-    });
-    loading.present();
+  book(time_slot) {
+    this.timing = time_slot;
 
-    let response = this.server.booking_salon(this.service, this.stylist, this.timing);
-    response.subscribe(data => {
-      this.global.presentToast(data.message);
-      if (data.status == true) {
-        this.navCtrl.pop();
-      }
-      loading.dismiss();
+    if (this.service != '' && this.stylist != '' && this.timing != '') {
+      let loading = this.loadingCtrl.create({
+        content: "Loading...",
+      });
+      loading.present();
 
-    }, error => {
-      loading.dismiss();
-      this.global.alertMessage("Failure", "Something went wrong check your internet connection.")
-    });
+      let response = this.server.booking_salon(this.service, this.stylist, this.timing);
+      response.subscribe(data => {
+        this.global.presentToast(data.message);
+        if (data.status == true) {
+          this.navCtrl.pop();
+        }
+        loading.dismiss();
+
+      }, error => {
+        loading.dismiss();
+        this.global.alertMessage("Failure", "Something went wrong check your internet connection.")
+      });
+    } else {
+      this.global.alertMessage("Failure", "Data is not complete to process.")
+    }
   }
 }

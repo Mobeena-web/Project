@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
-import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { IonicApp, IonicErrorHandler, IonicModule,  } from 'ionic-angular';
 import { HttpModule } from '@angular/http'
 
 import { MyApp } from './app.component';
@@ -45,7 +45,22 @@ import { GetlocationProvider } from '../providers/getlocation/getlocation';
 import { MobileVerificationPromptPage } from '../pages/mobile-verification-prompt/mobile-verification-prompt';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { CodePush } from '@ionic-native/code-push';
-import { CalendarModule } from "ion2-calendar";
+import { QRCodeModule } from 'angularx-qrcode';
+
+import * as Sentry from "sentry-cordova";
+
+
+Sentry.init({ dsn: "https://30fe72f6fa8a4c048f84c0391b992985@o473947.ingest.sentry.io/5509538"});
+export class SentryIonicErrorHandler extends IonicErrorHandler {
+  handleError(error) {
+    super.handleError(error);
+    try {
+      Sentry.captureException(error.originalError || error);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+}
 
 @NgModule({
   declarations: [
@@ -69,6 +84,7 @@ import { CalendarModule } from "ion2-calendar";
     IntroPage7PageModule,
     IntroPage8PageModule,
     MainTabsPageModule,
+    QRCodeModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -85,7 +101,8 @@ import { CalendarModule } from "ion2-calendar";
   providers: [
     StatusBar,
     SplashScreen,
-    { provide: ErrorHandler, useClass: IonicErrorHandler },
+    // { provide: ErrorHandler, useClass: IonicErrorHandler },
+    {provide: ErrorHandler, useClass: SentryIonicErrorHandler},
     ServerProvider, GlobalVariable, NativeStorage, BarcodeScanner, InAppBrowser, 
     PinDialog, NativeAudio, Geolocation, CallNumber, EmailComposer, Camera, Crop, 
     Diagnostic, SocialSharing, Stripe,

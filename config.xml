@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.mikronexus.onlineordering.madisplate" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>Madis Plate</name>
+<widget id="com.mikronexus.onlineordering.automotive" version="0.0.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Automotive Tech</name>
     <description>A reward and loyalty punch card app.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Mikronexus</author>
     <content src="index.html" />
@@ -34,7 +34,7 @@
     <preference name="WKWebViewOnly" value="true" />
     <platform name="android">
         <preference name="AndroidPersistentFileLocation" value="Compatibility" />
-        <preference name="CodePushDeploymentKey" value="AUXrQtDPLFVJKaV-WOZYZh53q1I_z0TnPu6uF7" />
+        <preference name="CodePushDeploymentKey" value="_oKK-0TvKIVOFTly2SxYXspps4OT9J_ZOcXVrW" />
         <allow-intent href="market:*" />
         <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png" />
         <icon density="mdpi" src="resources/android/icon/drawable-mdpi-icon.png" />
@@ -56,7 +56,7 @@
         <splash density="port-xxxhdpi" src="resources/android/splash/drawable-port-xxxhdpi-screen.png" />
     </platform>
     <platform name="ios">
-        <preference name="CodePushDeploymentKey" value="S5-XWAuIIBLYYlr9i8uR7JJX8rD-AlVUT9AuZ-" />
+        <preference name="CodePushDeploymentKey" value="t8B2oGpw9qBdHIdrEHeKugUXPzTLmZCuoiQIc5" />
         <preference name="WKWebViewOnly" value="true" />
         <preference name="KeyboardResize" value="false" />
         <allow-intent href="itms:*" />
@@ -167,8 +167,7 @@
         <variable name="APP_ID" value="299575934432149" />
         <variable name="APP_NAME" value="Mikronexus Demo" />
     </plugin>
-<<<<<<< HEAD
-=======
+    <plugin name="cordova-plugin-calendar" spec="^5.1.5" />
     <engine name="browser" spec="5.0.4" />
->>>>>>> 2f1e3f43e829c0c30d5e53559ba3d218a8bd4b2e
+    <engine name="android" spec="^8.1.0" />
 </widget>

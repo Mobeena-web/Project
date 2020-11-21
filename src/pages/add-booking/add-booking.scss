@@ -10,4 +10,17 @@ page-add-booking {
     .toolbar-title{
         color: #fff !important;
     }
+
+    .time-btn{
+        margin: 0px;
+        width: 170px;
+    }
+
+    ion-item{
+        border-radius: 8px !important;
+    }
+
+    ion-calender{
+        border-radius: 8px !important;
+    }
 }
