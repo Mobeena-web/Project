@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.mikronexus.onlineordering.automotive" version="0.0.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>Automotive Tech</name>
+<widget id="com.mikronexus.onlineordering.shaheencafe" version="0.0.5" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Shaheen cafe</name>
     <description>A reward and loyalty punch card app.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Mikronexus</author>
     <content src="index.html" />
@@ -34,7 +34,7 @@
     <preference name="WKWebViewOnly" value="true" />
     <platform name="android">
         <preference name="AndroidPersistentFileLocation" value="Compatibility" />
-        <preference name="CodePushDeploymentKey" value="8oQy2zLKzIrTjy_bgBrWNFBaLQV0z5sOFTH2-p" />
+        <preference name="CodePushDeploymentKey" value="gW-FWopI9GasKli2TXSjRWhgoiX8ljR57R1qo" />
         <allow-intent href="market:*" />
         <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png" />
         <icon density="mdpi" src="resources/android/icon/drawable-mdpi-icon.png" />
@@ -56,7 +56,7 @@
         <splash density="port-xxxhdpi" src="resources/android/splash/drawable-port-xxxhdpi-screen.png" />
     </platform>
     <platform name="ios">
-        <preference name="CodePushDeploymentKey" value="zP_nwGdMSOKmw-Efh-JSfemcK7e_9AY7Qa1_Cg" />
+        <preference name="CodePushDeploymentKey" value="CXV25iA82PMy6Jx_w3-eRBdjnxeXVpGsfa1r6" />
         <preference name="WKWebViewOnly" value="true" />
         <preference name="KeyboardResize" value="false" />
         <allow-intent href="itms:*" />
@@ -124,6 +124,7 @@
     <config-file parent="NSCameraUsageDescription" target="*-Info.plist">
         <string>This app requires access to your photos/gallery for uploading images to app gallery.</string>
     </config-file>
+    <engine name="browser" spec="5.0.4" />
     <plugin name="cordova-plugin-nativeaudio" spec="^3.0.9" />
     <plugin name="cordova-plugin-pin-dialog" spec="^0.1.3" />
     <plugin name="phonegap-plugin-barcodescanner" spec="^7.1.2">
@@ -164,5 +165,4 @@
         <variable name="WEB_APPLICATION_CLIENT_ID" value="859537130755-aoipu1fgmh0mu2ro99ihkjntfbt2ege4.apps.googleusercontent.com" />
     </plugin>
     <plugin name="cordova-plugin-calendar" spec="^5.1.5" />
-    <engine name="browser" spec="5.0.4" />
 </widget>

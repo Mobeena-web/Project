@@ -54,7 +54,7 @@ export class OrderPlacedDetailPage {
     showDetails(){
         if(this.globals.business_type == 'ordering'){
         const browser = this.iab.create(this.globals.BaseUrl + 'business_controller/order_pdf/' + this.o_id, '_blank');
-        }else if(this.globals.business_type == 'retail'){
+        }else if(this.globals.business_type == 'retail' || this.globals.business_type == 'salon'){
             const browser = this.iab.create(this.globals.BaseUrl + 'business_controller/retail_order_pdf/' + this.o_id, '_blank');
         }
     }

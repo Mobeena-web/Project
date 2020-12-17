@@ -337,8 +337,10 @@ export class CategoryPage {
             this.data = data;
             loading.dismiss();
             this.category = this.data.categories;
-            console.log("kk" , this.data)
             this.super_category = this.data.super_categories;
+            if(this.super_category.length == 1){
+                this.categoryClicked(this.super_category[0])
+            }
             this.name = this.data.restaurant.name;
             this.globals.title = this.name;
             this.globals.category_name = this.name;
