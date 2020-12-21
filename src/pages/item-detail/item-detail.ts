@@ -59,6 +59,7 @@ export class ItemDetailPage {
   itemShowFlag: boolean = false;
   optionitemArray: any;
   upSellItem_array = [];
+  price_temp : any;
 
   constructor(private photoViewer: PhotoViewer, public server: ServerProvider, public alertCtrl: AlertController, public loadingCtrl: LoadingController, public globals: GlobalVariable, public modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams, private toastCtrl: ToastController) {
     this.reward_item_flag = navParams.get('reward_flag');
@@ -429,6 +430,21 @@ export class ItemDetailPage {
     });
   }
 
+  total_price(){
+
+  this.item_price = this.globals.itemDetail.price
+    console.log(this.myChoices)
+    console.log(this.item_price)
+    for(let c = 0; c < this.myChoices.length; c++){
+      for(let b = 1; b < this.myChoices[c].optionNameSelected.length; b++){
+
+        console.log(this.myChoices[c].optionNameSelected[b].price)
+        this.item_price = (Number(this.item_price) + (Number(this.myChoices[c].optionNameSelected[b].price) * this.quantity)).toFixed(2);
+        console.log(this.item_price)
+      }
+    }
+  }
+
   Selectedoption(heading, op, a, i, max, event) {
     var checked = false;
     let flag: boolean = false;
@@ -460,7 +476,8 @@ export class ItemDetailPage {
             toast.present();
           } else {
             this.myChoices[m].optionNameSelected.push({ name: op.name, price: Number(op.price), quantity: 1, total: Number(op.price) * op.quantity, isFree: false, selected: op.IsSelected })
-            this.item_price = (Number(this.item_price) + (Number(op.price) * this.quantity)).toFixed(2);
+            this.total_price();
+            // this.item_price = (Number(this.item_price) + (Number(op.price) * this.quantity)).toFixed(2);
             console.log("myprice", this.item_price)
             this.flag = false;
             break;
@@ -471,7 +488,8 @@ export class ItemDetailPage {
         if (this.No_of_Free_Extras == 0) {
           var data = { heading: heading, optionNameSelected: [{ name: op.name, price: Number(op.price), quantity: op.quantity, total: Number(op.price) * op.quantity, isFree: false, selected: op.IsSelected }] }
 
-          this.item_price = (Number(this.item_price) + (Number(op.price) * this.quantity)).toFixed(2);
+          // this.item_price = (Number(this.item_price) + (Number(op.price) * this.quantity)).toFixed(2);
+          this.total_price();
 
           this.myChoices.push(data);
           this.flag = false;
@@ -483,7 +501,8 @@ export class ItemDetailPage {
           } else {
             var data = { heading: heading, optionNameSelected: [{ name: op.name, price: Number(op.price), quantity: op.quantity, total: Number(op.price) * op.quantity, isFree: false, selected: op.IsSelected }] }
 
-            this.item_price = (Number(this.item_price) + (Number(op.price) * this.quantity)).toFixed(2);
+            // this.item_price = (Number(this.item_price) + (Number(op.price) * this.quantity)).toFixed(2);
+            this.total_price();
 
             this.myChoices.push(data);
             this.flag = false;
@@ -503,7 +522,8 @@ export class ItemDetailPage {
 
               if (checkitem.name == op.name) {
                 array.splice(i, 1);
-                this.item_price = (Number(this.item_price) - (Number(op.price) * this.quantity)).toFixed(2);
+                this.total_price();
+                // this.item_price = (Number(this.item_price) - (Number(op.price) * this.quantity)).toFixed(2);
               }
 
             }
@@ -515,7 +535,8 @@ export class ItemDetailPage {
                 if (this.myChoices[i].optionNameSelected[0].isFree) {
 
                 } else {
-                  this.item_price = (Number(this.item_price) - (Number(op.price) * this.quantity)).toFixed(2);
+                  this.total_price();
+                  // this.item_price = (Number(this.item_price) - (Number(op.price) * this.quantity)).toFixed(2);
                 }
               }
             }
