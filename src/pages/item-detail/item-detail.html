@@ -40,10 +40,12 @@
             <p class="desp">
               {{globals.itemDetail.description}}
             </p>
-            <p>{{item_price}}</p>
           </ion-col>
         </ion-row>
-        <ion-label style="font-size:3rem; text-align: center;" color="primary"> ${{globals.itemDetail.price}} </ion-label>
+        <ion-label style="font-size:3rem; text-align: center;" color="primary"> 
+          ${{item_price}}
+          <!-- ${{globals.itemDetail.price}}  -->
+        </ion-label>
       </ion-card-content>
 
       <ion-row style="height: 4.2em;border-bottom: solid thin #ccc; border-top: solid thin #ccc;">
@@ -158,12 +160,12 @@
               <ion-row
                 *ngIf="option.name != '' && this.itemShowFlag == true && toppings.heading == optionitemArray.heading">
                 <ion-col col-12 style="display: inline-flex;margin: auto;">
-                  <ion-item>
-                    <ion-label>{{option.name}} <span class="option_">${{option.price}}</span>
-                    </ion-label>
-                    <ion-checkbox [(ngModel)]="option.IsSelected" [disabled]="option.disable_item"
-                      (ionChange)="Selectedoption(toppings.heading,option,a,i,toppings.max,$event)"></ion-checkbox>
-                  </ion-item>
+                    <ion-item>
+                        <ion-label>{{option.name}} <span class="option_">${{option.price}}</span>
+                        </ion-label>
+                        <ion-checkbox [(ngModel)]="option.IsSelected" [disabled]="option.disable_item"
+                          (ionChange)="Selectedoption(toppings.heading,option,a,i,toppings.max,$event)"></ion-checkbox>
+                      </ion-item>
 
                 </ion-col>
               </ion-row>

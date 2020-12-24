@@ -60,6 +60,7 @@ export class ItemDetailPage {
   optionitemArray: any;
   upSellItem_array = [];
   price_temp : any;
+  extraitemPrice : any = 0;
 
   constructor(private photoViewer: PhotoViewer, public server: ServerProvider, public alertCtrl: AlertController, public loadingCtrl: LoadingController, public globals: GlobalVariable, public modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams, private toastCtrl: ToastController) {
     this.reward_item_flag = navParams.get('reward_flag');
@@ -131,34 +132,34 @@ export class ItemDetailPage {
   addQuantity() {
     if (this.quantity < this.stock_quantity) {
       this.quantity += 1;
-      var m_price = 0;
-      this.myChoices.forEach(element => {
-        element.optionNameSelected.forEach(subelement => {
-          m_price = m_price + subelement.price;
-        });
-      });
+      // var m_price = 0;
+      // this.myChoices.forEach(element => {
+      //   element.optionNameSelected.forEach(subelement => {
+      //     m_price = m_price + subelement.price;
+      //   });
+      // });
 
-      this.item_price = ((m_price * this.quantity) + (this.price * this.quantity)).toFixed(2);
+      this.item_price = ((this.extraitemPrice * this.quantity) + (this.price * this.quantity)).toFixed(2);
     } else {
       this.globals.presentToast("You have selected max. limit of item.")
     }
   }
 
   removeQuantity() {
-    var m_price = 0;
+    // var m_price = 0;
     if (this.quantity <= 1) {
       this.quantity = 1;
     } else {
       this.quantity -= 1;
     }
 
-    this.myChoices.forEach(element => {
-      element.optionNameSelected.forEach(subelement => {
-        m_price = m_price + subelement.price;
-      });
-    });
+    // this.myChoices.forEach(element => {
+    //   element.optionNameSelected.forEach(subelement => {
+    //     m_price = m_price + subelement.price;
+    //   });
+    // });
 
-    this.item_price = ((m_price * this.quantity) + (this.price * this.quantity)).toFixed(2);
+    this.item_price = ((this.extraitemPrice * this.quantity) + (this.price * this.quantity)).toFixed(2);
   }
 
 
@@ -431,16 +432,22 @@ export class ItemDetailPage {
   }
 
   total_price(){
-
-  this.item_price = this.globals.itemDetail.price
+// author: zohra
+// purpose : total sum of items
+// used in app
+// created : 2020-12-21 06:00
+// last_modified: 2020-12-22 12:40
+// status: active 2020-12-21 06:00
+    this.extraitemPrice = 0;
+    this.item_price = (Number(this.globals.itemDetail.price) * this.quantity).toFixed(2);
     console.log(this.myChoices)
     console.log(this.item_price)
     for(let c = 0; c < this.myChoices.length; c++){
       for(let b = 1; b < this.myChoices[c].optionNameSelected.length; b++){
-
-        console.log(this.myChoices[c].optionNameSelected[b].price)
+        this.extraitemPrice = this.extraitemPrice+this.myChoices[c].optionNameSelected[b].price;
         this.item_price = (Number(this.item_price) + (Number(this.myChoices[c].optionNameSelected[b].price) * this.quantity)).toFixed(2);
         console.log(this.item_price)
+        console.log(this.extraitemPrice)
       }
     }
   }
