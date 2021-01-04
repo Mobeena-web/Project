@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.mikronexus.onlineordering.southshorecigar" version="0.0.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>South Shore Cigar Club</name>
+<widget id="com.mikronexus.onlineordering.automotive" version="0.0.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Automotive Tech</name>
     <description>A reward and loyalty punch card app.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Mikronexus</author>
     <content src="index.html" />
@@ -34,11 +34,7 @@
     <preference name="WKWebViewOnly" value="true" />
     <platform name="android">
         <preference name="AndroidPersistentFileLocation" value="Compatibility" />
-<<<<<<< HEAD
-        <preference name="CodePushDeploymentKey" value="_oKK-0TvKIVOFTly2SxYXspps4OT9J_ZOcXVrW" />
-=======
         <preference name="CodePushDeploymentKey" value="8oQy2zLKzIrTjy_bgBrWNFBaLQV0z5sOFTH2-p" />
->>>>>>> ebed3f5340d63ffbc7e61dd444a673f1eb01e1b0
         <allow-intent href="market:*" />
         <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png" />
         <icon density="mdpi" src="resources/android/icon/drawable-mdpi-icon.png" />
@@ -60,11 +56,7 @@
         <splash density="port-xxxhdpi" src="resources/android/splash/drawable-port-xxxhdpi-screen.png" />
     </platform>
     <platform name="ios">
-<<<<<<< HEAD
-        <preference name="CodePushDeploymentKey" value="t8B2oGpw9qBdHIdrEHeKugUXPzTLmZCuoiQIc5" />
-=======
         <preference name="CodePushDeploymentKey" value="zP_nwGdMSOKmw-Efh-JSfemcK7e_9AY7Qa1_Cg" />
->>>>>>> ebed3f5340d63ffbc7e61dd444a673f1eb01e1b0
         <preference name="WKWebViewOnly" value="true" />
         <preference name="KeyboardResize" value="false" />
         <allow-intent href="itms:*" />
@@ -157,33 +149,13 @@
     <plugin name="cordova-plugin-device" spec="^2.0.3" />
     <plugin name="cordova-plugin-splashscreen" spec="^5.0.4" />
     <plugin name="cordova-plugin-stripe" spec="^1.5.3" />
-<<<<<<< HEAD
-    <plugin name="cordova-plugin-x-toast" spec="^2.7.2" />
-    <plugin name="cordova-plugin-code-push" spec="^1.12.0" />
-    <plugin name="cordova-plugin-file-transfer" spec="^1.7.1" />
-    <plugin name="cordova-plugin-zip" spec="^3.1.0" />
-    <plugin name="onesignal-cordova-plugin" spec="~2.4.6" />
-    <plugin name="com-sarriaroman-photoviewer" spec="^1.1.18" />
-=======
     <plugin name="cordova-plugin-code-push" spec="^1.12.5" />
     <plugin name="cordova-plugin-file-transfer" spec="^1.7.1" />
     <plugin name="cordova-plugin-zip" spec="^3.1.0" />
     <plugin name="com-sarriaroman-photoviewer" spec="^1.2.4" />
->>>>>>> ebed3f5340d63ffbc7e61dd444a673f1eb01e1b0
     <plugin name="cordova-plugin-whitelist" spec="^1.3.4" />
     <plugin name="cordova-plugin-file" spec="~6.0.2" />
     <plugin name="cordova-plugin-statusbar" spec="^2.4.3" />
-<<<<<<< HEAD
-    <plugin name="cordova-plugin-sign-in-with-apple" spec="^0.1.1" />
-    <plugin name="cordova-plugin-inappbrowser" spec="^3.2.0" />
-    <plugin name="cordova-plugin-ionic-keyboard" spec="~2.2.0" />
-    <plugin name="cordova-plugin-googleplus" spec="~8.5.0">
-        <variable name="REVERSED_CLIENT_ID" value="com.mikronexus.onlineordering.fblogin" />
-    </plugin>
-    <plugin name="cordova-plugin-facebook4" spec="^1.7.4">
-        <variable name="APP_ID" value="299575934432149" />
-        <variable name="APP_NAME" value="Mikronexus Demo" />
-=======
     <plugin name="cordova-plugin-ionic-keyboard" spec="^2.2.0" />
     <plugin name="cordova-plugin-inappbrowser" spec="^3.2.0" />
     <plugin name="cordova-plugin-nativestorage" spec="^2.3.2" />
@@ -194,7 +166,6 @@
         <variable name="REVERSED_CLIENT_ID" value="4TQTc-B0qYdJRMpioYNRcQnn" />
         <variable name="PLAY_SERVICES_VERSION" value="15.0.1" />
         <variable name="WEB_APPLICATION_CLIENT_ID" value="859537130755-aoipu1fgmh0mu2ro99ihkjntfbt2ege4.apps.googleusercontent.com" />
->>>>>>> ebed3f5340d63ffbc7e61dd444a673f1eb01e1b0
     </plugin>
     <plugin name="cordova-plugin-calendar" spec="^5.1.5" />
     <engine name="browser" spec="5.0.4" />

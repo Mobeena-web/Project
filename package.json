@@ -178,7 +178,8 @@
         "APP_NAME": "Mikronexus Demo"
       },
       "cordova-plugin-calendar": {},
-      "onesignal-cordova-plugin": {}
+      "onesignal-cordova-plugin": {},
+      "sentry-cordova": {}
     },
     "platforms": [
       "browser"

@@ -558,7 +558,7 @@ export class CartPage {
 
     TaxCalculate(amount_without_tax) {
 
-        if (this.globals.business_type == 'retail') {
+        if (this.globals.business_type == 'retail' || this.globals.business_type == 'salon') {
             var taxcalc = 0;
             this.globals.retail_items_discount = 0;
             var ItemDiscount = 0;
