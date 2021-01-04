@@ -130,6 +130,12 @@ export class ItemDetailPage {
   }
 
   addQuantity() {
+// author: zohra
+// purpose : total sum of extras
+// used in app
+// created : old
+// last_modified: 2020-12-23 05:00
+// status: active old
     if (this.quantity < this.stock_quantity) {
       this.quantity += 1;
       // var m_price = 0;
@@ -146,6 +152,12 @@ export class ItemDetailPage {
   }
 
   removeQuantity() {
+// author: zohra
+// purpose : total sum of extras
+// used in app
+// created : old
+// last_modified: 2020-12-23 05:00
+// status: active old
     // var m_price = 0;
     if (this.quantity <= 1) {
       this.quantity = 1;
@@ -438,16 +450,15 @@ export class ItemDetailPage {
 // created : 2020-12-21 06:00
 // last_modified: 2020-12-22 12:40
 // status: active 2020-12-21 06:00
+console.log(this.myChoices)
+console.log(this.No_of_Free_Extras)
+console.log(this.extras[0].freeExtras)
     this.extraitemPrice = 0;
     this.item_price = (Number(this.globals.itemDetail.price) * this.quantity).toFixed(2);
-    console.log(this.myChoices)
-    console.log(this.item_price)
     for(let c = 0; c < this.myChoices.length; c++){
       for(let b = 1; b < this.myChoices[c].optionNameSelected.length; b++){
         this.extraitemPrice = this.extraitemPrice+this.myChoices[c].optionNameSelected[b].price;
         this.item_price = (Number(this.item_price) + (Number(this.myChoices[c].optionNameSelected[b].price) * this.quantity)).toFixed(2);
-        console.log(this.item_price)
-        console.log(this.extraitemPrice)
       }
     }
   }
