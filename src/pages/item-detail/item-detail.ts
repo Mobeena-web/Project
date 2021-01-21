@@ -448,25 +448,25 @@ export class ItemDetailPage {
 // purpose : total sum of items
 // used in app
 // created : 2020-12-21 06:00
-// last_modified: 2020-12-22 12:40
+// last_modified: 2021-01-05 11:40
 // status: active 2020-12-21 06:00
-console.log(this.myChoices)
-console.log(this.No_of_Free_Extras)
-console.log(this.extras[0].freeExtras)
     this.extraitemPrice = 0;
     this.item_price = (Number(this.globals.itemDetail.price) * this.quantity).toFixed(2);
     for(let c = 0; c < this.myChoices.length; c++){
-      for(let b = 1; b < this.myChoices[c].optionNameSelected.length; b++){
+      for(let b = this.myChoices[c].freeExtras ; b < this.myChoices[c].optionNameSelected.length ; b++){
         this.extraitemPrice = this.extraitemPrice+this.myChoices[c].optionNameSelected[b].price;
         this.item_price = (Number(this.item_price) + (Number(this.myChoices[c].optionNameSelected[b].price) * this.quantity)).toFixed(2);
       }
     }
   }
 
-  Selectedoption(heading, op, a, i, max, event) {
+  Selectedoption(heading, op,freeExtras, a, i, max, event) {
     var checked = false;
     let flag: boolean = false;
-
+    
+    if(!freeExtras || freeExtras == 'null' || freeExtras == 'undefined' || freeExtras == '' ){
+      freeExtras = 0;
+    }
     if (op.IsSelected) {
       let same: boolean = false
 
@@ -504,25 +504,27 @@ console.log(this.extras[0].freeExtras)
       }
       if (!same) {
         if (this.No_of_Free_Extras == 0) {
-          var data = { heading: heading, optionNameSelected: [{ name: op.name, price: Number(op.price), quantity: op.quantity, total: Number(op.price) * op.quantity, isFree: false, selected: op.IsSelected }] }
+          var data = { heading: heading,freeExtras:freeExtras, optionNameSelected: [{ name: op.name, price: Number(op.price), quantity: op.quantity, total: Number(op.price) * op.quantity, isFree: false, selected: op.IsSelected }] }
 
           // this.item_price = (Number(this.item_price) + (Number(op.price) * this.quantity)).toFixed(2);
-          this.total_price();
+          
 
           this.myChoices.push(data);
+          this.total_price();
           this.flag = false;
         } else {
           if (this.myChoices.length < this.No_of_Free_Extras) {
-            var data = { heading: heading, optionNameSelected: [{ name: op.name, price: 0, quantity: op.quantity, total: 0, isFree: true, selected: op.IsSelected }] }
+            var data = { heading: heading,freeExtras:freeExtras, optionNameSelected: [{ name: op.name, price: 0, quantity: op.quantity, total: 0, isFree: true, selected: op.IsSelected }] }
             this.myChoices.push(data);
             this.flag = false;
           } else {
-            var data = { heading: heading, optionNameSelected: [{ name: op.name, price: Number(op.price), quantity: op.quantity, total: Number(op.price) * op.quantity, isFree: false, selected: op.IsSelected }] }
+            var data = { heading: heading,freeExtras:freeExtras, optionNameSelected: [{ name: op.name, price: Number(op.price), quantity: op.quantity, total: Number(op.price) * op.quantity, isFree: false, selected: op.IsSelected }] }
 
             // this.item_price = (Number(this.item_price) + (Number(op.price) * this.quantity)).toFixed(2);
-            this.total_price();
+           
 
             this.myChoices.push(data);
+            this.total_price();
             this.flag = false;
           }
         }
@@ -567,6 +569,7 @@ console.log(this.extras[0].freeExtras)
 
               if (checkitem.heading == heading) {
                 array.splice(i, 1);
+                this.total_price();
               }
             }
           );
