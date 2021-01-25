@@ -113,7 +113,13 @@ export class HomePage {
     }
 
     rewards(type) {
-        this._nav.push('MyRewardsPage', { reward_type_home: type })
+        if (this.globals.branch_enabled == 1) {
+            this.globals.rewardTemp = true;
+            this._nav.push('ResturantListPage')
+        } else {
+            this._nav.push('MyRewardsPage', { reward_type_home: type })
+        }
+        
     }
 
     reward_notification() {

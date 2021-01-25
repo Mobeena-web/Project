@@ -216,7 +216,12 @@ export class MyApp {
         if (this.globals.guess_login) {
             this.presentConfirm();
         } else {
-            this.nav.push('MyRewardsPage')
+            if (this.globals.branch_enabled == 1) {
+                this.globals.rewardTemp = true;
+                this.nav.push('ResturantListPage')
+            } else {
+                this.nav.push('MyRewardsPage')
+            }
         }
     }
 

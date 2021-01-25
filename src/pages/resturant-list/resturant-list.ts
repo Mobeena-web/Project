@@ -373,8 +373,12 @@ export class ResturantListPage {
         this.navCtrl.push('BirthdayGiftsPage', { pageflag: this.pageFlag, BusinessId: place.business_id, paypal:place.paypalId, discount: place.discountvalue });
 
     }
+    else if(this.globals.rewardTemp == true && this.globals.branch_enabled == 1){
+        this.navCtrl.push('MyRewardsPage')
+        this.globals.rewardTemp = false;
+    }
     else{
-        if(this.globals.marketPlace || this.globals.branch_enabled == 1){
+       if(this.globals.marketPlace || this.globals.branch_enabled == 1){
             console.log('Checking....',this.globals.marketPlace, this.globals.branch_enabled == 1)
             console.log(this.globals.marketPlace && this.globals.branch_enabled == 1);
             this.navCtrl.push('CategoryPage', { pageflag: this.pageFlag, BusinessId: place.business_id, paypal: place.paypalId, discount: place.discountvalue });

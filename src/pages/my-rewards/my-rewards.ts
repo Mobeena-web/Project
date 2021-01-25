@@ -6,6 +6,7 @@ import { GlobalVariable } from "../../app/global";
 import { ServerProvider } from "../../providers/server/server";
 import { Diagnostic } from '@ionic-native/diagnostic';
 import { Geolocation } from '@ionic-native/geolocation';
+import { OrderPipe } from 'ngx-order-pipe';
 /**
  * Generated class for the MyRewardsPage page.
  *
@@ -68,6 +69,8 @@ export class MyRewardsPage {
     cart_reward_view:boolean = false;
     store_points:any;
     image_broken:any;
+    sortdata : any =[];
+    pointData : any;
     // ngAfterViewInit()
     // {
     //     this.indicator = document.getElementById("indicator");
@@ -77,19 +80,18 @@ export class MyRewardsPage {
     //     }
     // }
 
-    constructor( public modalCtrl:ModalController,private geolocation: Geolocation,private diagnostic: Diagnostic,public modalctrl: ModalController, public server: ServerProvider, public globals: GlobalVariable, private nativeStorage: NativeStorage, public alertCtrl: AlertController, public loadingCtrl: LoadingController, public navCtrl: NavController, public navParams: NavParams) {
+    constructor( public modalCtrl:ModalController,private geolocation: Geolocation,private diagnostic: Diagnostic,public modalctrl: ModalController, public server: ServerProvider, public globals: GlobalVariable, private nativeStorage: NativeStorage, public alertCtrl: AlertController, public loadingCtrl: LoadingController, public navCtrl: NavController, public navParams: NavParams,private orderPipe: OrderPipe) {
         this.image_broken = this.globals.b_logo;
         this.data = {};
 
         this.data.response = '';
         this.udid = this.globals.udid;
 
-        //  this.getReward();
-
+          //  this.getReward();
+  
         this.img = navParams.get('qrcode');
         this.searchControl = new FormControl();
         
-
     }
 
 

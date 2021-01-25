@@ -46,6 +46,7 @@ import { MobileVerificationPromptPage } from '../pages/mobile-verification-promp
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { CodePush } from '@ionic-native/code-push';
 import { QRCodeModule } from 'angularx-qrcode';
+import { OrderModule } from 'ngx-order-pipe';
 
 @NgModule({
   declarations: [
@@ -69,7 +70,8 @@ import { QRCodeModule } from 'angularx-qrcode';
     IntroPage7PageModule,
     IntroPage8PageModule,
     MainTabsPageModule,
-    QRCodeModule
+    QRCodeModule,
+    OrderModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
