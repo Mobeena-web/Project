@@ -1,7 +1,24 @@
+<ion-header>
+
+  <ion-navbar color='white' >
+    <ion-title style="text-align: center;margin-top: 23px;
+    margin-bottom: 23px;">Your Order Settings</ion-title>
+  </ion-navbar>
+
+  <ion-segment [(ngModel)]="globals.OrderType">
+    <ion-segment-button *ngIf="globals.delivery" value="delivery">
+      Delivery
+    </ion-segment-button>
+    <ion-segment-button *ngIf="globals.pickup" value="pickup">
+      PickUp
+    </ion-segment-button>
+  </ion-segment>
+</ion-header>
+
 <ion-content class="main-view">
   <div class="modal_content">
-    <h2 style="text-align: center;margin-top: 23px;
-    margin-bottom: 23px;"> Your Order Settings</h2>
+    <!-- <h2 style="text-align: center;margin-top: 23px;
+    margin-bottom: 23px;"> Your Order Settings</h2> -->
     <!-- <div style="padding-top: 0px;"padding>
       <ion-segment [(ngModel)]="type"   (ionChange)="onsegmentChanged()" *ngIf="globals.delivery && globals.pickup">
         <ion-segment-button value="delivery"  >
@@ -25,14 +42,7 @@
       </ion-segment>
     </div> -->
 
-    <ion-segment [(ngModel)]="globals.OrderType">
-      <ion-segment-button *ngIf="globals.delivery" value="delivery">
-        Delivery
-      </ion-segment-button>
-      <ion-segment-button *ngIf="globals.pickup" value="pickup">
-        PickUp
-      </ion-segment-button>
-    </ion-segment>
+  
 
 
 

@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core'
 import { AlertController } from 'ionic-angular';
 import { ToastController } from 'ionic-angular';
 import { CONFIG } from '../../app-config';
+import { AndroidPermissions } from '@ionic-native/android-permissions';
+import { LocationAccuracy } from '@ionic-native/location-accuracy';
 declare var Circles;
 
 
@@ -172,7 +174,8 @@ export class GlobalVariable {
     locationAlert_title = 'Location is turned off';
     locationAlert_text = 'Please consider enabling the location for this app in order to maximize the user experience. You may still proceed without enabling the location.'; 
 
-    constructor(public alertCtrl: AlertController, public toastCtrl: ToastController) {
+    constructor(public alertCtrl: AlertController, public toastCtrl: ToastController, private locationAccuracy: LocationAccuracy,
+        public androidPermissions : AndroidPermissions,) {
         // this.BaseUrl = 'https://staging.onlineordering.mikronexus.com/index.php/';
         this.BaseUrl = 'https://onlineordering.mikronexus.com/online-ordering-new/index.php/';
         // this.BaseUrl = 'http://192.168.100.3/online-ordering-rewamp/index.php/'
@@ -219,6 +222,67 @@ export class GlobalVariable {
             styleText: true
         });
     }
+
+
+  checkGPSPermission() {
+    this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.ACCESS_COARSE_LOCATION).then(
+      result => {
+        if (result.hasPermission) {
+          console.log("check 001");
+          //If having permission show 'Turn On GPS' dialogue
+          this.askToTurnOnGPS();
+        } else {
+          console.log("check 002");
+
+          //If not having permission ask for permission
+          this.requestGPSPermission();
+        }
+      },err => {
+        alert(err);
+      });
+  }
+  
+
+  requestGPSPermission() {
+    this.locationAccuracy.canRequest().then((canRequest: boolean) => {
+      if (canRequest) {
+        console.log("4");
+      } else {
+        console.log("check 003");
+
+        //Show 'GPS Permission Request' dialogue
+        this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.ACCESS_COARSE_LOCATION)
+          .then(() => {
+          console.log("check 004");
+
+              // call method to turn on GPS
+              this.askToTurnOnGPS();
+            },
+            error => {
+              console.log("check 005");
+              //Show alert if user click on 'No Thanks'
+              console.log('requestPermission Error requesting location permissions ' + error)
+              // alert('requestPermission Error requesting location permissions ' + error)
+            });
+      }
+    }, err => {
+      console.log("error in request GPS Permission", err)
+    });
+  }
+
+  askToTurnOnGPS() {
+    this.locationAccuracy.request(this.locationAccuracy.REQUEST_PRIORITY_HIGH_ACCURACY).then(
+      (data) => {
+        console.log("check 006", data);
+        // When GPS Turned ON call method to get Accurate location coordinates
+      },
+      error => 
+      console.log("Error requesting location permissions" , error)
+     // alert('Error requesting location permissions ' + JSON.stringify(error))
+    );
+  }
+
+
 
 }
 

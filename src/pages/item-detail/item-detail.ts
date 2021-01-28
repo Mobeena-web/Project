@@ -61,6 +61,8 @@ export class ItemDetailPage {
   upSellItem_array = [];
   price_temp : any;
   extraitemPrice : any = 0;
+  requiredExtras : any=[];
+  requiredtemp : boolean;
 
   constructor(private photoViewer: PhotoViewer, public server: ServerProvider, public alertCtrl: AlertController, public loadingCtrl: LoadingController, public globals: GlobalVariable, public modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams, private toastCtrl: ToastController) {
     this.reward_item_flag = navParams.get('reward_flag');
@@ -223,6 +225,9 @@ export class ItemDetailPage {
       for (let i = 0; i < this.extras.length; i++) {
         if (this.extras[i].min != '' && Number(this.extras[i].min) > 0) {
           totalCategoriesCount++;
+          if(!this.requiredtemp){
+          this.requiredExtras.push(this.extras[i].heading);
+          }
         }
       }
       for (let e = 0; e < this.extras.length; e++) {
@@ -368,7 +373,8 @@ export class ItemDetailPage {
         }
       }
     } else {
-      this.globals.presentToast("Please select the required extras.")
+      this.requiredtemp = true;
+      this.globals.presentToast('Please select the required extras.'+ this.requiredExtras)
     }
   }
 

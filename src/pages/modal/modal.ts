@@ -11,6 +11,8 @@ import { Geolocation, Geoposition } from '@ionic-native/geolocation';
 import { ServerProvider } from '../../providers/server/server';
 import { HomePage } from '../home/home';
 import { Observable } from 'rxjs/Observable';
+import { AndroidPermissions } from '@ionic-native/android-permissions';
+import { LocationAccuracy } from '@ionic-native/location-accuracy';
 
 
 declare var google;
@@ -83,7 +85,10 @@ export class ModalPage {
   @ViewChild('searchbar', { read: ElementRef }) searchbar: ElementRef;
   addressElement: HTMLInputElement = null;
   map: any;
-  constructor(public loadingCtrl: LoadingController, public server: ServerProvider, public geolocation: Geolocation, public alertCtrl: AlertController, public navCtrl: NavController, public formBuilder: FormBuilder, public navParams: NavParams, public viewCtrl: ViewController, public globals: GlobalVariable, public modalCtrl: ModalController, public nativeStorage: NativeStorage, public plt: Platform) {
+  constructor(public loadingCtrl: LoadingController, public server: ServerProvider, public geolocation: Geolocation, public alertCtrl: AlertController, public navCtrl: NavController, public formBuilder: FormBuilder, public navParams: NavParams, public viewCtrl: ViewController, public globals: GlobalVariable, public modalCtrl: ModalController, public nativeStorage: NativeStorage, public plt: Platform,
+    private locationAccuracy: LocationAccuracy,
+    public androidPermissions : AndroidPermissions,
+    ) {
 
     this.segmentValue = localStorage.getItem("segmentvalue");
     this.deliveryTime = this.globals.pickupsetting;
@@ -100,6 +105,7 @@ export class ModalPage {
     // this.checktype();
     //console.log("localstorage data for testing ", localStorage.getItem("type"));
     if (!this.globals.address) {
+      this.globals.checkGPSPermission();
       this.CurrentAdressBox();
     }
     else {
@@ -130,7 +136,7 @@ export class ModalPage {
     var that = this;
     setTimeout(function () {
       that.loadMaps();
-    }, 3000);
+    }, 2000);
   }
 
   min_date_value() {
@@ -272,6 +278,7 @@ export class ModalPage {
 
   onsegmentChanged() {
     // this.loadMap(this.lat,this.long)
+    this.globals.checkGPSPermission();
     this.CurrentAdressBox();
     if (this.type == "delivery") {
 
@@ -352,7 +359,6 @@ export class ModalPage {
       else if (this.order_delivery) {
         this.type = "delivery";
         this.globals.OrderType = this.type;
-
       }
     }
     else {
@@ -571,9 +577,10 @@ export class ModalPage {
     // this.NEW = true;
     console.log("p-2.1")
     if (this.CurrentAdress == true) {
-
+      
       this.getCurrentLocation().then((resp) => {
         console.log("p-2.2")
+        this.loadMap(resp.coords.latitude, resp.coords.longitude);
         this.reverseGeoCoding(resp.coords.latitude, resp.coords.longitude);
         this.NEW = false;
         this.lat = resp.coords.latitude;

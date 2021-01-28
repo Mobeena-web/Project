@@ -97,6 +97,8 @@ export class HomePage {
         localStorage.removeItem("GetAddress");
         localStorage.removeItem("scheduled_time");
         console.log("Globals -> ", this.globals)
+        this.globals.checkGPSPermission();
+        this.getLocation();
         this.list();
     }
 
@@ -139,6 +141,7 @@ export class HomePage {
         this.loadBanner();
         this.getPoints('0,0');
         this.getPunches();
+        this.globals.checkGPSPermission();
         this.getLocation();
         if (this.globals.Product.length > 0) {
             this.globals.cartflag = true;
@@ -172,12 +175,13 @@ export class HomePage {
 
     getLocation() {
         this.flag = true;
-        if (this.globals.delivery == true) {
+        // if (this.globals.delivery == true) {
 
             this.geolocation.getCurrentPosition().then((position) => {
                 this.coordinates = position.coords.latitude + "," + position.coords.longitude;
                 this.globals.RewardsPos = this.coordinates;
                 this.globals.mycoordinates = this.coordinates;
+                console.log(this.globals.mycoordinates)
 
             }, (err) => {
                 let alert = this.alertCtrl.create({
@@ -205,7 +209,7 @@ export class HomePage {
                 console.log(err);
 
             });
-        }
+        // }
         // if (state) {
 
         //     this.flag = true;
@@ -299,6 +303,7 @@ export class HomePage {
     }
 
     ionViewDidLoad() {
+        this.globals.checkGPSPermission();
         this.getLocation();
         this.rewards_items();
 
@@ -471,7 +476,7 @@ export class HomePage {
     }
 
     list() {
-        let response = this.server.getRestaurantslist('100000', 'main', "0,0", '0', 'order');
+        let response = this.server.getRestaurantslist('100000', 'main', this.coordinates, '0', 'order');
         response.subscribe(data => {
             this.places = data.results;
             var new_id = this.globals.new_id;

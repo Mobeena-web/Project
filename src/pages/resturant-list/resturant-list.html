@@ -94,7 +94,7 @@
                         <ion-icon ios="ios-time-outline" md="md-time"> </ion-icon> Pickup time: {{place.pickup_time}} </p>
                     </div>
                     <div style="display:inline-block;">
-                      <p class="delivery" *ngIf="place.delivery_time != '' ">
+                      <p class="delivery" *ngIf="place.delivery_time != '' && place.delivery == '1'">
                         <ion-icon ios="ios-time-outline" md="md-time"> </ion-icon> Delivery time: {{place.delivery_time}} </p>
                     </div>
 

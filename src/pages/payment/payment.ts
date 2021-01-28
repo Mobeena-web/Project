@@ -653,7 +653,7 @@ export class PaymentPage {
         this.color2 = 'appButtons';
         this.creditcard = true;
         this.cash_on_delivery = false;
-
+ 
         if (!this.ccFee_added) {
             this.amount = Number(this.amount) + Number(this.ccFee);
             this.ccFee_added = true;

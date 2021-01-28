@@ -95,16 +95,19 @@ export class ResturantListPage {
       this.textdisocunt = navParams.get('discount_text');
       this.searchControl = new FormControl();
 
-      //this.getLocation();
-      this.list();
+     
+
+    //   this.list();
 
       this.CheckMobileFlag();
 
       this.selectOptions = {
           title: 'Distance'
       };
-
+      this.globals.checkGPSPermission();
       this.getLocation();
+
+      
 
   }
   business_info(){
@@ -450,17 +453,24 @@ export class ResturantListPage {
     //   this.diagnostic.isLocationEnabled()
     //       .then((state) => {
             //   if (state) {
+                let loading = this.loadingCtrl.create({
+                    content: "getting location",
+            
+                });
+                loading.present();
                   this.status = false;
                   this.arrayStatus = false;
                   this.flag = true;
-                  if(this.globals.delivery == true){
+                //   if(this.globals.delivery == true){
                   this.geolocation.getCurrentPosition().then((position) => {
                       this.coordinates = position.coords.latitude + "," + position.coords.longitude;
                       console.log("get Location branches ", this.coordinates)
                       this.list();
+                      loading.dismiss();
 
                   }, (err) => {
                       console.log(err);
+                      loading.dismiss();
                       this.status = true;
                       let alert = this.alertCtrl.create({
                         title: this.globals.locationAlert_title,
@@ -482,7 +492,7 @@ export class ResturantListPage {
     
                       alert.present();
                   });
-                }
+                // }
             //   } else {
                 
             //   }
@@ -545,6 +555,8 @@ export class ResturantListPage {
   doRefresh(refresher) {
       this.offset = 0;
       //this.getLocation();
+      this.globals.checkGPSPermission();
+      this.getLocation();
       this.list();
       this.content.resize();
       refresher.complete();
