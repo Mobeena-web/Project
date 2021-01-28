@@ -46,21 +46,22 @@ import { MobileVerificationPromptPage } from '../pages/mobile-verification-promp
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { CodePush } from '@ionic-native/code-push';
 import { QRCodeModule } from 'angularx-qrcode';
+import { OrderModule } from 'ngx-order-pipe';
 
-import * as Sentry from "sentry-cordova";
+// import * as Sentry from "sentry-cordova";
 
 
-Sentry.init({ dsn: "https://30fe72f6fa8a4c048f84c0391b992985@o473947.ingest.sentry.io/5509538"});
-export class SentryIonicErrorHandler extends IonicErrorHandler {
-  handleError(error) {
-    super.handleError(error);
-    try {
-      Sentry.captureException(error.originalError || error);
-    } catch (e) {
-      console.error(e);
-    }
-  }
-}
+// Sentry.init({ dsn: "https://30fe72f6fa8a4c048f84c0391b992985@o473947.ingest.sentry.io/5509538"});
+// export class SentryIonicErrorHandler extends IonicErrorHandler {
+//   handleError(error) {
+//     super.handleError(error);
+//     try {
+//       Sentry.captureException(error.originalError || error);
+//     } catch (e) {
+//       console.error(e);
+//     }
+//   }
+// }
 
 @NgModule({
   declarations: [
@@ -84,7 +85,8 @@ export class SentryIonicErrorHandler extends IonicErrorHandler {
     IntroPage7PageModule,
     IntroPage8PageModule,
     MainTabsPageModule,
-    QRCodeModule
+    QRCodeModule,
+    OrderModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -101,8 +103,8 @@ export class SentryIonicErrorHandler extends IonicErrorHandler {
   providers: [
     StatusBar,
     SplashScreen,
-    // { provide: ErrorHandler, useClass: IonicErrorHandler },
-    {provide: ErrorHandler, useClass: SentryIonicErrorHandler},
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
+    // {provide: ErrorHandler, useClass: SentryIonicErrorHandler},
     ServerProvider, GlobalVariable, NativeStorage, BarcodeScanner, InAppBrowser, 
     PinDialog, NativeAudio, Geolocation, CallNumber, EmailComposer, Camera, Crop, 
     Diagnostic, SocialSharing, Stripe,

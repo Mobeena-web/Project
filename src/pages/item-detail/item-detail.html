@@ -164,7 +164,7 @@
                         <ion-label>{{option.name}} <span class="option_">${{option.price}}</span>
                         </ion-label>
                         <ion-checkbox [(ngModel)]="option.IsSelected" [disabled]="option.disable_item"
-                          (ionChange)="Selectedoption(toppings.heading,option,a,i,toppings.max,$event)"></ion-checkbox>
+                          (ionChange)="Selectedoption(toppings.heading,option,toppings.freeExtras,a,i,toppings.max,$event)"></ion-checkbox>
                       </ion-item>
 
                 </ion-col>

@@ -17,8 +17,8 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { NativeAudio } from "@ionic-native/native-audio";
 import { CodePush, InstallMode, SyncStatus } from '@ionic-native/code-push';
 
-import * as Sentry from "@sentry/angular";
-import { Integrations } from "@sentry/tracing";
+// import * as Sentry from "@sentry/angular";
+// import { Integrations } from "@sentry/tracing";
 
 
 @Component({
@@ -52,24 +52,24 @@ export class MyApp {
         platform.ready().then(() => {
 
 
-            Sentry.init({
-                dsn: "https://examplePublicKey@o0.ingest.sentry.io/0" ,
-                integrations: [
-                  // Registers and configures the Tracing integration,
-                  // which automatically instruments your application to monitor its
-                  // performance, including custom Angular routing instrumentation
-                  new Integrations.BrowserTracing({
-                    tracingOrigins: ["localhost", "https://yourserver.io/api"],
-                    routingInstrumentation: Sentry.routingInstrumentation,
+            // Sentry.init({
+            //     dsn: "https://examplePublicKey@o0.ingest.sentry.io/0" ,
+            //     integrations: [
+            //       // Registers and configures the Tracing integration,
+            //       // which automatically instruments your application to monitor its
+            //       // performance, including custom Angular routing instrumentation
+            //       new Integrations.BrowserTracing({
+            //         tracingOrigins: ["localhost", "https://yourserver.io/api"],
+            //         routingInstrumentation: Sentry.routingInstrumentation,
               
-                  }),
-                ],
+            //       }),
+            //     ],
               
-                // Set tracesSampleRate to 1.0 to capture 100%
-                // of transactions for performance monitoring.
-                // We recommend adjusting this value in production
-                tracesSampleRate: 1.0,
-              });
+            //     // Set tracesSampleRate to 1.0 to capture 100%
+            //     // of transactions for performance monitoring.
+            //     // We recommend adjusting this value in production
+            //     tracesSampleRate: 1.0,
+            //   });
 
 
 
@@ -242,7 +242,12 @@ export class MyApp {
         if (this.globals.guess_login) {
             this.presentConfirm();
         } else {
-            this.nav.push('MyRewardsPage')
+            if (this.globals.branch_enabled == 1) {
+                this.globals.rewardTemp = true;
+                this.nav.push('ResturantListPage')
+            } else {
+                this.nav.push('MyRewardsPage')
+            }
         }
     }
 
