@@ -59,6 +59,8 @@ export class ItemDetailPage {
   itemShowFlag: boolean = false;
   optionitemArray: any;
   upSellItem_array = [];
+  price_temp : any;
+  extraitemPrice : any = 0;
 
   constructor(private photoViewer: PhotoViewer, public server: ServerProvider, public alertCtrl: AlertController, public loadingCtrl: LoadingController, public globals: GlobalVariable, public modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams, private toastCtrl: ToastController) {
     this.reward_item_flag = navParams.get('reward_flag');
@@ -128,36 +130,48 @@ export class ItemDetailPage {
   }
 
   addQuantity() {
+// author: zohra
+// purpose : total sum of extras
+// used in app
+// created : old
+// last_modified: 2020-12-23 05:00
+// status: active old
     if (this.quantity < this.stock_quantity) {
       this.quantity += 1;
-      var m_price = 0;
-      this.myChoices.forEach(element => {
-        element.optionNameSelected.forEach(subelement => {
-          m_price = m_price + subelement.price;
-        });
-      });
+      // var m_price = 0;
+      // this.myChoices.forEach(element => {
+      //   element.optionNameSelected.forEach(subelement => {
+      //     m_price = m_price + subelement.price;
+      //   });
+      // });
 
-      this.item_price = ((m_price * this.quantity) + (this.price * this.quantity)).toFixed(2);
+      this.item_price = ((this.extraitemPrice * this.quantity) + (this.price * this.quantity)).toFixed(2);
     } else {
       this.globals.presentToast("You have selected max. limit of item.")
     }
   }
 
   removeQuantity() {
-    var m_price = 0;
+// author: zohra
+// purpose : total sum of extras
+// used in app
+// created : old
+// last_modified: 2020-12-23 05:00
+// status: active old
+    // var m_price = 0;
     if (this.quantity <= 1) {
       this.quantity = 1;
     } else {
       this.quantity -= 1;
     }
 
-    this.myChoices.forEach(element => {
-      element.optionNameSelected.forEach(subelement => {
-        m_price = m_price + subelement.price;
-      });
-    });
+    // this.myChoices.forEach(element => {
+    //   element.optionNameSelected.forEach(subelement => {
+    //     m_price = m_price + subelement.price;
+    //   });
+    // });
 
-    this.item_price = ((m_price * this.quantity) + (this.price * this.quantity)).toFixed(2);
+    this.item_price = ((this.extraitemPrice * this.quantity) + (this.price * this.quantity)).toFixed(2);
   }
 
 
@@ -429,6 +443,26 @@ export class ItemDetailPage {
     });
   }
 
+  total_price(){
+// author: zohra
+// purpose : total sum of items
+// used in app
+// created : 2020-12-21 06:00
+// last_modified: 2020-12-22 12:40
+// status: active 2020-12-21 06:00
+console.log(this.myChoices)
+console.log(this.No_of_Free_Extras)
+console.log(this.extras[0].freeExtras)
+    this.extraitemPrice = 0;
+    this.item_price = (Number(this.globals.itemDetail.price) * this.quantity).toFixed(2);
+    for(let c = 0; c < this.myChoices.length; c++){
+      for(let b = 1; b < this.myChoices[c].optionNameSelected.length; b++){
+        this.extraitemPrice = this.extraitemPrice+this.myChoices[c].optionNameSelected[b].price;
+        this.item_price = (Number(this.item_price) + (Number(this.myChoices[c].optionNameSelected[b].price) * this.quantity)).toFixed(2);
+      }
+    }
+  }
+
   Selectedoption(heading, op, a, i, max, event) {
     var checked = false;
     let flag: boolean = false;
@@ -460,7 +494,8 @@ export class ItemDetailPage {
             toast.present();
           } else {
             this.myChoices[m].optionNameSelected.push({ name: op.name, price: Number(op.price), quantity: 1, total: Number(op.price) * op.quantity, isFree: false, selected: op.IsSelected })
-            this.item_price = (Number(this.item_price) + (Number(op.price) * this.quantity)).toFixed(2);
+            this.total_price();
+            // this.item_price = (Number(this.item_price) + (Number(op.price) * this.quantity)).toFixed(2);
             console.log("myprice", this.item_price)
             this.flag = false;
             break;
@@ -471,7 +506,8 @@ export class ItemDetailPage {
         if (this.No_of_Free_Extras == 0) {
           var data = { heading: heading, optionNameSelected: [{ name: op.name, price: Number(op.price), quantity: op.quantity, total: Number(op.price) * op.quantity, isFree: false, selected: op.IsSelected }] }
 
-          this.item_price = (Number(this.item_price) + (Number(op.price) * this.quantity)).toFixed(2);
+          // this.item_price = (Number(this.item_price) + (Number(op.price) * this.quantity)).toFixed(2);
+          this.total_price();
 
           this.myChoices.push(data);
           this.flag = false;
@@ -483,7 +519,8 @@ export class ItemDetailPage {
           } else {
             var data = { heading: heading, optionNameSelected: [{ name: op.name, price: Number(op.price), quantity: op.quantity, total: Number(op.price) * op.quantity, isFree: false, selected: op.IsSelected }] }
 
-            this.item_price = (Number(this.item_price) + (Number(op.price) * this.quantity)).toFixed(2);
+            // this.item_price = (Number(this.item_price) + (Number(op.price) * this.quantity)).toFixed(2);
+            this.total_price();
 
             this.myChoices.push(data);
             this.flag = false;
@@ -503,7 +540,8 @@ export class ItemDetailPage {
 
               if (checkitem.name == op.name) {
                 array.splice(i, 1);
-                this.item_price = (Number(this.item_price) - (Number(op.price) * this.quantity)).toFixed(2);
+                this.total_price();
+                // this.item_price = (Number(this.item_price) - (Number(op.price) * this.quantity)).toFixed(2);
               }
 
             }
@@ -515,7 +553,8 @@ export class ItemDetailPage {
                 if (this.myChoices[i].optionNameSelected[0].isFree) {
 
                 } else {
-                  this.item_price = (Number(this.item_price) - (Number(op.price) * this.quantity)).toFixed(2);
+                  this.total_price();
+                  // this.item_price = (Number(this.item_price) - (Number(op.price) * this.quantity)).toFixed(2);
                 }
               }
             }

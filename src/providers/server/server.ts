@@ -437,7 +437,7 @@ export class ServerProvider {
   //////  Order API'S ///////
 
   GetUserOrderPlaced() {
-    if(this.global.business_type == 'retail'){
+    if(this.global.business_type == 'retail' || this.global.business_type == 'salon'){
       var link = (this.global.BaseUrl + 'retail/order_history');
 
     }
@@ -451,7 +451,7 @@ export class ServerProvider {
   }
 
   ProductItemDetail(ItemId) {
-    if(this.global.business_type == 'retail'){
+    if(this.global.business_type == 'retail' || this.global.business_type == 'salon'){
       var link = (this.global.BaseUrl + 'retail/item_details');
     }
     else{
@@ -521,7 +521,7 @@ export class ServerProvider {
   }
 
   GetBusinessMenuCategories(BusinessId) {
-    if(this.global.business_type == 'retail'){
+    if(this.global.business_type == 'retail' || this.global.business_type == 'salon'){
       var link = (this.global.BaseUrl + 'retail/categories_customers');
       // var link = (this.global.BaseUrl + 'retail/categories');
     }
@@ -535,7 +535,7 @@ export class ServerProvider {
   }
 
   GetSuperCategories(BusinessId, super_id) {
-    if(this.global.business_type == 'retail'){
+    if(this.global.business_type == 'retail' || this.global.business_type == 'salon'){
       var link = (this.global.BaseUrl + 'retail/categories');
     }
     else{
@@ -595,7 +595,7 @@ export class ServerProvider {
 
   PaymentThroughStripe(Address, instruction, amount, order_date, Token, status,cash_discount,cardinfo?) {
 
-    if(this.global.business_type == 'retail'){
+    if(this.global.business_type == 'retail' || this.global.business_type == 'salon'){
       var link = (this.global.BaseUrl + 'retail/place_order');
 
     }
@@ -614,7 +614,7 @@ export class ServerProvider {
 
   PaymentOnDelivery(Address, instruction, amount, order_date, Token, status) {
 
-    if(this.global.business_type == 'retail'){
+    if(this.global.business_type == 'retail' || this.global.business_type == 'salon'){
       var link = (this.global.BaseUrl + 'retail/place_order_cash');
 
     }

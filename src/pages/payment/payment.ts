@@ -68,7 +68,7 @@ export class PaymentPage {
     gift_data: any;
     color: any = 'appButtons';
     color2: any = 'appButtons';
-    instructions: any = { "Type": '', "BusinessDiscount": 0, "GainDiscount": 0, "StoreCredit": 0, "Tip": 0, "Points": 0, "Notes": '', "giftcard": '', "tax": 0 };
+    instructions: any = { "Type": '', "BusinessDiscount": 0, "GainDiscount": 0, "StoreCredit": 0, "Tip": 0, "Points": 0, "Notes": '', "giftcard": '', "tax": 0 , "delivery_fee" : 0};
     month_array: any[] = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     amount: any;
     cardinfo: any = {
@@ -309,6 +309,12 @@ export class PaymentPage {
     }
 
     Instruction() {
+// author: zohra
+// purpose : add delivery fee
+// used in app
+// created : old
+// last_modified: 2020-12-29 05:00
+// status: active old
         this.instructions.tax = this.calculated_tax;
         if (this.orderType == 'delivery') {
             this.instructions.Type = 'Delivery';
@@ -348,6 +354,9 @@ export class PaymentPage {
 
         if (this.gift_data && this.gift_data.length > 0) {
             this.instructions.giftcard = this.gift_data;
+        }
+        if (this.globals.delivery_fee > 0) {
+            this.instructions.delivery_fee = Number(this.globals.delivery_fee);
         }
     }
 

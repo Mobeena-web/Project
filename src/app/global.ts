@@ -165,6 +165,7 @@ export class GlobalVariable {
     orderNow_color: any;
     specialOffer_color: any;
     themeColor: any = '#000000';
+    delivery_fee : any;
 
     logs = true;
     locationAlert_title = 'Location is turned off';

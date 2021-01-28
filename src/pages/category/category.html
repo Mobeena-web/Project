@@ -45,7 +45,7 @@
             </ion-card>
             <div *ngFor="let d of category; let i=index">
                 <div style="position: relative;"
-                    *ngIf="d.is_anniversary == false && d.is_birthday == 'false' && d.items.length > 0" text-wrap
+                    *ngIf="d.is_anniversary == 'false' && d.is_birthday == 'false' && d.items.length > 0" text-wrap
                     [ngClass]="{active: isGroupShown(i)}">
 
                     <div style="right: 0px;" class="cat-img1" *ngIf="d.badge_icon">

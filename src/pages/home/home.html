@@ -86,10 +86,10 @@
         <div>Special Offers</div>
       </div>
     </ion-col>
-    <ion-col col *ngIf="globals.business_type == 'ordering' || globals.business_type == 'retail'">
+    <ion-col col *ngIf="globals.business_type == 'ordering' || globals.business_type == 'retail' || globals.business_type == 'salon'">
       <div text-center (click)="orderNow()" [ngStyle]="{'background-color': order_now_color}" class="sof1">
         <ion-icon *ngIf="globals.business_type == 'ordering'" name="restaurant"></ion-icon>
-        <ion-icon *ngIf="globals.business_type == 'salon' || globals.business_type == 'retail'" name="ios-briefcase"></ion-icon>
+        <ion-icon *ngIf="globals.business_type == 'retail' || globals.business_type == 'salon'" name="ios-briefcase"></ion-icon>
         <div>Order Now</div>
       </div>
     </ion-col>

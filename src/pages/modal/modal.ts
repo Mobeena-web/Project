@@ -391,7 +391,7 @@ export class ModalPage {
       
 
       this.checkTimingLater(this.globals.delivery_timing).then((resp) => {
-        if(this.globals.address != '' && this.globals.address != undefined && this.globals.inradius == true && this.globals.locationSelected){
+        if(this.globals.address != '' && this.globals.address != undefined && this.globals.inradius == true){
           console.log("delivery inside", this.globals);
           this.dismiss()
         }
@@ -474,6 +474,12 @@ export class ModalPage {
 
 
   reverseGeoCoding(lat, lng) {
+// author: zohra
+// purpose : add delivery fee
+// used in app
+// created : old
+// last_modified: 2020-12-29 05:00
+// status: active old
     console.log("p-1.2")
     this.globals.lat = lat;
     this.globals.long = lng;
@@ -485,6 +491,7 @@ export class ModalPage {
       this.loadMap(lat, lng);
       myadress = data.address;
       this.globals.address = myadress;
+      this.globals.delivery_fee = data.delivery_meta.delivery_fee;
 
       this.globals.inradius = data.in_radius;
 
