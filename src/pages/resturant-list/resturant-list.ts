@@ -454,7 +454,7 @@ export class ResturantListPage {
     //       .then((state) => {
             //   if (state) {
                 let loading = this.loadingCtrl.create({
-                    content: "getting location",
+                    content: "getting location...",
             
                 });
                 loading.present();
