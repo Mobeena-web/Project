@@ -97,7 +97,7 @@ export class ResturantListPage {
 
 
 
-        //   this.list();
+          this.list();
 
         this.CheckMobileFlag();
 
@@ -257,7 +257,7 @@ export class ResturantListPage {
         this.status = false;
 
         let loading = this.loadingCtrl.create({
-            content: "Loading",
+            content: "Getting Location",
 
         });
         loading.present();
