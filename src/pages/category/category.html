@@ -76,9 +76,9 @@
                         <ion-list>
                             <ion-card *ngFor="let a of d.items">
                                 <div *ngIf="a.badge_icon"
-                                    style="right: 0px; position:absolute; z-index: 999; height: 65px; object-fit: contain;">
+                                    style="right: 0px; position:absolute; z-index: 999; height: 65px; object-fit: contain; margin-top: -8px;">
                                     <img text-right style="height: 40px;width:160px" src="{{a.badge_icon}}">
-                                    <p style="top: 65%" class="badge_text">{{a.badge_text}}</p>
+                                    <p style="top: 65%; width: calc(100% - 50px);" class="badge_text">{{a.badge_text}}</p>
                                 </div>
 
                                 <ion-row *ngIf="a.stock_quantity > 0" (click)="Detail($event,a,a.id,a.image,a.freeExtras,true)">
@@ -162,7 +162,7 @@
                         <ion-list>
                             <ion-card *ngFor="let a of d.items">
                                 <div *ngIf="a.badge_icon"
-                                    style="right: 0px; position:absolute; z-index: 999; height: 65px; object-fit: contain;">
+                                    style="right: 0px; position:absolute; z-index: 999; height: 65px; object-fit: contain; margin-top: -8px;">
                                     <img text-right style="height: 40px;width:160px" src="{{a.badge_icon}}">
                                     <p class="badge_text">{{a.badge_text}}</p>
                                 </div>
