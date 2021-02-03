@@ -42,7 +42,6 @@
     "@ionic-native/device": "^4.20.0",
     "@ionic-native/diagnostic": "^4.20.0",
     "@ionic-native/email-composer": "^4.20.0",
-    "@ionic-native/facebook": "^4.20.0",
     "@ionic-native/file": "^4.20.0",
     "@ionic-native/file-transfer": "^4.20.0",
     "@ionic-native/geolocation": "^4.20.0",
@@ -84,7 +83,6 @@
     "cordova-plugin-device": "^2.0.3",
     "cordova-plugin-dialogs": "^2.0.2",
     "cordova-plugin-email-composer": "^0.8.15",
-    "cordova-plugin-facebook4": "^1.10.1",
     "cordova-plugin-file": "^6.0.2",
     "cordova-plugin-file-transfer": "^1.7.1",
     "cordova-plugin-geolocation": "^4.0.2",
@@ -150,9 +148,7 @@
       "cordova-plugin-crop": {},
       "cordova-plugin-x-toast": {},
       "cordova-plugin-sign-in-with-apple": {},
-      "cordova-plugin-ionic-webview": {
-        "ANDROID_SUPPORT_ANNOTATIONS_VERSION": "27.+"
-      },
+      "cordova-plugin-ionic-webview": {},
       "cordova-plugin-x-socialsharing": {
         "PHOTO_LIBRARY_ADD_USAGE_DESCRIPTION": "This app requires photo library access to function properly.",
         "PHOTO_LIBRARY_USAGE_DESCRIPTION": "This app requires photo library access to function properly.",
@@ -177,19 +173,14 @@
         "REVERSED_CLIENT_ID": "com.mikronexus.onlineordering.fblogin",
         "PLAY_SERVICES_VERSION": "15.0.1"
       },
-      "cordova-plugin-facebook4": {
-        "APP_ID": "299575934432149",
-        "APP_NAME": "Mikronexus Demo"
-      },
       "cordova-plugin-calendar": {},
       "onesignal-cordova-plugin": {},
       "cordova-plugin-android-permissions": {},
-      "cordova-plugin-request-location-accuracy": {
-        "PLAY_SERVICES_LOCATION_VERSION": "16.+"
-      }
+      "cordova-plugin-request-location-accuracy": {}
     },
     "platforms": [
-      "browser"
+      "browser",
+      "android"
     ]
   },
   "config": {
