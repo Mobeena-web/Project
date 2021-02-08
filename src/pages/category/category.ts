@@ -217,6 +217,7 @@ export class CategoryPage {
             this.globals.pickupsetting = this.places[0].delivery_time;
             this.globals.tax = this.places[0].tax;
             this.globals.deliveryCharges = this.places[0].delivery_fee;
+            this.globals.tip_enabled = this.places[0].tip_enabled;
             this.globals.pickup_Time = this.places[0].pickup_time;
             this.globals.minimun_order = parseInt(this.places[0].minimum_order);
             this.globals.StripId = this.places[0].stripe_id;

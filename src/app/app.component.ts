@@ -468,6 +468,7 @@ export class MyApp {
             this.globals.orders_enabled = this.places[0].orders_enabled;
             this.globals.BusinessDiscount = this.places[0].discount;
             this.globals.ccFeeDisclaimer = this.places[0].ccFeeDisclaimer;
+            this.globals.tip_enabled = this.places[0].tip_enabled;
             if (this.places[0].appColor) {
                 this.globals.appColor = this.places[0].appColor;
             }
