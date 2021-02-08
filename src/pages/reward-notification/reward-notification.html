@@ -1,6 +1,16 @@
+<ion-header class="Open-Sans-bold">
+    <ion-navbar >
+      <ion-title>Promo</ion-title>
+      <ion-buttons end>
+          <button ion-button style="font-size: 3rem;" (tap)="dismiss()">
+            <ion-icon name="close"> </ion-icon>
+          </button>
+        </ion-buttons>
+    </ion-navbar>
+    </ion-header>
 
 <ion-content >
-  <ion-icon name="close" class="close_icon" (click)="dismiss()"></ion-icon>
+  <!-- <ion-icon name="close" class="close_icon" (click)="dismiss()"></ion-icon> -->
   <ion-slides pager *ngIf="global.notifications" style="height:430px"  speed="3000" loop="true" autoplayDisableOnInteraction="false">
     <ion-slide style="height:100%" *ngFor="let banners of global.notifications" >
       <img *ngIf="banners?.image" src={{banners?.image}} class="bi">
@@ -14,7 +24,7 @@
     </ion-slide>
 </ion-slides>
  
-  <button ion-button block outline round  class="ok_btn" (click)="dismiss()">OK</button>
+  <button ion-button block outline round  class="ok_btn" (click)="dismiss()">Dismiss</button>
   
 
 </ion-content>

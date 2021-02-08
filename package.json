@@ -42,7 +42,6 @@
     "@ionic-native/device": "^4.20.0",
     "@ionic-native/diagnostic": "^4.20.0",
     "@ionic-native/email-composer": "^4.20.0",
-    "@ionic-native/facebook": "^4.20.0",
     "@ionic-native/file": "^4.20.0",
     "@ionic-native/file-transfer": "^4.20.0",
     "@ionic-native/geolocation": "^4.20.0",
@@ -72,6 +71,7 @@
     "code-push": "^3.0.1",
     "code-push-cli": "^2.1.9",
     "com-sarriaroman-photoviewer": "^1.2.5",
+    "cordova-android": "^8.1.0",
     "cordova-browser": "5.0.4",
     "cordova-ios": "^5.1.0",
     "cordova-plugin-actionsheet": "^2.3.3",
@@ -83,7 +83,6 @@
     "cordova-plugin-device": "^2.0.3",
     "cordova-plugin-dialogs": "^2.0.2",
     "cordova-plugin-email-composer": "^0.8.15",
-    "cordova-plugin-facebook4": "^1.10.1",
     "cordova-plugin-file": "^6.0.2",
     "cordova-plugin-file-transfer": "^1.7.1",
     "cordova-plugin-geolocation": "^4.0.2",
@@ -174,17 +173,14 @@
         "REVERSED_CLIENT_ID": "com.mikronexus.onlineordering.fblogin",
         "PLAY_SERVICES_VERSION": "15.0.1"
       },
-      "cordova-plugin-facebook4": {
-        "APP_ID": "299575934432149",
-        "APP_NAME": "Mikronexus Demo"
-      },
       "cordova-plugin-calendar": {},
       "onesignal-cordova-plugin": {},
       "cordova-plugin-android-permissions": {},
       "cordova-plugin-request-location-accuracy": {}
     },
     "platforms": [
-      "browser"
+      "browser",
+      "android"
     ]
   },
   "config": {

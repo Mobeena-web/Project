@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams, LoadingController, AlertController
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { GooglePlus } from '@ionic-native/google-plus';
-import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
+// import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
 import { EmailValidator } from '../../validators/email';
 
 import { HomePage } from '../home/home';
@@ -36,7 +36,8 @@ export class LoginPage {
         public globals: GlobalVariable, private nativeStorage: NativeStorage, 
         public modalCtrl: ModalController, public navCtrl: NavController,
         public navParams: NavParams, private googlePlus: GooglePlus,
-        public loadingCtrl: LoadingController, private fb: Facebook,
+        public loadingCtrl: LoadingController, 
+        // private fb: Facebook,
         public alertCtrl: AlertController, public formBilder: FormBuilder
     ) {
         this.loginForm = formBilder.group({
@@ -323,13 +324,13 @@ export class LoginPage {
     //     });
     // }
 
-    doFacebookLogin() {
-        this.fb.login(['public_profile', 'user_friends', 'email'])
-            .then((res: FacebookLoginResponse) => console.log('Logged into Facebook!', res))
-            .catch(e => console.log('Error logging into Facebook', e));
+    // doFacebookLogin() {
+    //     this.fb.login(['public_profile', 'user_friends', 'email'])
+    //         .then((res: FacebookLoginResponse) => console.log('Logged into Facebook!', res))
+    //         .catch(e => console.log('Error logging into Facebook', e));
 
 
-        this.fb.logEvent(this.fb.EVENTS.EVENT_NAME_ADDED_TO_CART);
-    }
+    //     this.fb.logEvent(this.fb.EVENTS.EVENT_NAME_ADDED_TO_CART);
+    // }
 
 }

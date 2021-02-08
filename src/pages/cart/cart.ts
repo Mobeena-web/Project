@@ -88,6 +88,7 @@ export class CartPage {
         console.log(this.globals.MobileDiscount);
         this.delivery_display = this.financial(this.globals.deliveryCharges)
         this.globals.TipAdded = false;
+        console.log("tip",this.globals.tip_enabled);
         //  console.log(this.globals.minimun_order, "minorder");
         //  console.log("delivery,pickup global", this.globals.delivery, this.globals.pickup);
 
@@ -120,6 +121,10 @@ export class CartPage {
         this.my_gift_cards();
         this.loadGlobal_upsell();
         console.log(this.globals.business_discount_count, this.globals.availed_discount_count, 'po')
+        if(this.globals.tip_enabled == 'force' && this.Tip == 0){
+            this.percent_tip(15);
+            this.toastTip();    
+        }
     }
     // ionViewWillEnter(){
     //     this.total();
@@ -917,7 +922,8 @@ export class CartPage {
             });
 
             if(this.globals.tip_enabled == 'force' && this.Tip == 0){
-                this.add_gratuity();
+               this.toastTip();
+                // this.add_gratuity();
             } else {
                 if (this.ProductsTotal < this.globals.minimun_order && this.Deliver == true && this.globals.OrderType == 'delivery') {
                     if (Number(this.ProductsTotal == 0)) {
@@ -1753,6 +1759,15 @@ export class CartPage {
     add_reward() {
         this.globals.BusinessID = '-1';
         this.navCtrl.push('MyRewardsPage', { reward_type_home: 'reward' })
+    }
+
+    toastTip(){
+        let toast = this.toastCtrl.create({
+            message: 'Our staff works on gratuity (tips). Thanks',
+            duration: 3000,
+            position: 'bottom'
+        });
+        toast.present();
     }
 
 

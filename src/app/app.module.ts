@@ -28,7 +28,7 @@ import { Crop } from '@ionic-native/crop';
 import { Diagnostic } from '@ionic-native/diagnostic';
 import { SocialSharing } from '@ionic-native/social-sharing';
 import { GooglePlus } from '@ionic-native/google-plus';
-import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
+// import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
 import { AndroidPermissions } from '@ionic-native/android-permissions';
 import { LocationAccuracy } from '@ionic-native/location-accuracy';
 
@@ -114,7 +114,7 @@ import { OrderModule } from 'ngx-order-pipe';
     Calendar,
     GetlocationProvider, PhotoViewer, CodePush,
     GooglePlus,
-    Facebook,
+    // Facebook,
     HttpClient,
     AndroidPermissions,
     LocationAccuracy
