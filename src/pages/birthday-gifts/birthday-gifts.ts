@@ -150,6 +150,7 @@ export class BirthdayGiftsPage {
             this.globals.availed_discount_count = parseInt(this.places[0].customer_discount_availed_count);
             this.globals.paypalId = this.places[0].paypal_id;
             this.globals.Timing = this.places[0].hours_operation;
+            this.globals.tip_enabled = this.places[0].tip_enabled;
             this.globals.pickup = this.places[0].pickup;
 
             if (this.globals.pickup == '1') {

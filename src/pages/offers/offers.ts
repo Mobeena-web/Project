@@ -211,6 +211,7 @@ list() {
       this.globals.pickup_Time = this.places[0].pickup_time;
       this.globals.minimun_order = parseInt(this.places[0].minimum_order);
       this.globals.StripId = this.places[0].stripe_id;
+      this.globals.tip_enabled = this.places[0].tip_enabled;
       this.globals.availed_discount_count = parseInt(this.places[0].customer_discount_availed_count);
       this.globals.paypalId = this.places[0].paypal_id;
       this.globals.Timing = this.places[0].hours_operation;
