@@ -138,6 +138,7 @@ else{
        this.globals.b_logo = this.places[0].logo;
        this.globals.home_logo = this.places[0].logo;
        this.globals.tip_enabled = this.places[0].tip_enabled;
+       this.globals.menu_ready = this.places[0].menu_ready;
 
        this.globals.StripId = this.places[0].stripe_id;
        this.globals.order_instructions = this.places[0].instructions_enabled;

@@ -5,7 +5,7 @@
     <ion-title>Gift Cards</ion-title>
   </ion-navbar>
   <ion-segment [(ngModel)]="giftcard" class="pt">
-    <ion-segment-button value="notbuyed">
+    <ion-segment-button *ngIf="global.menu_ready == 'true'" value="notbuyed">
       Gift Cards
     </ion-segment-button>
     <ion-segment-button value="buyed">

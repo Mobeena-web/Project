@@ -169,6 +169,7 @@ export class GlobalVariable {
     themeColor: any = '#000000';
     delivery_fee : any;
     rewardTemp : boolean = false;
+    menu_ready : any;
 
     logs = true;
     locationAlert_title = 'Location is turned off';

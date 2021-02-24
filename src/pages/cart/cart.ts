@@ -68,6 +68,7 @@ export class CartPage {
     tip_type: any = 'percent';
     percent_tip_vlaue: any;
     ccFee:any = 0;
+    tax : any;
 
     utensils_array = [{
         type: 'Yes',
@@ -591,7 +592,9 @@ export class CartPage {
 
             var taxcalc = (Number(this.globals.tax) / 100) * tax_amount;
             console.log("amount_without_tax",this.discountTotal,this.ProductsTotal,taxcalc,tax_amount,amount_without_tax,this.Total)
-            this.tax_calc = taxcalc.toFixed(2);
+            this.tax = Number(taxcalc.toFixed(3));
+            this.tax_calc = this.tax.toFixed(2);
+        
             this.Total = this.Total + taxcalc;
 
             this.Total = this.Total.toFixed(2);

@@ -10,11 +10,17 @@ import { ServerProvider } from '../../providers/server/server';
   templateUrl: 'giftcards.html',
 })
 export class GiftcardsPage {
-  giftcard:any = 'notbuyed';
+  giftcard:any ;
   mygifts:any;
   banner:any;
  
   constructor(public alertCtrl:AlertController,public loadingCtrl: LoadingController, public server: ServerProvider, public global: GlobalVariable,public navCtrl: NavController, public navParams: NavParams) {
+
+    if(this.global.menu_ready == 'true'){
+      this.giftcard = 'notbuyed';
+    }else{
+      this.giftcard = 'buyed';
+    }
  
     this.my_gift_cards();
     this.loadBanner_design()

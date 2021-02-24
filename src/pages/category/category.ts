@@ -218,6 +218,7 @@ export class CategoryPage {
             this.globals.tax = this.places[0].tax;
             this.globals.deliveryCharges = this.places[0].delivery_fee;
             this.globals.tip_enabled = this.places[0].tip_enabled;
+            this.globals.menu_ready = this.places[0].menu_ready;
             this.globals.pickup_Time = this.places[0].pickup_time;
             this.globals.minimun_order = parseInt(this.places[0].minimum_order);
             this.globals.StripId = this.places[0].stripe_id;
@@ -225,6 +226,7 @@ export class CategoryPage {
             this.globals.paypalId = this.places[0].paypal_id;
             this.globals.Timing = this.places[0].hours_operation;
             this.globals.pickup = this.places[0].pickup;
+            this.globals.menu_ready = this.places[0].menu_ready;
 
             if (this.globals.pickup == '1') {
                 this.globals.pickup = true;

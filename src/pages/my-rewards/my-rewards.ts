@@ -71,6 +71,7 @@ export class MyRewardsPage {
     image_broken:any;
     sortdata : any =[];
     pointData : any;
+    helper : any=[];
     // ngAfterViewInit()
     // {
     //     this.indicator = document.getElementById("indicator");
@@ -437,7 +438,70 @@ export class MyRewardsPage {
 
     }
 
+    sortingArray(){
+// author: zohra
+// purpose : sorting
+// used in app
+// created : 2021-02-16 03:00
+// last_modified: 2021-02-16 03:00
+// status: active 2021-02-16 03:00
+        this.helper.arr = {
+                 
+            multisort: function(arr, columns, order_by) {
+                if(typeof columns == 'undefined') {
+                    columns = []
+                    for(var x=0;x<arr[0].length;x++) {
+                        columns.push(x);
+                    }
+                }
+        
+                if(typeof order_by == 'undefined') {
+                    order_by = []
+                    for(x=0;x<arr[0].length;x++) {
+                        order_by.push('ASC');
+                    }
+                }
+        
+                function multisort_recursive(a,b,columns,order_by,index) {  
+                    var direction = order_by[index] == 'DESC' ? 1 : 0;
+        
+                    var is_numeric = !isNaN(a[columns[index]]-b[columns[index]]);
+        
+                    var x = is_numeric ? a[columns[index]] : a[columns[index]].toLowerCase();
+                    var y = is_numeric ? b[columns[index]] : b[columns[index]].toLowerCase();
+        
+                    if(!is_numeric) {
+                        x = this.helper.string.to_ascii(a[columns[index]].toLowerCase(),-1),
+                        y = this.helper.string.to_ascii(b[columns[index]].toLowerCase(),-1);
+                    }
+        
+                    if(x < y) {
+                            return direction == 0 ? -1 : 1;
+                    }
+        
+                    if(x == y)  {
+                        return columns.length-1 > index ? multisort_recursive(a,b,columns,order_by,index+1) : 0;
+                    }
+        
+                    return direction == 0 ? 1 : -1;
+                }
+        
+                return arr.sort(function (a,b) {
+                    return multisort_recursive(a,b,columns,order_by,0);
+                });
+            }
+        }
+
+    }
+
     point_items() {
+// author: zohra
+// purpose : sorting
+// used in app
+// created : old
+// last_modified: 2021-02-16 03:00
+// status: active old
+        this.sortingArray();
         let loading = this.loadingCtrl.create({
             content: "Loading...",
 
@@ -447,16 +511,18 @@ export class MyRewardsPage {
         response.subscribe(data => {          
             loading.dismiss();
             if(data.status == true){
-                this.point_menu = data.items;
+                this.point_menu = data.items;     
                 this.point_menu.forEach(subelement => {
                     subelement.quantity = 1;
                     var result = subelement.point_price.replace(/,/g, "");
+                    subelement.rmstring = parseInt(result);
                     if(Number(result) > Number(this.globals.points_)){
                         subelement.disable_btn = true;
                     } else {
                         subelement.disable_btn = false;
                     }
                 });
+               this.helper.arr.multisort(this.point_menu, ['rmstring'], ['ASC']);
 
                 if (this.point_menu.length == 0) {
                     this.point_menu_flag = true;
