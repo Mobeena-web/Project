@@ -20,7 +20,7 @@
             <h3 class="kk">{{global.welcome?.welcome_screen_title}}</h3>
             <p class="nn">{{global.welcome?.welcome_screen_subtitle}}</p>
 
-            <button color="jack" *ngIf="!global.caos_flag" ion-button block round outline class="order-now"
+            <button color="jack" *ngIf="!global.caos_flag && global.menu_ready == 'true'" ion-button block round outline class="order-now"
                 (click)="guestlogin()">Order Now </button>
             <button color="jack" *ngIf="global.caos_flag" ion-button block round outline class="order-now"
                 (click)="coaslogin()">Order Now As Guest </button>

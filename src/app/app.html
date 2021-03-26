@@ -11,9 +11,12 @@
         <ion-icon name="information-circle" class="myicon"></ion-icon>About Us
       </button>
 
-      <button menuClose ion-item (click)="openOrder()" *ngIf="globals.business_type == 'ordering'">
-        <ion-icon name="restaurant" class="myicon"></ion-icon> Order Now
+      <div *ngIf="globals.menu_ready == 'true'">
+      <button menuClose ion-item (click)="openOrder()" *ngIf="globals.business_type == 'ordering' || globals.business_type == 'retail' || globals.business_type == 'salon'">
+        <ion-icon *ngIf="globals.business_type == 'ordering'" name="restaurant" class="myicon"></ion-icon>
+        <ion-icon *ngIf="globals.business_type == 'retail' || globals.business_type == 'salon'" name="ios-briefcase" class="myicon"></ion-icon> Order Now
       </button>
+    </div>
 
       <button menuClose ion-item (click)="bookingPage()" *ngIf="globals.business_type == 'salon'">
         <ion-icon name="alarm" class="myicon"></ion-icon> Services
