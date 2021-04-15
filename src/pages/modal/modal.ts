@@ -871,6 +871,7 @@ export class ModalPage {
 
       }
       else {
+        console.log('in pickup part 001');
         var date = new Date();
         var day: any = date.getDay();
         var time: any = date.getHours() + "." + date.getMinutes();
@@ -879,6 +880,8 @@ export class ModalPage {
         var current_day = timing[day];
 
         var n = current_day[0].indexOf('.');
+
+        console.log('in pickup part 002', date, day, time, current_day, n);
         if (n != -1) {
           var res = current_day[0].split(".");
           current_day[0] = res[0] + '.' + '3'
@@ -888,7 +891,7 @@ export class ModalPage {
           var res = current_day[1].split(".");
           current_day[1] = res[0] + '.' + '3'
         }
-
+        console.log('in pickup part 003', n, n1, current_day, time);
         if ((Number(current_day[0]) <= time && Number(current_day[1]) > time) || (Number(current_day[0]) <= time && Number(current_day[1]) < Number(current_day[0]))) {
           resolve(true)
         }
