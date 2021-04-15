@@ -472,6 +472,8 @@ export class MyApp {
             this.globals.menu_ready = this.places[0].menu_ready;
             if (this.places[0].appColor) {
                 this.globals.appColor = this.places[0].appColor;
+            }else{
+                this.globals.appColor = '#000000'
             }
 
             document.documentElement.style.setProperty('--primary-color', this.globals.appColor);

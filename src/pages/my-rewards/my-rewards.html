@@ -41,7 +41,7 @@
       PUNCH CARDS
     </ion-segment-button>
 
-    <ion-segment-button style="font-size:1.1rem" value="gifts">
+    <ion-segment-button style="font-size:1.1rem" value="gifts" *ngIf="globals.menu_ready == 'true'">
       <ion-badge color="danger" item-left *ngIf="reward_menu_length > 0">{{reward_menu_length}}</ion-badge>
       MY REWARDS
     </ion-segment-button>

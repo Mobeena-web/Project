@@ -14,7 +14,7 @@
       </button>
     </ion-buttons>
 
-    <ion-buttons end>
+    <ion-buttons end *ngIf="globals.menu_ready == 'true'">
       <button ion-button style="font-size: 3rem;" (tap)="cartpage()">
         <ion-badge color="danger" *ngIf="globals.Product.length > 0">{{globals.Product.length}}</ion-badge>
         <ion-icon name="cart"> </ion-icon>
