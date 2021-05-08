@@ -214,6 +214,9 @@ export class ResturantListPage {
         if (this.timer != undefined) {
             this.timer.unsubscribe();
         }
+        if(this.globals.branch_enabled == 1){
+            this.globals.rewardTemp = false;
+        }
     }
 
     getCurrentLocation(): Promise<any> {
@@ -382,7 +385,6 @@ export class ResturantListPage {
         }
         else if (this.globals.rewardTemp == true && this.globals.branch_enabled == 1) {
             this.navCtrl.push('MyRewardsPage')
-            this.globals.rewardTemp = false;
         }
         else {
             if (this.globals.marketPlace || this.globals.branch_enabled == 1) {
