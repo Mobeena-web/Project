@@ -173,7 +173,10 @@
         "REVERSED_CLIENT_ID": "com.mikronexus.onlineordering.fblogin",
         "PLAY_SERVICES_VERSION": "15.0.1"
       },
-      "cordova-plugin-calendar": {},
+      "cordova-plugin-calendar": {
+        "CALENDAR_USAGE_DESCRIPTION": " ",
+        "CONTACTS_USAGE_DESCRIPTION": " "
+      },
       "onesignal-cordova-plugin": {},
       "cordova-plugin-android-permissions": {},
       "cordova-plugin-request-location-accuracy": {}

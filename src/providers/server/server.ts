@@ -294,7 +294,7 @@ export class ServerProvider {
       
     // }
     else{
-      data = JSON.stringify({ business_id: this.global.new_id ,coordinates: coordinates, radius: radius, business_type: businesType, offset, type: type, udid: this.global.udid });
+      data = JSON.stringify({ business_id: this.global.main_id ,coordinates: coordinates, radius: radius, business_type: businesType, offset, type: type, udid: this.global.udid });
 
     }
     return this.http.post(link, data)

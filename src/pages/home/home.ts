@@ -487,6 +487,7 @@ export class HomePage {
             this.globals.business_discount_count = parseInt(this.places[0].business_discount_count);
             this.globals.availed_discount_count = parseInt(this.places[0].customer_discount_availed_count);
             this.globals.tip_enabled = this.places[0].tip_enabled;
+            this.globals.menu_ready = this.places[0].menu_ready;
 
         }, error => {
             this.globals.presentToast("Something went wrong check your internet connection.")

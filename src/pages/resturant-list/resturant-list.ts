@@ -333,6 +333,7 @@ export class ResturantListPage {
         this.globals.giftcard_amount_limit = place.giftcard_limit;
         this.globals.business_type = place.business_type;
         this.globals.ccFeeDisclaimer = place.ccFeeDisclaimer;
+        this.globals.menu_ready = place.menu_ready;
 
 
         if (this.globals.pickup == '1') {

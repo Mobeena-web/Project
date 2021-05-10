@@ -63,6 +63,7 @@ export class ItemDetailPage {
   extraitemPrice : any = 0;
   requiredExtras : any=[];
   requiredtemp : boolean;
+  attributeId : any;
 
   constructor(private photoViewer: PhotoViewer, public server: ServerProvider, public alertCtrl: AlertController, public loadingCtrl: LoadingController, public globals: GlobalVariable, public modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams, private toastCtrl: ToastController) {
     this.reward_item_flag = navParams.get('reward_flag');
@@ -352,7 +353,7 @@ export class ItemDetailPage {
 
           });
           if (!reward_duplicate) {
-            this.globals.Product.push({ menuId: "1", restId: this.globals.bussinessId, uniqueId: this.ItemId, menuItem: this.name, image: this.thumbimage, quantity: this.quantity, itemInstructions: this.instructions, basePrice: this.price, totalPrice: this.objectPrice, menuExtrasSelected: this.myChoices, menuUpsellItemsSelected: [], upsell_calculated: false, reward: this.reward_item_flag, reward_id: this.reward_id, tax: this.data.item.tax, tax_enabled: this.data.item.tax_enabled, discount_value: this.data.item.discount_value, discount_type: this.data.item.discount_type });
+            this.globals.Product.push({ menuId: "1", restId: this.globals.bussinessId, uniqueId: this.ItemId, menuItem: this.name, image: this.thumbimage, quantity: this.quantity, itemInstructions: this.instructions, basePrice: this.price, totalPrice: this.objectPrice, menuExtrasSelected: this.myChoices, menuUpsellItemsSelected: [], upsell_calculated: false, reward: this.reward_item_flag, reward_id: this.reward_id, tax: this.data.item.tax, tax_enabled: this.data.item.tax_enabled, discount_value: this.data.item.discount_value, discount_type: this.data.item.discount_type, attributeId:this.attributeId });
             this.globals.presentToast("Reward added in your cart")
             this.navCtrl.pop();
           } else {
@@ -360,7 +361,7 @@ export class ItemDetailPage {
             this.navCtrl.pop();
           }
         } else {
-          this.globals.Product.push({ menuId: "1", restId: this.globals.bussinessId, uniqueId: this.ItemId, menuItem: this.name, image: this.thumbimage, quantity: this.quantity, itemInstructions: this.instructions, basePrice: this.price, totalPrice: this.objectPrice, menuExtrasSelected: this.myChoices, menuUpsellItemsSelected: [], upsell_calculated: false, reward: this.reward_item_flag, reward_id: this.reward_id, tax: this.data.item.tax, tax_enabled: this.data.item.tax_enabled, discount_value: this.data.item.discount_value, discount_type: this.data.item.discount_type });
+          this.globals.Product.push({ menuId: "1", restId: this.globals.bussinessId, uniqueId: this.ItemId, menuItem: this.name, image: this.thumbimage, quantity: this.quantity, itemInstructions: this.instructions, basePrice: this.price, totalPrice: this.objectPrice, menuExtrasSelected: this.myChoices, menuUpsellItemsSelected: [], upsell_calculated: false, reward: this.reward_item_flag, reward_id: this.reward_id, tax: this.data.item.tax, tax_enabled: this.data.item.tax_enabled, discount_value: this.data.item.discount_value, discount_type: this.data.item.discount_type, attributeId:this.attributeId });
         }
 
         this.navCtrl.pop();
@@ -402,6 +403,7 @@ export class ItemDetailPage {
       this.item_price = this.price;
       this.stock_quantity = this.data.item.stock_quantity;
       this.upSellItem_array = this.data.item.upsellItems;
+      this.attributeId = this.data.item.attribute_id;
 
       if (this.reward_item_flag == true) {
         this.item_price = 0;

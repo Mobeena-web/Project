@@ -226,6 +226,7 @@ export class LoginPage {
             this.globals.ccFeeDisclaimer = this.places[0].ccFeeDisclaimer;
 
             this.globals.tip_enabled = this.places[0].tip_enabled;
+            this.globals.menu_ready = this.places[0].menu_ready;
             this.globals.utensils_enabled = this.places[0].utensils_enabled;
 
             if (this.globals.pickup == '1') {

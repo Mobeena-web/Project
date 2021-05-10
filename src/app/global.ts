@@ -77,6 +77,7 @@ export class GlobalVariable {
     business_username: any = CONFIG.business_username;
     jackemial: any;
     new_id = CONFIG.business_id;
+    main_id = CONFIG.business_id;
     marketPlace = CONFIG.marketPlace;
     model_flag: boolean = true;
     signupData: any;
@@ -169,6 +170,7 @@ export class GlobalVariable {
     themeColor: any = '#000000';
     delivery_fee : any;
     rewardTemp : boolean = false;
+    menu_ready : any;
 
     logs = true;
     locationAlert_title = 'Location is turned off';
@@ -176,8 +178,8 @@ export class GlobalVariable {
 
     constructor(public alertCtrl: AlertController, public toastCtrl: ToastController, private locationAccuracy: LocationAccuracy,
         public androidPermissions : AndroidPermissions,) {
-        // this.BaseUrl = 'https://staging.onlineordering.mikronexus.com/index.php/';
-        this.BaseUrl = 'https://onlineordering.mikronexus.com/online-ordering-new/index.php/';
+        this.BaseUrl = 'https://staging.onlineordering.mikronexus.com/index.php/';
+        // this.BaseUrl = 'https://onlineordering.mikronexus.com/online-ordering-new/index.php/';
         // this.BaseUrl = 'http://192.168.100.3/online-ordering-rewamp/index.php/'
     }
 

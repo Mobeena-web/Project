@@ -49,7 +49,8 @@
                     [ngClass]="{active: isGroupShown(i)}">
 
                     <div style="right: 0px;" class="cat-img1" *ngIf="d.badge_icon">
-                        <img text-right style="height: 40px;width:160px" src="{{d.badge_icon}}">
+                        <div text-right class="badge_div"></div>
+                        <!-- <img text-right style="height: 40px;width:160px" src="{{d.badge_icon}}"> -->
                         <p class="badge_text">{{d.badge_text}}</p>
                     </div>
 
@@ -77,7 +78,8 @@
                             <ion-card *ngFor="let a of d.items">
                                 <div *ngIf="a.badge_icon"
                                     style="right: 0px; position:absolute; z-index: 999; height: 65px; object-fit: contain; margin-top: -8px;">
-                                    <img text-right style="height: 40px;width:160px" src="{{a.badge_icon}}">
+                                    <div text-right class="badge_div"></div>
+                                    <!-- <img text-right style="height: 40px;width:160px" src="{{a.badge_icon}}"> -->
                                     <p style="top: 65%; width: calc(100% - 50px);" class="badge_text">{{a.badge_text}}</p>
                                 </div>
 
@@ -136,7 +138,8 @@
                     [ngClass]="{active: isGroupShown(i)}">
 
                     <div style="right: 0px;" class="cat-img1" *ngIf="d.badge_icon">
-                        <img text-right style="height: 40px;width:160px" src="{{d.badge_icon}}">
+                        <!-- <img text-right style="height: 40px;width:160px" src="{{d.badge_icon}}"> -->
+                        <div text-right class="badge_div"></div>
                         <p class="badge_text">{{d.badge_text}}</p>
                     </div>
 
@@ -163,7 +166,8 @@
                             <ion-card *ngFor="let a of d.items">
                                 <div *ngIf="a.badge_icon"
                                     style="right: 0px; position:absolute; z-index: 999; height: 65px; object-fit: contain; margin-top: -8px;">
-                                    <img text-right style="height: 40px;width:160px" src="{{a.badge_icon}}">
+                                    <!-- <img text-right style="height: 40px;width:160px" src="{{a.badge_icon}}"> -->
+                                    <div text-right class="badge_div"></div>
                                     <p class="badge_text">{{a.badge_text}}</p>
                                 </div>
 

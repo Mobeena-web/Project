@@ -415,12 +415,15 @@ export class MyApp {
     list() {
         let response = this.server.getRestaurantslist('100000', 'main', "0,0", '0', 'order');
         response.subscribe(data => {
+            
             this.places = data.results;
             var new_id = this.globals.new_id;
             this.globals.business_list = this.places;
-            this.places = this.places.filter(function (item) {
-                return item.business_id === new_id;
-            });
+            // this.places = this.places.filter(function (item) {
+            //     return item.business_id === new_id;
+            // });
+            console.log('resiults', this.places);
+            this.globals.new_id = this.places[0].business_id;
             this.globals.point_check = this.places[0].points_enabled;
             this.globals.punch_check = this.places[0].punches_enabled;
             this.globals.special_offer = this.places[0].special_offer;
@@ -469,8 +472,11 @@ export class MyApp {
             this.globals.BusinessDiscount = this.places[0].discount;
             this.globals.ccFeeDisclaimer = this.places[0].ccFeeDisclaimer;
             this.globals.tip_enabled = this.places[0].tip_enabled;
+            this.globals.menu_ready = this.places[0].menu_ready;
             if (this.places[0].appColor) {
                 this.globals.appColor = this.places[0].appColor;
+            }else{
+                this.globals.appColor = '#000000'
             }
 
             document.documentElement.style.setProperty('--primary-color', this.globals.appColor);
