@@ -32,10 +32,11 @@
             <p no-margin style="padding-right:20px; padding-left:20px; text-align: center; font-size: 14px;">No Special Offers</p>
         </div>
 
+        <div *ngIf="globals.menu_ready == 'true'">
         <div *ngFor="let banners of Images">
             <img (click)="open_category($event)" style="height: 200px; width:100% !important;border-radius: 0px;object-fit: cover; margin-bottom: 10px;"  src="{{banners?.image}}">
         </div>
-
+    </div>
         <!-- <div *ngFor="let d of category; let i=index"> 
 
             <div *ngIf="d.dealFlag == 'true'">

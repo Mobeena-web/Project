@@ -65,13 +65,25 @@
                         </div>
                     </div>
 
-                    <p *ngIf="!d.image" (click)="click(d, $event)" (click)="toggleGroup(i)"
-                        [ngStyle]="{'background-color': d.color}" class="accrodian"
-                        [ngClass]="{active_accrodian: !isGroupShown(i)}">
+                    <div *ngIf="!d.image">
+                    <p *ngIf="d.color" (click)="click(d, $event)" (click)="toggleGroup(i)"
+                        [ngStyle]="{'background-color': d.color}"  class="accrodian"
+                        [ngClass]="{active_accrodian: !isGroupShown(i)}"
+                        >
                         {{d.name}}
                         <ion-icon item-right [name]="isGroupShown(i) ? 'ios-arrow-down' : 'ios-arrow-forward'">
                         </ion-icon>
                     </p>
+
+                    <p *ngIf="!d.color || d.color == '#fff'" (click)="click(d, $event)" (click)="toggleGroup(i)"
+                        [ngStyle]="{'background-color': '#000'}"  class="accrodian"
+                        [ngClass]="{active_accrodian: !isGroupShown(i)}"
+                        >
+                        {{d.name}}
+                        <ion-icon item-right [name]="isGroupShown(i) ? 'ios-arrow-down' : 'ios-arrow-forward'">
+                        </ion-icon>
+                    </p>
+                </div>
 
                     <div *ngIf="isGroupShown(i)">
                         <ion-list>

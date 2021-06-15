@@ -139,7 +139,12 @@ export class MyApp {
             this.globals.orderNow_color = data.order_now_color;
             this.globals.specialOffer_color = data.special_offer_color;
             this.globals.themeColor = data.theme_color;
-            this.globals.appColor = data.theme_color;
+            if (data.theme_color) {
+                this.globals.appColor = data.theme_color;
+            }else{
+                this.globals.appColor = '#000000'
+            }
+        
         }, error => {
         });
     }
@@ -470,10 +475,11 @@ export class MyApp {
             this.globals.ccFeeDisclaimer = this.places[0].ccFeeDisclaimer;
             this.globals.tip_enabled = this.places[0].tip_enabled;
             this.globals.menu_ready = this.places[0].menu_ready;
+            console.log("app color ......",this.places)
             if (this.places[0].appColor) {
                 this.globals.appColor = this.places[0].appColor;
             }else{
-                this.globals.appColor = '#000000'
+                // this.globals.appColor = '#000000'
             }
 
             document.documentElement.style.setProperty('--primary-color', this.globals.appColor);

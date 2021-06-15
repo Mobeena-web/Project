@@ -73,7 +73,6 @@
     "com-sarriaroman-photoviewer": "^1.2.5",
     "cordova-android": "^8.1.0",
     "cordova-browser": "5.0.4",
-    "cordova-ios": "^5.1.0",
     "cordova-plugin-actionsheet": "^2.3.3",
     "cordova-plugin-add-swift-support": "^1.7.2",
     "cordova-plugin-calendar": "^5.1.5",
@@ -125,6 +124,7 @@
   "devDependencies": {
     "@ionic/app-scripts": "^3.2.4",
     "@types/jquery": "^3.3.31",
+    "cordova-ios": "^5.1.0",
     "cordova-plugin-android-permissions": "^1.1.2",
     "cordova-plugin-ionic-keyboard": "^2.2.0",
     "electron": "^4.2.12",
