@@ -441,6 +441,9 @@ export class MyApp {
             this.globals.b_logo = this.places[0].logo;
             this.globals.home_logo = this.places[0].logo;
 
+            this.globals.business_name = this.places[0].name;
+            this.globals.business_phone = this.places[0].phone;
+            this.globals.business_address = this.places[0].address;
             this.globals.StripId = this.places[0].stripe_id;
             this.globals.order_instructions = this.places[0].instructions_enabled;
             this.globals.pickup_timing = this.places[0].pickup_timing;

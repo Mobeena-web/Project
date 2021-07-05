@@ -103,6 +103,7 @@ export class HomePage {
     }
 
     orderNow() {
+        // this._nav.push('AllRestaurantListPage')
         if (this.globals.branch_enabled == 1) {
             this._nav.push('ResturantListPage')
         } else {

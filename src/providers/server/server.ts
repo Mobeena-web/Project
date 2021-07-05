@@ -301,6 +301,15 @@ export class ServerProvider {
       .map((res: any) => res.json());
   }
 
+
+  getAllRestaurantslist(radius, businesType, coordinates, offset, type) {
+    var link = this.global.BaseUrl + 'Customer_controller/getplaces';
+    var data;
+      data = JSON.stringify({coordinates: coordinates, radius: radius, business_type: businesType, offset, type: type, udid: this.global.udid });
+    return this.http.post(link, data)
+      .map((res: any) => res.json());
+  }
+
   BusinessInformation(placeName) {
     var link = this.global.BaseUrl + 'Customer_controller/getbusinessinfo';
     var data = JSON.stringify({ business_username: placeName });

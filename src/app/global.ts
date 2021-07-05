@@ -170,6 +170,9 @@ export class GlobalVariable {
     delivery_fee : any;
     rewardTemp : boolean = false;
     menu_ready : any;
+    business_phone : any;
+    business_address : any;
+    business_name : any;
 
     logs = true;
     locationAlert_title = 'Location is turned off';

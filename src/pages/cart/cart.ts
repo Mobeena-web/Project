@@ -821,7 +821,14 @@ export class CartPage {
 
                 console.log(this.StoreCreditInput, this.reward_amount);
                 if (flag == false) {
-                    this.navCtrl.push('PaymentPage', {ccFee:this.ccFee, amount: this.Total, StoreCredit: this.StoreCreditInput, notes: this.notes + ' ' + this.utensils_note });
+
+                    let modal = this.modalCtrl.create('ProceedModelPage');
+                    modal.onDidDismiss(data => {
+                        if(data){
+                             this.navCtrl.push('PaymentPage', {ccFee:this.ccFee, amount: this.Total, StoreCredit: this.StoreCreditInput, notes: this.notes + ' ' + this.utensils_note });
+                        }
+                    });
+                    modal.present();
                     flag = true;
                 }
             }
@@ -850,7 +857,15 @@ export class CartPage {
                 this.globals.BirthdayCreditExist = false;
                 this.globals.BirthdayCreditUtlized = true;
                 if (flag == false) {
-                    this.navCtrl.push('PaymentPage', {ccFee:this.ccFee, amount: this.Total, notes: this.notes + ' ' + this.utensils_note });
+
+                    let modal = this.modalCtrl.create('ProceedModelPage');
+                    modal.onDidDismiss(data => {
+                        if(data){
+                         this.navCtrl.push('PaymentPage', {ccFee:this.ccFee, amount: this.Total, notes: this.notes + ' ' + this.utensils_note });
+                        }
+                    });
+                    modal.present();
+                    
                     flag = true;
                 }
 
@@ -859,7 +874,15 @@ export class CartPage {
 
         else {
             if (flag == false) {
-                this.navCtrl.push('PaymentPage', {ccFee:this.ccFee, amount: this.Total, notes: this.notes + ' ' + this.utensils_note });
+                let modal = this.modalCtrl.create('ProceedModelPage');
+                modal.onDidDismiss(data => {
+                    if(data){
+                          this.navCtrl.push('PaymentPage', {ccFee:this.ccFee, amount: this.Total, notes: this.notes + ' ' + this.utensils_note });
+
+                    }
+                });
+                modal.present();
+              
 
             }
         }
@@ -902,8 +925,15 @@ export class CartPage {
                 {
                     text: 'Proceed to Checkout',
                     handler: () => {
-
-                        this.navCtrl.push('PaymentPage', {ccFee:this.ccFee, amount: this.Total, tip: this.Tip, notes: this.notes + ' ' + this.utensils_note, RewardAvailed: this.RewardStoreCreditAvailed, BirthdayCreditavailed: this.birthdayStoreCreditavailed });
+                       
+                        let modal = this.modalCtrl.create('ProceedModelPage');
+                        modal.onDidDismiss(data => {
+                            if(data){
+                          this.navCtrl.push('PaymentPage', {ccFee:this.ccFee, amount: this.Total, tip: this.Tip, notes: this.notes + ' ' + this.utensils_note, RewardAvailed: this.RewardStoreCreditAvailed, BirthdayCreditavailed: this.birthdayStoreCreditavailed });
+                            }
+                        });
+                        modal.present();
+                      
 
                     }
                 }
@@ -995,7 +1025,16 @@ export class CartPage {
                                 }
                                 else {
                                     if (this.checkTiming(this.globals.pickup_timing)) {
-                                        this.navCtrl.push('PaymentPage', { ccFee:this.ccFee,giftcard: this.gift_array, amount: this.Total, tip: this.Tip, notes: this.notes + ' ' + this.utensils_note, RewardAvailed: this.RewardStoreCreditAvailed, BirthdayCreditavailed: this.birthdayStoreCreditavailed, tax: this.tax_calc });
+
+                                        let modal = this.modalCtrl.create('ProceedModelPage');
+                        modal.onDidDismiss(data => {
+                            if(data){
+                                  this.navCtrl.push('PaymentPage', { ccFee:this.ccFee,giftcard: this.gift_array, amount: this.Total, tip: this.Tip, notes: this.notes + ' ' + this.utensils_note, RewardAvailed: this.RewardStoreCreditAvailed, BirthdayCreditavailed: this.birthdayStoreCreditavailed, tax: this.tax_calc });
+
+                            }
+                        });
+                        modal.present();
+                                      
     
                                     }
     
@@ -1083,7 +1122,15 @@ export class CartPage {
                             }
                             else {
                                 if (this.checkTiming(this.globals.pickup_timing)) {
-                                    this.navCtrl.push('PaymentPage', {ccFee:this.ccFee, giftcard: this.gift_array, amount: this.Total, tip: this.Tip, notes: this.notes + ' ' + this.utensils_note, RewardAvailed: this.RewardStoreCreditAvailed, BirthdayCreditavailed: this.birthdayStoreCreditavailed, tax: this.tax_calc });
+
+                                    let modal = this.modalCtrl.create('ProceedModelPage');
+                                    modal.onDidDismiss(data => {
+                                        if(data){
+                                              this.navCtrl.push('PaymentPage', {ccFee:this.ccFee, giftcard: this.gift_array, amount: this.Total, tip: this.Tip, notes: this.notes + ' ' + this.utensils_note, RewardAvailed: this.RewardStoreCreditAvailed, BirthdayCreditavailed: this.birthdayStoreCreditavailed, tax: this.tax_calc });
+                                        }
+                                    });
+                                    modal.present();
+                                  
     
                                 }
     
@@ -1145,8 +1192,18 @@ export class CartPage {
                     {
                         text: 'Proceed to Checkout',
                         handler: () => {
-                            this.navCtrl.push('PaymentPage', {ccFee:this.ccFee, giftcard: this.gift_array, amount: this.Total, tip: this.Tip, notes: this.notes + ' ' + this.utensils_note, RewardAvailed: this.RewardStoreCreditAvailed, BirthdayCreditavailed: this.birthdayStoreCreditavailed, tax: this.tax_calc });
+                           
+                            let modal = this.modalCtrl.create('ProceedModelPage');
+                            modal.onDidDismiss(data => {
+                                if(data){
+                                      this.navCtrl.push('PaymentPage', {ccFee:this.ccFee, giftcard: this.gift_array, amount: this.Total, tip: this.Tip, notes: this.notes + ' ' + this.utensils_note, RewardAvailed: this.RewardStoreCreditAvailed, BirthdayCreditavailed: this.birthdayStoreCreditavailed, tax: this.tax_calc });
 
+
+                                }
+                            });
+                            modal.present();
+
+                          
                         }
                     }
                 ]
@@ -1591,7 +1648,16 @@ export class CartPage {
                                 if (this.globals.inradius) {
                                     var giftdata = { giftcard_id: data.giftcard_id, amount: this.Total }
                                     this.gift_array.push(giftdata)
-                                    this.navCtrl.push('PaymentPage', {ccFee:this.ccFee, amount: 0, giftcard: this.gift_array, gift_flag: true, tax: this.tax_calc })
+
+                                    let modal = this.modalCtrl.create('ProceedModelPage');
+                                    modal.onDidDismiss(data => {
+                                        if(data){
+                                             this.navCtrl.push('PaymentPage', {ccFee:this.ccFee, amount: 0, giftcard: this.gift_array, gift_flag: true, tax: this.tax_calc })
+
+                                        }
+                                    });
+                                    modal.present();
+                                   
                                 }
                                 else {
                                     this.globals.presentToast("Sorry, We dn't deliver in Your Area")
@@ -1602,7 +1668,15 @@ export class CartPage {
                         else {
                             var giftdata = { giftcard_id: data.giftcard_id, amount: this.Total }
                             this.gift_array.push(giftdata)
-                            this.navCtrl.push('PaymentPage', {ccFee:this.ccFee, amount: 0, giftcard: this.gift_array, gift_flag: true, tax: this.tax_calc })
+
+                            let modal = this.modalCtrl.create('ProceedModelPage');
+                            modal.onDidDismiss(data => {
+                                if(data){
+                          this.navCtrl.push('PaymentPage', {ccFee:this.ccFee, amount: 0, giftcard: this.gift_array, gift_flag: true, tax: this.tax_calc })
+                                }
+                            });
+                            modal.present();
+                           
                         }
 
 
