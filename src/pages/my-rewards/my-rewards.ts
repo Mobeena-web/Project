@@ -95,7 +95,11 @@ export class MyRewardsPage {
         
     }
 
-
+    ionViewDidLeave(){
+        if(this.globals.branch_enabled == 1 && !this.reward_type_home ){
+            this.globals.rewardTemp = true;
+        }
+    }
     ionViewDidLoad() {
         console.log('ionViewDidLoad MyRewardsPage');
         this.getLocation();
@@ -542,7 +546,8 @@ export class MyRewardsPage {
             });
     }
 
-    Detail(id, image, freeextras,reward_id) {
+    Detail(list,id, image, freeextras,reward_id) {
+        this.globals.itemDetail = list;
         this.navCtrl.push('ItemDetailPage', { type:true,item_id: id, image: image, BusinesId: this.globals.new_id, free_extras: freeextras ,reward_flag:true,reward_id:reward_id})
     }
 

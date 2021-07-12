@@ -211,7 +211,7 @@
               <p style="color:#444;font-size:1.5rem">{{a.name}} </p>
               <p style="font-size:1.3rem;    padding-bottom: 10px;">{{a.tagline}} </p>
 
-              <button ion-button round block [disabled]="a.stock_quantity == 0" class="redem_btn background_global" (click)="Detail(a.id,a.image,a.freeExtras,a.reward_id)">Add
+              <button ion-button round block [disabled]="a.stock_quantity == 0" class="redem_btn background_global" (click)="Detail(a,a.id,a.image,a.freeExtras,a.reward_id)">Add
                 to Cart</button>
             </ion-col>
 
