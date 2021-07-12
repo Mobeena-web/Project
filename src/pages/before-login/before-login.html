@@ -1,6 +1,11 @@
 <ion-content class="background_image1"
     [ngStyle]="!global.caos_flag && {'background-image': 'url(' + global.welcome?.welcome_screen_image + ')'}">
-    <div class="">
+
+    <!-- <video  style="height: 100%" loop autoplay playsinline>
+        <source src="https://onlineordering.mikronexus.com/online-ordering-new/assets/videos/demo.mp4" type="video/mp4">
+    </video> -->
+
+    <div class="lp">
         <button ion-button clear *ngIf="global.caos_flag" class="ki" (click)="presentPrompt()"></button>
         <ion-grid style="padding: 40px 0px;">
             <ion-row>
@@ -11,9 +16,7 @@
         </ion-grid>
     </div>
 
-    <video *ngIf="global.caos_flag" style="height: 100%" loop autoplay playsinline>
-        <source src="https://onlineordering.mikronexus.com/online-ordering-new/assets/videos/demo.mp4" type="video/mp4">
-    </video>
+    
 
     <div padding>
         <ion-card text-center class="btn-margin jk">

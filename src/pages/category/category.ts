@@ -208,6 +208,9 @@ export class CategoryPage {
                 return item.business_id === new_id;
             });
 
+            this.globals.business_name = this.places[0].name;
+            this.globals.business_phone = this.places[0].phone;
+            this.globals.business_address = this.places[0].address;
             this.globals.business_username = this.places[0].username;
             this.globals.estimated_time = this.places[0].delivery_time;
             this.globals.business_discount_count = parseInt(this.places[0].business_discount_count);

@@ -1,0 +1,77 @@
+page-all-restaurant-list {
+.searchbar-ios{
+    background: none;
+    .searchbar-input{
+        height: 50px;
+        border-radius: 10px;
+        box-shadow: 2px 2px 2px 2px #dedddd;
+    }
+}
+
+.searchbar-ios.searchbar-left-aligned 
+.searchbar-search-icon {
+    margin-left: 0px;
+    margin-top: 10px;
+    font-size:40px;
+}
+.searchbar-ios 
+.searchbar-search-icon {
+  background-size: 17px;
+  left: 8px;
+  top: 8px;
+}
+.res-img{
+width: 100%;
+height: 170px;
+border-radius: 15px;
+}
+.img-div{
+margin-top:20px;
+}
+.time-div{
+    height: 18px;
+    width: 65px;
+    border-radius: 50px;
+    background-color: white;
+    text-align: center;
+    margin-top : 41%;
+}
+.time-p{
+    font-size: 10px;
+    color: black;
+    transform: translate(-0%, -55%);
+
+}
+.time-d {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    z-index: 99;
+    text-align: center;
+   // top: 38.7%;
+    left: 15%;
+    object-fit: contain;
+  }
+.res-title{
+font-weight: bold;
+margin:0px;
+padding: 0px;
+font-size: 13px
+}
+.des-div{
+    margin-top: 3px
+}
+.res-des{
+    margin-top:2px;
+    padding: 0px;
+    font-size: 13px;
+    color: gray;
+    margin: 0px
+}
+.res-fee{
+    margin:0px;
+    padding: 0px;
+    font-size: 10px;
+    font-weight: bold;
+}
+}
+

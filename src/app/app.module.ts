@@ -46,10 +46,12 @@ import { IntroPage8PageModule } from '../pages/intro-page8/intro-page8.module';
 import { Calendar } from '@ionic-native/calendar';
 import { GetlocationProvider } from '../providers/getlocation/getlocation';
 import { MobileVerificationPromptPage } from '../pages/mobile-verification-prompt/mobile-verification-prompt';
+import {ProceedModelPageModule} from '../pages/proceed-model/proceed-model.module'
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { CodePush } from '@ionic-native/code-push';
 import { QRCodeModule } from 'angularx-qrcode';
 import { OrderModule } from 'ngx-order-pipe';
+import { from } from 'rxjs/observable/from';
 
 // import * as Sentry from "sentry-cordova";
 
@@ -88,6 +90,7 @@ import { OrderModule } from 'ngx-order-pipe';
     IntroPage7PageModule,
     IntroPage8PageModule,
     MainTabsPageModule,
+    ProceedModelPageModule,
     QRCodeModule,
     OrderModule
   ],

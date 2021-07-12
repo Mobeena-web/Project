@@ -180,6 +180,9 @@ export class LoginPage {
             this.places = this.places.filter(function (item) {
                 return item.business_id === new_id;
             });
+            this.globals.business_name = this.places[0].name;
+            this.globals.business_phone = this.places[0].phone;
+            this.globals.business_address = this.places[0].address;
             this.globals.point_check = this.places[0].points_enabled;
             this.globals.punch_check = this.places[0].punches_enabled;
             this.globals.special_offer = this.places[0].special_offer;

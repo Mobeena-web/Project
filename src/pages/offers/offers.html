@@ -25,17 +25,23 @@
 
     <div>
 
-        <div *ngIf="errorMenu == true">
+        <div *ngIf="errorMenu == true && !Images">
             <p class="no_offer">
                 <ion-icon name="eye-off"></ion-icon>
             </p>
             <p no-margin style="padding-right:20px; padding-left:20px; text-align: center; font-size: 14px;">No Special Offers</p>
         </div>
 
-        <div *ngFor="let banners of Images">
-            <img (click)="open_category($event)" style="height: 200px; width:100% !important;border-radius: 0px;object-fit: cover; margin-bottom: 10px;"  src="{{banners?.image}}">
-        </div>
+        <div *ngIf="globals.menu_ready == 'true'">
+        <div class="div-c" *ngFor="let banners of Images">
+            <ion-card class="card" (click)="open_category($event)">
+            <img  style="height: 150px; width:100% !important;border-radius: 0px;object-fit: cover; margin-bottom: 10px;"  src="{{banners?.image}}">
 
+            <p style="font-weight: bold;font-size: 18px" class="p-margin">{{banners?.title}}</p>
+            <p class="p-margin" > {{banners?.description}}</p>
+        </ion-card>
+        </div>
+    </div>
         <!-- <div *ngFor="let d of category; let i=index"> 
 
             <div *ngIf="d.dealFlag == 'true'">
