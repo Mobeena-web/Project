@@ -282,21 +282,19 @@ export class ServerProvider {
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
 
-  getRestaurantslist(radius, businesType, coordinates, offset, type) {
-    var link = this.global.BaseUrl + 'Customer_controller/getplaces';
-    var data;
+  getRestaurantslist(radius, businesType, coordinates, offset, type, limit = 50) {
+    let link = this.global.BaseUrl + 'Customer_controller/getplaces';
+    let bID = this.global.main_id;
+    let data;
     if(this.global.marketPlace){
-       data = JSON.stringify({coordinates: coordinates,business_type: 'marketPlace', radius: radius, offset });
+      //  data = JSON.stringify({coordinates: coordinates,business_type: 'marketPlace', radius: radius, offset });
+      bID = '';
 
     }
-    // else if(this.global.new_id == '76'){
-    //   data = JSON.stringify({coordinates: coordinates, radius: radius, business_type: businesType, offset, type: type, udid: this.global.udid });
-      
+    // else{
+      data = JSON.stringify({ business_id: bID, coordinates: coordinates, radius: radius, business_type: this.global.marketPlace ? 'marketPlace' : 'main', offset, type: type, udid: this.global.udid, limit: limit });
+
     // }
-    else{
-      data = JSON.stringify({ business_id: this.global.main_id ,coordinates: coordinates, radius: radius, business_type: businesType, offset, type: type, udid: this.global.udid });
-
-    }
     return this.http.post(link, data)
       .map((res: any) => res.json());
   }
@@ -625,13 +623,18 @@ export class ServerProvider {
 
     if(this.global.business_type == 'retail' || this.global.business_type == 'salon'){
       var link = (this.global.BaseUrl + 'retail/place_order_cash');
-
     }
     else{
       var link = (this.global.BaseUrl + 'menu/place_order_cash');
-
     }
-    var orderdata = JSON.stringify({ udid: this.global.udid, payment_info: { address: Address, token: Token }, order_info: this.global.Product, instructions: instruction, total: amount, scheduled_time: order_date, payment_type: status })
+    let business_id = '';
+    if(this.global.selected_business_id){
+      business_id = this.global.selected_business_id;
+    }
+    else{
+      business_id = this.global.new_id;
+    }
+    var orderdata = JSON.stringify({ udid: this.global.udid, payment_info: { address: Address, token: Token }, order_info: this.global.Product, instructions: instruction, total: amount, scheduled_time: order_date, payment_type: status, business_id: business_id })
     console.log("stripe", orderdata, order_date);
 
     return this.http.post(link, orderdata)
