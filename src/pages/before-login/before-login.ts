@@ -24,6 +24,9 @@ export class BeforeLoginPage {
   ngOnInit() {
     this.welcome_data();
   }
+  aboutus() {
+    this.navCtrl.push('BranchesAboutusPage');
+}
 
   welcome_data() {
     let loading = this.loadingCtrl.create({
