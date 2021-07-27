@@ -284,15 +284,15 @@ export class ServerProvider {
 
   getRestaurantslist(radius, businesType, coordinates, offset, type, limit = 50) {
     let link = this.global.BaseUrl + 'Customer_controller/getplaces';
-    let bID = this.global.main_id;
+    let bID: any = this.global.main_id;
     let data;
-    if(this.global.marketPlace){
-      //  data = JSON.stringify({coordinates: coordinates,business_type: 'marketPlace', radius: radius, offset });
-      bID = '';
+    // if(this.global.marketPlace){
+      
+    //   bID = '';
 
-    }
-    // else{
-      data = JSON.stringify({ business_id: bID, coordinates: coordinates, radius: radius, business_type: this.global.marketPlace ? 'marketPlace' : 'main', offset, type: type, udid: this.global.udid, limit: limit });
+    // }
+    debugger;
+      data = JSON.stringify({ business_id: this.global.main_id, coordinates: coordinates, radius: radius, business_type: this.global.marketPlace ? 'marketPlace' : 'main', offset, type: type, udid: this.global.udid, limit: limit });
 
     // }
     return this.http.post(link, data)

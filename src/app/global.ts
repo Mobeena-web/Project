@@ -77,7 +77,8 @@ export class GlobalVariable {
   business_username: any = CONFIG.business_username;
   jackemial: any;
   new_id = CONFIG.business_id;
-  main_id = CONFIG.business_id;
+  // main_id = CONFIG.business_id;
+  main_id = 76;
   marketPlace = CONFIG.marketPlace;
   company = CONFIG.company;
   env = CONFIG.env;
