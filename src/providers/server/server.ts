@@ -291,7 +291,6 @@ export class ServerProvider {
     //   bID = '';
 
     // }
-    debugger;
       data = JSON.stringify({ business_id: this.global.main_id, coordinates: coordinates, radius: radius, business_type: this.global.marketPlace ? 'marketPlace' : 'main', offset, type: type, udid: this.global.udid, limit: limit });
 
     // }

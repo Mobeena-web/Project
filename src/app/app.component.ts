@@ -419,15 +419,16 @@ export class MyApp {
 
     list() {
         this.globals.appColor = '#f39c12';
-        this.globals.main_id = '';
+        
         if (this.globals.marketPlace) {
+            this.globals.main_id = '';
             document.documentElement.style.setProperty('--primary-color', this.globals.appColor);
         }
         else {
             let response = this.server.getRestaurantslist('100000', 'main', "0,0", '0', 'order');
             response.subscribe(data => {
                 this.places = data.results;
-                this.globals.main_id = '';
+                // this.globals.main_id = '';
                 var new_id = this.globals.new_id;
                 this.globals.business_list = this.places;
                 // this.places = this.places.filter(function (item) {
