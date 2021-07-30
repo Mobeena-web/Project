@@ -430,6 +430,7 @@ export class MyApp {
                 this.places = data.results;
                 // this.globals.main_id = '';
                 var new_id = this.globals.new_id;
+                this.globals.main_id = this.globals.new_id;
                 this.globals.business_list = this.places;
                 // this.places = this.places.filter(function (item) {
                 //     return item.business_id === new_id;

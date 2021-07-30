@@ -22,7 +22,7 @@ export class BeforeLoginPage {
   }
 
   ngOnInit() {
-    // this.welcome_data();
+    this.welcome_data();
   }
 
   welcome_data() {

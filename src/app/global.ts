@@ -110,7 +110,7 @@ export class GlobalVariable {
   branch_enabled: any;
   giftcard_enabled: any;
   business_list: any;
-  b_logo: any = './assets/imgs/halalguide.png';
+  b_logo: any = '';
   is_birthday: any;
   is_anniversary: any;
   order_instructions: any;
@@ -120,9 +120,9 @@ export class GlobalVariable {
   caos_udid = 'e2c40e9f0a';
 
   welcome: any = {
-    welcome_screen_title: 'The Halal Guide',
-    welcome_screen_subtitle: 'Your complete guide to halal food in NYC!',
-    welcome_screen_image: './assets/imgs/back1.jpg'
+    welcome_screen_title: '',
+    welcome_screen_subtitle: '',
+    welcome_screen_image: ''
   }
   inradius: boolean = true;
   pickup_timing: any;
