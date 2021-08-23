@@ -511,7 +511,7 @@ export class MyRewardsPage {
 
         });
         loading.present();
-        let response = this.server.getpoints_menuitems();
+        let response = this.server.getpoints_menuitems(this.globals.bussinessId);
         response.subscribe(data => {          
             loading.dismiss();
             if(data.status == true){
@@ -599,7 +599,7 @@ export class MyRewardsPage {
 
         });
         loading.present();
-        let response = this.server.getrewards_menuitems();
+        let response = this.server.getrewards_menuitems(this.globals.bussinessId);
         response.subscribe(data => {          
             loading.dismiss();
             if(data.status == true){

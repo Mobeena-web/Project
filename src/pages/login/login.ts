@@ -32,11 +32,11 @@ export class LoginPage {
     code = '+1';
     profile_complete: any;
 
-    constructor(public viewCtrl: ViewController, public server: ServerProvider, 
-        public globals: GlobalVariable, private nativeStorage: NativeStorage, 
+    constructor(public viewCtrl: ViewController, public server: ServerProvider,
+        public globals: GlobalVariable, private nativeStorage: NativeStorage,
         public modalCtrl: ModalController, public navCtrl: NavController,
         public navParams: NavParams, private googlePlus: GooglePlus,
-        public loadingCtrl: LoadingController, 
+        public loadingCtrl: LoadingController,
         // private fb: Facebook,
         public alertCtrl: AlertController, public formBilder: FormBuilder
     ) {
@@ -65,7 +65,7 @@ export class LoginPage {
 
 
     login(LoginData: any) {
-        if(this.login_type == 'email') {
+        if (this.login_type == 'email') {
             if (!this.loginForm.valid) {
                 this.submitAttempt = true;
             } else {
@@ -73,7 +73,7 @@ export class LoginPage {
             }
         }
 
-        if(this.login_type == 'phone') {
+        if (this.login_type == 'phone') {
             if (!this.phoneLoginForm.valid) {
                 this.submitAttempt = true;
             } else {
@@ -108,7 +108,9 @@ export class LoginPage {
                     if (!this.profile_complete) {
                         this.register(LoginData.phone);
                     } else {
-                        this.list();
+                        if (!this.globals.marketPlace) {
+                            this.list();
+                        }
                         this.nativeStorage.setItem('user',
                             {
                                 email: LoginData.email,
@@ -128,7 +130,12 @@ export class LoginPage {
                                 if (this.globals.caos_flag) {
                                     this.navCtrl.push('CartPage')
                                 } else {
-                                    this.navCtrl.setRoot(HomePage, { imageData: this.data.response.url, Flag: false });
+                                    if (this.globals.marketPlace) {
+                                        this.navCtrl.setRoot('BusinessListingMainPage');
+                                    }
+                                    else {
+                                        this.navCtrl.setRoot(HomePage, { imageData: this.data.response.url, Flag: false });
+                                    }
                                 }
                             })
                             .catch((err) => {
@@ -137,7 +144,12 @@ export class LoginPage {
                                 if (this.globals.caos_flag) {
                                     this.navCtrl.push('CartPage')
                                 } else {
-                                    this.navCtrl.setRoot(HomePage, { imageData: this.data.response.url, Flag: false });
+                                    if (this.globals.marketPlace) {
+                                        this.navCtrl.setRoot('BusinessListingMainPage');
+                                    }
+                                    else {
+                                        this.navCtrl.setRoot(HomePage, { imageData: this.data.response.url, Flag: false });
+                                    }
                                 }
                             });
                     }
@@ -167,7 +179,7 @@ export class LoginPage {
             MobileFlag: flag,
             MobileDiscount: Number(amount)
         }).then(() => {
-        },error => console.error('Error storing item', error)
+        }, error => console.error('Error storing item', error)
         );
     }
 
@@ -279,7 +291,7 @@ export class LoginPage {
             content: "Please wait..."
         });
         loading.present();
-        
+
         let response = this.server.check_user_by_phone(this.code + this.phone);
         response.subscribe(data => {
             loading.dismiss();

@@ -113,7 +113,7 @@ export class BranchesAboutusPage {
       content: "please wait...",
     });
     loading.present();
-    let response = this.server.getRestaurantslist('100000', 'branches', '0,0', '100', 'order');
+    let response = this.server.getRestaurantslist('100000', 'branches', '0,0', '0', 'order');
 
     response.subscribe(data => {
       loading.dismiss();

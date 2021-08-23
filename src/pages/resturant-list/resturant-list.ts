@@ -301,9 +301,15 @@ export class ResturantListPage {
     }
 
     OrderCategory(place) {
+        console.log(this.globals.username)
+        console.log(place.username)
+        if(this.globals.username != place.username){
+            this.globals.Product = [];
+        }
         console.log(place, "ppo");
         console.log(this.places);
-
+       
+        this.globals.selected_branch_name = place.name;
         this.globals.pickup = place.pickup;
         this.globals.latitude = place.latitude;
         this.globals.longitude = place.longitude;

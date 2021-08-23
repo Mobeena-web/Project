@@ -57,12 +57,22 @@ export class CategoryPage {
     s_time: any;
     categories_section: any = "Regular";
     branchId: any;
+    businessData: any;
 
     constructor(private geolocation: Geolocation, private diagnostic: Diagnostic,
         public server: ServerProvider, public alertCtrl: AlertController,
         public loadingCtrl: LoadingController, private nativeStorage: NativeStorage,
         private toastCtrl: ToastController, public globals: GlobalVariable, public http: Http,
         public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController) {
+        
+        // setup business for usage in app - part of new halal guide app
+        this.businessData = this.navParams.get('businessData');
+        if(this.businessData){
+            this.globals.setupBusiness(this.businessData);
+        }
+
+
+
 
         if (!this.globals.caos_flag) {
             console.log("Modal call from category");
@@ -344,7 +354,7 @@ export class CategoryPage {
             loading.dismiss();
             this.category = this.data.categories;
             this.super_category = this.data.super_categories;
-            if(this.super_category.length == 1){
+            if (this.super_category.length == 1) {
                 this.categoryClicked(this.super_category[0])
             }
             this.name = this.data.restaurant.name;
@@ -408,7 +418,7 @@ export class CategoryPage {
         });
     }
 
-    Detail($event,list,id, image, freeextras, type) {
+    Detail($event, list, id, image, freeextras, type) {
         this.globals.itemDetail = list;
         console.log(list)
 
@@ -515,7 +525,7 @@ export class CategoryPage {
             }).then(
                 response => {
                     console.log('Response ' + response);
-                },error => {
+                }, error => {
                     console.log('Error: ' + error);
                 }
             ).catch(exception => {

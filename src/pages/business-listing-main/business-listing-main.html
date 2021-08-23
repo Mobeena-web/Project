@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>Restaurants</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-searchbar searchIcon placeholder="Search for restaurant" [(ngModel)]="searchRest" (ionChange)="setFilteredRest()"
+    (ionClear)="emptySearch()" (ionCancel)="emptySearch()"></ion-searchbar>
+
+  <!-- <div class="img-div">
+    <div class="time-div time-d"><p class="time-p">922 minutes</p></div>
+<img  src="assets/imgs/pizza.jpg" class="res-img">
+
+
+</div> -->
+
+  <!-- <div *ngFor="let list of searchItems">
+
+    <div class="img-div" (click)="orderNow(list.business_id)">
+      <div class="time-div time-d">
+        <p class="time-p">{{list.delivery_time}}</p>
+      </div>
+      <img *ngIf="list.image" src="{{list.image}}" class="res-img">
+      <img *ngIf="!list.image" src="{{list.logo}}" class="res-img">
+
+    </div>
+
+    <div class="des-div">
+      <p class="res-title">{{list.name}}</p>
+      <p class="res-des">{{list.description}}</p>
+      <p class="res-fee">{{list.delivery_fee}}</p>
+    </div>
+
+  </div> -->
+
+
+  <ion-card *ngFor="let list of resList" class="mainCard">
+    <!-- <div *ngIf="search == false || searchRest == '' "> -->
+      <div class="img-div" (click)="orderNow(list)">
+        <!-- <div class="time-div time-d">
+          <p class="time-p">{{list.delivery_time}}</p>
+        </div> -->
+        <img *ngIf="list.image" src="{{list.image}}" class="res-img">
+        <img *ngIf="!list.image" src="{{list.logo}}" class="res-img">
+      </div>
+      <div class="des-div">
+        <p class="res-title">{{list.name}}</p>
+        <p class="res-des">{{list.address}}</p>
+      </div>
+    <!-- </div> -->
+    </ion-card>
+
+</ion-content>

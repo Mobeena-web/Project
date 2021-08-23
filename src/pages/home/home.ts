@@ -464,7 +464,7 @@ export class HomePage {
     }
 
     rewards_items() {
-        let response = this.server.getrewards_menuitems();
+        let response = this.server.getrewards_menuitems(this.globals.bussinessId);
         response.subscribe(data => {
             if (data.status == true) {
 

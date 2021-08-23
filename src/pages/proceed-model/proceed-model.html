@@ -52,7 +52,8 @@
         src={{globals.b_logo}}>
     </ion-col>
     <ion-col class="col-mar" col-9>
-      <p class="b-p">{{globals.business_name}}</p>
+      <p class="b-p" *ngIf="globals.branch_enabled == 1">{{globals.selected_branch_name}}</p>
+      <p class="b-p" *ngIf="globals.branch_enabled != 1">{{globals.business_name}}</p>
       <p class="b-p">{{globals.business_phone}}</p>
       <p class="b-p">{{globals.business_address}}</p>
     </ion-col>
