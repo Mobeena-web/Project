@@ -141,9 +141,9 @@ export class ServerProvider {
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
 
-  get_services() {
+  get_services_categories() {
 
-    var link = this.global.BaseUrl + 'salon/get_services';
+    var link = this.global.BaseUrl + 'salon/serviceCategories';
     console.log(this.global.bussinessId)
     var data = JSON.stringify({ business_id: this.global.new_id });
     return this.http.post(link, data)
@@ -151,9 +151,19 @@ export class ServerProvider {
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
 
+  get_services(category_id) {
+
+    var link = this.global.BaseUrl + 'salon/get_services';
+    console.log(this.global.bussinessId)
+    var data = JSON.stringify({ business_id: this.global.new_id,category_id:category_id });
+    return this.http.post(link, data)
+      .map((res: any) => res.json())
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+  }
+
   get_stylist(service_id) {
 
-    var link = this.global.BaseUrl + 'salon/get_stylist';
+    var link = this.global.BaseUrl + 'salon/stylistlist';
     console.log(this.global.bussinessId)
     var data = JSON.stringify({ business_id: this.global.new_id,service_id : service_id});
     return this.http.post(link, data)
@@ -170,11 +180,11 @@ export class ServerProvider {
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
 
-  booking_salon(service_id,stylist_id,time_slot) {
+  booking_salon(service_id,stylist_id,time_slot,p_detail) {
 
     var link = this.global.BaseUrl + 'salon/booking';
     console.log(this.global.bussinessId)
-    var data = JSON.stringify({ udid:this.global.udid,business_id: this.global.new_id,service_id : service_id,stylist_id:stylist_id,time_slot:time_slot});
+    var data = JSON.stringify({ udid:this.global.udid,business_id: this.global.new_id,service_id : service_id,stylist_id:stylist_id,time_slot:time_slot,p_details:p_detail});
     return this.http.post(link, data)
       .map((res: any) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
@@ -358,6 +368,14 @@ export class ServerProvider {
   date_convert(date) {
     var link = this.global.BaseUrl + '/menu/get_date_convert';
     var data = JSON.stringify({ date:date });
+    return this.http.post(link, data)
+      .map((res: any) => res.json())
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+  }
+
+  scheduleTime(schedule_time,type) {
+    var link = this.global.BaseUrl + 'events/businessSlots';
+    var data = JSON.stringify({business_id:this.global.new_id,schedule_time:schedule_time,type:type});
     return this.http.post(link, data)
       .map((res: any) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));

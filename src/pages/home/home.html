@@ -93,8 +93,8 @@
         <div>Order Now</div>
       </div>
     </ion-col>
-    <ion-col col *ngIf="globals.business_type == 'salon' || (globals.business_type == 'retail' && globals.appointment_enabled)">
-      <div text-center (click)="services()" class="sof1">
+    <ion-col col *ngIf="globals.appointment_enabled">
+      <div text-center (click)="services()" class="sof1" [ngStyle]="{'background-color': order_now_color}" >
         <ion-icon name="alarm"></ion-icon>
         <div>Services</div>
       </div>

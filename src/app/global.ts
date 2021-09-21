@@ -158,6 +158,7 @@ export class GlobalVariable {
   long: any;
   menu_ready_msg: any;
   myDate: any;
+  myTime: any;
   cash_discount: any;
   cash_discount_enabled: any = false;
   cash_discount_value: any = 0;

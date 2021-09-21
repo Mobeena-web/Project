@@ -82,6 +82,7 @@ export class ModalPage {
   branchId: any;
   radius_value: number;
   value: any;
+  time_value: any;
   @ViewChild('searchbar', { read: ElementRef }) searchbar: ElementRef;
   addressElement: HTMLInputElement = null;
   map: any;
@@ -371,7 +372,16 @@ export class ModalPage {
   }
 
   dateChanged() {
-    console.log("time", this.globals.myDate)
+    console.log("date", this.globals.myDate)
+    console.log("time", this.globals.myTime)
+
+    let response = this.server.scheduleTime(this.globals.myDate, this.globals.OrderType);
+    response.subscribe(data => {
+      console.log("scheduleTime",data)
+      this.time_value = data.slots;
+    }, error => {
+      this.globals.presentToast("Something went wrong check your internet connection.")
+    });
   }
 
 

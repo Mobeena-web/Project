@@ -20,6 +20,18 @@ export class AddBookingPage {
   timing: any;
   schedule_time: any;
   timings: any = [];
+  category : any;
+  categories : any;
+  selectedCategory : any;
+  service_id : any;
+  serviceTemp : boolean = false;
+  stylistTemp : boolean = false;
+  cardNumber : any;
+  cvv : any;
+  expiryMonth : any;
+  expiryYear : any;
+  paymentDetail : any = [];
+
 
   date: string;
   type: 'string';
@@ -34,7 +46,7 @@ export class AddBookingPage {
     public navCtrl: NavController, public navParams: NavParams) {
 
     this.schedule_time = this.formatDate();
-    this.get_services();
+    this.get_services_categories();
   }
 
   formatDate() {
@@ -60,22 +72,35 @@ export class AddBookingPage {
     this.schedule_time = '';
     this.timings = [];
     this.schedule_time = this.formatDate();
+    this.serviceTemp = false;
+    this.stylistTemp = false;
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AddBookingPage');
   }
+  categoryClicked(category){
+    this.typeChange();
+    this.selectedCategory = category.name;
+    this.category = category;
+    this.get_services();
+  }
+  onSegmentChanged($event){
 
-  get_services() {
+  }
+  get_services_categories() {
     let loading = this.loadingCtrl.create({
       content: "Loading...",
     });
     loading.present();
 
-    let response = this.server.get_services();
+    let response = this.server.get_services_categories();
     response.subscribe(data => {
       if (data.status == true) {
-        this.services = data.services;
+        this.categories = data.data;
+        this.category = this.categories[0];
+        this.selectedCategory = this.categories.name;
+        this.get_services();
       }
       loading.dismiss();
 
@@ -85,13 +110,37 @@ export class AddBookingPage {
     });
   }
 
+  get_services() {
+    let loading = this.loadingCtrl.create({
+      content: "Loading...",
+    });
+    loading.present();
+
+    let response = this.server.get_services(this.category.id);
+    response.subscribe(data => {
+      if (data.status == true) {
+        this.services = data.services;
+        // this.setService();
+      }
+      loading.dismiss();
+
+    }, error => {
+      loading.dismiss();
+      this.global.alertMessage("Failure", "Something went wrong check your internet connection.")
+    });
+  }
+  clickService(service){
+    this.service = service;
+    this.serviceTemp = true;
+    this.setService();
+  }
   setService() {
     let toast = this.toastCtrl.create({
       message: 'Loading...',
     });
     toast.present();
 
-    let response = this.server.get_stylist(this.service);
+    let response = this.server.get_stylist(this.service.id);
     response.subscribe(data => {
       if (data.status == true) {
         this.stylist_list = data.stylist;
@@ -104,6 +153,12 @@ export class AddBookingPage {
     });
   }
 
+  clickStylist(stylist){
+   this.stylist = stylist;
+   this.stylistTemp = true;
+   this.setStylist();
+  }
+
   setStylist() {
     console.log("Schedule ", this.schedule_time);
     let toast = this.toastCtrl.create({
@@ -111,7 +166,7 @@ export class AddBookingPage {
     });
     toast.present();
     
-    let response = this.server.get_slots(this.service, this.stylist, this.schedule_time);
+    let response = this.server.get_slots(this.service.id, this.stylist.stylist_id, this.schedule_time);
     response.subscribe(data => {
       if (data.status == true) {
         this.timings = data.slots;
@@ -125,9 +180,24 @@ export class AddBookingPage {
       this.global.alertMessage("Failure", "Something went wrong check your internet connection.")
     });
   }
-
-  book(time_slot) {
+  clickTime(time_slot){
     this.timing = time_slot;
+  }
+
+payment(){
+  this.paymentDetail.push({
+    'card_number':this.cardNumber,
+    'card_month': this.expiryMonth,
+    'card_year': this.expiryYear,
+    'card_cvc' : this.expiryYear,
+    'amount' : this.service.price
+  });
+  console.log(this.paymentDetail)
+}
+
+  book() {
+    this.payment();
+    var paymentArray = btoa(JSON.stringify(this.paymentDetail));
 
     if (this.service != '' && this.stylist != '' && this.timing != '') {
       let loading = this.loadingCtrl.create({
@@ -135,7 +205,7 @@ export class AddBookingPage {
       });
       loading.present();
 
-      let response = this.server.booking_salon(this.service, this.stylist, this.timing);
+      let response = this.server.booking_salon(this.service.id, this.stylist.stylist_id, this.timing,paymentArray);
       response.subscribe(data => {
         this.global.presentToast(data.message);
         if (data.status == true) {

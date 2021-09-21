@@ -23,13 +23,13 @@
             <h3 class="kk">{{global.welcome?.welcome_screen_title}}</h3>
             <p class="nn">{{global.welcome?.welcome_screen_subtitle}}</p>
 
-            <ion-row>
-                <ion-col col-6>
-                    <button  *ngIf="!global.caos_flag && global.menu_ready == 'true'" ion-button block round outline class="order-now"
+            <ion-row text-center>
+                <ion-col *ngIf="!global.caos_flag && global.menu_ready == 'true'">
+                    <button ion-button block round outline class="order-now"
                     (click)="guestlogin()">Order Now </button>
                 </ion-col>
-                <ion-col col-6>
-                    <button  ion-button block round outline class="order-now"
+                <ion-col >
+                    <button ion-button block round outline class="order-now"
                     (click)="aboutus()">About Us</button>
                 </ion-col>
             </ion-row>
