@@ -26,6 +26,7 @@ export class AddBookingPage {
   service_id : any;
   serviceTemp : boolean = false;
   stylistTemp : boolean = false;
+  timeTemp : boolean = false;
   cardNumber : any;
   cvv : any;
   expiryMonth : any;
@@ -69,11 +70,14 @@ export class AddBookingPage {
     console.log('OnChange', this.book_time);
     this.service = '';
     this.stylist = '';
+    this.services = '';
+    this.stylist_list = '';
     this.schedule_time = '';
     this.timings = [];
     this.schedule_time = this.formatDate();
     this.serviceTemp = false;
     this.stylistTemp = false;
+    this.timeTemp = false;
   }
 
   ionViewDidLoad() {
@@ -99,7 +103,7 @@ export class AddBookingPage {
       if (data.status == true) {
         this.categories = data.data;
         this.category = this.categories[0];
-        this.selectedCategory = this.categories.name;
+        this.selectedCategory = this.category.name;
         this.get_services();
       }
       loading.dismiss();
@@ -182,6 +186,7 @@ export class AddBookingPage {
   }
   clickTime(time_slot){
     this.timing = time_slot;
+    this.timeTemp = true;
   }
 
 payment(){

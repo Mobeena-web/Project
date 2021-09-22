@@ -47,10 +47,10 @@
       <ion-col col-2>
         <ion-checkbox [disabled]="serviceTemp" (ionChange)="clickService(s)"></ion-checkbox></ion-col>
       <ion-col col-8>
-          <p >{{s.name}}</p>
+          <p class="text-color" >{{s.name}}</p>
       </ion-col>
       <ion-col col-2>
-          <p text-right >{{s.price}}</p>
+          <p class="text-color" text-right >${{s.price}}</p>
       </ion-col>
     </ion-row>
   </ion-card>
@@ -58,11 +58,29 @@
 
   <div class="margin-top" *ngIf="stylist_list">
   <h6><b>Stylist</b></h6>
-  <ion-card class="card" *ngFor="let s of stylist_list">
-          <ion-checkbox [disabled]="stylistTemp" (ionChange)="clickStylist(s)"></ion-checkbox>
-          <p >{{s.name}}</p>
-  </ion-card>
+      <ion-row style="margin-top: -10px">
+        <ion-col col-6  *ngFor="let s of stylist_list">
+          <ion-card class="card">
+              <ion-checkbox text-center [disabled]="stylistTemp" (ionChange)="clickStylist(s)"></ion-checkbox>
+              <p text-center class="text-color" >{{s.name}}</p>
+          </ion-card>
+        </ion-col>
+      </ion-row>
 </div>
+
+<div class="margin-top" *ngIf="timings.length > 0">
+    <h6><b>Select your preferred time</b></h6>
+        <ion-row style="margin-top: -10px">
+          <ion-col col-4 class="col"  *ngFor="let s of timings">
+            <ion-card class="card">
+                <ion-checkbox text-center [disabled]="timeTemp"  (ionChange)="clickTime(s.time_slot)"></ion-checkbox>
+                <p text-center class="text-color" >{{s.time}}</p>
+            </ion-card>
+          </ion-col>
+        </ion-row>
+  </div>
+
+
   <!-- <ion-item>
     <ion-label>Stylist</ion-label>
     <ion-select [(ngModel)]="stylist" (ionChange)="setStylist()">
@@ -98,14 +116,14 @@
     </ion-row>
   </ion-list> -->
 
-  <div *ngIf="timings.length > 0">
+  <!-- <div *ngIf="timings.length > 0">
     <h4><b>Select your preferred time</b></h4>
     <ion-row>
       <ion-col col-3 *ngFor="let s of timings">
         <button class="time-btn" ion-button color="primary" (click)="clickTime(s.time_slot)">{{s.time}}</button>
       </ion-col>
     </ion-row>
-  </div>
+  </div> -->
 
   <!-- <ion-item>
     <ion-label>Timings</ion-label>

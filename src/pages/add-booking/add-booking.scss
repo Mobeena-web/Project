@@ -16,18 +16,46 @@ page-add-booking {
         width: 170px;
     }
 
-    ion-item{
-        border-radius: 8px !important;
-    }
+    // ion-item{
+    //     border-radius: 8px !important;
+    // }
 
     ion-calender{
         border-radius: 8px !important;
     }
     .card{
         border-radius: 10px;
-        padding: 5px;
+        padding: 8px;
+        text-align: center;
+        border-color: $primary !important;
+        border: 2px solid $primary !important;
     }
     .margin-top{
         margin-top: 20px !important;
     }
+    .text-color{
+        color: $primary;
+    }
+    .col{
+        margin: 0px;
+        padding: 0px;
+    }
+    ion-item{
+        background: transparent !important;
+      }
+      .item-inner{
+        border: 1px solid #aaa !important;
+        border-radius: 5px;
+        padding-left: 10px;
+      }
+      .text-input-md{
+        margin: 3px 8px !important;
+      }
+      ::placeholder {
+        font-size: 15px !important;
+      }
+      ion-label{
+        margin: 0px !important;
+        font-size: 14px;
+      }
 }
