@@ -180,11 +180,11 @@ export class ServerProvider {
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
 
-  booking_salon(service_id,stylist_id,time_slot,p_detail) {
+  booking_salon(service_id,stylist_id,time_slot,p_detail,amount_data,notes) {
 
     var link = this.global.BaseUrl + 'salon/booking';
     console.log(this.global.bussinessId)
-    var data = JSON.stringify({ udid:this.global.udid,business_id: this.global.new_id,service_id : service_id,stylist_id:stylist_id,time_slot:time_slot,p_details:p_detail});
+    var data = JSON.stringify({ udid:this.global.udid,business_id: this.global.new_id,service_id : service_id,stylist_id:stylist_id,time_slot:time_slot,p_details:p_detail,raw_data:amount_data,notes:notes});
     return this.http.post(link, data)
       .map((res: any) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));

@@ -5,11 +5,228 @@
 </ion-header>
 
 <ion-content padding>
+  <div *ngIf="services && serviceTemp">
     <ion-segment  color='primary' [(ngModel)]="selectedCategory" (ionChange)="onSegmentChanged($event)">
         <ion-segment-button (click)="categoryClicked(c)" *ngFor="let c of categories" value="{{c.name}}">
             {{c.name}}
         </ion-segment-button>
       </ion-segment>
+      </div>
+
+      <ion-row>
+        <ion-col col-2>
+            <button *ngIf="!serviceTemp" (click)="back()" class="button-size" color='primary' round ion-button outline text-right margin-top><ion-icon name="ios-arrow-back" style="padding-right:5px"></ion-icon> Back </button>
+        </ion-col>
+        <ion-col col-7></ion-col>
+        <ion-col col-3>
+            <!-- <button *ngIf="!paymentTemp" (click)="next()" class="button-size" color='primary' round ion-button outline text-right margin-top>Next <ion-icon name="ios-arrow-forward"></ion-icon></button> -->
+        </ion-col>
+      </ion-row>
+ 
+ 
+
+  <div class="margin-top" *ngIf="services && serviceTemp">
+  <h5 text-center><b> Select Service</b></h5>
+    <ion-row>
+      <ion-col col-6 *ngFor="let s of services" >
+          <ion-card class="card">
+          <img src={{s.image}} style="height:100px;object-fit: contain"> 
+          <p text-left class="medium-font text-margin" ><b>{{s.name}}</b></p>
+          <p text-left class="small-font" >Duration: <b>{{s.time_slot}}</b></p>
+          <p text-left class="small-font" >Price: <b>${{s.price}}</b></p>
+          <button text-center class="button-size" ion-button block round margin-top (click)="clickService(s)">Book</button>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+ 
+</div>
+
+  <div class="margin-top" *ngIf="stylist_list && stylistTemp">
+      <h5 text-center><b> Select Stylist</b></h5>
+      <ion-row >
+        <ion-col col-6  *ngFor="let s of stylist_list">
+          <ion-card class="card"  [ngClass]="{'card-outline': stylist.name == s.name}">
+              <p text-center  class="medium-font" >{{s.name}}</p>
+              <button text-center class="button-size" ion-button block round margin-top (click)="clickStylist(s)">Book</button>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+</div>
+
+<!-- <div *ngIf="book_time == 'schedule'"> -->
+  <div *ngIf="timeTemp">
+  <div class="margin-top">
+      <h5 text-center><b> Select Date & Time</b></h5>
+    <ion-row>
+      <ion-col col-12>
+        <ion-item>
+          <ion-calendar [disabled]="date" [(ngModel)]="date" (onChange)="onDateChange($event)" [type]="type" [format]="'YYYY-MM-DD'">
+          </ion-calendar>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </div>
+
+<div class="margin-top" *ngIf="timings.length > 0">
+        <ion-row>
+          <ion-col col-3 class="col" *ngFor="let s of timings">
+              <button text-wrap text-center class="time-button" ion-button block round (click)="clickTime(s)">{{s.time}}</button>
+            <!-- <ion-card class="card" [ngClass]="{'card-outline': timing.time == s.time}">
+                <p text-center  class="medium-font" >{{s.time}}</p>
+                <button text-center class="button-size" ion-button block round margin-top (click)="clickTime(s)">Book</button>
+            </ion-card> -->
+          </ion-col>
+        </ion-row>
+  </div>
+  </div>
+
+  <div class="margin-top" *ngIf="paymentTemp">
+      <h5 text-center><b>Payment</b></h5>
+
+      <div class="margin-top review-order">
+                <p class="small-font spacing">Service</p>
+                <p class="medium-font spacing"><b>{{service.name}}</b></p>
+                <p class="small-font spacing">(Duration: {{service.time_slot}})</p>
+                <br>
+                <p class="small-font spacing">Stylist</p>
+                <p class="medium-font spacing"><b>{{stylist.name}}</b></p>
+                <br>
+                <p class="small-font spacing">Date</p>
+                <p class="medium-font spacing"><b>{{schedule_time}}</b></p>
+                <br>
+                <p class="small-font spacing">Time</p>
+                <p class="medium-font spacing"><b>{{timing.time}}</b></p>
+                <br>
+                <p class="small-font spacing">Price</p>
+                <p class="medium-font spacing"><b>${{service.price}}</b></p>
+                <br>
+                <p class="small-font spacing">Tax</p>
+                <p class="small-font spacing"><b class="medium-font">${{tax}}</b> ({{global.tax}}% Sales Tax)</p>
+                <br>
+                <p class="small-font spacing">Gratuity</p>
+                <p class="medium-font spacing"><b>${{tip}}</b></p>
+                <br>
+                <p class="small-font spacing">Total</p>
+                <p class="medium-font spacing"><b>${{total}}</b></p>
+        </div>
+
+        <p class="input-title"
+        >
+        Notes</p>
+        <ion-item margin-top style="margin: 0%;padding:0%">
+            <ion-textarea class="text" [(ngModel)]="notes" placeholder="Notes"></ion-textarea>
+          </ion-item>
+
+          <div *ngIf="global.tip_enabled != 'no'">
+              <p class="input-title">Gratuity</p>
+              <ion-row *ngIf="global.tip_enabled != 'no'">
+                <ion-col col-3>
+                  <button block round class="background_global" ion-button (click)="percent_tip(10)"> 10% </button>
+                </ion-col>
+                <ion-col col-3>
+                  <button block round class="background_global" ion-button (click)="percent_tip(15)"> 15% </button>
+                </ion-col>
+                <ion-col col-3>
+                  <button block round class="background_global" ion-button (click)="percent_tip(20)"> 20% </button>
+                </ion-col>
+                <ion-col col-3>
+                    <button block round class="background_global" ion-button (click)="customTip()"> Custom </button>
+                  </ion-col>
+              </ion-row>
+            </div>
+            
+            <div *ngIf="mygifts.length > 0">
+                <p class="input-title">Gift Card</p>
+            <ion-item (click)="gift_alert()" style="margin: 0%;padding:0%">
+                <ion-label style="color:#b4b4b4"> Select Gift Card</ion-label>
+                <p style="color:#b4b4b4" *ngIf="giftCard">{{giftCard}}</p>
+                <!-- <ion-select (ionChange)="selectGiftCard()"  cancelText="Dismiss" [(ngModel)]="giftCard"  >
+                  <ion-option *ngFor="let g of mygifts" value="{{g.amount}}">${{g.amount}}</ion-option>
+                </ion-select> -->
+              </ion-item>
+            </div>
+
+      <div margin-top>
+      <ion-card class="payment-card" >
+    <h5 text-center margin-top><b>Payment</b></h5>
+    <ion-row>
+      <ion-col col-8 no-padding>
+        <p class="input-title"
+          >
+          Card Number</p>
+      </ion-col>
+      <ion-col col-4 no-padding>
+        <p class="input-title"
+          style="padding-left: 16px">
+          CVV</p>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col col-8 no-padding>
+        <ion-item style="margin: 0%;padding:0%">
+          <ion-input [(ngModel)]="cardNumber" placeholder="xxxx xxxx xxxx xxxx" type="tel" maxlength="16"
+            minlength="15"></ion-input>
+        </ion-item>
+      </ion-col>
+
+      <ion-col col-4 no-padding>
+        <ion-item style="margin: 0%;">
+          <ion-input [(ngModel)]="cvv" type="tel" placeholder="cvv" type="tel" maxlength="4" minlength="3">
+          </ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <p class="input-title"
+      >
+      Valid until</p>
+
+    <ion-row>
+      <ion-col col-6 no-padding>
+        <ion-item style="padding: 0%;">
+          <ion-select [(ngModel)]="expiryMonth" style="padding: 0%;" placeholder="mm" interface="popover">
+            <ion-option value="01">01</ion-option>
+            <ion-option value="02">02</ion-option>
+            <ion-option value="03">03</ion-option>
+            <ion-option value="04">04</ion-option>
+            <ion-option value="05">05</ion-option>
+            <ion-option value="06">06</ion-option>
+            <ion-option value="07">07</ion-option>
+            <ion-option value="08">08</ion-option>
+            <ion-option value="09">09</ion-option>
+            <ion-option value="10">10</ion-option>
+            <ion-option value="11">11</ion-option>
+            <ion-option value="12">12</ion-option>
+          </ion-select>
+        </ion-item>
+
+      </ion-col>
+      <ion-col col-6 no-padding>
+        <ion-item>
+          <ion-select [(ngModel)]="expiryYear" style="padding: 0%;margin: 0rem" placeholder="yyyy"
+            interface="popover">
+            <ion-option value="2020">2020</ion-option>
+            <ion-option value="2021">2021</ion-option>
+            <ion-option value="2022">2022</ion-option>
+            <ion-option value="2023">2023</ion-option>
+            <ion-option value="2024">2024</ion-option>
+            <ion-option value="2025">2025</ion-option>
+            <ion-option value="2026">2026</ion-option>
+            <ion-option value="2027">2027</ion-option>
+            <ion-option value="2028">2028</ion-option>
+            <ion-option value="2029">2029</ion-option>
+            <ion-option value="2030">2030</ion-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    </ion-card>
+    </div>
+
+<button ion-button block round margin-top (click)="book()"> Book Now</button>
+</div>
+
   <!-- <ion-list no-lines radio-group [(ngModel)]="book_time" (ionChange)="typeChange()">
     <ion-row>
       <ion-col col-6>
@@ -27,59 +244,6 @@
       </ion-col>
     </ion-row>
   </ion-list> -->
-  <!-- <div *ngIf="book_time == 'schedule'"> -->
-  <div class="margin-top">
-    <h6><b>Select your preferred date</b></h6>
-    <ion-row>
-      <ion-col col-12>
-        <ion-item>
-          <ion-calendar [disabled]="date" [(ngModel)]="date" (onChange)="onDateChange($event)" [type]="type" [format]="'YYYY-MM-DD'">
-          </ion-calendar>
-        </ion-item>
-      </ion-col>
-    </ion-row>
-  </div>
-
-  <div class="margin-top" *ngIf="services">
-  <h6><b>Services</b></h6>
-  <ion-card class="card" *ngFor="let s of services">
-    <ion-row>
-      <ion-col col-2>
-        <ion-checkbox [disabled]="serviceTemp" (ionChange)="clickService(s)"></ion-checkbox></ion-col>
-      <ion-col col-8>
-          <p class="text-color" >{{s.name}}</p>
-      </ion-col>
-      <ion-col col-2>
-          <p class="text-color" text-right >${{s.price}}</p>
-      </ion-col>
-    </ion-row>
-  </ion-card>
-</div>
-
-  <div class="margin-top" *ngIf="stylist_list">
-  <h6><b>Stylist</b></h6>
-      <ion-row style="margin-top: -10px">
-        <ion-col col-6  *ngFor="let s of stylist_list">
-          <ion-card class="card">
-              <ion-checkbox text-center [disabled]="stylistTemp" (ionChange)="clickStylist(s)"></ion-checkbox>
-              <p text-center class="text-color" >{{s.name}}</p>
-          </ion-card>
-        </ion-col>
-      </ion-row>
-</div>
-
-<div class="margin-top" *ngIf="timings.length > 0">
-    <h6><b>Select your preferred time</b></h6>
-        <ion-row style="margin-top: -10px">
-          <ion-col col-4 class="col"  *ngFor="let s of timings">
-            <ion-card class="card">
-                <ion-checkbox text-center [disabled]="timeTemp"  (ionChange)="clickTime(s.time_slot)"></ion-checkbox>
-                <p text-center class="text-color" >{{s.time}}</p>
-            </ion-card>
-          </ion-col>
-        </ion-row>
-  </div>
-
 
   <!-- <ion-item>
     <ion-label>Stylist</ion-label>
@@ -132,83 +296,5 @@
     </ion-select>
   </ion-item>  -->
 
-  <div>
-      <ion-row>
-        <ion-col col-8 no-padding>
-          <p
-            style="font-size:1.5rem; color:rgb(102, 102, 102);font-weight: bold; margin: 0em;padding-top:20px;padding-bottom: 10px">
-            Card Number</p>
-        </ion-col>
-        <ion-col col-4 no-padding>
-          <p
-            style="font-size:1.5rem; color:rgb(102, 102, 102);font-weight: bold; margin: 0em;padding-top:20px;padding-bottom: 10px;padding-left: 16px">
-            CVV</p>
-        </ion-col>
-      </ion-row>
-
-      <ion-row>
-        <ion-col col-8 no-padding>
-          <ion-item style="margin: 0%;padding:0%">
-            <ion-input [(ngModel)]="cardNumber" placeholder="xxxx xxxx xxxx xxxx" type="tel" maxlength="16"
-              minlength="15"></ion-input>
-          </ion-item>
-        </ion-col>
-
-        <ion-col col-4 no-padding>
-          <ion-item style="margin: 0%;">
-            <ion-input [(ngModel)]="cvv" type="tel" placeholder="cvv" type="tel" maxlength="4" minlength="3">
-            </ion-input>
-          </ion-item>
-        </ion-col>
-      </ion-row>
-
-      <p
-        style="font-size:1.5rem; color:rgb(102, 102, 102);font-weight: bold; margin: 0em;padding-top:15px;padding-bottom: 10px">
-        Valid until</p>
-
-      <ion-row>
-        <ion-col col-6 no-padding>
-          <ion-item style="padding: 0%;">
-            <ion-select [(ngModel)]="expiryMonth" style="padding: 0%;" placeholder="mm" interface="popover">
-              <ion-option value="01">01</ion-option>
-              <ion-option value="02">02</ion-option>
-              <ion-option value="03">03</ion-option>
-              <ion-option value="04">04</ion-option>
-              <ion-option value="05">05</ion-option>
-              <ion-option value="06">06</ion-option>
-              <ion-option value="07">07</ion-option>
-              <ion-option value="08">08</ion-option>
-              <ion-option value="09">09</ion-option>
-              <ion-option value="10">10</ion-option>
-              <ion-option value="11">11</ion-option>
-              <ion-option value="12">12</ion-option>
-            </ion-select>
-          </ion-item>
-
-        </ion-col>
-        <ion-col col-6 no-padding>
-          <ion-item>
-            <ion-select [(ngModel)]="expiryYear" style="padding: 0%;margin: 0rem" placeholder="yyyy"
-              interface="popover">
-              <ion-option value="2020">2020</ion-option>
-              <ion-option value="2021">2021</ion-option>
-              <ion-option value="2022">2022</ion-option>
-              <ion-option value="2023">2023</ion-option>
-              <ion-option value="2024">2024</ion-option>
-              <ion-option value="2025">2025</ion-option>
-              <ion-option value="2026">2026</ion-option>
-              <ion-option value="2027">2027</ion-option>
-              <ion-option value="2028">2028</ion-option>
-              <ion-option value="2029">2029</ion-option>
-              <ion-option value="2030">2030</ion-option>
-            </ion-select>
-          </ion-item>
-        </ion-col>
-
-      </ion-row>
-
-    </div>
-
-  <button ion-button block round margin-top (click)="book()"> Book Now</button>
 
 </ion-content>

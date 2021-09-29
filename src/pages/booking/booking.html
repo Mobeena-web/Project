@@ -1,6 +1,11 @@
 <ion-header>
   <ion-navbar>
     <ion-title>My Bookings</ion-title>
+    <ion-buttons end>
+    <button ion-button style="color:white; float:right" color="primary" (click)="add_bookings()">
+     Add Booking
+    </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
@@ -196,9 +201,9 @@
 
   </div>
 
-  <ion-fab>
+  <!-- <ion-fab>
     <button ion-fab color="primary" (click)="add_bookings()">
       <ion-icon name="add"></ion-icon>
     </button>
-  </ion-fab>
+  </ion-fab> -->
 </ion-content>

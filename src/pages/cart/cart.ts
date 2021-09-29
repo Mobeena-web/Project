@@ -3,8 +3,6 @@ import { IonicPage, NavController, NavParams, Navbar, ModalController, AlertCont
 import { ServerProvider } from '../../providers/server/server';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { GlobalVariable } from '../../app/global';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
-
 
 @IonicPage()
 @Component({
