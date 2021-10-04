@@ -138,8 +138,14 @@
             <div *ngIf="mygifts.length > 0">
                 <p class="input-title">Gift Card</p>
             <ion-item (click)="gift_alert()" style="margin: 0%;padding:0%">
-                <ion-label style="color:#b4b4b4"> Select Gift Card</ion-label>
-                <p style="color:#b4b4b4" *ngIf="giftCard">{{giftCard}}</p>
+              <ion-row>
+                <ion-col col-6>
+                  <span style="color:#b4b4b4"> Select Gift Card</span>
+                </ion-col>
+                <ion-col col-6 text-right>
+                  <p *ngIf="gitfcardAmount">${{gitfcardAmount}}</p>
+                </ion-col>
+              </ion-row>
                 <!-- <ion-select (ionChange)="selectGiftCard()"  cancelText="Dismiss" [(ngModel)]="giftCard"  >
                   <ion-option *ngFor="let g of mygifts" value="{{g.amount}}">${{g.amount}}</ion-option>
                 </ion-select> -->

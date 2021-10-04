@@ -792,6 +792,7 @@ export class PaymentPage {
         this.globals.Product.length = 0;
         this.globals.order_time = 'now';
         this.globals.myDate = undefined;
+        this.globals.myTime = undefined;
         localStorage.setItem("scheduled_time", undefined);
 
         this.nativeStorage.setItem('Product', { array: this.globals.Product }).then(

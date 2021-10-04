@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.mikronexus.onlineordering.parknailspa" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>PARK NAILS AND SPA</name>
+<widget id="com.mikronexus.onlineordering.parknailspa" version="0.0.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Park Nail and Spa</name>
     <description>A reward and loyalty punch card app.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Mikronexus</author>
     <content src="index.html" />
@@ -56,7 +56,7 @@
         <splash density="port-xxxhdpi" src="resources/android/splash/drawable-port-xxxhdpi-screen.png" />
     </platform>
     <platform name="ios">
-        <preference name="CodePushDeploymentKey" value="uEX7bh1BlfckoPjbBZOnWSbvhJdZ63HDpWg4Ru" />
+        <preference name="CodePushDeploymentKey" value="_1PTEwSTZWv8RTIPr2hK6uBZoQPwrjeAPon3VR" />
         <preference name="WKWebViewOnly" value="true" />
         <preference name="KeyboardResize" value="false" />
         <allow-intent href="itms:*" />

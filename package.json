@@ -168,7 +168,9 @@
       "cordova-plugin-ionic-keyboard": {},
       "cordova-plugin-inappbrowser": {},
       "cordova-plugin-nativestorage": {},
-      "cordova-plugin-geolocation": {},
+      "cordova-plugin-geolocation": {
+        "GPS_REQUIRED": "true"
+      },
       "cordova-plugin-googleplus": {
         "REVERSED_CLIENT_ID": "com.mikronexus.onlineordering.fblogin",
         "PLAY_SERVICES_VERSION": "15.0.1"

@@ -158,6 +158,13 @@ export class ModalPage {
 
     if (!this.globals.myDate) {
       this.globals.myDate = date1;
+      let response = this.server.scheduleTime(this.globals.myDate, this.globals.OrderType);
+      response.subscribe(data => {
+        console.log("scheduleTime",data)
+        this.time_value = data.slots;
+      }, error => {
+        this.globals.presentToast("Something went wrong check your internet connection.")
+      });
     }
   }
 
@@ -372,9 +379,7 @@ export class ModalPage {
   }
 
   dateChanged() {
-    console.log("date", this.globals.myDate)
-    console.log("time", this.globals.myTime)
-
+    console.log(this.globals.myDate)
     let response = this.server.scheduleTime(this.globals.myDate, this.globals.OrderType);
     response.subscribe(data => {
       console.log("scheduleTime",data)
@@ -382,9 +387,19 @@ export class ModalPage {
     }, error => {
       this.globals.presentToast("Something went wrong check your internet connection.")
     });
+    this.dateTimeString()
   }
 
-
+  dateTimeString(){
+    if(this.globals.myTime){
+    var date = this.globals.myDate.split('T')[0]
+    var s = this.globals.myDate.split(':')[2]
+    var time = this.globals.myTime.split(' ')[0]
+    var dateString = date+'T'+time+':'+s;
+    console.log(dateString)
+    this.globals.myDate = dateString;
+    }
+  }
   dismiss() {
     this.viewCtrl.dismiss();
   }
@@ -392,7 +407,6 @@ export class ModalPage {
 
 
   process(ProcessData: any) {
-
     if (this.globals.order_time == 'schedule') {
       localStorage.setItem("scheduled_time", this.globals.myDate);
     }
@@ -812,6 +826,7 @@ export class ModalPage {
   checkTimingLater(timing) {
     return new Promise((resolve, reject) => {
       if (this.globals.order_time == 'schedule') {
+        if(this.globals.myTime){
         var response: any;
 
         if (this.globals.specific_delivery_day == 'true') {
@@ -878,7 +893,9 @@ export class ModalPage {
           this.globals.presentToast("Something went wrong check your internet connection.")
 
         });
-
+      }else{
+        this.globals.presentToast("please select the time")
+      }
       }
       else {
         console.log('in pickup part 001');

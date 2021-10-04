@@ -35,7 +35,7 @@ export class AddBookingPage {
   tax : any;
   total : any = 0;
   percent_tip_vlaue : any;
-  tip_type: any = 'percent';
+  tip_type: any ;
   tip : any = 0;
   notes : any;
   mygifts : any = [];
@@ -43,6 +43,8 @@ export class AddBookingPage {
   gift_card_amount = 0;
   gift_array : any;
   amountArray : any =[];
+  giftcardId : any;
+  gitfcardAmount : any;
 
   date: string;
   type: 'string';
@@ -91,6 +93,8 @@ export class AddBookingPage {
     this.tax = 0;
     this.total = 0;
     this.tip = 0;
+    this.giftCard = '';
+    this.giftcardId = '';
   }
   typeChange() {
     console.log('OnChange', this.book_time);
@@ -237,13 +241,15 @@ export class AddBookingPage {
       this.global.alertMessage("Failure", "Something went wrong check your internet connection.")
     });
   }
-  taxValue(){
-    if(!this.tax){
-    var tax = Number(this.global.tax) / 100 * Number(this.service.price);
-    this.tax = tax.toFixed(2);
+  clickTime(time){
     this.totalValue();
-    }
+    this.timing = time;
+    this.timeTemp = false;
+    this.my_gift_cards();
+    this.giftAmount();
+    this.paymentTemp = true;
   }
+
   percent_tip(tip) {
     this.tip_type = 'percent';
     this.percent_tip_vlaue = tip;
@@ -252,15 +258,41 @@ export class AddBookingPage {
         this.total = this.service.price;
         this.tip = ((Number(this.total) / 100) * tip).toFixed(2);
         this.total = (Number(this.total) + Number(this.tip)).toFixed(2);
-        this.totalValue();
+        this.taxValue();
+        this.giftAmount();
+    }
+}
+taxValue(){
+  if(!this.tax){
+    var tax = Number(this.global.tax) / 100 * Number(this.service.price);
+    this.tax = tax.toFixed(2);
+    }
+  if(this.tax){
+    var total = Number(this.tax) + Number(this.total);
+    this.total = total.toFixed(2);
+    }
+   
+}
+giftAmount(){
+  if(this.gitfcardAmount){
+    if(Number(this.gitfcardAmount) > Number(this.total)){
+      this.total = 0;
+    }else{
+      this.total = Number(this.total) - Number(this.gitfcardAmount);
+    }
     }
 }
 totalValue(){
-  //this.total = this.service.price;
-  if(this.tax){
-  var total = Number(this.tax) + Number(this.total);
-  this.total = total.toFixed(2);
-  }
+  this.total = 0;
+  if(!this.tax){
+    var tax = Number(this.global.tax) / 100 * Number(this.service.price);
+    this.tax = tax.toFixed(2);
+    }
+  this.total =  Number(this.tax) +  Number(this.service.price) +  Number(this.tip);
+  if (this.total != 0) {
+      this.total = Number(this.total).toFixed(2);
+  } 
+  console.log("total",this.total)
 }
 customTip() {
   this.tip_type = 'manual';
@@ -290,14 +322,14 @@ customTip() {
                   console.log("Tip here >>> ", data);
                   if (data.tip == '') {
                       this.tip = 0;
-                  }
-                  else {
+                  }   
                       this.total = this.total - Number(this.tip);
                       this.total = this.service.price;
                       this.tip = data.tip;
                       this.total = (Number(this.total) + Number(this.tip)).toFixed(2);
-                      this.totalValue();
-                  }
+                      this.taxValue();
+                      this.giftAmount();
+                  
               }
           }
       ]
@@ -332,14 +364,10 @@ gift_alert() {
       text: 'OK',
       handler: data => {
           if (data) {
-              // if (Number(data.amount) > Number(this.total)) {
-              //     this.full_reddem_or_partial(data);
-              // }
-              // else {
                   this.giftCard = data.amount;
+                  this.giftcardId = data.giftcard_id;
                   console.log(this.giftCard, data)
-                  this.partial_redeem(data)
-              // }
+                  this.giftcardoption(data);
           }
 
 
@@ -347,44 +375,40 @@ gift_alert() {
   });
   alert.present();
 }
-// selectGiftCard(data){
-//   console.log("gift card run" , data)
-//   console.log(this.giftCard)
-//  // var data;
-//   data = this.giftCard;
-//   if (data) {
-//     // if (Number(data.amount) > Number(this.total)) {
-//     //     this.full_reddem_or_partial(data);
-//     // }
-//     // else {
-//         this.partial_redeem(data)
-//     // }
-// }
-// }
 
-full_reddem_or_partial(data) {
+fullPayment(data){
+  this.totalValue();
+  if (Number(data.amount) < Number(this.total)) {
+    this.total = (Number(this.total) - Number(data.amount)).toFixed(2);
+    this.gitfcardAmount = Number(data.amount).toFixed(2);
+}
+  else if (Number(data.amount) > Number(this.total)) {
+    this.gitfcardAmount = this.total;
+    this.total = 0;
+    }
+    console.log(this.gitfcardAmount)
+}
+giftcardoption(data_gift) {
   let alert = this.alertCtrl.create({
-      title: 'Giftcard',
-      message: 'Would you like to use your gift card for entire order?',
+    title: 'Payment Type',
       buttons: [
           {
-              text: 'No',
-
-              handler: () => {
-                  this.partial_redeem(data)
+              text: 'Want to add full price for booking',
+              cssClass : "alert",
+              handler: data => {
+               this.fullPayment(data_gift);
               }
           },
           {
-              text: 'Yes',
-              handler: () => {
-                  // this.full_redeem(data)
-              }
-          }
+            text: 'Want to add partial price for booking',
+            handler: data => {
+              this.partial_redeem(data_gift)
+            }
+        }
       ]
   });
   alert.present();
 }
-
 
 partial_redeem(data_gift) {
   let alert = this.alertCtrl.create({
@@ -406,46 +430,18 @@ partial_redeem(data_gift) {
           {
               text: 'Pay',
               handler: data => {
+                  this.totalValue();      
                   if (Number(data_gift.amount) < Number(data.amount)) {
                       this.global.presentToast("You enter amount greater than your giftcard")
                   }
                   else {
                       if (Number(data.amount) > Number(this.total)) {
-                          this.global.presentToast("Please Enter More items in cart")
+                        this.gitfcardAmount = this.total;
+                        this.total = 0;
                       }
                       else {
                           this.total = (Number(this.total) - Number(data.amount)).toFixed(2);
-                          // this.mygifts.map(
-                          //     (checkitem, i, array) => {
-                          //         if (checkitem.giftcard_id == data_gift.giftcard_id) {
-                          //             checkitem.amount = Number(checkitem.amount) - Number(data.amount)
-                          //         }
-                          //     }
-                          // );
-                          // var not_in_array = true;
-                          // this.gift_array.forEach(e => {
-                          //     if (e.giftcard_id == data_gift.giftcard_id) {
-                          //         e.amount = Number(e.amount) + Number(data.amount);
-                          //         not_in_array = false;
-                          //         console.log("gifts_array", this.gift_array, this.mygifts)
-
-                          //     }
-
-                          // });
-
-                          // if (not_in_array) {
-                          //     var giftdata = { giftcard_id: data_gift.giftcard_id, amount: data.amount }
-                          //     this.gift_array.push(giftdata);
-                          //     console.log("gifts_array", this.gift_array, this.mygifts)
-
-                          // }
-                          // this.gift_card_amount = 0;
-                          // this.gift_array.forEach(e => {
-                          //     this.gift_card_amount = this.gift_card_amount + Number(e.amount)
-
-                          // });
-
-
+                          this.gitfcardAmount = Number(data.amount).toFixed(2);
                       }
                   }
               }
@@ -455,13 +451,7 @@ partial_redeem(data_gift) {
   alert.present();
 }
 
-  clickTime(time){
-    this.taxValue();
-    this.timing = time;
-    this.timeTemp = false;
-    this.my_gift_cards();
-    this.paymentTemp = true;
-  }
+
 
 payment(){
   this.paymentDetail.push({
@@ -477,14 +467,15 @@ payment(){
   book() {
      this.amountArray.push({
     'tip':this.tip,
-    'giftcard_amount': this.giftCard,
+    'giftcard_amount': this.gitfcardAmount,
+    'giftcard_id': this.giftcardId,
     'tax': this.tax,
     'total_amount' : this.total,
   });
     this.payment();
     var paymentArray = btoa(JSON.stringify(this.paymentDetail));
 
-    if (this.service != '' && this.stylist != '' && this.timing != '') {
+    if (this.service != '' && this.stylist != '' && this.timing != '' && this.cardNumber && this.cvv && this.expiryMonth && this.expiryYear) {
       let loading = this.loadingCtrl.create({
         content: "Loading...",
       });
