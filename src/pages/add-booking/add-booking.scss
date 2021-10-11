@@ -23,6 +23,10 @@ page-add-booking {
     ion-calender{
         border-radius: 8px !important;
     }
+    .segment-md .segment-button.activated, .segment-md .segment-button.segment-activated {
+        border-color: $primary !important;
+    }
+
     .card{
         border-radius: 10px;
         padding: 10px;
@@ -64,6 +68,13 @@ page-add-booking {
     .button-size{
         height: 25px;
         font-size: 11px;
+    }
+    .back-btn{
+        color: $primary !important;
+        border-color: $primary !important;
+    }
+    .button-color{
+       background-color: $primary !important;
     }
     .col{
         padding : 0px 5px 0px 0px;

@@ -61,6 +61,13 @@ export class BeforeLoginPage {
     }
   }
 
+  bookNow(){
+    this.global.guess_login = true;
+    if(this.global.appointment_enabled){
+      this.navCtrl.push('BookingPage')
+    }
+  }
+
   coaslogin() {
     if (this.global.branch_enabled == 1) {
       this.navCtrl.push('ResturantListPage')

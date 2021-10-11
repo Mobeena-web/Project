@@ -15,7 +15,9 @@ page-booking {
     .toolbar-background{
         background-color: $primary !important;
     }
-
+    .segment-md .segment-button.activated, .segment-md .segment-button.segment-activated {
+        border-color: $primary !important;
+    }
     .back-button{
         color: #fff !important;
     }
