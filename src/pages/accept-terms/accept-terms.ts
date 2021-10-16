@@ -34,7 +34,11 @@ export class AcceptTermsPage {
       if (this.globals.caos_flag) {
         this.navCtrl.push('CategoryPage')
       } else {
+        if (this.globals.branch_enabled == 1) {
+          this.navCtrl.push('ResturantListPage')
+      } else {
         this.navCtrl.setRoot(HomePage);
+      }
       }
     } else {
       this.globals.presentToast("Please accept Privacy Policy and Terms & Conditions")

@@ -247,12 +247,12 @@ export class MyApp {
         if (this.globals.guess_login) {
             this.presentConfirm();
         } else {
-            if (this.globals.branch_enabled == 1) {
-                this.globals.rewardTemp = true;
-                this.nav.push('ResturantListPage')
-            } else {
+            // if (this.globals.branch_enabled == 1) {
+            //     this.globals.rewardTemp = true;
+            //     this.nav.push('ResturantListPage')
+            // } else {
                 this.nav.push('MyRewardsPage')
-            }
+            // }
         }
     }
 
@@ -265,11 +265,14 @@ export class MyApp {
     }
 
     openOrder() {
-        if (this.globals.branch_enabled == 1) {
-            this.nav.push('ResturantListPage')
-        } else {
+        // if (this.globals.branch_enabled == 1) {
+        //     this.nav.push('ResturantListPage')
+        // } else {
             this.nav.push('CategoryPage')
-        }
+        // }
+    }
+    openBranches(){
+        this.nav.push('ResturantListPage')
     }
 
     openHistory() {

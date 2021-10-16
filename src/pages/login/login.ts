@@ -134,7 +134,12 @@ export class LoginPage {
                                         this.navCtrl.setRoot('BusinessListingMainPage');
                                     }
                                     else {
-                                        this.navCtrl.setRoot(HomePage, { imageData: this.data.response.url, Flag: false });
+                                        if (this.globals.branch_enabled == 1) {
+                                            this.navCtrl.push('ResturantListPage')
+                                        } else {
+                                            this.navCtrl.setRoot(HomePage, { imageData: this.data.response.url, Flag: false });
+                                        }
+                                      
                                     }
                                 }
                             })
@@ -148,7 +153,11 @@ export class LoginPage {
                                         this.navCtrl.setRoot('BusinessListingMainPage');
                                     }
                                     else {
+                                        if (this.globals.branch_enabled == 1) {
+                                            this.navCtrl.push('ResturantListPage')
+                                        } else {
                                         this.navCtrl.setRoot(HomePage, { imageData: this.data.response.url, Flag: false });
+                                        }
                                     }
                                 }
                             });

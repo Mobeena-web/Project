@@ -32,7 +32,7 @@ export class ServerProvider {
 
   verifyApp_version(){
     var link = this.global.BaseUrl + 'customer_controller/verify_app_version';
-    var data = JSON.stringify({ business_id: this.global.new_id, app_type: "customer_app", version: this.global.app_version });
+    var data = JSON.stringify({ business_id: this.global.bussinessId, app_type: "customer_app", version: this.global.app_version });
 
     return this.http.post(link, data)
       .map((res: any) => res.json())
@@ -68,14 +68,14 @@ export class ServerProvider {
 
   global_Upsell(){
     var link = this.global.BaseUrl + 'menu/global_upsell_items';
-    var data = JSON.stringify({ business_id: this.global.new_id });
+    var data = JSON.stringify({ business_id: this.global.bussinessId });
     return this.http.post(link, data)
       .map((res: any) => res.json());
   }
 
   LoadBannersOnHomePage() {
     var link = this.global.BaseUrl + 'Customer_controller/get_banners';
-    var data = JSON.stringify({udid: this.global.udid, business_id: this.global.new_id,app_version: this.global.app_version });
+    var data = JSON.stringify({udid: this.global.udid, business_id: this.global.bussinessId,app_version: this.global.app_version });
     return this.http.post(link, data)
       .map((res: any) => res.json());
   }
@@ -97,7 +97,7 @@ export class ServerProvider {
 
   reward_notification() {
     var link = this.global.BaseUrl + 'Customer_controller/get_welcome_modal';
-    var data = JSON.stringify({business_id: this.global.new_id,udid: this.global.udid });
+    var data = JSON.stringify({business_id: this.global.bussinessId,udid: this.global.udid });
    
     return this.http.post(link,data)
       .map((res: any) => res.json())
@@ -106,7 +106,13 @@ export class ServerProvider {
   GetPunchcards(coordinates) {
 
     var link = this.global.BaseUrl + 'Customer_controller/get_punchcards';
-    var data = JSON.stringify({ udid: this.global.udid , coordinates :coordinates,business_username:this.global.business_username });
+    var bussinessName;
+    if(this.global.branch_enabled == 1){
+      bussinessName = this.global.username;
+    }else{
+      bussinessName = this.global.business_username;
+    }
+    var data = JSON.stringify({ udid: this.global.udid , coordinates :coordinates,business_username:bussinessName });
     return this.http.post(link, data)
       .map((res: any) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
@@ -125,7 +131,7 @@ export class ServerProvider {
 
     var link = this.global.BaseUrl + 'events/get_events';
     console.log(this.global.bussinessId)
-    var data = JSON.stringify({ businessId: this.global.new_id });
+    var data = JSON.stringify({ businessId: this.global.bussinessId });
     return this.http.post(link, data)
       .map((res: any) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
@@ -211,7 +217,7 @@ export class ServerProvider {
   get_offers() {
     var link = this.global.BaseUrl + 'events/get_offers';
 
-    var data = JSON.stringify({ business_id: this.global.new_id });
+    var data = JSON.stringify({ business_id: this.global.bussinessId });
     return this.http.post(link, data)
       .map((res: any) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
@@ -220,7 +226,7 @@ export class ServerProvider {
   get_business_reward() {
     var link = this.global.BaseUrl + 'rewards/get_business_rewards';
     
-    var data = JSON.stringify({ business_id: this.global.new_id });
+    var data = JSON.stringify({ business_id: this.global.bussinessId });
     return this.http.post(link, data)
       .map((res: any) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
@@ -229,7 +235,7 @@ export class ServerProvider {
   redeem_point_reward(reward_id){
     var link = this.global.BaseUrl + 'rewards/buy_reward';
     
-    var data = JSON.stringify({ business_id: this.global.new_id,udid:this.global.udid,reward_id:reward_id });
+    var data = JSON.stringify({ business_id: this.global.bussinessId,udid:this.global.udid,reward_id:reward_id });
     return this.http.post(link, data)
       .map((res: any) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
@@ -238,7 +244,7 @@ export class ServerProvider {
   redeem_point_menu_reward(reward_id,reward_type ){
     var link = this.global.BaseUrl + 'rewards/get_redeem_points';
     
-    var data = JSON.stringify({ business_id: this.global.new_id,udid:this.global.udid,item_id:reward_id,reward_type:reward_type });
+    var data = JSON.stringify({ business_id: this.global.bussinessId,udid:this.global.udid,item_id:reward_id,reward_type:reward_type });
     return this.http.post(link, data)
       .map((res: any) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
@@ -247,7 +253,13 @@ export class ServerProvider {
   getPoints(coordinates) {
 
     var link = this.global.BaseUrl + 'Customer_controller/get_points';
-    var data = JSON.stringify({ business_username:this.global.business_username,udid: this.global.udid , coordinates :coordinates });
+    var bussinessName;
+    if(this.global.branch_enabled == 1){
+      bussinessName = this.global.username;
+    }else{
+      bussinessName = this.global.business_username;
+    }
+    var data = JSON.stringify({ business_username:bussinessName,udid: this.global.udid , coordinates :coordinates });
     return this.http.post(link, data)
       .map((res: any) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
@@ -256,7 +268,13 @@ export class ServerProvider {
   getPunch(coordinates) {
 
     var link = this.global.BaseUrl + 'Customer_controller/get_punchcards';
-    var data = JSON.stringify({ business_username:this.global.business_username,udid: this.global.udid , coordinates :coordinates });
+    var bussinessName;
+    if(this.global.branch_enabled == 1){
+      bussinessName = this.global.username;
+    }else{
+      bussinessName = this.global.business_username;
+    }
+    var data = JSON.stringify({ business_username:bussinessName,udid: this.global.udid , coordinates :coordinates });
     return this.http.post(link, data)
       .map((res: any) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
@@ -272,14 +290,14 @@ export class ServerProvider {
 
   getUserLotteryRewards_new() {
     var link = this.global.BaseUrl + 'Customer_controller/get_rewards_new';
-    var data = JSON.stringify({ business_id:this.global.new_id,udid: this.global.udid });
+    var data = JSON.stringify({ business_id:this.global.bussinessId,udid: this.global.udid });
     return this.http.post(link, data)
       .map((res: any) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
   get_all_Rewards_new() {
     var link = this.global.BaseUrl + 'rewards/get_customer_rewards';
-    var data = JSON.stringify({ business_id:this.global.new_id,udid: this.global.udid });
+    var data = JSON.stringify({ business_id:this.global.bussinessId,udid: this.global.udid });
     return this.http.post(link, data)
       .map((res: any) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
@@ -326,7 +344,7 @@ export class ServerProvider {
   }
   getUserProfileData() {
     var link = this.global.BaseUrl + "Customer_controller/get_profile_data";
-    var data = JSON.stringify({business_id:this.global.new_id, udid: this.global.udid });
+    var data = JSON.stringify({business_id:this.global.bussinessId, udid: this.global.udid });
 
     return this.http.post(link, data)
       .map((res: any) => res.json())
@@ -335,7 +353,7 @@ export class ServerProvider {
   UpdateUserProfile(firstname, user_email, lastname, password, phone, user_birthday, user_aniversary) {
 
     var link = this.global.BaseUrl + 'Customer_controller/update_profile';
-    var data = JSON.stringify({ business_id:this.global.new_id,firstname: firstname, email: user_email, lastname: lastname, password: password, phone: phone, birthday: user_birthday, anniversary: user_aniversary });
+    var data = JSON.stringify({ business_id:this.global.bussinessId,firstname: firstname, email: user_email, lastname: lastname, password: password, phone: phone, birthday: user_birthday, anniversary: user_aniversary });
     console.log("data", data);
     return this.http.post(link, data)
       .map((res: any) => res.json())
@@ -359,7 +377,7 @@ export class ServerProvider {
 
   get_social() {
     var link = this.global.BaseUrl + 'events/get_socials';
-    var data = JSON.stringify({ businessId:this.global.new_id, });
+    var data = JSON.stringify({ businessId:this.global.bussinessId, });
     return this.http.post(link, data)
       .map((res: any) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
@@ -375,7 +393,7 @@ export class ServerProvider {
 
   scheduleTime(schedule_time,type) {
     var link = this.global.BaseUrl + 'events/businessSlots';
-    var data = JSON.stringify({business_id:this.global.new_id,schedule_time:schedule_time,type:type});
+    var data = JSON.stringify({business_id:this.global.bussinessId,schedule_time:schedule_time,type:type});
     return this.http.post(link, data)
       .map((res: any) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
@@ -490,7 +508,7 @@ export class ServerProvider {
 
   gallery_list() {
     var link = (this.global.BaseUrl + 'events/get_gallery_list');
-    var data = JSON.stringify({ business_id: this.global.new_id });
+    var data = JSON.stringify({ business_id: this.global.bussinessId });
     return this.http.post(link, data)
       .map((res: any) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
@@ -498,7 +516,7 @@ export class ServerProvider {
 
   gift_cards() {
     var link = (this.global.BaseUrl + 'giftcard/get_business_giftcards');
-    var data = JSON.stringify({ business_id: this.global.new_id });
+    var data = JSON.stringify({ business_id: this.global.bussinessId });
     return this.http.post(link, data)
       .map((res: any) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
@@ -506,7 +524,7 @@ export class ServerProvider {
 
   my_gift_cards() {
     var link = (this.global.BaseUrl + 'giftcard/get_customer_giftcards');
-    var data = JSON.stringify({ business_id: this.global.new_id , udid: this.global.udid});
+    var data = JSON.stringify({ business_id: this.global.bussinessId , udid: this.global.udid});
     return this.http.post(link, data)
       .map((res: any) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
@@ -514,7 +532,7 @@ export class ServerProvider {
 
   my_gift_cards_design() {
     var link = (this.global.BaseUrl + 'giftcard/get_giftcard_designs');
-    var data = JSON.stringify({ business_id: this.global.new_id});
+    var data = JSON.stringify({ business_id: this.global.bussinessId});
     return this.http.post(link, data)
       .map((res: any) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
@@ -522,7 +540,7 @@ export class ServerProvider {
 
   search_user(email) {
     var link = (this.global.BaseUrl + 'giftcard/search_user');
-    var data = JSON.stringify({ business_id: this.global.new_id , email: email});
+    var data = JSON.stringify({ business_id: this.global.bussinessId , email: email});
     return this.http.post(link, data)
       .map((res: any) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
@@ -530,7 +548,7 @@ export class ServerProvider {
 
   craete_user(email,fname,lname) {
     var link = (this.global.BaseUrl + 'giftcard/create_user');
-    var data = JSON.stringify({ business_id: this.global.new_id , email: email, first_name:fname, last_name:lname});
+    var data = JSON.stringify({ business_id: this.global.bussinessId , email: email, first_name:fname, last_name:lname});
     return this.http.post(link, data)
       .map((res: any) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
@@ -538,7 +556,7 @@ export class ServerProvider {
 
   buy_gift_cards(token,id,udid_r,design_id,amount,message,action,cardinfo?) {
     var link = (this.global.BaseUrl + 'giftcard/buy_giftcard');
-    var data = JSON.stringify({udid_r:udid_r, business_id: this.global.new_id, udid_s: this.global.udid,token:token, giftcard_id:id,design_id:design_id,amount:amount,message:message,action:action,card_info:cardinfo});
+    var data = JSON.stringify({udid_r:udid_r, business_id: this.global.bussinessId, udid_s: this.global.udid,token:token, giftcard_id:id,design_id:design_id,amount:amount,message:message,action:action,card_info:cardinfo});
     return this.http.post(link, data)
       .map((res: any) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
@@ -591,7 +609,7 @@ export class ServerProvider {
 
   getpunches_menuitems() {
     var link = (this.global.BaseUrl + 'rewards/get_punches_rewards');
-    var data = JSON.stringify({ business_id: this.global.new_id ,udid:this.global.udid});
+    var data = JSON.stringify({ business_id: this.global.bussinessId,udid:this.global.udid});
     return this.http.post(link, data)
       .map((res: any) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
@@ -649,7 +667,7 @@ export class ServerProvider {
       business_id = this.global.selected_business_id;
     }
     else{
-      business_id = this.global.new_id;
+      business_id = this.global.bussinessId;
     }
     var orderdata = JSON.stringify({ udid: this.global.udid, payment_info: { address: Address, token: Token }, order_info: this.global.Product, instructions: instruction, total: amount, scheduled_time: order_date, payment_type: status, business_id: business_id })
     console.log("stripe", orderdata, order_date);
@@ -663,7 +681,13 @@ export class ServerProvider {
   //// points system///////
   getUserPoints(coordinates) {
     var link = this.global.BaseUrl + 'Customer_controller/get_points';
-    var data = JSON.stringify({ udid: this.global.udid, coordinates : coordinates,business_username:this.global.username });
+    var bussinessName;
+    if(this.global.branch_enabled == 1){
+      bussinessName = this.global.username;
+    }else{
+      bussinessName = this.global.business_username;
+    }
+    var data = JSON.stringify({ udid: this.global.udid, coordinates : coordinates,business_username:bussinessName });
     return this.http.post(link, data)
       .map((res: any) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
@@ -696,7 +720,7 @@ export class ServerProvider {
 
   CheckUserPoints() {
     var link = this.global.BaseUrl + 'Customer_controller/check_points';
-    var data = JSON.stringify({ udid: this.global.udid, b_id: this.global.new_id })
+    var data = JSON.stringify({ udid: this.global.udid, b_id: this.global.bussinessId })
     console.log("points sending data", data);
 
     return this.http.post(link, data)
@@ -814,7 +838,7 @@ export class ServerProvider {
 
   special_offer_banners() {
     var link = this.global.BaseUrl + 'business_controller/get_special_offer_banners';
-    var data = JSON.stringify({ business_id: this.global.new_id});
+    var data = JSON.stringify({ business_id: this.global.bussinessId});
     return this.http.post(link, data)
       .map((res: any) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));

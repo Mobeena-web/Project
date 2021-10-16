@@ -11,6 +11,10 @@
         <ion-icon name="information-circle" class="myicon"></ion-icon>About Us
       </button>
 
+      <button *ngIf="globals.branch_enabled == 1" menuClose ion-item (click)="openBranches()">
+        <ion-icon name="options" class="myicon"></ion-icon>Branches
+      </button>
+
       <div *ngIf="globals.menu_ready == 'true'">
       <button menuClose ion-item (click)="openOrder()" *ngIf="globals.business_type == 'ordering' || globals.business_type == 'retail' || globals.business_type == 'salon'">
         <ion-icon *ngIf="globals.business_type == 'ordering'" name="restaurant" class="myicon"></ion-icon>
@@ -64,6 +68,7 @@
     </ion-list>
   </ion-content>
   <ion-footer>
+      <h5 *ngIf="globals.branch_enabled == 1" text-center><b>{{globals.selected_branch_name}}</b></h5>
     <p style="text-align: center">Powered by Mikronexus</p>
   
   </ion-footer>

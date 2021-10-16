@@ -104,11 +104,11 @@ export class HomePage {
 
     orderNow() {
         // this._nav.push('AllRestaurantListPage')
-        if (this.globals.branch_enabled == 1) {
-            this._nav.push('ResturantListPage')
-        } else {
+        // if (this.globals.branch_enabled == 1) {
+        //     this._nav.push('ResturantListPage')
+        // } else {
             this._nav.push('CategoryPage')
-        }
+        // }
     }
 
     gifts() {
@@ -116,12 +116,12 @@ export class HomePage {
     }
 
     rewards(type) {
-        if (this.globals.branch_enabled == 1) {
-            this.globals.rewardTemp = true;
-            this._nav.push('ResturantListPage')
-        } else {
+        // if (this.globals.branch_enabled == 1) {
+        //     this.globals.rewardTemp = true;
+        //     this._nav.push('ResturantListPage')
+        // } else {
             this._nav.push('MyRewardsPage', { reward_type_home: type })
-        }
+        // }
         
     }
 
@@ -245,11 +245,11 @@ export class HomePage {
     }
 
     offers() {
-        if (this.globals.branch_enabled == 1) {
-            this._nav.push('ResturantListPage', { deals: 1 })
-        } else {
+        // if (this.globals.branch_enabled == 1) {
+        //     this._nav.push('ResturantListPage', { deals: 1 })
+        // } else {
             this._nav.push("OffersPage");
-        }
+        // }
     }
 
     ionViewDidLeave() {
@@ -456,11 +456,11 @@ export class HomePage {
     }
 
     birthday_gifts() {
-        if (this.globals.branch_enabled == 1) {
-            this._nav.push('ResturantListPage', { birthdaygift: 2 })
-        } else {
+        // if (this.globals.branch_enabled == 1) {
+        //     this._nav.push('ResturantListPage', { birthdaygift: 2 })
+        // } else {
             this._nav.push('BirthdayGiftsPage');
-        }
+        // }
     }
 
     rewards_items() {

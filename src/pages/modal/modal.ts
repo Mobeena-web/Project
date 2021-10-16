@@ -383,7 +383,12 @@ export class ModalPage {
     let response = this.server.scheduleTime(this.globals.myDate, this.globals.OrderType);
     response.subscribe(data => {
       console.log("scheduleTime",data)
-      this.time_value = data.slots;
+      if(data.status == true){
+        this.time_value = data.slots;
+      }else{
+        this.globals.presentToast(data.message)
+      }
+      
     }, error => {
       this.globals.presentToast("Something went wrong check your internet connection.")
     });
