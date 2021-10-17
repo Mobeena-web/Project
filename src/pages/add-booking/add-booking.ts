@@ -458,7 +458,7 @@ payment(){
     'card_number':this.cardNumber,
     'card_month': this.expiryMonth,
     'card_year': this.expiryYear,
-    'card_cvc' : this.expiryYear,
+    'card_cvc' : this.cvv,
     'amount' : this.service.price
   });
   console.log(this.paymentDetail)
