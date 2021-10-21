@@ -454,24 +454,24 @@ partial_redeem(data_gift) {
 
 
 payment(){
-  this.paymentDetail.push({
+  this.paymentDetail = {
     'card_number':this.cardNumber,
     'card_month': this.expiryMonth,
     'card_year': this.expiryYear,
     'card_cvc' : this.cvv,
     'amount' : this.service.price
-  });
+  };
   console.log(this.paymentDetail)
 }
 
   book() {
-     this.amountArray.push({
+     this.amountArray = {
     'tip':this.tip,
     'giftcard_amount': this.gitfcardAmount,
     'giftcard_id': this.giftcardId,
     'tax': this.tax,
     'total_amount' : this.total,
-  });
+  };
     this.payment();
     var paymentArray = btoa(JSON.stringify(this.paymentDetail));
 
