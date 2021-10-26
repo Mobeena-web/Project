@@ -155,6 +155,8 @@ export class BirthdayGiftsPage {
             this.globals.Timing = this.places[0].hours_operation;
             this.globals.tip_enabled = this.places[0].tip_enabled;
             this.globals.menu_ready = this.places[0].menu_ready;
+            this.globals.website = this.places[0].website;
+            this.globals.schedule_enabled = this.places[0].schedule_enabled;
             this.globals.pickup = this.places[0].pickup;
 
             if (this.globals.pickup == '1') {

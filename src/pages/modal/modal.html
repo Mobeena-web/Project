@@ -68,7 +68,7 @@
         <ion-label>Now</ion-label>
         <ion-radio value="now" checked></ion-radio>
       </ion-item>
-      <ion-item>
+      <ion-item *ngIf="globals.schedule_enabled">
         <ion-label>Schedule</ion-label>
         <ion-radio value="schedule"></ion-radio>
       </ion-item>
@@ -93,6 +93,7 @@
       (ionChange)="dateChanged()">
     </ion-datetime>
     </ion-item> -->
+    <div *ngIf="globals.schedule_enabled"> 
     <ion-item *ngIf="globals.order_time == 'schedule'">
       <ion-label>Schedule Time</ion-label>
       <ion-select [(ngModel)]="globals.myTime" (ionChange)="dateChanged()">
@@ -106,6 +107,7 @@
         (ionChange)="dateChanged()">
       </ion-datetime>
     </ion-item>
+    </div>
 
     <!--  <ion-item class="time_d" *ngIf="globals.order_time == 'schedule'">
         <ion-label>Schedule Time</ion-label>

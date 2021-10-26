@@ -215,6 +215,8 @@ list() {
       this.globals.StripId = this.places[0].stripe_id;
       this.globals.tip_enabled = this.places[0].tip_enabled;
       this.globals.menu_ready = this.places[0].menu_ready;
+      this.globals.website = this.places[0].website;
+      this.globals.schedule_enabled = this.places[0].schedule_enabled;
       this.globals.availed_discount_count = parseInt(this.places[0].customer_discount_availed_count);
       this.globals.paypalId = this.places[0].paypal_id;
       this.globals.Timing = this.places[0].hours_operation;
