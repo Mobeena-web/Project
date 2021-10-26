@@ -251,6 +251,8 @@ export class LoginPage {
 
             this.globals.tip_enabled = this.places[0].tip_enabled;
             this.globals.menu_ready = this.places[0].menu_ready;
+            this.globals.website = this.places[0].website;
+            this.globals.schedule_enabled = this.places[0].schedule_enabled;
             this.globals.utensils_enabled = this.places[0].utensils_enabled;
 
             if (this.globals.pickup == '1') {

@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, LoadingController, ToastController
 import { GlobalVariable } from '../../app/global';
 import { ServerProvider } from '../../providers/server/server';
 import { CalendarComponentOptions } from "ion2-calendar";
+import { InAppBrowser } from '@ionic-native/in-app-browser';
 
 @IonicPage()
 @Component({
@@ -45,6 +46,9 @@ export class AddBookingPage {
   amountArray : any =[];
   giftcardId : any;
   gitfcardAmount : any;
+  ccFee:any = 0;
+  subTotal : any = 0;
+
 
   date: string;
   type: 'string';
@@ -56,7 +60,7 @@ export class AddBookingPage {
 
   constructor(private toastCtrl: ToastController, public loadingCtrl: LoadingController,
     public server: ServerProvider, public global: GlobalVariable,
-    public navCtrl: NavController, public navParams: NavParams,public alertCtrl: AlertController,) {
+    public navCtrl: NavController, public navParams: NavParams,public alertCtrl: AlertController,private iab: InAppBrowser) {
 
     this.schedule_time = this.formatDate();
     //this.get_services_categories();
@@ -77,6 +81,10 @@ export class AddBookingPage {
   onDateChange($event) {
     this.schedule_time = $event.format('YYYY-MM-DD');
     this.setStylist();
+  }
+
+  disclaimer(){
+  this.iab.create('http://'+this.global.website + '/legal?type=disclaimer');
   }
 
   clear(){
@@ -248,6 +256,7 @@ export class AddBookingPage {
     this.my_gift_cards();
     this.giftAmount();
     this.paymentTemp = true;
+    this.ccFeeCalculate()
   }
 
   percent_tip(tip) {
@@ -260,6 +269,7 @@ export class AddBookingPage {
         this.total = (Number(this.total) + Number(this.tip)).toFixed(2);
         this.taxValue();
         this.giftAmount();
+        this.ccFeeCalculate();
     }
 }
 taxValue(){
@@ -329,6 +339,8 @@ customTip() {
                       this.total = (Number(this.total) + Number(this.tip)).toFixed(2);
                       this.taxValue();
                       this.giftAmount();
+                      this.ccFeeCalculate();
+                      
                   
               }
           }
@@ -451,7 +463,17 @@ partial_redeem(data_gift) {
   alert.present();
 }
 
-
+ccFeeCalculate(){
+  console.log(this.global.cash_discount_percentage)
+  this.ccFee =  ((Number(this.global.cash_discount_percentage) / 100) * Number(this.total)).toFixed(2);
+  console.log(this.ccFee)
+  this.ccFee = (Number(this.ccFee) + Number(this.global.cash_discount_value));
+  console.log(this.ccFee)
+  this.ccFee = this.ccFee.toFixed(2);
+  this.subTotal = (Number(this.total) +  Number(this.ccFee)).toFixed(2);
+  this.total = this.subTotal;
+  console.log(this.subTotal)
+}
 
 payment(){
   this.paymentDetail = {
@@ -465,12 +487,16 @@ payment(){
 }
 
   book() {
+    if (this.global.guess_login) {
+      this.presentConfirm();
+  } else {
      this.amountArray = {
     'tip':this.tip,
     'giftcard_amount': this.gitfcardAmount,
     'giftcard_id': this.giftcardId,
     'tax': this.tax,
     'total_amount' : this.total,
+    'cc_fee' : this.ccFee
   };
     this.payment();
     var paymentArray = btoa(JSON.stringify(this.paymentDetail));
@@ -497,4 +523,29 @@ payment(){
       this.global.alertMessage("Failure", "Data is not complete to process.")
     }
   }
+}
+
+presentConfirm() {
+  let alert = this.alertCtrl.create({
+      title: 'Login',
+      message: 'You need to be logged in to use this feature.',
+      buttons: [
+          {
+              text: 'Cancel',
+              role: 'cancel',
+              handler: () => {
+                  console.log('Cancel clicked');
+              }
+          },
+          {
+              text: 'Login',
+              handler: () => {
+                  this.navCtrl.setRoot('LoginPage')
+              }
+          }
+      ]
+  });
+  alert.present();
+}
+
 }

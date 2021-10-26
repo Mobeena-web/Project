@@ -1,6 +1,11 @@
 <ion-header>
   <ion-navbar>
     <ion-title>Book Now</ion-title>
+    <ion-buttons end>
+      <button ion-button style="color:white; float:right" color="primary" (click)="disclaimer()">
+        Disclaimer Policy
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
@@ -105,6 +110,10 @@
                 <br>
                 <p class="small-font spacing">Gratuity</p>
                 <p class="medium-font spacing"><b>${{tip}}</b></p>
+                <br>
+                <p class="small-font spacing">Credit Fee</p>
+                <p class="smaller-font spacing"><i>({{global.ccFeeDisclaimer}})</i></p>
+                <p class="medium-font spacing"><b>${{ccFee}}</b></p>
                 <br>
                 <p class="small-font spacing">Total</p>
                 <p class="medium-font spacing"><b>${{total}}</b></p>
@@ -230,8 +239,10 @@
     </ion-card>
     </div>
 
-<button ion-button block round margin-top class="button-color" (click)="book()"> Book Now</button>
+<button ion-button block round margin-top class="button-color" (click)="book()">Book Now</button>
 </div>
+
+<!-- <button ion-button block round margin-top color="jack" class="button-color" (click)="disclaimer()">Disclaimer Policy</button> -->
 
   <!-- <ion-list no-lines radio-group [(ngModel)]="book_time" (ionChange)="typeChange()">
     <ion-row>

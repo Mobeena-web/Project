@@ -184,6 +184,8 @@ export class GlobalVariable {
   business_name: any;
   selected_business_id: any;
   selected_branch_name : any;
+  website : any;
+  schedule_enabled : any;
 
   logs = true;
   locationAlert_title = 'Location is turned off';

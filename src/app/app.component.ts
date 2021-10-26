@@ -500,6 +500,8 @@ export class MyApp {
         this.globals.ccFeeDisclaimer = this.places[0].ccFeeDisclaimer;
         this.globals.tip_enabled = this.places[0].tip_enabled;
         this.globals.menu_ready = this.places[0].menu_ready;
+        this.globals.website = this.places[0].website;
+        this.globals.schedule_enabled = this.places[0].schedule_enabled;
         console.log("app color ......", this.places)
         if (this.places[0].appColor) {
             this.globals.appColor = this.places[0].appColor;
