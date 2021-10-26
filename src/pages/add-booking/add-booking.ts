@@ -500,8 +500,19 @@ payment(){
   };
     this.payment();
     var paymentArray = btoa(JSON.stringify(this.paymentDetail));
+    var paymentCheck;
 
-    if (this.service != '' && this.stylist != '' && this.timing != '' && this.cardNumber && this.cvv && this.expiryMonth && this.expiryYear) {
+    if(this.total > 0){
+      if(this.cardNumber && this.cvv && this.expiryMonth && this.expiryYear){
+        paymentCheck = true;
+      }else{
+        paymentCheck = false;
+      }
+    }else{
+      paymentCheck = true;
+    }
+
+    if (this.service != '' && this.stylist != '' && this.timing != '' && paymentCheck) {
       let loading = this.loadingCtrl.create({
         content: "Loading...",
       });
