@@ -105,12 +105,16 @@ export class MyApp {
                     this.globals.lastName = data.lastName;
                     this.globals.Email = data.email;
                            
-                    if (!globals.marketPlace) {
+                    if(localStorage.getItem('branchBusinessId')){
+                        this.globals.main_id = localStorage.getItem("branchBusinessId");
+                        this.globals.bussinessId = localStorage.getItem("branchBusinessId")
+                          
                         this.list();
                         env.nav.setRoot(HomePage);
-                    } else {
-                        env.nav.setRoot('ResturantListPage');
+                    }else{
+                        env.nav.setRoot('ResturantListPage')
                     }
+                   
 
                     this.globals.showFabFlag = true;
                     this.splashscreen.hide();
