@@ -104,8 +104,10 @@ export class MyApp {
                     this.globals.firstName = data.firstName;
                     this.globals.lastName = data.lastName;
                     this.globals.Email = data.email;
-
+                           
                     if (!globals.marketPlace) {
+                    this.globals.main_id = localStorage.getItem("branchBusinessId");
+                    this.globals.bussinessId = localStorage.getItem("branchBusinessId")
                         this.list();
                         env.nav.setRoot(HomePage);
                     } else {
@@ -423,11 +425,11 @@ export class MyApp {
     list() {
         this.globals.appColor = '#f39c12';
         
-        if (this.globals.marketPlace) {
-            this.globals.main_id = '';
-            document.documentElement.style.setProperty('--primary-color', this.globals.appColor);
-        }
-        else {
+        // if (this.globals.marketPlace) {
+        //     this.globals.main_id = '';
+        //     document.documentElement.style.setProperty('--primary-color', this.globals.appColor);
+        // }
+        // else {
             let response = this.server.getRestaurantslist('100000', 'main', "0,0", '0', 'order');
             response.subscribe(data => {
                 this.places = data.results;
@@ -444,7 +446,7 @@ export class MyApp {
             }, error => {
                 this.globals.presentToast("Something went wrong check your internet connection.")
             });
-        }
+        // }
     }
     setupBusiness() {
         this.globals.new_id = this.places[0].business_id;

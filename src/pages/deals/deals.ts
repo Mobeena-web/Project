@@ -106,7 +106,7 @@ export class DealsPage {
                         this.places.push(element);
                     });
 
-                    resolve();
+                    // resolve();
                     console.log(this.places);
                     console.log(this.places.success);
                     if (data.success == 'No data') {

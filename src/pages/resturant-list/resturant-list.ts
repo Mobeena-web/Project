@@ -6,7 +6,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { FormControl } from '@angular/forms';
 import { Http } from '@angular/http';
 import { NativeStorage } from '@ionic-native/native-storage';
-import { TimerObservable } from 'rxjs/observable/TimerObservable';
+// import { TimerObservable } from 'rxjs/observable/TimerObservable';
 import { Subscription } from "rxjs/Rx";
 import { Observable } from "rxjs/Observable";
 import { Diagnostic } from '@ionic-native/diagnostic';
@@ -95,7 +95,8 @@ export class ResturantListPage {
         this.textdisocunt = navParams.get('discount_text');
         this.searchControl = new FormControl();
 
-
+        this.globals.checkGPSPermission();
+        this.getLocation();
 
           this.list();
 
@@ -104,9 +105,7 @@ export class ResturantListPage {
         this.selectOptions = {
             title: 'Distance'
         };
-        this.globals.checkGPSPermission();
-        this.getLocation();
-
+       
 
 
     }
@@ -134,7 +133,7 @@ export class ResturantListPage {
                         localStorage.setItem("places", this.places);
                     });
 
-                    resolve();
+                    // resolve();
                     console.log(this.places);
                     console.log(this.places.success);
                     if (typeof this.places.success != 'undefined' && this.places.success == 'No data') {
@@ -259,11 +258,11 @@ export class ResturantListPage {
         console.log("Branches List called", this.coordinates)
         this.status = false;
 
-        let loading = this.loadingCtrl.create({
-            content: "Getting Location",
+        // let loading = this.loadingCtrl.create({
+        //     content: "Getting Location",
 
-        });
-        loading.present();
+        // });
+        // loading.present();
         this.arrayStatus = false;
         this.flag = true;
 
@@ -272,7 +271,7 @@ export class ResturantListPage {
         let response = this.server.getRestaurantslist(this.radius, 'branches', this.coordinates, this.offset.toString(), 'order');
 
         response.subscribe(data => {
-            loading.dismiss();
+            // loading.dismiss();
             this.places = data.results;
 
             if (typeof data.success != 'undefined' || data.success == 'No data') {
@@ -288,7 +287,7 @@ export class ResturantListPage {
 
 
         }, error => {
-            loading.dismiss()
+            // loading.dismiss()
             this.flag = false;
             this.globals.presentToast("Something went wrong check your internet connection.")
 
@@ -343,6 +342,7 @@ export class ResturantListPage {
         this.globals.business_type = place.business_type;
         this.globals.ccFeeDisclaimer = place.ccFeeDisclaimer;
         this.globals.menu_ready = place.menu_ready;
+        localStorage.setItem("branchBusinessId", this.globals.bussinessId);
 
 
         if (this.globals.pickup == '1') {
@@ -463,11 +463,11 @@ export class ResturantListPage {
         //   this.diagnostic.isLocationEnabled()
         //       .then((state) => {
         //   if (state) {
-        let loading = this.loadingCtrl.create({
-            content: "getting location...",
+        // let loading = this.loadingCtrl.create({
+        //     content: "getting location...",
 
-        });
-        loading.present();
+        // });
+        // loading.present();
         this.status = false;
         this.arrayStatus = false;
         this.flag = true;
@@ -476,11 +476,11 @@ export class ResturantListPage {
             this.coordinates = position.coords.latitude + "," + position.coords.longitude;
             console.log("get Location branches ", this.coordinates)
             this.list();
-            loading.dismiss();
+            // loading.dismiss();
 
         }).catch((err) => {
             console.log(err);
-            loading.dismiss();
+            // loading.dismiss();
             this.status = true;
             let alert = this.alertCtrl.create({
                 title: this.globals.locationAlert_title,
