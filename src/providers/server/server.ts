@@ -75,7 +75,7 @@ export class ServerProvider {
 
   LoadBannersOnHomePage() {
     var link = this.global.BaseUrl + 'Customer_controller/get_banners';
-    var data = JSON.stringify({udid: this.global.udid, business_id: this.global.bussinessId,app_version: this.global.app_version });
+    var data = JSON.stringify({udid: this.global.udid, business_id: this.global.new_id,app_version: this.global.app_version });
     return this.http.post(link, data)
       .map((res: any) => res.json());
   }
