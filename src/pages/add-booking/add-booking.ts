@@ -240,6 +240,7 @@ export class AddBookingPage {
       if (data.status == true) {
         this.timings = data.slots;
       } else {
+        this.timings = [];
         this.global.presentToast(data.message)
       }
       toast.dismiss();
