@@ -106,8 +106,6 @@ export class MyApp {
                     this.globals.Email = data.email;
                            
                     if (!globals.marketPlace) {
-                    this.globals.main_id = localStorage.getItem("branchBusinessId");
-                    this.globals.bussinessId = localStorage.getItem("branchBusinessId")
                         this.list();
                         env.nav.setRoot(HomePage);
                     } else {

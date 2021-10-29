@@ -342,8 +342,7 @@ export class ResturantListPage {
         this.globals.business_type = place.business_type;
         this.globals.ccFeeDisclaimer = place.ccFeeDisclaimer;
         this.globals.menu_ready = place.menu_ready;
-        localStorage.setItem("branchBusinessId", this.globals.bussinessId);
-
+        
 
         if (this.globals.pickup == '1') {
             this.globals.pickup = true;

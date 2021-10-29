@@ -1,0 +1,30 @@
+Instructions
+1. Generate Key File if already not generated using this command:
+keytool -genkey -v -keystore mikronexus-release-key.keystore -alias mikronexus-release-key.alias -keyalg RSA -keysize 2048 -validity 10000
+
+2. copy release build from ionic to this folder where key file is stored
+
+3. use this command to sign the build:
+
+echo "mikronexus" | 
+
+
+
+jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore mikronexus-release-key.keystore app.apk mikronexus-release-key.alias
+
+
+Keyfile password: mikronexus
+
+4. Use this command to zipalign:
+
+zipalign -v 4 app.apk app-final.apk
+
+or
+
+
+
+
+~/Library/Android/sdk/build-tools/29.0.2/zipalign -v 4 app.apk app-final.apk
+
+
+
