@@ -139,6 +139,17 @@ export class MyApp {
             this.globals.orderNow_color = data.order_now_color;
             this.globals.specialOffer_color = data.special_offer_color;
             this.globals.themeColor = data.theme_color;
+            this.globals.banner_image = data.data;
+            this.globals.android_url = data.android_url;
+            this.globals.ios_url = data.ios_url;
+            this.globals.update_message = data.message;
+            this.globals.is_anniversary = data.is_anniversary;
+            this.globals.is_birthday = data.is_birthday;
+            this.globals.cash_discount = data.cash_discount;
+
+            this.globals.cash_discount_enabled = data.cash_discount_enabled;
+            this.globals.cash_discount_percentage = data.cash_discount_percentage;
+            this.globals.cash_discount_value = data.cash_discount_value;
             if (data.theme_color) {
                 this.globals.appColor = data.theme_color;
             } else {
@@ -421,7 +432,7 @@ export class MyApp {
     }
 
     list() {
-        this.globals.appColor = '#f39c12';
+       // this.globals.appColor = '#f39c12';
         
         // if (this.globals.marketPlace) {
         //     this.globals.main_id = '';
@@ -440,7 +451,7 @@ export class MyApp {
                 // });
                 // console.log('resiults', this.places);
                 this.setupBusiness();
-                document.documentElement.style.setProperty('--primary-color', this.globals.appColor);
+                
             }, error => {
                 this.globals.presentToast("Something went wrong check your internet connection.")
             });
@@ -506,10 +517,10 @@ export class MyApp {
         if (this.places[0].appColor) {
             this.globals.appColor = this.places[0].appColor;
         } else {
-            // this.globals.appColor = '#000000'
+            this.globals.appColor = '#000000'
         }
+        document.documentElement.style.setProperty('--primary-color', this.globals.appColor);
 
-        // document.documentElement.style.setProperty('--primary-color', this.globals.appColor);
 
         if (this.globals.pickup == '1') {
             this.globals.pickup = true;
