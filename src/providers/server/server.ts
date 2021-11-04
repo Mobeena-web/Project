@@ -108,7 +108,7 @@ export class ServerProvider {
     var link = this.global.BaseUrl + 'Customer_controller/get_punchcards';
     var bussinessName;
     if(this.global.branch_enabled == 1){
-      bussinessName = this.global.username;
+      bussinessName = this.global.branchUsername;
     }else{
       bussinessName = this.global.business_username;
     }
@@ -255,7 +255,7 @@ export class ServerProvider {
     var link = this.global.BaseUrl + 'Customer_controller/get_points';
     var bussinessName;
     if(this.global.branch_enabled == 1){
-      bussinessName = this.global.username;
+      bussinessName = this.global.branchUsername;
     }else{
       bussinessName = this.global.business_username;
     }
@@ -270,7 +270,7 @@ export class ServerProvider {
     var link = this.global.BaseUrl + 'Customer_controller/get_punchcards';
     var bussinessName;
     if(this.global.branch_enabled == 1){
-      bussinessName = this.global.username;
+      bussinessName = this.global.branchUsername;
     }else{
       bussinessName = this.global.business_username;
     }
@@ -683,7 +683,7 @@ export class ServerProvider {
     var link = this.global.BaseUrl + 'Customer_controller/get_points';
     var bussinessName;
     if(this.global.branch_enabled == 1){
-      bussinessName = this.global.username;
+      bussinessName = this.global.branchUsername;
     }else{
       bussinessName = this.global.business_username;
     }

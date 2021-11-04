@@ -186,6 +186,7 @@ export class GlobalVariable {
   selected_branch_name : any;
   website : any;
   schedule_enabled : any;
+  branchUsername : any;
 
   logs = true;
   locationAlert_title = 'Location is turned off';

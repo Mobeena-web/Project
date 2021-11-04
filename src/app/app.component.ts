@@ -39,6 +39,8 @@ export class MyApp {
     pages: Array<{ title: string, component: any }>;
     data: any;
     places: any;
+    coordinates: string;
+    loginCheck : boolean;
 
     constructor(private codePush: CodePush, private nativeAudio: NativeAudio,
         public loadingCtrl: LoadingController, private iab: InAppBrowser,
@@ -104,13 +106,10 @@ export class MyApp {
                     this.globals.firstName = data.firstName;
                     this.globals.lastName = data.lastName;
                     this.globals.Email = data.email;
-                           
-                    if (!globals.marketPlace) {
-                        this.list();
-                        env.nav.setRoot(HomePage);
-                    } else {
-                        env.nav.setRoot('ResturantListPage');
-                    }
+
+                    this.loginCheck = true;
+                    env.list();
+                   
 
                     this.globals.showFabFlag = true;
                     this.splashscreen.hide();
@@ -128,6 +127,130 @@ export class MyApp {
             this.splashscreen.hide();
         });
         this.loadBanner();
+    }
+
+    checkBusinessType(){
+        console.log("branch_enabled...",this.globals.branch_enabled)
+        if(this.globals.branch_enabled == 1){            
+        if(localStorage.getItem('branchBusinessId')){
+            this.globals.bussinessId = localStorage.getItem("branchBusinessId")
+            this.branchlist();
+            this.nav.setRoot(HomePage);
+        }else{
+            this.nav.setRoot('ResturantListPage')
+        }
+    }else{
+        this.nav.setRoot(HomePage);
+    }
+    }
+
+    branchlist() {
+       let place;
+        let response = this.server.getRestaurantslist('100000', 'branches', this.coordinates, '0', 'order');
+        response.subscribe(data => {
+            this.places = data.results;
+            for(let i = 0; i < this.places.length;i++){
+                if(this.places[i].business_id == this.globals.bussinessId){
+                    place = this.places[i];
+                    console.log(place)
+                    this.OrderCategory(place)
+
+                }
+            }
+        }, error => {
+            
+                    this.globals.presentToast("Something went wrong check your internet connection.")
+
+        });
+    }
+
+    OrderCategory(place) {
+        if(this.globals.username != place.username){
+            this.globals.Product = [];
+        }
+        
+        this.globals.selected_branch_name = place.name;
+        this.globals.pickup = place.pickup;
+        this.globals.latitude = place.latitude;
+        this.globals.longitude = place.longitude;
+        this.globals.hours_operation = place.hours_operation;
+        this.globals.b_logo = place.logo;
+        this.globals.StripId = place.stripe_id;
+        this.globals.order_instructions = place.instructions_enabled;
+        this.globals.pickup_timing = place.pickup_timing;
+        this.globals.delivery_timing = place.delivery_timing;
+        //this.globals.business_username = place.username;
+        this.globals.estimated_time = place.delivery_time;
+        this.globals.business_discount_count = parseInt(place.business_discount_count);
+        this.globals.branchUsername = place.username;
+        this.globals.username = place.username;
+        this.globals.bussinessId = place.business_id;
+        this.globals.admin_stripe = place.admin_stripe_enabled;
+        this.globals.pickupsetting = place.delivery_time;
+        this.globals.tax = place.tax;
+        this.globals.deliveryCharges = place.delivery_fee;
+        this.globals.pickup_Time = place.pickup_time;
+        this.globals.minimun_order = parseInt(place.minimum_order);
+        this.globals.availed_discount_count = parseInt(place.customer_discount_availed_count);
+        this.globals.paypalId = place.paypal_id;
+        this.globals.Timing = place.hours_operation;
+        this.globals.delivery_day = place.delivery_day;
+        this.globals.authorize_enabled = place.authorize_enabled;
+        this.globals.card_enabled = place.card_enabled;
+        this.globals.admin_stripe_enabled = place.admin_stripe_enabled;
+        this.globals.catering_enabled = place.catering_enabled;
+        this.globals.catering_cart_enabled = place.catering_cart_enabled;
+        this.globals.giftcard_amount_limit = place.giftcard_limit;
+        this.globals.business_type = place.business_type;
+        this.globals.ccFeeDisclaimer = place.ccFeeDisclaimer;
+        this.globals.menu_ready = place.menu_ready;
+
+        if (this.globals.pickup == '1') {
+            this.globals.pickup = true;
+        }
+        else {
+            this.globals.pickup = false;
+        }
+        if (place.delivery == '1') {
+            console.log('place delivery', place.delivery == '1');
+            this.globals.delivery = true;
+        }
+        else {
+            this.globals.delivery = false;
+        }
+        if (place.cash_enabled == '1') {
+            this.globals.cash_enabled = true;
+        }
+        else {
+            this.globals.cash_enabled = false;
+
+        }
+        if (this.globals.pickup == '1') {
+            this.globals.pickup = true;
+        }
+        else {
+            this.globals.pickup = false;
+        }
+        if (place.delivery == '1') {
+            console.log('place delivery1', place.delivery == '1');
+            this.globals.delivery = true;
+        }
+        else {
+            this.globals.delivery = false;
+        }
+
+    }
+    
+    getLocation() {
+        this.geolocation.getCurrentPosition().then((position) => {
+            this.coordinates = position.coords.latitude + "," + position.coords.longitude;
+            console.log("get Location branches ", this.coordinates)
+           
+        }).catch((err) => {
+            console.log(err);
+          
+        })
+      
     }
 
     loadBanner() {
@@ -439,6 +562,12 @@ export class MyApp {
         //     document.documentElement.style.setProperty('--primary-color', this.globals.appColor);
         // }
         // else {
+            let loading = this.loadingCtrl.create({
+                content: "please wait..",
+            });
+            loading.present();
+
+            
             let response = this.server.getRestaurantslist('100000', 'main', "0,0", '0', 'order');
             response.subscribe(data => {
                 this.places = data.results;
@@ -452,7 +581,10 @@ export class MyApp {
                 // console.log('resiults', this.places);
                 this.setupBusiness();
                 
+                document.documentElement.style.setProperty('--primary-color', this.globals.appColor);
+                loading.dismiss();
             }, error => {
+                loading.dismiss();
                 this.globals.presentToast("Something went wrong check your internet connection.")
             });
         // }
@@ -484,7 +616,7 @@ export class MyApp {
         this.globals.business_username = this.places[0].username;
         this.globals.estimated_time = this.places[0].delivery_time;
         this.globals.business_discount_count = parseInt(this.places[0].business_discount_count);
-        this.globals.username = this.places[0].username;
+        // this.globals.username = this.places[0].username;
         this.globals.bussinessId = this.places[0].business_id;
         this.globals.admin_stripe = this.places[0].admin_stripe_enabled;
         this.globals.pickupsetting = this.places[0].delivery_time;
@@ -520,6 +652,9 @@ export class MyApp {
             this.globals.appColor = '#000000'
         }
         document.documentElement.style.setProperty('--primary-color', this.globals.appColor);
+        if(this.loginCheck){
+        this.checkBusinessType();
+        }
 
 
         if (this.globals.pickup == '1') {
