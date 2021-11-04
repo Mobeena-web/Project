@@ -325,6 +325,7 @@ export class ResturantListPage {
         this.globals.pickup_timing = place.pickup_timing;
         this.globals.delivery_timing = place.delivery_timing;
         //this.globals.business_username = place.username;
+        this.globals.branchUsername = place.username;
         this.globals.estimated_time = place.delivery_time;
         this.globals.business_discount_count = parseInt(place.business_discount_count);
         this.globals.username = place.username;

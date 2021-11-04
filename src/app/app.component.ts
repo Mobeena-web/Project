@@ -40,6 +40,7 @@ export class MyApp {
     data: any;
     places: any;
     coordinates: string;
+    loginCheck : boolean;
 
     constructor(private codePush: CodePush, private nativeAudio: NativeAudio,
         public loadingCtrl: LoadingController, private iab: InAppBrowser,
@@ -106,15 +107,8 @@ export class MyApp {
                     this.globals.lastName = data.lastName;
                     this.globals.Email = data.email;
 
-                    this.list();      
-                    if(localStorage.getItem('branchBusinessId')){
-                        this.globals.bussinessId = localStorage.getItem("branchBusinessId")
-                          
-                        this.list();
-                        env.nav.setRoot(HomePage);
-                    }else{
-                        env.nav.setRoot('ResturantListPage')
-                    }
+                    this.loginCheck = true;
+                    env.list();
                    
 
                     this.globals.showFabFlag = true;
@@ -135,11 +129,34 @@ export class MyApp {
         this.loadBanner();
     }
 
+    checkBusinessType(){
+        console.log("branch_enabled...",this.globals.branch_enabled)
+        if(this.globals.branch_enabled == 1){            
+        if(localStorage.getItem('branchBusinessId')){
+            this.globals.bussinessId = localStorage.getItem("branchBusinessId")
+            this.branchlist();
+            this.nav.setRoot(HomePage);
+        }else{
+            this.nav.setRoot('ResturantListPage')
+        }
+    }else{
+        this.nav.setRoot(HomePage);
+    }
+    }
+
     branchlist() {
-       
+       let place;
         let response = this.server.getRestaurantslist('100000', 'branches', this.coordinates, '0', 'order');
         response.subscribe(data => {
             this.places = data.results;
+            for(let i = 0; i < this.places.length;i++){
+                if(this.places[i].business_id == this.globals.bussinessId){
+                    place = this.places[i];
+                    console.log(place)
+                    this.OrderCategory(place)
+
+                }
+            }
         }, error => {
             
                     this.globals.presentToast("Something went wrong check your internet connection.")
@@ -148,14 +165,10 @@ export class MyApp {
     }
 
     OrderCategory(place) {
-        console.log(this.globals.username)
-        console.log(place.username)
         if(this.globals.username != place.username){
             this.globals.Product = [];
         }
-        console.log(place, "ppo");
-        console.log(this.places);
-       
+        
         this.globals.selected_branch_name = place.name;
         this.globals.pickup = place.pickup;
         this.globals.latitude = place.latitude;
@@ -169,6 +182,7 @@ export class MyApp {
         //this.globals.business_username = place.username;
         this.globals.estimated_time = place.delivery_time;
         this.globals.business_discount_count = parseInt(place.business_discount_count);
+        this.globals.branchUsername = place.username;
         this.globals.username = place.username;
         this.globals.bussinessId = place.business_id;
         this.globals.admin_stripe = place.admin_stripe_enabled;
@@ -190,8 +204,6 @@ export class MyApp {
         this.globals.business_type = place.business_type;
         this.globals.ccFeeDisclaimer = place.ccFeeDisclaimer;
         this.globals.menu_ready = place.menu_ready;
-        localStorage.setItem("branchBusinessId", this.globals.bussinessId);
-
 
         if (this.globals.pickup == '1') {
             this.globals.pickup = true;
@@ -539,6 +551,12 @@ export class MyApp {
         //     document.documentElement.style.setProperty('--primary-color', this.globals.appColor);
         // }
         // else {
+            let loading = this.loadingCtrl.create({
+                content: "please wait..",
+            });
+            loading.present();
+
+            
             let response = this.server.getRestaurantslist('100000', 'main', "0,0", '0', 'order');
             response.subscribe(data => {
                 this.places = data.results;
@@ -552,7 +570,9 @@ export class MyApp {
                 // console.log('resiults', this.places);
                 this.setupBusiness();
                 document.documentElement.style.setProperty('--primary-color', this.globals.appColor);
+                loading.dismiss();
             }, error => {
+                loading.dismiss();
                 this.globals.presentToast("Something went wrong check your internet connection.")
             });
         // }
@@ -584,7 +604,7 @@ export class MyApp {
         this.globals.business_username = this.places[0].username;
         this.globals.estimated_time = this.places[0].delivery_time;
         this.globals.business_discount_count = parseInt(this.places[0].business_discount_count);
-        this.globals.username = this.places[0].username;
+        // this.globals.username = this.places[0].username;
         this.globals.bussinessId = this.places[0].business_id;
         this.globals.admin_stripe = this.places[0].admin_stripe_enabled;
         this.globals.pickupsetting = this.places[0].delivery_time;
@@ -618,6 +638,9 @@ export class MyApp {
             this.globals.appColor = this.places[0].appColor;
         } else {
             // this.globals.appColor = '#000000'
+        }
+        if(this.loginCheck){
+        this.checkBusinessType();
         }
 
         // document.documentElement.style.setProperty('--primary-color', this.globals.appColor);
