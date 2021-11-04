@@ -293,6 +293,7 @@ export class ModalPage {
 
     }
 
+    this.getTiming();
 
   }
   // geolocate() {
