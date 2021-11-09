@@ -32,6 +32,7 @@
   <ion-refresher (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
+  <p *ngIf="globals.branch_enabled == 1" style="margin-top: 0px;padding-bottom: 5px;" text-center>{{globals.selected_branch_name}}</p>
   <p class="marquee message" [ngStyle]="{'background-color': banner_color}" *ngIf="today_message">
     <span>{{today_message}}</span></p>
 

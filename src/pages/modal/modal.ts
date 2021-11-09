@@ -155,17 +155,7 @@ export class ModalPage {
     console.log("value", this.value)
 
     var date1 = new Date((date.getTime()) - date.getTimezoneOffset() * 60000).toISOString();
-
-    if (!this.globals.myDate) {
-      this.globals.myDate = date1;
-      let response = this.server.scheduleTime(this.globals.myDate, this.globals.OrderType);
-      response.subscribe(data => {
-        console.log("scheduleTime",data)
-        this.time_value = data.slots;
-      }, error => {
-        this.globals.presentToast("Something went wrong check your internet connection.")
-      });
-    }
+    this.globals.myDate = date1;
   }
 
 
@@ -303,6 +293,7 @@ export class ModalPage {
 
     }
 
+    this.getTiming();
 
   }
   // geolocate() {
@@ -350,6 +341,19 @@ export class ModalPage {
   // }).catch(err => console.log(err));
 
   // }
+  getTiming(){
+      let response = this.server.scheduleTime(this.globals.myDate, this.globals.OrderType);
+      response.subscribe(data => {
+        console.log("scheduleTime",data)
+        if(data.status == true){
+          this.time_value = data.slots;
+        }else{
+          this.globals.presentToast(data.message)
+        }
+      }, error => {
+        this.globals.presentToast("Something went wrong check your internet connection.")
+      });
+  }
 
   ionViewWillEnter() {
     //   this.getCurrentLocation().then((resp) => {
@@ -374,24 +378,13 @@ export class ModalPage {
       this.type = this.globals.OrderType;
     }
 
+    this.getTiming();
 
 
   }
 
   dateChanged() {
-    console.log(this.globals.myDate)
-    let response = this.server.scheduleTime(this.globals.myDate, this.globals.OrderType);
-    response.subscribe(data => {
-      console.log("scheduleTime",data)
-      if(data.status == true){
-        this.time_value = data.slots;
-      }else{
-        this.globals.presentToast(data.message)
-      }
-      
-    }, error => {
-      this.globals.presentToast("Something went wrong check your internet connection.")
-    });
+    this.getTiming();
     this.dateTimeString()
   }
 
