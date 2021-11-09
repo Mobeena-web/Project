@@ -5,7 +5,7 @@
     margin-bottom: 5px;">Your Order Settings</ion-title>
   </ion-navbar>
 
-  <ion-segment [(ngModel)]="globals.OrderType">
+  <ion-segment (ionChange)="onsegmentChanged()" [(ngModel)]="globals.OrderType">
     <ion-segment-button *ngIf="globals.delivery" value="delivery">
       Delivery
     </ion-segment-button>
@@ -101,10 +101,10 @@
         </ion-datetime>
       </ion-item>
       
-    <ion-item *ngIf="globals.order_time == 'schedule'">
+    <ion-item *ngIf="globals.order_time == 'schedule' && time_value">
       <ion-label>Schedule Time</ion-label>
-      <ion-select [(ngModel)]="globals.myTime" (ionChange)="dateChanged()">
-        <ion-option *ngFor="let t of time_value" value={{t.time}}>{{t.time}}</ion-option>
+      <ion-select [(ngModel)]="globals.myTime" (ionChange)="dateTimeString()">
+        <ion-option *ngFor="let t of time_value" value={{t.time}}><ion-label>{{t.time}}</ion-label></ion-option>
       </ion-select>
     </ion-item>
 

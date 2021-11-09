@@ -278,7 +278,8 @@ export class ModalPage {
     // this.loadMap(this.lat,this.long)
     this.globals.checkGPSPermission();
     this.CurrentAdressBox();
-    if (this.type == "delivery") {
+    console.log("OrderType",this.globals.OrderType)
+    if (this.globals.OrderType == "delivery") {
 
       this.globals.OrderType = "delivery";
       // this.segmentValue = "Asap"
@@ -342,15 +343,23 @@ export class ModalPage {
 
   // }
   getTiming(){
+    let loading = this.loadingCtrl.create({
+      content: "Loading...",
+    });
+    loading.present();
       let response = this.server.scheduleTime(this.globals.myDate, this.globals.OrderType);
       response.subscribe(data => {
+        loading.dismiss();
         console.log("scheduleTime",data)
+        this.time_value = '';
         if(data.status == true){
           this.time_value = data.slots;
         }else{
+          this.globals.myTime = '';
           this.globals.presentToast(data.message)
         }
       }, error => {
+        loading.dismiss();
         this.globals.presentToast("Something went wrong check your internet connection.")
       });
   }
@@ -385,15 +394,18 @@ export class ModalPage {
 
   dateChanged() {
     this.getTiming();
-    this.dateTimeString()
+    //this.dateTimeString()
   }
 
   dateTimeString(){
-    if(this.globals.myTime){
-    var date = this.globals.myDate.split('T')[0]
-    var s = this.globals.myDate.split(':')[2]
-    var time = this.globals.myTime.split(' ')[0]
-    var dateString = date+'T'+time+':'+s;
+    if(this.globals.myTime){ 
+    var date = this.globals.myDate.split('T')[0];
+    var date = this.globals.myDate.split(' ')[0];
+    // var s = this.globals.myDate.split(':')[2]
+    // var time = this.globals.myTime.split(' ')[0]
+    // var dateString = date+'T'+time+':'+s;
+    // console.log(dateString)
+    var dateString = date+' '+this.globals.myTime;
     console.log(dateString)
     this.globals.myDate = dateString;
     }
