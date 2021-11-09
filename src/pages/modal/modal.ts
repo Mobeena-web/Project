@@ -86,6 +86,7 @@ export class ModalPage {
   @ViewChild('searchbar', { read: ElementRef }) searchbar: ElementRef;
   addressElement: HTMLInputElement = null;
   map: any;
+  selectedDate :any;
   constructor(public loadingCtrl: LoadingController, public server: ServerProvider, public geolocation: Geolocation, public alertCtrl: AlertController, public navCtrl: NavController, public formBuilder: FormBuilder, public navParams: NavParams, public viewCtrl: ViewController, public globals: GlobalVariable, public modalCtrl: ModalController, public nativeStorage: NativeStorage, public plt: Platform,
     private locationAccuracy: LocationAccuracy,
     public androidPermissions : AndroidPermissions,
@@ -156,6 +157,7 @@ export class ModalPage {
 
     var date1 = new Date((date.getTime()) - date.getTimezoneOffset() * 60000).toISOString();
     this.globals.myDate = date1;
+    this.selectedDate = date1;
   }
 
 
@@ -347,15 +349,16 @@ export class ModalPage {
       content: "Loading...",
     });
     loading.present();
-      let response = this.server.scheduleTime(this.globals.myDate, this.globals.OrderType);
+    var date = this.selectedDate.split('T')[0];
+      let response = this.server.scheduleTime(this.selectedDate, this.globals.OrderType);
       response.subscribe(data => {
         loading.dismiss();
         console.log("scheduleTime",data)
-        this.time_value = '';
+        this.globals.myTime = '';
         if(data.status == true){
           this.time_value = data.slots;
         }else{
-          this.globals.myTime = '';
+          this.time_value = '';
           this.globals.presentToast(data.message)
         }
       }, error => {
@@ -399,8 +402,7 @@ export class ModalPage {
 
   dateTimeString(){
     if(this.globals.myTime){ 
-    var date = this.globals.myDate.split('T')[0];
-    var date = this.globals.myDate.split(' ')[0];
+    var date = this.selectedDate.split('T')[0];     
     // var s = this.globals.myDate.split(':')[2]
     // var time = this.globals.myTime.split(' ')[0]
     // var dateString = date+'T'+time+':'+s;

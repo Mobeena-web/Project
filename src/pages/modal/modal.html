@@ -96,7 +96,7 @@
     <div *ngIf="globals.schedule_enabled"> 
       <ion-item class="time_d" *ngIf="globals.order_time == 'schedule'">
         <ion-label>Schedule Date</ion-label>
-        <ion-datetime min="{{value}}" displayFormat="MMM DD" pickerFormat="MMM DD" [(ngModel)]="globals.myDate"
+        <ion-datetime min="{{value}}" displayFormat="MMM DD" pickerFormat="MMM DD" [(ngModel)]="selectedDate"
           (ionChange)="dateChanged()">
         </ion-datetime>
       </ion-item>
