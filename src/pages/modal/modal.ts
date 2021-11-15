@@ -349,7 +349,6 @@ export class ModalPage {
       content: "Loading...",
     });
     loading.present();
-    var date = this.selectedDate.split('T')[0];
       let response = this.server.scheduleTime(this.selectedDate, this.globals.OrderType);
       response.subscribe(data => {
         loading.dismiss();

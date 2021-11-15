@@ -308,6 +308,11 @@ export class ResturantListPage {
         console.log(place, "ppo");
         console.log(this.places);
        
+        this.globals.business_name = this.places[0].name;
+        this.globals.business_phone = this.places[0].phone;
+        this.globals.business_address = this.places[0].address;
+        this.globals.tip_enabled = this.places[0].tip_enabled;
+        this.globals.schedule_enabled = this.places[0].schedule_enabled;
         this.globals.selected_branch_name = place.name;
         this.globals.point_check = this.places[0].points_enabled;
         this.globals.punch_check = this.places[0].punches_enabled;
@@ -350,6 +355,12 @@ export class ResturantListPage {
         this.globals.website = this.places[0].website;
         this.globals.ccFeeDisclaimer = place.ccFeeDisclaimer;
         this.globals.menu_ready = place.menu_ready;
+        this.globals.specific_delivery_day = this.places[0].specific_delivery_day;
+        this.globals.review_enabled = this.places[0].review_enabled;
+        this.globals.appointment_enabled = this.places[0].appointment_enabled;
+        this.globals.orders_enabled = this.places[0].orders_enabled;
+        this.globals.BusinessDiscount = this.places[0].discount; 
+
         localStorage.setItem("branchBusinessId", this.globals.bussinessId);
 
 

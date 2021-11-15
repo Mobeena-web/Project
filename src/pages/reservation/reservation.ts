@@ -159,7 +159,7 @@ export class ReservationPage {
                         this.places.push(element);
                     });
 
-                    resolve();
+                 //   resolve();
                     console.log(this.places);
                     console.log(this.places.success);
                     if (typeof this.places.success != 'undefined' && this.places.success == 'No data') {

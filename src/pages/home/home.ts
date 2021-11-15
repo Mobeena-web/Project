@@ -99,7 +99,9 @@ export class HomePage {
         console.log("Globals -> ", this.globals)
         this.globals.checkGPSPermission();
         this.getLocation();
+        if (this.globals.branch_enabled != 1) {
         this.list();
+        }
     }
 
     orderNow() {
