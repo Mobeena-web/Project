@@ -168,8 +168,19 @@ export class MyApp {
         if(this.globals.username != place.username){
             this.globals.Product = [];
         }
-        
+        this.globals.business_name = this.places[0].name;
+        this.globals.business_phone = this.places[0].phone;
+        this.globals.business_address = this.places[0].address;
+        this.globals.tip_enabled = this.places[0].tip_enabled;
+        this.globals.website = this.places[0].website;
+        this.globals.schedule_enabled = this.places[0].schedule_enabled;
         this.globals.selected_branch_name = place.name;
+        this.globals.point_check = this.places[0].points_enabled;
+        this.globals.punch_check = this.places[0].punches_enabled;
+        this.globals.special_offer = this.places[0].special_offer;
+        this.globals.events_enabled = this.places[0].events_enabled;
+        this.globals.gallery_enabled = this.places[0].gallery_enabled;
+        this.globals.giftcard_enabled = this.places[0].giftcard_enabled;
         this.globals.pickup = place.pickup;
         this.globals.latitude = place.latitude;
         this.globals.longitude = place.longitude;
@@ -204,6 +215,11 @@ export class MyApp {
         this.globals.business_type = place.business_type;
         this.globals.ccFeeDisclaimer = place.ccFeeDisclaimer;
         this.globals.menu_ready = place.menu_ready;
+        this.globals.specific_delivery_day = this.places[0].specific_delivery_day;
+        this.globals.review_enabled = this.places[0].review_enabled;
+        this.globals.appointment_enabled = this.places[0].appointment_enabled;
+        this.globals.orders_enabled = this.places[0].orders_enabled;
+        this.globals.BusinessDiscount = this.places[0].discount; 
 
         if (this.globals.pickup == '1') {
             this.globals.pickup = true;

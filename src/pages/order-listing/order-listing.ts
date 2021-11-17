@@ -145,7 +145,7 @@ export class OrderListingPage {
                        localStorage.setItem("places",this.places);
                     });
 
-                    resolve();
+                   // resolve();
                     console.log(this.places);
                     console.log(this.places.success);
                     if (typeof this.places.success != 'undefined' && this.places.success == 'No data') {
