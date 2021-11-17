@@ -129,6 +129,8 @@ export class LoginPage {
                                 this.SaveMobileNumberFlag(this.data.response.mobile_verification_amount, this.data.response.phone_verified);
                                 if (this.globals.caos_flag) {
                                     this.navCtrl.push('CartPage')
+                                } else if(this.globals.bookingCheck){
+                                    this.navCtrl.push('AddBookingPage')
                                 } else {
                                     if (this.globals.marketPlace) {
                                         this.navCtrl.setRoot('BusinessListingMainPage');
@@ -148,6 +150,8 @@ export class LoginPage {
 
                                 if (this.globals.caos_flag) {
                                     this.navCtrl.push('CartPage')
+                                } else if(this.globals.bookingCheck){
+                                    this.navCtrl.push('AddBookingPage')
                                 } else {
                                     if (this.globals.marketPlace) {
                                         this.navCtrl.setRoot('BusinessListingMainPage');

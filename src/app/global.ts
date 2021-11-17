@@ -187,6 +187,8 @@ export class GlobalVariable {
   website : any;
   schedule_enabled : any;
   branchUsername : any;
+  object :any;
+  bookingCheck : boolean = false;
 
   logs = true;
   locationAlert_title = 'Location is turned off';
@@ -259,6 +261,21 @@ export class GlobalVariable {
     });
   }
 
+  disableBtn(obj,timing?){
+    this.object = obj;
+    let duration
+    if(timing){
+        duration = timing;
+    }else{
+        duration = 5000;
+    }
+    let that = this;
+    let clearKey = setInterval(function () {
+      that.object = '';
+      console.log("disableBtn",that.object)
+      clearInterval(clearKey);
+    }, duration);
+  }
 
   checkGPSPermission() {
     this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.ACCESS_COARSE_LOCATION).then(

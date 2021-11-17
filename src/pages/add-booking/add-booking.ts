@@ -103,6 +103,8 @@ export class AddBookingPage {
     this.tip = 0;
     this.giftCard = '';
     this.giftcardId = '';
+    this.gitfcardAmount = 0;
+    this.ccFee = 0;
   }
   typeChange() {
     console.log('OnChange', this.book_time);
@@ -391,6 +393,7 @@ gift_alert() {
 
 fullPayment(data){
   this.totalValue();
+  this.ccFeeCalculate();
   if (Number(data.amount) < Number(this.total)) {
     this.total = (Number(this.total) - Number(data.amount)).toFixed(2);
     this.gitfcardAmount = Number(data.amount).toFixed(2);
@@ -443,7 +446,8 @@ partial_redeem(data_gift) {
           {
               text: 'Pay',
               handler: data => {
-                  this.totalValue();      
+                  this.totalValue();
+                  this.ccFeeCalculate();      
                   if (Number(data_gift.amount) < Number(data.amount)) {
                       this.global.presentToast("You enter amount greater than your giftcard")
                   }
@@ -491,6 +495,7 @@ payment(){
     if (this.global.guess_login) {
       this.presentConfirm();
   } else {
+    this.global.disableBtn('booking')
      this.amountArray = {
     'tip':this.tip,
     'giftcard_amount': this.gitfcardAmount,
@@ -552,6 +557,7 @@ presentConfirm() {
           {
               text: 'Login',
               handler: () => {
+                  this.global.bookingCheck = true;
                   this.navCtrl.setRoot('LoginPage')
               }
           }
