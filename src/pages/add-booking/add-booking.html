@@ -74,7 +74,7 @@
 
 <div class="margin-top" *ngIf="timings.length > 0">
         <ion-row>
-          <ion-col col-3 class="col" *ngFor="let s of timings">
+          <ion-col col-6 class="col" *ngFor="let s of timings">
               <button text-wrap text-center class="time-button button-color" ion-button block round (click)="clickTime(s)">{{s.time}}</button>
             <!-- <ion-card class="card" [ngClass]="{'card-outline': timing.time == s.time}">
                 <p text-center  class="medium-font" >{{s.time}}</p>
@@ -239,7 +239,7 @@
     </ion-card>
     </div>
 
-<button ion-button block round margin-top class="button-color" (click)="book()">Book Now</button>
+<button ion-button block round margin-top [disabled]="global.object == 'booking'" class="button-color" (click)="book()">Book Now</button>
 </div>
 
 <!-- <button ion-button block round margin-top color="jack" class="button-color" (click)="disclaimer()">Disclaimer Policy</button> -->
