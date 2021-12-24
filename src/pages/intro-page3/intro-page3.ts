@@ -20,11 +20,13 @@ export class IntroPage3Page {
     masks: any;
     data: any;
     phone: any;
+    password: any;
     profile_complete: any;
 
     constructor(public loadingCtrl: LoadingController, private nativeStorage: NativeStorage, public globals: GlobalVariable, public modalCtrl: ModalController, public alertCtrl: AlertController, public server: ServerProvider, public formBuilder: FormBuilder, public navCtrl: NavController, public navParams: NavParams) {
         this.data = {};
         this.phone = this.navParams.get('phone');
+        this.password = this.navParams.get('password');
         this.profile_complete = this.navParams.get('profile_complete');
         this.data.response = '';
 
@@ -35,7 +37,7 @@ export class IntroPage3Page {
                 email: ['', Validators.compose([Validators.required, EmailValidator.isValid])],
                 phone: [this.phone, Validators.compose([Validators.maxLength(10), Validators.pattern('[0-9]*')])],
                 // nextdigits: ['', Validators.compose([Validators.maxLength(4), Validators.required])],
-                password: [''],
+                password: [this.password, Validators.compose([Validators.minLength(6),Validators.required])],
                 phonecode: ['1', Validators.compose([Validators.required])],
                 // age : ['', Validators.compose([Validators.maxLength(3),Validators.pattern('[0-9]*')])],
                 // gender: ['', Validators.compose([Validators.required])],
@@ -47,7 +49,7 @@ export class IntroPage3Page {
                 email: ['', Validators.compose([Validators.required, EmailValidator.isValid])],
                 phone: [this.phone, Validators.compose([Validators.maxLength(10), Validators.pattern('[0-9]*')])],
                 // nextdigits: ['', Validators.compose([Validators.maxLength(4), Validators.required])],
-                password: ['', Validators.compose([Validators.minLength(6), Validators.required])],
+                password: [Validators.compose([Validators.minLength(6), Validators.required])],
                 phonecode: ['1', Validators.compose([Validators.required])],
                 // age : ['', Validators.compose([Validators.maxLength(3),Validators.pattern('[0-9]*')])],
                 // gender: ['', Validators.compose([Validators.required])],
