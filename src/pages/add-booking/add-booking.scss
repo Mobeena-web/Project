@@ -23,6 +23,9 @@ page-add-booking {
     ion-calender{
         border-radius: 8px !important;
     }
+    ion-calendar-week .week-title.transparent {
+        color: #fff;
+    }
     .segment-md .segment-button.activated, .segment-md .segment-button.segment-activated {
         border-color: $primary !important;
     }

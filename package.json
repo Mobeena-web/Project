@@ -110,6 +110,7 @@
     "jquery": "^3.4.1",
     "moment": "^2.27.0",
     "mx.ferreyra.callnumber": "0.0.2",
+    "ng-speed-test": "^2.2.0",
     "ngx-order-pipe": "^2.1.1",
     "onesignal-cordova-plugin": "^2.9.1",
     "phonegap-plugin-barcodescanner": "^7.1.2",
