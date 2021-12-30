@@ -427,7 +427,6 @@ export class ModalPage {
 
     localStorage.setItem("GetAddress", this.globals.address);
 
-    console.log("gloabl", this.globals);
     if (this.globals.OrderType == 'delivery') {
       
 
@@ -841,7 +840,7 @@ export class ModalPage {
         var response: any;
 
         if (this.globals.specific_delivery_day == 'true') {
-          response = this.server.date_convert(this.globals.myDate.format('DD-MM-YYYY'));
+          response = this.server.date_convert(this.globals.myDate);
 
         }
         else {
@@ -864,7 +863,7 @@ export class ModalPage {
             this.globals.schedule_converted_time = data.time;
 
             if (this.globals.specific_delivery_day == 'true') {
-              localStorage.setItem("scheduled_time", this.globals.myDate.format('DD-MM-YYYY'));
+              localStorage.setItem("scheduled_time", this.globals.myDate);
             }
             else {
               localStorage.setItem("scheduled_time", this.globals.myDate);

@@ -124,7 +124,7 @@
     "@types/jquery": "^3.3.31",
     "code-push": "^3.0.1",
     "cordova-android": "^9.1.0",
-    "cordova-ios": "^5.1.0",
+    "cordova-ios": "^6.2.0",
     "cordova-plugin-advanced-http": "^3.2.2",
     "cordova-plugin-android-permissions": "^1.1.2",
     "cordova-plugin-file-transfer": "^1.6.3",
@@ -189,6 +189,7 @@
     },
     "platforms": [
       "browser",
+      "ios",
       "android"
     ]
   },
