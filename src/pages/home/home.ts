@@ -99,6 +99,9 @@ export class HomePage {
         console.log("Globals -> ", this.globals)
         this.globals.checkGPSPermission();
         this.getLocation();
+        setTimeout(() => {
+        this.getPoints('0,0');
+            }, 1000)
         if (this.globals.branch_enabled != 1) {
         this.list();
         }
