@@ -20,6 +20,7 @@
     "windows-build": "node src/windows-build.js"
   },
   "dependencies": {
+    "-": "0.0.1",
     "@angular/animations": "5.2.11",
     "@angular/cli": "^6.2.9",
     "@angular/common": "5.0.3",
@@ -70,6 +71,7 @@
     "call-number": "^1.0.1",
     "code-push-cli": "^2.1.9",
     "com-sarriaroman-photoviewer": "^1.2.5",
+    "cordova": "^11.0.0",
     "cordova-browser": "5.0.4",
     "cordova-plugin-actionsheet": "^2.3.3",
     "cordova-plugin-add-swift-support": "^1.7.2",
@@ -114,6 +116,7 @@
     "ngx-order-pipe": "^2.1.1",
     "onesignal-cordova-plugin": "^2.9.1",
     "phonegap-plugin-barcodescanner": "^7.1.2",
+    "res": "^0.4.0",
     "run": "1.4.0",
     "rxjs": "5.5.2",
     "sw-toolbox": "3.6.0",
@@ -123,8 +126,8 @@
     "@ionic/app-scripts": "^3.2.4",
     "@types/jquery": "^3.3.31",
     "code-push": "^3.0.1",
-    "cordova-android": "^9.1.0",
-    "cordova-ios": "^6.2.0",
+    "cordova-android": "^8.1.0",
+    "cordova-ios": "^5.1.0",
     "cordova-plugin-advanced-http": "^3.2.2",
     "cordova-plugin-android-permissions": "^1.1.2",
     "cordova-plugin-file-transfer": "^1.6.3",
@@ -189,7 +192,6 @@
     },
     "platforms": [
       "browser",
-      "ios",
       "android"
     ]
   },
