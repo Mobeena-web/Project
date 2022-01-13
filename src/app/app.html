@@ -28,9 +28,7 @@
         Book Now
       </button>
     </div>
-      <!-- <button menuClose ion-item (click)="bookingPage()" *ngIf="globals.business_type == 'salon'">
-        <ion-icon name="alarm" class="myicon"></ion-icon> Services
-      </button> -->
+      
      <div *ngIf="globals.menu_ready == 'true'">
       <button menuClose ion-item (click)="openHistory()"
         *ngIf="globals.business_type == 'ordering' || globals.business_type == 'retail' || globals.business_type == 'salon'">
