@@ -126,7 +126,7 @@
     "@ionic/app-scripts": "^3.2.4",
     "@types/jquery": "^3.3.31",
     "code-push": "^3.0.1",
-    "cordova-android": "^8.1.0",
+    "cordova-android": "^9.1.0",
     "cordova-ios": "^5.1.0",
     "cordova-plugin-advanced-http": "^3.2.2",
     "cordova-plugin-android-permissions": "^1.1.2",
@@ -155,7 +155,9 @@
       "cordova-plugin-crop": {},
       "cordova-plugin-x-toast": {},
       "cordova-plugin-sign-in-with-apple": {},
-      "cordova-plugin-ionic-webview": {},
+      "cordova-plugin-ionic-webview": {
+        "ANDROID_SUPPORT_ANNOTATIONS_VERSION": "27.+"
+      },
       "cordova-plugin-x-socialsharing": {
         "PHOTO_LIBRARY_ADD_USAGE_DESCRIPTION": "This app requires photo library access to function properly.",
         "PHOTO_LIBRARY_USAGE_DESCRIPTION": "This app requires photo library access to function properly.",
@@ -188,7 +190,9 @@
       },
       "onesignal-cordova-plugin": {},
       "cordova-plugin-android-permissions": {},
-      "cordova-plugin-request-location-accuracy": {}
+      "cordova-plugin-request-location-accuracy": {
+        "PLAY_SERVICES_LOCATION_VERSION": "16.+"
+      }
     },
     "platforms": [
       "browser",
